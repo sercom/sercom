@@ -49,7 +49,7 @@ CREATE TABLE enunciado (
     id INTEGER PRIMARY KEY,
     nombre VARCHAR(60) NOT NULL UNIQUE,
     descripcion VARCHAR(255),
-    docente_id INT CONSTRAINT docente_id_exists REFERENCES docente(id),
+    autor_id INT CONSTRAINT autor_id_exists REFERENCES docente(id),
     creado TIMESTAMP NOT NULL
 );
 

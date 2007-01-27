@@ -177,7 +177,7 @@ class Docente(Usuario): #{{{
     # Campos
     nombrado        = BoolCol(notNone=True, default=True)
     # Joins
-    enunciados      = MultipleJoin('Enunciado')
+    enunciados      = MultipleJoin('Enunciado', joinColumn='autor_id')
     inscripciones   = MultipleJoin('DocenteInscripto')
 
     def add_entrega(self, instancia, **opts):
@@ -269,7 +269,7 @@ class Enunciado(SQLObject, ByObject): #{{{
     nombre          = UnicodeCol(length=60, alternateID=True)
     # Campos
     descripcion     = UnicodeCol(length=255, default=None)
-    autor           = ForeignKey('Docente', default=None, dbName='docente_id')
+    autor           = ForeignKey('Docente', default=None)
     creado          = DateTimeCol(notNone=True, default=DateTimeCol.now)
     # Joins
     ejercicios      = MultipleJoin('Ejercicio')
