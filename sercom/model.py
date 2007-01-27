@@ -284,7 +284,8 @@ class Enunciado(SQLObject, ByObject): #{{{
         self.__tareas = tuple(Tarea.select(
             AND(
                 Tarea.q.id == enunciado_tarea_t.tarea_id,
-                Enunciado.q.id == enunciado_tarea_t.enunciado_id
+                Enunciado.q.id == enunciado_tarea_t.enunciado_id,
+                Enunciado.q.id == self.id
             ),
             clauseTables=(enunciado_tarea_t, Enunciado.sqlmeta.table),
             orderBy=enunciado_tarea_t.orden,
@@ -393,7 +394,8 @@ class InstanciaDeEntrega(SQLObject, ByObject): #{{{
         self.__tareas = tuple(Tarea.select(
             AND(
                 Tarea.q.id == instancia_tarea_t.tarea_id,
-                InstanciaDeEntrega.q.id == instancia_tarea_t.instancia_id
+                InstanciaDeEntrega.q.id == instancia_tarea_t.instancia_id,
+                InstanciaDeEntrega.q.id == self.id,
             ),
             clauseTables=(instancia_tarea_t, InstanciaDeEntrega.sqlmeta.table),
             orderBy=instancia_tarea_t.orden,
