@@ -22,6 +22,8 @@ t4.dependencias = (t3, t2)
 e1 = Enunciado(nombre=u'Un enunciado', autor=d, descripcion=u'Ejercicio reeee jodido')
 e2 = Enunciado(nombre=u'Otro enunciado', autor=d, descripcion=u'Ejercicio facilongo')
 e3 = Enunciado(nombre=u'Más enunciados', descripcion=u'Ejercicio anónimo')
+e1.tareas = (t4,)
+e2.tareas = (t2, t4)
 
 cp1 = e1.add_caso_de_prueba(u'Sin parámetros', retorno=0, descripcion=u'Un caso')
 cp2 = e1.add_caso_de_prueba(u'2 parámetross', retorno=0, parametros=('--test', '-c'))
@@ -31,6 +33,7 @@ ej2 = c.add_ejercicio(2, e2)
 
 ide = ej1.add_instancia(1, datetime(2007, 1, 25), datetime(2007, 1, 31, 20),
     observaciones='Entrega fea', activo=False)
+ide.tareas = (t2, t4)
 
 di = c.add_docente(d, corrige=True, observaciones=u'Tipo Pulenta')
 

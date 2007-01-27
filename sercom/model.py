@@ -61,6 +61,8 @@ SQLExpression.__hash__ = lambda self: hash(str(self))
 
 instancia_tarea_t = table.instancia_tarea
 
+enunciado_tarea_t = table.enunciado_tarea
+
 dependencia_t = table.dependencia
 
 #}}}
@@ -277,6 +279,39 @@ class Enunciado(SQLObject, ByObject): #{{{
 
     def add_caso_de_prueba(self, nombre, **opts):
         return CasoDePrueba(enunciadoID=self.id, nombre=nombre, **opts)
+
+    def _get_tareas(self):
+        self.__tareas = tuple(Tarea.select(
+            AND(
+                Tarea.q.id == enunciado_tarea_t.tarea_id,
+                Enunciado.q.id == enunciado_tarea_t.enunciado_id
+            ),
+            clauseTables=(enunciado_tarea_t, Enunciado.sqlmeta.table),
+            orderBy=enunciado_tarea_t.orden,
+        ))
+        return self.__tareas
+
+    def _set_tareas(self, tareas):
+        orden = {}
+        for i, t in enumerate(tareas):
+            orden[t.id] = i
+        new = frozenset([t.id for t in tareas])
+        old = frozenset([t.id for t in self.tareas])
+        tareas = dict([(t.id, t) for t in tareas])
+        for tid in old - new: # eliminadas
+            self._connection.query(str(Delete(enunciado_tarea_t, where=AND(
+                enunciado_tarea_t.enunciado_id == self.id,
+                enunciado_tarea_t.tarea_id == tid))))
+        for tid in new - old: # creadas
+            self._connection.query(str(Insert(enunciado_tarea_t, values=dict(
+                enunciado_id=self.id, tarea_id=tid, orden=orden[tid]
+            ))))
+        for tid in new & old: # actualizados
+            self._connection.query(str(Update(enunciado_tarea_t,
+                values=dict(orden=orden[tid]), where=AND(
+                    enunciado_tarea_t.enunciado_id == self.id,
+                    enunciado_tarea_t.tarea_id == tid,
+                ))))
 
     def __repr__(self):
         return 'Enunciado(id=%s, autor=%s, nombre=%s, descripcion=%s, ' \

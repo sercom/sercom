@@ -53,6 +53,13 @@ CREATE TABLE enunciado (
     creado TIMESTAMP NOT NULL
 );
 
+CREATE TABLE enunciado_tarea (
+    enunciado_id INTEGER NOT NULL CONSTRAINT enunciado_id_exists REFERENCES enunciado(id),
+    tarea_id INTEGER NOT NULL CONSTRAINT tarea_id_exists REFERENCES tarea(id),
+    orden INT,
+    PRIMARY KEY (enunciado_id, tarea_id)
+);
+
 CREATE TABLE caso_de_prueba (
     id INTEGER PRIMARY KEY,
     enunciado_id INT CONSTRAINT enunciado_id_exists REFERENCES enunciado(id),
