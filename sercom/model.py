@@ -7,6 +7,7 @@ from sqlobject.sqlbuilder import *
 from sqlobject.inheritance import InheritableSQLObject
 from sqlobject.col import PickleValidator
 from turbogears import identity
+from turbogears.identity import encrypt_password as encryptpw
 
 hub = PackageHub("sercom")
 __connection__ = hub
@@ -98,22 +99,26 @@ class Curso(SQLObject, ByObject): #{{{
     grupos          = MultipleJoin('Grupo')
     ejercicios      = MultipleJoin('Ejercicio', orderBy='numero')
 
-    def add_docente(self, docente, **opts):
-        return DocenteInscripto(cursoID=self.id, docenteID=docente.id, **opts)
+    def __init__(self, anio, cuatrimestre, numero, descripcion=None,
+            docentes=[], ejercicios=[], **kargs):
+        SQLObject.__init__(self, anio=anio, cuatrimestre=cuatrimestre,
+            numero=numero, descripcion=descripcion, **kargs)
+        for d in docentes:
+            self.add_docente(d)
+        for (n, e) in enumerate(ejercicios):
+            self.add_ejercicio(n, e)
 
-    def add_alumno(self, alumno, tutor=None, **opts):
-        tutor_id = tutor and tutor.id
-        return AlumnoInscripto(cursoID=self.id, alumnoID=alumno.id,
-            tutorID=tutor_id, **opts)
+    def add_docente(self, docente, *args, **kargs):
+        return DocenteInscripto(self, docente, *args, **kargs)
 
-    def add_grupo(self, nombre, responsable=None, **opts):
-        resp_id = responsable and responsable.id
-        return Grupo(cursoID=self.id, nombre=unicode(nombre),
-            responsableID=resp_id, **opts)
+    def add_alumno(self, alumno, *args, **kargs):
+        return AlumnoInscripto(self, alumno, *args, **kargs)
 
-    def add_ejercicio(self, numero, enunciado, **opts):
-        return Ejercicio(cursoID=self.id, numero=numero,
-            enunciadoID=enunciado.id, **opts)
+    def add_grupo(self, nombre, *args, **kargs):
+        return Grupo(self, unicode(nombre), *args, **kargs)
+
+    def add_ejercicio(self, numero, enunciado, *args, **kargs):
+        return Ejercicio(self, numero, enunciado, *args, **kargs)
 
     def __repr__(self):
         return 'Curso(id=%s, anio=%s, cuatrimestre=%s, numero=%s, ' \
@@ -138,6 +143,7 @@ class Usuario(InheritableSQLObject, ByObject): #{{{
     observaciones   = UnicodeCol(default=None)
     activo          = BoolCol(notNone=True, default=True)
     # Joins
+    grupos          = RelatedJoin('Grupo')
     roles           = RelatedJoin('Rol')
 
     def _get_user_name(self): # para identity
@@ -161,7 +167,7 @@ class Usuario(InheritableSQLObject, ByObject): #{{{
         return perms
 
     def _set_password(self, cleartext_password): # para identity
-        self.contrasenia = identity.encrypt_password(cleartext_password)
+        self.contrasenia = encryptpw(cleartext_password)
 
     def _get_password(self): # para identity
         return self.contrasenia
@@ -181,11 +187,22 @@ class Docente(Usuario): #{{{
     enunciados      = MultipleJoin('Enunciado', joinColumn='autor_id')
     inscripciones   = MultipleJoin('DocenteInscripto')
 
-    def add_entrega(self, instancia, **opts):
-        return Entrega(instanciaID=instancia.id, **opts)
+    def __init__(self, usuario, nombre, password=None, email=None,
+            telefono=None, nombrado=True, activo=False, observaciones=None,
+            roles=[], **kargs):
+        passwd = password and encryptpw(password)
+        InheritableSQLObject.__init__(self, usuario=usuario, nombre=nombre,
+            contrasenia=passwd, email=email, telefono=telefono,
+            nombrado=nombrado, activo=activo, observaciones=observaciones,
+            **kargs)
+        for r in roles:
+            self.addRol(r)
 
-    def add_enunciado(self, nombre, **opts):
-        return Enunciado(autorID=self.id, nombre=nombre, **opts)
+    def add_entrega(self, instancia, *args, **kargs):
+        return Entrega(instancia, *args, **kargs)
+
+    def add_enunciado(self, nombre, *args, **kargs):
+        return Enunciado(nombre, self, *args, **kargs)
 
     def __repr__(self):
         return 'Docente(id=%s, usuario=%s, nombre=%s, password=%s, email=%s, ' \
@@ -201,6 +218,15 @@ class Alumno(Usuario): #{{{
     nota            = DecimalCol(size=3, precision=1, default=None)
     # Joins
     inscripciones   = MultipleJoin('AlumnoInscripto')
+
+    def __init__(self, padron, nombre, password=None, email=None,
+            telefono=None, activo=False, observaciones=None, roles=[], **kargs):
+        passwd = password and encryptpw(password)
+        InheritableSQLObject.__init__(self, usuario=padron, nombre=nombre,
+            email=email, contrasenia=passwd, telefono=telefono, activo=activo,
+            observaciones=observaciones, **kargs)
+        for r in roles:
+            self.addRol(r)
 
     def _get_padron(self): # alias para poder referirse al alumno por padron
         return self.usuario
@@ -221,6 +247,12 @@ class Tarea(InheritableSQLObject, ByObject): #{{{
     # Campos
     descripcion     = UnicodeCol(length=255, default=None)
     # Joins
+
+    def __init__(self, nombre, descripcion=None, dependencias=(), **kargs):
+        InheritableSQLObject.__init__(self, nombre=nombre,
+            descripcion=descripcion, **kargs)
+        if dependencias:
+            self.dependencias = dependencias
 
     def _get_dependencias(self):
         OtherTarea = Alias(Tarea, 'other_tarea')
@@ -269,15 +301,22 @@ class Enunciado(SQLObject, ByObject): #{{{
     # Clave
     nombre          = UnicodeCol(length=60, alternateID=True)
     # Campos
+    autor           = ForeignKey('Docente', notNone=True)
     descripcion     = UnicodeCol(length=255, default=None)
-    autor           = ForeignKey('Docente', default=None)
     creado          = DateTimeCol(notNone=True, default=DateTimeCol.now)
     # Joins
     ejercicios      = MultipleJoin('Ejercicio')
     casos_de_prueba = MultipleJoin('CasoDePrueba')
 
-    def add_caso_de_prueba(self, nombre, **opts):
-        return CasoDePrueba(enunciadoID=self.id, nombre=nombre, **opts)
+    def __init__(self, nombre, autor, descripcion=None, tareas=(),
+            **kargs):
+        SQLObject.__init__(self, nombre=nombre, autorID=autor.id,
+            descripcion=descripcion, **kargs)
+        if tareas:
+            self.tareas = tareas
+
+    def add_caso_de_prueba(self, nombre, *args, **kargs):
+        return CasoDePrueba(self, nombre, *args, **kargs)
 
     def _get_tareas(self):
         self.__tareas = tuple(Tarea.select(
@@ -337,6 +376,12 @@ class CasoDePrueba(SQLObject): #{{{
     # Joins
     pruebas         = MultipleJoin('Prueba')
 
+    def __init__(self, enunciado, nombre, parametros=(), retorno=None,
+            tiempo_cpu=None, descripcion=None, **kargs):
+        SQLObject.__init__(self, enunciadoID=enunciado.id, nombre=nombre,
+            parametros=parametros, retorno=retorno, tiempo_cpu=tiempo_cpu,
+            descripcion=descripcion, **kargs)
+
     def __repr__(self):
         return 'CasoDePrueba(enunciado=%s, nombre=%s, parametros=%s, ' \
             'retorno=%s, tiempo_cpu=%s, descripcion=%s)' \
@@ -358,9 +403,12 @@ class Ejercicio(SQLObject, ByObject): #{{{
     # Joins
     instancias      = MultipleJoin('InstanciaDeEntrega')
 
-    def add_instancia(self, numero, inicio, fin, **opts):
-        return InstanciaDeEntrega(ejercicioID=self.id, numero=numero,
-            inicio=inicio, fin=fin, **opts)
+    def __init__(self, curso, numero, enunciado, grupal=False, **kargs):
+        SQLObject.__init__(self, cursoID=curso.id, numero=numero,
+            enunciadoID=enunciado.id, grupal=grupal, **kargs)
+
+    def add_instancia(self, numero, inicio, fin, *args, **kargs):
+        return InstanciaDeEntrega(self, numero, inicio, fin, *args, **kargs)
 
     def __repr__(self):
         return 'Ejercicio(id=%s, curso=%s, numero=%s, enunciado=%s, ' \
@@ -388,6 +436,14 @@ class InstanciaDeEntrega(SQLObject, ByObject): #{{{
     entregas        = MultipleJoin('Entrega', joinColumn='instancia_id')
     correcciones    = MultipleJoin('Correccion', joinColumn='instancia_id')
     casos_de_prueba = RelatedJoin('CasoDePrueba') # TODO CasoInstancia -> private
+
+    def __init__(self, ejercicio, numero, inicio, fin, observaciones=None,
+            activo=True, tareas=(), **kargs):
+        SQLObject.__init__(self, ejercicioID=ejercicio.id, numero=numero,
+            fin=fin, inicio=inicio, observaciones=observaciones, activo=activo,
+            **kargs)
+        if tareas:
+            self.tareas = tareas
 
     def _get_tareas(self):
         self.__tareas = tuple(Tarea.select(
@@ -447,9 +503,14 @@ class DocenteInscripto(SQLObject, ByObject): #{{{
     entregas        = MultipleJoin('Entrega', joinColumn='instancia_id')
     correcciones    = MultipleJoin('Correccion', joinColumn='corrector_id')
 
-    def add_correccion(self, entrega, **opts):
-        return Correccion(correctorID=self.id, instanciaID=entrega.instancia.id,
-            entregadorID=entrega.entregador.id, entregaID=entrega.id, **opts)
+    def __init__(self, curso, docente, corrige=True, observaciones=None,
+            **kargs):
+        SQLObject.__init__(self, cursoID=curso.id, docenteID=docente.id,
+            corrige=corrige, observaciones=observaciones, **kargs)
+
+    def add_correccion(self, entrega, *args, **kargs):
+        return Correccion(entrega.instancia, entrega.entregador, entrega,
+            self, *args, **kargs)
 
     def __repr__(self):
         return 'DocenteInscripto(id=%s, docente=%s, corrige=%s, ' \
@@ -471,8 +532,8 @@ class Entregador(InheritableSQLObject, ByObject): #{{{
     entregas        = MultipleJoin('Entrega')
     correcciones    = MultipleJoin('Correccion')
 
-    def add_entrega(self, instancia, **opts):
-        return Entrega(entregadorID=self.id, instanciaID=instancia.id, **opts)
+    def add_entrega(self, instancia, *args, **kargs):
+        return Entrega(instancia, self, *args, **kargs)
 
     def __repr__(self):
         raise NotImplementedError, 'Clase abstracta!'
@@ -489,11 +550,16 @@ class Grupo(Entregador): #{{{
     miembros        = MultipleJoin('Miembro')
     tutores         = MultipleJoin('Tutor')
 
-    def add_alumno(self, alumno, **opts):
-        return Miembro(grupoID=self.id, alumnoID=alumno.id, **opts)
+    def __init__(self, curso, nombre, responsable=None, **kargs):
+        resp_id = responsable and responsable.id
+        InheritableSQLObject.__init__(self, cursoID=curso.id, nombre=nombre,
+            responsableID=resp_id, **kargs)
 
-    def add_docente(self, docente, **opts):
-        return Tutor(grupoID=self.id, docenteID=docente.id, **opts)
+    def add_alumno(self, alumno, *args, **kargs):
+        return Miembro(self, alumno, *args, **kargs)
+
+    def add_docente(self, docente, *args, **kargs):
+        return Tutor(self, docente, *args, **kargs)
 
     def __repr__(self):
         return 'Grupo(id=%s, nombre=%s, responsable=%s, nota=%s, ' \
@@ -520,6 +586,11 @@ class AlumnoInscripto(Entregador): #{{{
     entregas            = MultipleJoin('Entrega', joinColumn='alumno_id')
     correcciones        = MultipleJoin('Correccion', joinColumn='alumno_id')
 
+    def __init__(self, curso, alumno, condicional=False, tutor=None, **kargs):
+        tutor_id = tutor and tutor.id
+        InheritableSQLObject.__init__(self, cursoID=curso.id, tutorID=tutor_id,
+            alumnoID=alumno.id, condicional=condicional, **kargs)
+
     def __repr__(self):
         return 'AlumnoInscripto(id=%s, alumno=%s, condicional=%s, nota=%s, ' \
             'nota_cursada=%s, tutor=%s, observaciones=%s, activo=%s)' \
@@ -540,6 +611,10 @@ class Tutor(SQLObject, ByObject): #{{{
     alta            = DateTimeCol(notNone=True, default=DateTimeCol.now)
     baja            = DateTimeCol(default=None)
 
+    def __init__(self, grupo, docente, **kargs):
+        SQLObject.__init__(self, grupoID=grupo.id, docenteID=docente.id,
+            **kargs)
+
     def __repr__(self):
         return 'Tutor(docente=%s, grupo=%s, alta=%s, baja=%s)' \
                 % (self.docente.shortrepr(), self.grupo.shortrepr(),
@@ -558,6 +633,9 @@ class Miembro(SQLObject, ByObject): #{{{
     nota            = DecimalCol(size=3, precision=1, default=None)
     alta            = DateTimeCol(notNone=True, default=DateTimeCol.now)
     baja            = DateTimeCol(default=None)
+
+    def __init__(self, grupo, alumno, **kargs):
+        SQLObject.__init__(self, grupoID=grupo.id, alumnoID=alumno.id, **kargs)
 
     def __repr__(self):
         return 'Miembro(alumno=%s, grupo=%s, nota=%s, alta=%s, baja=%s)' \
@@ -583,8 +661,13 @@ class Entrega(SQLObject, ByObject): #{{{
     codigo_dict     = r'0123456789abcdefghijklmnopqrstuvwxyz_.,*@#+'
     codigo_format   = r'%m%d%H%M%S'
 
-    def add_tarea_ejecutada(self, tarea, **opts):
-        return TareaEjecutada(entregaID=self.id, tareaID=tarea.id, **opts)
+    def __init__(self, instancia, entregador=None, observaciones=None, **kargs):
+        entregador_id = entregador and entregador.id
+        SQLObject.__init__(self, instanciaID=instancia.id,
+            entregadorID=entregador_id, observaciones=observaciones, **kargs)
+
+    def add_tarea_ejecutada(self, tarea, *args, **kargs):
+        return TareaEjecutada(tarea, self, *args, **kargs)
 
     def _get_codigo(self):
         if not hasattr(self, '_codigo'): # cache
@@ -626,6 +709,12 @@ class Correccion(SQLObject, ByObject): #{{{
     nota            = DecimalCol(size=3, precision=1, default=None)
     observaciones   = UnicodeCol(default=None)
 
+    def __init__(self, instancia, entregador, entrega, corrector=None,
+            observaciones=None, **kargs):
+        SQLObject.__init__(self, instanciaID=instancia.id, entregaID=entrega.id,
+            entregadorID=entregador.id, correctorID=corrector.id,
+            observaciones=observaciones, **kargs)
+
     def __repr__(self):
         return 'Correccion(instancia=%s, entregador=%s, entrega=%s, ' \
             'corrector=%s, asignado=%s, corregido=%s, nota=%s, ' \
@@ -651,9 +740,12 @@ class TareaEjecutada(InheritableSQLObject, ByObject): #{{{
     # Joins
     pruebas         = MultipleJoin('Prueba')
 
-    def add_prueba(self, caso_de_prueba, **opts):
-        return Prueba(tarea_ejecutadaID=self.id,
-            caso_de_pruebaID=caso_de_prueba.id, **opts)
+    def __init__(self, tarea, entrega, observaciones=None, **kargs):
+        InheritableSQLObject.__init__(self, tareaID=tarea.id,
+            entregaID=entrega.id, observaciones=observaciones, **kargs)
+
+    def add_prueba(self, caso_de_prueba, *args, **kargs):
+        return Prueba(self, caso_de_prueba, *args, **kargs)
 
     def __repr__(self):
         return 'TareaEjecutada(tarea=%s, entrega=%s, inicio=%s, fin=%s, ' \
@@ -675,6 +767,12 @@ class Prueba(SQLObject): #{{{
     fin             = DateTimeCol(default=None)
     pasada          = IntCol(default=None)
     observaciones   = UnicodeCol(default=None)
+
+    def __init__(self, tarea_ejecutada, caso_de_prueba, observaciones=None,
+            **kargs):
+        SQLObject.__init__(self, tarea_ejecutadaID=tarea_ejecutada.id,
+            caso_de_pruebaID=caso_de_prueba.id, observaciones=observaciones,
+            **kargs)
 
     def __repr__(self):
         return 'Prueba(tarea_ejecutada=%s, caso_de_prueba=%s, inicio=%s, ' \
@@ -712,7 +810,6 @@ class VisitaUsuario(SQLObject): #{{{
     user_id     = IntCol() # Negrada de identity
 #}}}
 
-
 class Rol(SQLObject): #{{{
     # Clave
     nombre      = UnicodeCol(length=255, alternateID=True,
@@ -723,6 +820,10 @@ class Rol(SQLObject): #{{{
     permisos    = TupleCol(notNone=True)
     # Joins
     usuarios    = RelatedJoin('Usuario')
+
+    def __init__(self, nombre, permisos=(), descripcion=None, **kargs):
+        SQLObject.__init__(self, nombre=nombre, permisos=permisos,
+            descripcion=descripcion, **kargs)
 #}}}
 
 # No es un SQLObject porque no tiene sentido agregar/sacar permisos, están

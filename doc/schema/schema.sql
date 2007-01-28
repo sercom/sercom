@@ -48,8 +48,8 @@ CREATE TABLE dependencia (
 CREATE TABLE enunciado (
     id INTEGER PRIMARY KEY,
     nombre VARCHAR(60) NOT NULL UNIQUE,
+    autor_id INT NOT NULL CONSTRAINT autor_id_exists REFERENCES docente(id),
     descripcion VARCHAR(255),
-    autor_id INT CONSTRAINT autor_id_exists REFERENCES docente(id),
     creado TIMESTAMP NOT NULL
 );
 
