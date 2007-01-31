@@ -60,6 +60,13 @@ class DocenteController(controllers.Controller, identity.SecureResource):
 
         return dict(records=r, name=name, namepl=namepl, tg_flash=f)
 
+    @expose()
+    def activate(self, id, activo):
+        """Save or create record to model"""
+        cls.get(int(id)).activo = int(activo)
+
+        raise redirect('../list')
+
     @expose(template='kid:sercom.subcontrollers.%s.templates.new' % name)
     def new(self, **kw):
         """Create new records in model"""

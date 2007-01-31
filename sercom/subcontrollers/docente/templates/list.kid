@@ -11,25 +11,24 @@
 
 <table>
     <tr>
+        <th title="Activo">A</th>
         <th>Usuario</th>
         <th>Nombre</th>
         <th>E-Mail</th>
         <th>Teléfono</th>
         <th>Nombrado</th>
-        <th>Activo</th>
         <th>Observaciones</th>
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-        <td><span py:replace="record.usuario">usuario</span></td>
+        <td><input type="checkbox" onclick="var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = '${tg.url('activate/'+str(record.id), activo=str(int(not record.activo)))}'; f.submit(); return false;" py:attrs="checked=tg.checker(record.activo)" /></td>
+        <td><a href="show/${record.id}"><span py:replace="record.usuario">usuario</span></a></td>
         <td><span py:replace="record.nombre">nombre</span></td>
-        <td><span py:replace="record.email">email</span></td>
-        <td><span py:replace="resume(record.telefono, 10)">telefono</span></td>
+        <td><a py:if="record.email" href="mailto:${record.email}"><span py:replace="record.email">email</span></a></td>
+        <td><span py:replace="tg.summarize(record.telefono, 10)">telefono</span></td>
         <td><span py:replace="record.nombrado">nombrado</span></td>
-        <td><span py:replace="record.activo">activo</span></td>
-        <td><span py:replace="resume(record.observaciones, 20)">observaciones</span></td>
-        <td><a href="show/${record.id}">Ver</a>
-            <a href="edit/${record.id}">Editar</a>
+        <td><span py:replace="tg.summarize(record.observaciones, 20)">observaciones</span></td>
+        <td><a href="edit/${record.id}">Editar</a>
             <a href="delete/${record.id}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>
 </table>
@@ -45,3 +44,5 @@
 
 </body>
 </html>
+
+<!-- vim: set et sw=4 sts=4 : -->
