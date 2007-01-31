@@ -7,6 +7,8 @@ from cherrypy import request, response
 from model import *
 # from sercom import json
 
+from subcontrollers import DocenteController
+
 import logging
 log = logging.getLogger("sercom.controllers")
 
@@ -72,4 +74,6 @@ class Root(controllers.RootController):
     def logout(self):
         identity.current.logout()
         raise redirect('/')
+
+    docente = DocenteController()
 

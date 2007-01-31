@@ -1,0 +1,1 @@
+from docente import DocenteController
