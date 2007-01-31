@@ -9,15 +9,6 @@
 
 <h1>Administración de <span py:replace="namepl">Objetos</span></h1>
 
-<?python from sercom.kidutil import resume ?>
-
-<!-- ?python
-def minimize(text, size=15):
-    if text is not None and len(text) > size:
-        text = text[:size] + '...'
-    return text
-? -->
-
 <table>
     <tr>
         <th>Usuario</th>

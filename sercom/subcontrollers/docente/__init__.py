@@ -38,11 +38,6 @@ form = TableForm(fields=[
         validator=validators.Bool(if_empty=1)),
 ])
 
-def minimize(text, size=15):
-    if text is not None and len(text) > size:
-        text = text[:size] + '...'
-    return text
-
 class DocenteController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_permission('admin')

@@ -1,6 +1,6 @@
 # vim: set et sw=4 sts=4 encoding=utf-8 :
 
-from turbogears import controllers, expose
+from turbogears import controllers, expose, view
 from turbogears import widgets as w, validators
 from turbogears import identity, redirect
 from cherrypy import request, response
@@ -76,4 +76,39 @@ class Root(controllers.RootController):
         raise redirect('/')
 
     docente = DocenteController()
+
+#{{{ Agrega summarize a namespace tg de KID
+def summarize(text, size, concat=True, continuation='...'):
+    """Summarize a string if it's length is greater than a specified size. This
+    is useful for table listings where you don't want the table to grow because
+    of a large field.
+
+    >>> from sercome.controllers
+    >>> text = '''Why is it that nobody remembers the name of Johann
+    ... Gambolputty de von Ausfern-schplenden-schlitter-crasscrenbon-fried-
+    ... digger-dingle-dangle-dongle-dungle-burstein-von-knacker-thrasher-apple-
+    ... banger-horowitz-ticolensic-grander-knotty-spelltinkle-grandlich-
+    ... grumblemeyer-spelterwasser-kurstlich-himbleeisen-bahnwagen-gutenabend-
+    ... bitte-ein-nurnburger-bratwustle-gernspurten-mitz-weimache-luber-
+    ... hundsfut-gumberaber-shonedanker-kalbsfleisch-mittler-aucher von
+    ... Hautkopft of Ulm?'''
+    >>> summarize(text, 30)
+    'Why is it that nobody remem...'
+    >>> summarize(text, 68, False, ' [...]')
+    'Why is it that nobody remembers the name of Johann\nGambolputty [...]'
+    >>> summarize(text, 68, continuation=' >>')
+    'Why is it that nobody remembers the name of Johann Gambolputty de >>'
+    """
+    if text is not None:
+        if concat:
+            text = text.replace('\n', ' ')
+        if len(text) > size:
+            text = text[:size-len(continuation)] + continuation
+    return text
+
+def add_custom_stdvars(vars):
+    return vars.update(dict(summarize=summarize))
+
+view.variable_providers.append(add_custom_stdvars)
+#}}}
 
