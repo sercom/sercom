@@ -70,14 +70,20 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     @expose(template='kid:sercom.subcontrollers.%s.templates.new' % name)
     def new(self, **kw):
         """Create new records in model"""
-        return dict(name=name, namepl=namepl, form=form)
+        f = kw.get('tg_flash', None)
+        return dict(name=name, namepl=namepl, form=form, tg_flash=f, values=kw)
 
     @validate(form=form)
     @error_handler(new)
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
-        Docente(**kw)
+        try:
+            Docente(**kw)
+        except Exception, e:
+            raise redirect('new', tg_flash=_(u'No se pudo crear el nuevo %s, ' \
+                'probablemente ya existe uno con el mismo usuario (error: %s).'
+                    % (name, e)), **kw)
 
         raise redirect('list', tg_flash=_(u'Se creó un nuevo %s.') % name)
 
