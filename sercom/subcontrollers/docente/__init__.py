@@ -63,7 +63,19 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     @expose()
     def activate(self, id, activo):
         """Save or create record to model"""
-        cls.get(int(id)).activo = int(activo)
+        try:
+            id = int(id)
+        except ValueError:
+            raise redirect('../list',
+                tg_flash=_(u'Identificador inválido: %s.') % id)
+
+        try:
+            r = cls.get(id)
+        except LookupError:
+            f = _(u'No existe el %s con identificador %d.') % (name, id)
+            raise redirect('../list', tg_flash=f)
+
+        r.activo = bool(int(activo))
 
         raise redirect('../list')
 
@@ -91,19 +103,44 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     def edit(self, id, **kw):
         """Edit record in model"""
         try:
-            r = cls.get(int(id))
-        except LookupError:
-            flash = _('No existe el docente con identificador %d.') % id
+            id = int(id)
+        except ValueError:
+            raise redirect('../list',
+                tg_flash=_(u'Identificador inválido: %s.') % id)
 
-        return dict(name=name, namepl=namepl, record=r, form=form)
+        f = kw.get('tg_flash', None)
+        try:
+            r = cls.get(id)
+        except LookupError:
+            f = _(u'No existe el %s con identificador %d.') % (name, id)
+            raise redirect('../list', tg_flash=f)
+
+        return dict(name=name, namepl=namepl, record=r, form=form, tg_flash=f)
 
     @validate(form=form)
     @error_handler(edit)
     @expose()
     def update(self, id, **kw):
         """Save or create record to model"""
-        record = cls.get(int(id))
-        record.set(**kw)
+        try:
+            id = int(id)
+        except ValueError:
+            raise redirect('../list',
+                tg_flash=_(u'Identificador inválido: %s.') % id)
+
+        try:
+            record = cls.get(id)
+        except LookupError:
+            raise redirect('../list',
+                tg_flash=_(u'No existe el %s con identificador %d.')
+                    % (name, id))
+
+        try:
+            record.set(**kw)
+        except Exception, e:
+            raise redirect('../edit/%d' % id, tg_flash=_(u'No se pudo ' \
+                'modificar el %s, probablemente ya existe uno con el mismo ' \
+                'usuario (error: %s).' % (name, e)), **kw)
 
         raise redirect('../list',
             tg_flash=_(u'El %s fue actualizado.') % name)
@@ -111,7 +148,19 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     @expose(template='kid:sercom.subcontrollers.%s.templates.show' % name)
     def show(self,id, **kw):
         """Show record in model"""
-        r = cls.get(int(id))
+        try:
+            id = int(id)
+        except ValueError:
+            raise redirect('../list',
+                tg_flash=_(u'Identificador inválido: %s.') % id)
+
+        try:
+            r = cls.get(id)
+        except LookupError:
+            raise redirect('../list',
+                tg_flash=_(u'No existe el %s con identificador %d.')
+                    % (name, id))
+
         r.obs = publish_parts(r.observaciones, writer_name='html')['html_body']
 
         return dict(name=name, namepl=namepl, record=r)
@@ -119,7 +168,18 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     @expose()
     def delete(self, id):
         """Destroy record in model"""
-        cls.delete(int(id))
+        try:
+            id = int(id)
+        except ValueError:
+            raise redirect('../list',
+                tg_flash=_(u'Identificador inválido: %s.') % id)
+
+        try:
+            cls.delete(id)
+        except LookupError:
+            raise redirect('../list',
+                tg_flash=_(u'No existe el %s con identificador %d.')
+                    % (name, id))
 
         raise redirect('../list',
             tg_flash=_(u'El %s fue eliminado permanentemente.') % name)
