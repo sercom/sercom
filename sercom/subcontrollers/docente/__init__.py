@@ -91,7 +91,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     def create(self, **kw):
         """Save or create record to model"""
         try:
-            Docente(**kw)
+            cls(**kw)
         except Exception, e:
             raise redirect('new', tg_flash=_(u'No se pudo crear el nuevo %s, ' \
                 'probablemente ya existe uno con el mismo usuario (error: %s).'
