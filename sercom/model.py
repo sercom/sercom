@@ -143,7 +143,6 @@ class Usuario(InheritableSQLObject, ByObject): #{{{
     observaciones   = UnicodeCol(default=None)
     activo          = BoolCol(notNone=True, default=True)
     # Joins
-    grupos          = RelatedJoin('Grupo')
     roles           = RelatedJoin('Rol')
 
     def _get_user_name(self): # para identity
