@@ -99,8 +99,8 @@ class Curso(SQLObject, ByObject): #{{{
     grupos          = MultipleJoin('Grupo')
     ejercicios      = MultipleJoin('Ejercicio', orderBy='numero')
 
-    def __init__(self, anio, cuatrimestre, numero, descripcion=None,
-            docentes=[], ejercicios=[], **kargs):
+    def __init__(self, anio=None, cuatrimestre=None, numero=None,
+            descripcion=None, docentes=[], ejercicios=[], **kargs):
         SQLObject.__init__(self, anio=anio, cuatrimestre=cuatrimestre,
             numero=numero, descripcion=descripcion, **kargs)
         for d in docentes:
@@ -186,7 +186,7 @@ class Docente(Usuario): #{{{
     enunciados      = MultipleJoin('Enunciado', joinColumn='autor_id')
     inscripciones   = MultipleJoin('DocenteInscripto')
 
-    def __init__(self, usuario, nombre, password=None, email=None,
+    def __init__(self, usuario=None, nombre=None, password=None, email=None,
             telefono=None, nombrado=True, activo=False, observaciones=None,
             roles=[], **kargs):
         passwd = password and encryptpw(password)
@@ -218,7 +218,7 @@ class Alumno(Usuario): #{{{
     # Joins
     inscripciones   = MultipleJoin('AlumnoInscripto')
 
-    def __init__(self, padron, nombre, password=None, email=None,
+    def __init__(self, padron=None, nombre=None, password=None, email=None,
             telefono=None, activo=False, observaciones=None, roles=[], **kargs):
         passwd = password and encryptpw(password)
         InheritableSQLObject.__init__(self, usuario=padron, nombre=nombre,
@@ -247,7 +247,7 @@ class Tarea(InheritableSQLObject, ByObject): #{{{
     descripcion     = UnicodeCol(length=255, default=None)
     # Joins
 
-    def __init__(self, nombre, descripcion=None, dependencias=(), **kargs):
+    def __init__(self, nombre=None, descripcion=None, dependencias=(), **kargs):
         InheritableSQLObject.__init__(self, nombre=nombre,
             descripcion=descripcion, **kargs)
         if dependencias:
@@ -300,16 +300,16 @@ class Enunciado(SQLObject, ByObject): #{{{
     # Clave
     nombre          = UnicodeCol(length=60, alternateID=True)
     # Campos
-    autor           = ForeignKey('Docente', notNone=True)
+    autor           = ForeignKey('Docente')
     descripcion     = UnicodeCol(length=255, default=None)
     creado          = DateTimeCol(notNone=True, default=DateTimeCol.now)
     # Joins
     ejercicios      = MultipleJoin('Ejercicio')
     casos_de_prueba = MultipleJoin('CasoDePrueba')
 
-    def __init__(self, nombre, autor, descripcion=None, tareas=(),
+    def __init__(self, nombre=None, autor=None, descripcion=None, tareas=(),
             **kargs):
-        SQLObject.__init__(self, nombre=nombre, autorID=autor.id,
+        SQLObject.__init__(self, nombre=nombre, autorID=autor and autor.id,
             descripcion=descripcion, **kargs)
         if tareas:
             self.tareas = tareas
@@ -375,8 +375,8 @@ class CasoDePrueba(SQLObject): #{{{
     # Joins
     pruebas         = MultipleJoin('Prueba')
 
-    def __init__(self, enunciado, nombre, parametros=(), retorno=None,
-            tiempo_cpu=None, descripcion=None, **kargs):
+    def __init__(self, enunciado=None, nombre=None, parametros=(),
+            retorno=None, tiempo_cpu=None, descripcion=None, **kargs):
         SQLObject.__init__(self, enunciadoID=enunciado.id, nombre=nombre,
             parametros=parametros, retorno=retorno, tiempo_cpu=tiempo_cpu,
             descripcion=descripcion, **kargs)
@@ -402,7 +402,8 @@ class Ejercicio(SQLObject, ByObject): #{{{
     # Joins
     instancias      = MultipleJoin('InstanciaDeEntrega')
 
-    def __init__(self, curso, numero, enunciado, grupal=False, **kargs):
+    def __init__(self, curso=None, numero=None, enunciado=None, grupal=False,
+            **kargs):
         SQLObject.__init__(self, cursoID=curso.id, numero=numero,
             enunciadoID=enunciado.id, grupal=grupal, **kargs)
 
@@ -436,8 +437,8 @@ class InstanciaDeEntrega(SQLObject, ByObject): #{{{
     correcciones    = MultipleJoin('Correccion', joinColumn='instancia_id')
     casos_de_prueba = RelatedJoin('CasoDePrueba') # TODO CasoInstancia -> private
 
-    def __init__(self, ejercicio, numero, inicio, fin, observaciones=None,
-            activo=True, tareas=(), **kargs):
+    def __init__(self, ejercicio=None, numero=None, inicio=None, fin=None,
+            observaciones=None, activo=True, tareas=(), **kargs):
         SQLObject.__init__(self, ejercicioID=ejercicio.id, numero=numero,
             fin=fin, inicio=inicio, observaciones=observaciones, activo=activo,
             **kargs)
@@ -502,8 +503,8 @@ class DocenteInscripto(SQLObject, ByObject): #{{{
     entregas        = MultipleJoin('Entrega', joinColumn='instancia_id')
     correcciones    = MultipleJoin('Correccion', joinColumn='corrector_id')
 
-    def __init__(self, curso, docente, corrige=True, observaciones=None,
-            **kargs):
+    def __init__(self, curso=None, docente=None, corrige=True,
+            observaciones=None, **kargs):
         SQLObject.__init__(self, cursoID=curso.id, docenteID=docente.id,
             corrige=corrige, observaciones=observaciones, **kargs)
 
@@ -549,7 +550,7 @@ class Grupo(Entregador): #{{{
     miembros        = MultipleJoin('Miembro')
     tutores         = MultipleJoin('Tutor')
 
-    def __init__(self, curso, nombre, responsable=None, **kargs):
+    def __init__(self, curso=None, nombre=None, responsable=None, **kargs):
         resp_id = responsable and responsable.id
         InheritableSQLObject.__init__(self, cursoID=curso.id, nombre=nombre,
             responsableID=resp_id, **kargs)
@@ -585,7 +586,8 @@ class AlumnoInscripto(Entregador): #{{{
     entregas            = MultipleJoin('Entrega', joinColumn='alumno_id')
     correcciones        = MultipleJoin('Correccion', joinColumn='alumno_id')
 
-    def __init__(self, curso, alumno, condicional=False, tutor=None, **kargs):
+    def __init__(self, curso=None, alumno=None, condicional=False, tutor=None,
+            **kargs):
         tutor_id = tutor and tutor.id
         InheritableSQLObject.__init__(self, cursoID=curso.id, tutorID=tutor_id,
             alumnoID=alumno.id, condicional=condicional, **kargs)
@@ -610,7 +612,7 @@ class Tutor(SQLObject, ByObject): #{{{
     alta            = DateTimeCol(notNone=True, default=DateTimeCol.now)
     baja            = DateTimeCol(default=None)
 
-    def __init__(self, grupo, docente, **kargs):
+    def __init__(self, grupo=None, docente=None, **kargs):
         SQLObject.__init__(self, grupoID=grupo.id, docenteID=docente.id,
             **kargs)
 
@@ -633,7 +635,7 @@ class Miembro(SQLObject, ByObject): #{{{
     alta            = DateTimeCol(notNone=True, default=DateTimeCol.now)
     baja            = DateTimeCol(default=None)
 
-    def __init__(self, grupo, alumno, **kargs):
+    def __init__(self, grupo=None, alumno=None, **kargs):
         SQLObject.__init__(self, grupoID=grupo.id, alumnoID=alumno.id, **kargs)
 
     def __repr__(self):
@@ -660,7 +662,8 @@ class Entrega(SQLObject, ByObject): #{{{
     codigo_dict     = r'0123456789abcdefghijklmnopqrstuvwxyz_.,*@#+'
     codigo_format   = r'%m%d%H%M%S'
 
-    def __init__(self, instancia, entregador=None, observaciones=None, **kargs):
+    def __init__(self, instancia=None, entregador=None, observaciones=None,
+            **kargs):
         entregador_id = entregador and entregador.id
         SQLObject.__init__(self, instanciaID=instancia.id,
             entregadorID=entregador_id, observaciones=observaciones, **kargs)
@@ -708,8 +711,8 @@ class Correccion(SQLObject, ByObject): #{{{
     nota            = DecimalCol(size=3, precision=1, default=None)
     observaciones   = UnicodeCol(default=None)
 
-    def __init__(self, instancia, entregador, entrega, corrector=None,
-            observaciones=None, **kargs):
+    def __init__(self, instancia=None, entregador=None, entrega=None,
+            corrector=None, observaciones=None, **kargs):
         SQLObject.__init__(self, instanciaID=instancia.id, entregaID=entrega.id,
             entregadorID=entregador.id, correctorID=corrector.id,
             observaciones=observaciones, **kargs)
@@ -739,7 +742,7 @@ class TareaEjecutada(InheritableSQLObject, ByObject): #{{{
     # Joins
     pruebas         = MultipleJoin('Prueba')
 
-    def __init__(self, tarea, entrega, observaciones=None, **kargs):
+    def __init__(self, tarea=None, entrega=None, observaciones=None, **kargs):
         InheritableSQLObject.__init__(self, tareaID=tarea.id,
             entregaID=entrega.id, observaciones=observaciones, **kargs)
 
@@ -767,8 +770,8 @@ class Prueba(SQLObject): #{{{
     pasada          = IntCol(default=None)
     observaciones   = UnicodeCol(default=None)
 
-    def __init__(self, tarea_ejecutada, caso_de_prueba, observaciones=None,
-            **kargs):
+    def __init__(self, tarea_ejecutada=None, caso_de_prueba=None,
+            observaciones=None, **kargs):
         SQLObject.__init__(self, tarea_ejecutadaID=tarea_ejecutada.id,
             caso_de_pruebaID=caso_de_prueba.id, observaciones=observaciones,
             **kargs)
@@ -820,7 +823,7 @@ class Rol(SQLObject): #{{{
     # Joins
     usuarios    = RelatedJoin('Usuario')
 
-    def __init__(self, nombre, permisos=(), descripcion=None, **kargs):
+    def __init__(self, nombre=None, permisos=(), descripcion=None, **kargs):
         SQLObject.__init__(self, nombre=nombre, permisos=permisos,
             descripcion=descripcion, **kargs)
 #}}}
