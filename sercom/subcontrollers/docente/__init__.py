@@ -56,7 +56,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     def index(self):
         raise redirect('list')
 
-    @expose(template='kid:sercom.subcontrollers.%s.templates.list' % name)
+    @expose(template='kid:%s.templates.list' % __name__)
     @paginate('records')
     def list(self, **kw):
         """List records in model"""
@@ -74,7 +74,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
             raise redirect('../list', tg_flash=_(u'Acción inválida.'))
         raise redirect('../list')
 
-    @expose(template='kid:sercom.subcontrollers.%s.templates.new' % name)
+    @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
         """Create new records in model"""
         f = kw.get('tg_flash', None)
@@ -88,7 +88,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
         validate_new(kw)
         raise redirect('list', tg_flash=_(u'Se creó un nuevo %s.') % name)
 
-    @expose(template='kid:sercom.subcontrollers.%s.templates.edit' % name)
+    @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
@@ -104,7 +104,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
         raise redirect('../list',
             tg_flash=_(u'El %s fue actualizado.') % name)
 
-    @expose(template='kid:sercom.subcontrollers.%s.templates.show' % name)
+    @expose(template='kid:%s.templates.show' % __name__)
     def show(self,id, **kw):
         """Show record in model"""
         r = validate_get(id)
