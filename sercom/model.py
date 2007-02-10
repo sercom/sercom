@@ -377,9 +377,9 @@ class CasoDePrueba(SQLObject): #{{{
 
     def __init__(self, enunciado=None, nombre=None, parametros=(),
             retorno=None, tiempo_cpu=None, descripcion=None, **kargs):
-        SQLObject.__init__(self, enunciadoID=enunciado.id, nombre=nombre,
-            parametros=parametros, retorno=retorno, tiempo_cpu=tiempo_cpu,
-            descripcion=descripcion, **kargs)
+        SQLObject.__init__(self, enunciadoID=enunciado and enunciado.id,
+            nombre=nombre, parametros=parametros, retorno=retorno,
+            tiempo_cpu=tiempo_cpu, descripcion=descripcion, **kargs)
 
     def __repr__(self):
         return 'CasoDePrueba(enunciado=%s, nombre=%s, parametros=%s, ' \
