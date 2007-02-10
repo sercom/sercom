@@ -7,7 +7,7 @@ from cherrypy import request, response
 from model import *
 # from sercom import json
 
-from subcontrollers import DocenteController
+from subcontrollers import *
 
 import logging
 log = logging.getLogger("sercom.controllers")
@@ -76,6 +76,7 @@ class Root(controllers.RootController):
         raise redirect('/')
 
     docente = DocenteController()
+    enunciado = EnunciadoController()
 
 #{{{ Agrega summarize a namespace tg de KID
 def summarize(text, size, concat=True, continuation='...'):
