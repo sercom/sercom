@@ -71,11 +71,13 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     @expose(template='kid:%s.templates.list' % __name__)
     @validate(validators=dict(autorID=validators.Int))
     @paginate('records')
-    def list(self, **kw):
+    def list(self, autorID=None, tg_flash=None):
         """List records in model"""
-        f = kw.get('tg_flash', None)
-        r = cls.select()
-        return dict(records=r, name=name, namepl=namepl, tg_flash=f)
+        if autorID is None:
+            r = cls.select()
+        else:
+            r = cls.selectBy(autorID=autorID)
+        return dict(records=r, name=name, namepl=namepl, tg_flash=tg_flash)
 
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
