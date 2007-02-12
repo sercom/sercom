@@ -21,20 +21,23 @@
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-        <td><input type="checkbox" onclick="var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = '${tg.url('activate/'+str(record.id), activo=str(int(not record.activo)))}'; f.submit(); return false;" py:attrs="checked=tg.checker(record.activo)" /></td>
-        <td><a href="show/${record.id}"><span py:replace="record.usuario">usuario</span></a></td>
+        <td><input type="checkbox" onclick="var f =
+            document.createElement('form'); this.parentNode.appendChild(f);
+            f.method = 'POST'; f.action = '${tg.url('/docente/activate/%d' % record.id, activo=str(int(not record.activo)))}';
+            f.submit(); return false;" py:attrs="checked=tg.checker(record.activo)" /></td>
+        <td><a href="${tg.url('/docente/show/%d' % record.id)}"><span py:replace="record.usuario">usuario</span></a></td>
         <td><span py:replace="record.nombre">nombre</span></td>
         <td><a py:if="record.email" href="mailto:${record.email}"><span py:replace="record.email">email</span></a></td>
         <td><span py:replace="tg.summarize(record.telefono, 10)">telefono</span></td>
         <td><span py:replace="record.nombrado">nombrado</span></td>
         <td><span py:replace="tg.summarize(record.observaciones, 20)">observaciones</span></td>
-        <td><a href="edit/${record.id}">Editar</a>
-            <a href="delete/${record.id}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
+        <td><a href="${tg.url('/docente/edit/%d' % record.id)}">Editar</a>
+            <a href="${tg.url('/docente/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>
 </table>
 
 <br/>
-<a href="new">Agregar</a>
+<a href="${tg.url('/docente/new')}">Agregar</a>
 
 <div py:for="page in tg.paginate.pages">
     <a py:if="page != tg.paginate.current_page"

@@ -18,12 +18,14 @@
     </tr>
     <tr>
         <th>Autor:</th>
-	<td><a py:if="record.autorID is not None" href="../../docente/show/${record.autor.id}"><span py:replace="record.autor.shortrepr()">autor</span></a></td>
+	<td><a py:if="record.autorID is not None"
+			href="${tg.url('/docente/show/%d' % record.autor.id)}"><span py:replace="record.autor.shortrepr()">autor</span></a></td>
     </tr>
 </table>
 
 <br/>
-<a href="../edit/${record.id}">Editar</a> | <a href="../list">Volver</a>
+<a href="${tg.url('/enunciado/edit/%d' % record.id)}">Editar</a> |
+<a href="${tg.url('/enunciado/list')}">Volver</a>
 
 </body>
 </html>

@@ -17,18 +17,18 @@
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-        <td><a href="show/${record.id}"><span py:replace="record.nombre">nombre</span></a></td>
+        <td><a href="${tg.url('/enunciado/show/%d' % record.id)}"><span py:replace="record.nombre">nombre</span></a></td>
         <td><span py:replace="tg.summarize(record.descripcion, 30)">descripción</span></td>
         <td><a py:if="record.autorID is not None"
-                href="../docente/show/${record.autor.id}"><span
+                href="${tg.url('/docente/show/%d' % record.autor.id)}"><span
                     py:replace="tg.summarize(record.autor.shortrepr(), 30)">autor</span></a></td>
-        <td><a href="edit/${record.id}">Editar</a>
-            <a href="delete/${record.id}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
+        <td><a href="${tg.url('/enunciado/edit/%d' % record.id)}">Editar</a>
+            <a href="${tg.url('/enunciado/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>
 </table>
 
 <br/>
-<a href="new">Agregar</a>
+<a href="${tg.url('/enunciado/new')}">Agregar</a>
 
 <div py:for="page in tg.paginate.pages">
     <a py:if="page != tg.paginate.current_page"
