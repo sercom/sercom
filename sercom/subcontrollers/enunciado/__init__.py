@@ -2,12 +2,12 @@
 
 from turbogears import controllers, expose, redirect
 from turbogears import validate, validators, flash, error_handler
-from sercom.model import Enunciado, Docente
 from turbogears.widgets import *
 from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
+from sercom.model import Enunciado, Docente
 
 cls = Enunciado
 name = 'enunciado'
@@ -105,7 +105,10 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     def show(self,id, **kw):
         """Show record in model"""
         r = validate_get(id)
-        r.desc = publish_parts(r.descripcion, writer_name='html')['html_body']
+        if r.descripcion is None:
+            r.desc = ''
+        else:
+            r.desc = publish_parts(r.descripcion, writer_name='html')['html_body']
         return dict(name=name, namepl=namepl, record=r)
 
     @expose()
