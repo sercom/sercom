@@ -76,7 +76,10 @@ class Root(controllers.RootController):
         raise redirect('/')
 
     docente = DocenteController()
+
     enunciado = EnunciadoController()
+
+    caso_de_prueba = CasoDePruebaController()
 
 #{{{ Agrega summarize a namespace tg de KID
 def summarize(text, size, concat=True, continuation='...'):

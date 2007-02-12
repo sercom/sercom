@@ -1,2 +1,3 @@
 from docente import DocenteController
 from enunciado import EnunciadoController
+from caso_de_prueba import CasoDePruebaController
