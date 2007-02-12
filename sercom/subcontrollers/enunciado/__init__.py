@@ -13,38 +13,43 @@ cls = Enunciado
 name = 'enunciado'
 namepl = name + 's'
 
-def validate_autor(data):
-    autor = data.get('autorID', None)
-    if autor == 0: autor = None
-    if autor is not None:
+fkcls = Docente
+fkname = 'autor'
+fknamepl = fkname + 'es'
+
+def validate_fk(data):
+    fk = data.get(fkname + 'ID', None)
+    if fk == 0: fk = None
+    if fk is not None:
         try:
-            autor = Docente.get(autor)
+            fk = fkcls.get(fk)
         except LookupError:
             raise redirect('new', tg_flash=_(u'No se pudo crear el nuevo ' \
-                '%s porque el autor con identificador %d no existe.'
-                    % (name, autor)), **data)
-    data.pop('autorID', None)
-    data['autor'] = autor
+                '%s porque el %s con identificador %d no existe.'
+                    % (name, fkname, fk)), **data)
+    data.pop(fkname + 'ID', None)
+    data[fkname] = fk
+    return fk
 
 def validate_get(id):
     return val.validate_get(cls, name, id)
 
 def validate_set(id, data):
-    validate_autor(data)
+    validate_fk(data)
     return val.validate_set(cls, name, id, data)
 
 def validate_new(data):
-    validate_autor(data)
+    validate_fk(data)
     return val.validate_new(cls, name, data)
 
 def get_options():
-    return [(0, _(u'--'))] + [(a.id, a.shortrepr()) for a in Docente.select()]
+    return [(0, _(u'--'))] + [(fk.id, fk.shortrepr()) for fk in fkcls.select()]
 
 form = TableForm(fields=[
     TextField(name='nombre', label=_(u'Nombre'),
         help_text=_(u'Requerido y único.'),
         validator=validators.UnicodeString(min=5, max=60, strip=True)),
-    SingleSelectField(name='autorID', label=_(u'Autor'),
+    SingleSelectField(name=fkname+'ID', label=_(fkname.capitalize()),
         options=get_options, validator=validators.Int(not_empty=False)),
     TextField(name='descripcion', label=_(u'Descripción'),
         validator=validators.UnicodeString(not_empty=False, max=255, strip=True)),
@@ -64,6 +69,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
+    @validate(validators=dict(autorID=validators.Int))
     @paginate('records')
     def list(self, **kw):
         """List records in model"""
