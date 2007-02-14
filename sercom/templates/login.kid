@@ -70,6 +70,9 @@
         }
 
     </style>
+    <script>
+        MochiKit.Signal.connect(window, 'onload', function() { $('form_login_user').focus(); });
+    </script>
 </head>
 
 <body>

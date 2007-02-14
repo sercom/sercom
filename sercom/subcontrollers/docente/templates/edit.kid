@@ -4,6 +4,9 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
 <title>edit</title>
+<script>
+    MochiKit.Signal.connect(window, 'onload', function() { $('form_usuario').focus(); });
+</script>
 </head>
 <body>
 
