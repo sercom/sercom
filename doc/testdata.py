@@ -4,7 +4,7 @@ r1 = Rol(nombre='admin', permisos=(entregar_tp, admin))
 r2 = Rol(nombre='alumno', permisos=(entregar_tp,))
 
 d = Docente('luca', u'Leandro Lucarella', 'luca', 'llucax@gmail.com',
-	'4554-1554', roles=[r1])
+	'4554-1554', roles=[r1], activo=True)
 
 a = Alumno('77891', 'Tito Puente', '77891', roles=[r2])
 
