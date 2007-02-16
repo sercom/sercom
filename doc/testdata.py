@@ -1,3 +1,4 @@
+# vim: set encoding=utf-8 :
 
 r1 = Rol(nombre='admin', permisos=(entregar_tp, admin))
 
