@@ -24,7 +24,7 @@
     <tr py:for="record in records">
         <td><input type="checkbox" onclick="var f =
             document.createElement('form'); this.parentNode.appendChild(f);
-            f.method = 'POST'; f.action = '${tg.url('/docente/activate/%d' % record.id, activo=str(int(not record.activo)))}';
+            f.method = 'POST'; f.action = '${tg.url('/docente/activate/%d/%d' % (record.id, int(not record.activo)))}';
             f.submit(); return false;" py:attrs="checked=tg.checker(record.activo)" /></td>
         <td><a href="${tg.url('/docente/show/%d' % record.id)}"><span py:replace="record.usuario">usuario</span></a></td>
         <td><span py:replace="record.nombre">nombre</span></td>

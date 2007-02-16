@@ -1,5 +1,6 @@
 # vim: set et sw=4 sts=4 encoding=utf-8 :
 
+import cherrypy
 from turbogears import controllers, expose, redirect
 from turbogears import validate, validators, flash, error_handler
 from turbogears.widgets import *
@@ -70,9 +71,9 @@ class DocenteController(controllers.Controller, identity.SecureResource):
         r = validate_get(id)
         try:
             r.activo = bool(int(activo))
-        except ValueError, e:
-            raise redirect('../list', tg_flash=_(u'Acción inválida.'))
-        raise redirect('../list')
+        except ValueError:
+            raise cherrypy.NotFound
+        raise redirect('../../list')
 
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):

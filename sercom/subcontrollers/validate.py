@@ -3,17 +3,13 @@
 __all__ = ('validate_get', 'validate_set', 'validate_new')
 
 from turbogears import redirect
+from cherrypy import NotFound
 
 def validate_get(cls, name, id, url='../list'):
     try:
-        id = int(id)
-    except ValueError:
-        raise redirect(url, tg_flash=_(u'Identificador inválido: %s.') % id)
-    try:
-        return cls.get(id)
-    except LookupError:
-        raise redirect(url, tg_flash=_(u'No existe %s con identificador %d')
-            % (name, id))
+        return cls.get(int(id))
+    except (ValueError, LookupError):
+        raise NotFound
 
 def validate_set(cls, name, id, data, url='../edit'):
     r = validate_get(cls, name, id)
