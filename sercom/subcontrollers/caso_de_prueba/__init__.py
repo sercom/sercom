@@ -82,7 +82,7 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
             r = cls.select()
         else:
             r = cls.selectBy(enunciadoID=enunciado)
-        return dict(records=r, name=name, namepl=namepl)
+        return dict(records=r, name=name, namepl=namepl, parcial=enunciado)
 
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):

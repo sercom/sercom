@@ -33,6 +33,7 @@
 
 <br/>
 <a href="${tg.url('/enunciado/new')}">Agregar</a>
+<a py:if="parcial" href="${tg.url('/enunciado/list')}">Ver todo</a>
 
 <div py:for="page in tg.paginate.pages">
     <a py:if="page != tg.paginate.current_page"

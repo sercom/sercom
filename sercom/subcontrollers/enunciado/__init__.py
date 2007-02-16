@@ -77,7 +77,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
             r = cls.select()
         else:
             r = cls.selectBy(autorID=autor)
-        return dict(records=r, name=name, namepl=namepl)
+        return dict(records=r, name=name, namepl=namepl, parcial=autor)
 
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
