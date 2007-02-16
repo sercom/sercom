@@ -24,9 +24,9 @@ def validate_fk(data):
         try:
             fk = fkcls.get(fk)
         except LookupError:
-            raise redirect('new', tg_flash=_(u'No se pudo crear el nuevo ' \
-                '%s porque el %s con identificador %d no existe.'
-                    % (name, fkname, fk)), **data)
+            flash(_(u'No se pudo crear el nuevo %s porque el %s con '
+                'identificador %d no existe.' % (name, fkname, fk)))
+            raise redirect('new', **data)
     data.pop(fkname + 'ID', None)
     data[fkname] = fk
     return fk
@@ -76,19 +76,18 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     @expose(template='kid:%s.templates.list' % __name__)
     @validate(validators=dict(enunciado=validators.Int))
     @paginate('records')
-    def list(self, enunciado=None, tg_flash=None):
+    def list(self, enunciado=None):
         """List records in model"""
         if enunciado is None:
             r = cls.select()
         else:
             r = cls.selectBy(enunciadoID=enunciado)
-        return dict(records=r, name=name, namepl=namepl, tg_flash=tg_flash)
+        return dict(records=r, name=name, namepl=namepl)
 
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
         """Create new records in model"""
-        f = kw.get('tg_flash', None)
-        return dict(name=name, namepl=namepl, form=form, tg_flash=f, values=kw)
+        return dict(name=name, namepl=namepl, form=form, values=kw)
 
     @validate(form=form)
     @error_handler(new)
@@ -96,14 +95,14 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     def create(self, **kw):
         """Save or create record to model"""
         validate_new(kw)
-        raise redirect('list', tg_flash=_(u'Se creó un nuevo %s.') % name)
+        flash(_(u'Se creó un nuevo %s.') % name)
+        raise redirect('list')
 
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
-        return dict(name=name, namepl=namepl, record=r, form=form,
-            tg_flash=kw.get('tg_flash', None))
+        return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
     @error_handler(edit)
@@ -111,8 +110,8 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     def update(self, id, **kw):
         """Save or create record to model"""
         r = validate_set(id, kw)
-        raise redirect('../list',
-            tg_flash=_(u'El %s fue actualizado.') % name)
+        flash(_(u'El %s fue actualizado.') % name)
+        raise redirect('../list')
 
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self, id, **kw):
@@ -129,6 +128,6 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
         """Destroy record in model"""
         r = validate_get(id)
         r.destroySelf()
-        raise redirect('../list',
-            tg_flash=_(u'El %s fue eliminado permanentemente.') % name)
+        flash(_(u'El %s fue eliminado permanentemente.') % name)
+        raise redirect('../list')
 

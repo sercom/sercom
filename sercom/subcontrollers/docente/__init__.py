@@ -59,11 +59,10 @@ class DocenteController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.list' % __name__)
     @paginate('records')
-    def list(self, **kw):
+    def list(self):
         """List records in model"""
-        f = kw.get('tg_flash', None)
         r = cls.select()
-        return dict(records=r, name=name, namepl=namepl, tg_flash=f)
+        return dict(records=r, name=name, namepl=namepl)
 
     @expose()
     def activate(self, id, activo):
@@ -78,8 +77,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
         """Create new records in model"""
-        f = kw.get('tg_flash', None)
-        return dict(name=name, namepl=namepl, form=form, tg_flash=f, values=kw)
+        return dict(name=name, namepl=namepl, form=form, values=kw)
 
     @validate(form=form)
     @error_handler(new)
@@ -87,14 +85,14 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     def create(self, **kw):
         """Save or create record to model"""
         validate_new(kw)
-        raise redirect('list', tg_flash=_(u'Se creó un nuevo %s.') % name)
+        flash(_(u'Se creó un nuevo %s.') % name)
+        raise redirect('list')
 
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
-        return dict(name=name, namepl=namepl, record=r, form=form,
-            tg_flash=kw.get('tg_flash', None))
+        return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
     @error_handler(edit)
@@ -102,8 +100,8 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     def update(self, id, **kw):
         """Save or create record to model"""
         r = validate_set(id, kw)
-        raise redirect('../list',
-            tg_flash=_(u'El %s fue actualizado.') % name)
+        flash(_(u'El %s fue actualizado.') % name)
+        raise redirect('../list')
 
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self,id, **kw):
@@ -120,6 +118,6 @@ class DocenteController(controllers.Controller, identity.SecureResource):
         """Destroy record in model"""
         r = validate_get(id)
         r.destroySelf()
-        raise redirect('../list',
-            tg_flash=_(u'El %s fue eliminado permanentemente.') % name)
+        flash(_(u'El %s fue eliminado permanentemente.') % name)
+        raise redirect('../list')
 
