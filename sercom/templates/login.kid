@@ -70,7 +70,6 @@
         }
 
     </style>
-    <script>MochiKit.DOM.focusOnLoad('form_login_user');</script>
 </head>
 
 <body>

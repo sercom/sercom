@@ -43,6 +43,7 @@ form = TableForm(fields=[
         #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
         validator=validators.Bool(if_empty=1)),
 ])
+form.javascript.append(JSSource("MochiKit.DOM.focusOnLoad('form_usuario');"))
 
 class DocenteController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""

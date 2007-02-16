@@ -54,6 +54,7 @@ form = TableForm(fields=[
     TextField(name='descripcion', label=_(u'Descripción'),
         validator=validators.UnicodeString(not_empty=False, max=255, strip=True)),
 ])
+form.javascript.append(JSSource("MochiKit.DOM.focusOnLoad('form_nombre');"))
 
 class EnunciadoController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""

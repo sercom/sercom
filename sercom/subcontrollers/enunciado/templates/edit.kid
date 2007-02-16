@@ -4,7 +4,6 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
 <title>edit</title>
-<script>MochiKit.DOM.focusOnLoad('form_nombre');</script>
 </head>
 <body>
 

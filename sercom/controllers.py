@@ -62,6 +62,8 @@ class Root(controllers.RootController):
 
         login_form = w.TableForm(fields=fields, action=previous_url,
                         submit_text=_(u'Ingresar'), submit=submit)
+        login_form.javascript.append(
+            w.JSSource("MochiKit.DOM.focusOnLoad('form_login_user');"))
 
         values = dict(forward_url=forward_url)
         values.update(request.params)

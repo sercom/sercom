@@ -59,6 +59,7 @@ form = TableForm(fields=[
     TextField(name='tiempo_cpu', label=_(u'Tiempo de CPU'),
         validator=validators.Number(not_empty=False, strip=True)),
 ])
+form.javascript.append(JSSource("MochiKit.DOM.focusOnLoad('form_nombre');"))
 
 class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
