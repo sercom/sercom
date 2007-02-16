@@ -74,14 +74,14 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @validate(validators=dict(enunciadoID=validators.Int))
+    @validate(validators=dict(enunciado=validators.Int))
     @paginate('records')
-    def list(self, enunciadoID=None, tg_flash=None):
+    def list(self, enunciado=None, tg_flash=None):
         """List records in model"""
-        if enunciadoID is None:
+        if enunciado is None:
             r = cls.select()
         else:
-            r = cls.selectBy(enunciadoID=enunciadoID)
+            r = cls.selectBy(enunciadoID=enunciado)
         return dict(records=r, name=name, namepl=namepl, tg_flash=tg_flash)
 
     @expose(template='kid:%s.templates.new' % __name__)

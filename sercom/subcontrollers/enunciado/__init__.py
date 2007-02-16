@@ -69,14 +69,14 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @validate(validators=dict(autorID=validators.Int))
+    @validate(validators=dict(autor=validators.Int))
     @paginate('records')
-    def list(self, autorID=None, tg_flash=None):
+    def list(self, autor=None, tg_flash=None):
         """List records in model"""
-        if autorID is None:
+        if autor is None:
             r = cls.select()
         else:
-            r = cls.selectBy(autorID=autorID)
+            r = cls.selectBy(autorID=autor)
         return dict(records=r, name=name, namepl=namepl, tg_flash=tg_flash)
 
     @expose(template='kid:%s.templates.new' % __name__)

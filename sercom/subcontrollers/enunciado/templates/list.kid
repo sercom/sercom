@@ -24,7 +24,7 @@
                 href="${tg.url('/docente/show/%d' % record.autor.id)}"><span
                     py:replace="tg.summarize(record.autor.shortrepr(), 30)">autor</span></a></td>
         <td><a py:if="len(record.casos_de_prueba)"
-                href="${tg.url('/caso_de_prueba/list/%d' % record.id)}"><span
+                href="${tg.url('/caso_de_prueba/list', enunciado=record.id)}"><span
                     py:replace="len(record.casos_de_prueba)">cant</span></a></td>
         <td><a href="${tg.url('/enunciado/edit/%d' % record.id)}">Editar</a>
             <a href="${tg.url('/enunciado/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>

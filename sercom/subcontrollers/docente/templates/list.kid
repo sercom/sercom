@@ -32,7 +32,7 @@
         <td><span py:replace="tg.summarize(record.telefono, 10)">telefono</span></td>
         <td><span py:replace="record.nombrado">nombrado</span></td>
         <td><span py:replace="tg.summarize(record.observaciones, 20)">observaciones</span></td>
-        <td><a py:if="len(record.enunciados)" href="${tg.url('/enunciado/list/%d' % record.id)}"><span
+        <td><a py:if="len(record.enunciados)" href="${tg.url('/enunciado/list', autor=record.id)}"><span
                     py:replace="len(record.enunciados)">cant</span></a></td>
         <td><a href="${tg.url('/docente/edit/%d' % record.id)}">Editar</a>
             <a href="${tg.url('/docente/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
