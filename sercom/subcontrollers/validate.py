@@ -2,7 +2,7 @@
 
 __all__ = ('validate_get', 'validate_set', 'validate_new')
 
-from turbogears import redirect
+from turbogears import redirect, flash
 from cherrypy import NotFound
 
 def validate_get(cls, name, id, url='../list'):
@@ -16,13 +16,13 @@ def validate_set(cls, name, id, data, url='../edit'):
     try:
         r.set(**data)
     except Exception, e:
-        raise redirect('%s/%s' % (url, id), tg_flash=_(u'No se pudo ' \
-            'modificar el %s (error: %s).') % (name, e), **data)
+        flash(_(u'No se pudo modificar el %s (error: %s).') % (name, e))
+        raise redirect('%s/%s' % (url, id), **data)
 
 def validate_new(cls, name, data, url='new'):
     try:
         return cls(**data)
     except Exception, e:
-        raise redirect(url, tg_flash=_(u'No se pudo crear el nuevo %s ' \
-            '(error: %s).') % (name, e), **data)
+        flash(_(u'No se pudo crear el nuevo %s (error: %s).') % (name, e))
+        raise redirect(url, **data)
 
