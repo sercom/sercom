@@ -1,5 +1,6 @@
 # vim: set et sw=4 sts=4 encoding=utf-8 :
 
+#{{{ Imports
 import cherrypy
 from turbogears import controllers, expose, redirect
 from turbogears import validate, validators, flash, error_handler
@@ -9,15 +10,21 @@ from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Docente
+#}}}
 
+#{{{ Configuración
 cls = Docente
 name = 'docente'
 namepl = name + 's'
+#}}}
 
+#{{{ Validación
 def validate_get(id): return val.validate_get(cls, name, id)
 def validate_set(id, data): return val.validate_set(cls, name, id, data)
 def validate_new(data): return val.validate_new(cls, name, data)
+#}}}
 
+#{{{ Formulario
 form = TableForm(fields=[
     TextField(name='usuario', label=_(u'Usuario'),
         help_text=_(u'Requerido y único.'),
@@ -44,7 +51,9 @@ form = TableForm(fields=[
         validator=validators.Bool(if_empty=1)),
 ])
 form.javascript.append(JSSource("MochiKit.DOM.focusOnLoad('form_usuario');"))
+#}}}
 
+#{{{ Controlador
 class DocenteController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_permission('admin')
@@ -121,4 +130,5 @@ class DocenteController(controllers.Controller, identity.SecureResource):
         r.destroySelf()
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../list')
+#}}}
 

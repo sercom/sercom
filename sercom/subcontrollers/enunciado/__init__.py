@@ -1,5 +1,6 @@
 # vim: set et sw=4 sts=4 encoding=utf-8 :
 
+#{{{ Imports
 from turbogears import controllers, expose, redirect
 from turbogears import validate, validators, flash, error_handler
 from turbogears.widgets import *
@@ -8,7 +9,9 @@ from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Enunciado, Docente
+#}}}
 
+#{{{ Configuración
 cls = Enunciado
 name = 'enunciado'
 namepl = name + 's'
@@ -16,7 +19,9 @@ namepl = name + 's'
 fkcls = Docente
 fkname = 'autor'
 fknamepl = fkname + 'es'
+#}}}
 
+#{{{ Validación
 def validate_fk(data):
     fk = data.get(fkname + 'ID', None)
     if fk == 0: fk = None
@@ -41,7 +46,9 @@ def validate_set(id, data):
 def validate_new(data):
     validate_fk(data)
     return val.validate_new(cls, name, data)
+#}}}
 
+#{{{ Formulario
 def get_options():
     return [(0, _(u'--'))] + [(fk.id, fk.shortrepr()) for fk in fkcls.select()]
 
@@ -55,7 +62,9 @@ form = TableForm(fields=[
         validator=validators.UnicodeString(not_empty=False, max=255, strip=True)),
 ])
 form.javascript.append(JSSource("MochiKit.DOM.focusOnLoad('form_nombre');"))
+#}}}
 
+#{{{ Controlador
 class EnunciadoController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_permission('admin')
@@ -126,4 +135,5 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         r.destroySelf()
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../list')
+#}}}
 
