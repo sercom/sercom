@@ -2,8 +2,9 @@
 
 #{{{ Imports
 from turbogears import controllers, expose, redirect
-from turbogears import validate, validators, flash, error_handler
-from turbogears.widgets import *
+from turbogears import validate, flash, error_handler
+from turbogears import validators as V
+from turbogears import widgets as W
 from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
@@ -53,20 +54,24 @@ def get_options():
     return [(0, _(u'<<General>>'))] + [(fk.id, fk.shortrepr())
         for fk in fkcls.select()]
 
-form = TableForm(fields=[
-    TextField(name='nombre', label=_(u'Nombre'),
-        help_text=_(u'Requerido y único.'),
-        validator=validators.UnicodeString(min=5, max=60, strip=True)),
-    SingleSelectField(name=fkname+'ID', label=_(fkname.capitalize()),
-        options=get_options, validator=validators.Int(not_empty=False)),
-    TextField(name='descripcion', label=_(u'Descripción'),
-        validator=validators.UnicodeString(not_empty=False, max=255, strip=True)),
-    TextField(name='retorno', label=_(u'Código de retorno'),
-        validator=validators.Int(not_empty=False, strip=True)),
-    TextField(name='tiempo_cpu', label=_(u'Tiempo de CPU'),
-        validator=validators.Number(not_empty=False, strip=True)),
-])
-form.javascript.append(JSSource("MochiKit.DOM.focusOnLoad('form_nombre');"))
+class CasoDePruebaForm(W.TableForm):
+    fields = [
+        W.TextField(name='nombre', label=_(u'Nombre'),
+            help_text=_(u'Requerido y único.'),
+            validator=V.UnicodeString(min=5, max=60, strip=True)),
+        W.SingleSelectField(name=fkname+'ID', label=_(fkname.capitalize()),
+            options=get_options, validator=V.Int(not_empty=False)),
+        W.TextField(name='descripcion', label=_(u'Descripción'),
+            validator=V.UnicodeString(not_empty=False, max=255,
+                strip=True)),
+        W.TextField(name='retorno', label=_(u'Código de retorno'),
+            validator=V.Int(not_empty=False, strip=True)),
+        W.TextField(name='tiempo_cpu', label=_(u'Tiempo de CPU'),
+            validator=V.Number(not_empty=False, strip=True)),
+    ]
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');")]
+
+form = CasoDePruebaForm()
 #}}}
 
 #{{{ Controlador
@@ -84,7 +89,7 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @validate(validators=dict(enunciado=validators.Int))
+    @validate(validators=dict(enunciado=V.Int))
     @paginate('records')
     def list(self, enunciado=None):
         """List records in model"""

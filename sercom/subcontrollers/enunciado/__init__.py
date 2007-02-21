@@ -2,8 +2,9 @@
 
 #{{{ Imports
 from turbogears import controllers, expose, redirect
-from turbogears import validate, validators, flash, error_handler
-from turbogears.widgets import *
+from turbogears import validate, flash, error_handler
+from turbogears import validators as V
+from turbogears import widgets as W
 from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
@@ -52,16 +53,19 @@ def validate_new(data):
 def get_options():
     return [(0, _(u'--'))] + [(fk.id, fk.shortrepr()) for fk in fkcls.select()]
 
-form = TableForm(fields=[
-    TextField(name='nombre', label=_(u'Nombre'),
-        help_text=_(u'Requerido y único.'),
-        validator=validators.UnicodeString(min=5, max=60, strip=True)),
-    SingleSelectField(name=fkname+'ID', label=_(fkname.capitalize()),
-        options=get_options, validator=validators.Int(not_empty=False)),
-    TextField(name='descripcion', label=_(u'Descripción'),
-        validator=validators.UnicodeString(not_empty=False, max=255, strip=True)),
-])
-form.javascript.append(JSSource("MochiKit.DOM.focusOnLoad('form_nombre');"))
+class EnunciadoForm(W.TableForm):
+    fields = [
+        W.TextField(name='nombre', label=_(u'Nombre'),
+            help_text=_(u'Requerido y único.'),
+            validator=V.UnicodeString(min=5, max=60, strip=True)),
+        W.SingleSelectField(name=fkname+'ID', label=_(fkname.capitalize()),
+            options=get_options, validator=V.Int(not_empty=False)),
+        W.TextField(name='descripcion', label=_(u'Descripción'),
+            validator=V.UnicodeString(not_empty=False, max=255, strip=True)),
+    ]
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');")]
+
+form = EnunciadoForm()
 #}}}
 
 #{{{ Controlador
@@ -79,7 +83,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @validate(validators=dict(autor=validators.Int))
+    @validate(validators=dict(autor=V.Int))
     @paginate('records')
     def list(self, autor=None):
         """List records in model"""

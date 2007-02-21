@@ -1,7 +1,7 @@
 # vim: set et sw=4 sts=4 encoding=utf-8 :
 
 from turbogears import controllers, expose, view
-from turbogears import widgets as w, validators
+from turbogears import widgets as W, validators as V
 from turbogears import identity, redirect
 from cherrypy import request, response
 from model import *
@@ -11,6 +11,17 @@ from subcontrollers import *
 
 import logging
 log = logging.getLogger("sercom.controllers")
+
+class LoginForm(W.TableForm):
+    fields = [
+        W.TextField(name='login_user', label=_(u'Usuario'),
+            validator=V.NotEmpty()),
+        W.PasswordField(name='login_password', label=_(u'Contraseña'),
+            validator=V.NotEmpty())
+    ]
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_login_user');")]
+    submit = W.SubmitButton(name='login_submit')
+    submit_text = _(u'Ingresar')
 
 class Root(controllers.RootController):
 
@@ -46,24 +57,13 @@ class Root(controllers.RootController):
             msg = _(u'Por favor ingrese.')
             forward_url = request.headers.get('Referer', '/')
 
-        fields = [
-            w.TextField(name='login_user', label=_(u'Usuario'),
-                validator=validators.NotEmpty()),
-            w.PasswordField(name='login_password', label=_(u'Contraseña'),
-                validator=validators.NotEmpty())
-        ]
+        fields = list(LoginForm.fields)
         if forward_url:
-            fields.append(w.HiddenField(name='forward_url'))
-        fields.extend([w.HiddenField(name=name) for name in request.params
+            fields.append(W.HiddenField(name='forward_url'))
+        fields.extend([W.HiddenField(name=name) for name in request.params
                 if name not in ('login_user', 'login_password', 'login_submit',
                                 'forward_url')])
-
-        submit = w.SubmitButton(name='login_submit')
-
-        login_form = w.TableForm(fields=fields, action=previous_url,
-                        submit_text=_(u'Ingresar'), submit=submit)
-        login_form.javascript.append(
-            w.JSSource("MochiKit.DOM.focusOnLoad('form_login_user');"))
+        login_form = LoginForm(fields=fields, action=previous_url)
 
         values = dict(forward_url=forward_url)
         values.update(request.params)

@@ -3,8 +3,9 @@
 #{{{ Imports
 import cherrypy
 from turbogears import controllers, expose, redirect
-from turbogears import validate, validators, flash, error_handler
-from turbogears.widgets import *
+from turbogears import validate, flash, error_handler
+from turbogears import validators as V
+from turbogears import widgets as W
 from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
@@ -30,32 +31,37 @@ def validate_new(data):
 #}}}
 
 #{{{ Formulario
-form = TableForm(fields=[
-    TextField(name='usuario', label=_(u'Usuario'),
-        help_text=_(u'Requerido y único.'),
-        validator=validators.UnicodeString(min=3, max=10, strip=True)),
-    TextField(name='nombre', label=_(u'Nombre'),
-        help_text=_(u'Requerido.'),
-        validator=validators.UnicodeString(min=10, max=255, strip=True)),
-    TextField(name='email', label=_(u'E-Mail'),
-        #help_text=_(u'Dirección de e-mail.'),
-        validator=validators.All(
-            validators.Email(not_empty=False, resolve_domain=True),
-            validators.UnicodeString(not_empty=False, max=255, strip=True))),
-    TextField(name='telefono', label=_(u'Teléfono'),
-        #help_text=_(u'Texto libre para teléfono, se puede incluir horarios o varias entradas.'),
-        validator=validators.UnicodeString(not_empty=False, min=7, max=255, strip=True)),
-    TextArea(name='observaciones', label=_(u'Observaciones'),
-        #help_text=_(u'Observaciones.'),
-        validator=validators.UnicodeString(not_empty=False, strip=True)),
-    CheckBox(name='nombrado', label=_(u'Nombrado'), default=1,
-        #help_text=_(u'Indica si tiene cargo.'),
-        validator=validators.Bool(if_empty=1)),
-    CheckBox(name='activo', label=_(u'Activo'), default=1,
-        #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
-        validator=validators.Bool(if_empty=1)),
-])
-form.javascript.append(JSSource("MochiKit.DOM.focusOnLoad('form_usuario');"))
+class DocenteForm(W.TableForm):
+    fields = [
+        W.TextField(name='usuario', label=_(u'Usuario'),
+            help_text=_(u'Requerido y único.'),
+            validator=V.UnicodeString(min=3, max=10, strip=True)),
+        W.TextField(name='nombre', label=_(u'Nombre'),
+            help_text=_(u'Requerido.'),
+            validator=V.UnicodeString(min=10, max=255, strip=True)),
+        W.TextField(name='email', label=_(u'E-Mail'),
+            #help_text=_(u'Dirección de e-mail.'),
+            validator=V.All(
+                V.Email(not_empty=False, resolve_domain=True),
+                V.UnicodeString(not_empty=False, max=255, strip=True))),
+        W.TextField(name='telefono', label=_(u'Teléfono'),
+            #help_text=_(u'Texto libre para teléfono, se puede incluir '
+            #    'horarios o varias entradas.'),
+            validator=V.UnicodeString(not_empty=False, min=7, max=255,
+                strip=True)),
+        W.TextArea(name='observaciones', label=_(u'Observaciones'),
+            #help_text=_(u'Observaciones.'),
+            validator=V.UnicodeString(not_empty=False, strip=True)),
+        W.CheckBox(name='nombrado', label=_(u'Nombrado'), default=1,
+            #help_text=_(u'Indica si tiene cargo.'),
+            validator=V.Bool(if_empty=1)),
+        W.CheckBox(name='activo', label=_(u'Activo'), default=1,
+            #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
+            validator=V.Bool(if_empty=1)),
+    ]
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_usuario');")]
+
+form = DocenteForm()
 #}}}
 
 #{{{ Controlador
