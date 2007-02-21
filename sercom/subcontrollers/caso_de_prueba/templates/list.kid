@@ -14,6 +14,7 @@
         <th>Nombre</th>
         <th>Enunciado</th>
         <th>Descripción</th>
+        <th>Parámetros</th>
         <th title="Código de retorno">RET</th>
         <th title="Tiempo de CPU">CPU</th>
         <th>Operaciones</th>
@@ -24,6 +25,7 @@
                 href="${tg.url('/enunciado/show/%d' % record.enunciado.id)}"><span
                     py:replace="tg.summarize(record.enunciado.shortrepr(), 30)">enunciado</span></a></td>
         <td><span py:replace="tg.summarize(record.descripcion, 30)">descripción</span></td>
+        <td><span py:if="record.parametros" py:replace="tg.summarize(' '.join([repr(p) for p in record.parametros]), 30)">--parametros</span></td>
         <td><span py:replace="record.retorno">retorno</span></td>
         <td><span py:replace="record.tiempo_cpu">tiempo de cpu</span></td>
         <td><a href="${tg.url('/caso_de_prueba/edit/%d' % record.id)}">Editar</a>
