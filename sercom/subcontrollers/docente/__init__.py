@@ -19,9 +19,14 @@ namepl = name + 's'
 #}}}
 
 #{{{ Validación
-def validate_get(id): return val.validate_get(cls, name, id)
-def validate_set(id, data): return val.validate_set(cls, name, id, data)
-def validate_new(data): return val.validate_new(cls, name, data)
+def validate_get(id):
+    return val.validate_get(cls, name, id)
+
+def validate_set(id, data):
+    return val.validate_set(cls, name, id, data)
+
+def validate_new(data):
+    return val.validate_new(cls, name, data)
 #}}}
 
 #{{{ Formulario
