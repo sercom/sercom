@@ -1,4 +1,4 @@
-# vim: set et sw=4 sts=4 encoding=utf-8 :
+# vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker :
 
 #{{{ Imports
 import cherrypy
