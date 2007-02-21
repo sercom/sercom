@@ -122,3 +122,17 @@ span.code {
   background: #eef URL('../images/info.png') left center no-repeat;
   border: 1px solid #cce;
 }
+
+/* Listas de los ABM */
+table.list {
+	width:90%;
+	margin-left:5%;
+  border-collapse:separate;
+  border-spacing:1px 5px;
+}
+
+table.list td {
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border: none;
+}
