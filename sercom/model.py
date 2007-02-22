@@ -40,13 +40,9 @@ class TupleValidator(PickleValidator):
         return super(TupleValidator, self).from_python(value, state)
 
 class SOTupleCol(SOPickleCol):
-
-    def __init__(self, **kw):
-        super(SOTupleCol, self).__init__(**kw)
-
     def createValidators(self):
-        return [TupleValidator(name=self.name)] + \
-            super(SOPickleCol, self).createValidators()
+        return [TupleValidator(name=self.name)] \
+            + super(SOPickleCol, self).createValidators()
 
 class TupleCol(PickleCol):
     baseClass = SOTupleCol
@@ -384,7 +380,7 @@ class CasoDePrueba(SQLObject): #{{{
     def __repr__(self):
         return 'CasoDePrueba(enunciado=%s, nombre=%s, parametros=%s, ' \
             'retorno=%s, tiempo_cpu=%s, descripcion=%s)' \
-                % (self.enunciado.shortrepr(), self.nombre, self.parametros,
+                % (srepr(self.enunciado), self.nombre, self.parametros,
                     self.retorno, self.tiempo_cpu, self.descripcion)
 
     def shortrepr(self):
