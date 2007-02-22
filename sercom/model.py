@@ -5,9 +5,11 @@ from turbogears.database import PackageHub
 from sqlobject import *
 from sqlobject.sqlbuilder import *
 from sqlobject.inheritance import InheritableSQLObject
-from sqlobject.col import PickleValidator
+from sqlobject.col import PickleValidator, UnicodeStringValidator
 from turbogears import identity
 from turbogears.identity import encrypt_password as encryptpw
+from sercom.validators import params_to_list, ParseError
+from formencode import Invalid
 
 hub = PackageHub("sercom")
 __connection__ = hub
@@ -21,21 +23,19 @@ class TupleValidator(PickleValidator):
     Validator for tuple types.  A tuple type is simply a pickle type
     that validates that the represented type is a tuple.
     """
-
     def to_python(self, value, state):
         value = super(TupleValidator, self).to_python(value, state)
         if value is None:
             return None
         if isinstance(value, tuple):
             return value
-        raise validators.Invalid("expected a tuple in the TupleCol '%s', got %s %r instead" % \
+        raise Invalid("expected a tuple in the TupleCol '%s', got %s %r instead" % \
             (self.name, type(value), value), value, state)
-
     def from_python(self, value, state):
         if value is None:
             return None
         if not isinstance(value, tuple):
-            raise validators.Invalid("expected a tuple in the TupleCol '%s', got %s %r instead" % \
+            raise Invalid("expected a tuple in the TupleCol '%s', got %s %r instead" % \
                 (self.name, type(value), value), value, state)
         return super(TupleValidator, self).from_python(value, state)
 
@@ -47,10 +47,47 @@ class SOTupleCol(SOPickleCol):
 class TupleCol(PickleCol):
     baseClass = SOTupleCol
 
+class ParamsValidator(UnicodeStringValidator):
+    def to_python(self, value, state):
+        if isinstance(value, basestring):
+            value = super(ParamsValidator, self).to_python(value, state)
+            try:
+                value = params_to_list(value)
+            except ParseError, e:
+                raise Invalid("invalid parameters in the ParamsCol '%s', parse "
+                    "error: %s" % (self.name, e), value, state)
+        elif not isinstance(value, (list, tuple)):
+            raise Invalid("expected a tuple, list or valid string in the "
+                "ParamsCol '%s', got %s %r instead"
+                    % (self.name, type(value), value), value, state)
+        return value
+    def from_python(self, value, state):
+        if isinstance(value, (list, tuple)):
+            value = ' '.join([repr(p) for p in value])
+        elif isinstance(value, basestring):
+            value = super(ParamsValidator, self).to_python(value, state)
+            try:
+                params_to_list(value)
+            except ParseError, e:
+                raise Invalid("invalid parameters in the ParamsCol '%s', parse "
+                    "error: %s" % (self.name, e), value, state)
+        else:
+            raise Invalid("expected a tuple, list or valid string in the "
+                "ParamsCol '%s', got %s %r instead"
+                    % (self.name, type(value), value), value, state)
+        return value
+
+class SOParamsCol(SOUnicodeCol):
+    def createValidators(self):
+        return [ParamsValidator(db_encoding=self.dbEncoding, name=self.name)] \
+            + super(SOParamsCol, self).createValidators()
+
+class ParamsCol(UnicodeCol):
+    baseClass = SOParamsCol
+
 #}}}
 
 #{{{ Tablas intermedias
-
 
 # BUG en SQLObject, SQLExpression no tiene cálculo de hash pero se usa como
 # key de un dict. Workarround hasta que lo arreglen.
@@ -364,14 +401,14 @@ class CasoDePrueba(SQLObject): #{{{
     pk              = DatabaseIndex(enunciado, nombre, unique=True)
     # Campos
 #    privado         = IntCol(default=None) TODO iria en instancia_de_entrega_caso_de_prueba
-    parametros      = TupleCol(notNone=True, default=())
+    parametros      = ParamsCol(length=255)
     retorno         = IntCol(default=None)
     tiempo_cpu      = FloatCol(default=None)
     descripcion     = UnicodeCol(length=255, default=None)
     # Joins
     pruebas         = MultipleJoin('Prueba')
 
-    def __init__(self, enunciado=None, nombre=None, parametros=(),
+    def __init__(self, enunciado=None, nombre=None, parametros=None,
             retorno=None, tiempo_cpu=None, descripcion=None, **kargs):
         SQLObject.__init__(self, enunciadoID=enunciado and enunciado.id,
             nombre=nombre, parametros=parametros, retorno=retorno,

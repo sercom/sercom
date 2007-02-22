@@ -64,7 +64,7 @@ CREATE TABLE caso_de_prueba (
     id INTEGER PRIMARY KEY,
     enunciado_id INT CONSTRAINT enunciado_id_exists REFERENCES enunciado(id),
     nombre VARCHAR(40) NOT NULL,
-    parametros TEXT NOT NULL,
+    parametros VARCHAR(255) NOT NULL,
     retorno INT,
     tiempo_cpu FLOAT,
     descripcion VARCHAR(255)

@@ -21,7 +21,7 @@ e3 = d.add_enunciado(u'Más enunciados', u'Ejercicio anónimo')
 c = Curso(2007, 1, 1, u'Martes', [d], [e1, e2])
 
 cp1 = e1.add_caso_de_prueba(u'Sin parámetros', retorno=0, descripcion=u'Un caso')
-cp2 = e1.add_caso_de_prueba(u'2 parámetross', retorno=0, parametros=('--test', '-c'))
+cp2 = e1.add_caso_de_prueba(u'2 parámetross', retorno=0, parametros='--test -c')
 
 ej1 = c.ejercicios[0]
 ej1.grupal = True

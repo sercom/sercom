@@ -23,20 +23,18 @@
 	<td><span py:replace="XML(record.desc)">descripcion</span></td>
     </tr>
     <tr>
+        <th>Parámetros:</th>
+	<td>
+            <span py:if="record.parametros" py:replace="params2str(record.parametros)">--parámetros</span>:
+	</td>
+    </tr>
+    <tr>
         <th>Código de retorno:</th>
 	<td><span py:replace="record.retorno">retorno</span></td>
     </tr>
     <tr>
         <th>Tiempo de CPU:</th>
 	<td><span py:replace="record.tiempo_cpu">tiempo_cpu</span></td>
-    </tr>
-    <tr>
-        <th>Parámetros:</th>
-	<td>
-		<span py:for="p in record.parametros">
-			<span py:replace="p">parámetro</span>
-		</span>
-	</td>
     </tr>
 </table>
 
