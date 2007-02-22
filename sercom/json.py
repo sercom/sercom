@@ -6,28 +6,40 @@
 # @jsonify can convert your objects to following types:
 # lists, dicts, numbers and strings
 
-from turbojson.jsonify import jsonify
+from turbojson.jsonify import jsonify #, jsonify_sqlobject
+from sercom.model import SQLObject, Rol, Usuario, Permiso
 
-from turbojson.jsonify import jsonify_sqlobject
-from sercom.model import User, Group, Permission
-
-@jsonify.when('isinstance(obj, Group)')
-def jsonify_group(obj):
-    result = jsonify_sqlobject( obj )
-    result["users"] = [u.user_name for u in obj.users]
-    result["permissions"] = [p.permission_name for p in obj.permissions]
+#@jsonify.when('isinstance(obj, SQLObject')
+def jsonify_sqlobject(obj):
+    result = {}
+    result['id'] = obj.id
+    cls = obj.sqlmeta.soClass
+    for name in cls.sqlmeta.columns.keys():
+        if name != 'childName':
+            result[name] = getattr(obj, name)
+    while cls.sqlmeta.parentClass:
+        cls = cls.sqlmeta.parentClass
+        for name in cls.sqlmeta.columns.keys():
+            if name != 'childName':
+                result[name] = getattr(obj, name)
     return result
 
-@jsonify.when('isinstance(obj, User)')
+@jsonify.when('isinstance(obj, Rol)')
+def jsonify_rol(obj):
+    result = jsonify_sqlobject(obj)
+    result["usuarios"] = [u.usuario for u in obj.usuarios]
+    result["permisos"] = [p.nombre for p in obj.permisos]
+    return result
+
+@jsonify.when('isinstance(obj, Usuario)')
 def jsonify_user(obj):
-    result = jsonify_sqlobject( obj )
-    del result['password']
-    result["groups"] = [g.group_name for g in obj.groups]
-    result["permissions"] = [p.permission_name for p in obj.permissions]
+    result = jsonify_sqlobject(obj)
+    del result['contrasenia']
+    result["roles"] = [r.nombre for r in obj.roles]
+    result["permisos"] = [p.nombre for p in obj.permisos]
     return result
 
-@jsonify.when('isinstance(obj, Permission)')
+@jsonify.when('isinstance(obj, Permiso)')
 def jsonify_permission(obj):
-    result = jsonify_sqlobject( obj )
-    result["groups"] = [g.group_name for g in obj.groups]
-    return result
+    return dict(nombre=obj.nombre, descripcion=obj.descripcion)
+

@@ -194,9 +194,11 @@ class Usuario(InheritableSQLObject, ByObject): #{{{
 
     def _get_permissions(self): # para identity
         perms = set()
-        for g in self.groups:
-            perms.update(g.permisos)
+        for r in self.roles:
+            perms.update(r.permisos)
         return perms
+
+    _get_permisos = _get_permissions
 
     def _set_password(self, cleartext_password): # para identity
         self.contrasenia = encryptpw(cleartext_password)
