@@ -1,4 +1,5 @@
 from docente import DocenteController
 from alumno import AlumnoController
+from curso import CursoController
 from enunciado import EnunciadoController
 from caso_de_prueba import CasoDePruebaController
