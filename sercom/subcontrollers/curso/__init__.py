@@ -32,17 +32,17 @@ def validate_new(data):
 
 #{{{ Formulario
 class CursoForm(W.TableForm):
-    fields = [
-        W.TextField(name='anio', label=_(u'Anio'),
+    class Fields(W.WidgetsList):
+        anio = W.TextField(label=_(u'Anio'),
             help_text=_(u'Requerido y único.'),
             validator=V.Number(min=4, max=4, strip=True)),
-        W.TextField(name='cuatrimestre', label=_(u'Cuatrimestre'),
+        cuatrimestre = W.TextField(label=_(u'Cuatrimestre'),
             help_text=_(u'Requerido.'),
             validator=V.Number(min=1, max=1, strip=True)),
-        W.TextField(name='numero', label=_(u'Numero'),
+        numero = W.TextField(label=_(u'Numero'),
             help_text=_(u'Requerido'),
             validator=V.Number(min=1, max=2, strip=True)),
-    ]
+    fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('anio');")]
         # ver que otros campos agregar.
 """

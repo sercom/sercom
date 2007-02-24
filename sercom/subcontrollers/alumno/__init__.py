@@ -32,34 +32,34 @@ def validate_new(data):
 
 #{{{ Formulario
 class AlumnoForm(W.TableForm):
-    fields = [
-        W.TextField(name='padron', label=_(u'Padrón'),
+    class Fields(W.WidgetsList):
+        padron = W.TextField(label=_(u'Padrón'),
             help_text=_(u'Requerido y único.'),
-            validator=V.UnicodeString(min=3, max=10, strip=True)),
-        W.TextField(name='nombre', label=_(u'Nombre'),
+            validator=V.UnicodeString(min=3, max=10, strip=True))
+        nombre = W.TextField(label=_(u'Nombre'),
             help_text=_(u'Requerido.'),
-            validator=V.UnicodeString(min=10, max=255, strip=True)),
-        W.TextField(name='email', label=_(u'E-Mail'),
+            validator=V.UnicodeString(min=10, max=255, strip=True))
+        email = W.TextField(label=_(u'E-Mail'),
             #help_text=_(u'Dirección de e-mail.'),
             validator=V.All(
                 V.Email(not_empty=False, resolve_domain=True),
-                V.UnicodeString(not_empty=False, max=255, strip=True))),
-        W.TextField(name='telefono', label=_(u'Teléfono'),
+                V.UnicodeString(not_empty=False, max=255, strip=True)))
+        telefono = W.TextField(label=_(u'Teléfono'),
             #help_text=_(u'Texto libre para teléfono, se puede incluir '
             #    'horarios o varias entradas.'),
             validator=V.UnicodeString(not_empty=False, min=7, max=255,
-                strip=True)),
-        W.TextField(name='nota', label=_(u'Nota'),
+                strip=True))
+        nota = W.TextField(label=_(u'Nota'),
             #help_text=_(u'Texto libre para teléfono, se puede incluir '
             #    'horarios o varias entradas.'),
-            validator=V.Number(not_empty=False, strip=True)),
-        W.TextArea(name='observaciones', label=_(u'Observaciones'),
+            validator=V.Number(not_empty=False, strip=True))
+        observaciones = W.TextArea(label=_(u'Observaciones'),
             #help_text=_(u'Observaciones.'),
-            validator=V.UnicodeString(not_empty=False, strip=True)),
-        W.CheckBox(name='activo', label=_(u'Activo'), default=1,
+            validator=V.UnicodeString(not_empty=False, strip=True))
+        activo = W.CheckBox(label=_(u'Activo'), default=1,
             #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
-            validator=V.Bool(if_empty=1)),
-    ]
+            validator=V.Bool(if_empty=1))
+    fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_padron');")]
 
 form = AlumnoForm()

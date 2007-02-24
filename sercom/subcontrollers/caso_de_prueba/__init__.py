@@ -56,22 +56,22 @@ def get_options():
         for fk in fkcls.select()]
 
 class CasoDePruebaForm(W.TableForm):
-    fields = [
-        W.TextField(name='nombre', label=_(u'Nombre'),
+    class Fields(W.WidgetsList):
+        nombre = W.TextField(label=_(u'Nombre'),
             help_text=_(u'Requerido y único.'),
-            validator=V.UnicodeString(min=5, max=60, strip=True)),
-        W.SingleSelectField(name=fkname+'ID', label=_(fkname.capitalize()),
-            options=get_options, validator=V.Int(not_empty=False)),
-        W.TextField(name='descripcion', label=_(u'Descripción'),
+            validator=V.UnicodeString(min=5, max=60, strip=True))
+        fk = W.SingleSelectField(name=fkname+'ID', label=_(fkname.capitalize()),
+            options=get_options, validator=V.Int(not_empty=False))
+        descripcion = W.TextField(label=_(u'Descripción'),
             validator=V.UnicodeString(not_empty=False, max=255,
-                strip=True)),
-        W.TextField(name='parametros', label=_(u'Parámetros'),
-            validator=ParamsValidator(not_empty=False, strip=True)),
-        W.TextField(name='retorno', label=_(u'Código de retorno'),
-            validator=V.Int(not_empty=False, strip=True)),
-        W.TextField(name='tiempo_cpu', label=_(u'Tiempo de CPU'),
-            validator=V.Number(not_empty=False, strip=True)),
-    ]
+                strip=True))
+        parametros = W.TextField(label=_(u'Parámetros'),
+            validator=ParamsValidator(not_empty=False, strip=True))
+        retorno = W.TextField(label=_(u'Código de retorno'),
+            validator=V.Int(not_empty=False, strip=True))
+        tiempo_cpu = W.TextField(label=_(u'Tiempo de CPU'),
+            validator=V.Number(not_empty=False, strip=True))
+    fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');")]
 
 form = CasoDePruebaForm()
