@@ -13,12 +13,12 @@ import logging
 log = logging.getLogger("sercom.controllers")
 
 class LoginForm(W.TableForm):
-    fields = [
-        W.TextField(name='login_user', label=_(u'Usuario'),
-            validator=V.NotEmpty()),
-        W.PasswordField(name='login_password', label=_(u'Contraseña'),
+    class Fields(W.WidgetsList):
+        login_user = W.TextField(label=_(u'Usuario'),
             validator=V.NotEmpty())
-    ]
+        login_password = W.PasswordField(label=_(u'Contraseña'),
+            validator=V.NotEmpty())
+    fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_login_user');")]
     submit = W.SubmitButton(name='login_submit')
     submit_text = _(u'Ingresar')
