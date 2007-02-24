@@ -35,13 +35,13 @@ class CursoForm(W.TableForm):
     class Fields(W.WidgetsList):
         anio = W.TextField(label=_(u'Anio'),
             help_text=_(u'Requerido y único.'),
-            validator=V.Number(min=4, max=4, strip=True)),
+            validator=V.Number(min=4, max=4, strip=True))
         cuatrimestre = W.TextField(label=_(u'Cuatrimestre'),
             help_text=_(u'Requerido.'),
-            validator=V.Number(min=1, max=1, strip=True)),
+            validator=V.Number(min=1, max=1, strip=True))
         numero = W.TextField(label=_(u'Numero'),
             help_text=_(u'Requerido'),
-            validator=V.Number(min=1, max=2, strip=True)),
+            validator=V.Number(min=1, max=2, strip=True))
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('anio');")]
         # ver que otros campos agregar.

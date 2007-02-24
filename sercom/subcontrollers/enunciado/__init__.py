@@ -57,11 +57,11 @@ class EnunciadoForm(W.TableForm):
     class Fields(W.WidgetsList):
         nombre = W.TextField(label=_(u'Nombre'),
             help_text=_(u'Requerido y único.'),
-            validator=V.UnicodeString(min=5, max=60, strip=True)),
+            validator=V.UnicodeString(min=5, max=60, strip=True))
         fk = W.SingleSelectField(name=fkname+'ID', label=_(fkname.capitalize()),
-            options=get_options, validator=V.Int(not_empty=False)),
+            options=get_options, validator=V.Int(not_empty=False))
         descripcion = W.TextField(label=_(u'Descripción'),
-            validator=V.UnicodeString(not_empty=False, max=255, strip=True)),
+            validator=V.UnicodeString(not_empty=False, max=255, strip=True))
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');")]
 
