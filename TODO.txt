@@ -1,6 +1,5 @@
 - Empezar con el backend (luca)
 - Pensar/resolver password en ABM de Docente/Alumno
-- Agregar archivo de enunciado al Enunciado (ricky)
 - Terminar ABM simples:
   * Curso (nico)
     * DocenteInscripto (Docente) (nico)

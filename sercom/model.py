@@ -338,6 +338,9 @@ class Enunciado(SQLObject, ByObject): #{{{
     autor           = ForeignKey('Docente')
     descripcion     = UnicodeCol(length=255, default=None)
     creado          = DateTimeCol(notNone=True, default=DateTimeCol.now)
+    archivo         = BLOBCol(default=None)
+    archivo_name    = StringCol(default=None)
+    archivo_type    = StringCol(default=None)
     # Joins
     ejercicios      = MultipleJoin('Ejercicio')
     casos_de_prueba = MultipleJoin('CasoDePrueba')

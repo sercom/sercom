@@ -10,6 +10,7 @@ from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Enunciado, Docente
+from cherrypy import request, response
 #}}}
 
 #{{{ Configuración
@@ -62,6 +63,7 @@ class EnunciadoForm(W.TableForm):
             options=get_options, validator=V.Int(not_empty=False))
         descripcion = W.TextField(label=_(u'Descripción'),
             validator=V.UnicodeString(not_empty=False, max=255, strip=True))
+        archivo = W.FileField(label=_(u'Archivo'))
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');")]
 
@@ -101,8 +103,11 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     @validate(form=form)
     @error_handler(new)
     @expose()
-    def create(self, **kw):
+    def create(self, archivo, **kw):
         """Save or create record to model"""
+        kw['archivo'] = archivo.file.read()
+        kw['archivo_name'] = archivo.filename
+        kw['archivo_type'] = archivo.type
         validate_new(kw)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
@@ -139,5 +144,13 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         r.destroySelf()
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../list')
+
+    @expose()
+    def files(self, id):
+        r = validate_get(id)
+        response.headers["Content-Type"] = r.archivo_type
+        response.headers["Content-disposition"] = "attachment;filename=%s" % (r.archivo_name)
+        flash(_(u'El %s fue eliminado permanentemente.') % name)
+        return r.archivo
 #}}}
 

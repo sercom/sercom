@@ -26,8 +26,11 @@
         <td><a py:if="len(record.casos_de_prueba)"
                 href="${tg.url('/caso_de_prueba/list', enunciado=record.id)}"><span
                     py:replace="len(record.casos_de_prueba)">cant</span></a></td>
-        <td><a href="${tg.url('/enunciado/edit/%d' % record.id)}">Editar</a>
-            <a href="${tg.url('/enunciado/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
+        <td>
+            <a href="${tg.url('/enunciado/edit/%d' % record.id)}">Editar</a>
+            <a href="${tg.url('/enunciado/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
+            <a py:if="record.archivo" href="${tg.url('/enunciado/files/%d' % record.id)}">Bajar Enunciado</a>
+        </td>
     </tr>
 </table>
 
