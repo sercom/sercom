@@ -456,7 +456,7 @@ class Ejercicio(SQLObject, ByObject): #{{{
 
     def shortrepr(self):
         return '(%s, %s, %s)' \
-            % (self.curso.shortrepr(), self.nombre, \
+            % (self.curso.shortrepr(), str(self.numero), \
                 self.enunciado.shortrepr())
 #}}}
 
