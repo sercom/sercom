@@ -34,6 +34,7 @@
 
 <br/>
 <a href="${tg.url('/entrega/new/'+parcial)}">Agregar</a>
+<a href="${tg.url('/ejercicio/list')}">Volver a Ejericicios</a>
 
 <div py:for="page in tg.paginate.pages">
     <a py:if="page != tg.paginate.current_page"
