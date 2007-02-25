@@ -27,6 +27,7 @@
             <span py:replace="record.grupal">grupal</span>
         </td>
         <td>
+            <a href="${tg.url('/entrega/%d' % record.id)}">Entregas</a>
             <a href="${tg.url('/ejercicio/edit/%d' % record.id)}">Editar</a>
             <a href="${tg.url('/ejercicio/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
         </td>

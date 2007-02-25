@@ -478,9 +478,10 @@ class InstanciaDeEntrega(SQLObject, ByObject): #{{{
 
     def __init__(self, ejercicio=None, numero=None, inicio=None, fin=None,
             observaciones=None, activo=True, tareas=(), **kargs):
-        SQLObject.__init__(self, ejercicioID=ejercicio.id, numero=numero,
-            fin=fin, inicio=inicio, observaciones=observaciones, activo=activo,
-            **kargs)
+        if ejercicio:
+            SQLObject.__init__(self, ejercicioID=ejercicio.id, numero=numero,
+                fin=fin, inicio=inicio, observaciones=observaciones, activo=activo,
+                **kargs)
         if tareas:
             self.tareas = tareas
 

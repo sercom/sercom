@@ -11,6 +11,7 @@ from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Ejercicio, Curso, Enunciado
 from cherrypy import request, response
+
 #}}}
 
 #{{{ Configuración
