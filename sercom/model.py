@@ -442,8 +442,9 @@ class Ejercicio(SQLObject, ByObject): #{{{
 
     def __init__(self, curso=None, numero=None, enunciado=None, grupal=False,
             **kargs):
-        SQLObject.__init__(self, cursoID=curso.id, numero=numero,
-            enunciadoID=enunciado.id, grupal=grupal, **kargs)
+        if curso and enunciado:
+            SQLObject.__init__(self, cursoID=curso.id, numero=numero,
+                enunciadoID=enunciado.id, grupal=grupal, **kargs)
 
     def add_instancia(self, numero, inicio, fin, *args, **kargs):
         return InstanciaDeEntrega(self, numero, inicio, fin, *args, **kargs)
