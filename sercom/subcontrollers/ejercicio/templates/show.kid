@@ -37,8 +37,8 @@
 </table>
 
 <br/>
-<a href="${tg.url('/enunciado/edit/%d' % record.id)}">Editar</a> |
-<a href="${tg.url('/enunciado/list')}">Volver</a>
+<a href="${tg.url('/ejercicio/edit/%d' % record.id)}">Editar</a> |
+<a href="${tg.url('/ejercicio/list')}">Volver</a>
 
 </body>
 </html>
