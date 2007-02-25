@@ -9,18 +9,31 @@
 
 <table>
     <tr>
-        <th>Nombre:</th>
-        <td><span py:replace="record.nombre">nombre</span></td>
+        <th>Curso:</th>
+				<td>
+					<a href="${tg.url('/curso/show/%d' % record.curso.id)}">
+						<span py:replace="record.curso.shortrepr()">nombre</span>
+					</a>
+				</td>
     </tr>
     <tr>
-        <th>Descripción:</th>
-	<td><span py:replace="XML(record.desc)">descripcion</span></td>
+        <th>Número:</th>
+	<td><span py:replace="record.numero">descripcion</span></td>
     </tr>
     <tr>
-        <th>Autor:</th>
-	<td><a py:if="record.autorID is not None"
-			href="${tg.url('/docente/show/%d' % record.autor.id)}"><span py:replace="record.autor.shortrepr()">autor</span></a></td>
+        <th>Enunciado:</th>
+	<td>
+		<a href="${tg.url('/enunciado/show/%d' % record.enunciado.id)}">
+			<span py:replace="record.enunciado.shortrepr()">autor</span>
+		</a>
+	</td>
     </tr>
+    <tr>
+        <th>Es grupal?:</th>
+	<td>
+			<span py:replace="record.grupal">grupal</span>
+	</td>
+  </tr>
 </table>
 
 <br/>

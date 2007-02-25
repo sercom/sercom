@@ -148,10 +148,6 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
     def show(self,id, **kw):
         """Show record in model"""
         r = validate_get(id)
-        if r.descripcion is None:
-            r.desc = ''
-        else:
-            r.desc = publish_parts(r.descripcion, writer_name='html')['html_body']
         return dict(name=name, namepl=namepl, record=r)
 
     @expose()
