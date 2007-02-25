@@ -14,7 +14,12 @@
         <th>Anio</th>
         <th>Cuatrimestre</th>
         <th>Numero</th>
-        <th>Operaciones</th>
+        <th>Descripcion</th>
+        <th>Docentes</th>
+        <th>Alumnos</th>
+        <th>Grupos</th>
+				<th>Ejercicios</th>
+				<th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
         <!--td><input type="checkbox" onclick="var f =
@@ -26,12 +31,11 @@
                     py:replace="record.numero">numero</span></a></td>
         <td><span py:replace="record.cuatrimestre">cuatrimestre</span></td>
         <td><span py:replace="record.anio">anio</span></td>
-        <!--td><a py:if="record.email" href="mailto:${record.email}"><span py:replace="record.email">email</span></a></td>
-        <td><span py:replace="tg.summarize(record.telefono, 10)">telefono</span></td>
-        <td><span py:replace="record.nota">nota</span></td>
-        <td><span py:replace="tg.summarize(record.observaciones, 20)">observaciones</span></td>
-        <td><a py:if="len(record.enunciados)" href="${tg.url('/enunciado/list', autor=record.id)}"><span
-                    py:replace="len(record.enunciados)">cant</span></a></td-->
+        <td><span py:replace="record.descripcion">descripcion</span></td>
+        <td><span py:replace="record.docentes">docentes</span></td>
+        <td><span py:replace="record.alumnos">alumnos</span></td>
+        <td><span py:replace="record.grupos">grupos</span></td>
+        <td><span py:replace="record.ejercicios">ejercicios</span></td>
         <td><a href="${tg.url('/curso/edit/%d' % record.id)}">Editar</a>
             <a href="${tg.url('/curso/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>

@@ -9,38 +9,42 @@
 
 <table>
     <tr>
-        <th>Padrón:</th>
-        <td><span py:replace="record.padron">padrón</span></td>
+        <th>Anio:</th>
+        <td><span py:replace="record.anio">anio</span></td>
     </tr>
     <tr>
-        <th>Nombre:</th>
-	<td><span py:replace="record.nombre">nombre</span></td>
+        <th>Cuatrimestre:</th>
+	<td><span py:replace="record.cuatrimestre">cuatrimestre</span></td>
     </tr>
     <tr>
-        <th>E-Mail:</th>
-	<td><span py:replace="record.email">email</span></td>
+        <th>Numero:</th>
+	<td><span py:replace="record.numero">numero</span></td>
     </tr>
     <tr>
-        <th>Teléfono:</th>
-	<td><span py:replace="record.telefono">telefono</span></td>
+        <th>Descripcion:</th>
+	<td><span py:replace="record.descripcion">descripcion</span></td>
     </tr>
     <tr>
-        <th>Nota:</th>
-	<td><span py:replace="record.nota">nota</span></td>
+        <th>Docentes:</th>
+	<td><span py:replace="record.docentes">docentes</span></td>
     </tr>
     <tr>
-        <th>Activo:</th>
-	<td><span py:replace="record.activo">activo</span></td>
+        <th>Alumnos:</th>
+	<td><span py:replace="record.alumnos">alumnos</span></td>
     </tr>
     <tr>
-        <th>Observaciones:</th>
-	<td><span py:replace="XML(record.obs)">observaciones</span></td>
+        <th>Grupos:</th>
+	<td><span py:replace="record.grupos">grupos</span></td>
+    </tr>
+    <tr>
+        <th>Ejercicios:</th>
+	<td><span py:replace="record.ejercicios">ejercicios</span></td>
     </tr>
 </table>
 
 <br/>
-<a href="${tg.url('/alumno/edit/%d' % record.id)}">Editar</a> |
-<a href="${tg.url('/alumno/list')}">Volver</a>
+<a href="${tg.url('/curso/edit/%d' % record.id)}">Editar</a> |
+<a href="${tg.url('/curso/list')}">Volver</a>
 
 </body>
 </html>

@@ -42,27 +42,23 @@ class CursoForm(W.TableForm):
         numero = W.TextField(label=_(u'Numero'),
             help_text=_(u'Requerido'),
             validator=V.Number(min=1, max=2, strip=True))
+	descripcion = W.TextArea(name='descripcion', label=_(u'Descripcion'),
+            help_text=_(u'Descripcion.'),
+            validator=V.UnicodeString(not_empty=False, strip=True))
+	docentes = W.MultipleSelectField(name="docentes", label=_(u'Docentes'),
+            help_text=_(u'Docentes asignados al curso'),
+            validator=V.UnicodeString(not_empty=True))
+	alumnos = W.MultipleSelectField(name="alumnos", label=_(u'Alumnos'),
+            help_text=_(u'Alumnos del curso'),
+            validator=V.UnicodeString(not_empty=True))
+	grupos = W.MultipleSelectField(name="grupos", label=_(u'Grupos'),
+            help_text=_(u'Grupos del curso'),
+            validator=V.UnicodeString(not_empty=True))
+	ejercicios = W.MultipleSelectField(name="ejercicios", label=_(u'Ejercicios'),
+            help_text=_(u'Ejercicios'),
+            validator=V.UnicodeString(not_empty=True))
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('anio');")]
-        # ver que otros campos agregar.
-"""
-        W.TextField(name='telefono', label=_(u'Teléfono'),
-            #help_text=_(u'Texto libre para teléfono, se puede incluir '
-            #    'horarios o varias entradas.'),
-            validator=V.UnicodeString(not_empty=False, min=7, max=255,
-                strip=True)),
-        W.TextField(name='nota', label=_(u'Nota'),
-            #help_text=_(u'Texto libre para teléfono, se puede incluir '
-            #    'horarios o varias entradas.'),
-            validator=V.Number(not_empty=False, strip=True)),
-        W.TextArea(name='observaciones', label=_(u'Observaciones'),
-            #help_text=_(u'Observaciones.'),
-            validator=V.UnicodeString(not_empty=False, strip=True)),
-        W.CheckBox(name='activo', label=_(u'Activo'), default=1,
-            #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
-            validator=V.Bool(if_empty=1)),
-"""
-
 form = CursoForm()
 #}}}
 
@@ -130,10 +126,6 @@ class CursoController(controllers.Controller, identity.SecureResource):
     def show(self,id, **kw):
         """Show record in model"""
         r = validate_get(id)
-        if r.observaciones is None:
-            r.obs = ''
-        else:
-            r.obs = publish_parts(r.observaciones, writer_name='html')['html_body']
         return dict(name=name, namepl=namepl, record=r)
 
     @expose()
