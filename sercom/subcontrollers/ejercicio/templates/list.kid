@@ -18,7 +18,7 @@
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-        <td><a href="${tg.url('/ejercicio/show/%d' % record.id)}"><span py:replace="record.curso.shortrepr()">curso</span></a></td>
+        <td><a href="${tg.url('/curso/show/%d' % record.id)}"><span py:replace="record.curso.shortrepr()">curso</span></a></td>
         <td><span py:replace="record.numero">numero</span></td>
         <td><a py:if="record.enunciadoID is not None"
                 href="${tg.url('/enunciado/show/%d' % record.enunciado.id)}"><span
