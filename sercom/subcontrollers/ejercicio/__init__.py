@@ -12,6 +12,8 @@ from sercom.subcontrollers import validate as val
 from sercom.model import Ejercicio, Curso, Enunciado
 from cherrypy import request, response
 
+from entrega import  *
+
 #}}}
 
 #{{{ Configuración
@@ -98,6 +100,8 @@ form = EjercicioForm()
 class EjercicioController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_permission('admin')
+
+    entrega = EntregaController()
 
     @expose()
     def default(self, tg_errors=None):

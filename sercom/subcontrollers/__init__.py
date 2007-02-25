@@ -4,4 +4,3 @@ from curso import CursoController
 from enunciado import EnunciadoController
 from caso_de_prueba import CasoDePruebaController
 from ejercicio import EjercicioController
-from entrega import EntregaController

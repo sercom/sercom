@@ -85,8 +85,6 @@ class Root(controllers.RootController):
 
     ejercicio = EjercicioController()
 
-    entrega = EntregaController()
-
     caso_de_prueba = CasoDePruebaController()
 
     curso = CursoController()
