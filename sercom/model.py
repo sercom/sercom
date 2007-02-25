@@ -161,7 +161,7 @@ class Curso(SQLObject, ByObject): #{{{
 
     def shortrepr(self):
         return '%s.%s.%s' \
-            % (self.anio, self.cuatrimestre, str(self.numero))
+            % (self.anio, self.cuatrimestre, self.numero)
 #}}}
 
 class Usuario(InheritableSQLObject, ByObject): #{{{
