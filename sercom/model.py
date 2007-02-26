@@ -339,8 +339,8 @@ class Enunciado(SQLObject, ByObject): #{{{
     descripcion     = UnicodeCol(length=255, default=None)
     creado          = DateTimeCol(notNone=True, default=DateTimeCol.now)
     archivo         = BLOBCol(default=None)
-    archivo_name    = StringCol(default=None)
-    archivo_type    = StringCol(default=None)
+    archivo_name    = UnicodeCol(length=255, default=None)
+    archivo_type    = UnicodeCol(length=255, default=None)
     # Joins
     ejercicios      = MultipleJoin('Ejercicio')
     casos_de_prueba = MultipleJoin('CasoDePrueba')
@@ -406,7 +406,7 @@ class CasoDePrueba(SQLObject): #{{{
     pk              = DatabaseIndex(enunciado, nombre, unique=True)
     # Campos
 #    privado         = IntCol(default=None) TODO iria en instancia_de_entrega_caso_de_prueba
-    parametros      = ParamsCol(length=255)
+    parametros      = ParamsCol(length=255, default=None)
     retorno         = IntCol(default=None)
     tiempo_cpu      = FloatCol(default=None)
     descripcion     = UnicodeCol(length=255, default=None)

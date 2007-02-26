@@ -50,7 +50,10 @@ CREATE TABLE enunciado (
     nombre VARCHAR(60) NOT NULL UNIQUE,
     autor_id INT CONSTRAINT autor_id_exists REFERENCES docente(id),
     descripcion VARCHAR(255),
-    creado TIMESTAMP NOT NULL
+    creado TIMESTAMP NOT NULL,
+    archivo BLOB DEFAULT NULL,
+    archivo_name VARCHAR(255) DEFAULT NULL,
+    archivo_type VARCHAR(255) DEFAULT NULL
 );
 
 CREATE TABLE enunciado_tarea (
@@ -64,7 +67,7 @@ CREATE TABLE caso_de_prueba (
     id INTEGER PRIMARY KEY,
     enunciado_id INT CONSTRAINT enunciado_id_exists REFERENCES enunciado(id),
     nombre VARCHAR(40) NOT NULL,
-    parametros VARCHAR(255) NOT NULL,
+    parametros VARCHAR(255) DEFAULT NULL,
     retorno INT,
     tiempo_cpu FLOAT,
     descripcion VARCHAR(255)
