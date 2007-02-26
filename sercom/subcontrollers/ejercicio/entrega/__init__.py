@@ -98,7 +98,7 @@ class EntregaController(controllers.Controller, identity.SecureResource):
         e = Ejercicio.get(ejercicio_id)
         e.add_instancia(**kw)
         flash(_(u'Se creó un nuevo %s.') % name)
-        raise redirect('/entrega/'+str(e.id))
+        raise redirect('/ejercicio/entrega/'+str(e.id))
 
     @expose()
     def delete(self, id):

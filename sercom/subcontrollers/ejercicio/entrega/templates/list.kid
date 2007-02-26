@@ -27,13 +27,13 @@
         <td><span py:replace="record.activo">activa</span></td>
         <td><span py:replace="record.observaciones">obs</span></td>
         <td>
-            <a href="${tg.url('/entrega/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
+            <a href="${tg.url('/ejercicio/entrega/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
         </td>
     </tr>
 </table>
 
 <br/>
-<a href="${tg.url('/entrega/new/'+parcial)}">Agregar</a>
+<a href="${tg.url('/ejercicio/entrega/new/'+parcial)}">Agregar</a>
 <a href="${tg.url('/ejercicio/list')}">Volver a Ejericicios</a>
 
 <div py:for="page in tg.paginate.pages">
