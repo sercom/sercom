@@ -841,7 +841,10 @@ class Rol(SQLObject): #{{{
 # No es un SQLObject porque no tiene sentido agregar/sacar permisos, están
 # hardcodeados en el código
 class Permiso(object): #{{{
+    max_valor = 1
     def __init__(self, nombre, descripcion):
+        self.valor = Permiso.max_valor
+        Permiso.max_valor <<= 1
         self.nombre = nombre
         self.descripcion = descripcion
 
@@ -852,6 +855,12 @@ class Permiso(object): #{{{
     @property
     def permission_name(self): # para identity
         return self.nombre
+
+    def __and__(self, other):
+        return self.valor & other.valor
+
+    def __or__(self, other):
+        return self.valor | other.valor
 
     def __repr__(self):
         return self.nombre
