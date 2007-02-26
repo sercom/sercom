@@ -49,7 +49,7 @@ class TupleCol(PickleCol):
 
 class ParamsValidator(UnicodeStringValidator):
     def to_python(self, value, state):
-        if isinstance(value, basestring):
+        if isinstance(value, basestring) or value is None:
             value = super(ParamsValidator, self).to_python(value, state)
             try:
                 value = params_to_list(value)
@@ -64,7 +64,7 @@ class ParamsValidator(UnicodeStringValidator):
     def from_python(self, value, state):
         if isinstance(value, (list, tuple)):
             value = ' '.join([repr(p) for p in value])
-        elif isinstance(value, basestring):
+        elif isinstance(value, basestring) or value is None:
             value = super(ParamsValidator, self).to_python(value, state)
             try:
                 params_to_list(value)
