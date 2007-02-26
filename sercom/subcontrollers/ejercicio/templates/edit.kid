@@ -9,6 +9,10 @@
 
 <h1>Modificación de <span py:replace="name">Objeto</span></h1>
 
+<div id="hint">
+	Buscando registros ...
+</div>
+
 <div py:replace="form(value=record, action=tg.url('/ejercicio/update/%d' % record.id),
 	submit_text=_(u'Guardar'))">Formulario</div>
 
