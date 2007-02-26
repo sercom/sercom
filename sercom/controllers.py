@@ -1,6 +1,6 @@
 # vim: set et sw=4 sts=4 encoding=utf-8 :
 
-from turbogears import controllers, expose, view
+from turbogears import controllers, expose, view, url
 from turbogears import widgets as W, validators as V
 from turbogears import identity, redirect
 from cherrypy import request, response

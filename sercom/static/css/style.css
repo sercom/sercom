@@ -181,3 +181,8 @@ table.list td {
 	background: #fec;
 }
 
+#navbar {
+	position:float;
+	float:right;
+}
+

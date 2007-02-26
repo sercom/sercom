@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <?python import sitetemplate ?>
+<?python from sercom.menu import menu ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#" py:extends="sitetemplate">
 
 <head py:match="item.tag=='{http://www.w3.org/1999/xhtml}head'" py:attrs="item.items()">
@@ -33,6 +34,15 @@
     </div>
     <div py:if="tg_flash" class="flash" py:content="tg_flash"></div>
 
+		<div id="navbar">
+			Ir a :
+			<select OnChange="window.location=this.options[this.selectedIndex].value;">
+				<option value="${tg.url('/')}">Inicio</option>
+				<option py:for="i in menu" value="${tg.url(i['url'])}">
+				${i['name']}
+				</option>
+			</select>
+		</div>
     <div py:replace="[item.text]+item[:]"/>
 
 	<!-- End of main_content -->
