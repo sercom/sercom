@@ -14,6 +14,7 @@
         <th>Curso</th>
         <th>Nombre</th>
         <th>Responsable</th>
+        <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
         <td><span py:replace="record.curso.shortrepr()">curso</span></td>

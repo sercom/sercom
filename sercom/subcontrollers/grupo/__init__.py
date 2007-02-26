@@ -17,16 +17,36 @@ from sercom.model import Curso, AlumnoInscripto, Docente, Grupo
 cls = Grupo
 name = 'grupo'
 namepl = 'grupos'
+
+fkcls = Curso
+fkname = 'curso'
+fknamepl = fkname + 's'
 #}}}
 
 #{{{ Validación
+def validate_fk(data):
+    fk = data.get(fkname + 'ID', None)
+    if fk == 0: fk = None
+    if fk is not None:
+        try:
+            fk = fkcls.get(fk)
+        except LookupError:
+            flash(_(u'No se pudo crear el nuevo %s porque el %s con '
+                'identificador %d no existe.' % (name, fkname, fk)))
+            raise redirect('new', **data)
+    data.pop(fkname + 'ID', None)
+    data[fkname] = fk
+    return fk
+
 def validate_get(id):
     return val.validate_get(cls, name, id)
 
 def validate_set(id, data):
+    validate_fk(data)
     return val.validate_set(cls, name, id, data)
 
 def validate_new(data):
+    validate_fk(data)
     return val.validate_new(cls, name, data)
 #}}}
 
@@ -39,7 +59,7 @@ def get_cursos():
 
 class GrupoForm(W.TableForm):
     class Fields(W.WidgetsList):
-       curso = W.SingleSelectField(label=_(u'Curso'), options = get_cursos,
+       curso = W.SingleSelectField(name='cursoID', label=_(u'Curso'), options = get_cursos,
        validator = V.Int(not_empty=True))
        nombre = W.TextField(label=_(u'Nombre'), validator=V.UnicodeString(not_empty=True,strip=True))
 
