@@ -147,23 +147,29 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
     def from_file(self):
         return dict()
 
-    @expose()
+    @expose(template='kid:%s.templates.import_results' % __name__)
     def from_file_add(self, archivo):
         """ Se espera :
              padron,nombre,email,telefono
         """
         import csv
         lines = archivo.file.read().split('\n')
+        ok = []
+        fail = []
         for line in lines:
             for row in csv.reader([line]):
                 if row == []:
                     continue
-                print row[1]
-                u = Alumno(row[0], nombre=row[1])
-                u.email = row[2]
-                u.telefono = row[3]
-                u.contrasenia = row[0]
-                u.activo = True
-        raise redirect('./list')
+                try:
+                    u = Alumno(row[0], nombre=row[1])
+                    u.email = row[2]
+                    u.telefono = row[3]
+                    u.contrasenia = row[0]
+                    u.activo = True
+                    ok.append(row)
+                except Exception, e:
+                    row.append(str(e))
+                    fail.append(row)
+        return dict(ok=ok, fail=fail)
 #}}}
 
