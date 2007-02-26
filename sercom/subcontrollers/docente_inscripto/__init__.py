@@ -10,7 +10,7 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import DocenteInscripto
+from sercom.model import DocenteInscripto, Curso, Docente
 #}}}
 
 #{{{ Configuración
@@ -31,21 +31,25 @@ def validate_new(data):
 #}}}
 
 #{{{ Formulario
+def get_docentes():
+    return [(fk1.id, fk1.shortrepr()) for fk1 in Docente.select()]
+
+def get_cursos():
+    return [(fk1.id, fk1.shortrepr()) for fk1 in Curso.select()]
+
 class DocenteInscriptoForm(W.TableForm):
     class Fields(W.WidgetsList):
-       curso = W.SingleSelectField(label=_(u'Curso'),
-            help_text=_(u'Requerido'),
-       docente = W.SingleSelectField(label=_(u'Docente'),
-            help_text=_(u'Requerido'),
-       corrige = W.CheckBoxField(label=_(u'Corrige'), options=[(1='Corrige')],
-            help_text=_(u'Requerido.'),
-            validator=V.Number(min=1, max=1, strip=True))
+       curso = W.SingleSelectField(label=_(u'Curso'), options = get_cursos,
+       validator = V.Int(not_empty=True))
+
+       docente = W.SingleSelectField(label=_(u'Docente'), options = get_docentes,
+       validator = V.Int(not_empty=True))
+
+       corrige = W.CheckBox(label=_(u'Corrige'))
+
        observaciones = W.TextArea(name='observaciones', label=_(u'Observaciones'),
-            help_text=_(u'Observaciones'),
             validator=V.UnicodeString(not_empty=False, strip=True))
-       #alumnos = W.MultipleSelectField(name="alumnos", label=_(u'Alumnos'),
-       #    help_text=_(u'Alumnos del DocenteInscripto'),
-       #    validator=V.UnicodeString(not_empty=True))
+
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('curso');")]
 form = DocenteInscriptoForm()

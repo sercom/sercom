@@ -88,8 +88,8 @@ class Root(controllers.RootController):
     caso_de_prueba = CasoDePruebaController()
 
     curso = CursoController()
-
-    docente_inscripto = DocenteInscripto()
+    
+    docente_inscripto = DocenteInscriptoController()
 
 #{{{ Agrega summarize a namespace tg de KID
 def summarize(text, size, concat=True, continuation='...'):

@@ -10,7 +10,7 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Curso
+from sercom.model import Curso, Ejercicio, Alumno, Docente, Grupo
 #}}}
 
 #{{{ Configuración
@@ -30,6 +30,18 @@ def validate_new(data):
     return val.validate_new(cls, name, data)
 #}}}
 
+def get_ejercicios():
+    return [(fk1.id, fk1.shortrepr()) for fk1 in Ejercicio.select()]
+
+def get_docentes():
+    return [(fk1.id, fk1.shortrepr()) for fk1 in Docente.select()]
+
+def get_alumnos():
+    return [(fk1.id, fk1.shortrepr()) for fk1 in Alumno.select()]
+
+def get_grupos():
+    return [(fk1.id, fk1.shortrepr()) for fk1 in Grupo.select()]
+
 #{{{ Formulario
 class CursoForm(W.TableForm):
     class Fields(W.WidgetsList):
@@ -42,21 +54,21 @@ class CursoForm(W.TableForm):
         numero = W.TextField(label=_(u'Numero'),
             help_text=_(u'Requerido'),
             validator=V.Number(min=1, max=2, strip=True))
-	descripcion = W.TextArea(name='descripcion', label=_(u'Descripcion'),
+        descripcion = W.TextArea(name='descripcion', label=_(u'Descripcion'),
             help_text=_(u'Descripcion.'),
             validator=V.UnicodeString(not_empty=False, strip=True))
-	docentes = W.MultipleSelectField(name="docentes", label=_(u'Docentes'),
-            help_text=_(u'Docentes asignados al curso'),
-            validator=V.UnicodeString(not_empty=True))
-	alumnos = W.MultipleSelectField(name="alumnos", label=_(u'Alumnos'),
-            help_text=_(u'Alumnos del curso'),
-            validator=V.UnicodeString(not_empty=True))
-	grupos = W.MultipleSelectField(name="grupos", label=_(u'Grupos'),
-            help_text=_(u'Grupos del curso'),
-            validator=V.UnicodeString(not_empty=True))
-	ejercicios = W.MultipleSelectField(name="ejercicios", label=_(u'Ejercicios'),
-            help_text=_(u'Ejercicios'),
-            validator=V.UnicodeString(not_empty=True))
+#       docentes = W.MultipleSelectField(name="docentes", label=_(u'Docentes'),
+#           help_text=_(u'Docentes asignados al curso'), options=get_docentes,
+#           validator=V.Int(not_empty=True))
+#        alumnos = W.MultipleSelectField(name="alumnos", label=_(u'Alumnos'),
+#            help_text=_(u'Alumnos del curso'), options=get_alumnos,
+#            validator=V.Int(not_empty=True))
+#        grupos = W.MultipleSelectField(name="grupos", label=_(u'Grupos'),
+#           help_text=_(u'Grupos del curso'), options=get_grupos,
+#           validator=V.Int(not_empty=False))
+#       ejercicios = W.MultipleSelectField(name="ejercicios", label=_(u'Ejercicios'),
+#           help_text=_(u'Ejercicios'), options=get_ejercicios,
+#           validator=V.Int(not_empty=True))
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('anio');")]
 form = CursoForm()
