@@ -334,6 +334,8 @@ class Tarea(InheritableSQLObject, ByObject): #{{{
 class Enunciado(SQLObject, ByObject): #{{{
     # Clave
     nombre          = UnicodeCol(length=60, alternateID=True)
+    cuatrimestre    = IntCol(notNone=True)
+    numero          = IntCol(notNone=True)
     # Campos
     autor           = ForeignKey('Docente')
     descripcion     = UnicodeCol(length=255, default=None)
@@ -351,6 +353,9 @@ class Enunciado(SQLObject, ByObject): #{{{
             descripcion=descripcion, **kargs)
         if tareas:
             self.tareas = tareas
+
+    def selectByCurso(self, curso):
+        return Enunciado.selectBy(cuatrimestre=curso.cuatrimestre, numero=curso.numero)
 
     def add_caso_de_prueba(self, nombre, *args, **kargs):
         return CasoDePrueba(self, nombre, *args, **kargs)
