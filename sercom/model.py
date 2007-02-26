@@ -268,6 +268,16 @@ class Alumno(Usuario): #{{{
 #}}}
 
 class Tarea(InheritableSQLObject, ByObject): #{{{
+    class sqlmeta:
+        createSQL = r'''
+CREATE TABLE dependencia (
+    padre_id INTEGER NOT NULL CONSTRAINT tarea_id_exists
+        REFERENCES tarea(id),
+    hijo_id INTEGER NOT NULL CONSTRAINT tarea_id_exists
+        REFERENCES tarea(id),
+    orden INT,
+    PRIMARY KEY (padre_id, hijo_id)
+)'''
     # Clave
     nombre          = UnicodeCol(length=30, alternateID=True)
     # Campos
@@ -323,6 +333,16 @@ class Tarea(InheritableSQLObject, ByObject): #{{{
 #}}}
 
 class Enunciado(SQLObject, ByObject): #{{{
+    class sqlmeta:
+        createSQL = r'''
+CREATE TABLE enunciado_tarea (
+    enunciado_id INTEGER NOT NULL CONSTRAINT enunciado_id_exists
+        REFERENCES enunciado(id),
+    tarea_id INTEGER NOT NULL CONSTRAINT tarea_id_exists
+        REFERENCES tarea(id),
+    orden INT,
+    PRIMARY KEY (enunciado_id, tarea_id)
+)'''
     # Clave
     nombre          = UnicodeCol(length=60)
     anio            = IntCol(notNone=True)
@@ -447,6 +467,16 @@ class Ejercicio(SQLObject, ByObject): #{{{
 #}}}
 
 class InstanciaDeEntrega(SQLObject, ByObject): #{{{
+    class sqlmeta:
+        createSQL = r'''
+CREATE TABLE instancia_tarea (
+    instancia_id INTEGER NOT NULL CONSTRAINT instancia_id_exists
+        REFERENCES instancia_de_entrega(id),
+    tarea_id INTEGER NOT NULL CONSTRAINT tarea_id_exists
+        REFERENCES tarea(id),
+    orden INT,
+    PRIMARY KEY (instancia_id, tarea_id)
+)'''
     # Clave
     ejercicio       = ForeignKey('Ejercicio', notNone=True)
     numero          = IntCol(notNone=True)
