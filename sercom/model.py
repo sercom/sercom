@@ -235,8 +235,8 @@ class Docente(Usuario): #{{{
     def add_entrega(self, instancia, *args, **kargs):
         return Entrega(instancia, *args, **kargs)
 
-    def add_enunciado(self, nombre, *args, **kargs):
-        return Enunciado(nombre, self, *args, **kargs)
+    def add_enunciado(self, nombre, anio, cuatrimestre, *args, **kargs):
+        return Enunciado(nombre, anio, cuatrimestre, self, *args, **kargs)
 
     def __repr__(self):
         return 'Docente(id=%s, usuario=%s, nombre=%s, password=%s, email=%s, ' \
@@ -333,9 +333,10 @@ class Tarea(InheritableSQLObject, ByObject): #{{{
 
 class Enunciado(SQLObject, ByObject): #{{{
     # Clave
-    nombre          = UnicodeCol(length=60, alternateID=True)
+    nombre          = UnicodeCol(length=60)
     anio            = IntCol(notNone=True)
     cuatrimestre    = IntCol(notNone=True)
+    pk              = DatabaseIndex(nombre, anio, cuatrimestre, unique=True)
     # Campos
     autor           = ForeignKey('Docente')
     descripcion     = UnicodeCol(length=255, default=None)
@@ -347,10 +348,11 @@ class Enunciado(SQLObject, ByObject): #{{{
     ejercicios      = MultipleJoin('Ejercicio')
     casos_de_prueba = MultipleJoin('CasoDePrueba')
 
-    def __init__(self, nombre=None, autor=None, descripcion=None, tareas=(),
-            **kargs):
-        SQLObject.__init__(self, nombre=nombre, autorID=autor and autor.id,
-            descripcion=descripcion, **kargs)
+    def __init__(self, nombre=None, anio=None, cuatrimestre=None, autor=None,
+            descripcion=None, tareas=(), **kargs):
+        SQLObject.__init__(self, nombre=nombre, descripcion=descripcion,
+            anio=anio, autorID=autor and autor.id, cuatrimestre=cuatrimestre,
+            **kargs)
         if tareas:
             self.tareas = tareas
 

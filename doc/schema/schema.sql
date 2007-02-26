@@ -47,7 +47,9 @@ CREATE TABLE dependencia (
 
 CREATE TABLE enunciado (
     id INTEGER PRIMARY KEY,
-    nombre VARCHAR(60) NOT NULL UNIQUE,
+    nombre VARCHAR(60) NOT NULL,
+    anio INTEGER NOT NULL,
+    cuatrimestre INTEGER NOT NULL,
     autor_id INT CONSTRAINT autor_id_exists REFERENCES docente(id),
     descripcion VARCHAR(255),
     creado TIMESTAMP NOT NULL,
@@ -55,6 +57,7 @@ CREATE TABLE enunciado (
     archivo_name VARCHAR(255) DEFAULT NULL,
     archivo_type VARCHAR(255) DEFAULT NULL
 );
+CREATE UNIQUE INDEX enunciado_pk ON enunciado (nombre, anio, cuatrimestre);
 
 CREATE TABLE enunciado_tarea (
     enunciado_id INTEGER NOT NULL CONSTRAINT enunciado_id_exists REFERENCES enunciado(id),

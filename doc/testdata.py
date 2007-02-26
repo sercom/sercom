@@ -14,9 +14,9 @@ t2 = Tarea('probar', dependencias=(t1,))
 t3 = Tarea(u'configurar detector de copias')
 t4 = Tarea(u'detectar copias', dependencias=(t3, t2))
 
-e1 = Enunciado(u'Un enunciado', d, u'Ejercicio reeee jodido', (t4,))
-e2 = Enunciado(u'Otro enunciado', d, u'Ejercicio facilongo', (t2, t4))
-e3 = d.add_enunciado(u'Más enunciados', u'Ejercicio anónimo')
+e1 = Enunciado(u'Un enunciado', 2007, 1, d, u'Ejercicio reeee jodido', (t4,))
+e2 = Enunciado(u'Otro enunciado', 2007, 1, d, u'Ejercicio facilongo', (t2, t4))
+e3 = d.add_enunciado(u'Más enunciados', 2007, 1, u'Ejercicio anónimo')
 
 c = Curso(2007, 1, 1, u'Martes', [d], [e1, e2])
 
