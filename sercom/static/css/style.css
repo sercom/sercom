@@ -173,3 +173,11 @@ table.list td {
 	padding-bottom: 5px;
 }
 
+.tableform input, textarea {
+	border: 1px solid black;
+}
+
+.tableform input:focus, select:focus, textarea:focus {
+	background: #fec;
+}
+
