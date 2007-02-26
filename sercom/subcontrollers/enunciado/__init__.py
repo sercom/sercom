@@ -9,7 +9,7 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Enunciado, Docente
+from sercom.model import Enunciado, Docente, Curso
 from cherrypy import request, response
 #}}}
 
@@ -56,6 +56,12 @@ def get_options():
 
 class EnunciadoForm(W.TableForm):
     class Fields(W.WidgetsList):
+        anio = W.TextField(label=_(u'Año'),
+            help_text=_(u'Requerido.'),
+            validator=V.Number(min=4, max=4, strip=True))
+        cuatrimestre = W.TextField(label=_(u'Cuatrimestre'),
+            help_text=_(u'Requerido.'),
+            validator=V.Number(min=1, max=1, strip=True))
         nombre = W.TextField(label=_(u'Nombre'),
             help_text=_(u'Requerido y único.'),
             validator=V.UnicodeString(min=5, max=60, strip=True))
@@ -152,5 +158,11 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         response.headers["Content-disposition"] = "attachment;filename=%s" % (r.archivo_name)
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         return r.archivo
+
+    @expose("json")
+    def de_curso(self, curso_id):
+        c = Curso.get(curso_id)
+        e = Enunciado.selectByCurso(c)
+        return dict(enunciados=e)
 #}}}
 

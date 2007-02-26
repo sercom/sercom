@@ -11,13 +11,17 @@
 
 <table class="list">
     <tr>
+        <th>Cuatrimestre</th>
+        <th>Año</th>
         <th>Nombre</th>
         <th>Descripción</th>
         <th>Autor</th>
         <th title="Casos de Prueba">CP</th>
         <th>Operaciones</th>
     </tr>
-    <tr py:for="record in records">
+		<tr py:for="record in records">
+        <td><span py:replace="record.cuatrimestre">descripción</span></td>
+        <td><span py:replace="record.anio">descripción</span></td>
         <td><a href="${tg.url('/enunciado/show/%d' % record.id)}"><span py:replace="record.nombre">nombre</span></a></td>
         <td><span py:replace="tg.summarize(record.descripcion, 30)">descripción</span></td>
         <td><a py:if="record.autorID is not None"
