@@ -11,7 +11,7 @@
 
 <div class="help">
 Desde acá podrá hacer una importación masiva de una lista de alumnos desde un archivo en formato
-CVS (texto separado por comas).
+CSV (texto separado por comas).
 <br /><br />
 Se espera que el archivo tenga las siguientes columnas :
 <blockquote>
