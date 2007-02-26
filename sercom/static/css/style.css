@@ -2,13 +2,18 @@
  * Quick mash-up of CSS for the TG quick start page.
  */
 
-html, body, th, td {
+html, th, td {
   color: black;
   background-color: #ddd;
   font: x-small "Lucida Grande", "Lucida Sans Unicode", geneva, verdana, sans-serif;
   margin: 0;
   padding: 0;
 }
+
+body {
+	margin-top: 15px;
+}
+
 
 #header {
   height: 80px;
@@ -17,6 +22,7 @@ html, body, th, td {
   border-left: 1px solid #aaa;
   border-right: 1px solid #aaa;
   margin: 0 auto 0 auto;
+	text-align: center;
 }
 
 a.link, a, a.active {
@@ -57,6 +63,7 @@ a.link, a, a.active {
 h1,h2,h3,h4,h5,h6,#getting_started_steps {
   font-family: "Century Schoolbook L", Georgia, serif;
   font-weight: bold;
+	font-size: 170%;
 }
 
 h2 {
@@ -136,3 +143,15 @@ table.list td {
 	padding-bottom: 2px;
 	border: none;
 }
+
+#pageLogin {
+	width:100%;
+	border:1px solid black;
+	padding-bottom: 2px;
+	padding-top: 2px;
+}
+
+#pageLogin span {
+	padding: 5px 5px 5px 5px;
+}
+

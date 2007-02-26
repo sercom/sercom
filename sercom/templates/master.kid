@@ -20,8 +20,9 @@
 </head>
 
 <body py:match="item.tag=='{http://www.w3.org/1999/xhtml}body'" py:attrs="item.items()">
-    <div py:if="tg.config('identity.on',False) and not 'logging_in' in locals()"
-        id="pageLogin">
+		<div id="header"><span style="position:relative; top: 90%;">Administrador y Corrector Automático de Trabajos Prácticos</span></div>
+    <div id="main_content">
+    <div py:if="tg.config('identity.on',False) and not 'logging_in' in locals()" id="pageLogin">
         <span py:if="tg.identity.anonymous">
             <a href="/login">Login</a>
         </span>
@@ -30,8 +31,6 @@
             <a href="/logout">Logout</a>
         </span>
     </div>
-    <div id="header">&nbsp;</div>
-    <div id="main_content">
     <div py:if="tg_flash" class="flash" py:content="tg_flash"></div>
 
     <div py:replace="[item.text]+item[:]"/>
