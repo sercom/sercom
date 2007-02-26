@@ -77,8 +77,50 @@ def validate_new(data):
 def get_options():
     return [(0, _(u'--'))] + [(fk.id, fk.shortrepr()) for fk in fkcls.select()]
 
-def get_options1():
-    return [(0, _(u'--'))] + [(fk1.id, fk1.shortrepr()) for fk1 in fk1cls.select()]
+# Un poco de ajax para llenar los cursos
+ajax = """
+    function clearEnunciados ()
+    {
+        l = MochiKit.DOM.getElement('form_enunciadoID');
+        l.options.length = 0;
+    }
+
+    function mostrarEnunciados (res)
+    {
+        clearEnunciados();
+        for(i in res.enunciados) {
+            id = res.enunciados[i].id;
+            label = res.enunciados[i].nombre;
+            MochiKit.DOM.appendChildNodes("form_enunciadoID", OPTION({"value":id}, label))
+        }
+    }
+
+    function err (err)
+    {
+        alert("The metadata for MochiKit.Async could not be fetched :(");
+    }
+
+    function actualizar_enunciados ()
+    {
+        l = MochiKit.DOM.getElement('form_cursoID');
+        id = l.options[l.selectedIndex].value;
+        if (id == 0) {
+            clearEnunciados();
+            return;
+        }
+
+        url = "/enunciado/de_curso?curso_id="+id;
+        var d = loadJSONDoc(url);
+        d.addCallbacks(mostrarEnunciados, err);
+    }
+
+    function prepare()
+    {
+        connect('form_cursoID', 'onchange', actualizar_enunciados);
+    }
+
+    MochiKit.DOM.addLoadEvent(prepare)
+"""
 
 class EjercicioForm(W.TableForm):
     class Fields(W.WidgetsList):
@@ -88,10 +130,10 @@ class EjercicioForm(W.TableForm):
             help_text=_(u'Requerido.'),
             validator=V.Int(not_empty=True))
         fk1 = W.SingleSelectField(name=fk1name+'ID', label=_(fk1name.capitalize()),
-            options=get_options1, validator=V.Int(not_empty=True))
+            validator=V.Int(not_empty=True))
         grupal = W.CheckBox(name='grupal', label=_(u"Grupal?"))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');")]
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');"), W.JSSource(ajax)]
 
 form = EjercicioForm()
 #}}}
