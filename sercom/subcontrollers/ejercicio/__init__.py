@@ -93,6 +93,7 @@ ajax = """
     {
         l = MochiKit.DOM.getElement('form_enunciadoID');
         l.options.length = 0;
+        l.disabled = true;
     }
 
     function mostrarEnunciados (res)
@@ -103,6 +104,7 @@ ajax = """
             label = res.enunciados[i].nombre;
             MochiKit.DOM.appendChildNodes("form_enunciadoID", OPTION({"value":id}, label))
         }
+        l.disabled = false;
         hideHint();
     }
 
@@ -131,6 +133,7 @@ ajax = """
     {
         connect('form_cursoID', 'onchange', actualizar_enunciados);
         hideHint();
+        clearEnunciados();
     }
 
     MochiKit.DOM.addLoadEvent(prepare)
