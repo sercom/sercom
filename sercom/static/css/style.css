@@ -155,3 +155,21 @@ table.list td {
 	padding: 5px 5px 5px 5px;
 }
 
+.tableform table {
+	width:80%;
+	margin-left:10%;
+	border: 1px solid #400;
+}
+
+.tableform th {
+	text-align: right;
+	width: 5%;
+	padding-left:15px;
+}
+
+.tableform td {
+	padding-left: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
