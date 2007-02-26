@@ -79,6 +79,16 @@ def get_options():
 
 # Un poco de ajax para llenar los cursos
 ajax = """
+    function showHint()
+    {
+        MochiKit.DOM.showElement('hint')
+    }
+
+    function hideHint()
+    {
+        MochiKit.DOM.hideElement('hint')
+    }
+
     function clearEnunciados ()
     {
         l = MochiKit.DOM.getElement('form_enunciadoID');
@@ -93,11 +103,13 @@ ajax = """
             label = res.enunciados[i].nombre;
             MochiKit.DOM.appendChildNodes("form_enunciadoID", OPTION({"value":id}, label))
         }
+        hideHint();
     }
 
     function err (err)
     {
         alert("The metadata for MochiKit.Async could not be fetched :(");
+        hideHint();
     }
 
     function actualizar_enunciados ()
@@ -112,11 +124,13 @@ ajax = """
         url = "/enunciado/de_curso?curso_id="+id;
         var d = loadJSONDoc(url);
         d.addCallbacks(mostrarEnunciados, err);
+        showHint();
     }
 
     function prepare()
     {
         connect('form_cursoID', 'onchange', actualizar_enunciados);
+        hideHint();
     }
 
     MochiKit.DOM.addLoadEvent(prepare)

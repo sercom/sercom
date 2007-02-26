@@ -9,6 +9,10 @@
 
 <h1>Crear Nuevo <span py:replace="name">Objeto</span></h1>
 
+<div id="hint">
+	Buscando registros ...
+</div>
+
 <p py:replace="form(action=tg.url('/ejercicio/create'), value=values, submit_text=_('Crear'))">Formulario</p>
 
 <br/>
