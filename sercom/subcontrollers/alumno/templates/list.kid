@@ -41,6 +41,7 @@
 
 <br/>
 <a href="${tg.url('/alumno/new')}">Agregar</a>
+<a href="${tg.url('/alumno/from_file')}">Agregar desde Archivo</a>
 
 <div py:for="page in tg.paginate.pages">
     <a py:if="page != tg.paginate.current_page"

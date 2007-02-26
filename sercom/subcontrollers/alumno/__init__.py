@@ -142,5 +142,28 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
         r.destroySelf()
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../list')
+
+    @expose(template='kid:%s.templates.from_file' % __name__)
+    def from_file(self):
+        return dict()
+
+    @expose()
+    def from_file_add(self, archivo):
+        """ Se espera :
+             padron,nombre,email,telefono
+        """
+        import csv
+        lines = archivo.file.read().split('\n')
+        for line in lines:
+            for row in csv.reader([line]):
+                if row == []:
+                    continue
+                print row[1]
+                u = Alumno(row[0], nombre=row[1])
+                u.email = row[2]
+                u.telefono = row[3]
+                u.contrasenia = row[0]
+                u.activo = True
+        raise redirect('./list')
 #}}}
 
