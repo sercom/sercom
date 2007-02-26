@@ -4,8 +4,6 @@
   * Curso (nico)
     * DocenteInscripto (Docente) (nico)
     * AlumnoInscripto (Alumno) (nico)
-    * Ejercicio (Enunciado) (ricky)
-      * InstanciaDeEntrega (ricky)
     * Grupo
       * Miembro (AlumnoInscripto)
       * Tutor (DocenteInscripto)
