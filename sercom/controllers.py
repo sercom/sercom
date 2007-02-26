@@ -79,6 +79,8 @@ class Root(controllers.RootController):
 
     docente = DocenteController()
 
+    grupo = GrupoController()
+
     alumno = AlumnoController()
 
     enunciado = EnunciadoController()

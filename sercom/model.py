@@ -592,7 +592,8 @@ class Grupo(Entregador): #{{{
 
     def __init__(self, curso=None, nombre=None, responsable=None, **kargs):
         resp_id = responsable and responsable.id
-        InheritableSQLObject.__init__(self, cursoID=curso.id, nombre=nombre,
+        curso_id = curso and curso.id
+        InheritableSQLObject.__init__(self, cursoID=curso_id, nombre=nombre,
             responsableID=resp_id, **kargs)
 
     def add_alumno(self, alumno, *args, **kargs):
