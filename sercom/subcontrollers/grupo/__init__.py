@@ -154,7 +154,22 @@ class GrupoController(controllers.Controller, identity.SecureResource):
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
-        validate_new(kw)
+        responsable = kw['responsable']
+        curso = kw['cursoID']
+        alumno = None
+        try:
+            # Busco el alumno inscripto
+            alumno = AlumnoInscripto.select(AND(Curso.q.id==curso, Alumno.q.usuario==responsable))
+            if alumno.count() > 0:
+                alumno = alumno[0]
+            else:
+                raise Exception
+        except Exception, (inst):
+            flash(_(u'El responsable %s no existe') % responsable)
+            raise redirect('list')
+
+        kw['responsable'] = alumno
+        r = validate_new(kw)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
 
