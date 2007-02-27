@@ -109,16 +109,7 @@ def srepr(obj): #{{{
     return obj
 #}}}
 
-class ByObject(object): #{{{
-    @classmethod
-    def by(cls, **kw):
-        try:
-            return cls.selectBy(**kw)[0]
-        except IndexError:
-            raise SQLObjectNotFound, "The object %s with columns %s does not exist" % (cls.__name__, kw)
-#}}}
-
-class Curso(SQLObject, ByObject): #{{{
+class Curso(SQLObject): #{{{
     # Clave
     anio            = IntCol(notNone=True)
     cuatrimestre    = IntCol(notNone=True)
@@ -162,7 +153,7 @@ class Curso(SQLObject, ByObject): #{{{
             % (self.anio, self.cuatrimestre, self.numero)
 #}}}
 
-class Usuario(InheritableSQLObject, ByObject): #{{{
+class Usuario(InheritableSQLObject): #{{{
     # Clave (para docentes puede ser un nombre de usuario arbitrario)
     usuario         = UnicodeCol(length=10, alternateID=True)
     # Campos
@@ -267,7 +258,7 @@ class Alumno(Usuario): #{{{
                     self.telefono, self.activo, self.creado, self.observaciones)
 #}}}
 
-class Tarea(InheritableSQLObject, ByObject): #{{{
+class Tarea(InheritableSQLObject): #{{{
     class sqlmeta:
         createSQL = r'''
 CREATE TABLE dependencia (
@@ -332,7 +323,7 @@ CREATE TABLE dependencia (
         return self.nombre
 #}}}
 
-class Enunciado(SQLObject, ByObject): #{{{
+class Enunciado(SQLObject): #{{{
     class sqlmeta:
         createSQL = r'''
 CREATE TABLE enunciado_tarea (
@@ -439,7 +430,7 @@ class CasoDePrueba(SQLObject): #{{{
         return '%s:%s' % (self.enunciado.shortrepr(), self.nombre)
 #}}}
 
-class Ejercicio(SQLObject, ByObject): #{{{
+class Ejercicio(SQLObject): #{{{
     # Clave
     curso           = ForeignKey('Curso', notNone=True)
     numero          = IntCol(notNone=True)
@@ -466,7 +457,7 @@ class Ejercicio(SQLObject, ByObject): #{{{
                 self.enunciado.shortrepr())
 #}}}
 
-class InstanciaDeEntrega(SQLObject, ByObject): #{{{
+class InstanciaDeEntrega(SQLObject): #{{{
     class sqlmeta:
         createSQL = r'''
 CREATE TABLE instancia_tarea (
@@ -540,7 +531,7 @@ CREATE TABLE instancia_tarea (
         return self.numero
 #}}}
 
-class DocenteInscripto(SQLObject, ByObject): #{{{
+class DocenteInscripto(SQLObject): #{{{
     # Clave
     curso           = ForeignKey('Curso', notNone=True)
     docente         = ForeignKey('Docente', notNone=True)
@@ -568,7 +559,7 @@ class DocenteInscripto(SQLObject, ByObject): #{{{
         return self.docente.shortrepr()
 #}}}
 
-class Entregador(InheritableSQLObject, ByObject): #{{{
+class Entregador(InheritableSQLObject): #{{{
     # Campos
     nota            = DecimalCol(size=3, precision=1, default=None)
     nota_cursada    = DecimalCol(size=3, precision=1, default=None)
@@ -645,7 +636,7 @@ class AlumnoInscripto(Entregador): #{{{
         return self.alumno.shortrepr()
 #}}}
 
-class Tutor(SQLObject, ByObject): #{{{
+class Tutor(SQLObject): #{{{
     # Clave
     grupo           = ForeignKey('Grupo', notNone=True)
     docente         = ForeignKey('DocenteInscripto', notNone=True)
@@ -663,7 +654,7 @@ class Tutor(SQLObject, ByObject): #{{{
         return '%s-%s' % (self.docente.shortrepr(), self.grupo.shortrepr())
 #}}}
 
-class Miembro(SQLObject, ByObject): #{{{
+class Miembro(SQLObject): #{{{
     # Clave
     grupo           = ForeignKey('Grupo', notNone=True)
     alumno          = ForeignKey('AlumnoInscripto', notNone=True)
@@ -682,7 +673,7 @@ class Miembro(SQLObject, ByObject): #{{{
         return '%s-%s' % (self.alumno.shortrepr(), self.grupo.shortrepr())
 #}}}
 
-class Entrega(SQLObject, ByObject): #{{{
+class Entrega(SQLObject): #{{{
     # Clave
     instancia       = ForeignKey('InstanciaDeEntrega', notNone=True)
     entregador      = ForeignKey('Entregador', default=None) # Si es None era un Docente
@@ -727,7 +718,7 @@ class Entrega(SQLObject, ByObject): #{{{
             self.codigo)
 #}}}
 
-class Correccion(SQLObject, ByObject): #{{{
+class Correccion(SQLObject): #{{{
     # Clave
     instancia       = ForeignKey('InstanciaDeEntrega', notNone=True)
     entregador      = ForeignKey('Entregador', notNone=True) # Docente no tiene
@@ -752,7 +743,7 @@ class Correccion(SQLObject, ByObject): #{{{
         return '%s,%s' % (self.entrega.shortrepr(), self.corrector.shortrepr())
 #}}}
 
-class TareaEjecutada(InheritableSQLObject, ByObject): #{{{
+class TareaEjecutada(InheritableSQLObject): #{{{
     # Clave
     tarea           = ForeignKey('Tarea', notNone=True)
     entrega         = ForeignKey('Entrega', notNone=True)
