@@ -4,7 +4,4 @@
   * Curso (nico)
     * DocenteInscripto (Docente) (nico)
     * AlumnoInscripto (Alumno) (nico)
-    * Grupo
-      * Miembro (AlumnoInscripto)
-      * Tutor (DocenteInscripto)
   * Rol
