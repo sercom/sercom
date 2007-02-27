@@ -10,7 +10,11 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Curso, AlumnoInscripto, Docente, Grupo
+from sercom.model import Curso, AlumnoInscripto, Docente, Grupo, Alumno
+from sqlobject import AND
+
+from sercom.widgets import *
+
 #}}}
 
 #{{{ Configuración
@@ -55,16 +59,59 @@ def get_docentes():
     return [(fk1.id, fk1.shortrepr()) for fk1 in Docente.select()]
 
 def get_cursos():
-    return [(fk1.id, fk1.shortrepr()) for fk1 in Curso.select()]
+    return [(0, u'---')] + [(fk1.id, fk1.shortrepr()) for fk1 in Curso.select()]
+
+ajax = u"""
+    function err (err)
+    {
+        alert("The metadata for MochiKit.Async could not be fetched :(");
+    }
+
+    function procesar(result)
+    {
+        l = MochiKit.DOM.getElement('form_responsable_info');
+        l.innerHTML = result.msg;
+    }
+
+    function buscar_alumno()
+    {
+        /* Obtengo el curso */
+        l = MochiKit.DOM.getElement('form_cursoID');
+        cursoid = l.options[l.selectedIndex].value;
+        if (cursoid <= 0) {
+            alert('Debe seleccionar un curso');
+            return;
+        }
+        /* Obtengo el padron ingresado */
+        p = MochiKit.DOM.getElement('form_responsable');
+        padron = p.value;
+        if (padron == '') {
+            alert('Debe ingresar el padrón del alumno responsable');
+            return;
+        }
+        url = "/grupo/get_inscripto?cursoid="+cursoid+'&padron='+padron;
+        var d = loadJSONDoc(url);
+        d.addCallbacks(procesar, err);
+    }
+
+    function prepare()
+    {
+        connect('form_responsable', 'onblur', buscar_alumno);
+    }
+
+    MochiKit.DOM.addLoadEvent(prepare)
+
+"""
 
 class GrupoForm(W.TableForm):
     class Fields(W.WidgetsList):
-       curso = W.SingleSelectField(name='cursoID', label=_(u'Curso'), options = get_cursos,
-       validator = V.Int(not_empty=True))
-       nombre = W.TextField(label=_(u'Nombre'), validator=V.UnicodeString(not_empty=True,strip=True))
+        curso = W.SingleSelectField(name='cursoID', label=_(u'Curso'), options = get_cursos,
+        validator = V.Int(not_empty=True))
+        nombre = W.TextField(label=_(u'Nombre'), validator=V.UnicodeString(not_empty=True,strip=True))
+        responsable = CustomTextField(label=_(u'Responsable'), validator=V.Int(not_empty=True), attrs=dict(size='8'))
 
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('curso');")]
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('curso');"), W.JSSource(ajax)]
 
 form = GrupoForm()
 
@@ -139,5 +186,17 @@ class GrupoController(controllers.Controller, identity.SecureResource):
         r.destroySelf()
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../list')
+
+    @expose('json')
+    def get_inscripto(self, cursoid, padron):
+        msg = 'No existe el alumno %s en el curso seleccionado.' % padron
+        try:
+            # Busco el alumno inscripto
+            alumno = AlumnoInscripto.select(AND(Curso.q.id==cursoid, Alumno.q.usuario==padron))
+            if alumno.count() > 0:
+                msg = alumno[0].nombre
+        except Exception, (inst):
+            msg = u"""Se ha producido un error inesperado al buscar el registro:\n      %s""" % str(inst)
+        return dict(msg=msg)
 #}}}
 
