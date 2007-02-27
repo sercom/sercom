@@ -11,7 +11,7 @@ from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Curso, AlumnoInscripto, Docente, Grupo, Alumno
-from sqlobject import AND
+from sqlobject import *
 
 from sercom.widgets import *
 
@@ -70,7 +70,10 @@ ajax = u"""
     function procesar(result)
     {
         l = MochiKit.DOM.getElement('form_responsable_info');
-        l.innerHTML = result.msg;
+        if (result.error)
+            l.innerHTML = result.msg;
+        else
+            l.innerHTML = result.msg.value;
     }
 
     function buscar_alumno()
@@ -220,12 +223,17 @@ class GrupoController(controllers.Controller, identity.SecureResource):
 
     @expose('json')
     def get_inscripto(self, cursoid, padron):
-        msg = 'No existe el alumno %s en el curso seleccionado.' % padron
+        msg = u''
         error=False
         try:
             # Busco el alumno inscripto
             alumno = AlumnoInscripto.selectBy(curso=cursoid, alumno=Alumno.byUsuario(padron)).getOne()
-            msg = alumno.alumno.nombre
+            msg = {}
+            msg['id'] = alumno.id
+            msg['value'] = alumno.alumno.nombre
+        except SQLObjectNotFound:
+            msg = 'No existe el alumno %s en el curso seleccionado.' % padron
+            error=True
         except Exception, (inst):
             msg = u"""Se ha producido un error inesperado al buscar el registro:\n      %s""" % str(inst)
             error = True

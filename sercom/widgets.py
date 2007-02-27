@@ -28,7 +28,7 @@ AlumnoMultiSelectAjax = '''
             alert(results.msg);
             return;
         }
-        MochiKit.DOM.appendChildNodes(lista, OPTION(results.msg));
+        MochiKit.DOM.appendChildNodes(lista, OPTION({'value':results.msg.id}, results.msg.value));
     }
 
     function _on_alumno_get_error(results)
