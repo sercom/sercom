@@ -194,7 +194,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
             # Busco el alumno inscripto
             alumno = AlumnoInscripto.select(AND(Curso.q.id==cursoid, Alumno.q.usuario==padron))
             if alumno.count() > 0:
-                msg = alumno[0].nombre
+                msg = alumno[0].alumno.nombre
         except Exception, (inst):
             msg = u"""Se ha producido un error inesperado al buscar el registro:\n      %s""" % str(inst)
         return dict(msg=msg)
