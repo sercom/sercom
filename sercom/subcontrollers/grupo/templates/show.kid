@@ -9,27 +9,31 @@
 
 <table>
     <tr>
+        <th>Nombre:</th>
+				<td><span py:replace="record.nombre">nombre</span></td>
+    </tr>
+    <tr>
         <th>Curso:</th>
-        <td><span py:replace="record.curso">curso</span></td>
+        <td><span py:replace="record.curso.shortrepr()">curso</span></td>
     </tr>
     <tr>
-        <th>Docente:</th>
-	<td><span py:replace="record.docente">docente</span></td>
+			<th>Responsable:</th>
+			<td><span py:if="record.responsable is not None" py:replace="record.responsable.shortrepr()">numero</span></td>
     </tr>
     <tr>
-        <th>Corrige:</th>
-	<td><span py::replace="record.numero">numero</span></td>
-    </tr>
-    <tr>
-        <th>Descripcion:</th>
-				<td><span py:if="record.corrige">SI</span></td>
-				<td><span py:if="not record.corrige">NO</span></td>
+        <th>Integrantes:</th>
+				<td>
+					<span py:for="a in record.miembros">
+						<span py:replace="a.alumno.shortrepr()" />
+						<br />
+					</span>		
+				</td>
     </tr>
 </table>
 
 <br/>
-<a href="${tg.url('/docente_inscripto/edit/%d' % record.id)}">Editar</a> |
-<a href="${tg.url('/docente_inscripto/list')}">Volver</a>
+<a href="${tg.url('/grupo/edit/%d' % record.id)}">Editar</a> |
+<a href="${tg.url('/grupo/list')}">Volver</a>
 
 </body>
 </html>
