@@ -62,6 +62,31 @@ def get_cursos():
     return [(0, u'---')] + [(fk1.id, fk1.shortrepr()) for fk1 in Curso.select()]
 
 ajax = u"""
+    function alumnos_agregar_a_la_lista(texto, lista, loading)
+    {
+        t = MochiKit.DOM.getElement(texto);
+
+        /* Como no se si se puede hacer de otra manera, asumo que tengo en
+         * el form un Combo que se llama curso en el codigo, y tiro error si
+         * no existe
+         */
+        curso = MochiKit.DOM.getElement('form_cursoID');
+        if (!curso) {
+            alert("No deberias ver esto, y quiere decir que tu form esta roto.\\nTe falta un combo de curso");
+            return;
+        }
+        if (curso.options[curso.selectedIndex].value <= 0) {
+            alert('Debes seleccionar un curso primero');
+            return;
+        }
+        load = MochiKit.DOM.getElement(loading);
+        load.style.visibility = 'visible';
+        url = "/grupo/get_inscripto?cursoid="+curso.options[curso.selectedIndex].value+"&padron="+t.value;
+        var d = loadJSONDoc(url);
+        d.addCallbacks(partial(_on_alumno_get_result, lista, loading), partial(_on_alumno_get_error, loading));
+        t.value = "";
+    }
+
     function err (err)
     {
         alert("The metadata for MochiKit.Async could not be fetched :(");
@@ -112,7 +137,7 @@ class GrupoForm(W.TableForm):
         validator = V.Int(not_empty=True))
         nombre = W.TextField(label=_(u'Nombre'), validator=V.UnicodeString(not_empty=True,strip=True))
         responsable = CustomTextField(label=_(u'Responsable'), validator=V.UnicodeString(not_empty=True), attrs=dict(size='8'))
-        alumnos = AlumnoMultiSelect(name='alumnos', label=_(u'Integrantes'), validator=V.Int())
+        alumnos = AjaxMultiSelect(name='alumnos', label=_(u'Integrantes'), validator=V.Int(), on_add="alumnos_agregar_a_la_lista")
 
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('curso');"), W.JSSource(ajax)]
