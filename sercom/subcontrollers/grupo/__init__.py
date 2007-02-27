@@ -221,13 +221,17 @@ class GrupoController(controllers.Controller, identity.SecureResource):
     @expose('json')
     def get_inscripto(self, cursoid, padron):
         msg = 'No existe el alumno %s en el curso seleccionado.' % padron
+        error=False
         try:
             # Busco el alumno inscripto
             alumno = AlumnoInscripto.select(AND(Curso.q.id==cursoid, Alumno.q.usuario==padron))
             if alumno.count() > 0:
                 msg = alumno[0].alumno.nombre
+            else:
+                error = True
         except Exception, (inst):
             msg = u"""Se ha producido un error inesperado al buscar el registro:\n      %s""" % str(inst)
-        return dict(msg=msg)
+            error = True
+        return dict(msg=msg, error=error)
 #}}}
 

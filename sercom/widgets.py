@@ -20,10 +20,31 @@ class CustomTextField(widgets.TextField):
 '''
 
 AlumnoMultiSelectAjax = '''
+
+    function _on_alumno_get_result(lista, results)
+    {
+        load.style.visibility = 'hidden';
+        if (results.error) {
+            alert(results.msg);
+            return;
+        }
+        MochiKit.DOM.appendChildNodes(lista, OPTION(results.msg));
+    }
+
+    function _on_alumno_get_error(results)
+    {
+        alert(results)
+        load.style.visibility = 'hidden';
+    }
+
     function agregar_a_la_lista(texto, lista)
     {
+        load = MochiKit.DOM.getElement('loading');
+        load.style.visibility = 'visible';
         t = MochiKit.DOM.getElement(texto);
-        MochiKit.DOM.appendChildNodes(lista, OPTION(t.value));
+        url = "/grupo/get_inscripto?cursoid=1&padron="+t.value;
+        var d = loadJSONDoc(url);
+        d.addCallbacks(partial(_on_alumno_get_result, lista), _on_alumno_get_error);
         t.value = "";
     }
 
@@ -31,6 +52,12 @@ AlumnoMultiSelectAjax = '''
     {
         l = MochiKit.DOM.getElement(lista);
         if (l.selectedIndex < 0) return;
+        
+        /* caso especial, 1 solo item */
+        if (l.options.length == 1) {
+            l.options.length = 0
+            return;
+        }
 
         for (i=l.selectedIndex; i<l.options.length-1;i++)
             l.options[i] = l.options[i+1];
@@ -41,7 +68,9 @@ class AlumnoMultiSelect(widgets.MultipleSelectField):
     template = '''
     <table xmlns:py="http://purl.org/kid/ns#" style="border:none; width:0%;">  
     <tr><td>
-    <input type="text" id="${field_id}_nuevo" /><input type="button" id="_agregar" value="Agregar"
+    <input type="text" id="${field_id}_nuevo" />
+    <img src="/static/images/loading.gif" align="baseline" style="visibility:hidden;" id="loading" width="16px" height="16px" />
+    <input type="button" id="_agregar" value="Agregar"
         onClick=" agregar_a_la_lista('${field_id}_nuevo', '${field_id}'); " />
     </td></tr>
     <tr><td>
