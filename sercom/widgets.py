@@ -21,8 +21,9 @@ class CustomTextField(widgets.TextField):
 
 AlumnoMultiSelectAjax = '''
 
-    function _on_alumno_get_result(lista, results)
+    function _on_alumno_get_result(lista, loading, results)
     {
+        load = MochiKit.DOM.getElement(loading);
         load.style.visibility = 'hidden';
         if (results.error) {
             alert(results.msg);
@@ -31,13 +32,14 @@ AlumnoMultiSelectAjax = '''
         MochiKit.DOM.appendChildNodes(lista, OPTION({'value':results.msg.id}, results.msg.value));
     }
 
-    function _on_alumno_get_error(results)
+    function _on_alumno_get_error(loading, results)
     {
         alert(results)
+        load = MochiKit.DOM.getElement(loading);
         load.style.visibility = 'hidden';
     }
 
-    function agregar_a_la_lista(texto, lista)
+    function agregar_a_la_lista(texto, lista, loading)
     {
         t = MochiKit.DOM.getElement(texto);
 
@@ -54,11 +56,11 @@ AlumnoMultiSelectAjax = '''
             alert('Debes seleccionar un curso primero');
             return;
         }
-        load = MochiKit.DOM.getElement('loading');
+        load = MochiKit.DOM.getElement(loading);
         load.style.visibility = 'visible';
         url = "/grupo/get_inscripto?cursoid="+curso.options[curso.selectedIndex].value+"&padron="+t.value;
         var d = loadJSONDoc(url);
-        d.addCallbacks(partial(_on_alumno_get_result, lista), _on_alumno_get_error);
+        d.addCallbacks(partial(_on_alumno_get_result, lista, loading), partial(_on_alumno_get_error, loading));
         t.value = "";
     }
 
@@ -83,9 +85,9 @@ class AlumnoMultiSelect(widgets.MultipleSelectField):
     <table xmlns:py="http://purl.org/kid/ns#" style="border:none; width:0%;">  
     <tr><td>
     <input type="text" id="${field_id}_nuevo" />
-    <img src="/static/images/loading.gif" align="baseline" style="visibility:hidden;" id="loading" width="16px" height="16px" />
+    <img src="/static/images/loading.gif" align="baseline" style="visibility:hidden;" id="${name}_loading" width="16px" height="16px" />
     <input type="button" id="_agregar" value="Agregar"
-        onClick=" agregar_a_la_lista('${field_id}_nuevo', '${field_id}'); " />
+        onClick=" agregar_a_la_lista('${field_id}_nuevo', '${field_id}', '${name}_loading'); " />
     </td></tr>
     <tr><td>
     <select  
