@@ -39,7 +39,6 @@ AlumnoMultiSelectAjax = '''
 
     function agregar_a_la_lista(texto, lista)
     {
-        load.style.visibility = 'visible';
         t = MochiKit.DOM.getElement(texto);
 
         /* Como no se si se puede hacer de otra manera, asumo que tengo en
@@ -56,6 +55,7 @@ AlumnoMultiSelectAjax = '''
             return;
         }
         load = MochiKit.DOM.getElement('loading');
+        load.style.visibility = 'visible';
         url = "/grupo/get_inscripto?cursoid="+curso.options[curso.selectedIndex].value+"&padron="+t.value;
         var d = loadJSONDoc(url);
         d.addCallbacks(partial(_on_alumno_get_result, lista), _on_alumno_get_error);

@@ -224,11 +224,8 @@ class GrupoController(controllers.Controller, identity.SecureResource):
         error=False
         try:
             # Busco el alumno inscripto
-            alumno = AlumnoInscripto.select(AND(Curso.q.id==cursoid, Alumno.q.usuario==padron))
-            if alumno.count() > 0:
-                msg = alumno[0].alumno.nombre
-            else:
-                error = True
+            alumno = AlumnoInscripto.selectBy(curso=cursoid, alumno=Alumno.byUsuario(padron)).getOne()
+            msg = alumno.alumno.nombre
         except Exception, (inst):
             msg = u"""Se ha producido un error inesperado al buscar el registro:\n      %s""" % str(inst)
             error = True
