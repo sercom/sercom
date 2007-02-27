@@ -10,7 +10,7 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Curso, Ejercicio, Alumno, Docente, Grupo
+from sercom.model import Curso, Ejercicio, Alumno, Docente, Grupo, DocenteInscripto
 #}}}
 
 #{{{ Configuración
@@ -57,16 +57,16 @@ class CursoForm(W.TableForm):
         descripcion = W.TextArea(name='descripcion', label=_(u'Descripcion'),
             help_text=_(u'Descripcion.'),
             validator=V.UnicodeString(not_empty=False, strip=True))
-#       docentes = W.MultipleSelectField(name="docentes", label=_(u'Docentes'),
-#           help_text=_(u'Docentes asignados al curso'), options=get_docentes,
-#           validator=V.Int(not_empty=True))
-#        alumnos = W.MultipleSelectField(name="alumnos", label=_(u'Alumnos'),
-#            help_text=_(u'Alumnos del curso'), options=get_alumnos,
-#            validator=V.Int(not_empty=True))
+        docentes = W.MultipleSelectField(name="docentes", label=_(u'Docentes'),
+            help_text=_(u'Docentes asignados al curso'), options=get_docentes,
+            validator=V.Int(not_empty=True))
+        alumnos = W.MultipleSelectField(name="alumnos", label=_(u'Alumnos'),
+            help_text=_(u'Alumnos del curso'), options=get_alumnos,
+            validator=V.Int(not_empty=True))
 #        grupos = W.MultipleSelectField(name="grupos", label=_(u'Grupos'),
-#           help_text=_(u'Grupos del curso'), options=get_grupos,
+#          help_text=_(u'Grupos del curso'), options=get_grupos,
 #           validator=V.Int(not_empty=False))
-#       ejercicios = W.MultipleSelectField(name="ejercicios", label=_(u'Ejercicios'),
+#        ejercicios = W.MultipleSelectField(name="ejercicios", label=_(u'Ejercicios'),
 #           help_text=_(u'Ejercicios'), options=get_ejercicios,
 #           validator=V.Int(not_empty=True))
     fields = Fields()
@@ -115,10 +115,23 @@ class CursoController(controllers.Controller, identity.SecureResource):
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
-        validate_new(kw)
+        r = validate_new(kw)
+        docentes = kw.get('docentes', [])
+        alumnos = kw.get('alumnos', [])
+        """ Elimino todos los docentes asignados al curso y los agrego nuevamente""" 
+        for d in DocenteInscripto.selectBy(curso=r):
+            d.destroySelf()
+        """ Agrego la nueva seleccion """ 
+        for d in docentes:
+            r.add_docente(Docente(d))
+        """ Elimino a los alumnos y los vuelvo a agregar """
+        for a in AlumnoInscripto.selectBy(curso=r):
+            d.destroySelf()
+        for a in alumnos:
+            r.add_alumno(Alumno(a))
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
-
+    
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""

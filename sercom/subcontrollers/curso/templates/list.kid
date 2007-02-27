@@ -32,10 +32,10 @@
         <td><span py:replace="record.cuatrimestre">cuatrimestre</span></td>
         <td><span py:replace="record.anio">anio</span></td>
         <td><span py:replace="record.descripcion">descripcion</span></td>
-        <td><span py:replace="record.docentes">docentes</span></td>
-        <td><span py:replace="record.alumnos">alumnos</span></td>
-        <td><span py:replace="record.grupos">grupos</span></td>
-        <td><span py:replace="record.ejercicios">ejercicios</span></td>
+        <td><a py:if="len(record.docentes)" href="${tg.url('/docente/list')}"><span py:replace="len(record.docentes)">Docentes</span></a></td>
+        <td><a py:if="len(record.alumnos)"  href="${tg.url('/alumno/list')}"><span py:replace="len(record.alumnos)">Alumnos</span></a></td>
+        <td><a py:if="len(record.grupos)"  href="${tg.url('/grupo/list')}"><span py:replace="len(record.grupos)">Grupos</span></a></td>
+        <td><a py:if="len(record.ejercicios)" href="${tg.url('/ejercicio/list')}"><span py:replace="len(record.ejercicios)">Ejercicio</span></a></td>
         <td><a href="${tg.url('/curso/edit/%d' % record.id)}">Editar</a>
             <a href="${tg.url('/curso/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>
