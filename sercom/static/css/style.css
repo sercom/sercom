@@ -186,3 +186,23 @@ table.list td {
 	float:right;
 }
 
+/* Listas de los SHOW */
+table.show {
+	width:60%;
+	margin-left:5%;
+  border-collapse:separate;
+  border-spacing:1px 5px;
+}
+
+table.show th {
+	width:25%;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border: none;
+}
+
+table.show td {
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border: none;
+}
