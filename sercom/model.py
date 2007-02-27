@@ -123,24 +123,56 @@ class Curso(SQLObject): #{{{
     grupos          = MultipleJoin('Grupo')
     ejercicios      = MultipleJoin('Ejercicio', orderBy='numero')
 
-    def __init__(self, docentes=[], ejercicios=[], **kargs):
-        super(Curso, self).__init__(**kargs)
+    def __init__(self, docentes=[], ejercicios=[], alumnos=[], **kw):
+        super(Curso, self).__init__(**kw)
         for d in docentes:
             self.add_docente(d)
         for (n, e) in enumerate(ejercicios):
             self.add_ejercicio(n, e)
+        for a in alumnos:
+            self.add_alumno(a)
 
-    def add_docente(self, docente, **kargs):
-        return DocenteInscripto(curso=self, docente=docente, **kargs)
+    def set(self, docentes=None, ejercicios=None, alumnos=None, **kw):
+        super(Curso, self).set(**kw)
+        if docentes is not None:
+            for d in DocenteInscripto.selectBy(curso=self):
+                d.destroySelf()
+            for d in docentes:
+                self.add_docente(d)
+        if ejercicios is not None:
+            for e in Ejercicio.selectBy(curso=self):
+                e.destroySelf()
+            for (n, e) in enumerate(ejercicios):
+                self.add_ejercicio(n, e)
+        if alumnos is not None:
+            for a in AlumnoInscripto.selectBy(curso=self):
+                a.destroySelf()
+            for a in alumnos:
+                self.add_alumno(a)
 
-    def add_alumno(self, alumno, **kargs):
-        return AlumnoInscripto(curso=self, alumno=alumno, **kargs)
+    def add_docente(self, docente, **kw):
+        return DocenteInscripto(curso=self, docente=docente, **kw)
 
-    def add_grupo(self, nombre, **kargs):
-        return Grupo(curso=self, nombre=unicode(nombre), **kargs)
+    def remove_docente(self, docente):
+        DocenteInscripto.pk.get(curso=self, docente=docente).destroySelf()
 
-    def add_ejercicio(self, numero, enunciado, **kargs):
-        return Ejercicio(curso=self, numero=numero, enunciado=enunciado, **kargs)
+    def add_alumno(self, alumno, **kw):
+        return AlumnoInscripto(curso=self, alumno=alumno, **kw)
+
+    def remove_alumno(self, alumno):
+        AlumnoInscripto.pk.get(curso=self, alumno=alumno).destroySelf()
+
+    def add_grupo(self, nombre, **kw):
+        return Grupo(curso=self, nombre=unicode(nombre), **kw)
+
+    def remove_grupo(self, nombre):
+        Grupo.pk.get(curso=self, nombre=nombre).destroySelf()
+
+    def add_ejercicio(self, numero, enunciado, **kw):
+        return Ejercicio(curso=self, numero=numero, enunciado=enunciado, **kw)
+
+    def remove_ejercicio(self, numero):
+        Ejercicio.pk.get(curso=self, numero=numero).destroySelf()
 
     def __repr__(self):
         return 'Curso(id=%s, anio=%s, cuatrimestre=%s, numero=%s, ' \
@@ -165,13 +197,24 @@ class Usuario(InheritableSQLObject): #{{{
     observaciones   = UnicodeCol(default=None)
     activo          = BoolCol(notNone=True, default=True)
     # Joins
-    roles           = RelatedJoin('Rol')
+    roles           = RelatedJoin('Rol', addRemoveName='_rol')
 
-    def __init__(self, password=None, roles=[], **kargs):
-        passwd = password and encryptpw(password)
-        super(Usuario, self).__init__(contrasenia=passwd, **kargs)
+    def __init__(self, password=None, roles=[], **kw):
+        if password is not None:
+            kw['contrasenia'] = encryptpw(password)
+        super(Usuario, self).__init__(**kw)
         for r in roles:
-            self.addRol(r)
+            self.add_rol(r)
+
+    def set(self, password=None, roles=None, **kw):
+        if password is not None:
+            kw['contrasenia'] = encryptpw(password)
+        super(Usuario, self).set(**kw)
+        if roles is not None:
+            for r in self.roles:
+                self.remove_rol(r)
+            for r in roles:
+                self.add_rol(r)
 
     def _get_user_name(self): # para identity
         return self.usuario
@@ -211,20 +254,21 @@ class Usuario(InheritableSQLObject): #{{{
 class Docente(Usuario): #{{{
     _inheritable = False
     # Campos
-    nombrado        = BoolCol(notNone=True, default=True)
+    nombrado    = BoolCol(notNone=True, default=True)
     # Joins
-    enunciados      = MultipleJoin('Enunciado', joinColumn='autor_id')
-    inscripciones   = MultipleJoin('DocenteInscripto')
+    enunciados  = MultipleJoin('Enunciado', joinColumn='autor_id')
+    cursos      = MultipleJoin('DocenteInscripto')
 
-    def __init__(self, **kargs):
-        super(Docente, self).__init__(**kargs)
+    def add_entrega(self, instancia, **kw):
+        return Entrega(instancia=instancia, **kw)
 
-    def add_entrega(self, instancia, **kargs):
-        return Entrega(instancia=instancia, **kargs)
-
-    def add_enunciado(self, nombre, anio, cuatrimestre, **kargs):
+    def add_enunciado(self, nombre, anio, cuatrimestre, **kw):
         return Enunciado(nombre=nombre, anio=anio, cuatrimestre=cuatrimestre,
-            autor=self, **kargs)
+            autor=self, **kw)
+
+    def remove_enunciado(self, nombre, anio, cuatrimestre):
+        Enunciado.pk.get(nombre=nombre, anio=anio,
+            cuatrimestre=cuatrimestre).destroySelf()
 
     def __repr__(self):
         return 'Docente(id=%s, usuario=%s, nombre=%s, password=%s, email=%s, ' \
@@ -241,9 +285,13 @@ class Alumno(Usuario): #{{{
     # Joins
     inscripciones   = MultipleJoin('AlumnoInscripto')
 
-    def __init__(self, padron=None, **kargs):
-        if padron: kargs['usuario'] = padron
-        super(Alumno, self).__init__(**kargs)
+    def __init__(self, padron=None, **kw):
+        if padron: kw['usuario'] = padron
+        super(Alumno, self).__init__(**kw)
+
+    def set(self, padron=None, **kw):
+        if padron: kw['usuario'] = padron
+        super(Alumno, self).set(**kw)
 
     def _get_padron(self): # alias para poder referirse al alumno por padron
         return self.usuario
@@ -275,9 +323,14 @@ CREATE TABLE dependencia (
     descripcion     = UnicodeCol(length=255, default=None)
     # Joins
 
-    def __init__(self, dependencias=(), **kargs):
-        super(Tarea, self).__init__(**kargs)
+    def __init__(self, dependencias=(), **kw):
+        super(Tarea, self).__init__(**kw)
         if dependencias:
+            self.dependencias = dependencias
+
+    def set(self, dependencias=None, **kw):
+        super(Tarea, self).set(**kw)
+        if dependencias is not None:
             self.dependencias = dependencias
 
     def _get_dependencias(self):
@@ -350,17 +403,22 @@ CREATE TABLE enunciado_tarea (
     ejercicios      = MultipleJoin('Ejercicio')
     casos_de_prueba = MultipleJoin('CasoDePrueba')
 
-    def __init__(self, tareas=(), **kargs):
-        super(Enunciado, self).__init__(**kargs)
+    def __init__(self, tareas=(), **kw):
+        super(Enunciado, self).__init__(**kw)
         if tareas:
+            self.tareas = tareas
+
+    def set(self, tareas=None, **kw):
+        super(Enunciado, self).set(**kw)
+        if tareas is not None:
             self.tareas = tareas
 
     @classmethod
     def selectByCurso(self, curso):
         return Enunciado.selectBy(cuatrimestre=curso.cuatrimestre, anio=curso.anio)
 
-    def add_caso_de_prueba(self, nombre, **kargs):
-        return CasoDePrueba(enunciado=self, nombre=nombre, **kargs)
+    def add_caso_de_prueba(self, nombre, **kw):
+        return CasoDePrueba(enunciado=self, nombre=nombre, **kw)
 
     def _get_tareas(self):
         self.__tareas = tuple(Tarea.select(
@@ -412,11 +470,12 @@ class CasoDePrueba(SQLObject): #{{{
     nombre          = UnicodeCol(length=40, notNone=True)
     pk              = DatabaseIndex(enunciado, nombre, unique=True)
     # Campos
-#    privado         = IntCol(default=None) TODO iria en instancia_de_entrega_caso_de_prueba
+    privado         = IntCol(default=None) # TODO iria en instancia_de_entrega_caso_de_prueba
     parametros      = ParamsCol(length=255, default=None)
     retorno         = IntCol(default=None)
     tiempo_cpu      = FloatCol(default=None)
     descripcion     = UnicodeCol(length=255, default=None)
+    activo          = BoolCol(notNone=True, default=True)
     # Joins
     pruebas         = MultipleJoin('Prueba')
 
@@ -441,9 +500,12 @@ class Ejercicio(SQLObject): #{{{
     # Joins
     instancias      = MultipleJoin('InstanciaDeEntrega')
 
-    def add_instancia(self, numero, inicio, fin, **kargs):
+    def add_instancia(self, numero, inicio, fin, **kw):
         return InstanciaDeEntrega(ejercicio=self, numero=numero, inicio=inicio,
-            fin=fin, **kargs)
+            fin=fin, **kw)
+
+    def remove_instancia(self, numero):
+        InstanciaDeEntrega.pk.get(ejercicio=self, numero=numero).destroySelf()
 
     def __repr__(self):
         return 'Ejercicio(id=%s, curso=%s, numero=%s, enunciado=%s, ' \
@@ -471,6 +533,7 @@ CREATE TABLE instancia_tarea (
     # Clave
     ejercicio       = ForeignKey('Ejercicio', notNone=True)
     numero          = IntCol(notNone=True)
+    pk              = DatabaseIndex(ejercicio, numero, unique=True)
     # Campos
     inicio          = DateTimeCol(notNone=True)
     fin             = DateTimeCol(notNone=True)
@@ -480,11 +543,17 @@ CREATE TABLE instancia_tarea (
     # Joins
     entregas        = MultipleJoin('Entrega', joinColumn='instancia_id')
     correcciones    = MultipleJoin('Correccion', joinColumn='instancia_id')
-    casos_de_prueba = RelatedJoin('CasoDePrueba') # TODO CasoInstancia -> private
+    casos_de_prueba = RelatedJoin('CasoDePrueba', # TODO CasoInstancia -> private
+                        addRemoveName='_caso_de_prueba')
 
-    def __init__(self, tareas=(), **kargs):
-        super(InstanciaDeEntrega, self).__init__(**kargs)
+    def __init__(self, tareas=(), **kw):
+        super(InstanciaDeEntrega, self).__init__(**kw)
         if tareas:
+            self.tareas = tareas
+
+    def set(self, tareas=None, **kw):
+        super(InstanciaDeEntrega, self).set(**kw)
+        if tareas is not None:
             self.tareas = tareas
 
     def _get_tareas(self):
@@ -542,12 +611,15 @@ class DocenteInscripto(SQLObject): #{{{
     # Joins
     alumnos         = MultipleJoin('AlumnoInscripto', joinColumn='tutor_id')
     tutorias        = MultipleJoin('Tutor', joinColumn='docente_id')
-    entregas        = MultipleJoin('Entrega', joinColumn='instancia_id')
     correcciones    = MultipleJoin('Correccion', joinColumn='corrector_id')
 
-    def add_correccion(self, entrega, **kargs):
+    def add_correccion(self, entrega, **kw):
         return Correccion(instancia=entrega.instancia, entrega=entrega,
-            entregador=entrega.entregador, corrector=self, **kargs)
+            entregador=entrega.entregador, corrector=self, **kw)
+
+    def remove_correccion(self, instancia, entregador):
+        Correccion.pk.get(instancia=instancia,
+            entregador=entregador).destroySelf()
 
     def __repr__(self):
         return 'DocenteInscripto(id=%s, docente=%s, corrige=%s, ' \
@@ -569,8 +641,8 @@ class Entregador(InheritableSQLObject): #{{{
     entregas        = MultipleJoin('Entrega')
     correcciones    = MultipleJoin('Correccion')
 
-    def add_entrega(self, instancia, **kargs):
-        return Entrega(instancia=instancia, entregador=self, **kargs)
+    def add_entrega(self, instancia, **kw):
+        return Entrega(instancia=instancia, entregador=self, **kw)
 
     def __repr__(self):
         raise NotImplementedError, 'Clase abstracta!'
@@ -581,24 +653,44 @@ class Grupo(Entregador): #{{{
     # Clave
     curso           = ForeignKey('Curso', notNone=True)
     nombre          = UnicodeCol(length=20, notNone=True)
+    pk              = DatabaseIndex(curso, nombre, unique=True)
     # Campos
     responsable     = ForeignKey('AlumnoInscripto', default=None)
     # Joins
     miembros        = MultipleJoin('Miembro')
     tutores         = MultipleJoin('Tutor')
 
-    def __init__(self, miembros=[], tutores=[], **kargs):
-        super(Grupo, self).__init__(**kargs)
+    def __init__(self, miembros=[], tutores=[], **kw):
+        super(Grupo, self).__init__(**kw)
         for a in miembros:
             self.add_miembro(a)
         for d in tutores:
             self.add_tutor(d)
 
-    def add_miembro(self, alumno, **kargs):
-        return Miembro(grupo=self, alumno=alumno, **kargs)
+    def set(self, miembros=None, tutores=None, **kw):
+        super(Grupo, self).set(**kw)
+        if miembros is not None:
+            for m in Miembro.selectBy(grupo=self):
+                m.destroySelf()
+            for m in miembros:
+                self.add_miembro(m)
+        if tutores is not None:
+            for t in Tutor.selectBy(grupo=self):
+                t.destroySelf()
+            for t in tutores:
+                self.add_tutor(t)
 
-    def add_tutor(self, docente, **kargs):
-        return Tutor(grupo=self, docente=docente, **kargs)
+    def add_miembro(self, alumno, **kw):
+        return Miembro(grupo=self, alumno=alumno, **kw)
+
+    def remove_miembro(self, alumno):
+        Miembro.pk.get(grupo=self, alumno=alumno).destroySelf()
+
+    def add_tutor(self, docente, **kw):
+        return Tutor(grupo=self, docente=docente, **kw)
+
+    def remove_tutor(self, docente):
+        Tutor.pk.get(grupo=self, docente=docente).destroySelf()
 
     def __repr__(self):
         return 'Grupo(id=%s, nombre=%s, responsable=%s, nota=%s, ' \
@@ -688,8 +780,8 @@ class Entrega(SQLObject): #{{{
     codigo_dict     = r'0123456789abcdefghijklmnopqrstuvwxyz_.,*@#+'
     codigo_format   = r'%m%d%H%M%S'
 
-    def add_tarea_ejecutada(self, tarea, **kargs):
-        return TareaEjecutada(tarea=tarea, entrega=self, **kargs)
+    def add_tarea_ejecutada(self, tarea, **kw):
+        return TareaEjecutada(tarea=tarea, entrega=self, **kw)
 
     def _get_codigo(self):
         if not hasattr(self, '_codigo'): # cache
@@ -756,9 +848,9 @@ class TareaEjecutada(InheritableSQLObject): #{{{
     # Joins
     pruebas         = MultipleJoin('Prueba')
 
-    def add_prueba(self, caso_de_prueba, **kargs):
+    def add_prueba(self, caso_de_prueba, **kw):
         return Prueba(tarea_ejecutada=self, caso_de_prueba=caso_de_prueba,
-            **kargs)
+            **kw)
 
     def __repr__(self):
         return 'TareaEjecutada(tarea=%s, entrega=%s, inicio=%s, fin=%s, ' \
@@ -820,13 +912,16 @@ class VisitaUsuario(SQLObject): #{{{
 class Rol(SQLObject): #{{{
     # Clave
     nombre      = UnicodeCol(length=255, alternateID=True,
-                    alternateMethodName="by_group_name")
+                    alternateMethodName='by_nombre')
     # Campos
     descripcion = UnicodeCol(length=255, default=None)
     creado      = DateTimeCol(notNone=True, default=datetime.now)
     permisos    = TupleCol(notNone=True)
     # Joins
-    usuarios    = RelatedJoin('Usuario')
+    usuarios    = RelatedJoin('Usuario', addRemoveName='_usuario')
+
+    def by_group_name(self, name): # para identity
+        return self.by_nombre(name)
 #}}}
 
 # No es un SQLObject porque no tiene sentido agregar/sacar permisos, están
