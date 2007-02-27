@@ -57,6 +57,31 @@ MultiSelectAjax = '''
         for (i=l.selectedIndex; i<l.options.length-1;i++)
             l.options[i] = l.options[i+1];
     }
+
+    function _do_add(callback, texto, lista, loading)
+    {
+        url = callback(texto, lista);
+        t = MochiKit.DOM.getElement(texto);
+
+        /* Como no se si se puede hacer de otra manera, asumo que tengo en
+         * el form un Combo que se llama curso en el codigo, y tiro error si
+         * no existe
+         */
+        curso = MochiKit.DOM.getElement('form_cursoID');
+        if (!curso) {
+            alert("No deberias ver esto, y quiere decir que tu form esta roto.\\nTe falta un combo de curso");
+            return;
+        }
+        if (curso.options[curso.selectedIndex].value <= 0) {
+            alert('Debes seleccionar un curso primero');
+            return;
+        }
+        load = MochiKit.DOM.getElement(loading);
+        load.style.visibility = 'visible';
+        var d = loadJSONDoc(url);
+        d.addCallbacks(partial(_on_alumno_get_result, lista, loading), partial(_on_alumno_get_error, loading));
+    }
+
 '''
 
 class AjaxMultiSelect(widgets.MultipleSelectField):
@@ -66,7 +91,7 @@ class AjaxMultiSelect(widgets.MultipleSelectField):
     <input type="text" id="${field_id}_nuevo" size="10" />
     <img src="/static/images/loading.gif" align="baseline" style="visibility:hidden;" id="${name}_loading" width="16px" height="16px" />
     <input type="button" id="_agregar" value="Agregar"
-        onClick=" ${on_add}('${field_id}_nuevo', '${field_id}', '${name}_loading'); " />
+        onClick=" _do_add(${on_add}, '${field_id}_nuevo', '${field_id}', '${name}_loading'); " />
     </div>
     <div>
     <select  
