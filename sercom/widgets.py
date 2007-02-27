@@ -82,14 +82,14 @@ AlumnoMultiSelectAjax = '''
 
 class AlumnoMultiSelect(widgets.MultipleSelectField):
     template = '''
-    <table xmlns:py="http://purl.org/kid/ns#" style="border:none; width:0%;">  
-    <tr><td>
-    <input type="text" id="${field_id}_nuevo" />
+    <div style="width:250px" xmlns:py="http://purl.org/kid/ns#">  
+    <div>
+    <input type="text" id="${field_id}_nuevo" size="10" />
     <img src="/static/images/loading.gif" align="baseline" style="visibility:hidden;" id="${name}_loading" width="16px" height="16px" />
     <input type="button" id="_agregar" value="Agregar"
         onClick=" agregar_a_la_lista('${field_id}_nuevo', '${field_id}', '${name}_loading'); " />
-    </td></tr>
-    <tr><td>
+    </div>
+    <div>
     <select  
         multiple="multiple"  
         size="${size}"  
@@ -110,12 +110,12 @@ class AlumnoMultiSelect(widgets.MultipleSelectField):
         />  
         </optgroup>  
     </select>
-    </td></tr>
-    <tr><td align="center">
-    <input type="button" id="_sacar" value="Borrar"
+    </div>
+    <div align="center">
+    <input type="button" id="_sacar" value="Borrar" style="width:100%;"
         onClick="sacar_de_la_lista('${field_id}'); " />
-    </td></tr>
-    </table>
+    </div>
+    </div>
     '''
     javascript = [widgets.JSSource(AlumnoMultiSelectAjax)]
 
