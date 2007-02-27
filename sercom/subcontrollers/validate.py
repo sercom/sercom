@@ -21,6 +21,7 @@ def validate_set(cls, name, id, data, url='../edit'):
     r = validate_get(cls, name, id)
     try:
         r.set(**data)
+        return r
     except DuplicateEntryError, e:
         flash(_(u'No se pudo modificar el %s porque no es único (error: %s).')
             % (name, e))
