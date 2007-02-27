@@ -10,20 +10,19 @@
 <table>
     <tr>
         <th>Curso:</th>
-        <td><span py:replace="record.curso">curso</span></td>
+        <td><span py:replace="record.curso.shortrepr()">curso</span></td>
     </tr>
     <tr>
         <th>Docente:</th>
-	<td><span py:replace="record.docente">docente</span></td>
+		<td><span py:replace="record.docente.shortrepr()">docente</span></td>
+    </tr>
+    <tr>
+        <th>Observaciones:</th>
+		<td><span py:replace="record.observaciones">numero</span></td>
     </tr>
     <tr>
         <th>Corrige:</th>
-	<td><span py::replace="record.numero">numero</span></td>
-    </tr>
-    <tr>
-        <th>Descripcion:</th>
-				<td><span py:if="record.corrige">SI</span></td>
-				<td><span py:if="not record.corrige">NO</span></td>
+		<td><span py:if="record.corrige">SI</span><span py:if="not record.corrige">NO</span></td>
     </tr>
 </table>
 

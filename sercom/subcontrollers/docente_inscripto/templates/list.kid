@@ -23,10 +23,9 @@
             f.method = 'POST'; f.action = '${tg.url('/alumno/activate/%d/%d' % (record.id, int(not record.activo)))}';
             f.submit(); return false;"
             py:attrs="checked=tg.checker(record.activo)" /></td-->
-        <td><a href="${tg.url('/curso/show/%d' % record.id)}"><span
-                    py:replace="record.curso">curso</span></a></td>
-        <td><span py:replace="record.docente">docente</span></td>
-        <td><span py:replace="record.corrige">corrige</span></td>
+        <td><a href="${tg.url('/curso/show/%d' % record.id)}"><span py:replace="record.curso.shortrepr()">curso</span></a></td> 
+        <td><a href="${tg.url('/docente/show/%d' % record.id)}"><span py:replace="record.docente.shortrepr()">docentes</span></a></td> 
+        <td><span py:if="record.corrige">SI</span><span py:if="not record.corrige">NO</span></td>
         <td><span py:replace="record.observaciones">observaciones</span></td>
         <td><a href="${tg.url('/docente_inscripto/edit/%d' % record.id)}">Editar</a>
             <a href="${tg.url('/docente_inscripto/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>

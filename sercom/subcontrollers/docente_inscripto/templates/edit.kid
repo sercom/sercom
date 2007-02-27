@@ -9,12 +9,12 @@
 
 <h1>Modificación de <span py:replace="name">Objeto</span></h1>
 
-<div py:replace="form(value=record, action=tg.url('/curso/update/%d' % record.id),
+<div py:replace="form(value=record, action=tg.url('/docente_inscripto/update/%d' % record.id),
 	submit_text=_(u'Guardar'))">Formulario</div>
 
 <br/>
-<a href="${tg.url('/curso/show/%d' % record.id)}">Ver (cancela)</a> |
-<a href="${tg.url('/curso/list')}">Volver (cancela)</a>
+<a href="${tg.url('/docente_inscripto/show/%d' % record.id)}">Ver (cancela)</a> |
+<a href="${tg.url('/docente_inscripto/list')}">Volver (cancela)</a>
 
 </body>
 </html>

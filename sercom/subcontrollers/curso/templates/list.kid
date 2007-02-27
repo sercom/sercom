@@ -11,9 +11,9 @@
 
 <table>
     <tr>
-        <th>Anio</th>
-        <th>Cuatrimestre</th>
         <th>Numero</th>
+        <th>Cuatrimestre</th>
+        <th>Anio</th>
         <th>Descripcion</th>
         <th>Docentes</th>
         <th>Alumnos</th>
