@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<table>
+<table class="show">
     <tr>
         <th>Nombre:</th>
 				<td><span py:replace="record.nombre">nombre</span></td>
@@ -15,6 +15,15 @@
     <tr>
         <th>Curso:</th>
         <td><span py:replace="record.curso.shortrepr()">curso</span></td>
+    </tr>
+    <tr>
+        <th>Tutores:</th>
+				<td>
+					<span py:for="a in record.tutores">
+						<span py:replace="a.docente.shortrepr()" />
+						<br />
+					</span>		
+				</td>
     </tr>
     <tr>
 			<th>Responsable:</th>
