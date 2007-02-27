@@ -112,7 +112,7 @@ class GrupoForm(W.TableForm):
         validator = V.Int(not_empty=True))
         nombre = W.TextField(label=_(u'Nombre'), validator=V.UnicodeString(not_empty=True,strip=True))
         responsable = CustomTextField(label=_(u'Responsable'), validator=V.UnicodeString(not_empty=True), attrs=dict(size='8'))
-        alumnos = AlumnoMultiSelect(label=_(u'Integrantes'), validator=V.Int())
+        alumnos = AlumnoMultiSelect(name='alumnos', label=_(u'Integrantes'), validator=V.Int())
 
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('curso');"), W.JSSource(ajax)]
@@ -160,20 +160,33 @@ class GrupoController(controllers.Controller, identity.SecureResource):
         """Save or create record to model"""
         responsable = kw['responsable']
         curso = kw['cursoID']
-        alumno = None
+        resp = None
         try:
             # Busco el alumno inscripto
-            alumno = AlumnoInscripto.select(AND(Curso.q.id==curso, Alumno.q.usuario==responsable))
-            if alumno.count() > 0:
-                alumno = alumno[0]
+            resp = AlumnoInscripto.select(AND(Curso.q.id==curso, Alumno.q.usuario==responsable))
+            if resp.count() > 0:
+                resp = resp[0]
             else:
                 raise Exception
         except Exception, (inst):
             flash(_(u'El responsable %s no existe') % responsable)
             raise redirect('list')
 
-        kw['responsable'] = alumno
+        kw['responsable'] = resp
+
+        # Busco los alumnos
+        alumnos = []
+        for alumnoid in kw['alumnos']:
+            alumnos.append(Alumno.get(alumnoid))
+        if alumnos == []:
+            flash(_(u'No se pudo crear el grupo. No se han agregado integrantes.'))
+            raise redirect('list')
+
+        del(kw['alumnos'])
+
         r = validate_new(kw)
+        for a in alumnos:
+            r.add_miembro(a)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
 
