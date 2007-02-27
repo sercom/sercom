@@ -108,7 +108,7 @@ class GrupoForm(W.TableForm):
         curso = W.SingleSelectField(name='cursoID', label=_(u'Curso'), options = get_cursos,
         validator = V.Int(not_empty=True))
         nombre = W.TextField(label=_(u'Nombre'), validator=V.UnicodeString(not_empty=True,strip=True))
-        responsable = CustomTextField(label=_(u'Responsable'), validator=V.Int(not_empty=True), attrs=dict(size='8'))
+        responsable = CustomTextField(label=_(u'Responsable'), validator=V.UnicodeString(not_empty=True), attrs=dict(size='8'))
 
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('curso');"), W.JSSource(ajax)]
@@ -169,7 +169,20 @@ class GrupoController(controllers.Controller, identity.SecureResource):
     @expose()
     def update(self, id, **kw):
         """Save or create record to model"""
+        responsable = kw['responsable']
+        curso = kw['cursoID']
+        alumno = None
+        try:
+            # Busco el alumno inscripto
+            alumno = AlumnoInscripto.select(AND(Curso.q.id==curso, Alumno.q.usuario==responsable))
+            if alumno.count() > 0:
+                alumno = alumno[0]
+        except Exception, (inst):
+            flash(_(u'El responsable %s no existe') % responsable)
+            raise redirect('../list')
+
         r = validate_set(id, kw)
+        r.responsable = alumno
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')
 

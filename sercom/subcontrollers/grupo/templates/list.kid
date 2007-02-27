@@ -19,7 +19,7 @@
     <tr py:for="record in records">
         <td><span py:replace="record.curso.shortrepr()">curso</span></td>
         <td><span py:replace="record.nombre">nombre</span></td>
-        <td><span py:replace="record.responsable"></span></td>
+        <td><span py:if="record.responsable is not None" py:replace="record.responsable.alumno.shortrepr()"></span></td>
 				<td>
 					<a href="${tg.url('/grupo/edit/%d' % record.id)}">Editar</a>
 					<a href="${tg.url('/grupo/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
