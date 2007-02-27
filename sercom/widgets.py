@@ -39,10 +39,24 @@ AlumnoMultiSelectAjax = '''
 
     function agregar_a_la_lista(texto, lista)
     {
-        load = MochiKit.DOM.getElement('loading');
         load.style.visibility = 'visible';
         t = MochiKit.DOM.getElement(texto);
-        url = "/grupo/get_inscripto?cursoid=1&padron="+t.value;
+
+        /* Como no se si se puede hacer de otra manera, asumo que tengo en
+         * el form un Combo que se llama curso en el codigo, y tiro error si
+         * no existe
+         */
+        curso = MochiKit.DOM.getElement('form_cursoID');
+        if (!curso) {
+            alert("No deberias ver esto, y quiere decir que tu form esta roto.\\nTe falta un combo de curso");
+            return;
+        }
+        if (curso.options[curso.selectedIndex].value <= 0) {
+            alert('Debes seleccionar un curso primero');
+            return;
+        }
+        load = MochiKit.DOM.getElement('loading');
+        url = "/grupo/get_inscripto?cursoid="+curso.options[curso.selectedIndex].value+"&padron="+t.value;
         var d = loadJSONDoc(url);
         d.addCallbacks(partial(_on_alumno_get_result, lista), _on_alumno_get_error);
         t.value = "";
