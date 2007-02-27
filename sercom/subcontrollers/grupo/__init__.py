@@ -192,6 +192,8 @@ class GrupoController(controllers.Controller, identity.SecureResource):
             alumno = AlumnoInscripto.select(AND(Curso.q.id==curso, Alumno.q.usuario==responsable))
             if alumno.count() > 0:
                 alumno = alumno[0]
+            else:
+                raise Exception
         except Exception, (inst):
             flash(_(u'El responsable %s no existe') % responsable)
             raise redirect('../list')
