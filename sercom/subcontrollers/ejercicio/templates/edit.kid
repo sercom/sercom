@@ -5,6 +5,18 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
 <title>edit</title>
 </head>
+<script type="text/javascript">
+	function select_enunciado() {
+		lista = MochiKit.DOM.getElement('enunciadoID');
+		for(i=0; i &lt; l.options.length; i++) {
+			if (l.options[i].value == ${record.enunciado.id}) {
+				l.options[i].selected = true;
+				l.selectedIndex = i;
+				break;
+			}
+		}
+	}
+</script>
 <body>
 
 <h1>Modificación de <span py:replace="name">Objeto</span></h1>
@@ -19,6 +31,5 @@
 <br/>
 <a href="${tg.url('/ejercicio/show/%d' % record.id)}">Ver (cancela)</a> |
 <a href="${tg.url('/ejercicio/list')}">Volver (cancela)</a>
-
 </body>
 </html>

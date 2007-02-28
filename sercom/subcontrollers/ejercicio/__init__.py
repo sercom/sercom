@@ -134,6 +134,10 @@ ajax = """
         connect('form_cursoID', 'onchange', actualizar_enunciados);
         hideHint();
         clearEnunciados();
+        actualizar_enunciados();
+        if (select_enunciado) {
+            wait(0.1).addCallback(function (res) { return select_enunciado() });
+        }
     }
 
     MochiKit.DOM.addLoadEvent(prepare)
