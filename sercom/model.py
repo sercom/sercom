@@ -330,15 +330,15 @@ class Alumno(Usuario): #{{{
 
 class Tarea(InheritableSQLObject): #{{{
     class sqlmeta:
-        createSQL = r'''
+        createSQL = dict(sqlite=r'''
 CREATE TABLE dependencia (
     padre_id INTEGER NOT NULL CONSTRAINT tarea_id_exists
-        REFERENCES tarea(id),
+        REFERENCES tarea(id) ON DELETE CASCADE,
     hijo_id INTEGER NOT NULL CONSTRAINT tarea_id_exists
-        REFERENCES tarea(id),
+        REFERENCES tarea(id) ON DELETE CASCADE,
     orden INT,
     PRIMARY KEY (padre_id, hijo_id)
-)'''
+)''')
     # Clave
     nombre          = UnicodeCol(length=30, alternateID=True)
     # Campos
@@ -400,22 +400,22 @@ CREATE TABLE dependencia (
 
 class Enunciado(SQLObject): #{{{
     class sqlmeta:
-        createSQL = r'''
+        createSQL = dict(sqlite=r'''
 CREATE TABLE enunciado_tarea (
     enunciado_id INTEGER NOT NULL CONSTRAINT enunciado_id_exists
-        REFERENCES enunciado(id),
+        REFERENCES enunciado(id) ON DELETE CASCADE,
     tarea_id INTEGER NOT NULL CONSTRAINT tarea_id_exists
-        REFERENCES tarea(id),
+        REFERENCES tarea(id) ON DELETE CASCADE,
     orden INT,
     PRIMARY KEY (enunciado_id, tarea_id)
-)'''
+)''')
     # Clave
     nombre          = UnicodeCol(length=60)
     anio            = IntCol(notNone=True)
     cuatrimestre    = IntCol(notNone=True)
     pk              = DatabaseIndex(nombre, anio, cuatrimestre, unique=True)
     # Campos
-    autor           = ForeignKey('Docente')
+    autor           = ForeignKey('Docente', cascade='null')
     descripcion     = UnicodeCol(length=255, default=None)
     creado          = DateTimeCol(notNone=True, default=DateTimeCol.now)
     archivo         = BLOBCol(default=None)
@@ -488,7 +488,7 @@ CREATE TABLE enunciado_tarea (
 
 class CasoDePrueba(SQLObject): #{{{
     # Clave
-    enunciado       = ForeignKey('Enunciado')
+    enunciado       = ForeignKey('Enunciado', cascade=True)
     nombre          = UnicodeCol(length=40, notNone=True)
     pk              = DatabaseIndex(enunciado, nombre, unique=True)
     # Campos
@@ -513,11 +513,11 @@ class CasoDePrueba(SQLObject): #{{{
 
 class Ejercicio(SQLObject): #{{{
     # Clave
-    curso           = ForeignKey('Curso', notNone=True)
+    curso           = ForeignKey('Curso', notNone=True, cascade=True)
     numero          = IntCol(notNone=True)
     pk              = DatabaseIndex(curso, numero, unique=True)
     # Campos
-    enunciado       = ForeignKey('Enunciado', notNone=True)
+    enunciado       = ForeignKey('Enunciado', notNone=True, cascade=False)
     grupal          = BoolCol(notNone=True, default=False)
     # Joins
     instancias      = MultipleJoin('InstanciaDeEntrega')
@@ -543,17 +543,17 @@ class Ejercicio(SQLObject): #{{{
 
 class InstanciaDeEntrega(SQLObject): #{{{
     class sqlmeta:
-        createSQL = r'''
+        createSQL = dict(sqlite=r'''
 CREATE TABLE instancia_tarea (
     instancia_id INTEGER NOT NULL CONSTRAINT instancia_id_exists
-        REFERENCES instancia_de_entrega(id),
+        REFERENCES instancia_de_entrega(id) ON DELETE CASCADE,
     tarea_id INTEGER NOT NULL CONSTRAINT tarea_id_exists
-        REFERENCES tarea(id),
+        REFERENCES tarea(id) ON DELETE CASCADE,
     orden INT,
     PRIMARY KEY (instancia_id, tarea_id)
-)'''
+)''')
     # Clave
-    ejercicio       = ForeignKey('Ejercicio', notNone=True)
+    ejercicio       = ForeignKey('Ejercicio', notNone=True, cascade=True)
     numero          = IntCol(notNone=True)
     pk              = DatabaseIndex(ejercicio, numero, unique=True)
     # Campos
@@ -624,8 +624,8 @@ CREATE TABLE instancia_tarea (
 
 class DocenteInscripto(SQLObject): #{{{
     # Clave
-    curso           = ForeignKey('Curso', notNone=True)
-    docente         = ForeignKey('Docente', notNone=True)
+    curso           = ForeignKey('Curso', notNone=True, cascade=True)
+    docente         = ForeignKey('Docente', notNone=True, cascade=True)
     pk              = DatabaseIndex(curso, docente, unique=True)
     # Campos
     corrige         = BoolCol(notNone=True, default=True)
@@ -673,11 +673,11 @@ class Entregador(InheritableSQLObject): #{{{
 class Grupo(Entregador): #{{{
     _inheritable = False
     # Clave
-    curso           = ForeignKey('Curso', notNone=True)
+    curso           = ForeignKey('Curso', notNone=True, cascade=True)
     nombre          = UnicodeCol(length=20, notNone=True)
     pk              = DatabaseIndex(curso, nombre, unique=True)
     # Campos
-    responsable     = ForeignKey('AlumnoInscripto', default=None)
+    responsable     = ForeignKey('AlumnoInscripto', default=None, cascade='null')
     # Joins
     miembros        = MultipleJoin('Miembro')
     tutores         = MultipleJoin('Tutor')
@@ -741,12 +741,12 @@ class Grupo(Entregador): #{{{
 class AlumnoInscripto(Entregador): #{{{
     _inheritable = False
     # Clave
-    curso               = ForeignKey('Curso', notNone=True)
-    alumno              = ForeignKey('Alumno', notNone=True)
+    curso               = ForeignKey('Curso', notNone=True, cascade=True)
+    alumno              = ForeignKey('Alumno', notNone=True, cascade=True)
     pk                  = DatabaseIndex(curso, alumno, unique=True)
     # Campos
     condicional         = BoolCol(notNone=True, default=False)
-    tutor               = ForeignKey('DocenteInscripto', default=None)
+    tutor               = ForeignKey('DocenteInscripto', default=None, cascade='null')
     # Joins
     responsabilidades   = MultipleJoin('Grupo', joinColumn='responsable_id')
     membresias          = MultipleJoin('Miembro', joinColumn='alumno_id')
@@ -766,8 +766,8 @@ class AlumnoInscripto(Entregador): #{{{
 
 class Tutor(SQLObject): #{{{
     # Clave
-    grupo           = ForeignKey('Grupo', notNone=True)
-    docente         = ForeignKey('DocenteInscripto', notNone=True)
+    grupo           = ForeignKey('Grupo', notNone=True, cascade=True)
+    docente         = ForeignKey('DocenteInscripto', notNone=True, cascade=True)
     pk              = DatabaseIndex(grupo, docente, unique=True)
     # Campos
     alta            = DateTimeCol(notNone=True, default=DateTimeCol.now)
@@ -784,8 +784,8 @@ class Tutor(SQLObject): #{{{
 
 class Miembro(SQLObject): #{{{
     # Clave
-    grupo           = ForeignKey('Grupo', notNone=True)
-    alumno          = ForeignKey('AlumnoInscripto', notNone=True)
+    grupo           = ForeignKey('Grupo', notNone=True, cascade=True)
+    alumno          = ForeignKey('AlumnoInscripto', notNone=True, cascade=True)
     pk              = DatabaseIndex(grupo, alumno, unique=True)
     # Campos
     nota            = DecimalCol(size=3, precision=1, default=None)
@@ -803,8 +803,8 @@ class Miembro(SQLObject): #{{{
 
 class Entrega(SQLObject): #{{{
     # Clave
-    instancia       = ForeignKey('InstanciaDeEntrega', notNone=True)
-    entregador      = ForeignKey('Entregador', default=None) # Si es None era un Docente
+    instancia       = ForeignKey('InstanciaDeEntrega', notNone=True, cascade=False)
+    entregador      = ForeignKey('Entregador', default=None, cascade=False) # Si es None era un Docente
     fecha           = DateTimeCol(notNone=True, default=DateTimeCol.now)
     pk              = DatabaseIndex(instancia, entregador, fecha, unique=True)
     # Campos
@@ -848,12 +848,12 @@ class Entrega(SQLObject): #{{{
 
 class Correccion(SQLObject): #{{{
     # Clave
-    instancia       = ForeignKey('InstanciaDeEntrega', notNone=True)
-    entregador      = ForeignKey('Entregador', notNone=True) # Docente no tiene
+    instancia       = ForeignKey('InstanciaDeEntrega', notNone=True, cascade=False)
+    entregador      = ForeignKey('Entregador', notNone=True, cascade=False) # Docente no tiene
     pk              = DatabaseIndex(instancia, entregador, unique=True)
     # Campos
-    entrega         = ForeignKey('Entrega', notNone=True)
-    corrector       = ForeignKey('DocenteInscripto', notNone=True)
+    entrega         = ForeignKey('Entrega', notNone=True, cascade=False)
+    corrector       = ForeignKey('DocenteInscripto', default=None, cascade='null')
     asignado        = DateTimeCol(notNone=True, default=DateTimeCol.now)
     corregido       = DateTimeCol(default=None)
     nota            = DecimalCol(size=3, precision=1, default=None)
@@ -873,8 +873,8 @@ class Correccion(SQLObject): #{{{
 
 class TareaEjecutada(InheritableSQLObject): #{{{
     # Clave
-    tarea           = ForeignKey('Tarea', notNone=True)
-    entrega         = ForeignKey('Entrega', notNone=True)
+    tarea           = ForeignKey('Tarea', notNone=True, cascade=False)
+    entrega         = ForeignKey('Entrega', notNone=True, cascade=False)
     pk              = DatabaseIndex(tarea, entrega, unique=True)
     # Campos
     inicio          = DateTimeCol(notNone=True, default=DateTimeCol.now)
@@ -900,8 +900,8 @@ class TareaEjecutada(InheritableSQLObject): #{{{
 
 class Prueba(SQLObject): #{{{
     # Clave
-    tarea_ejecutada = ForeignKey('TareaEjecutada', notNone=True)
-    caso_de_prueba  = ForeignKey('CasoDePrueba', notNone=True)
+    tarea_ejecutada = ForeignKey('TareaEjecutada', notNone=True, cascade=False)
+    caso_de_prueba  = ForeignKey('CasoDePrueba', notNone=True, cascade=False)
     pk              = DatabaseIndex(tarea_ejecutada, caso_de_prueba, unique=True)
     # Campos
     inicio          = DateTimeCol(notNone=True, default=DateTimeCol.now)
