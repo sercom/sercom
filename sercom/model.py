@@ -151,16 +151,30 @@ class Curso(SQLObject): #{{{
                 self.add_alumno(a)
 
     def add_docente(self, docente, **kw):
-        return DocenteInscripto(curso=self, docente=docente, **kw)
+        if isinstance(docente, Docente):
+            kw['docente'] = docente
+        else:
+            kw['docenteID'] = docente
+        return DocenteInscripto(curso=self, **kw)
 
     def remove_docente(self, docente):
-        DocenteInscripto.pk.get(curso=self, docente=docente).destroySelf()
+        if isinstance(docente, Docente):
+            DocenteInscripto.pk.get(curso=self, docente=docente).destroySelf()
+        else:
+            DocenteInscripto.pk.get(curso=self, docenteID=docente).destroySelf()
 
     def add_alumno(self, alumno, **kw):
-        return AlumnoInscripto(curso=self, alumno=alumno, **kw)
+        if isinstance(alumno, Alumno):
+            kw['alumno'] = alumno
+        else:
+            kw['alumnoID'] = alumno
+        return AlumnoInscripto(curso=self, **kw)
 
     def remove_alumno(self, alumno):
-        AlumnoInscripto.pk.get(curso=self, alumno=alumno).destroySelf()
+        if isinstance(alumno, Alumno):
+            AlumnoInscripto.pk.get(curso=self, alumno=alumno).destroySelf()
+        else:
+            AlumnoInscripto.pk.get(curso=self, alumnoID=alumno).destroySelf()
 
     def add_grupo(self, nombre, **kw):
         return Grupo(curso=self, nombre=unicode(nombre), **kw)
@@ -169,7 +183,11 @@ class Curso(SQLObject): #{{{
         Grupo.pk.get(curso=self, nombre=nombre).destroySelf()
 
     def add_ejercicio(self, numero, enunciado, **kw):
-        return Ejercicio(curso=self, numero=numero, enunciado=enunciado, **kw)
+        if isinstance(enunciado, Enunciado):
+            kw['enunciado'] = enunciado
+        else:
+            kw['enunciadoID'] = enunciado
+        return Ejercicio(curso=self, numero=numero, **kw)
 
     def remove_ejercicio(self, numero):
         Ejercicio.pk.get(curso=self, numero=numero).destroySelf()
@@ -298,6 +316,10 @@ class Alumno(Usuario): #{{{
 
     def _set_padron(self, padron):
         self.usuario = padron
+
+    @classmethod
+    def byPadron(cls, padron):
+        return cls.byUsuario(unicode(padron))
 
     def __repr__(self):
         return 'Alumno(id=%s, padron=%s, nombre=%s, password=%s, email=%s, ' \
@@ -681,16 +703,30 @@ class Grupo(Entregador): #{{{
                 self.add_tutor(t)
 
     def add_miembro(self, alumno, **kw):
-        return Miembro(grupo=self, alumno=alumno, **kw)
+        if isinstance(alumno, Alumno):
+            kw['alumno'] = alumno
+        else:
+            kw['alumnoID'] = alumno
+        return Miembro(grupo=self, **kw)
 
     def remove_miembro(self, alumno):
-        Miembro.pk.get(grupo=self, alumno=alumno).destroySelf()
+        if isinstance(alumno, Alumno):
+            Miembro.pk.get(grupo=self, alumno=alumno).destroySelf()
+        else:
+            Miembro.pk.get(grupo=self, alumnoID=alumno).destroySelf()
 
     def add_tutor(self, docente, **kw):
-        return Tutor(grupo=self, docente=docente, **kw)
+        if isinstance(docente, Docente):
+            kw['docente'] = docente
+        else:
+            kw['docenteID'] = docente
+        return Tutor(grupo=self, **kw)
 
     def remove_tutor(self, docente):
-        Tutor.pk.get(grupo=self, docente=docente).destroySelf()
+        if isinstance(docente, Alumno):
+            Tutor.pk.get(grupo=self, docente=docente).destroySelf()
+        else:
+            Tutor.pk.get(grupo=self, docenteID=docente).destroySelf()
 
     def __repr__(self):
         return 'Grupo(id=%s, nombre=%s, responsable=%s, nota=%s, ' \
