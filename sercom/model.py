@@ -703,27 +703,27 @@ class Grupo(Entregador): #{{{
                 self.add_tutor(t)
 
     def add_miembro(self, alumno, **kw):
-        if isinstance(alumno, Alumno):
+        if isinstance(alumno, AlumnoInscripto):
             kw['alumno'] = alumno
         else:
             kw['alumnoID'] = alumno
         return Miembro(grupo=self, **kw)
 
     def remove_miembro(self, alumno):
-        if isinstance(alumno, Alumno):
+        if isinstance(alumno, AlumnoInscripto):
             Miembro.pk.get(grupo=self, alumno=alumno).destroySelf()
         else:
             Miembro.pk.get(grupo=self, alumnoID=alumno).destroySelf()
 
     def add_tutor(self, docente, **kw):
-        if isinstance(docente, Docente):
+        if isinstance(docente, DocenteInscripto):
             kw['docente'] = docente
         else:
             kw['docenteID'] = docente
         return Tutor(grupo=self, **kw)
 
     def remove_tutor(self, docente):
-        if isinstance(docente, Alumno):
+        if isinstance(docente, DocenteInscripto):
             Tutor.pk.get(grupo=self, docente=docente).destroySelf()
         else:
             Tutor.pk.get(grupo=self, docenteID=docente).destroySelf()
