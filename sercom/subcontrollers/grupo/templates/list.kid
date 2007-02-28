@@ -19,7 +19,7 @@
     <tr py:for="record in records">
         <td><span py:replace="record.curso.shortrepr()">curso</span></td>
         <td><span py:replace="record.nombre">nombre</span></td>
-        <td><span py:if="record.responsable is not None" py:replace="record.responsable.alumno.shortrepr()"></span></td>
+				<td><a py:if="record.responsable is not None" href="${tg.url('/alumno/show/'+str(record.responsable.alumno.id))}" py:content="record.responsable.alumno.shortrepr()"></a></td>
 				<td>
 					<a href="${tg.url('/grupo/show/%d' % record.id)}">Ver</a>
 					<a href="${tg.url('/grupo/edit/%d' % record.id)}">Editar</a>
