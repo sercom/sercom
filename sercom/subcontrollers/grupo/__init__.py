@@ -196,7 +196,22 @@ class GrupoController(controllers.Controller, identity.SecureResource):
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
-        return dict(name=name, namepl=namepl, record=r, form=form)
+        # TODO : No encontre mejor forma de pasar cosas al form
+        # de manera comoda y facil de formatear segun lo que espera la UI (que
+        # en este caso es super particular). Ese EmptyClass no se si hay algo estandar
+        # en python que usar, puse {} y [] pero cuando quiero hacer values.id = XX explota.
+        class EmptyClass:
+            pass
+        values = EmptyClass()
+        values.id = r.id
+        values.cursoID = r.cursoID
+        values.nombre = r.nombre
+        # TODO : Ver como llenar la lista primero :S
+        if r.responsable:
+            values.responsable = r.responsable.alumno.padron
+        values.miembros = [1]
+        values.tutores = [a.docenteID for a in r.tutores]
+        return dict(name=name, namepl=namepl, record=values, form=form)
 
     @validate(form=form)
     @error_handler(edit)
