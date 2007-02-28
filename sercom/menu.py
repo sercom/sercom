@@ -1,11 +1,27 @@
 
 from turbogears import url
+from turbogears import controllers
 
-menu = []
-menu.append({'name': 'Alumnos', 'url':url('/alumno')})
-menu.append({'name': 'Docentes', 'url':url('/docente')})
-menu.append({'name': 'Grupos', 'url':url('/grupo')})
-menu.append({'name': 'Enunciados', 'url':url('/enunciado')})
-menu.append({'name': 'Ejercicios', 'url':url('/ejercicio')})
-menu.append({'name': 'Casos de Prueba', 'url':url('/caso_de_prueba')})
-menu.append({'name': 'Cursos', 'url':url('/curso')})
+class Menu:
+    def __init__(self, controller):
+        # Armo la lista de subcontrollers
+        self.items = []
+        for i in controller.__dict__:
+            if isinstance(getattr(controller, i),controllers.Controller):
+                self.items.append(i)
+        self.items.sort()
+
+    def __repr__(self):
+        t = """
+        <div id="navbar">
+    			Ir a :
+		    	<select OnChange="window.location=this.options[this.selectedIndex].value;">
+    				%s
+		    	</select>
+    		</div>
+        """
+        s = ''
+        for i in self.items:
+            s = s + u"""<option value="%s" %s>%s</option>" """ % (url('/' + i), i.capitalize().replace('_', ' '))
+        return t % s
+
