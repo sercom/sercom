@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<table>
+<table class="show">
     <tr>
         <th>Anio:</th>
         <td><span py:replace="record.anio">anio</span></td>

@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<table>
+<table class="show">
     <tr>
         <th>Padrón:</th>
         <td><span py:replace="record.padron">padrón</span></td>

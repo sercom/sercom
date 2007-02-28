@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<table>
+<table class="show">
     <tr>
         <th>Usuario:</th>
         <td><span py:replace="record.usuario">usuario</span></td>
