@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<table>
+<table class="show">
     <tr>
         <th>Curso:</th>
         <td><span py:replace="record.curso.shortrepr()">curso</span></td>
