@@ -220,20 +220,16 @@ class GrupoController(controllers.Controller, identity.SecureResource):
         """Save or create record to model"""
         responsable = kw['responsable']
         curso = kw['cursoID']
-        alumno = None
+        resp = kw['responsable']
         try:
             # Busco el alumno inscripto
-            alumno = AlumnoInscripto.select(AND(Curso.q.id==curso, Alumno.q.usuario==responsable))
-            if alumno.count() > 0:
-                alumno = alumno[0]
-            else:
-                raise Exception
-        except Exception, (inst):
-            flash(_(u'El responsable %s no existe') % responsable)
-            raise redirect('../list')
-
+            resp = AlumnoInscripto.selectBy(cursoID=kw['cursoID'],
+                alumno=Alumno.byPadron(kw['responsable'])).getOne()
+        except SQLObjectNotFound:
+            flash(_(u'El responsable %s no existe') % resp)
+            raise redirect('list')
+        kw['responsable'] = resp
         r = validate_set(id, kw)
-        r.responsable = alumno
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')
 
