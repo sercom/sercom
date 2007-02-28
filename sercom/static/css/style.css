@@ -96,9 +96,12 @@ h2 {
   border-top: 0px none;
   color: #999;
   background-color: white;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 25px;
+  padding-bottom: 0px;
   font-size: 80%;
-  text-align: center;
+  text-align: left;
   width: 757px;
   margin: 0 auto 1em auto;
 }
@@ -206,3 +209,9 @@ table.show td {
 	padding-bottom: 2px;
 	border: none;
 }
+
+#footer img {
+	float:right;
+	padding-bottom: 50px;
+}
+
