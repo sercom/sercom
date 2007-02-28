@@ -22,6 +22,6 @@ class Menu:
         """
         s = ''
         for i in self.items:
-            s = s + u"""<option value="%s" %s>%s</option>" """ % (url('/' + i), i.capitalize().replace('_', ' '))
+            s = s + u"""<option value="%s">%s</option>" """ % (url('/' + i), i.capitalize().replace('_', ' '))
         return t % s
 
