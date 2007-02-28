@@ -48,7 +48,7 @@
 	<!-- End of main_content -->
 	</div>
 	<div id="footer">
-		<a href="http://www/turbogears.org/"><img src="/static/images/under_the_hood_blue.png" alt="TurboGears under the hood" /></a>
+		<a href="http://www.turbogears.org/"><img src="/static/images/under_the_hood_blue.png" alt="TurboGears under the hood" /></a>
   	<p>Copyleft &copy; 2007 Dimov, Lucarella, Markiewicz</p>
 		<br />
 	</div>
