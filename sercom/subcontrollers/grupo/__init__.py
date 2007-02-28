@@ -128,12 +128,11 @@ def get_docentes():
 
 class GrupoForm(W.TableForm):
     class Fields(W.WidgetsList):
-        curso = W.SingleSelectField(name='cursoID', label=_(u'Curso'), options = get_cursos,
-        validator = V.Int(not_empty=True))
+        cursoID = W.SingleSelectField(label=_(u'Curso'), options = get_cursos, validator = V.Int(not_empty=True))
         nombre = W.TextField(label=_(u'Nombre'), validator=V.UnicodeString(not_empty=True,strip=True))
         responsable = CustomTextField(label=_(u'Responsable'), validator=V.UnicodeString(not_empty=True), attrs=dict(size='8'))
-        alumnos = AjaxMultiSelect(name='alumnos', label=_(u'Miembros'), validator=V.Int(), on_add="alumnos_agregar_a_la_lista")
-        docentes = W.MultipleSelectField(name='docentes', label=_(u'Tutores'), validator=V.Int(), options=get_docentes)
+        miembros = AjaxMultiSelect(label=_(u'Miembros'), validator=V.Int(), on_add="alumnos_agregar_a_la_lista")
+        tutores = W.MultipleSelectField(label=_(u'Tutores'), validator=V.Int(), options=get_docentes)
 
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('curso');"), W.JSSource(ajax)]
@@ -179,46 +178,17 @@ class GrupoController(controllers.Controller, identity.SecureResource):
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
-        responsable = kw['responsable']
-        curso = kw['cursoID']
-        resp = None
+        resp = kw['responsable']
         try:
             # Busco el alumno inscripto
-            resp = AlumnoInscripto.select(AND(Curso.q.id==curso, Alumno.q.usuario==responsable))
-            if resp.count() > 0:
-                resp = resp[0]
-            else:
-                raise Exception
-        except Exception, (inst):
-            flash(_(u'El responsable %s no existe') % responsable)
+            resp = AlumnoInscripto.selectBy(cursoID=kw['cursoID'],
+                alumno=Alumno.byPadron(kw['responsable'])).getOne()
+        except SQLObjectNotFound:
+            flash(_(u'El responsable %s no existe') % resp)
             raise redirect('list')
-
         kw['responsable'] = resp
 
-        # Busco los alumnos
-        alumnos = []
-        for alumnoid in kw['alumnos']:
-            alumnos.append(Alumno.get(alumnoid))
-        if alumnos == []:
-            flash(_(u'No se pudo crear el grupo. No se han agregado integrantes.'))
-            raise redirect('list')
-        del(kw['alumnos'])
-
-        # Busco los docentes
-        docentes = []
-        for docenteid in kw['docentes']:
-            docentes.append(Docente.get(docenteid))
-        # TODO : Puede no tener tutor ?
-        #if docentes == []:
-        #    flash(_(u'No se pudo crear el grupo. No se han agregado integrantes.'))
-        #    raise redirect('list')
-        del(kw['docentes'])
-
         r = validate_new(kw)
-        for a in alumnos:
-            r.add_miembro(a)
-        for a in docentes:
-            r.add_tutor(a)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
 
