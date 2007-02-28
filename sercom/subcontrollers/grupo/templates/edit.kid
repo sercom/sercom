@@ -5,8 +5,15 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
 <title>edit</title>
 </head>
-<body>
+<script type="text/javascript">
+	function init_data() {
+		MochiKit.DOM.getElement('form_responsable').focus();
+		MochiKit.DOM.getElement('form_cursoID').focus();
+	}
+	MochiKit.DOM.addLoadEvent(init_data)
+</script>
 
+<body>
 <h1>Modificación de <span py:replace="name">Objeto</span></h1>
 
 <div py:replace="form(value=record, action=tg.url('/grupo/update/%d' % record.id),
