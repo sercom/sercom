@@ -10,15 +10,13 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Curso, Ejercicio, Alumno, Docente, Grupo, DocenteInscripto
-from curso_alumno import *
-
+from sercom.model import Curso, Ejercicio, Alumno, Docente, Grupo, DocenteInscripto, AlumnoInscripto
 #}}}
 
 #{{{ Configuración
 cls = Curso
-name = 'curso'
-namepl = name + 's'
+name = 'Alumno del curso'
+namepl = 'Alumnos del curso'
 #}}}
 
 #{{{ Validación
@@ -38,58 +36,64 @@ def get_ejercicios():
 def get_docentes():
     return [(fk1.id, fk1.shortrepr()) for fk1 in Docente.select()]
 
+def get_alumnos_inscriptos(curso):
+    return [(fk1.id, fk1.shortrepr()) for fk1 in AlumnoInscripto.selectBy(curso)]
+
 def get_alumnos():
     return [(fk1.id, fk1.shortrepr()) for fk1 in Alumno.select()]
 
 def get_grupos():
     return [(fk1.id, fk1.shortrepr()) for fk1 in Grupo.select()]
 
+ajax = u""" 
+function makeOption(option) {
+    return OPTION({"value": option.value}, option.text);
+}
+                   
+function moveOption( fromSelect, toSelect) {
+    // add 'selected' nodes toSelect
+    appendChildNodes(toSelect,
+    map( makeOption,ifilter(itemgetter('selected'), $(fromSelect).options)));
+    // remove the 'selected' fromSelect
+    replaceChildNodes(fromSelect,
+        list(ifilterfalse(itemgetter('selected'), $(fromSelect).options))
+    );
+}
+"""
+
 #{{{ Formulario
-class CursoForm(W.TableForm):
+class CursoAlumnoForm(W.TableForm):
     class Fields(W.WidgetsList):
-        anio = W.TextField(label=_(u'Anio'),
-            help_text=_(u'Requerido y único.'),
-            validator=V.Number(min=4, max=4, strip=True))
-        cuatrimestre = W.TextField(label=_(u'Cuatrimestre'),
-            help_text=_(u'Requerido.'),
-            validator=V.Number(min=1, max=1, strip=True))
-        numero = W.TextField(label=_(u'Numero'),
-            help_text=_(u'Requerido'),
-            validator=V.Number(min=1, max=2, strip=True))
-        descripcion = W.TextArea(name='descripcion', label=_(u'Descripcion'),
-            help_text=_(u'Descripcion.'),
-            validator=V.UnicodeString(not_empty=False, strip=True))
-        docentes = W.MultipleSelectField(name="docentes", label=_(u'Docentes'),
-            help_text=_(u'Docentes asignados al curso'), options=get_docentes,
-            validator=V.Int(not_empty=True))
-        alumnos = W.MultipleSelectField(name="alumnos", label=_(u'Alumnos'),
-            help_text=_(u'Alumnos del curso'), options=get_alumnos,
-            validator=V.Int(not_empty=True))
-#        grupos = W.MultipleSelectField(name="grupos", label=_(u'Grupos'),
-#          help_text=_(u'Grupos del curso'), options=get_grupos,
-#           validator=V.Int(not_empty=False))
-#        ejercicios = W.MultipleSelectField(name="ejercicios", label=_(u'Ejercicios'),
-#           help_text=_(u'Ejercicios'), options=get_ejercicios,
-#           validator=V.Int(not_empty=True))
+        alumnos = W.MultipleSelectField(label=_(u'Alumnos'),
+            attrs=dict( style='width:250px'),
+            options=get_alumnos,
+            validator = V.Int(not_empty=False))
+        inscribir = W.Button(default='Inscribir', label='',
+            attrs=dict( onclick='moveOption("form_alumnos","form_inscriptos")'))
+        desinscribir = W.Button(default='Desinscribir', label='',
+            attrs=dict( onclick='moveOption("form_inscriptos","form_alumnos")'))
+        inscriptos = W.MultipleSelectField(label=_(u'Alumnos Inscriptos'),
+            attrs=dict( style='width:250px'),
+            validator = V.Int(not_empty=False))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('anio');")]
-form = CursoForm()
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('alumnos');"),
+                  W.JSSource(ajax)]
+form = CursoAlumnoForm()
 #}}}
 
 #{{{ Controlador
-class CursoController(controllers.Controller, identity.SecureResource):
+class CursoAlumnoController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_permission('admin')
-    curso_alumno = CursoAlumnoController()
 
     @expose()
-    def default(self, tg_errors=None):
+    def default(self, curso_id):
         """handle non exist urls"""
-        raise redirect('list')
-
+        return dict(records=r, name=name, namepl=namepl, alumnos=alumnos)
+    
     @expose()
     def index(self):
-        raise redirect('list')
+        raise redirect('/curso/list')
 
     @expose(template='kid:%s.templates.list' % __name__)
     @paginate('records')
@@ -109,8 +113,12 @@ class CursoController(controllers.Controller, identity.SecureResource):
         raise redirect('../../list')
 
     @expose(template='kid:%s.templates.new' % __name__)
-    def new(self, **kw):
+    def new(self,curso_id, **kw):
         """Create new records in model"""
+        curso = Curso.get(curso_id)
+        alumnos_inscriptos = AlumnoInscripto.selectBy(curso=curso)
+#        kw['alumnos'] = alumnos_inscriptos
+#        form.fields.alumnos.options = alumnos_inscriptos
         return dict(name=name, namepl=namepl, form=form, values=kw)
 
     @validate(form=form)
@@ -164,4 +172,3 @@ class CursoController(controllers.Controller, identity.SecureResource):
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../list')
 #}}}
-

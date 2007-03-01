@@ -93,6 +93,7 @@ class Root(controllers.RootController):
     
     docente_inscripto = DocenteInscriptoController()
 
+
 #{{{ Agrega summarize a namespace tg de KID
 def summarize(text, size, concat=True, continuation='...'):
     """Summarize a string if it's length is greater than a specified size. This
