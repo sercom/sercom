@@ -31,7 +31,7 @@
 				<td>
 					<a href="${tg.url('/correccion/show/%d' % record.id)}">Ver</a>
 					<a py:if="not record.corregido and not record.nota" href="${tg.url('/correccion/edit/%d' % record.id)}">Corregir</a>
-					<a py:if="record.corregido and record.nota" href="${tg.url('/correccion/edit/%d' % record.id)}">Editar</a>
+					<a py:if="record.corregido or record.nota" href="${tg.url('/correccion/edit/%d' % record.id)}">Editar</a>
 				</td>
     </tr>
 </table>

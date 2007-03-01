@@ -81,9 +81,11 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
     @expose()
     def update(self, id, **kw):
         """Save or create record to model"""
+        from sqlobject import DateTimeCol
         r = Correccion.get(id)
         r.nota = kw['nota']
         r.observaciones = kw['observaciones']
+        r.corregido = DateTimeCol.now()
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')
 
