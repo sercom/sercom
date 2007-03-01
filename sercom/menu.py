@@ -20,6 +20,6 @@ class Menu:
         """
         s = ''
         for i in self.items:
-            s + = option % (url('/' + i), i.capitalize().replace('_', ' '))
-        return t % s
+            s += option % (url('/' + i), i.capitalize().replace('_', ' '))
+        return template % s
 
