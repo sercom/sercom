@@ -1,18 +1,16 @@
 
 from turbogears import url
-from turbogears import controllers
+from turbogears.controllers import Controller
 
 class Menu:
-    def __init__(self, controller):
+    def __init__(self, base):
         # Armo la lista de subcontrollers
-        self.items = []
-        for i in controller.__dict__:
-            if isinstance(getattr(controller, i),controllers.Controller):
-                self.items.append(i)
+        self.items = filter(lambda i: isinstance(getattr(base, i), Controller), base.__dict__)
         self.items.sort()
 
     def __repr__(self):
-        t = """
+        option = u"""<option value="%s">%s</option>" """
+        template = """
         <div id="navbar">
     			Ir a :
 		    	<select OnChange="window.location=this.options[this.selectedIndex].value;">
@@ -22,6 +20,6 @@ class Menu:
         """
         s = ''
         for i in self.items:
-            s = s + u"""<option value="%s">%s</option>" """ % (url('/' + i), i.capitalize().replace('_', ' '))
+            s + = option % (url('/' + i), i.capitalize().replace('_', ' '))
         return t % s
 
