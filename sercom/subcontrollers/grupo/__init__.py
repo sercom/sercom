@@ -209,7 +209,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
         # TODO : Ver como llenar la lista primero :S
         if r.responsable:
             values.responsable = r.responsable.alumno.padron
-        values.miembros = [1]
+        values.miembros = [{"id":i.alumno.id, "label":i.alumno.alumno.nombre} for i in r.miembros]
         values.tutores = [a.docenteID for a in r.tutores]
         return dict(name=name, namepl=namepl, record=values, form=form)
 

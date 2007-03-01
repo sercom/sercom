@@ -9,6 +9,9 @@
 	function init_data() {
 		MochiKit.DOM.getElement('form_responsable').focus();
 		MochiKit.DOM.getElement('form_cursoID').focus();
+		<span py:for="i in record.miembros" py:strip="True">
+			MochiKit.DOM.appendChildNodes("form_miembros", OPTION({"value":${i['id']}}, '${i['label']}'))
+		</span>
 	}
 	MochiKit.DOM.addLoadEvent(init_data)
 </script>
