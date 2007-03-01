@@ -9,7 +9,7 @@
 
 <h1>Administración de <span py:replace="namepl">Objetos</span></h1>
 
-<table>
+<table class="list">
     <tr>
         <th>Numero</th>
         <th>Cuatrimestre</th>
