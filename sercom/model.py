@@ -859,6 +859,9 @@ class Correccion(SQLObject): #{{{
     nota            = DecimalCol(size=3, precision=1, default=None)
     observaciones   = UnicodeCol(default=None)
 
+    def _get_entregas(self):
+        return list(Entrega.selectBy(instancia=self.instancia, entregador=self.entregador))
+
     def __repr__(self):
         return 'Correccion(instancia=%s, entregador=%s, entrega=%s, ' \
             'corrector=%s, asignado=%s, corregido=%s, nota=%s, ' \
