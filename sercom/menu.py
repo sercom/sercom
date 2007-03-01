@@ -1,12 +1,16 @@
 
 from turbogears import url
 from turbogears.controllers import Controller
+from turbogears import identity
 
 class Menu:
     def __init__(self, base):
-        # Armo la lista de subcontrollers
+        self.base = base
         self.items = filter(lambda i: isinstance(getattr(base, i), Controller), base.__dict__)
         self.items.sort()
+
+    def _check(self, c):
+        return c.require.eval_with_object(identity.current)
 
     def __repr__(self):
         option = u"""<option value="%s">%s</option>" """
@@ -18,8 +22,9 @@ class Menu:
 		    	</select>
     		</div>
         """
-        s = ''
+        s = option % ('', '-----')
         for i in self.items:
-            s += option % (url('/' + i), i.capitalize().replace('_', ' '))
+            if self._check(getattr(self.base, i)):
+                s += option % (url('/' + i), i.capitalize().replace('_', ' '))
         return template % s
 
