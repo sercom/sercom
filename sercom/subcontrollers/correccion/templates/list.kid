@@ -11,7 +11,7 @@
 
 <table class="list">
     <tr>
-        <th>Instancia de Entrega</th>
+				<th><span title="Instancia de Entrega">IE</span></th>
         <th>Entregador</th>
         <th>Entregas</th>
         <th>Corrector</th>
@@ -29,6 +29,7 @@
         <td><span py:replace="record.corregido">observaciones</span></td>
         <td><span py:replace="record.nota">observaciones</span></td>
 				<td>
+					<a href="${tg.url('/correccion/show/%d' % record.id)}">Ver</a>
 					<a py:if="not record.corregido and not record.nota" href="${tg.url('/correccion/edit/%d' % record.id)}">Corregir</a>
 					<a py:if="record.corregido and record.nota" href="${tg.url('/correccion/edit/%d' % record.id)}">Editar</a>
 				</td>

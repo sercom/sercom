@@ -93,7 +93,7 @@ class Root(controllers.RootController):
     
     docente_inscripto = DocenteInscriptoController()
 
-    correcion = CorreccionController()
+    correccion = CorreccionController()
 
 
 #{{{ Agrega summarize a namespace tg de KID
