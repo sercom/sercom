@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?python from sercom.model import Grupo, AlumnoInscripto ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#"
     py:extends="'../../../templates/master.kid'">
 <head>
@@ -22,9 +23,12 @@
     </tr>
     <tr py:for="record in records">
         <td><span py:replace="record.instancia.shortrepr()">usuario</span></td>
-        <td><span py:replace="record.entregador.shortrepr()">nombre</span></td>
+				<td>
+					<a py:if="isinstance(record.entregador, Grupo)" href="${tg.url('/grupo/show/%d' % record.entregador.id)}" py:content="record.entregador.shortrepr()">nombre</a>
+					<a py:if="isinstance(record.entregador, AlumnoInscripto)" href="${tg.url('/alumno/show/%d' % record.entregador.alumno.id)}" py:content="record.entregador.shortrepr()">nombre</a>
+				</td>
         <td><span py:replace="len(record.entregas)">email</span></td>
-        <td><span py:replace="record.corrector.shortrepr()">telefono</span></td>
+				<td><a href="${tg.url('/docente/show/%d' % record.corrector.docente.id)}" py:content="record.corrector.shortrepr()">corrector</a></td>
         <td><span py:replace="record.asignado">nota</span></td>
         <td><span py:replace="record.corregido">observaciones</span></td>
         <td><span py:replace="record.nota">observaciones</span></td>
