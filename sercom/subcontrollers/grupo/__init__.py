@@ -120,6 +120,18 @@ ajax = u"""
         connect('form_responsable', 'onblur', buscar_alumno);
     }
 
+    function onsubmit()
+    {
+        /* TODO : Validar datos y evitar el submit si no esta completo */
+
+        /* Selecciono todos los miembros si no, no llegan al controllere*/
+        l = MochiKit.DOM.getElement('form_miembros');
+        for (i=0; i<l.options.length; i++) { 
+            l.options[i].selected = true; 
+        }
+        return true; // Dejo hacer el submit
+    }
+
     MochiKit.DOM.addLoadEvent(prepare)
 
 """
@@ -136,6 +148,7 @@ class GrupoForm(W.TableForm):
 
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('curso');"), W.JSSource(ajax)]
+    form_attrs = dict(onsubmit='return onsubmit()')
 
 form = GrupoForm()
 

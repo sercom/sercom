@@ -31,9 +31,6 @@ MultiSelectAjax = '''
         }
         MochiKit.DOM.appendChildNodes(lista, OPTION({'value':results.msg.id}, results.msg.value));
         l = MochiKit.DOM.getElement(lista);
-        for (i=0; i<l.options.length; i++) { 
-            l.options[i].selected = true; 
-        }
     }
 
     function _on_alumno_get_error(loading, results)
