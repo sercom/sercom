@@ -6,3 +6,4 @@ from caso_de_prueba import CasoDePruebaController
 from ejercicio import EjercicioController
 from docente_inscripto import DocenteInscriptoController
 from grupo import GrupoController
+from correccion import CorreccionController
