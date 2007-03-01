@@ -12,7 +12,8 @@ from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Curso, Ejercicio, Alumno, Docente, Grupo, DocenteInscripto
 from curso_alumno import *
-
+from sqlobject import *
+from sercom.widgets import *
 #}}}
 
 #{{{ Configuración
@@ -20,6 +21,88 @@ cls = Curso
 name = 'curso'
 namepl = name + 's'
 #}}}
+
+ajax = u""" 
+    function makeOption(option) {
+        return OPTION({"value": option.value}, option.text);
+    }
+                   
+    function moveOption( fromSelect, toSelect) {
+        // add 'selected' nodes toSelect
+        appendChildNodes(toSelect,
+        map( makeOption,ifilter(itemgetter('selected'), $(fromSelect).options)));
+        // remove the 'selected' fromSelect
+        replaceChildNodes(fromSelect,
+            list(ifilterfalse(itemgetter('selected'), $(fromSelect).options))
+        );
+    }
+
+    function alumnos_agregar_a_la_lista(texto, lista)
+    {
+        t = MochiKit.DOM.getElement(texto);
+
+        url = "/alumno/get_alumno?padron="+t.value;
+        t.value = "";
+        return url;
+    }
+
+    function err (err)
+    {
+        alert("The metadata for MochiKit.Async could not be fetched :(");
+    }
+
+    function procesar(result)
+    {
+        l = MochiKit.DOM.getElement('form_responsable_info');
+        if (result.error)
+            l.innerHTML = result.msg;
+        else
+            l.innerHTML = result.msg.value;
+    }
+
+    function buscar_alumno()
+    {
+        /* Obtengo el curso */
+        l = MochiKit.DOM.getElement('form_cursoID');
+        cursoid = l.options[l.selectedIndex].value;
+        if (cursoid <= 0) {
+            alert('Debe seleccionar un curso');
+            return;
+        }
+        /* Obtengo el padron ingresado */
+        p = MochiKit.DOM.getElement('form_responsable');
+        padron = p.value;
+        if (padron == '') {
+            alert('Debe ingresar el padrón del alumno responsable');
+            return;
+        }
+        url = "/grupo/get_inscripto?cursoid="+cursoid+'&padron='+padron;
+        var d = loadJSONDoc(url);
+        d.addCallbacks(procesar, err);
+    }
+
+    function prepare()
+    {
+        connect('form_responsable', 'onblur', buscar_alumno);
+    }
+
+    function onsubmit()
+    {
+        /* TODO : Validar datos y evitar el submit si no esta completo */
+
+        /* Selecciono todos los miembros si no, no llegan al controllere*/
+        l = MochiKit.DOM.getElement('form_miembros');
+        for (i=0; i<l.options.length; i++) { 
+            l.options[i].selected = true; 
+        }
+        return true; // Dejo hacer el submit
+    }
+
+    MochiKit.DOM.addLoadEvent(prepare)
+
+"""
+
+
 
 #{{{ Validación
 def validate_get(id):
@@ -59,20 +142,30 @@ class CursoForm(W.TableForm):
         descripcion = W.TextArea(name='descripcion', label=_(u'Descripcion'),
             help_text=_(u'Descripcion.'),
             validator=V.UnicodeString(not_empty=False, strip=True))
-        docentes = W.MultipleSelectField(name="docentes", label=_(u'Docentes'),
-            help_text=_(u'Docentes asignados al curso'), options=get_docentes,
+        
+        docentes = W.MultipleSelectField(name="docentes",
+            label=_(u'Docentes'),
+            attrs=dict(style='width:300px'),
+            options=get_docentes,
             validator=V.Int(not_empty=True))
-        alumnos = W.MultipleSelectField(name="alumnos", label=_(u'Alumnos'),
-            help_text=_(u'Alumnos del curso'), options=get_alumnos,
+        addDocente = W.Button(default='Asignar', label='',
+            attrs=dict( onclick='moveOption("form_docentes","form_docentes_curso")'))
+        remDocente = W.Button(default='Remover', label='',
+            attrs=dict( onclick='moveOption("form_docentes_curso","form_docentes")'))
+        docentes_curso = W.MultipleSelectField(name="docentes_curso",
+            label=_(u'Docentes del curso'),
+            attrs=dict(style='width:300px'),
+#            options=get_docentes_curso,
             validator=V.Int(not_empty=True))
-#        grupos = W.MultipleSelectField(name="grupos", label=_(u'Grupos'),
-#          help_text=_(u'Grupos del curso'), options=get_grupos,
-#           validator=V.Int(not_empty=False))
-#        ejercicios = W.MultipleSelectField(name="ejercicios", label=_(u'Ejercicios'),
-#           help_text=_(u'Ejercicios'), options=get_ejercicios,
-#           validator=V.Int(not_empty=True))
+
+        alumnos = AjaxMultiSelect(label=_(u'Alumnos'),
+                validator=V.Int(),
+                on_add="alumnos_agregar_a_la_lista")
+
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('anio');")]
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('anio');"),
+                  W.JSSource(ajax)]
+    form_attrs = dict(onsubmit='return onsubmit()')
 form = CursoForm()
 #}}}
 
@@ -111,7 +204,8 @@ class CursoController(controllers.Controller, identity.SecureResource):
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
         """Create new records in model"""
-        return dict(name=name, namepl=namepl, form=form, values=kw)
+        params = dict([(k,v) for (k,v) in kw.iteritems() if k in Curso.sqlmeta.columns.keys()])
+        return dict(name=name, namepl=namepl, form=form, values=params)
 
     @validate(form=form)
     @error_handler(new)
@@ -119,7 +213,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
     def create(self, **kw):
         """Save or create record to model"""
         r = validate_new(kw)
-        docentes = kw.get('docentes', [])
+        docentes = kw.get('docentes_curso', [])
         alumnos = kw.get('alumnos', [])
         """ Elimino todos los docentes asignados al curso y los agrego nuevamente""" 
         for d in DocenteInscripto.selectBy(curso=r):
@@ -127,9 +221,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
         """ Agrego la nueva seleccion """ 
         for d in docentes:
             r.add_docente(Docente(d))
-        """ Elimino a los alumnos y los vuelvo a agregar """
-        for a in AlumnoInscripto.selectBy(curso=r):
-            d.destroySelf()
+        """ El curso es nuevo, por ende no hay alumnos inscriptos """
         for a in alumnos:
             r.add_alumno(Alumno(a))
         flash(_(u'Se creó un nuevo %s.') % name)
@@ -139,6 +231,24 @@ class CursoController(controllers.Controller, identity.SecureResource):
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
+        docentes = kw.get('docentes_curso', [])
+        alumnos = kw.get('alumnos', [])
+        """ Elimino todos los docentes asignados al curso y los agrego nuevamente""" 
+        for d in DocenteInscripto.selectBy(curso=r):
+            d.destroySelf()
+        """ Agrego la nueva seleccion """ 
+        for d in docentes:
+            r.add_docente(Docente(d))
+        """ Verifico que los alumnos no esten ya inscriptos  """
+       
+        try:
+            for a in alumnos:
+                r.add_alumno(Alumno(a))
+        except DuplicateEntryError:
+            flash(_(u'El alumno con padron %s ya esta inscripto.') % Alumno(a).padron)
+            raise redirect('create')
+        flash(_(u'Se creó un nuevo %s.') % name)
+        
         return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
@@ -146,7 +256,8 @@ class CursoController(controllers.Controller, identity.SecureResource):
     @expose()
     def update(self, id, **kw):
         """Save or create record to model"""
-        r = validate_set(id, kw)
+        params = dict([(k,v) for (k,v) in kw.iteritems() if k in Curso.sqlmeta.columns.keys()])
+        r = validate_set(id, params)
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')
 

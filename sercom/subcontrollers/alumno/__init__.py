@@ -11,6 +11,7 @@ from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Alumno
+from sqlobject import *
 #}}}
 
 #{{{ Configuración
@@ -171,5 +172,25 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
                     row.append(str(e))
                     fail.append(row)
         return dict(ok=ok, fail=fail)
+    
+    @expose('json')
+    def get_alumno(self, padron):
+        msg = u''
+        error=False
+        try:
+            # Busco el alumno inscripto
+            alumno = Alumno.byPadron(padron=padron)
+            msg = {}
+            msg['id'] = alumno.id
+            msg['value'] = alumno.nombre
+        except SQLObjectNotFound:
+            msg = 'No existe el alumno con padron: %s.' % padron
+            error=True
+        except Exception, (inst):
+            msg = u"""Se ha producido un error inesperado al buscar el registro:\n      %s""" % str(inst)
+            error = True
+        return dict(msg=msg, error=error)
+
+   
 #}}}
 

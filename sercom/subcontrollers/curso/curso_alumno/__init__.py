@@ -74,6 +74,7 @@ class CursoAlumnoForm(W.TableForm):
             attrs=dict( onclick='moveOption("form_inscriptos","form_alumnos")'))
         inscriptos = W.MultipleSelectField(label=_(u'Alumnos Inscriptos'),
             attrs=dict( style='width:250px'),
+            options=get_alumnos,
             validator = V.Int(not_empty=False))
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('alumnos');"),
@@ -115,10 +116,6 @@ class CursoAlumnoController(controllers.Controller, identity.SecureResource):
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self,curso_id, **kw):
         """Create new records in model"""
-        curso = Curso.get(curso_id)
-        alumnos_inscriptos = AlumnoInscripto.selectBy(curso=curso)
-#        kw['alumnos'] = alumnos_inscriptos
-#        form.fields.alumnos.options = alumnos_inscriptos
         return dict(name=name, namepl=namepl, form=form, values=kw)
 
     @validate(form=form)
