@@ -10,6 +10,8 @@
 
 <h1>Administración de <span py:replace="namepl">Objetos</span></h1>
 
+<div py:replace="form(value=vfilter, action=tg.url('/correccion/list'),	submit_text=_(u'Filtrar'))">Filtros</div>
+
 <table class="list">
     <tr>
 				<th><span title="Instancia de Entrega">IE</span></th>
@@ -18,8 +20,8 @@
         <th>Corrector</th>
         <th>Asignado</th>
         <th>Corregido</th>
-        <th>Corregido</th>
 				<th>Nota</th>
+				<th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
         <td><span py:replace="record.instancia.shortrepr()">usuario</span></td>
@@ -27,11 +29,11 @@
 					<a py:if="isinstance(record.entregador, Grupo)" href="${tg.url('/grupo/show/%d' % record.entregador.id)}" py:content="record.entregador.shortrepr()">nombre</a>
 					<a py:if="isinstance(record.entregador, AlumnoInscripto)" href="${tg.url('/alumno/show/%d' % record.entregador.alumno.id)}" py:content="record.entregador.shortrepr()">nombre</a>
 				</td>
-        <td><span py:replace="len(record.entregas)">email</span></td>
+        <td align="center"><span py:replace="len(record.entregas)">email</span></td>
 				<td><a href="${tg.url('/docente/show/%d' % record.corrector.docente.id)}" py:content="record.corrector.shortrepr()">corrector</a></td>
-        <td><span py:replace="record.asignado">nota</span></td>
-        <td><span py:replace="record.corregido">observaciones</span></td>
-        <td><span py:replace="record.nota">observaciones</span></td>
+        <td><span py:replace="record.asignado">fecha asignado</span></td>
+        <td><span py:replace="record.corregido">fecha corregido</span></td>
+        <td align="right"><span py:replace="record.nota">nota</span></td>
 				<td>
 					<a href="${tg.url('/correccion/show/%d' % record.id)}">Ver</a>
 					<a py:if="not record.corregido and not record.nota" href="${tg.url('/correccion/edit/%d' % record.id)}">Corregir</a>

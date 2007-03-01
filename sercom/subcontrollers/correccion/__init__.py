@@ -10,7 +10,9 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Correccion
+from sercom.model import Correccion, Curso, Ejercicio, InstanciaDeEntrega
+from sqlobject import *
+
 #}}}
 
 #{{{ Configuración
@@ -42,6 +44,15 @@ class CorreccionForm(W.TableForm):
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_instancia');")]
 
+def get_cursos():
+    return [(0, u'---')] + [(fk1.id, fk1.shortrepr()) for fk1 in Curso.select()]
+
+class CorreccionFiltros(W.TableForm):
+    class Fields(W.WidgetsList):
+        cursoID = W.SingleSelectField(label=_(u'Curso'), options = get_cursos, validator = V.Int(not_empty=True))
+    fields = Fields()
+
+filtro = CorreccionFiltros()
 form = CorreccionForm()
 #}}}
 
@@ -61,10 +72,21 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.list' % __name__)
     @paginate('records')
-    def list(self):
+    def list(self, cursoID = 0):
         """List records in model"""
-        r = cls.select()
-        return dict(records=r, name=name, namepl=namepl)
+        vfilter = dict(cursoID = cursoID)
+        if int(cursoID) == 0:
+            r = cls.selectBy(corrector=identity.current.user)
+        else:
+            r = cls.select(
+                AND(
+                    cls.q.correctorID == identity.current.user.id,
+                    Ejercicio.q.id == InstanciaDeEntrega.q.ejercicioID,
+                    InstanciaDeEntrega.q.id == Correccion.q.instanciaID,
+                    Ejercicio.q.cursoID == cursoID
+                )
+            )
+        return dict(records=r, name=name, namepl=namepl, form=filtro, vfilter=vfilter)
 
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
