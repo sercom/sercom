@@ -212,9 +212,13 @@ class CursoController(controllers.Controller, identity.SecureResource):
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
-        r = validate_new(kw)
         docentes = kw.get('docentes_curso', [])
         alumnos = kw.get('alumnos', [])
+        del(kw['remDocente'])
+        del(kw['addDocente'])
+        del(kw['docentes_curso'])
+        del(kw['alumnos'])
+        r = validate_new(kw)
         """ Elimino todos los docentes asignados al curso y los agrego nuevamente""" 
         for d in DocenteInscripto.selectBy(curso=r):
             d.destroySelf()
