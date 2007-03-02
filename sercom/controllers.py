@@ -4,7 +4,7 @@ from turbogears import controllers, expose, view, url
 from turbogears import widgets as W, validators as V
 from turbogears import identity, redirect
 from cherrypy import request, response
-from model import InstanciaDeEntrega, Correccion
+from model import InstanciaDeEntrega, Correccion, AND, DateTimeCol
 # from sercom import json
 
 from subcontrollers import *
@@ -27,24 +27,22 @@ class Root(controllers.RootController):
 
     @expose()
     def index(self):
-        raise redirect('/dashboard')
+        raise redirect(url('/dashboard'))
 
     @expose(template='.templates.welcome')
-    @identity.require(identity.has_permission('entregar'))
+    @identity.require(identity.not_anonymous())
     def dashboard(self):
-        import time
-        record = {}
         if 'admin' in identity.current.permissions:
-            from sqlobject import DateTimeCol
             # TODO : Fijar el curso !!
-            record['entregas_para_corregir'] = Correccion.selectBy(corrector=identity.current.user, nota=None).count()
-            try:
-                record['proxima_entrega'] = InstanciaDeEntrega.select(InstanciaDeEntrega.q.inicio >= DateTimeCol.now() and InstanciaDeEntrega.q.fin > DateTimeCol.now()).getOne()
-                record['proxima_entrega'] = record['proxima_entrega'][0]
-            except:
-                record['proxima_entrega'] = None
-        log.debug('Happy TurboGears Controller Responding For Duty')
-        return dict(now=time.ctime(), record=record)
+            correcciones = Correccion.selectBy(corrector=identity.current.user,
+                nota=None).count()
+            now = DateTimeCol.now()
+            instancias = list(InstanciaDeEntrega.select(
+                AND(InstanciaDeEntrega.q.inicio <= now,
+                    InstanciaDeEntrega.q.fin > now))
+                        .orderBy(InstanciaDeEntrega.q.fin))
+        return dict(a_corregir=correcciones,
+            instancias_activas=instancias, now=now)
 
     @expose(template='.templates.login')
     def login(self, forward_url=None, previous_url=None, tg_errors=None, *args,
@@ -89,7 +87,7 @@ class Root(controllers.RootController):
     @expose()
     def logout(self):
         identity.current.logout()
-        raise redirect('/')
+        raise redirect(url('/'))
 
     docente = DocenteController()
 
@@ -104,7 +102,7 @@ class Root(controllers.RootController):
     caso_de_prueba = CasoDePruebaController()
 
     curso = CursoController()
-    
+
     docente_inscripto = DocenteInscriptoController()
 
     correccion = CorreccionController()

@@ -10,19 +10,19 @@
 <body>
 	<div py:if="'admin' in identity.current.permissions">
 		<h1>Dashboard</h1>
-		<h2>Correcciones</h2>
-		<div>
-			<span py:if="record['entregas_para_corregir'] != 0">
-				En este momento tenes <a href="${tg.url('/correccion/')}">${record['entregas_para_corregir']}</a> entregas para corregir.
-			</span>	
-			<span py:if="record['entregas_para_corregir'] == 0">
-				No hay entregas que corregir.
-			</span>	
+		<div py:if="a_corregir">
+			<h2>Correcciones</h2>
+			En este momento tenes <a href="${tg.url('/correccion/')}">${a_corregir}</a> entregas para corregir.
 		</div>
-		<h2>Instancias de Entrega</h2>
-		<div>
-			<span py:if="record['proxima_entrega'] is not None">La proxima Entrega vence el ${record['proxima_entrega']}.</span>
-			<span py:if="record['proxima_entrega'] is None">En este momento no hay ninguna Entrega en curso.</span>
+		<div py:if="len(instancias_activas)">
+			<h2>Instancias de Entrega</h2>
+			<ul py:for="instancia in instancias_activas">
+				<li>
+				La entrega ${instancia.numero} del ejercicio ${instancia.ejercicio.numero}
+				vence el ${instancia.fin.strftime(r'%A %d de %B a las %R')}
+				(falta ${instancia.fin - now}).
+				</li>
+			</ul>
 		</div>
 	</div>
 
