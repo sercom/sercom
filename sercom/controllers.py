@@ -4,7 +4,7 @@ from turbogears import controllers, expose, view, url
 from turbogears import widgets as W, validators as V
 from turbogears import identity, redirect
 from cherrypy import request, response
-from model import *
+from model import InstanciaDeEntrega, Correccion
 # from sercom import json
 
 from subcontrollers import *
@@ -25,12 +25,26 @@ class LoginForm(W.TableForm):
 
 class Root(controllers.RootController):
 
+    @expose()
+    def index(self):
+        raise redirect('/dashboard')
+
     @expose(template='.templates.welcome')
     @identity.require(identity.has_permission('entregar'))
-    def index(self):
+    def dashboard(self):
         import time
+        record = {}
+        if 'admin' in identity.current.permissions:
+            from sqlobject import DateTimeCol
+            # TODO : Fijar el curso !!
+            record['entregas_para_corregir'] = Correccion.selectBy(corrector=identity.current.user, nota=None).count()
+            try:
+                record['proxima_entrega'] = InstanciaDeEntrega.select(InstanciaDeEntrega.q.inicio >= DateTimeCol.now() and InstanciaDeEntrega.q.fin > DateTimeCol.now()).getOne()
+                record['proxima_entrega'] = record['proxima_entrega'][0]
+            except:
+                record['proxima_entrega'] = None
         log.debug('Happy TurboGears Controller Responding For Duty')
-        return dict(now=time.ctime())
+        return dict(now=time.ctime(), record=record)
 
     @expose(template='.templates.login')
     def login(self, forward_url=None, previous_url=None, tg_errors=None, *args,

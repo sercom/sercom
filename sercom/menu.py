@@ -8,6 +8,7 @@ class Menu:
         self.base = base
         self.items = filter(lambda i: isinstance(getattr(base, i), Controller), base.__dict__)
         self.items.sort()
+        self.items = ['dashboard'] + self.items
 
     def _check(self, c):
         return c.require.eval_with_object(identity.current)
@@ -24,7 +25,7 @@ class Menu:
         """
         s = option % ('', '-----')
         for i in self.items:
-            if self._check(getattr(self.base, i)):
+            if i == 'dashboard' or self._check(getattr(self.base, i)):
                 s += option % (url('/' + i), i.capitalize().replace('_', ' '))
         return template % s
 
