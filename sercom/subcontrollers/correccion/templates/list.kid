@@ -29,7 +29,7 @@
 					<a py:if="isinstance(record.entregador, Grupo)" href="${tg.url('/grupo/show/%d' % record.entregador.id)}" py:content="record.entregador.shortrepr()">nombre</a>
 					<a py:if="isinstance(record.entregador, AlumnoInscripto)" href="${tg.url('/alumno/show/%d' % record.entregador.alumno.id)}" py:content="record.entregador.shortrepr()">nombre</a>
 				</td>
-        <td align="center"><span py:replace="len(record.entregas)">email</span></td>
+				<td align="center"><a href="${tg.url('/correccion/entregas/%d' % record.id)}" py:content="len(record.entregas)">entregas realizadas</a></td>
 				<td><a href="${tg.url('/docente/show/%d' % record.corrector.docente.id)}" py:content="record.corrector.shortrepr()">corrector</a></td>
         <td><span py:replace="record.asignado">fecha asignado</span></td>
         <td><span py:replace="record.corregido">fecha corregido</span></td>

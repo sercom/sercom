@@ -121,5 +121,11 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
             r.obs = publish_parts(r.observaciones, writer_name='html')['html_body']
         return dict(name=name, namepl=namepl, record=r)
 
+    @expose(template='kid:%s.templates.entregas' % __name__)
+    @paginate('records')
+    def entregas(self, id):
+        r = validate_get(id)
+        return dict(records=r.entregas, correccion = id)
+        
 #}}}
 
