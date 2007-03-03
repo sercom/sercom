@@ -1,4 +1,8 @@
 #!/usr/bin/python
+
+import locale
+locale.setlocale(locale.LC_ALL, '')
+
 import pkg_resources
 pkg_resources.require("TurboGears")
 

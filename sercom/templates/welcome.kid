@@ -18,9 +18,14 @@
 			<h2>Instancias de Entrega</h2>
 			<ul py:for="instancia in instancias_activas">
 				<li>
-				La entrega ${instancia.numero} del ejercicio ${instancia.ejercicio.numero}
-				vence el ${instancia.fin.strftime(r'%A %d de %B a las %R')}
-				(falta ${instancia.fin - now}).
+				<?python delta = instancia.fin - now ?>
+				La entrega ${instancia.numero} del
+				ejercicio ${instancia.ejercicio.numero} vence
+				el ${instancia.fin.strftime(r'%A %d de %B a las %R')}
+				(falta ${delta.days} días,
+				${delta.seconds//3600} horas y
+				${delta.seconds//60%60} minutos) y tiene
+				${len(instancia.entregas)} entregas realizadas.
 				</li>
 			</ul>
 		</div>
