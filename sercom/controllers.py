@@ -35,7 +35,7 @@ class Root(controllers.RootController):
         if 'admin' in identity.current.permissions:
             # TODO : Fijar el curso !!
             correcciones = Correccion.selectBy(corrector=identity.current.user,
-                nota=None).count()
+                corregido=None).count()
             now = DateTimeCol.now()
             instancias = list(InstanciaDeEntrega.select(
                 AND(InstanciaDeEntrega.q.inicio <= now,
