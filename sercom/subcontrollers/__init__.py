@@ -7,3 +7,4 @@ from ejercicio import EjercicioController
 from docente_inscripto import DocenteInscriptoController
 from grupo import GrupoController
 from correccion import CorreccionController
+from alumno_inscripto import AlumnoInscriptoController

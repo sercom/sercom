@@ -105,6 +105,8 @@ class Root(controllers.RootController):
 
     docente_inscripto = DocenteInscriptoController()
 
+    alumno_inscripto = AlumnoInscriptoController()
+
     correccion = CorreccionController()
 
 
