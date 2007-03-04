@@ -108,10 +108,6 @@ class AlumnoInscriptoController(controllers.Controller, identity.SecureResource)
     def show(self,id, **kw):
         """Show record in model"""
         r = validate_get(id)
-        if r.observaciones is None:
-            r.obs = ''
-        else:
-            r.obs = publish_parts(r.observaciones, writer_name='html')['html_body']
         return dict(name=name, namepl=namepl, record=r)
 
     @expose(template='kid:%s.templates.entregas' % __name__)

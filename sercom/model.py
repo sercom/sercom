@@ -871,6 +871,8 @@ class Correccion(SQLObject): #{{{
                     self.corregido, self.nota, self.observaciones)
 
     def shortrepr(self):
+        if not self.corrector:
+            return '%s' % self.entrega.shortrepr()
         return '%s,%s' % (self.entrega.shortrepr(), self.corrector.shortrepr())
 #}}}
 
