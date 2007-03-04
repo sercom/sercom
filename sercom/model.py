@@ -159,11 +159,9 @@ class Curso(SQLObject): #{{{
 
     def remove_docente(self, docente):
         if isinstance(docente, Docente):
-            DocenteInscripto.selectBy(curso=self, docente=docente)
-                .getOne().destroySelf()
+            DocenteInscripto.selectBy(curso=self, docente=docente).getOne().destroySelf()
         else:
-            DocenteInscripto.selectBy(curso=self, docenteID=docente)
-                .getOne().destroySelf()
+            DocenteInscripto.selectBy(curso=self, docenteID=docente).getOne().destroySelf()
 
     def add_alumno(self, alumno, **kw):
         if isinstance(alumno, Alumno):
@@ -174,11 +172,9 @@ class Curso(SQLObject): #{{{
 
     def remove_alumno(self, alumno):
         if isinstance(alumno, Alumno):
-            AlumnoInscripto.selectBy(curso=self, alumno=alumno)
-                .getOne().destroySelf()
+            AlumnoInscripto.selectBy(curso=self, alumno=alumno).getOne().destroySelf()
         else:
-            AlumnoInscripto.selectBy(curso=self, alumnoID=alumno)
-                .getOne().destroySelf()
+            AlumnoInscripto.selectBy(curso=self, alumnoID=alumno).getOne().destroySelf()
 
     def add_grupo(self, nombre, **kw):
         return Grupo(curso=self, nombre=unicode(nombre), **kw)

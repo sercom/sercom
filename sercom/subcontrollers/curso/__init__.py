@@ -13,6 +13,7 @@ from sercom.subcontrollers import validate as val
 from sercom.model import Curso, Ejercicio, Alumno, Docente, Grupo, DocenteInscripto
 from curso_alumno import *
 from sqlobject import *
+from sqlobject.dberrors import *
 from sercom.widgets import *
 #}}}
 
@@ -81,25 +82,22 @@ ajax = u"""
         d.addCallbacks(procesar, err);
     }
 
-    function prepare()
-    {
-        connect('form_responsable', 'onblur', buscar_alumno);
-    }
-
     function onsubmit()
     {
         /* TODO : Validar datos y evitar el submit si no esta completo */
 
         /* Selecciono todos los miembros si no, no llegan al controllere*/
-        l = MochiKit.DOM.getElement('form_miembros');
+        l = MochiKit.DOM.getElement('form_alumnos');
+        for (i=0; i<l.options.length; i++) { 
+            l.options[i].selected = true; 
+        }
+        /* Selecciono todos los miembros si no, no llegan al controllere*/
+        l = MochiKit.DOM.getElement('form_docentes_curso');
         for (i=0; i<l.options.length; i++) { 
             l.options[i].selected = true; 
         }
         return true; // Dejo hacer el submit
     }
-
-    MochiKit.DOM.addLoadEvent(prepare)
-
 """
 
 
@@ -212,6 +210,8 @@ class CursoController(controllers.Controller, identity.SecureResource):
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
+        print "--KW--"
+        print kw
         docentes = kw.get('docentes_curso', [])
         alumnos = kw.get('alumnos', [])
         del(kw['remDocente'])
@@ -219,15 +219,12 @@ class CursoController(controllers.Controller, identity.SecureResource):
         del(kw['docentes_curso'])
         del(kw['alumnos'])
         r = validate_new(kw)
-        """ Elimino todos los docentes asignados al curso y los agrego nuevamente""" 
-        for d in DocenteInscripto.selectBy(curso=r):
-            d.destroySelf()
-        """ Agrego la nueva seleccion """ 
+        """ Agrego la nueva seleccion de docentes """ 
         for d in docentes:
-            r.add_docente(Docente(d))
+            r.add_docente(d)
         """ El curso es nuevo, por ende no hay alumnos inscriptos """
         for a in alumnos:
-            r.add_alumno(Alumno(a))
+            r.add_alumno(a)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
     
@@ -235,25 +232,20 @@ class CursoController(controllers.Controller, identity.SecureResource):
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
-        docentes = kw.get('docentes_curso', [])
-        alumnos = kw.get('alumnos', [])
-        """ Elimino todos los docentes asignados al curso y los agrego nuevamente""" 
-        for d in DocenteInscripto.selectBy(curso=r):
-            d.destroySelf()
-        """ Agrego la nueva seleccion """ 
-        for d in docentes:
-            r.add_docente(Docente(d))
-        """ Verifico que los alumnos no esten ya inscriptos  """
+        class EmptyClass:
+            pass
+        values = EmptyClass()
+        values.id = r.id
+        values.anio = r.anio
+        values.numero = r.numero
+        values.cuatrimestre = r.cuatrimestre
+        values.cursoID = r.id
+        values.descripcion = r.descripcion
+        # cargo la lista con los docentes asignados al curso
+        values.docentes_curso = [{"id":d.docente.id, "label":d.docente.nombre} for d in DocenteInscripto.selectBy(curso=r.id)]
+        values.alumnos_inscriptos = [{"id":a.alumno.id, "label":a.alumno.nombre} for a in AlumnoInscripto.selectBy(curso=r.id)]
        
-        try:
-            for a in alumnos:
-                r.add_alumno(Alumno(a))
-        except DuplicateEntryError:
-            flash(_(u'El alumno con padron %s ya esta inscripto.') % Alumno(a).padron)
-            raise redirect('create')
-        flash(_(u'Se creó un nuevo %s.') % name)
-        
-        return dict(name=name, namepl=namepl, record=r, form=form)
+        return dict(name=name, namepl=namepl, record=values, form=form)
 
     @validate(form=form)
     @error_handler(edit)
@@ -262,6 +254,30 @@ class CursoController(controllers.Controller, identity.SecureResource):
         """Save or create record to model"""
         params = dict([(k,v) for (k,v) in kw.iteritems() if k in Curso.sqlmeta.columns.keys()])
         r = validate_set(id, params)
+        
+        docentes = kw.get('docentes_curso', [])
+        alumnos = kw.get('alumnos', [])
+        """ levanto los doncentes del curso para ver cuales tengo que agregar """
+        docentes_inscriptos = DocenteInscripto.selectBy(curso=id)
+        
+        """ elimino a los docentes que no fueron seleccionados """
+        for di in docentes_inscriptos:
+            if di.id not in docentes:
+                r.remove_docente(di.docente)
+        
+        """ Agrego la nueva seleccion """
+        for d in docentes:
+            try:
+                r.add_docente(d)
+            except:
+                pass
+         
+        """ Verifico que los alumnos no esten ya inscriptos """
+        for a in alumnos:
+            try:
+                r.add_alumno(a)
+            except:
+                pass
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')
 

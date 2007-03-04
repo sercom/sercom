@@ -5,15 +5,29 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
 <title>edit</title>
 </head>
+<script type="text/javascript">
+    function init_data() {
+ //       MochiKit.DOM.getElement('form_responsable').focus();
+        MochiKit.DOM.getElement('form_anio').focus();
+        <span py:for="d in record.docentes_curso" py:strip="True">
+            MochiKit.DOM.appendChildNodes("form_docentes_curso", OPTION({"value":${d['id']}}, '${d['label']}'))
+        </span>
+        
+        <span py:for="a in record.alumnos_inscriptos" py:strip="True">
+            MochiKit.DOM.appendChildNodes("form_alumnos", OPTION({"value":${a['id']}}, '${a['label']}'))
+        </span>
+    }
+    MochiKit.DOM.addLoadEvent(init_data)
+</script>
 <body>
 
 <h1>Modificación de <span py:replace="name">Objeto</span></h1>
 
 <div py:replace="form(value=record, action=tg.url('/curso/update/%d' % record.id),
-	submit_text=_(u'Guardar'))">Formulario</div>
+    submit_text=_(u'Guardar'))">Formulario</div>
 <a href="${tg.url('/curso/curso_alumno/new/%d' % record.id)}">Agregar Alumnos</a>
-	<br/>
-	<br/>
+    <br/>
+    <br/>
 <a href="${tg.url('/curso/show/%d' % record.id)}">Ver (cancela)</a> |
 <a href="${tg.url('/curso/list')}">Volver (cancela)</a>
 
