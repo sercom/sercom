@@ -21,10 +21,10 @@
 				<th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-        <td><span py:replace="record.curso.shortrepr()">usuario</span></td>
-        <td><span py:replace="record.alumno.shortrepr()">fecha asignado</span></td>
+				<td><a href="${tg.url('/curso/show/%d' % record.curso.id)}" py:content="record.curso.shortrepr()">curso</a></td>
+        <td><a href="${tg.url('/alumno/show/%d' % record.alumno.id)}" py:content="record.alumno.shortrepr()">alumno</a></td>
         <td><span py:replace="record.condicional">fecha corregido</span></td>
-        <td><span py:if="record.tutor" py:replace="record.tutor.shortrepr()">Tutor</span></td>
+        <td><a py:if="record.tutor" href="${tg.url('/docente/show/%d' % record.tutor.id)}" py:content="record.tutor.shortrepr()">Tutor</a></td>
 				<td>
 					<a href="${tg.url('/correccion/show/%d' % record.id)}">Ver</a>
 				</td>
