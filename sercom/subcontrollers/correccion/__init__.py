@@ -39,7 +39,7 @@ class CorreccionForm(W.TableForm):
         lentregador = W.Label(label=_(u'Entregador'))
         lentrega = W.Label(label=_(u'Entrega'))
         lcorrector = W.Label(label=_(u'Corrector'))
-        nota = W.TextField(label=_(u'Nota'), validator=V.Number(not_empty=False, strip=True))
+        nota = W.TextField(label=_(u'Nota'), validator=V.Number(not_empty=True, strip=True))
         observaciones = W.TextArea(label=_(u'Observaciones'), validator=V.UnicodeString(not_empty=False, strip=True))
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_instancia');")]
