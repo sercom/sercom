@@ -280,5 +280,36 @@ class CursoController(controllers.Controller, identity.SecureResource):
         r.destroySelf()
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../list')
+        
+    @expose(template='kid:%s.templates.from_file' % __name__)
+    def from_file(self, id):
+        return dict(cursoID=int(id))
+
+    @expose(template='kid:%s.templates.import_results' % __name__)
+    def from_file_add(self, id, archivo):
+        """ Se espera :
+             padron,nombre,email,telefono
+        """
+        import csv
+        lines = archivo.file.read().split('\n')
+        ok = []
+        fail = []
+        curso = Curso.get(int(id))
+        for line in lines:
+            for row in csv.reader([line]):
+                if row == []:
+                    continue
+                try:
+                    u = Alumno(row[0], nombre=row[1])
+                    u.email = row[2]
+                    u.telefono = row[3]
+                    u.contrasenia = row[0]
+                    u.activo = True
+                    curso.add_alumno(u)
+                    ok.append(row)
+                except Exception, e:
+                    row.append(str(e))
+                    fail.append(row)
+        return dict(ok=ok, fail=fail)    
 #}}}
 
