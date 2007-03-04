@@ -14,6 +14,7 @@
 
 <table class="list">
     <tr>
+				<th>Ejercicio</th>
 				<th><span title="Instancia de Entrega">IE</span></th>
         <th>Entregador</th>
         <th>Entregas</th>
@@ -24,6 +25,7 @@
 				<th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
+        <td><span py:replace="record.instancia.ejercicio.enunciado.nombre">usuario</span></td>
         <td><span py:replace="record.instancia.shortrepr()">usuario</span></td>
 				<td>
 					<a py:if="isinstance(record.entregador, Grupo)" href="${tg.url('/grupo/show/%d' % record.entregador.id)}" py:content="record.entregador.shortrepr()">nombre</a>
