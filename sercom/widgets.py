@@ -65,14 +65,16 @@ MultiSelectAjax = '''
         var d = loadJSONDoc(url);
         d.addCallbacks(partial(_on_alumno_get_result, lista, loading), partial(_on_alumno_get_error, loading));
     }
-
 '''
 
 class AjaxMultiSelect(widgets.MultipleSelectField):
     template = '''
     <div style="width:250px" xmlns:py="http://purl.org/kid/ns#">  
     <div>
-    <input type="text" id="${field_id}_nuevo" size="10" />
+    <input type="text" id="${field_id}_nuevo" size="10" value="padron"
+        style="color:#aaa;"
+        onfocus="this.style.color='#000'; if (this.value =='padron') { this.value=''; }"
+        onblur="if (this.value == '') { this.style.color='#aaa'; this.value='padron'; }" />
     <img src="/static/images/loading.gif" align="baseline" style="visibility:hidden;" id="${name}_loading" width="16px" height="16px" />
     <input type="button" id="_agregar" value="Agregar"
         onClick=" _do_add(${on_add}, '${field_id}_nuevo', '${field_id}', '${name}_loading'); " />
