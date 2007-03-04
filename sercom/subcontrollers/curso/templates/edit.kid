@@ -18,6 +18,28 @@
         </span>
     }
     MochiKit.DOM.addLoadEvent(init_data)
+    
+    function makeOption(option) {
+        return OPTION({"value": option.value}, option.text);
+    }
+                   
+    function moveOption( fromSelect, toSelect) {
+        // add 'selected' nodes toSelect
+        appendChildNodes(toSelect,
+        map( makeOption,ifilter(itemgetter('selected'), $(fromSelect).options)));
+        // remove the 'selected' fromSelect
+        // replaceChildNodes(fromSelect,
+        // list(ifilterfalse(itemgetter('selected'), $(fromSelect).options)));
+    }
+    
+    function mover( src, dest ) {
+        moveOption(src, dest)    
+    }
+    
+    function remover (src, dest) {
+        replaceChildNodes(src,list(ifilterfalse(itemgetter('selected'), $(src).options)))
+    }
+    
 </script>
 <body>
 

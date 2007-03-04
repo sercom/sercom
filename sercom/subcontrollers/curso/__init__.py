@@ -24,20 +24,6 @@ namepl = name + 's'
 #}}}
 
 ajax = u""" 
-    function makeOption(option) {
-        return OPTION({"value": option.value}, option.text);
-    }
-                   
-    function moveOption( fromSelect, toSelect) {
-        // add 'selected' nodes toSelect
-        appendChildNodes(toSelect,
-        map( makeOption,ifilter(itemgetter('selected'), $(fromSelect).options)));
-        // remove the 'selected' fromSelect
-        replaceChildNodes(fromSelect,
-            list(ifilterfalse(itemgetter('selected'), $(fromSelect).options))
-        );
-    }
-
     function alumnos_agregar_a_la_lista(texto, lista)
     {
         t = MochiKit.DOM.getElement(texto);
@@ -81,7 +67,7 @@ ajax = u"""
         var d = loadJSONDoc(url);
         d.addCallbacks(procesar, err);
     }
-
+    
     function onsubmit()
     {
         /* TODO : Validar datos y evitar el submit si no esta completo */
@@ -147,9 +133,9 @@ class CursoForm(W.TableForm):
             options=get_docentes,
             validator=V.Int(not_empty=True))
         addDocente = W.Button(default='Asignar', label='',
-            attrs=dict( onclick='moveOption("form_docentes","form_docentes_curso")'))
+            attrs=dict( onclick='mover("form_docentes","form_docentes_curso")'))
         remDocente = W.Button(default='Remover', label='',
-            attrs=dict( onclick='moveOption("form_docentes_curso","form_docentes")'))
+            attrs=dict( onclick='remover("form_docentes_curso","form_docentes")'))
         docentes_curso = W.MultipleSelectField(name="docentes_curso",
             label=_(u'Docentes del curso'),
             attrs=dict(style='width:300px'),
@@ -242,7 +228,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
         values.cursoID = r.id
         values.descripcion = r.descripcion
         # cargo la lista con los docentes asignados al curso
-        values.docentes_curso = [{"id":d.docente.id, "label":d.docente.nombre} for d in DocenteInscripto.selectBy(curso=r.id)]
+        values.docentes_curso = [{"id":d.docente.id, "label":d.docente.shortrepr()} for d in DocenteInscripto.selectBy(curso=r.id)]
         values.alumnos_inscriptos = [{"id":a.alumno.id, "label":a.alumno.nombre} for a in AlumnoInscripto.selectBy(curso=r.id)]
        
         return dict(name=name, namepl=namepl, record=values, form=form)
