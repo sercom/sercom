@@ -144,6 +144,7 @@ class CursoForm(W.TableForm):
 
         alumnos = AjaxMultiSelect(label=_(u'Alumnos'),
                 validator=V.Int(),
+                attrs = dict(size='20'),
                 on_add="alumnos_agregar_a_la_lista")
 
     fields = Fields()
@@ -229,7 +230,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
         values.descripcion = r.descripcion
         # cargo la lista con los docentes asignados al curso
         values.docentes_curso = [{"id":d.docente.id, "label":d.docente.shortrepr()} for d in DocenteInscripto.selectBy(curso=r.id)]
-        values.alumnos_inscriptos = [{"id":a.alumno.id, "label":a.alumno.nombre} for a in AlumnoInscripto.selectBy(curso=r.id)]
+        values.alumnos_inscriptos = [{"id":a.alumno.id, "label":a.alumno.shortrepr()} for a in AlumnoInscripto.selectBy(curso=r.id)]
        
         return dict(name=name, namepl=namepl, record=values, form=form)
 
@@ -243,6 +244,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
         
         docentes = kw.get('docentes_curso', [])
         alumnos = kw.get('alumnos', [])
+        alumnos_inscriptos = AlumnoInscripto.selectBy(curso=id)
         """ levanto los doncentes del curso para ver cuales tengo que agregar """
         docentes_inscriptos = DocenteInscripto.selectBy(curso=id)
         
@@ -259,6 +261,12 @@ class CursoController(controllers.Controller, identity.SecureResource):
                 pass
          
         """ Verifico que los alumnos no esten ya inscriptos """
+        for a in alumnos_inscriptos:
+            if (a.id not in alumnos):
+                try:
+                    r.remove_alumno(a.alumno)
+                except: 
+                    pass
         for a in alumnos:
             try:
                 r.add_alumno(a)
@@ -301,6 +309,9 @@ class CursoController(controllers.Controller, identity.SecureResource):
                     continue
                 try:
                     u = Alumno(row[0], nombre=row[1])
+                except:
+                    u = Alumno.byPadron(row[0])
+                try:
                     u.email = row[2]
                     u.telefono = row[3]
                     u.contrasenia = row[0]

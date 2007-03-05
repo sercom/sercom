@@ -182,7 +182,7 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
             alumno = Alumno.byPadron(padron=padron)
             msg = {}
             msg['id'] = alumno.id
-            msg['value'] = alumno.nombre
+            msg['value'] = alumno.shortrepr()
         except SQLObjectNotFound:
             msg = 'No existe el alumno con padron: %s.' % padron
             error=True

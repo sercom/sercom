@@ -240,7 +240,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
                 alumno=Alumno.byPadron(kw['responsable'])).getOne()
         except SQLObjectNotFound:
             flash(_(u'El responsable %s no existe') % resp)
-            raise redirect('list')
+            raise redirect('../list')
         kw['responsable'] = resp
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
