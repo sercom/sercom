@@ -42,17 +42,9 @@ MultiSelectAjax = '''
 
     function sacar_de_la_lista(lista)
     {
-        l = MochiKit.DOM.getElement(lista);
-        if (l.selectedIndex < 0) return;
-        
-        /* caso especial, 1 solo item */
-        if (l.options.length == 1) {
-            l.options.length = 0
-            return;
-        }
-
-        for (i=l.selectedIndex; i<l.options.length-1;i++)
-            l.options[i] = l.options[i+1];
+        replaceChildNodes(lista,
+            list(ifilterfalse(itemgetter('selected'), $(lista).options))
+        );
     }
 
     function _do_add(callback, texto, lista, loading)
