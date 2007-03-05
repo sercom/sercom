@@ -23,7 +23,7 @@ name = 'curso'
 namepl = name + 's'
 #}}}
 
-ajax = u""" 
+ajax = u"""
     function alumnos_agregar_a_la_lista(texto, lista)
     {
         t = MochiKit.DOM.getElement(texto);
@@ -67,20 +67,20 @@ ajax = u"""
         var d = loadJSONDoc(url);
         d.addCallbacks(procesar, err);
     }
-    
+
     function onsubmit()
     {
         /* TODO : Validar datos y evitar el submit si no esta completo */
 
         /* Selecciono todos los miembros si no, no llegan al controllere*/
         l = MochiKit.DOM.getElement('form_alumnos');
-        for (i=0; i<l.options.length; i++) { 
-            l.options[i].selected = true; 
+        for (i=0; i<l.options.length; i++) {
+            l.options[i].selected = true;
         }
         /* Selecciono todos los miembros si no, no llegan al controllere*/
         l = MochiKit.DOM.getElement('form_docentes_curso');
-        for (i=0; i<l.options.length; i++) { 
-            l.options[i].selected = true; 
+        for (i=0; i<l.options.length; i++) {
+            l.options[i].selected = true;
         }
         return true; // Dejo hacer el submit
     }
@@ -126,7 +126,7 @@ class CursoForm(W.TableForm):
         descripcion = W.TextArea(name='descripcion', label=_(u'Descripcion'),
             help_text=_(u'Descripcion.'),
             validator=V.UnicodeString(not_empty=False, strip=True))
-        
+
         docentes = W.MultipleSelectField(name="docentes",
             label=_(u'Docentes'),
             attrs=dict(style='width:300px'),
@@ -206,7 +206,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
         del(kw['docentes_curso'])
         del(kw['alumnos'])
         r = validate_new(kw)
-        """ Agrego la nueva seleccion de docentes """ 
+        """ Agrego la nueva seleccion de docentes """
         for d in docentes:
             r.add_docente(d)
         """ El curso es nuevo, por ende no hay alumnos inscriptos """
@@ -214,7 +214,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
             r.add_alumno(a)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
-    
+
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
@@ -231,7 +231,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
         # cargo la lista con los docentes asignados al curso
         values.docentes_curso = [{"id":d.docente.id, "label":d.docente.shortrepr()} for d in DocenteInscripto.selectBy(curso=r.id)]
         values.alumnos_inscriptos = [{"id":a.alumno.id, "label":a.alumno.shortrepr()} for a in AlumnoInscripto.selectBy(curso=r.id)]
-       
+
         return dict(name=name, namepl=namepl, record=values, form=form)
 
     @validate(form=form)
@@ -241,31 +241,31 @@ class CursoController(controllers.Controller, identity.SecureResource):
         """Save or create record to model"""
         params = dict([(k,v) for (k,v) in kw.iteritems() if k in Curso.sqlmeta.columns.keys()])
         r = validate_set(id, params)
-        
+
         docentes = kw.get('docentes_curso', [])
         alumnos = kw.get('alumnos', [])
         alumnos_inscriptos = AlumnoInscripto.selectBy(curso=id)
         """ levanto los doncentes del curso para ver cuales tengo que agregar """
         docentes_inscriptos = DocenteInscripto.selectBy(curso=id)
-        
+
         """ elimino a los docentes que no fueron seleccionados """
         for di in docentes_inscriptos:
             if di.id not in docentes:
                 r.remove_docente(di.docente)
-        
+
         """ Agrego la nueva seleccion """
         for d in docentes:
             try:
                 r.add_docente(d)
             except:
                 pass
-         
+
         """ Verifico que los alumnos no esten ya inscriptos """
         for a in alumnos_inscriptos:
             if (a.id not in alumnos):
                 try:
                     r.remove_alumno(a.alumno)
-                except: 
+                except:
                     pass
         for a in alumnos:
             try:
@@ -284,11 +284,15 @@ class CursoController(controllers.Controller, identity.SecureResource):
     @expose()
     def delete(self, id):
         """Destroy record in model"""
-        r = validate_get(id)
-        r.destroySelf()
+        try:
+            r = validate_get(id)
+            r.destroySelf()
+        except Exception, e:
+            flash(_(u'No se pudo eliminar el curso: %s' % e))
+            raise redirect('../list')
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../list')
-        
+
     @expose(template='kid:%s.templates.from_file' % __name__)
     def from_file(self, id):
         return dict(cursoID=int(id))
@@ -321,6 +325,6 @@ class CursoController(controllers.Controller, identity.SecureResource):
                 except Exception, e:
                     row.append(str(e))
                     fail.append(row)
-        return dict(ok=ok, fail=fail)    
+        return dict(ok=ok, fail=fail)
 #}}}
 
