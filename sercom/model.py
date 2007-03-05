@@ -565,8 +565,6 @@ CREATE TABLE instancia_tarea (
     # Joins
     entregas        = MultipleJoin('Entrega', joinColumn='instancia_id')
     correcciones    = MultipleJoin('Correccion', joinColumn='instancia_id')
-    casos_de_prueba = RelatedJoin('CasoDePrueba', # TODO CasoInstancia -> private
-                        addRemoveName='_caso_de_prueba')
 
     def __init__(self, tareas=(), **kw):
         super(InstanciaDeEntrega, self).__init__(**kw)
