@@ -50,6 +50,7 @@ def get_cursos():
 class CorreccionFiltros(W.TableForm):
     class Fields(W.WidgetsList):
         cursoID = W.SingleSelectField(label=_(u'Curso'), options = get_cursos, validator = V.Int(not_empty=True))
+    form_attrs={'class':"filter"}
     fields = Fields()
 
 filtro = CorreccionFiltros()

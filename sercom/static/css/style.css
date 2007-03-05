@@ -11,7 +11,7 @@ html, th, td {
 }
 
 body {
-	margin-top: 15px;
+    margin-top: 15px;
 }
 
 
@@ -22,7 +22,7 @@ body {
   border-left: 1px solid #aaa;
   border-right: 1px solid #aaa;
   margin: 0 auto 0 auto;
-	text-align: center;
+    text-align: center;
 }
 
 a.link, a, a.active {
@@ -63,7 +63,7 @@ a.link, a, a.active {
 h1,h2,h3,h4,h5,h6,#getting_started_steps {
   font-family: "Century Schoolbook L", Georgia, serif;
   font-weight: bold;
-	font-size: 170%;
+    font-size: 170%;
 }
 
 h2 {
@@ -135,83 +135,102 @@ span.code {
 
 /* Listas de los ABM */
 table.list {
-	width:90%;
-	margin-left:5%;
-  border-collapse:separate;
-  border-spacing:1px 5px;
+    width:90%;
+    margin-left:5%;
+    border-collapse:separate;
+    border-spacing:1px 5px;
 }
 
 table.list td {
-	padding-top: 2px;
-	padding-bottom: 2px;
-	border: none;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border: none;
 }
 
 #pageLogin {
-	width:100%;
-	border:1px solid black;
-	padding-bottom: 2px;
-	padding-top: 2px;
+    width:100%;
+    border:1px solid black;
+    padding-bottom: 2px;
+    padding-top: 2px;
 }
 
 #pageLogin span {
-	padding: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
 }
 
 .tableform table {
-	width:80%;
-	margin-left:10%;
-	border: 1px solid #400;
+    width:80%;
+    margin-left:10%;
+    border: 1px solid #400;
 }
 
 .tableform th {
-	text-align: right;
-	width: 5%;
-	padding-left:15px;
+    text-align: right;
+    width: 5%;
+    padding-left:15px;
 }
 
 .tableform td {
-	padding-left: 15px;
-	padding-top: 5px;
-	padding-bottom: 5px;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .tableform input, textarea {
-	border: 1px solid black;
+    border: 1px solid black;
 }
 
 .tableform input:focus, select:focus, textarea:focus {
-	background: #fec;
+    background: #fec;
 }
 
 #navbar {
-	position:float;
-	float:right;
+    position:float;
+    float:right;
 }
 
 /* Listas de los SHOW */
 table.show {
-	width:60%;
-	margin-left:5%;
-  border-collapse:separate;
-  border-spacing:1px 5px;
+    width:60%;
+    margin-left:5%;
+    border-collapse:separate;
+    border-spacing:1px 5px;
 }
 
 table.show th {
-	width:25%;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	border: none;
+    width:25%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border: none;
 }
 
 table.show td {
-	padding-top: 2px;
-	padding-bottom: 2px;
-	border: none;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border: none;
 }
 
 #footer img {
-	float:right;
-	border:none;
+    float:right;
+    border:none;
 }
 
+form.filter {
+    width:90%;
+    padding-left:5%;
+    padding-bottom:20px;
+}
+
+form.filter table {
+    background: none;
+    width:100%;
+}
+
+form.filter table td,form.filter th,form.filter tr {
+    background: none;
+}
+
+form.filter th {
+    background: none;
+    font-weight:bold;
+}
