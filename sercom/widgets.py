@@ -56,6 +56,8 @@ MultiSelectAjax = '''
         load.style.visibility = 'visible';
         var d = loadJSONDoc(url);
         d.addCallbacks(partial(_on_alumno_get_result, lista, loading), partial(_on_alumno_get_error, loading));
+        t.value = 'padron';
+        t.style.color = "#aaa";
     }
 '''
 
