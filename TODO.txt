@@ -5,3 +5,8 @@
     * DocenteInscripto (Docente) (nico)
     * AlumnoInscripto (Alumno) (nico)
   * Rol
+  * Grupo
+    * Juntar / Separar 
+- Hacer DB con datos de prueba (nico)
+- Hacer archivos de prueba para las cargas masivas (nico)
+- Hacer Informe bonito para pelu (un poco cada uno)
