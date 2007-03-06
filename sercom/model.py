@@ -159,9 +159,10 @@ class Curso(SQLObject): #{{{
 
     def remove_docente(self, docente):
         if isinstance(docente, Docente):
-            DocenteInscripto.selectBy(curso=self, docente=docente).getOne().destroySelf()
-        else:
-            DocenteInscripto.selectBy(curso=self, docenteID=docente).getOne().destroySelf()
+            docente = docente.id
+        # FIXME esto deberian arreglarlo en SQLObject y debería ser
+        # DocenteInscripto.pk.get(self, docente).destroySelf()
+        DocenteInscripto.pk.get(self.id, docente).destroySelf()
 
     def add_alumno(self, alumno, **kw):
         if isinstance(alumno, Alumno):
@@ -172,15 +173,16 @@ class Curso(SQLObject): #{{{
 
     def remove_alumno(self, alumno):
         if isinstance(alumno, Alumno):
-            AlumnoInscripto.selectBy(curso=self, alumno=alumno).getOne().destroySelf()
-        else:
-            AlumnoInscripto.selectBy(curso=self, alumnoID=alumno).getOne().destroySelf()
+            alumno = alumno.id
+        # FIXME esto deberian arreglarlo en SQLObject
+        AlumnoInscripto.pk.get(self.id, alumno).destroySelf()
 
     def add_grupo(self, nombre, **kw):
         return Grupo(curso=self, nombre=unicode(nombre), **kw)
 
     def remove_grupo(self, nombre):
-        Grupo.pk.get(curso=self, nombre=nombre).destroySelf()
+        # FIXME esto deberian arreglarlo en SQLObject
+        Grupo.pk.get(self.id, nombre).destroySelf()
 
     def add_ejercicio(self, numero, enunciado, **kw):
         if isinstance(enunciado, Enunciado):
@@ -190,7 +192,8 @@ class Curso(SQLObject): #{{{
         return Ejercicio(curso=self, numero=numero, **kw)
 
     def remove_ejercicio(self, numero):
-        Ejercicio.pk.get(curso=self, numero=numero).destroySelf()
+        # FIXME esto deberian arreglarlo en SQLObject
+        Ejercicio.pk.get(self.id, numero).destroySelf()
 
     def __repr__(self):
         return 'Curso(id=%s, anio=%s, cuatrimestre=%s, numero=%s, ' \
