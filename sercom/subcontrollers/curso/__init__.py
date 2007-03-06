@@ -97,6 +97,9 @@ def validate_set(id, data):
 
 def validate_new(data):
     return val.validate_new(cls, name, data)
+
+def validate_del(id):
+    return val.validate_del(cls, name, id)
 #}}}
 
 def get_ejercicios():
@@ -110,6 +113,7 @@ def get_alumnos():
 
 def get_grupos():
     return [(fk1.id, fk1.shortrepr()) for fk1 in Grupo.select()]
+
 
 #{{{ Formulario
 class CursoForm(W.TableForm):
@@ -284,12 +288,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
     @expose()
     def delete(self, id):
         """Destroy record in model"""
-        try:
-            r = validate_get(id)
-            r.destroySelf()
-        except Exception, e:
-            flash(_(u'No se pudo eliminar el curso: %s' % e))
-            raise redirect('../list')
+        validate_del(id)
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../list')
 

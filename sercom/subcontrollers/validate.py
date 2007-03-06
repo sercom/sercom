@@ -43,3 +43,11 @@ def validate_new(cls, name, data, url='new'):
             u'inválido (error: %s).') % (name, e))
         raise redirect(url, **data)
 
+def validate_del(cls, name, id):
+    try:
+        id = int(id)
+        r = validate_get(cls, name, id)
+        r.destroySelf()
+    except Exception, e:
+        flash(_(u'No se pudo eliminar el %s: %s' % (name, e)))
+        raise redirect('../list')

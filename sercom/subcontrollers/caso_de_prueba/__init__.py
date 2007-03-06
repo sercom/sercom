@@ -48,6 +48,9 @@ def validate_set(id, data):
 def validate_new(data):
     validate_fk(data)
     return val.validate_new(cls, name, data)
+
+def validate_del(id):
+    return val.validate_del(cls, name, id)
 #}}}
 
 #{{{ Formulario
@@ -150,8 +153,7 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     @expose()
     def delete(self, id):
         """Destroy record in model"""
-        r = validate_get(id)
-        r.destroySelf()
+        validate_del(id)
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../list')
 #}}}
