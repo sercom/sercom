@@ -14,7 +14,7 @@ from formencode import Invalid
 hub = PackageHub("sercom")
 __connection__ = hub
 
-__all__ = ('Curso', 'Usuario', 'Docente', 'Alumno', 'Tarea', 'CasoDePrueba')
+__all__ = ('Curso', 'Usuario', 'Docente', 'Alumno', 'CasoDePrueba')
 
 #{{{ Custom Columns
 
@@ -84,20 +84,6 @@ class SOParamsCol(SOUnicodeCol):
 
 class ParamsCol(UnicodeCol):
     baseClass = SOParamsCol
-
-#}}}
-
-#{{{ Tablas intermedias
-
-# BUG en SQLObject, SQLExpression no tiene cálculo de hash pero se usa como
-# key de un dict. Workarround hasta que lo arreglen.
-SQLExpression.__hash__ = lambda self: hash(str(self))
-
-instancia_tarea_t = table.instancia_tarea
-
-enunciado_tarea_t = table.enunciado_tarea
-
-dependencia_t = table.dependencia
 
 #}}}
 
@@ -244,8 +230,7 @@ class Usuario(InheritableSQLObject): #{{{
     def by_user_name(cls, user_name): # para identity
         user = cls.byUsuario(user_name)
         if not user.activo:
-            raise SQLObjectNotFound, "The object %s with user_name %s is " \
-                "not active" % (cls.__name__, user_name)
+            raise SQLObjectNotFound(_(u'El %s está inactivo' % cls.__name__))
         return user
 
     def _get_groups(self): # para identity
@@ -266,7 +251,7 @@ class Usuario(InheritableSQLObject): #{{{
         return self.contrasenia
 
     def __repr__(self):
-        raise NotImplementedError, _('Clase abstracta!')
+        raise NotImplementedError(_(u'Clase abstracta!'))
 
     def shortrepr(self):
         return '%s (%s)' % (self.usuario, self.nombre)
@@ -288,8 +273,7 @@ class Docente(Usuario): #{{{
             autor=self, **kw)
 
     def remove_enunciado(self, nombre, anio, cuatrimestre):
-        Enunciado.pk.get(nombre=nombre, anio=anio,
-            cuatrimestre=cuatrimestre).destroySelf()
+        Enunciado.pk.get(nombre, anio, cuatrimestre).destroySelf()
 
     def __repr__(self):
         return 'Docente(id=%s, usuario=%s, nombre=%s, password=%s, email=%s, ' \
@@ -332,94 +316,118 @@ class Alumno(Usuario): #{{{
 #}}}
 
 class Tarea(InheritableSQLObject): #{{{
-    class sqlmeta:
-        createSQL = dict(sqlite=r'''
-CREATE TABLE dependencia (
-    padre_id INTEGER NOT NULL CONSTRAINT tarea_id_exists
-        REFERENCES tarea(id) ON DELETE CASCADE,
-    hijo_id INTEGER NOT NULL CONSTRAINT tarea_id_exists
-        REFERENCES tarea(id) ON DELETE CASCADE,
-    orden INT,
-    PRIMARY KEY (padre_id, hijo_id)
-)''')
     # Clave
-    nombre          = UnicodeCol(length=30, alternateID=True)
+    nombre              = UnicodeCol(length=30, alternateID=True)
     # Campos
-    descripcion     = UnicodeCol(length=255, default=None)
+    descripcion         = UnicodeCol(length=255, default=None)
+    terminar_si_falla   = BoolCol(notNone=True, default=True)
+    rechazar_si_falla   = BoolCol(notNone=True, default=True)
     # Joins
-
-    def __init__(self, dependencias=(), **kw):
-        super(Tarea, self).__init__(**kw)
-        if dependencias:
-            self.dependencias = dependencias
-
-    def set(self, dependencias=None, **kw):
-        super(Tarea, self).set(**kw)
-        if dependencias is not None:
-            self.dependencias = dependencias
-
-    def _get_dependencias(self):
-        OtherTarea = Alias(Tarea, 'other_tarea')
-        self.__dependencias = tuple(Tarea.select(
-            AND(
-                Tarea.q.id == dependencia_t.hijo_id,
-                OtherTarea.q.id == dependencia_t.padre_id,
-                self.id == dependencia_t.padre_id,
-            ),
-            clauseTables=(dependencia_t,),
-            orderBy=dependencia_t.orden,
-        ))
-        return self.__dependencias
-
-    def _set_dependencias(self, dependencias):
-        orden = {}
-        for i, t in enumerate(dependencias):
-            orden[t.id] = i
-        new = frozenset([t.id for t in dependencias])
-        old = frozenset([t.id for t in self.dependencias])
-        dependencias = dict([(t.id, t) for t in dependencias])
-        for tid in old - new: # eliminadas
-            self._connection.query(str(Delete(dependencia_t, where=AND(
-                dependencia_t.padre_id == self.id,
-                dependencia_t.hijo_id == tid))))
-        for tid in new - old: # creadas
-            self._connection.query(str(Insert(dependencia_t, values=dict(
-                padre_id=self.id, hijo_id=tid, orden=orden[tid]
-            ))))
-        for tid in new & old: # actualizados
-            self._connection.query(str(Update(dependencia_t,
-                values=dict(orden=orden[tid]), where=AND(
-                    dependencia_t.padre_id == self.id,
-                    dependencia_t.hijo_id == tid,
-                ))))
+    enunciados          = RelatedJoin('Enunciado', addRemoveName='_enunciado')
 
     def __repr__(self):
-        return 'Tarea(id=%s, nombre=%s, descripcion=%s)' \
-                % (self.id, self.nombre, self.descripcion)
+        raise NotImplementedError('Tarea es una clase abstracta')
 
     def shortrepr(self):
         return self.nombre
 #}}}
 
+class TareaFuente(Tarea): #{{{
+    # Joins
+    comandos    = MultipleJoin('ComandoFuente')
+
+    def add_comando(self, orden, comando, **kw):
+        return ComandoFuente(tarea=self, orden=orden, comando=comando, **kw)
+
+    def remove_comando(self, orden):
+        ComandoFuente.pk.get(self.id, orden).destroySelf()
+
+    def __repr__(self):
+        return 'TareaFuente(id=%s, nombre=%s, descripcion=%s)' \
+                % (self.id, self.nombre, self.descripcion)
+#}}}
+
+class TareaPrueba(Tarea): #{{{
+    # Joins
+    comandos    = MultipleJoin('ComandoPrueba')
+
+    def add_comando(self, orden, comando, **kw):
+        return ComandoPrueba(tarea=self, orden=orden, comando=comando, **kw)
+
+    def remove_comando(self, orden):
+        ComandoPrueba.pk.get(self.id, orden).destroySelf()
+
+    def __repr__(self):
+        return 'TareaPrueba(id=%s, nombre=%s, descripcion=%s)' \
+                % (self.id, self.nombre, self.descripcion)
+#}}}
+
+class Comando(SQLObject): #{{{
+    # Campos
+    comando             = ParamsCol(length=255, notNone=True)
+    descripcion         = UnicodeCol(length=255, default=None)
+    retorno             = IntCol(default=None)
+    terminar_si_falla   = BoolCol(notNone=True, default=True)
+    rechazar_si_falla   = BoolCol(notNone=True, default=True)
+#    archivos_entrada    = list(ArchivoEntrada) #TODO
+#    archivos_salida     = list(ArchivoSalida)  #TODO
+
+    def ejecutar(self): pass # TODO
+
+    def __repr__(self):
+        raise NotImplementedError('Comando es una clase abstracta')
+
+    def shortrepr(self):
+        return self.nombre
+#}}}
+
+class ComandoFuente(Comando): #{{{
+    # Clave
+    tarea       = ForeignKey('TareaFuente', notNone=True, cascade=True)
+    orden       = IntCol(notNone=True)
+    pk          = DatabaseIndex(tarea, orden, unique=True)
+    # Campos
+    tiempo_cpu  = FloatCol(default=None)
+
+    def ejecutar(self): pass # TODO
+
+    def __repr__(self):
+        return 'ComandoFuente(tarea=%s, orden=%s, comando=%s, descripcion=%s, ' \
+            'retorno=%s, tiempo_cpu=%s, terminar_si_falla=%s, ' \
+            'rechazar_si_falla=%s)' \
+                % (srepr(self.tarea), self.orden, self.comando, self.descripcion,
+                    self.retorno, self.tiempo_cpu, self.terminar_si_falla,
+                    self.rechazar_si_falla)
+#}}}
+
+class ComandoPrueba(Comando): #{{{
+    # Clave
+    tarea               = ForeignKey('TareaPrueba', notNone=True, cascade=True)
+    orden               = IntCol(notNone=True)
+    pk                  = DatabaseIndex(tarea, orden, unique=True)
+    # Campos
+    multipl_tiempo_cpu  = FloatCol(notNone=True, default=1.0)
+
+    def ejecutar(self): pass # TODO
+
+    def __repr__(self):
+        return 'ComandoPrueba(tarea=%s, orden=%s, comando=%s, descripcion=%s, ' \
+            'retorno=%s, tiempo_cpu=%s, terminar_si_falla=%s, ' \
+            'rechazar_si_falla=%s)' \
+                % (srepr(self.tarea), self.orden, self.comando, self.descripcion,
+                    self.retorno, self.tiempo_cpu, self.terminar_si_falla,
+                    self.rechazar_si_falla)
+#}}}
+
 class Enunciado(SQLObject): #{{{
-    class sqlmeta:
-        createSQL = dict(sqlite=r'''
-CREATE TABLE enunciado_tarea (
-    enunciado_id INTEGER NOT NULL CONSTRAINT enunciado_id_exists
-        REFERENCES enunciado(id) ON DELETE CASCADE,
-    tarea_id INTEGER NOT NULL CONSTRAINT tarea_id_exists
-        REFERENCES tarea(id) ON DELETE CASCADE,
-    orden INT,
-    PRIMARY KEY (enunciado_id, tarea_id)
-)''')
     # Clave
     nombre          = UnicodeCol(length=60)
     anio            = IntCol(notNone=True)
     cuatrimestre    = IntCol(notNone=True)
     pk              = DatabaseIndex(nombre, anio, cuatrimestre, unique=True)
     # Campos
-    autor           = ForeignKey('Docente', cascade='null')
     descripcion     = UnicodeCol(length=255, default=None)
+    autor           = ForeignKey('Docente', cascade='null')
     creado          = DateTimeCol(notNone=True, default=DateTimeCol.now)
     archivo         = BLOBCol(default=None)
     archivo_name    = UnicodeCol(length=255, default=None)
@@ -427,16 +435,20 @@ CREATE TABLE enunciado_tarea (
     # Joins
     ejercicios      = MultipleJoin('Ejercicio')
     casos_de_prueba = MultipleJoin('CasoDePrueba')
+    tareas          = RelatedJoin('Tarea', addRemoveName='_tarea')
 
-    def __init__(self, tareas=(), **kw):
+    def __init__(self, tareas=[], **kw):
         super(Enunciado, self).__init__(**kw)
-        if tareas:
-            self.tareas = tareas
+        for tarea in tareas:
+            self.add_tarea(tarea)
 
     def set(self, tareas=None, **kw):
         super(Enunciado, self).set(**kw)
         if tareas is not None:
-            self.tareas = tareas
+            for tarea in self.tareas:
+                self.remove_tarea(tarea)
+            for tarea in tareas:
+                self.add_tarea(tarea)
 
     @classmethod
     def selectByCurso(self, curso):
@@ -444,40 +456,6 @@ CREATE TABLE enunciado_tarea (
 
     def add_caso_de_prueba(self, nombre, **kw):
         return CasoDePrueba(enunciado=self, nombre=nombre, **kw)
-
-    def _get_tareas(self):
-        self.__tareas = tuple(Tarea.select(
-            AND(
-                Tarea.q.id == enunciado_tarea_t.tarea_id,
-                Enunciado.q.id == enunciado_tarea_t.enunciado_id,
-                Enunciado.q.id == self.id
-            ),
-            clauseTables=(enunciado_tarea_t, Enunciado.sqlmeta.table),
-            orderBy=enunciado_tarea_t.orden,
-        ))
-        return self.__tareas
-
-    def _set_tareas(self, tareas):
-        orden = {}
-        for i, t in enumerate(tareas):
-            orden[t.id] = i
-        new = frozenset([t.id for t in tareas])
-        old = frozenset([t.id for t in self.tareas])
-        tareas = dict([(t.id, t) for t in tareas])
-        for tid in old - new: # eliminadas
-            self._connection.query(str(Delete(enunciado_tarea_t, where=AND(
-                enunciado_tarea_t.enunciado_id == self.id,
-                enunciado_tarea_t.tarea_id == tid))))
-        for tid in new - old: # creadas
-            self._connection.query(str(Insert(enunciado_tarea_t, values=dict(
-                enunciado_id=self.id, tarea_id=tid, orden=orden[tid]
-            ))))
-        for tid in new & old: # actualizados
-            self._connection.query(str(Update(enunciado_tarea_t,
-                values=dict(orden=orden[tid]), where=AND(
-                    enunciado_tarea_t.enunciado_id == self.id,
-                    enunciado_tarea_t.tarea_id == tid,
-                ))))
 
     def __repr__(self):
         return 'Enunciado(id=%s, autor=%s, nombre=%s, descripcion=%s, ' \
@@ -491,18 +469,19 @@ CREATE TABLE enunciado_tarea (
 
 class CasoDePrueba(SQLObject): #{{{
     # Clave
-    enunciado       = ForeignKey('Enunciado', cascade=True)
-    nombre          = UnicodeCol(length=40, notNone=True)
-    pk              = DatabaseIndex(enunciado, nombre, unique=True)
+    enunciado           = ForeignKey('Enunciado', cascade=True)
+    nombre              = UnicodeCol(length=40, notNone=True)
+    pk                  = DatabaseIndex(enunciado, nombre, unique=True)
     # Campos
-    privado         = IntCol(default=None) # TODO iria en instancia_de_entrega_caso_de_prueba
-    parametros      = ParamsCol(length=255, default=None)
-    retorno         = IntCol(default=None)
-    tiempo_cpu      = FloatCol(default=None)
-    descripcion     = UnicodeCol(length=255, default=None)
-    activo          = BoolCol(notNone=True, default=True)
+    descripcion         = UnicodeCol(length=255, default=None)
+    terminar_si_falla   = BoolCol(notNone=True, default=False)
+    rechazar_si_falla   = BoolCol(notNone=True, default=True)
+    parametros          = ParamsCol(length=255, default=None)
+    retorno             = IntCol(default=None)
+    tiempo_cpu          = FloatCol(default=None)
+    activo              = BoolCol(notNone=True, default=True)
     # Joins
-    pruebas         = MultipleJoin('Prueba')
+    pruebas             = MultipleJoin('Prueba')
 
     def __repr__(self):
         return 'CasoDePrueba(enunciado=%s, nombre=%s, parametros=%s, ' \
@@ -521,7 +500,7 @@ class Ejercicio(SQLObject): #{{{
     pk              = DatabaseIndex(curso, numero, unique=True)
     # Campos
     enunciado       = ForeignKey('Enunciado', notNone=True, cascade=False)
-    grupal          = BoolCol(notNone=True, default=False)
+    grupal          = BoolCol(default=False) # None es grupal o individual
     # Joins
     instancias      = MultipleJoin('InstanciaDeEntrega')
 
@@ -530,7 +509,8 @@ class Ejercicio(SQLObject): #{{{
             fin=fin, **kw)
 
     def remove_instancia(self, numero):
-        InstanciaDeEntrega.pk.get(ejercicio=self, numero=numero).destroySelf()
+        # FIXME self.id
+        InstanciaDeEntrega.pk.get(self.id, numero).destroySelf()
 
     def __repr__(self):
         return 'Ejercicio(id=%s, curso=%s, numero=%s, enunciado=%s, ' \
@@ -545,16 +525,6 @@ class Ejercicio(SQLObject): #{{{
 #}}}
 
 class InstanciaDeEntrega(SQLObject): #{{{
-    class sqlmeta:
-        createSQL = dict(sqlite=r'''
-CREATE TABLE instancia_tarea (
-    instancia_id INTEGER NOT NULL CONSTRAINT instancia_id_exists
-        REFERENCES instancia_de_entrega(id) ON DELETE CASCADE,
-    tarea_id INTEGER NOT NULL CONSTRAINT tarea_id_exists
-        REFERENCES tarea(id) ON DELETE CASCADE,
-    orden INT,
-    PRIMARY KEY (instancia_id, tarea_id)
-)''')
     # Clave
     ejercicio       = ForeignKey('Ejercicio', notNone=True, cascade=True)
     numero          = IntCol(notNone=True)
@@ -568,50 +538,6 @@ CREATE TABLE instancia_tarea (
     # Joins
     entregas        = MultipleJoin('Entrega', joinColumn='instancia_id')
     correcciones    = MultipleJoin('Correccion', joinColumn='instancia_id')
-
-    def __init__(self, tareas=(), **kw):
-        super(InstanciaDeEntrega, self).__init__(**kw)
-        if tareas:
-            self.tareas = tareas
-
-    def set(self, tareas=None, **kw):
-        super(InstanciaDeEntrega, self).set(**kw)
-        if tareas is not None:
-            self.tareas = tareas
-
-    def _get_tareas(self):
-        self.__tareas = tuple(Tarea.select(
-            AND(
-                Tarea.q.id == instancia_tarea_t.tarea_id,
-                InstanciaDeEntrega.q.id == instancia_tarea_t.instancia_id,
-                InstanciaDeEntrega.q.id == self.id,
-            ),
-            clauseTables=(instancia_tarea_t, InstanciaDeEntrega.sqlmeta.table),
-            orderBy=instancia_tarea_t.orden,
-        ))
-        return self.__tareas
-
-    def _set_tareas(self, tareas):
-        orden = {}
-        for i, t in enumerate(tareas):
-            orden[t.id] = i
-        new = frozenset([t.id for t in tareas])
-        old = frozenset([t.id for t in self.tareas])
-        tareas = dict([(t.id, t) for t in tareas])
-        for tid in old - new: # eliminadas
-            self._connection.query(str(Delete(instancia_tarea_t, where=AND(
-                instancia_tarea_t.instancia_id == self.id,
-                instancia_tarea_t.tarea_id == tid))))
-        for tid in new - old: # creadas
-            self._connection.query(str(Insert(instancia_tarea_t, values=dict(
-                instancia_id=self.id, tarea_id=tid, orden=orden[tid]
-            ))))
-        for tid in new & old: # actualizados
-            self._connection.query(str(Update(instancia_tarea_t,
-                values=dict(orden=orden[tid]), where=AND(
-                    instancia_tarea_t.instancia_id == self.id,
-                    instancia_tarea_t.tarea_id == tid,
-                ))))
 
     def __repr__(self):
         return 'InstanciaDeEntrega(id=%s, numero=%s, inicio=%s, fin=%s, ' \
@@ -641,8 +567,8 @@ class DocenteInscripto(SQLObject): #{{{
             entregador=entrega.entregador, corrector=self, **kw)
 
     def remove_correccion(self, instancia, entregador):
-        Correccion.pk.get(instancia=instancia,
-            entregador=entregador).destroySelf()
+        # FIXME instancia.id, entregador.id
+        Correccion.pk.get(instancia.id, entregador.id).destroySelf()
 
     def __repr__(self):
         return 'DocenteInscripto(id=%s, docente=%s, corrige=%s, ' \
@@ -705,29 +631,25 @@ class Grupo(Entregador): #{{{
 
     def add_miembro(self, alumno, **kw):
         if isinstance(alumno, AlumnoInscripto):
-            kw['alumno'] = alumno
-        else:
-            kw['alumnoID'] = alumno
-        return Miembro(grupo=self, **kw)
+            alumno = alumno.id
+        return Miembro(grupo=self, alumnoID=alumno, **kw)
 
     def remove_miembro(self, alumno):
         if isinstance(alumno, AlumnoInscripto):
-            Miembro.pk.get(grupo=self, alumno=alumno).destroySelf()
-        else:
-            Miembro.pk.get(grupo=self, alumnoID=alumno).destroySelf()
+            alumno = alumno.id
+        # FIXME self.id
+        Miembro.pk.get(self.id, alumno).destroySelf()
 
     def add_tutor(self, docente, **kw):
         if isinstance(docente, DocenteInscripto):
-            kw['docente'] = docente
-        else:
-            kw['docenteID'] = docente
-        return Tutor(grupo=self, **kw)
+            docente = docente.id
+        return Tutor(grupo=self, docenteID=docente, **kw)
 
     def remove_tutor(self, docente):
         if isinstance(docente, DocenteInscripto):
-            Tutor.pk.get(grupo=self, docente=docente).destroySelf()
-        else:
-            Tutor.pk.get(grupo=self, docenteID=docente).destroySelf()
+            docente = docente.id
+        # FIXME self.id
+        Tutor.pk.get(self.id, docente).destroySelf()
 
     def __repr__(self):
         return 'Grupo(id=%s, nombre=%s, responsable=%s, nota=%s, ' \
@@ -753,6 +675,9 @@ class AlumnoInscripto(Entregador): #{{{
     membresias          = MultipleJoin('Miembro', joinColumn='alumno_id')
     entregas            = MultipleJoin('Entrega', joinColumn='alumno_id')
     correcciones        = MultipleJoin('Correccion', joinColumn='alumno_id')
+
+    def _get_nombre(self):
+        return self.alumno.padron
 
     def __repr__(self):
         return 'AlumnoInscripto(id=%s, alumno=%s, condicional=%s, nota=%s, ' \
@@ -804,21 +729,39 @@ class Miembro(SQLObject): #{{{
 
 class Entrega(SQLObject): #{{{
     # Clave
-    instancia       = ForeignKey('InstanciaDeEntrega', notNone=True, cascade=False)
-    entregador      = ForeignKey('Entregador', default=None, cascade=False) # Si es None era un Docente
-    fecha           = DateTimeCol(notNone=True, default=DateTimeCol.now)
-    pk              = DatabaseIndex(instancia, entregador, fecha, unique=True)
+    instancia           = ForeignKey('InstanciaDeEntrega', notNone=True, cascade=False)
+    entregador          = ForeignKey('Entregador', default=None, cascade=False) # Si es None era un Docente
+    fecha               = DateTimeCol(notNone=True, default=DateTimeCol.now)
+    pk                  = DatabaseIndex(instancia, entregador, fecha, unique=True)
     # Campos
-    correcta        = BoolCol(notNone=True, default=False)
-    observaciones   = UnicodeCol(default=None)
+    correcta            = BoolCol(default=None)
+    inicio_tareas       = DateTimeCol(default=None)
+    fin_tareas          = DateTimeCol(default=None)
+    observaciones       = UnicodeCol(default=None)
     # Joins
-    tareas          = MultipleJoin('TareaEjecutada')
+    comandos_ejecutados = MultipleJoin('ComandoFuenteEjecutado')
+    pruebas             = MultipleJoin('Prueba')
     # Para generar código
-    codigo_dict     = r'0123456789abcdefghijklmnopqrstuvwxyz_.,*@#+'
-    codigo_format   = r'%m%d%H%M%S'
+    codigo_dict         = r'0123456789abcdefghijklmnopqrstuvwxyz_.,*@#+'
+    codigo_format       = r'%m%d%H%M%S'
 
-    def add_tarea_ejecutada(self, tarea, **kw):
-        return TareaEjecutada(tarea=tarea, entrega=self, **kw)
+    def add_comando_ejecutado(self, comando, **kw):
+        return ComandoFuenteEjecutado(entrega=self, comando=comando, **kw)
+
+    def remove_comando_ejecutado(self, comando):
+        if isinstance(comando, ComandoFuente):
+            comando = comando.id
+        # FIXME self.id
+        ComandoFuenteEjecutado.pk.get(self.id, comando).destroySelf()
+
+    def add_prueba(self, caso_de_prueba, **kw):
+        return Prueba(entrega=self, caso_de_prueba=caso_de_prueba, **kw)
+
+    def remove_prueba(self, caso_de_prueba):
+        if isinstance(caso_de_prueba, CasoDePrueba):
+            caso_de_prueba = caso_de_prueba.id
+        # FIXME self.id, caso_de_prueba
+        Prueba.pk.get(self.id, caso_de_prueba).destroySelf()
 
     def _get_codigo(self):
         if not hasattr(self, '_codigo'): # cache
@@ -836,11 +779,29 @@ class Entrega(SQLObject): #{{{
         self._SO_set_fecha(fecha)
         if hasattr(self, '_codigo'): del self._codigo # bye, bye cache!
 
+    def _get_path(self):
+        import os.path
+        def path_join(*args):
+            return os.path.join(*[unicode(p) for p in args])
+        curso = self.entregador.curso
+        instancia = self.instancia
+        ejercicio = instancia.ejercicio
+        fecha = self.fecha.strftime(r'%Y-%m-%d_%H.%M.%S')
+        print ejercicio
+        return path_join(curso.anio, curso.cuatrimestre, curso.numero,
+            ejercicio.numero, instancia.numero, self.entregador.nombre, fecha)
+            # FIXME un grupo con nombre tipo "../../lala" puede romper todo.
+            #       Hacer que el nombre del grupo sea numérico (o validar que
+            #       sean solo caracteres inofensivos: letras ASCII, espacio
+            #       -traducirlos a underscores- y números). Creo que un numero
+            #       que se autoasigne es lo más cómodo.
+
     def __repr__(self):
         return 'Entrega(instancia=%s, entregador=%s, codigo=%s, fecha=%s, ' \
-            'correcta=%s, observaciones=%s)' \
+            'correcta=%s, inicio_tareas=%s, fin_tareas=%s, observaciones=%s)' \
                 % (self.instancia.shortrepr(), srepr(self.entregador),
-                    self.codigo, self.fecha, self.correcta, self.observaciones)
+                    self.codigo, self.fecha, self.inicio_tareas,
+                    self.fin_tareas, self.correcta, self.observaciones)
 
     def shortrepr(self):
         return '%s-%s-%s' % (self.instancia.shortrepr(), srepr(self.entregador),
@@ -877,53 +838,82 @@ class Correccion(SQLObject): #{{{
         return '%s,%s' % (self.entrega.shortrepr(), self.corrector.shortrepr())
 #}}}
 
-class TareaEjecutada(InheritableSQLObject): #{{{
-    # Clave
-    tarea           = ForeignKey('Tarea', notNone=True, cascade=False)
-    entrega         = ForeignKey('Entrega', notNone=True, cascade=False)
-    pk              = DatabaseIndex(tarea, entrega, unique=True)
+class ComandoEjecutado(InheritableSQLObject): #{{{
     # Campos
     inicio          = DateTimeCol(notNone=True, default=DateTimeCol.now)
     fin             = DateTimeCol(default=None)
     exito           = IntCol(default=None)
     observaciones   = UnicodeCol(default=None)
-    # Joins
-    pruebas         = MultipleJoin('Prueba')
-
-    def add_prueba(self, caso_de_prueba, **kw):
-        return Prueba(tarea_ejecutada=self, caso_de_prueba=caso_de_prueba,
-            **kw)
 
     def __repr__(self):
-        return 'TareaEjecutada(tarea=%s, entrega=%s, inicio=%s, fin=%s, ' \
-            'exito=%s, observaciones=%s)' \
-                % (self.tarea.shortrepr(), self.entrega.shortrepr(),
+        raise NotImplementedError('ComandoEjecutado es una clase abstracta')
+#}}}
+
+class ComandoFuenteEjecutado(ComandoEjecutado): #{{{
+    # Clave
+    comando = ForeignKey('ComandoFuente', notNone=True, cascade=False)
+    entrega = ForeignKey('Entrega', notNone=True, cascade=False)
+    pk      = DatabaseIndex(comando, entrega, unique=True)
+
+    def __repr__(self):
+        return 'ComandoFuenteEjecutado(comando=%s, entrega=%s, inicio=%s, ' \
+            'fin=%s, exito=%s, observaciones=%s)' \
+                % (self.comando.shortrepr(), self.entrega.shortrepr(),
                     self.inicio, self.fin, self.exito, self.observaciones)
 
     def shortrepr(self):
         return '%s-%s' % (self.tarea.shortrepr(), self.entrega.shortrepr())
 #}}}
 
-class Prueba(SQLObject): #{{{
+class ComandoPruebaEjecutado(SQLObject): #{{{
     # Clave
-    tarea_ejecutada = ForeignKey('TareaEjecutada', notNone=True, cascade=False)
-    caso_de_prueba  = ForeignKey('CasoDePrueba', notNone=True, cascade=False)
-    pk              = DatabaseIndex(tarea_ejecutada, caso_de_prueba, unique=True)
-    # Campos
-    inicio          = DateTimeCol(notNone=True, default=DateTimeCol.now)
-    fin             = DateTimeCol(default=None)
-    pasada          = IntCol(default=None)
-    observaciones   = UnicodeCol(default=None)
+    comando = ForeignKey('ComandoPrueba', notNone=True, cascade=False)
+    prueba  = ForeignKey('Prueba', notNone=True, cascade=False)
+    pk      = DatabaseIndex(comando, prueba, unique=True)
 
     def __repr__(self):
-        return 'Prueba(tarea_ejecutada=%s, caso_de_prueba=%s, inicio=%s, ' \
-            'fin=%s, pasada=%s, observaciones=%s)' \
-                % (self.tarea_ejecutada.shortrepr(),
-                    self.caso_de_prueba.shortrepr(), self.inicio, self.fin,
-                    self.pasada, self.observaciones)
+        return 'ComandoPruebaEjecutado(comando=%s, prueba=%s, inicio=%s, ' \
+            'fin=%s, exito=%s, observaciones=%s)' \
+                % (self.comando.shortrepr(), self.prueba.shortrepr(),
+                    self.inicio, self.fin, self.exito, self.observaciones)
 
     def shortrepr(self):
-        return '%s:%s' % (self.tarea_ejecutada.shortrepr(),
+        return '%s:%s:%s' % (self.tarea.shortrepr(), self.entrega.shortrerp(),
+            self.caso_de_prueba.shortrerp())
+#}}}
+
+class Prueba(SQLObject): #{{{
+    # Clave
+    entrega             = ForeignKey('Entrega', notNone=True, cascade=False)
+    caso_de_prueba      = ForeignKey('CasoDePrueba', notNone=True, cascade=False)
+    pk                  = DatabaseIndex(entrega, caso_de_prueba, unique=True)
+    # Campos
+    inicio              = DateTimeCol(notNone=True, default=DateTimeCol.now)
+    fin                 = DateTimeCol(default=None)
+    pasada              = IntCol(default=None)
+    observaciones       = UnicodeCol(default=None)
+    # Joins
+    comandos_ejecutados = MultipleJoin('ComandoPruebaEjecutado')
+
+    def add_comando_ejecutado(self, comando, **kw):
+        if isinstance(comando, ComandoPrueba):
+            comando = comando.id
+        return ComandoPruebaEjecutado(prueba=self, comandoID=comando, **kw)
+
+    def remove_comando_ejecutado(self, comando):
+        if isinstance(comando, ComandoPrueba):
+            comando = comando.id
+        # FIXME self.id, comando.id
+        ComandoPruebaEjecutado.pk.get(self.id, comando).destroySelf()
+
+    def __repr__(self):
+        return 'Prueba(entrega=%s, caso_de_prueba=%s, inicio=%s, fin=%s, ' \
+            'pasada=%s, observaciones=%s)' \
+                % (self.entrega.shortrepr(), self.caso_de_prueba.shortrepr(),
+                self.inicio, self.fin, self.pasada, self.observaciones)
+
+    def shortrepr(self):
+        return '%s:%s' % (self.entrega.shortrepr(),
             self.caso_de_prueba.shortrerp())
 #}}}
 
