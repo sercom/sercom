@@ -143,7 +143,7 @@ class Curso(SQLObject): #{{{
             for e in Ejercicio.selectBy(curso=self):
                 e.destroySelf()
             for (n, e) in enumerate(ejercicios):
-                self.add_ejercicio(n, e)
+                self.add_ejercicio(n+1, e)
         if alumnos is not None:
             for a in AlumnoInscripto.selectBy(curso=self):
                 a.destroySelf()
