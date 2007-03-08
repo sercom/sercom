@@ -334,7 +334,7 @@ class Tarea(InheritableSQLObject): #{{{
 
 class TareaFuente(Tarea): #{{{
     # Joins
-    comandos    = MultipleJoin('ComandoFuente')
+    comandos    = MultipleJoin('ComandoFuente', joinColumn='tarea_id')
 
     def add_comando(self, orden, comando, **kw):
         return ComandoFuente(tarea=self, orden=orden, comando=comando, **kw)
@@ -349,7 +349,7 @@ class TareaFuente(Tarea): #{{{
 
 class TareaPrueba(Tarea): #{{{
     # Joins
-    comandos    = MultipleJoin('ComandoPrueba')
+    comandos    = MultipleJoin('ComandoPrueba', joinColumn='tarea_id')
 
     def add_comando(self, orden, comando, **kw):
         return ComandoPrueba(tarea=self, orden=orden, comando=comando, **kw)
@@ -873,7 +873,7 @@ class ComandoFuenteEjecutado(ComandoEjecutado): #{{{
         return '%s-%s' % (self.tarea.shortrepr(), self.entrega.shortrepr())
 #}}}
 
-class ComandoPruebaEjecutado(SQLObject): #{{{
+class ComandoPruebaEjecutado(ComandoEjecutado): #{{{
     # Clave
     comando = ForeignKey('ComandoPrueba', notNone=True, cascade=False)
     prueba  = ForeignKey('Prueba', notNone=True, cascade=False)
