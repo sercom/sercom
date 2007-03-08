@@ -369,10 +369,10 @@ class Comando(SQLObject): #{{{
     retorno             = IntCol(default=None)
     terminar_si_falla   = BoolCol(notNone=True, default=True)
     rechazar_si_falla   = BoolCol(notNone=True, default=True)
-#    archivos_entrada    = list(ArchivoEntrada) #TODO
-#    archivos_salida     = list(ArchivoSalida)  #TODO
-
-    def ejecutar(self): pass # TODO
+    archivos_entrada    = BLOBCol(default=None) # ZIP con archivos de entrada
+                                                # stdin es caso especial
+    archivos_salida     = BLOBCol(default=None) # ZIP con archivos de salida
+                                                # stdout y stderr son especiales
 
     def __repr__(self):
         raise NotImplementedError('Comando es una clase abstracta')
@@ -479,6 +479,10 @@ class CasoDePrueba(SQLObject): #{{{
     parametros          = ParamsCol(length=255, default=None)
     retorno             = IntCol(default=None)
     tiempo_cpu          = FloatCol(default=None)
+    archivos_entrada    = BLOBCol(default=None) # ZIP con archivos de entrada
+                                                # stdin es caso especial
+    archivos_salida     = BLOBCol(default=None) # ZIP con archivos de salida
+                                                # stdout y stderr son especiales
     activo              = BoolCol(notNone=True, default=True)
     # Joins
     pruebas             = MultipleJoin('Prueba')
@@ -584,7 +588,7 @@ class Entregador(InheritableSQLObject): #{{{
     # Campos
     nota            = DecimalCol(size=3, precision=1, default=None)
     nota_cursada    = DecimalCol(size=3, precision=1, default=None)
-    observaciones   = UnicodeCol(default=None)
+    observaciones   = UnicodeCol(notNone=True, default=u'')
     activo          = BoolCol(notNone=True, default=True)
     # Joins
     entregas        = MultipleJoin('Entrega')
@@ -742,16 +746,14 @@ class Entrega(SQLObject): #{{{
     fecha               = DateTimeCol(notNone=True, default=DateTimeCol.now)
     pk                  = DatabaseIndex(instancia, entregador, fecha, unique=True)
     # Campos
-    correcta            = BoolCol(default=None)
-    inicio_tareas       = DateTimeCol(default=None)
-    fin_tareas          = DateTimeCol(default=None)
-    observaciones       = UnicodeCol(default=None)
+    archivos            = BLOBCol(notNone=True) # ZIP con fuentes de la entrega
+    correcta            = BoolCol(default=None) # None es que no se sabe qué pasó
+    inicio_tareas       = DateTimeCol(default=None) # Si es None no se procesó
+    fin_tareas          = DateTimeCol(default=None) # Si es None pero inicio no, se está procesando
+    observaciones       = UnicodeCol(notNone=True, default=u'')
     # Joins
     comandos_ejecutados = MultipleJoin('ComandoFuenteEjecutado')
     pruebas             = MultipleJoin('Prueba')
-    # Para generar código
-    codigo_dict         = r'0123456789abcdefghijklmnopqrstuvwxyz_.,*@#+'
-    codigo_format       = r'%m%d%H%M%S'
 
     def add_comando_ejecutado(self, comando, **kw):
         return ComandoFuenteEjecutado(entrega=self, comando=comando, **kw)
@@ -771,49 +773,16 @@ class Entrega(SQLObject): #{{{
         # FIXME self.id, caso_de_prueba
         Prueba.pk.get(self.id, caso_de_prueba).destroySelf()
 
-    def _get_codigo(self):
-        if not hasattr(self, '_codigo'): # cache
-            n = long(self.fecha.strftime(Entrega.codigo_format))
-            d = Entrega.codigo_dict
-            l = len(d)
-            res = ''
-            while n:
-                    res += d[n % l]
-                    n /= l
-            self._codigo = res
-        return self._codigo
-
-    def _set_fecha(self, fecha):
-        self._SO_set_fecha(fecha)
-        if hasattr(self, '_codigo'): del self._codigo # bye, bye cache!
-
-    def _get_path(self):
-        import os.path
-        def path_join(*args):
-            return os.path.join(*[unicode(p) for p in args])
-        curso = self.entregador.curso
-        instancia = self.instancia
-        ejercicio = instancia.ejercicio
-        fecha = self.fecha.strftime(r'%Y-%m-%d_%H.%M.%S')
-        print ejercicio
-        return path_join(curso.anio, curso.cuatrimestre, curso.numero,
-            ejercicio.numero, instancia.numero, self.entregador.nombre, fecha)
-            # FIXME un grupo con nombre tipo "../../lala" puede romper todo.
-            #       Hacer que el nombre del grupo sea numérico (o validar que
-            #       sean solo caracteres inofensivos: letras ASCII, espacio
-            #       -traducirlos a underscores- y números). Creo que un numero
-            #       que se autoasigne es lo más cómodo.
-
     def __repr__(self):
-        return 'Entrega(instancia=%s, entregador=%s, codigo=%s, fecha=%s, ' \
+        return 'Entrega(id=%s, instancia=%s, entregador=%s, fecha=%s, ' \
             'correcta=%s, inicio_tareas=%s, fin_tareas=%s, observaciones=%s)' \
-                % (self.instancia.shortrepr(), srepr(self.entregador),
-                    self.codigo, self.fecha, self.inicio_tareas,
-                    self.fin_tareas, self.correcta, self.observaciones)
+                % (self.id, self.instancia.shortrepr(), srepr(self.entregador),
+                    self.fecha, self.inicio_tareas, self.fin_tareas,
+                    self.correcta, self.observaciones)
 
     def shortrepr(self):
-        return '%s-%s-%s' % (self.instancia.shortrepr(), srepr(self.entregador),
-            self.codigo)
+        return '%s-%s-%s' % (self.instancia.shortrepr(),
+            srepr(self.entregador), self.fecha)
 #}}}
 
 class Correccion(SQLObject): #{{{
@@ -851,7 +820,7 @@ class ComandoEjecutado(InheritableSQLObject): #{{{
     inicio          = DateTimeCol(notNone=True, default=DateTimeCol.now)
     fin             = DateTimeCol(default=None)
     exito           = IntCol(default=None)
-    observaciones   = UnicodeCol(default=None)
+    observaciones   = UnicodeCol(notNone=True, default=u'')
 
     def __repr__(self):
         raise NotImplementedError('ComandoEjecutado es una clase abstracta')
@@ -899,7 +868,7 @@ class Prueba(SQLObject): #{{{
     inicio              = DateTimeCol(notNone=True, default=DateTimeCol.now)
     fin                 = DateTimeCol(default=None)
     pasada              = IntCol(default=None)
-    observaciones       = UnicodeCol(default=None)
+    observaciones       = UnicodeCol(notNone=True, default=u'')
     # Joins
     comandos_ejecutados = MultipleJoin('ComandoPruebaEjecutado')
 

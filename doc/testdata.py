@@ -1,5 +1,7 @@
 # vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker :
 
+from datetime import timedelta
+
 # Roles
 r1 = Rol(nombre='admin', permisos=(entregar_tp, admin))
 r2 = Rol(nombre='alumno', permisos=(entregar_tp,))
@@ -56,10 +58,15 @@ g2 = c.add_grupo(8, responsable=ai2, miembros=[ai1], tutores=[di])
 g2.add_miembro(ai2)
 
 # Entregas
-entrega = ai1.add_entrega(ide)
-ai2.add_entrega(ide, correcta=True)
-entrega2 = g1.add_entrega(ide, correcta=True)
-d.add_entrega(ide, correcta=True, observaciones='Prueba de docente')
+archivo_zip = file('doc/entrega.zip').read()
+ai1.add_entrega(ide, archivos=archivo_zip)
+entrega = ai2.add_entrega(ide, inicio_tareas=datetime.now(),
+    fin_tareas=datetime.now() + timedelta(0, 0, 1), correcta=True,
+    archivos=archivo_zip)
+entrega2 = g1.add_entrega(ide, inicio_tareas=datetime.now(),
+    fin_tareas=datetime.now() + timedelta(0, 0, 3), correcta=False,
+    archivos=archivo_zip)
+d.add_entrega(ide, observaciones='Prueba de docente', archivos=archivo_zip)
 
 # Comandos ejecutados / pruebas
 cpe = entrega.add_comando_ejecutado(cf, exito=True,
