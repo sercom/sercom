@@ -629,6 +629,14 @@ class Grupo(Entregador): #{{{
             for t in tutores:
                 self.add_tutor(t)
 
+    _doc_alumnos = 'Devuelve una lista de AlumnoInscriptos **activos**.'
+    def _get_alumnos(self):
+        return list([m.alumno for m in Miembro.selectBy(grupo=self, baja=None)])
+
+    _doc_docentes = 'Devuelve una lista de DocenteInscriptos **activos**.'
+    def _get_docentes(self):
+        return list([t.docente for t in Tutor.selectBy(grupo=self, baja=None)])
+
     def add_miembro(self, alumno, **kw):
         if isinstance(alumno, AlumnoInscripto):
             alumno = alumno.id
@@ -637,8 +645,8 @@ class Grupo(Entregador): #{{{
     def remove_miembro(self, alumno):
         if isinstance(alumno, AlumnoInscripto):
             alumno = alumno.id
-        # FIXME self.id
-        Miembro.pk.get(self.id, alumno).destroySelf()
+        m = Miembro.selectBy(grupo=self, alumnoID=alumno, baja=None).getOne()
+        m.baja = DateTimeCol.now()
 
     def add_tutor(self, docente, **kw):
         if isinstance(docente, DocenteInscripto):
@@ -648,8 +656,8 @@ class Grupo(Entregador): #{{{
     def remove_tutor(self, docente):
         if isinstance(docente, DocenteInscripto):
             docente = docente.id
-        # FIXME self.id
-        Tutor.pk.get(self.id, docente).destroySelf()
+        t = Tutor.selectBy(grupo=self, alumnoID=alumno, baja=None)
+        t.baja = DateTimeCol.now()
 
     def __repr__(self):
         return 'Grupo(id=%s, nombre=%s, responsable=%s, nota=%s, ' \
