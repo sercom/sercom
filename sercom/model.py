@@ -656,7 +656,7 @@ class Grupo(Entregador): #{{{
     def remove_tutor(self, docente):
         if isinstance(docente, DocenteInscripto):
             docente = docente.id
-        t = Tutor.selectBy(grupo=self, alumnoID=alumno, baja=None)
+        t = Tutor.selectBy(grupo=self, docenteID=docente, baja=None)
         t.baja = DateTimeCol.now()
 
     def __repr__(self):
