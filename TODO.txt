@@ -6,7 +6,7 @@
     * AlumnoInscripto (Alumno) (nico)
   * Rol
   * Grupo
-    * Juntar / Separar 
+    * Juntar / Separar
 - Hacer DB con datos de prueba (nico)
 - Hacer archivos de prueba para las cargas masivas (nico)
 - Hacer Informe bonito para pelu (un poco cada uno)
@@ -14,6 +14,8 @@
   * Sacar el campo "procesada?" de la creación (lo maneja internamente el
     backend, en modificar tal vez se podría poner pero mucho sentido no tiene
     tampoco, mejor que se vea nomás, pero que no se modifique).
-  * Poner el checkbox Activo? por default chequeado. 
+  * Poner el checkbox Activo? por default chequeado.
 - Ejercicio:
   * Poner una columna en el listado con la cantidad de entregas.
+- Entrega:
+  * Interfaz para que el alumno suba una entrega.
