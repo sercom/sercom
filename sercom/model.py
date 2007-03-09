@@ -410,10 +410,10 @@ class ComandoPrueba(Comando): #{{{
 
     def __repr__(self):
         return 'ComandoPrueba(tarea=%s, orden=%s, comando=%s, descripcion=%s, ' \
-            'retorno=%s, tiempo_cpu=%s, terminar_si_falla=%s, ' \
+            'retorno=%s, multipl_tiempo_cpu=%s, terminar_si_falla=%s, ' \
             'rechazar_si_falla=%s)' \
                 % (srepr(self.tarea), self.orden, self.comando, self.descripcion,
-                    self.retorno, self.tiempo_cpu, self.terminar_si_falla,
+                    self.retorno, self.multipl_tiempo_cpu, self.terminar_si_falla,
                     self.rechazar_si_falla)
 #}}}
 
