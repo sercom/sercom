@@ -108,3 +108,77 @@ class AjaxMultiSelect(widgets.MultipleSelectField):
         self.params.append('on_add')
         self.on_add = "alert('Not defined action');"
         widgets.MultipleSelectField.__init__(self, **kw)
+
+DosListasAjax = '''
+    function makeOption(option) {
+        return OPTION({"value": option.value}, option.text);
+    }
+
+    function moveOption( fromSelect, toSelect) {
+        // add 'selected' nodes toSelect
+        appendChildNodes(toSelect,
+            map( makeOption,ifilter(itemgetter('selected'), $(fromSelect).options)));
+        // remove the 'selected' fromSelect
+        replaceChildNodes(fromSelect,
+            list(ifilterfalse(itemgetter('selected'), $(fromSelect).options))
+        );
+    }
+
+'''
+
+class AjaxDosListasSelect(widgets.MultipleSelectField):
+    template = '''
+    <div xmlns:py="http://purl.org/kid/ns#">  
+    <table style="border:0; margin:0px; border-spacing:0px 0px">
+    <tr class="nada">
+        <td style="padding:0 0 0 0;" align="center">${title_from}</td>
+        <td>&nbsp;</td>
+        <td style="padding:0 0 0 0;" align="center">${title_to}</td>
+    </tr>
+    <tr class="nada">
+    <td style="padding:0 0 0 0;">
+    <select  
+        multiple="multiple"
+        size="${size}"
+        class="${field_class}"
+        name="${name}_from"
+        id="${field_id}_from"
+        py:attrs="attrs"
+        style="width:200px;">
+        <optgroup py:for="group, options in grouped_options" label="${group}" py:strip="not group">
+        <option py:for="value, desc, attrs in options" value="${value}" py:attrs="attrs" py:content="desc" />  
+        </optgroup>  
+    </select>
+    </td>
+    <td style="padding:0 10px 0 10px;" valign="center" align="center">
+        <input type="button" value="&gt;&gt;&gt;" style="font-size:90%;" onClick="moveOption('${field_id}_from', '${field_id}_to');" />
+        <br />
+        <br />
+        <input type="button" value="&lt;&lt;&lt;" style="font-size:90%;" onClick="moveOption('${field_id}_to', '${field_id}_from');" />
+    </td>
+    <td style="padding:0 0 0 0;">
+    <select  
+        multiple="multiple"
+        size="${size}"
+        name="${name}_to"
+        class="${field_class}"
+        id="${field_id}_to"
+        py:attrs="attrs"
+        style="width:200px;">
+    </select>
+    </td>
+    </tr>
+    </table>
+    </div>
+    '''
+    javascript = [widgets.JSSource(DosListasAjax)]
+    title_from = ""
+    title_to = ""
+
+    def __init__(self, **kw):
+        self.params.append('title_from')
+        self.params.append('title_to')
+        self.title_from = "&nbsp;"
+        self.title_to = "&nbsp;"
+        widgets.MultipleSelectField.__init__(self, **kw)
+

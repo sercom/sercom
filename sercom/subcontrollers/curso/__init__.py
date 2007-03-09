@@ -68,7 +68,7 @@ ajax = u"""
         d.addCallbacks(procesar, err);
     }
 
-    function onsubmit()
+    function doSubmit()
     {
         /* TODO : Validar datos y evitar el submit si no esta completo */
 
@@ -78,7 +78,7 @@ ajax = u"""
             l.options[i].selected = true;
         }
         /* Selecciono todos los miembros si no, no llegan al controllere*/
-        l = MochiKit.DOM.getElement('form_docentes_curso');
+        l = MochiKit.DOM.getElement('form_docentes_to');
         for (i=0; i<l.options.length; i++) {
             l.options[i].selected = true;
         }
@@ -131,19 +131,24 @@ class CursoForm(W.TableForm):
             help_text=_(u'Descripcion.'),
             validator=V.UnicodeString(not_empty=False, strip=True))
 
-        docentes = W.MultipleSelectField(name="docentes",
-            label=_(u'Docentes'),
-            attrs=dict(style='width:300px'),
+        #docentes = W.MultipleSelectField(name="docentes",
+        #    label=_(u'Docentes'),
+        #    attrs=dict(style='width:300px'),
+        #    options=get_docentes,
+        #    validator=V.Int(not_empty=True))
+        #addDocente = W.Button(default='Asignar', label='',
+        #    attrs=dict( onclick='mover("form_docentes","form_docentes_curso")'))
+        #remDocente = W.Button(default='Remover', label='',
+        #    attrs=dict( onclick='remover("form_docentes_curso","form_docentes")'))
+        #docentes_curso = W.MultipleSelectField(name="docentes_curso",
+        #    label=_(u'Docentes del curso'),
+        #    attrs=dict(style='width:300px'),
+#       #     options=get_docentes_curso,
+        #    validator=V.Int(not_empty=True))
+        docentes = AjaxDosListasSelect(label=_(u'Docentes'),
+            title_from="Docentes",
+            title_to="Docentes del Curso",
             options=get_docentes,
-            validator=V.Int(not_empty=True))
-        addDocente = W.Button(default='Asignar', label='',
-            attrs=dict( onclick='mover("form_docentes","form_docentes_curso")'))
-        remDocente = W.Button(default='Remover', label='',
-            attrs=dict( onclick='remover("form_docentes_curso","form_docentes")'))
-        docentes_curso = W.MultipleSelectField(name="docentes_curso",
-            label=_(u'Docentes del curso'),
-            attrs=dict(style='width:300px'),
-#            options=get_docentes_curso,
             validator=V.Int(not_empty=True))
 
         alumnos = AjaxMultiSelect(label=_(u'Alumnos'),
@@ -154,7 +159,7 @@ class CursoForm(W.TableForm):
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('anio');"),
                   W.JSSource(ajax)]
-    form_attrs = dict(onsubmit='return onsubmit()')
+    form_attrs = dict(onsubmit='return doSubmit();')
 form = CursoForm()
 #}}}
 
@@ -202,12 +207,9 @@ class CursoController(controllers.Controller, identity.SecureResource):
     def create(self, **kw):
         """Save or create record to model"""
         print "--KW--"
-        print kw
-        docentes = kw.get('docentes_curso', [])
+        docentes = kw.get('docentes_to', [])
         alumnos = kw.get('alumnos', [])
-        del(kw['remDocente'])
-        del(kw['addDocente'])
-        del(kw['docentes_curso'])
+        del(kw['docentes_to'])
         del(kw['alumnos'])
         r = validate_new(kw)
         """ Agrego la nueva seleccion de docentes """
@@ -233,7 +235,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
         values.cursoID = r.id
         values.descripcion = r.descripcion
         # cargo la lista con los docentes asignados al curso
-        values.docentes_curso = [{"id":d.docente.id, "label":d.docente.shortrepr()} for d in DocenteInscripto.selectBy(curso=r.id)]
+        values.docentes_to = [{"id":d.docente.id, "label":d.docente.shortrepr()} for d in DocenteInscripto.selectBy(curso=r.id)]
         values.alumnos_inscriptos = [{"id":a.alumno.id, "label":a.alumno.shortrepr()} for a in AlumnoInscripto.selectBy(curso=r.id)]
 
         return dict(name=name, namepl=namepl, record=values, form=form)
@@ -246,7 +248,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
         params = dict([(k,v) for (k,v) in kw.iteritems() if k in Curso.sqlmeta.columns.keys()])
         r = validate_set(id, params)
 
-        docentes = kw.get('docentes_curso', [])
+        docentes = kw.get('docentes_to', [])
         alumnos = kw.get('alumnos', [])
         alumnos_inscriptos = AlumnoInscripto.selectBy(curso=id)
         """ levanto los doncentes del curso para ver cuales tengo que agregar """
