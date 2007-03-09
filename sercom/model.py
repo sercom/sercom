@@ -362,7 +362,7 @@ class TareaPrueba(Tarea): #{{{
                 % (self.id, self.nombre, self.descripcion)
 #}}}
 
-class Comando(SQLObject): #{{{
+class Comando(InheritableSQLObject): #{{{
     # Campos
     comando             = ParamsCol(length=255, notNone=True)
     descripcion         = UnicodeCol(length=255, default=None)
