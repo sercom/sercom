@@ -41,8 +41,7 @@ class TupleValidator(PickleValidator):
 
 class SOTupleCol(SOPickleCol):
     def createValidators(self):
-        return [TupleValidator(name=self.name)] \
-            + super(SOPickleCol, self).createValidators()
+        return [TupleValidator(name=self.name)]
 
 class TupleCol(PickleCol):
     baseClass = SOTupleCol
@@ -79,8 +78,7 @@ class ParamsValidator(UnicodeStringValidator):
 
 class SOParamsCol(SOUnicodeCol):
     def createValidators(self):
-        return [ParamsValidator(db_encoding=self.dbEncoding, name=self.name)] \
-            + super(SOParamsCol, self).createValidators()
+        return [ParamsValidator(db_encoding=self.dbEncoding, name=self.name)]
 
 class ParamsCol(UnicodeCol):
     baseClass = SOParamsCol
