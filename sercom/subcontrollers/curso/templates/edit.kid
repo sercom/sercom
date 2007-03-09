@@ -16,7 +16,18 @@
         <span py:for="a in record.alumnos_inscriptos" py:strip="True">
             MochiKit.DOM.appendChildNodes("form_alumnos", OPTION({"value":${a['id']}}, '${a['label']}'))
         </span>
-    }
+				// Saco de FROM los que ya estan en TO
+				replaceChildNodes('form_docentes_from', list(ifilterfalse(
+					partial(esta_en_to, $('form_docentes_to').options),
+					$('form_docentes_from').options
+				)));
+		}
+		function esta_en_to (options, i) {
+			for (j=0; j &lt; options.length; j++)
+				if (options[j].value == i.value)
+					return true;
+			return false;
+		}
     MochiKit.DOM.addLoadEvent(init_data)
 </script>
 <body>
