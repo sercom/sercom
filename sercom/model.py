@@ -853,8 +853,8 @@ class ComandoPruebaEjecutado(ComandoEjecutado): #{{{
                     self.inicio, self.fin, self.exito, self.observaciones)
 
     def shortrepr(self):
-        return '%s:%s:%s' % (self.tarea.shortrepr(), self.entrega.shortrerp(),
-            self.caso_de_prueba.shortrerp())
+        return '%s:%s:%s' % (self.tarea.shortrepr(), self.entrega.shortrepr(),
+            self.caso_de_prueba.shortrepr())
 #}}}
 
 class Prueba(SQLObject): #{{{
@@ -889,7 +889,7 @@ class Prueba(SQLObject): #{{{
 
     def shortrepr(self):
         return '%s:%s' % (self.entrega.shortrepr(),
-            self.caso_de_prueba.shortrerp())
+            self.caso_de_prueba.shortrepr())
 #}}}
 
 #{{{ Específico de Identity
