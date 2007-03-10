@@ -10,7 +10,7 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Entrega, Correccion, Curso, Ejercicio, InstanciaDeEntrega
+from sercom.model import Entrega, Correccion, Curso, Ejercicio, InstanciaDeEntrega, Grupo, Miembro, AlumnoInscripto
 from sqlobject import *
 from zipfile import ZipFile, BadZipfile
 from cStringIO import StringIO
@@ -126,16 +126,6 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
         r = cls.select(cls.q.entregadorID == identity.current.user.id)
         return dict(records=r, name=name, namepl=namepl)
 
-    @expose(template='kid:%s.templates.show' % __name__)
-    def show(self,id, **kw):
-        """Show record in model"""
-        r = validate_get(id)
-        if r.observaciones is None:
-            r.obs = ''
-        else:
-            r.obs = publish_parts(r.observaciones, writer_name='html')['html_body']
-        return dict(name=name, namepl=namepl, record=r)
-
     @validate(form=form)
     @error_handler(new)
     @expose()
@@ -147,8 +137,33 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
             flash(_(u'El archivo ZIP no es valido'))
             raise redirect('list')
 
+        # por defecto el entregador es el user loggeado
+        entregador = identity.current.user
+
+        ejercicio = Ejercicio.get(int(ejercicio))
+        if ejercicio.grupal:
+            # Como es grupal, tengo que hacer que la entrega la haga
+            # mi grupo y no yo personalmente. Busco el grupo
+            # activo.
+
+            # Con esto obtengo todos los grupos a los que pertenece el Alumno
+            # y que estan activos
+            try:
+                # TODO : Falta filtrar por curso!!
+                m = Miembro.select(
+                    AND(
+                        Miembro.q.alumnoID == AlumnoInscripto.q.id,
+                        AlumnoInscripto.q.alumnoID == identity.current.user.id,
+                        Miembro.q.baja == None
+                    )
+                ).getOne()
+            except:
+                flash(_(u'No puedes realizar la entrega ya que el ejercicio es Grupal y no perteneces a ningún grupo.'))
+                raise redirect('list')
+
+            entregador = m.grupo
         kw['archivos'] = archivo.file.read()
-        kw['entregador'] = identity.current.user
+        kw['entregador'] = entregador
         validate_new(kw)
         flash(_(u'Se creó una nueva %s.') % name)
         raise redirect('list')
