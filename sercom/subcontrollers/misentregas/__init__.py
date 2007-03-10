@@ -142,7 +142,7 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
     def create(self, archivo, ejercicio, **kw):
         """Save or create record to model"""
         try:
-            zfile = ZipFile(StringIO(archivo.file.read()), 'r')
+            zfile = ZipFile(archivo.file)
         except BadZipfile:
             flash(_(u'El archivo ZIP no es valido'))
             raise redirect('list')

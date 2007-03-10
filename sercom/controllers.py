@@ -6,7 +6,7 @@ from turbogears import identity, redirect
 from cherrypy import request, response
 from turbogears.toolbox.catwalk import CatWalk
 import model
-from model import InstanciaDeEntrega, Correccion, AND, DateTimeCol
+from model import InstanciaDeEntrega, Correccion, AND, DateTimeCol, Entrega
 # from sercom import json
 
 from subcontrollers import *
@@ -47,11 +47,13 @@ class Root(controllers.RootController):
                 instancias_activas=instancias, now=now)
         
         if 'entregar' in identity.current.permissions:
+            # Proximas instancias de entrega
             instancias = list(InstanciaDeEntrega.select(
                 AND(InstanciaDeEntrega.q.inicio <= now,
-                    InstanciaDeEntrega.q.fin > now))
-                        .orderBy(InstanciaDeEntrega.q.fin))
-            return dict(instancias_activas=instancias, now=now)
+                    InstanciaDeEntrega.q.fin > now)).orderBy(InstanciaDeEntrega.q.fin))
+            # Ultimas N entregas realizadas
+            entregas = list(Entrega.select(Entrega.q.entregadorID == identity.current.user.id))
+            return dict(instancias_activas=instancias, now=now, entregas=entregas)
         return dict()
 
     @expose(template='.templates.login')

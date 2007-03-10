@@ -38,7 +38,6 @@
     </div>
 
     <div py:if="'entregar' in identity.current.permissions and 'admin' not in identity.current.permissions">
-			<h1>Soy entregar</h1>
         <h2>Instancias de Entrega</h2>
         <div py:if="len(instancias_activas)">
             <ul py:for="instancia in instancias_activas">
@@ -54,9 +53,17 @@
                 </li>
             </ul>
         </div>
-        <div py:if="not len(instancias_activas)">
-            No hay Ejercicios con entregas en curso en este momento.
-        </div>
+        <h2>Últimas entregas realizadas</h2>
+        <table py:if="len(entregas)">
+            <tr>
+                <th>Ejercicio</th>
+                <th>Fecha Entrega</th>
+            </tr>
+            <tr py:for="e in entregas">
+                <td>${e.instancia.ejercicio.shortrepr()}</td>
+                <td>${e.fecha}</td>
+            </tr>
+        </table>
     </div>
 </body>
 </html>
