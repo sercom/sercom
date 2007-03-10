@@ -37,9 +37,9 @@ c = Curso(anio=2007, cuatrimestre=1, numero=1, descripcion=u'Martes',
 
 # Casos de prueba
 cp1 = e1.add_caso_de_prueba(nombre=u'Sin parámetros', retorno=0,
-    descripcion=u'Un caso')
+    descripcion=u'Un caso', comando=[])
 cp2 = e1.add_caso_de_prueba(nombre=u'2 parámetross', retorno=0,
-    parametros='--test -c "con espacios"')
+    comando='--test -c "con espacios"')
 
 # Ejercicios
 ej1 = c.ejercicios[0]

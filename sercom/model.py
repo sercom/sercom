@@ -476,31 +476,17 @@ class Enunciado(SQLObject): #{{{
         return self.nombre
 #}}}
 
-class CasoDePrueba(SQLObject): #{{{
+class CasoDePrueba(Comando): #{{{
     # Clave
     enunciado           = ForeignKey('Enunciado', cascade=True)
     nombre              = UnicodeCol(length=40, notNone=True)
     pk                  = DatabaseIndex(enunciado, nombre, unique=True)
-    # Campos
-    descripcion         = UnicodeCol(length=255, default=None)
-    terminar_si_falla   = BoolCol(notNone=True, default=False)
-    rechazar_si_falla   = BoolCol(notNone=True, default=True)
-    parametros          = ParamsCol(length=255, default=None)
-    retorno             = IntCol(default=None)
-    tiempo_cpu          = FloatCol(default=None)
-    archivos_entrada    = BLOBCol(default=None) # ZIP con archivos de entrada
-                                                # stdin es caso especial
-    archivos_salida     = BLOBCol(default=None) # ZIP con archivos de salida
-                                                # stdout y stderr son especiales
-    activo              = BoolCol(notNone=True, default=True)
     # Joins
     pruebas             = MultipleJoin('Prueba')
 
     def __repr__(self):
-        return 'CasoDePrueba(enunciado=%s, nombre=%s, parametros=%s, ' \
-            'retorno=%s, tiempo_cpu=%s, descripcion=%s)' \
-                % (srepr(self.enunciado), self.nombre, self.parametros,
-                    self.retorno, self.tiempo_cpu, self.descripcion)
+        return super(ComandoFuente, self).__repr__('enunciado=%s, nombre=%s'
+            % (srepr(self.enunciado), self.nombre))
 
     def shortrepr(self):
         return '%s:%s' % (self.enunciado.shortrepr(), self.nombre)
