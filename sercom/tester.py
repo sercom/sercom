@@ -252,13 +252,13 @@ def ejecutar_caso_de_prueba(self, path, entrega): #{{{
             for tarea in tareas:
                 tarea.ejecutar(path, prueba)
         except ExecutionFailure, e:
-            prueba.pasada = False
+            prueba.exito = False
             if self.rechazar_si_falla:
                 entrega.exito = False
             if self.terminar_si_falla:
                 raise ExecutionError(e.comando, e.tarea, prueba)
         else:
-            prueba.pasada = True
+            prueba.exito = True
     finally:
         prueba.fin = datetime.now()
 CasoDePrueba.ejecutar = ejecutar_caso_de_prueba

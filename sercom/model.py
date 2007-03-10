@@ -779,8 +779,10 @@ class ComandoEjecutado(InheritableSQLObject): #{{{
     exito           = IntCol(default=None)
     observaciones   = UnicodeCol(notNone=True, default=u'')
 
-    def __repr__(self):
-        raise NotImplementedError('ComandoEjecutado es una clase abstracta')
+    def __repr__(self, clave='', mas=''):
+        return ('%s(%s inicio=%s, fin=%s, exito=%s, observaciones=%s%s)'
+            % (self.__class__.__name__, clave, self.inicio, self.fin,
+            self.exito, self.observaciones))
 #}}}
 
 class ComandoFuenteEjecutado(ComandoEjecutado): #{{{
@@ -790,10 +792,9 @@ class ComandoFuenteEjecutado(ComandoEjecutado): #{{{
     pk      = DatabaseIndex(comando, entrega, unique=True)
 
     def __repr__(self):
-        return 'ComandoFuenteEjecutado(comando=%s, entrega=%s, inicio=%s, ' \
-            'fin=%s, exito=%s, observaciones=%s)' \
-                % (self.comando.shortrepr(), self.entrega.shortrepr(),
-                    self.inicio, self.fin, self.exito, self.observaciones)
+        return super(ComandoFuenteEjecutado, self).__repr__(
+            'comando=%s, entrega=%s' % (self.comando.shortrepr(),
+                self.entrega.shortrepr()))
 
     def shortrepr(self):
         return '%s-%s' % (self.tarea.shortrepr(), self.entrega.shortrepr())
@@ -806,26 +807,20 @@ class ComandoPruebaEjecutado(ComandoEjecutado): #{{{
     pk      = DatabaseIndex(comando, prueba, unique=True)
 
     def __repr__(self):
-        return 'ComandoPruebaEjecutado(comando=%s, prueba=%s, inicio=%s, ' \
-            'fin=%s, exito=%s, observaciones=%s)' \
-                % (self.comando.shortrepr(), self.prueba.shortrepr(),
-                    self.inicio, self.fin, self.exito, self.observaciones)
+        return super(ComandoPruebaEjecutado, self).__repr__(
+            'comando=%s, entrega=%s' % (self.comando.shortrepr(),
+                self.entrega.shortrepr()))
 
     def shortrepr(self):
         return '%s:%s:%s' % (self.tarea.shortrepr(), self.entrega.shortrepr(),
             self.caso_de_prueba.shortrepr())
 #}}}
 
-class Prueba(SQLObject): #{{{
+class Prueba(ComandoEjecutado): #{{{
     # Clave
     entrega             = ForeignKey('Entrega', notNone=True, cascade=False)
     caso_de_prueba      = ForeignKey('CasoDePrueba', notNone=True, cascade=False)
     pk                  = DatabaseIndex(entrega, caso_de_prueba, unique=True)
-    # Campos
-    inicio              = DateTimeCol(notNone=True, default=DateTimeCol.now)
-    fin                 = DateTimeCol(default=None)
-    pasada              = IntCol(default=None)
-    observaciones       = UnicodeCol(notNone=True, default=u'')
     # Joins
     comandos_ejecutados = MultipleJoin('ComandoPruebaEjecutado')
 
@@ -841,10 +836,8 @@ class Prueba(SQLObject): #{{{
         ComandoPruebaEjecutado.pk.get(self.id, comando).destroySelf()
 
     def __repr__(self):
-        return 'Prueba(entrega=%s, caso_de_prueba=%s, inicio=%s, fin=%s, ' \
-            'pasada=%s, observaciones=%s)' \
-                % (self.entrega.shortrepr(), self.caso_de_prueba.shortrepr(),
-                self.inicio, self.fin, self.pasada, self.observaciones)
+        return super(Prueba, self).__repr__('entrega=%s, caso_de_prueba=%s'
+            % (self.entrega.shortrepr(), self.caso_de_prueba.shortrepr()))
 
     def shortrepr(self):
         return '%s:%s' % (self.entrega.shortrepr(),
