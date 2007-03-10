@@ -17,6 +17,23 @@ log = logging.getLogger('sercom.tester')
 
 error_interno = _(u'\n**Error interno al preparar la entrega.**')
 
+class UserInfo(object): #{{{
+    def __init__(self, user):
+        try:
+            info = pwd.getpwnam(user)
+        except:
+            info = pwd.get(int(user))
+        self.user = info[0]
+        self.uid = info[2]
+        self.gid = info[3]
+        self.name = info[4]
+        self.home = info[5]
+        self.shell = info[6]
+        self.group = grp.getgrgid(self.gid)[0]
+#}}}
+
+user_info = UserInfo(config.get('sercom.tester.user', 65534))
+
 def check_call(*popenargs, **kwargs): #{{{ Python 2.5 forward-compatibility
     """Run command with arguments.  Wait for command to complete.  If
     the exit code was zero then return, otherwise raise
@@ -73,22 +90,6 @@ def unzip(bytes, dst): # {{{
             file(join(dst, f), 'w').write(zfile.read(f))
 #}}}
 
-def get_pwdgrp(unam, gnam): #{{{
-    def do(type, funcnam, funcid, name):
-        try:
-            id = funcnam(name)[2]
-        except:
-            try:
-                id = int(name)
-                name = funcid(id)[0]
-            except Exception, e:
-                log.critical(_(u'No existe el %s %s (%s)'), type, name, e)
-                sys.exit(1)
-        return (id, name)
-    return do('usuario', pwd.getpwnam, pwd.getpwuid, unam) \
-        + do('grupo', grp.getgrnam, grp.getgrgid, gnam)
-#}}}
-
 class SecureProcess(object): #{{{
     default = dict(
         max_tiempo_cpu      = 120,
@@ -99,7 +100,6 @@ class SecureProcess(object): #{{{
         max_locks_memoria   = 0,
     )
     uid = config.get('sercom.tester.chroot.user', 65534)
-    gid = config.get('sercom.tester.chroot.group', 65534)
     MB = 1048576
     # XXX probar! make de un solo archivo lleva nproc=100 y nofile=15
     def __init__(self, comando, chroot, cwd):
@@ -114,9 +114,9 @@ class SecureProcess(object): #{{{
         x2 = lambda x: (x, x)
         os.chroot(self.chroot)
         os.chdir(self.cwd)
-        (uid, unam, gid, gnam) = get_pwdgrp(self.uid, self.gid)
-        os.setgid(gid)
-        os.setuid(uid)
+        uinfo = UserInfo(self.uid)
+        os.setgid(uinfo.gid)
+        os.setuid(uinfo.uid) # Somos mortales irreversiblemente
         rsrc.setrlimit(rsrc.RLIMIT_CPU, x2(self.max_tiempo_cpu))
         rsrc.setrlimit(rsrc.RLIMIT_AS, x2(self.max_memoria*self.MB))
         rsrc.setrlimit(rsrc.RLIMIT_FSIZE, x2(self.max_tam_archivo*self.MB)) # XXX calcular en base a archivos esperados?
@@ -126,10 +126,10 @@ class SecureProcess(object): #{{{
         rsrc.setrlimit(rsrc.RLIMIT_CORE, x2(0))
         log.debug('Proceso segurizado: chroot=%s, cwd=%s, user=%s(%s), '
             'group=%s(%s), cpu=%s, as=%sMiB, fsize=%sMiB, nofile=%s, nproc=%s, '
-            'memlock=%s', self.chroot, self.cwd, unam, uid, gnam, gid,
-            self.max_tiempo_cpu, self.max_memoria, self.max_tam_archivo,
-            self.max_cant_archivos, self.max_cant_procesos,
-            self.max_locks_memoria)
+            'memlock=%s', self.chroot, self.cwd, uinfo.user, uinfo.uid,
+            uinfo.group, uinfo.gid, self.max_tiempo_cpu, self.max_memoria,
+            self.max_tam_archivo, self.max_cant_archivos,
+            self.max_cant_procesos, self.max_locks_memoria)
         # Tratamos de forzar un sync para que entre al sleep del padre FIXME
         import time
         time.sleep(0)
@@ -143,13 +143,10 @@ class Tester(object): #{{{
         self.home = home
         self.queue = queue
         # Ahora somos mortales (oid mortales)
-        euid = config.get('sercom.tester.user', 65534)
-        egid = config.get('sercom.tester.group', 65534)
-        (self.euid, self.eunam, self.egid, self.egnam) = get_pwdgrp(euid, egid)
         log.debug(_(u'Cambiando usuario y grupo efectivos a %s:%s (%s:%s)'),
-            self.eunam, self.egnam, self.euid, self.egid)
-        os.setegid(self.egid)
-        os.seteuid(self.euid)
+            user_info.user, user_info.group, user_info.uid, user_info.gid)
+        os.setegid(user_info.gid)
+        os.seteuid(user_info.uid)
 
     @property
     def build_path(self):
@@ -217,9 +214,9 @@ class Tester(object): #{{{
             check_call(rsync)
         finally:
             log.debug(_(u'Cambiando usuario y grupo efectivos a %s:%s (%s:%s)'),
-                self.eunam, self.egnam, self.euid, self.egid)
-            os.setegid(self.egid) # Mortal de nuevo
-            os.seteuid(self.euid)
+                user_info.user, user_info.group, user_info.uid, user_info.gid)
+            os.setegid(user_info.gid) # Mortal de nuevo
+            os.seteuid(user_info.uid)
         unzip(entrega.archivos, self.build_path)
 
     def clean_chroot(self, entrega):
@@ -304,18 +301,16 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
     options = dict(close_fds=True, stdin=None, stdout=None, stderr=None,
         preexec_fn=SecureProcess(self, 'var/chroot_pepe', '/home/sercom/build'))
     log.debug(_(u'Ejecutando como root: %s'), ' '.join(self.comando))
-    uid = os.geteuid()
-    gid = os.getegid()
     os.seteuid(0) # Dios! (para chroot)
     os.setegid(0)
     try:
         try:
             proc = Popen(self.comando, **options)
         finally:
-            log.debug(_(u'Cambiando usuario y grupo efectivos a %s:%s'),
-                uid, gid)
-            os.setegid(gid) # Mortal de nuevo
-            os.seteuid(uid)
+            log.debug(_(u'Cambiando usuario y grupo efectivos a %s:%s (%s:%s)'),
+                user_info.user, user_info.group, user_info.uid, user_info.gid)
+            os.setegid(user_info.gid) # Mortal de nuevo
+            os.seteuid(user_info.uid)
     except Exception, e: # FIXME poner en el manejo de exceptiones estandar
         if hasattr(e, 'child_traceback'):
             log.error(_(u'Error en el hijo: %s'), e.child_traceback)
