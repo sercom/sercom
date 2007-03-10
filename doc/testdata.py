@@ -14,9 +14,10 @@ a = Alumno(padron='77891', nombre='Tito Puente', password='77891', roles=[r2])
 # Tareas y comandos
 tf = TareaFuente(nombre='Compilar C con Makefile',
     terminar_si_falla=True, rechazar_si_falla=True)
-cf = tf.add_comando(1, 'make -f Makefile', retorno=0, terminar_si_falla=True,
-    rechazar_si_falla=True,
-    descripcion='Compila usando un Makefile predeterminado')
+cf = tf.add_comando(1, 'make tito', retorno=0, max_cant_archivos=15,
+    max_cant_procesos=100, terminar_si_falla=True, rechazar_si_falla=True,
+    descripcion='Compila un programa en C con make ' \
+    'sin usar un Makefile (debe ser un solo archivo que se llame tito.c)')
 tp = TareaPrueba(nombre='Probar', terminar_si_falla=True,
     rechazar_si_falla=True)
 cp = tp.add_comando(1, [], retorno=0, terminar_si_falla=True,

@@ -361,22 +361,40 @@ class TareaPrueba(Tarea): #{{{
 #}}}
 
 class Comando(InheritableSQLObject): #{{{
+    RET_ANY = None
+    RET_FAIL = -1
     # Campos
     comando             = ParamsCol(length=255, notNone=True)
     descripcion         = UnicodeCol(length=255, default=None)
-    retorno             = IntCol(default=None)
+    retorno             = IntCol(default=None) # None es que no importa
+    max_tiempo_cpu      = IntCol(default=None) # En segundos
+    max_memoria         = IntCol(default=None) # En MB
+    max_tam_archivo     = IntCol(default=None) # En MB
+    max_cant_archivos   = IntCol(default=None)
+    max_cant_procesos   = IntCol(default=None)
+    max_locks_memoria   = IntCol(default=None)
     terminar_si_falla   = BoolCol(notNone=True, default=True)
     rechazar_si_falla   = BoolCol(notNone=True, default=True)
     archivos_entrada    = BLOBCol(default=None) # ZIP con archivos de entrada
                                                 # stdin es caso especial
     archivos_salida     = BLOBCol(default=None) # ZIP con archivos de salida
                                                 # stdout y stderr son especiales
+    activo              = BoolCol(notNone=True, default=True)
 
-    def __repr__(self):
-        raise NotImplementedError('Comando es una clase abstracta')
+    def __repr__(self, clave='', mas=''):
+        return ('%s(%s comando=%s, descripcion=%s, retorno=%s, '
+            'max_tiempo_cpu=%s, max_memoria=%s, max_tam_archivo=%s, '
+            'max_cant_archivos=%s, max_cant_procesos=%s, max_locks_memoria=%s, '
+            'terminar_si_falla=%s, rechazar_si_falla=%s%s)'
+                % (self.__class__.__name__, clave, self.comando,
+                    self.descripcion, self.retorno, self.max_tiempo_cpu,
+                    self.max_memoria, self.max_tam_archivo,
+                    self.max_cant_archivos, self.max_cant_procesos,
+                    self.max_locks_memoria, self.terminar_si_falla,
+                    self.rechazar_si_falla))
 
     def shortrepr(self):
-        return self.nombre
+        return '%s (%s)' % (self.comando, self.descripcion)
 #}}}
 
 class ComandoFuente(Comando): #{{{
@@ -384,37 +402,30 @@ class ComandoFuente(Comando): #{{{
     tarea       = ForeignKey('TareaFuente', notNone=True, cascade=True)
     orden       = IntCol(notNone=True)
     pk          = DatabaseIndex(tarea, orden, unique=True)
-    # Campos
-    tiempo_cpu  = FloatCol(default=None)
-
-    def ejecutar(self): pass # TODO
 
     def __repr__(self):
-        return 'ComandoFuente(tarea=%s, orden=%s, comando=%s, descripcion=%s, ' \
-            'retorno=%s, tiempo_cpu=%s, terminar_si_falla=%s, ' \
-            'rechazar_si_falla=%s)' \
-                % (srepr(self.tarea), self.orden, self.comando, self.descripcion,
-                    self.retorno, self.tiempo_cpu, self.terminar_si_falla,
-                    self.rechazar_si_falla)
+        return super(ComandoFuente, self).__repr__('tarea=%s, orden=%s'
+            % (self.tarea.shortrepr(), self.orden))
+
+    def shortrepr(self):
+        return '%s:%s (%s)' % (self.tarea.shortrepr(), self.orden, self.comando)
 #}}}
 
 class ComandoPrueba(Comando): #{{{
+    RET_PRUEBA = -2 # Espera el mismo retorno que el de la prueba.
+    # XXX todos los campos de limitación en este caso son multiplicadores para
+    # los valores del caso de prueba.
     # Clave
     tarea               = ForeignKey('TareaPrueba', notNone=True, cascade=True)
     orden               = IntCol(notNone=True)
     pk                  = DatabaseIndex(tarea, orden, unique=True)
-    # Campos
-    multipl_tiempo_cpu  = FloatCol(notNone=True, default=1.0)
-
-    def ejecutar(self): pass # TODO
 
     def __repr__(self):
-        return 'ComandoPrueba(tarea=%s, orden=%s, comando=%s, descripcion=%s, ' \
-            'retorno=%s, multipl_tiempo_cpu=%s, terminar_si_falla=%s, ' \
-            'rechazar_si_falla=%s)' \
-                % (srepr(self.tarea), self.orden, self.comando, self.descripcion,
-                    self.retorno, self.multipl_tiempo_cpu, self.terminar_si_falla,
-                    self.rechazar_si_falla)
+        return super(ComandoFuente, self).__repr__('tarea=%s, orden=%s'
+            % (self.tarea.shortrepr(), self.orden))
+
+    def shortrepr(self):
+        return '%s:%s (%s)' % (self.tarea.shortrepr(), self.orden, self.comando)
 #}}}
 
 class Enunciado(SQLObject): #{{{
