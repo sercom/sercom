@@ -1,9 +1,11 @@
-# vim: set et sw=4 sts=4 encoding=utf-8 :
+# vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker :
 
 from turbogears import controllers, expose, view, url
 from turbogears import widgets as W, validators as V
 from turbogears import identity, redirect
 from cherrypy import request, response
+from turbogears.toolbox.catwalk import CatWalk
+import model
 from model import InstanciaDeEntrega, Correccion, AND, DateTimeCol
 # from sercom import json
 
@@ -109,6 +111,7 @@ class Root(controllers.RootController):
 
     correccion = CorreccionController()
 
+    admin = identity.SecureObject(CatWalk(model), identity.has_permission('admin'))
 
 #{{{ Agrega summarize a namespace tg de KID
 def summarize(text, size, concat=True, continuation='...'):
