@@ -704,7 +704,6 @@ class Entrega(SQLObject): #{{{
     pk                  = DatabaseIndex(instancia, entregador, fecha, unique=True)
     # Campos
     archivos            = BLOBCol(notNone=True) # ZIP con fuentes de la entrega
-    archivos_nombre     = UnicodeCol(length=255)
     correcta            = BoolCol(default=None) # None es que no se sabe qué pasó
     inicio_tareas       = DateTimeCol(default=None) # Si es None no se procesó
     fin_tareas          = DateTimeCol(default=None) # Si es None pero inicio no, se está procesando

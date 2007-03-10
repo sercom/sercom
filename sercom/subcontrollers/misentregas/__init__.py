@@ -138,7 +138,6 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
     def create(self, archivo, ejercicio, **kw):
         """Save or create record to model"""
         kw['archivos'] = archivo.file.read()
-        kw['archivos_nombre'] = archivo.filename
         kw['entregador'] = identity.current.user
         validate_new(kw)
         flash(_(u'Se creó una nueva %s.') % name)
