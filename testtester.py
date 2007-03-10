@@ -1,21 +1,26 @@
 #!/usr/bin/python
 # vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker :
 
+#{{{ TG config/hacks
 import turbogears
 import turbogears.database
 turbogears.update_config(configfile="dev.cfg", modulename="sercom.config")
+import turbogears.i18n
+__builtins__._ = turbogears.i18n.plain_gettext # Nada de gettext lazy
+#}}}
+
 from sercom.tester import *
 from sercom import model
 from Queue import Queue
+from os.path import join
 
-queue = Queue()
+q = Queue()
 
-queue.put(1)
-#queue.put(5)
-queue.put(None)
+q.put(1)
+#q.put(5)
+q.put(None)
 
-tester = Tester(name='pepe', path='var', home=os.path.join('home', 'sercom'),
-    queue=queue)
+tester = Tester(name='pepe', path='var', home=join('home', 'sercom'), queue=q)
 
 tester.run()
 

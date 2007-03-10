@@ -20,7 +20,7 @@ class ExecutionFailure(Error, RuntimeError): pass
 
 class RsyncError(Error, EnvironmentError): pass
 
-error_interno = u'\n**Error interno al preparar la entrega.**'
+error_interno = _(u'\n**Error interno al preparar la entrega.**')
 
 def unzip(bytes, dst): # {{{
     log.debug(_(u'Intentando descomprimir en %s') % dst)
