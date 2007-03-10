@@ -16,7 +16,7 @@
         <th>Descripción</th>
         <th>Parámetros</th>
         <th title="Código de retorno">RET</th>
-        <th title="Tiempo de CPU">CPU</th>
+        <th title="Máximo tiempo de CPU">CPU</th>
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
@@ -25,9 +25,9 @@
                 href="${tg.url('/enunciado/show/%d' % record.enunciado.id)}"><span
                     py:replace="tg.summarize(record.enunciado.shortrepr(), 30)">enunciado</span></a></td>
         <td><span py:replace="tg.summarize(record.descripcion, 30)">descripción</span></td>
-        <td><span py:if="record.comando" py:replace="tg.summarize(params2str(record.comando), 30)">comando --con-parámetros</span></td>
+        <td><span py:if="record.comando" py:replace="tg.summarize(record.comando, 30)">comando --con-parámetros</span></td>
         <td><span py:replace="record.retorno">retorno</span></td>
-        <td><span py:replace="record.tiempo_cpu">tiempo de cpu</span></td>
+        <td><span py:replace="record.max_tiempo_cpu">máx tiempo de cpu</span></td>
         <td><a href="${tg.url('/caso_de_prueba/edit/%d' % record.id)}">Editar</a>
             <a href="${tg.url('/caso_de_prueba/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>

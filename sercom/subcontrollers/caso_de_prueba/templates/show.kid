@@ -25,7 +25,7 @@
     <tr>
         <th>Parámetros:</th>
 	<td>
-            <span py:if="record.comando" py:replace="params2str(record.comando)">comando --con-parámetros</span>:
+            <span py:if="record.comando" py:replace="record.comando">comando --con-parámetros</span>:
 	</td>
     </tr>
     <tr>
@@ -33,8 +33,8 @@
 	<td><span py:replace="record.retorno">retorno</span></td>
     </tr>
     <tr>
-        <th>Tiempo de CPU:</th>
-	<td><span py:replace="record.tiempo_cpu">tiempo_cpu</span></td>
+        <th>Máximo tiempo de CPU:</th>
+	<td><span py:replace="record.max_tiempo_cpu">max_tiempo_cpu</span></td>
     </tr>
 </table>
 

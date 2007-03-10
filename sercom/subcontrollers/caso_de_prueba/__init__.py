@@ -10,7 +10,6 @@ from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import CasoDePrueba, Enunciado
-from sercom.validators import ParamsValidator
 #}}}
 
 #{{{ Configuración
@@ -69,10 +68,10 @@ class CasoDePruebaForm(W.TableForm):
             validator=V.UnicodeString(not_empty=False, max=255,
                 strip=True))
         comando = W.TextField(label=_(u'Comando'),
-            validator=ParamsValidator(not_empty=False, strip=True))
+            validator=V.UnicodeString(not_empty=False, strip=True))
         retorno = W.TextField(label=_(u'Código de retorno'),
             validator=V.Int(not_empty=False, strip=True))
-        tiempo_cpu = W.TextField(label=_(u'Tiempo de CPU'),
+        max_tiempo_cpu = W.TextField(label=_(u'Máximo tiempo de CPU'),
             validator=V.Number(not_empty=False, strip=True))
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');")]
@@ -81,9 +80,6 @@ form = CasoDePruebaForm()
 #}}}
 
 #{{{ Controlador
-
-def params2str(params):
-    return ' '.join([repr(p)[1:] for p in params])
 
 class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
@@ -107,8 +103,7 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
             r = cls.select()
         else:
             r = cls.selectBy(enunciadoID=enunciado)
-        return dict(records=r, name=name, namepl=namepl, parcial=enunciado,
-            params2str=params2str)
+        return dict(records=r, name=name, namepl=namepl, parcial=enunciado)
 
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
@@ -128,8 +123,7 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
-        return dict(name=name, namepl=namepl, record=r, form=form,
-            params2str=params2str)
+        return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
     @error_handler(edit)
@@ -148,7 +142,7 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
             r.desc = ''
         else:
             r.desc = publish_parts(r.descripcion, writer_name='html')['html_body']
-        return dict(name=name, namepl=namepl, record=r, params2str=params2str)
+        return dict(name=name, namepl=namepl, record=r)
 
     @expose()
     def delete(self, id):

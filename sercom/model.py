@@ -8,7 +8,6 @@ from sqlobject.inheritance import InheritableSQLObject
 from sqlobject.col import PickleValidator, UnicodeStringValidator
 from turbogears import identity
 from turbogears.identity import encrypt_password as encryptpw
-from sercom.validators import params_to_list, ParseError
 from formencode import Invalid
 
 hub = PackageHub("sercom")
@@ -45,43 +44,6 @@ class SOTupleCol(SOPickleCol):
 
 class TupleCol(PickleCol):
     baseClass = SOTupleCol
-
-class ParamsValidator(UnicodeStringValidator):
-    def to_python(self, value, state):
-        if isinstance(value, basestring) or value is None:
-            value = super(ParamsValidator, self).to_python(value, state)
-            try:
-                value = params_to_list(value)
-            except ParseError, e:
-                raise Invalid("invalid parameters in the ParamsCol '%s', parse "
-                    "error: %s" % (self.name, e), value, state)
-        elif not isinstance(value, (list, tuple)):
-            raise Invalid("expected a tuple, list or valid string in the "
-                "ParamsCol '%s', got %s %r instead"
-                    % (self.name, type(value), value), value, state)
-        return value
-    def from_python(self, value, state):
-        if isinstance(value, (list, tuple)):
-            value = ' '.join([repr(p) for p in value])
-        elif isinstance(value, basestring) or value is None:
-            value = super(ParamsValidator, self).to_python(value, state)
-            try:
-                params_to_list(value)
-            except ParseError, e:
-                raise Invalid("invalid parameters in the ParamsCol '%s', parse "
-                    "error: %s" % (self.name, e), value, state)
-        else:
-            raise Invalid("expected a tuple, list or valid string in the "
-                "ParamsCol '%s', got %s %r instead"
-                    % (self.name, type(value), value), value, state)
-        return value
-
-class SOParamsCol(SOUnicodeCol):
-    def createValidators(self):
-        return [ParamsValidator(db_encoding=self.dbEncoding, name=self.name)]
-
-class ParamsCol(UnicodeCol):
-    baseClass = SOParamsCol
 
 #}}}
 
@@ -349,8 +311,8 @@ class TareaPrueba(Tarea): #{{{
     # Joins
     comandos    = MultipleJoin('ComandoPrueba', joinColumn='tarea_id')
 
-    def add_comando(self, orden, comando, **kw):
-        return ComandoPrueba(tarea=self, orden=orden, comando=comando, **kw)
+    def add_comando(self, orden, **kw):
+        return ComandoPrueba(tarea=self, orden=orden, comando='', **kw)
 
     def remove_comando(self, orden):
         ComandoPrueba.pk.get(self.id, orden).destroySelf()
@@ -364,7 +326,7 @@ class Comando(InheritableSQLObject): #{{{
     RET_ANY = None
     RET_FAIL = -1
     # Campos
-    comando             = ParamsCol(length=255, notNone=True)
+    comando             = UnicodeCol(length=255, notNone=True)
     descripcion         = UnicodeCol(length=255, default=None)
     retorno             = IntCol(default=None) # None es que no importa
     max_tiempo_cpu      = IntCol(default=None) # En segundos

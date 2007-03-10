@@ -298,9 +298,15 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
     unzip(self.archivos_entrada, path) # TODO try/except
     comando_ejecutado = entrega.add_comando_ejecutado(self)
     # Abro archivos para fds básicos (FIXME)
-    options = dict(close_fds=True, stdin=None, stdout=None, stderr=None,
-        preexec_fn=SecureProcess(self, 'var/chroot_pepe', '/home/sercom/build'))
-    log.debug(_(u'Ejecutando como root: %s'), ' '.join(self.comando))
+    options = dict(
+        close_fds=True,
+        stdin=None,
+        stdout=None,
+        stderr=None,
+        shell=True,
+        preexec_fn=SecureProcess(self, 'var/chroot_pepe', '/home/sercom/build')
+    )
+    log.debug(_(u'Ejecutando como root: %s'), self.comando)
     os.seteuid(0) # Dios! (para chroot)
     os.setegid(0)
     try:

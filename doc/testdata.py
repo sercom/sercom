@@ -20,7 +20,7 @@ cf = tf.add_comando(1, 'make tito', retorno=0, max_cant_archivos=15,
     'sin usar un Makefile (debe ser un solo archivo que se llame tito.c)')
 tp = TareaPrueba(nombre='Probar', terminar_si_falla=True,
     rechazar_si_falla=True)
-cp = tp.add_comando(1, [], retorno=0, terminar_si_falla=True,
+cp = tp.add_comando(1, retorno=0, terminar_si_falla=True,
     rechazar_si_falla=True, descripcion='Prueba normalmente, sin filtros')
 
 # Enunciados
@@ -37,9 +37,9 @@ c = Curso(anio=2007, cuatrimestre=1, numero=1, descripcion=u'Martes',
 
 # Casos de prueba
 cp1 = e1.add_caso_de_prueba(nombre=u'Sin parámetros', retorno=0,
-    descripcion=u'Un caso', comando=[])
+    descripcion=u'Un caso', comando='./tito')
 cp2 = e1.add_caso_de_prueba(nombre=u'2 parámetross', retorno=0,
-    comando='--test -c "con espacios"')
+    comando='./tito --test -c "con espacios"')
 
 # Ejercicios
 ej1 = c.ejercicios[0]
