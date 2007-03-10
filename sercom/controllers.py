@@ -52,7 +52,7 @@ class Root(controllers.RootController):
                 AND(InstanciaDeEntrega.q.inicio <= now,
                     InstanciaDeEntrega.q.fin > now)).orderBy(InstanciaDeEntrega.q.fin))
             # Ultimas N entregas realizadas
-            entregas = list(Entrega.select(Entrega.q.entregadorID == identity.current.user.id))
+            entregas = list(Entrega.select(Entrega.q.entregadorID == identity.current.user.id)[:5])
             return dict(instancias_activas=instancias, now=now, entregas=entregas)
         return dict()
 
