@@ -157,6 +157,7 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
         lines = archivo.file.read().split('\n')
         ok = []
         fail = []
+        entregador = Rol.get(2)
         for line in lines:
             for row in csv.reader([line]):
                 if row == []:
@@ -167,6 +168,7 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
                     u.telefono = row[3]
                     u.contrasenia = row[0]
                     u.activo = True
+                    u.add_rol(entregador)
                     ok.append(row)
                 except Exception, e:
                     row.append(str(e))
