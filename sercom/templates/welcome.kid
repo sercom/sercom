@@ -37,9 +37,26 @@
         </div>
     </div>
 
-
     <div py:if="'entregar' in identity.current.permissions and 'admin' not in identity.current.permissions">
-        <h1>Soy entregar</h1>
+			<h1>Soy entregar</h1>
+        <h2>Instancias de Entrega</h2>
+        <div py:if="len(instancias_activas)">
+            <ul py:for="instancia in instancias_activas">
+                <li>
+                <?python delta = instancia.fin - now ?>
+                La entrega ${instancia.numero} del
+                ejercicio ${instancia.ejercicio.numero} vence
+                el ${instancia.fin.strftime(r'%A %d de %B a las %R')}
+								<br />
+								(falta ${delta.days} días,
+                ${delta.seconds//3600} horas y
+                ${delta.seconds//60%60} minutos).
+                </li>
+            </ul>
+        </div>
+        <div py:if="not len(instancias_activas)">
+            No hay Ejercicios con entregas en curso en este momento.
+        </div>
     </div>
 </body>
 </html>

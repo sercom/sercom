@@ -123,7 +123,6 @@ DosListasAjax = '''
             list(ifilterfalse(itemgetter('selected'), $(fromSelect).options))
         );
     }
-
 '''
 
 class AjaxDosListasSelect(widgets.MultipleSelectField):

@@ -34,17 +34,25 @@ class Root(controllers.RootController):
     @expose(template='.templates.welcome')
     @identity.require(identity.not_anonymous())
     def dashboard(self):
+        now = DateTimeCol.now()
         if 'admin' in identity.current.permissions:
             # TODO : Fijar el curso !!
             correcciones = Correccion.selectBy(corrector=identity.current.user,
                 corregido=None).count()
-            now = DateTimeCol.now()
             instancias = list(InstanciaDeEntrega.select(
                 AND(InstanciaDeEntrega.q.inicio <= now,
                     InstanciaDeEntrega.q.fin > now))
                         .orderBy(InstanciaDeEntrega.q.fin))
-        return dict(a_corregir=correcciones,
-            instancias_activas=instancias, now=now)
+            return dict(a_corregir=correcciones,
+                instancias_activas=instancias, now=now)
+        
+        if 'entregar' in identity.current.permissions:
+            instancias = list(InstanciaDeEntrega.select(
+                AND(InstanciaDeEntrega.q.inicio <= now,
+                    InstanciaDeEntrega.q.fin > now))
+                        .orderBy(InstanciaDeEntrega.q.fin))
+            return dict(instancias_activas=instancias, now=now)
+        return dict()
 
     @expose(template='.templates.login')
     def login(self, forward_url=None, previous_url=None, tg_errors=None, *args,
@@ -112,6 +120,8 @@ class Root(controllers.RootController):
     correccion = CorreccionController()
 
     admin = identity.SecureObject(CatWalk(model), identity.has_permission('admin'))
+
+    mis_entregas = MisEntregasController()
 
 #{{{ Agrega summarize a namespace tg de KID
 def summarize(text, size, concat=True, continuation='...'):
