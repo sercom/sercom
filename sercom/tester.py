@@ -15,17 +15,7 @@ import logging
 
 log = logging.getLogger('sercom.tester')
 
-class CalledProcessError(Exception): #{{{ Python 2.5 forward-compatibility
-    """This exception is raised when a process run by check_call() returns
-    a non-zero exit status.  The exit status will be stored in the
-    returncode attribute."""
-    def __init__(self, returncode, cmd):
-        self.returncode = returncode
-        self.cmd = cmd
-    def __str__(self):
-        return ("Command '%s' returned non-zero exit status %d"
-            % (self.cmd, self.returncode))
-#}}}
+error_interno = _(u'\n**Error interno al preparar la entrega.**')
 
 def check_call(*popenargs, **kwargs): #{{{ Python 2.5 forward-compatibility
     """Run command with arguments.  Wait for command to complete.  If
@@ -47,13 +37,27 @@ def check_call(*popenargs, **kwargs): #{{{ Python 2.5 forward-compatibility
     return retcode
 #}}}
 
+#{{{ Excepciones
+
+class CalledProcessError(Exception): #{{{ Python 2.5 forward-compatibility
+    """This exception is raised when a process run by check_call() returns
+    a non-zero exit status.  The exit status will be stored in the
+    returncode attribute."""
+    def __init__(self, returncode, cmd):
+        self.returncode = returncode
+        self.cmd = cmd
+    def __str__(self):
+        return ("Command '%s' returned non-zero exit status %d"
+            % (self.cmd, self.returncode))
+#}}}
+
 class Error(StandardError): pass
 
 class ExecutionFailure(Error, RuntimeError): pass
 
 class RsyncError(Error, EnvironmentError): pass
 
-error_interno = _(u'\n**Error interno al preparar la entrega.**')
+#}}}
 
 def unzip(bytes, dst): # {{{
     log.debug(_(u'Intentando descomprimir en %s'), dst)
