@@ -248,8 +248,8 @@ class CursoController(controllers.Controller, identity.SecureResource):
         params = dict([(k,v) for (k,v) in kw.iteritems() if k in Curso.sqlmeta.columns.keys()])
         r = validate_set(id, params)
 
-        docentes = kw.get('docentes_to', [])
-        alumnos = kw.get('alumnos', [])
+        docentes = [a for a in kw.get('docentes_to', [])]
+        alumnos = [a for a in kw.get('alumnos', [])]
         alumnos_inscriptos = AlumnoInscripto.selectBy(curso=id)
         """ levanto los doncentes del curso para ver cuales tengo que agregar """
         docentes_inscriptos = DocenteInscripto.selectBy(curso=id)
