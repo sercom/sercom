@@ -1,12 +1,14 @@
+# vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker :
 
 from turbogears import url
-from turbogears.controllers import Controller
+from turbogears.identity import SecureResource
 from turbogears import identity
 
 class Menu:
     def __init__(self, base):
         self.base = base
-        self.items = filter(lambda i: isinstance(getattr(base, i), Controller), base.__dict__)
+        self.items = [i for i in dir(base)
+            if isinstance(getattr(base, i), SecureResource)]
         self.items.sort()
         self.items = ['dashboard'] + self.items
 
