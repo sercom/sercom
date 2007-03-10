@@ -12,6 +12,8 @@ from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Entrega, Correccion, Curso, Ejercicio, InstanciaDeEntrega
 from sqlobject import *
+from zipfile import ZipFile, BadZipfile
+from cStringIO import StringIO
 
 #}}}
 
@@ -34,7 +36,9 @@ def validate_new(data):
 
 def get_ejercicios_activos():
     # TODO : Mostrar solo los ejercicios con instancias de entrega activos
-    return [(0, _(u'--'))] + [(fk.id, fk.shortrepr()) for fk in Ejercicio.select()]
+    return [(0, _(u'--'))] + [(a.id, a.shortrepr()) for a in (Ejercicio.select(
+        AND(Ejercicio.q.id==InstanciaDeEntrega.q.ejercicioID, InstanciaDeEntrega.q.inicio <= DateTimeCol.now(),
+            InstanciaDeEntrega.q.fin >= DateTimeCol.now())))]
 
 ajax = """
     function clearInstancias ()
@@ -137,6 +141,12 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
     @expose()
     def create(self, archivo, ejercicio, **kw):
         """Save or create record to model"""
+        try:
+            zfile = ZipFile(StringIO(archivo.file.read()), 'r')
+        except BadZipfile:
+            flash(_(u'El archivo ZIP no es valido'))
+            raise redirect('list')
+
         kw['archivos'] = archivo.file.read()
         kw['entregador'] = identity.current.user
         validate_new(kw)
