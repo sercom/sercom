@@ -1,4 +1,9 @@
-- Empezar con el backend (luca)
+- Backend (luca)
+  * Asociar bien stdin, stdout, stderr en los procesos hijos según lo que diga
+    el comando.
+  * Hacer diff a los archivos_a_comparar.
+  * Guardar los archivos de archivos_a_guardar.
+  * Implementar casos de prueba.
 - Pensar/resolver password en ABM de Docente/Alumno
 - Terminar ABM simples:
   * Curso (nico)
