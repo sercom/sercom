@@ -5,18 +5,21 @@
 # which is very fast.
 
 from turbogears import testutil, database
-# from sercom.model import YourDataClass, User
+from sercom.model import Curso
 
-# database.set_db_uri("sqlite:///:memory:")
+database.set_db_uri("sqlite:///:memory:")
 
-# class TestUser(testutil.DBTest):
-#     def get_model(self):
-#         return User
-#     def test_creation(self):
-#         "Object creation should set the name"
-#         obj = User(user_name = "creosote",
-#                       email_address = "spam@python.not",
-#                       display_name = "Mr Creosote",
-#                       password = "Wafer-thin Mint")
-#         assert obj.display_name == "Mr Creosote"
+class TestCurso(testutil.DBTest):
+    def get_model(self):
+        return Curso
+    def test_creation(self):
+        "Object creation should set the name"
+        c = Curso(anio=2007, cuatrimestre=1, numero=1)
+        assert c.anio == 2007
+        assert c.cuatrimestre == 1
+        assert c.numero == 1
+        assert c.docentes == []
+        assert c.alumnos == []
+        assert c.grupos == []
+        assert c.ejercicios == []
 
