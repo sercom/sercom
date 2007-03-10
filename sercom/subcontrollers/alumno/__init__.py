@@ -10,7 +10,7 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Alumno
+from sercom.model import Alumno, Rol
 from sqlobject import *
 #}}}
 
@@ -166,7 +166,7 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
                     u = Alumno(row[0], nombre=row[1])
                     u.email = row[2]
                     u.telefono = row[3]
-                    u.contrasenia = row[0]
+                    u.password = row[0]
                     u.activo = True
                     u.add_rol(entregador)
                     ok.append(row)
