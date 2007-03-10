@@ -68,7 +68,7 @@ class CasoDePruebaForm(W.TableForm):
         descripcion = W.TextField(label=_(u'Descripción'),
             validator=V.UnicodeString(not_empty=False, max=255,
                 strip=True))
-        parametros = W.TextField(label=_(u'Parámetros'),
+        comando = W.TextField(label=_(u'Comando'),
             validator=ParamsValidator(not_empty=False, strip=True))
         retorno = W.TextField(label=_(u'Código de retorno'),
             validator=V.Int(not_empty=False, strip=True))
