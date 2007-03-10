@@ -1,18 +1,57 @@
 # vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker:
 
-from sercom import model as mod
-import zipfile as zf
-import cStringIO as sio
-import shutil as shu
-import datetime as dt
-from os import path as osp
+from sercom.model import Entrega, CasoDePrueba
+from sercom.model import TareaFuente, TareaPrueba, ComandoFuente, ComandoPrueba
+from zipfile import ZipFile, BadZipfile
+from cStringIO import StringIO
+from shutil import rmtree
+from datetime import datetime
+from subprocess import Popen, PIPE, call #, check_call XXX Python 2.5
+from os.path import join
+from turbogears import config
 import os
-
+import resource as rsrc
 import logging
+
+# Ahora somos mortales
+euid = config.get('sercom.tester.uid', 65534)
+egid = config.get('sercom.tester.gid', 65534)
+os.setegid(egid)
+os.seteuid(euid)
+
 log = logging.getLogger('sercom.tester')
 
-#from Queue import Queue
-#queue = Queue()
+class CalledProcessError(Exception): #{{{ Python 2.5 forward-compatibility
+    """This exception is raised when a process run by check_call() returns
+    a non-zero exit status.  The exit status will be stored in the
+    returncode attribute."""
+    def __init__(self, returncode, cmd):
+        self.returncode = returncode
+        self.cmd = cmd
+    def __str__(self):
+        return ("Command '%s' returned non-zero exit status %d"
+            % (self.cmd, self.returncode))
+#}}}
+
+def check_call(*popenargs, **kwargs): #{{{ Python 2.5 forward-compatibility
+    """Run command with arguments.  Wait for command to complete.  If
+    the exit code was zero then return, otherwise raise
+    CalledProcessError.  The CalledProcessError object will have the
+    return code in the returncode attribute.
+    ret = call(*popenargs, **kwargs)
+
+    The arguments are the same as for the Popen constructor.  Example:
+
+    check_call(["ls", "-l"])
+    """
+    retcode = call(*popenargs, **kwargs)
+    cmd = kwargs.get("args")
+    if cmd is None:
+        cmd = popenargs[0]
+    if retcode:
+        raise CalledProcessError(retcode, cmd)
+    return retcode
+#}}}
 
 class Error(StandardError): pass
 
@@ -23,17 +62,62 @@ class RsyncError(Error, EnvironmentError): pass
 error_interno = _(u'\n**Error interno al preparar la entrega.**')
 
 def unzip(bytes, dst): # {{{
-    log.debug(_(u'Intentando descomprimir en %s') % dst)
+    log.debug(_(u'Intentando descomprimir en %s'), dst)
     if bytes is None:
         return
-    zfile = zf.ZipFile(sio.StringIO(bytes), 'r')
+    zfile = ZipFile(StringIO(bytes), 'r')
     for f in zfile.namelist():
         if f.endswith(os.sep):
-            log.debug(_(u'Creando directorio %s') % f)
-            os.mkdir(osp.join(dst, f))
+            log.debug(_(u'Creando directorio %s'), f)
+            os.mkdir(join(dst, f))
         else:
-            log.debug(_(u'Descomprimiendo archivo %s') % f)
-            file(osp.join(dst, f), 'w').write(zfile.read(f))
+            log.debug(_(u'Descomprimiendo archivo %s'), f)
+            file(join(dst, f), 'w').write(zfile.read(f))
+#}}}
+
+class SecureProcess(object): #{{{
+    default = dict(
+        max_tiempo_cpu      = 120,
+        max_memoria         = 16,
+        max_tam_archivo     = 5,
+        max_cant_archivos   = 5,
+        max_cant_procesos   = 0,
+        max_locks_memoria   = 0,
+    )
+    gid = config.get('sercom.tester.chroot.gid', 65534)
+    uid = config.get('sercom.tester.chroot.uid', 65534)
+    MB = 1048576
+    # XXX probar! make de un solo archivo lleva nproc=100 y nofile=15
+    def __init__(self, comando, chroot, cwd):
+            self.comando = comando
+            self.chroot = chroot
+            self.cwd = cwd
+    def __getattr__(self, name):
+        if getattr(self.comando, name) is not None:
+            return getattr(self.comando, name)
+        return config.get('sercom.tester.limits.' + name, self.default[name])
+    def __call__(self):
+        x2 = lambda x: (x, x)
+        os.chroot(self.chroot)
+        os.chdir(self.cwd)
+        os.setgid(self.gid)
+        os.setuid(self.uid)
+        rsrc.setrlimit(rsrc.RLIMIT_CPU, x2(self.max_tiempo_cpu))
+        rsrc.setrlimit(rsrc.RLIMIT_AS, x2(self.max_memoria*self.MB))
+        rsrc.setrlimit(rsrc.RLIMIT_FSIZE, x2(self.max_tam_archivo*self.MB)) # XXX calcular en base a archivos esperados?
+        rsrc.setrlimit(rsrc.RLIMIT_NOFILE, x2(self.max_cant_archivos)) #XXX Obtener de archivos esperados?
+        rsrc.setrlimit(rsrc.RLIMIT_NPROC, x2(self.max_cant_procesos))
+        rsrc.setrlimit(rsrc.RLIMIT_MEMLOCK, x2(self.max_locks_memoria))
+        rsrc.setrlimit(rsrc.RLIMIT_CORE, x2(0))
+        log.debug('Proceso segurizado: chroot=%s, cwd=%s, uid=%s, gid=%s, '
+            'cpu=%s, as=%s, fsize=%s, nofile=%s, nproc=%s, memlock=%s',
+            self.chroot, self.cwd, self.uid, self.gid, self.max_tiempo_cpu,
+            self.max_memoria*self.MB, self.max_tam_archivo*self.MB,
+            self.max_cant_archivos, self.max_cant_procesos,
+            self.max_locks_memoria)
+        # Tratamos de forzar un sync para que entre al sleep del padre FIXME
+        import time
+        time.sleep(0)
 #}}}
 
 class Tester(object): #{{{
@@ -46,35 +130,35 @@ class Tester(object): #{{{
 
     @property
     def build_path(self):
-        return osp.join(self.chroot, self.home, 'build')
+        return join(self.chroot, self.home, 'build')
 
     @property
     def test_path(self):
-        return osp.join(self.chroot, self.home, 'test')
+        return join(self.chroot, self.home, 'test')
 
     @property
     def chroot(self):
-        return osp.join(self.path, 'chroot_' + self.name)
+        return join(self.path, 'chroot_' + self.name)
     #}}}
 
     @property
     def orig_chroot(self):
-        return osp.join(self.path, 'chroot')
+        return join(self.path, 'chroot')
 
     def run(self): #{{{
         entrega_id = self.queue.get() # blocking
         while entrega_id is not None:
-            entrega = mod.Entrega.get(entrega_id)
-            log.debug(_(u'Nueva entrega para probar en tester %s: %s')
-                % (self.name, entrega))
+            entrega = Entrega.get(entrega_id)
+            log.debug(_(u'Nueva entrega para probar en tester %s: %s'),
+                self.name, entrega)
             self.test(entrega)
-            log.debug(_(u'Fin de pruebas de: %s') % entrega)
+            log.debug(_(u'Fin de pruebas de: %s'), entrega)
             entrega_id = self.queue.get() # blocking
     #}}}
 
     def test(self, entrega): #{{{
-        log.debug(_(u'Tester.test(entrega=%s)') % entrega)
-        entrega.inicio_tareas = dt.datetime.now()
+        log.debug(_(u'Tester.test(entrega=%s)'), entrega)
+        entrega.inicio_tareas = datetime.now()
         try:
             try:
                 self.setup_chroot(entrega)
@@ -83,61 +167,52 @@ class Tester(object): #{{{
                 self.clean_chroot(entrega)
             except ExecutionFailure, e:
                 entrega.correcta = False
-                log.debug(_(u'Entrega incorrecta: %s') % entrega)
+                log.info(_(u'Entrega incorrecta: %s'), entrega)
             except Exception, e:
+                if isinstance(e, SystemExit): raise
                 entrega.observaciones += error_interno
-                log.exception(_(u'Hubo una excepción inesperada: %s') % e)
+                log.exception(_(u'Hubo una excepción inesperada: %s'), e)
             except:
                 entrega.observaciones += error_interno
                 log.exception(_(u'Hubo una excepción inesperada desconocida'))
             else:
                 entrega.correcta = True
-                log.debug(_(u'Entrega correcta: %s') % entrega)
+                log.debug(_(u'Entrega correcta: %s'), entrega)
         finally:
-            entrega.fin_tareas = dt.datetime.now()
+            entrega.fin_tareas = datetime.now()
     #}}}
 
     def setup_chroot(self, entrega): #{{{ y clean_chroot()
-        log.debug(_(u'Tester.setup_chroot(entrega=%s)') % entrega)
-        rsync = 'rsync --stats --itemize-changes --human-readable --archive ' \
-            '--acls --delete-during --force' # TODO config
-        orig_chroot = osp.join(self.orig_chroot, '')
-        cmd = '%s %s %s' % (rsync, orig_chroot, self.chroot)
-        log.debug(_(u'Ejecutando: %s') % cmd)
-        ret = os.system(cmd)
-        if ret != 0:
-            entrega.observaciones += error_interno
-            errstr = _(u'No se pudo hacer rsync al chroot para la prueba,' \
-                u'falló el comando: %s (con código de error %d)') % (cmd, ret)
-            log.error(errstr)
-            raise RsyncError(errstr)
+        log.debug(_(u'Tester.setup_chroot(entrega=%s)'), entrega.shortrepr())
+        rsync = ('rsync', '--stats', '--itemize-changes', '--human-readable',
+            '--archive', '--acls', '--delete-during', '--force', # TODO config
+            join(self.orig_chroot, ''), self.chroot)
+        log.debug(_(u'Ejecutando: %s'), ' '.join(rsync))
+        os.seteuid(0) # Dios! (para chroot)
+        os.setegid(0)
         try:
-            unzip(entrega.archivos, self.build_path)
-        except zf.BadZipfile:
-            entrega.correcta = False
-            entrega.observaciones += error_interno
-            log.error(_(u'El archivo adjunto no está en formato ZIP'))
-            raise
-        except IOError, e:
-            entrega.observaciones += error_interno
-            log.error(_(u'Error de IO al descromprimir archivos del ZIP: %s')
-                % e)
-            raise
+            check_call(rsync)
+        finally:
+            os.setegid(egid) # Mortal de nuevo
+            os.seteuid(euid)
+        unzip(entrega.archivos, self.build_path)
 
     def clean_chroot(self, entrega):
-        log.debug(_(u'Tester.clean_chroot(entrega=%s)') % entrega)
+        log.debug(_(u'Tester.clean_chroot(entrega=%s)'), entrega.shortrepr())
         pass # Se limpia con el próximo rsync
     #}}}
 
     def ejecutar_tareas_fuente(self, entrega): #{{{ y tareas_prueba
-        log.debug(_(u'Tester.ejecutar_tareas_fuente(entrega=%s)') % entrega)
+        log.debug(_(u'Tester.ejecutar_tareas_fuente(entrega=%s)'),
+            entrega.shortrepr())
         tareas = [t for t in entrega.instancia.ejercicio.enunciado.tareas
-                    if isinstance(t, mod.TareaFuente)]
+                    if isinstance(t, TareaFuente)]
         for tarea in tareas:
             tarea.ejecutar(self.build_path, entrega)
 
     def ejecutar_tareas_prueba(self, entrega):
-        log.debug(_(u'Tester.ejecutar_tareas_prueba(entrega=%s)') % entrega)
+        log.debug(_(u'Tester.ejecutar_tareas_prueba(entrega=%s)'),
+            entrega.shortrepr())
         for caso in entrega.instancia.ejercicio.enunciado.casos_de_prueba:
             caso.ejecutar(self.test_path, entrega)
     #}}}
@@ -145,10 +220,10 @@ class Tester(object): #{{{
 #}}}
 
 def ejecutar_caso_de_prueba(self, path, entrega): #{{{
-    log.debug(_(u'CasoDePrueba.ejecutar(path=%s, entrega=%s)')
-        % (path, entrega))
+    log.debug(_(u'CasoDePrueba.ejecutar(path=%s, entrega=%s)'), path,
+        entrega.shortrepr())
     tareas = [t for t in entrega.instancia.ejercicio.enunciado.tareas
-                if isinstance(t, mod.TareaPrueba)]
+                if isinstance(t, TareaPrueba)]
     prueba = entrega.add_prueba(self)
     try:
         try:
@@ -163,12 +238,13 @@ def ejecutar_caso_de_prueba(self, path, entrega): #{{{
         else:
             prueba.pasada = True
     finally:
-        prueba.fin = dt.datetime.now()
-mod.CasoDePrueba.ejecutar = ejecutar_caso_de_prueba
+        prueba.fin = datetime.now()
+CasoDePrueba.ejecutar = ejecutar_caso_de_prueba
 #}}}
 
 def ejecutar_tarea_fuente(self, path, entrega): #{{{
-    log.debug(_(u'TareaFuente.ejecutar(path=%s, entrega=%s)') % (path, entrega))
+    log.debug(_(u'TareaFuente.ejecutar(path=%s, entrega=%s)'), path,
+        entrega.shortrepr())
     try:
         for cmd in self.comandos:
             cmd.ejecutar(path, entrega)
@@ -177,11 +253,12 @@ def ejecutar_tarea_fuente(self, path, entrega): #{{{
             entrega.exito = False
         if self.terminar_si_falla:
             raise ExecutionError(e.comando, tarea)
-mod.TareaFuente.ejecutar = ejecutar_tarea_fuente
+TareaFuente.ejecutar = ejecutar_tarea_fuente
 #}}}
 
 def ejecutar_tarea_prueba(self, path, prueba): #{{{
-    log.debug(_(u'TareaPrueba.ejecutar(path=%s, prueba=%s)') % (path, prueba))
+    log.debug(_(u'TareaPrueba.ejecutar(path=%s, prueba=%s)'), path,
+        prueba.shortrepr())
     try:
         for cmd in self.comandos:
             cmd.ejecutar(path, prueba)
@@ -190,16 +267,32 @@ def ejecutar_tarea_prueba(self, path, prueba): #{{{
             prueba.exito = False
         if self.terminar_si_falla:
             raise ExecutionError(e.comando, tarea)
-mod.TareaPrueba.ejecutar = ejecutar_tarea_prueba
+TareaPrueba.ejecutar = ejecutar_tarea_prueba
 #}}}
 
 def ejecutar_comando_fuente(self, path, entrega): #{{{
-    log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s)')
-        % (path, entrega))
+    log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s)'), path,
+        entrega.shortrepr())
     unzip(self.archivos_entrada, path) # TODO try/except
     comando_ejecutado = entrega.add_comando_ejecutado(self)
-    # TODO ejecutar en chroot (path)
-    comando_ejecutado.fin = dt.datetime.now()
+    # Abro archivos para fds básicos (FIXME)
+    options = dict(close_fds=True, stdin=None, stdout=None, stderr=None,
+        preexec_fn=SecureProcess(self, 'var/chroot_pepe', '/home/sercom/build'))
+    log.debug(_(u'Ejecutando %s'), ' '.join(self.comando))
+    os.seteuid(0) # Dios! (para chroot)
+    os.setegid(0)
+    try:
+        try:
+            proc = Popen(self.comando, **options)
+        finally:
+            os.setegid(egid) # Mortal de nuevo
+            os.seteuid(euid)
+    except Exception, e: # FIXME poner en el manejo de exceptiones estandar
+        if hasattr(e, 'child_traceback'):
+            log.error(_(u'Error en el hijo: %s'), e.child_traceback)
+        raise
+    proc.wait()
+    comando_ejecutado.fin = datetime.now()
 #    if no_anda_ejecucion: # TODO
 #        comando_ejecutado.exito = False
 #        comando_ejecutado.observaciones += 'No anduvo xxx' # TODO mas info
@@ -224,19 +317,19 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
 #        comando_ejecutado.observaciones += 'xxx OK' # TODO
     comando_ejecutado.exito = True
     comando_ejecutado.observaciones += 'xxx OK' # TODO
-mod.ComandoFuente.ejecutar = ejecutar_comando_fuente
+ComandoFuente.ejecutar = ejecutar_comando_fuente
 #}}}
 
 def ejecutar_comando_prueba(self, path, prueba): #{{{
-    log.debug(_(u'ComandoPrueba.ejecutar(path=%s, prueba=%s)')
-        % (path, prueba))
-    shu.rmtree(path)
+    log.debug(_(u'ComandoPrueba.ejecutar(path=%s, prueba=%s)'), path,
+        prueba.shortrepr())
+    rmtree(path)
     os.mkdir(path)
     unzip(prueba.caso_de_prueba.archivos_entrada, path) # TODO try/except
     unzip(self.archivos_entrada, path) # TODO try/except
     comando_ejecutado = prueba.add_comando_ejecutado(self)
     # TODO ejecutar en chroot (path)
-    comando_ejecutado.fin = dt.datetime.now()
+    comando_ejecutado.fin = datetime.now()
 #    if no_anda_ejecucion: # TODO
 #        comando_ejecutado.exito = False
 #        comando_ejecutado.observaciones += 'No anduvo xxx' # TODO
@@ -258,6 +351,6 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
 #        comando_ejecutado.observaciones += 'xxx OK' # TODO
     comando_ejecutado.exito = True
     comando_ejecutado.observaciones += 'xxx OK' # TODO
-mod.ComandoPrueba.ejecutar = ejecutar_comando_prueba
+ComandoPrueba.ejecutar = ejecutar_comando_prueba
 #}}}
 
