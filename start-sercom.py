@@ -17,7 +17,7 @@ import sys
 # look for setup.py in this directory. If it's not there, this script is
 # probably installed
 if len(sys.argv) > 1:
-    update_config(configfile=sys.argv[1], 
+    update_config(configfile=sys.argv[1],
         modulename="sercom.config")
 elif exists(join(dirname(__file__), "setup.py")):
     update_config(configfile="dev.cfg",modulename="sercom.config")
