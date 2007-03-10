@@ -17,6 +17,7 @@ __all__ = ('Curso', 'Usuario', 'Docente', 'Alumno', 'CasoDePrueba')
 
 #{{{ Custom Columns
 
+# TODO Esto debería implementarse con CSV para mayor legibilidad
 class TupleValidator(PickleValidator):
     """
     Validator for tuple types.  A tuple type is simply a pickle type
@@ -338,9 +339,13 @@ class Comando(InheritableSQLObject): #{{{
     terminar_si_falla   = BoolCol(notNone=True, default=True)
     rechazar_si_falla   = BoolCol(notNone=True, default=True)
     archivos_entrada    = BLOBCol(default=None) # ZIP con archivos de entrada
-                                                # stdin es caso especial
-    archivos_salida     = BLOBCol(default=None) # ZIP con archivos de salida
-                                                # stdout y stderr son especiales
+                                                # __stdin__ es caso especial
+    archivos_a_comparar = BLOBCol(default=None) # ZIP con archivos de salida
+                                                # __stdout__ y __stderr__
+                                                # son casos especiales
+    archivos_a_guardar  = TupleCol(notNone=True, default=())
+                                                # __stdout__ y __stderr__
+                                                # son casos especiales
     activo              = BoolCol(notNone=True, default=True)
 
     def __repr__(self, clave='', mas=''):
@@ -774,10 +779,12 @@ class Correccion(SQLObject): #{{{
 
 class ComandoEjecutado(InheritableSQLObject): #{{{
     # Campos
-    inicio          = DateTimeCol(notNone=True, default=DateTimeCol.now)
-    fin             = DateTimeCol(default=None)
-    exito           = IntCol(default=None)
-    observaciones   = UnicodeCol(notNone=True, default=u'')
+    inicio              = DateTimeCol(notNone=True, default=DateTimeCol.now)
+    fin                 = DateTimeCol(default=None)
+    exito               = IntCol(default=None)
+    archivos_comparados = BLOBCol(default=None) # ZIP con archivos diff
+    archivos_guardados  = BLOBCol(default=None) # ZIP con archivos guardados
+    observaciones       = UnicodeCol(notNone=True, default=u'')
 
     def __repr__(self, clave='', mas=''):
         return ('%s(%s inicio=%s, fin=%s, exito=%s, observaciones=%s%s)'
