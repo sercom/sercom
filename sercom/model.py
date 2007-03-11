@@ -75,7 +75,7 @@ class Curso(SQLObject): #{{{
         for d in docentes:
             self.add_docente(d)
         for (n, e) in enumerate(ejercicios):
-            self.add_ejercicio(n, e)
+            self.add_ejercicio(n+1, e)
         for a in alumnos:
             self.add_alumno(a)
 
