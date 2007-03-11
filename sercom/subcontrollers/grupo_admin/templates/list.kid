@@ -17,21 +17,20 @@
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-            <td><a href="${tg.url('/curso/show/'+str(record.curso.id))}" py:content="record.curso.shortrepr()">curso</a></td>
+			<td><a href="${tg.url('/curso/show/'+str(record.curso.id))}" py:content="record.curso.shortrepr()">curso</a></td>
         <td><span py:replace="record.nombre">nombre</span></td>
-                <td><a py:if="record.responsable is not None" href="${tg.url('/alumno/show/'+str(record.responsable.alumno.id))}" py:content="record.responsable.alumno.shortrepr()"></a></td>
-                <td>
-                    <a href="${tg.url('/grupo/show/%d' % record.id)}">Ver</a>
-                    <a href="${tg.url('/grupo/edit/%d' % record.id)}">Editar</a>
-                    <a href="${tg.url('/grupo/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
-                </td>
+				<td><a py:if="record.responsable is not None" href="${tg.url('/alumno/show/'+str(record.responsable.alumno.id))}" py:content="record.responsable.alumno.shortrepr()"></a></td>
+				<td>
+					<a href="${tg.url('/grupo/show/%d' % record.id)}">Ver</a>
+					<a href="${tg.url('/grupo/edit/%d' % record.id)}">Editar</a>
+					<a href="${tg.url('/grupo/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
+				</td>
     </tr>
 </table>
 
 <br/>
 <a href="${tg.url('/grupo/new')}">Agregar</a>
-<br/>
-<br/>
+
 <div py:for="page in tg.paginate.pages">
     <a py:if="page != tg.paginate.current_page"
         href="${tg.paginate.get_href(page)}">${page}</a>

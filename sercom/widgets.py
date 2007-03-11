@@ -7,13 +7,13 @@ class CustomTextField(widgets.TextField):
     """Un input con un div al lado para ponerle info"""
     template = '''
         <span xmlns:py="http://purl.org/kid/ns#">
-        <input  
-            type="text"  
-            name="${name}"  
-            class="${field_class}"  
-            id="${field_id}"  
-            value="${value}"  
-            py:attrs="attrs"  
+        <input
+            type="text"
+            name="${name}"
+            class="${field_class}"
+            id="${field_id}"
+            value="${value}"
+            py:attrs="attrs"
          />
          <span id="${field_id}_info" />
         </span>
@@ -72,7 +72,7 @@ MultiSelectAjax = '''
 
 class AjaxMultiSelect(widgets.MultipleSelectField):
     template = '''
-    <div style="width:250px" xmlns:py="http://purl.org/kid/ns#">  
+    <div style="width:250px" xmlns:py="http://purl.org/kid/ns#">
     <div>
     <input type="text" id="${field_id}_nuevo" size="10" value="padron"
         style="color:#aaa;"
@@ -83,25 +83,25 @@ class AjaxMultiSelect(widgets.MultipleSelectField):
         onClick=" _do_add(${on_add}, '${field_id}_nuevo', '${field_id}', '${name}_loading'); " />
     </div>
     <div>
-    <select  
-        multiple="multiple"  
-        size="${size}"  
-        name="${name}"  
-        class="${field_class}"  
-        id="${field_id}"  
-        py:attrs="attrs"  
+    <select
+        multiple="multiple"
+        size="${size}"
+        name="${name}"
+        class="${field_class}"
+        id="${field_id}"
+        py:attrs="attrs"
         style="width:250px;"
     >
-        <optgroup py:for="group, options in grouped_options"  
-            label="${group}"  
-            py:strip="not group"  
-        >  
-        <option py:for="value, desc, attrs in options"  
-            value="${value}"  
-            py:attrs="attrs"  
-            py:content="desc"  
-        />  
-        </optgroup>  
+        <optgroup py:for="group, options in grouped_options"
+            label="${group}"
+            py:strip="not group"
+        >
+        <option py:for="value, desc, attrs in options"
+            value="${value}"
+            py:attrs="attrs"
+            py:content="desc"
+        />
+        </optgroup>
     </select>
     </div>
     <div align="center">
@@ -136,7 +136,7 @@ DosListasAjax = '''
 
 class AjaxDosListasSelect(widgets.MultipleSelectField):
     template = '''
-    <div xmlns:py="http://purl.org/kid/ns#">  
+    <div xmlns:py="http://purl.org/kid/ns#">
     <table style="border:0; margin:0px; border-spacing:0px 0px">
     <tr class="nada">
         <td style="padding:0 0 0 0;" align="center">${title_from}</td>
@@ -145,7 +145,7 @@ class AjaxDosListasSelect(widgets.MultipleSelectField):
     </tr>
     <tr class="nada">
     <td style="padding:0 0 0 0;">
-    <select  
+    <select
         multiple="multiple"
         size="${size}"
         class="${field_class}"
@@ -154,8 +154,8 @@ class AjaxDosListasSelect(widgets.MultipleSelectField):
         py:attrs="attrs"
         style="width:200px;">
         <optgroup py:for="group, options in grouped_options" label="${group}" py:strip="not group">
-        <option py:for="value, desc, attrs in options" value="${value}" py:attrs="attrs" py:content="desc" />  
-        </optgroup>  
+        <option py:for="value, desc, attrs in options" value="${value}" py:attrs="attrs" py:content="desc" />
+        </optgroup>
     </select>
     </td>
     <td style="padding:0 10px 0 10px;" valign="center" align="center">
@@ -165,7 +165,7 @@ class AjaxDosListasSelect(widgets.MultipleSelectField):
         <input type="button" value="&lt;&lt;&lt;" style="font-size:90%;" onClick="moveOption('${field_id}_to', '${field_id}_from');" />
     </td>
     <td style="padding:0 0 0 0;">
-    <select  
+    <select
         multiple="multiple"
         size="${size}"
         name="${name}_to"

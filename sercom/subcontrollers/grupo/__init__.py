@@ -10,7 +10,7 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Curso, AlumnoInscripto, Docente, Grupo, Alumno
+from sercom.model import Curso, AlumnoInscripto, Docente, Grupo, Alumno, Miembro
 from sqlobject import *
 
 from sercom.widgets import *
@@ -279,5 +279,28 @@ class GrupoController(controllers.Controller, identity.SecureResource):
             msg = u"""Se ha producido un error inesperado al buscar el registro:\n      %s""" % str(inst)
             error = True
         return dict(msg=msg, error=error)
+
+    @expose('json')
+    def get_alumnos(self, grupoid):
+        msg = u''
+        error=False
+        try:
+            # Busco los alumnos del grupo
+            grupo = Grupo.get(int(grupoid))
+            miembros = Miembro.selectBy(baja=None, grupo=grupo)
+            print miembros
+            integrantes = []
+            for m in miembros:
+                msg = {}
+                alumnoInscripto = AlumnoInscripto.get(m.alumno.id)
+                msg['id'] = alumnoInscripto.id
+                msg['label'] = alumnoInscripto.shortrepr()
+                integrantes.append(msg)
+        except Exception, (inst):
+            msg = u"""Se ha producido un error inesperado al buscar el registro:\n      %s""" % str(inst)
+            error = True
+            integrantes = []
+            integrantes.append(msg)
+        return dict(msg=integrantes, error=error)
 #}}}
 

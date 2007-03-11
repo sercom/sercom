@@ -46,7 +46,7 @@ class Root(controllers.RootController):
                         .orderBy(InstanciaDeEntrega.q.fin))
             return dict(a_corregir=correcciones,
                 instancias_activas=instancias, now=now)
-        
+
         if 'entregar' in identity.current.permissions:
             # Proximas instancias de entrega
             instancias = list(InstanciaDeEntrega.select(
@@ -134,6 +134,8 @@ class Root(controllers.RootController):
     mis_entregas = MisEntregasController()
 
     mis_correcciones = MisCorreccionesController()
+
+    grupo_admin = GrupoAdminController()
 
 #{{{ Agrega summarize a namespace tg de KID
 def summarize(text, size, concat=True, continuation='...'):

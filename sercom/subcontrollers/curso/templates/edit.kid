@@ -12,22 +12,22 @@
         <span py:for="d in record.docentes_to" py:strip="True">
             MochiKit.DOM.appendChildNodes("form_docentes_to", OPTION({"value":${d['id']}}, '${d['label']}'))
         </span>
-        
+
         <span py:for="a in record.alumnos_inscriptos" py:strip="True">
             MochiKit.DOM.appendChildNodes("form_alumnos", OPTION({"value":${a['id']}}, '${a['label']}'))
         </span>
-				// Saco de FROM los que ya estan en TO
-				replaceChildNodes('form_docentes_from', list(ifilterfalse(
-					partial(esta_en_to, $('form_docentes_to').options),
-					$('form_docentes_from').options
-				)));
-		}
-		function esta_en_to (options, i) {
-			for (j=0; j &lt; options.length; j++)
-				if (options[j].value == i.value)
-					return true;
-			return false;
-		}
+                // Saco de FROM los que ya estan en TO
+                replaceChildNodes('form_docentes_from', list(ifilterfalse(
+                    partial(esta_en_to, $('form_docentes_to').options),
+                    $('form_docentes_from').options
+                )));
+        }
+        function esta_en_to (options, i) {
+            for (j=0; j &lt; options.length; j++)
+                if (options[j].value == i.value)
+                    return true;
+            return false;
+        }
     MochiKit.DOM.addLoadEvent(init_data)
 </script>
 <body>
@@ -40,7 +40,10 @@
 <a href="${tg.url('/curso/from_file/%d' % record.id)}">Agregar Alumnos desde archivo</a>
     <br/>
     <br/>
-<a href="${tg.url('/curso/show/%d' % record.id)}">Ver (cancela)</a> |
+<a href="${tg.url('/grupo_admin/new/%d' % record.id)}">Mezclar, Juntar, Separar Grupos</a>
+<br/>
+<br/>
+<a href="${tg.url('/curso/show/%d' % record.id)}">Ver (cancela)</a>
 <a href="${tg.url('/curso/list')}">Volver (cancela)</a>
 
 </body>
