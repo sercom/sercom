@@ -631,6 +631,11 @@ class Grupo(Entregador): #{{{
                 % (self.id, self.nombre, srepr(self.responsable), self.nota,
                     self.nota_cursada, self.observaciones, self.activo)
 
+    @classmethod
+    def selectByAlumno(self, alumno):
+        return Miembro.select(AND(Miembro.q.alumnoID == AlumnoInscripto.q.id,
+                AlumnoInscripto.q.alumnoID == alumno.id))
+
     def shortrepr(self):
         return 'grupo:' + self.nombre
 #}}}
@@ -652,6 +657,10 @@ class AlumnoInscripto(Entregador): #{{{
 
     def _get_nombre(self):
         return self.alumno.padron
+
+    @classmethod
+    def selectByAlumno(self, alumno):
+        return AlumnoInscripto.select(AlumnoInscripto.q.alumnoID == alumno.id).getOne()
 
     def __repr__(self):
         return 'AlumnoInscripto(id=%s, alumno=%s, condicional=%s, nota=%s, ' \
