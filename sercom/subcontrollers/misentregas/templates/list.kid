@@ -12,6 +12,7 @@
 
 <table class="list">
     <tr>
+				<th>Entregador</th>
 				<th>Ejercicio</th>
 				<th><span title="Instancia de Entrega">IE</span></th>
         <th>Correcta</th>
@@ -21,6 +22,7 @@
 				<th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
+        <td><span py:if="record.entregador" py:replace="record.entregador.shortrepr()">usuario</span></td>
         <td><span py:replace="record.instancia.ejercicio.enunciado.nombre">usuario</span></td>
         <td><span py:replace="record.instancia.shortrepr()">usuario</span></td>
         <td><span py:replace="record.correcta">fecha asignado</span></td>

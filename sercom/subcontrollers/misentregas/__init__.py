@@ -123,7 +123,11 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
     @paginate('records')
     def list(self):
         """List records in model"""
-        r = cls.select(cls.q.entregadorID == identity.current.user.id)
+        # Grupos en los que el usuario formo parte
+        m = [i.grupo.id for i in Grupo.selectByAlumno(identity.current.user)]
+        entregador = AlumnoInscripto.selectByAlumno(identity.current.user)
+        m.append(entregador.id)
+        r = cls.select(IN(cls.q.entregadorID, m))
         return dict(records=r, name=name, namepl=namepl)
 
     @validate(form=form)
@@ -138,7 +142,7 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
             raise redirect('list')
 
         # por defecto el entregador es el user loggeado
-        entregador = identity.current.user
+        entregador = AlumnoInscripto.selectByAlumno(identity.current.user)
 
         ejercicio = Ejercicio.get(int(ejercicio))
         if ejercicio.grupal:

@@ -6,7 +6,8 @@ from turbogears import identity, redirect
 from cherrypy import request, response
 from turbogears.toolbox.catwalk import CatWalk
 import model
-from model import InstanciaDeEntrega, Correccion, AND, DateTimeCol, Entrega
+from model import InstanciaDeEntrega, Correccion, AND, DateTimeCol, Entrega, Grupo, AlumnoInscripto
+from sqlobject import *
 # from sercom import json
 
 from subcontrollers import *
@@ -52,7 +53,11 @@ class Root(controllers.RootController):
                 AND(InstanciaDeEntrega.q.inicio <= now,
                     InstanciaDeEntrega.q.fin > now)).orderBy(InstanciaDeEntrega.q.fin))
             # Ultimas N entregas realizadas
-            entregas = list(Entrega.select(Entrega.q.entregadorID == identity.current.user.id)[:5])
+            # Grupos en los que el usuario formo parte
+            m = [i.grupo.id for i in Grupo.selectByAlumno(identity.current.user)]
+            entregador = AlumnoInscripto.selectByAlumno(identity.current.user)
+            m.append(entregador.id)
+            entregas = list(Entrega.select(IN(Entrega.q.entregadorID, m))[:5])
             return dict(instancias_activas=instancias, now=now, entregas=entregas)
         return dict()
 
