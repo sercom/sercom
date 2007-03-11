@@ -29,8 +29,17 @@ MultiSelectAjax = '''
             alert(results.msg);
             return;
         }
-        MochiKit.DOM.appendChildNodes(lista, OPTION({'value':results.msg.id}, results.msg.value));
+        /* Verifico si esta y no lo agrego si esta repetido */
         l = MochiKit.DOM.getElement(lista);
+        esta = false;
+        for(i=0; i<l.options.length; i++) {
+            if (results.msg.id == l.options[i].value) {
+                esta = true;
+                break;
+            }
+        }
+        if (!esta)
+            MochiKit.DOM.appendChildNodes(lista, OPTION({'value':results.msg.id}, results.msg.value));
     }
 
     function _on_alumno_get_error(loading, results)
