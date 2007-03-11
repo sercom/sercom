@@ -172,6 +172,11 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
         flash(_(u'Se creó una nueva %s.') % name)
         raise redirect('list')
 
+    @expose(template='kid:%s.templates.corrida' % __name__)
+    def corrida(self, entregaid):
+        e = Entrega.get(int(entregaid))
+        return dict(entrega=e)
+
     @expose("json")
     def instancias(self, ejercicio_id):
         c = Ejercicio.get(ejercicio_id)
