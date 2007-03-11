@@ -174,8 +174,17 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.corrida' % __name__)
     def corrida(self, entregaid):
-        e = Entrega.get(int(entregaid))
+        e = validate_get(id)
         return dict(entrega=e)
+
+    @expose()
+    def get_archivo(self, entregaid):
+        from cherrypy import request, response
+        r = validate_get(entregaid)
+        response.headers["Content-Type"] = "application/zip"
+        response.headers["Content-disposition"] = "attachment;filename=Ej_%s-Entrega_%s-Padron_%s.zip" % (r.instancia.ejercicio.numero, r.instancia.numero, r.entregador.nombre)
+        flash(_(u'El %s fue eliminado permanentemente.') % name)
+        return r.archivos
 
     @expose("json")
     def instancias(self, ejercicio_id):

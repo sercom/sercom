@@ -31,7 +31,7 @@
         <td><span py:replace="record.observaciones">nota</span></td>
 				<td>
 					<a href="${tg.url('/mis_entregas/corrida/%d' % record.id)}">Corrida</a>
-					<a href="${tg.url('/mis_entregas/show/%d' % record.id)}">Bajar Archivo</a>
+					<a href="${tg.url('/mis_entregas/get_archivo/%d' % record.id)}">Bajar Archivo</a>
 				</td>
     </tr>
 </table>
