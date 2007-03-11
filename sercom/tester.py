@@ -303,15 +303,17 @@ TareaPrueba.ejecutar = ejecutar_tarea_prueba
 def ejecutar_comando_fuente(self, path, entrega): #{{{
     log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s)'), path,
         entrega.shortrepr())
-    unzip(self.archivos_entrada, path) # TODO try/except
     comando_ejecutado = entrega.add_comando_ejecutado(self)
-    # Abro archivos para fds básicos (FIXME)
+    unzip(self.archivos_entrada, path, # TODO try/except
+        dict(__stdin__='/tmp/sercom.tester.%s.stdin' % comando_ejecutado.id)) # TODO /var/run/sercom
     options = dict(
         close_fds=True,
         stdin=None,
         shell=True,
         preexec_fn=SecureProcess(self, 'var/chroot_pepe', '/home/sercom/build')
     )
+    if os.path.exists('/tmp/sercom.tester.%s.stdin' % comando_ejecutado.id): # TODO
+        options['stdin'] = file('/tmp/sercom.tester.%s.stdin' % comando_ejecutado.id, 'r') # TODO
     if self.guardar_stdouterr:
         options['stdout'] = file('/tmp/sercom.tester.%s.stdouterr'
             % comando_ejecutado.id, 'w') #TODO /var/lib/sercom?
