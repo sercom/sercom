@@ -43,8 +43,11 @@ class MisCorreccionesController(controllers.Controller, identity.SecureResource)
         """List records in model"""
         # Grupos en los que el usuario formo parte
         m = [i.grupo.id for i in Grupo.selectByAlumno(identity.current.user)]
-        entregador = AlumnoInscripto.selectByAlumno(identity.current.user)
-        m.append(entregador.id)
+        try:
+            entregador = AlumnoInscripto.selectByAlumno(identity.current.user)
+            m.append(entregador.id)
+        except:
+            pass
         r = cls.select(IN(cls.q.entregadorID, m))
         return dict(records=r, name=name, namepl=namepl)
 
