@@ -6,9 +6,9 @@ from zipfile import ZipFile, BadZipfile
 from cStringIO import StringIO
 from shutil import rmtree
 from datetime import datetime
-from subprocess import Popen, PIPE, call #, check_call XXX Python 2.5
 from os.path import join
 from turbogears import config
+import subprocess as sp
 import os, sys, pwd, grp
 import resource as rsrc
 import logging
@@ -34,7 +34,7 @@ class UserInfo(object): #{{{
 
 user_info = UserInfo(config.get('sercom.tester.user', 65534))
 
-def check_call(*popenargs, **kwargs): #{{{ Python 2.5 forward-compatibility
+def check_call(*popenargs, **kwargs): #{{{ XXX Python 2.5 forward-compatibility
     """Run command with arguments.  Wait for command to complete.  If
     the exit code was zero then return, otherwise raise
     CalledProcessError.  The CalledProcessError object will have the
@@ -45,18 +45,19 @@ def check_call(*popenargs, **kwargs): #{{{ Python 2.5 forward-compatibility
 
     check_call(["ls", "-l"])
     """
-    retcode = call(*popenargs, **kwargs)
+    retcode = sp.call(*popenargs, **kwargs)
     cmd = kwargs.get("args")
     if cmd is None:
         cmd = popenargs[0]
     if retcode:
-        raise CalledProcessError(retcode, cmd)
+        raise sp.CalledProcessError(retcode, cmd)
     return retcode
+sp.check_call = check_call
 #}}}
 
 #{{{ Excepciones
 
-class CalledProcessError(Exception): #{{{ Python 2.5 forward-compatibility
+class CalledProcessError(Exception): #{{{ XXX Python 2.5 forward-compatibility
     """This exception is raised when a process run by check_call() returns
     a non-zero exit status.  The exit status will be stored in the
     returncode attribute."""
@@ -66,6 +67,7 @@ class CalledProcessError(Exception): #{{{ Python 2.5 forward-compatibility
     def __str__(self):
         return ("Command '%s' returned non-zero exit status %d"
             % (self.cmd, self.returncode))
+sp.CalledProcessError = CalledProcessError
 #}}}
 
 class Error(StandardError): pass
@@ -211,7 +213,7 @@ class Tester(object): #{{{
         os.seteuid(0) # Dios! (para chroot)
         os.setegid(0)
         try:
-            check_call(rsync)
+            sp.check_call(rsync)
         finally:
             log.debug(_(u'Cambiando usuario y grupo efectivos a %s:%s (%s:%s)'),
                 user_info.user, user_info.group, user_info.uid, user_info.gid)
@@ -311,7 +313,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
     os.setegid(0)
     try:
         try:
-            proc = Popen(self.comando, **options)
+            proc = sp.Popen(self.comando, **options)
         finally:
             log.debug(_(u'Cambiando usuario y grupo efectivos a %s:%s (%s:%s)'),
                 user_info.user, user_info.group, user_info.uid, user_info.gid)
