@@ -9,3 +9,4 @@ from grupo import GrupoController
 from correccion import CorreccionController
 from alumno_inscripto import AlumnoInscriptoController
 from misentregas import MisEntregasController
+from miscorrecciones import MisCorreccionesController

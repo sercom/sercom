@@ -130,6 +130,8 @@ class Root(controllers.RootController):
 
     mis_entregas = MisEntregasController()
 
+    mis_correcciones = MisCorreccionesController()
+
 #{{{ Agrega summarize a namespace tg de KID
 def summarize(text, size, concat=True, continuation='...'):
     """Summarize a string if it's length is greater than a specified size. This
