@@ -78,18 +78,25 @@ class RsyncError(Error, EnvironmentError): pass
 
 #}}}
 
-def unzip(bytes, dst): # {{{
-    log.debug(_(u'Intentando descomprimir en %s'), dst)
+def unzip(bytes, default_dst='.', specific_dst=dict()): # {{{
+    """Descomprime un buffer de datos en formato ZIP.
+    Los archivos se descomprimen en default_dst a menos que exista una entrada
+    en specific_dst cuya clave sea el nombre de archivo a descomprimir, en
+    cuyo caso, se descomprime usando como destino el valor de dicha clave.
+    """
+    log.debug(_(u'Intentando descomprimir'))
     if bytes is None:
         return
     zfile = ZipFile(StringIO(bytes), 'r')
     for f in zfile.namelist():
+        dst = join(specific_dst.get(f, default_dst), f)
         if f.endswith(os.sep):
-            log.debug(_(u'Creando directorio %s'), f)
-            os.mkdir(join(dst, f))
+            log.debug(_(u'Creando directorio "%s" en "%s"'), f, dst)
+            os.mkdir(dst)
         else:
-            log.debug(_(u'Descomprimiendo archivo %s'), f)
-            file(join(dst, f), 'w').write(zfile.read(f))
+            log.debug(_(u'Descomprimiendo archivo "%s" en "%s"'), f, dst)
+            file(dst, 'w').write(zfile.read(f))
+    zfile.close()
 #}}}
 
 class SecureProcess(object): #{{{
