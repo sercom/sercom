@@ -24,8 +24,8 @@
         <td><a py:if="record.enunciadoID is not None"
                 href="${tg.url('/enunciado/show/%d' % record.enunciado.id)}"><span
                     py:replace="record.enunciado.shortrepr()">enunciado</span></a></td>
-        <td>
-            <span py:replace="record.grupal">grupal</span>
+        <td align="center">
+            <span py:replace="tg.strbool(record.grupal)">grupal</span>
         </td>
         <td>
             <a href="${tg.url('/ejercicio/entrega/%d' % record.id)}">Entregas</a>
