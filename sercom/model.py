@@ -324,8 +324,14 @@ class TareaPrueba(Tarea): #{{{
 #}}}
 
 class Comando(InheritableSQLObject): #{{{
+    # Tipos de retorno especiales
     RET_ANY = None
     RET_FAIL = -1
+    # Archivos especiales
+    STDIN = '__stdin__'
+    STDOUT = '__stdout__'
+    STDERR = '__stderr__'
+    STDOUTERR = '__stdouterr__'
     # Campos
     comando             = UnicodeCol(length=255, notNone=True)
     descripcion         = UnicodeCol(length=255, default=None)
@@ -341,12 +347,23 @@ class Comando(InheritableSQLObject): #{{{
     archivos_entrada    = BLOBCol(default=None) # ZIP con archivos de entrada
                                                 # __stdin__ es caso especial
     archivos_a_comparar = BLOBCol(default=None) # ZIP con archivos de salida
-                                                # __stdout__ y __stderr__
+                                                # __stdout__, __stderr__ y
+                                                # __stdouterr__ (ambos juntos)
                                                 # son casos especiales
-    archivos_a_guardar  = TupleCol(notNone=True, default=())
-                                                # __stdout__ y __stderr__
+    archivos_a_guardar  = TupleCol(notNone=True, default=()) # TODO SetCol
+                                                # __stdout__, __stderr__ y
+                                                # __stdouterr__ (ambos juntos)
                                                 # son casos especiales
     activo              = BoolCol(notNone=True, default=True)
+
+    def _get_guardar_stdout(self):
+        return self.STDOUT in self.archivos_a_guardar
+
+    def _get_guardar_stderr(self):
+        return self.STDERR in self.archivos_a_guardar
+
+    def _get_guardar_stdouterr(self):
+        return self.STDOUTERR in self.archivos_a_guardar
 
     def __repr__(self, clave='', mas=''):
         return ('%s(%s comando=%s, descripcion=%s, retorno=%s, '
