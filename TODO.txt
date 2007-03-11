@@ -18,5 +18,3 @@
 - Hacer Informe bonito para pelu (un poco cada uno)
 - Ejercicio:
   * Poner una columna en el listado con la cantidad de entregas.
-- Entrega:
-  * Interfaz para que el alumno suba una entrega.
