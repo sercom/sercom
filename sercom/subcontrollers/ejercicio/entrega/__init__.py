@@ -61,8 +61,7 @@ class EntregaForm(W.TableForm):
             validator=V.Int(not_empty=True))
         inicio = W.CalendarDateTimePicker(label=_(u"Inicio"))
         fin = W.CalendarDateTimePicker(label=_(u"Fin"))
-        procesada = W.CheckBox(label=_(u"Procesada?"))
-        activo = W.CheckBox(label=_(u"Activo?"))
+        activo = W.CheckBox(label=_(u"Activo?"), attrs=dict(checked='checked'))
         observaciones = W.TextArea(rows="5", cols="40")
         ejercicio_id= W.HiddenField()
     fields = Fields()
@@ -88,7 +87,7 @@ class EntregaController(controllers.Controller, identity.SecureResource):
     @identity.require(identity.has_permission('admin'))
     def new(self, ejercicio_id, **kw):
         """Create new records in model"""
-        form.fields[6].attrs['value'] = ejercicio_id
+        form.fields[5].attrs['value'] = ejercicio_id
         return dict(name=name, namepl=namepl, form=form, values=kw, partial=str(ejercicio_id))
 
     @validate(form=form)
