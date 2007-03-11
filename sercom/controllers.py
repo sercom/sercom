@@ -55,8 +55,11 @@ class Root(controllers.RootController):
             # Ultimas N entregas realizadas
             # Grupos en los que el usuario formo parte
             m = [i.grupo.id for i in Grupo.selectByAlumno(identity.current.user)]
-            entregador = AlumnoInscripto.selectByAlumno(identity.current.user)
-            m.append(entregador.id)
+            try:
+                entregador = AlumnoInscripto.selectByAlumno(identity.current.user)
+                m.append(entregador.id)
+            except:
+                pass
             entregas = list(Entrega.select(IN(Entrega.q.entregadorID, m))[:5])
             return dict(instancias_activas=instancias, now=now, entregas=entregas)
         return dict()
