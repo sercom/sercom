@@ -164,8 +164,13 @@ def summarize(text, size, concat=True, continuation='...'):
             text = text[:size-len(continuation)] + continuation
     return text
 
+def strbool(bool):
+    if bool:
+        return _(u'Sí')
+    return _(u'No')
+
 def add_custom_stdvars(vars):
-    return vars.update(dict(summarize=summarize))
+    return vars.update(dict(summarize=summarize, strbool=strbool))
 
 view.variable_providers.append(add_custom_stdvars)
 #}}}
