@@ -358,7 +358,7 @@ class Comando(InheritableSQLObject): #{{{
                     self.max_memoria, self.max_tam_archivo,
                     self.max_cant_archivos, self.max_cant_procesos,
                     self.max_locks_memoria, self.terminar_si_falla,
-                    self.rechazar_si_falla))
+                    self.rechazar_si_falla, mas))
 
     def shortrepr(self):
         return '%s (%s)' % (self.comando, self.descripcion)
@@ -798,7 +798,7 @@ class ComandoEjecutado(InheritableSQLObject): #{{{
     def __repr__(self, clave='', mas=''):
         return ('%s(%s inicio=%s, fin=%s, exito=%s, observaciones=%s%s)'
             % (self.__class__.__name__, clave, self.inicio, self.fin,
-            self.exito, self.observaciones))
+            self.exito, self.observaciones, mas))
 #}}}
 
 class ComandoFuenteEjecutado(ComandoEjecutado): #{{{
