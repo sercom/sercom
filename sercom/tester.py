@@ -160,11 +160,11 @@ class Tester(object): #{{{
     @property
     def chroot(self):
         return join(self.path, 'chroot_' + self.name)
-    #}}}
 
     @property
     def orig_chroot(self):
         return join(self.path, 'chroot')
+    #}}}
 
     def run(self): #{{{
         entrega_id = self.queue.get() # blocking
@@ -318,11 +318,11 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
                 user_info.user, user_info.group, user_info.uid, user_info.gid)
             os.setegid(user_info.gid) # Mortal de nuevo
             os.seteuid(user_info.uid)
-    except Exception, e: # FIXME poner en el manejo de exceptiones estandar
+    except Exception, e:
         if hasattr(e, 'child_traceback'):
             log.error(_(u'Error en el hijo: %s'), e.child_traceback)
         raise
-    proc.wait()
+    proc.wait() #TODO un sleep grande nos caga todo, ver sercom viejo
     comando_ejecutado.fin = datetime.now()
 #    if no_anda_ejecucion: # TODO
 #        comando_ejecutado.exito = False
