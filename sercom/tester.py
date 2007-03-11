@@ -105,9 +105,14 @@ class SecureProcess(object): #{{{
     MB = 1048576
     # XXX probar! make de un solo archivo lleva nproc=100 y nofile=15
     def __init__(self, comando, chroot, cwd):
-            self.comando = comando
-            self.chroot = chroot
-            self.cwd = cwd
+        self.comando = comando
+        self.chroot = chroot
+        self.cwd = cwd
+        log.debug('Proceso segurizado: chroot=%s, cwd=%s, user=%s, cpu=%s, '
+            'as=%sMiB, fsize=%sMiB, nofile=%s, nproc=%s, memlock=%s',
+            self.chroot, self.cwd, self.uid, self.max_tiempo_cpu,
+            self.max_memoria, self.max_tam_archivo, self.max_cant_archivos,
+            self.max_cant_procesos, self.max_locks_memoria)
     def __getattr__(self, name):
         if getattr(self.comando, name) is not None:
             return getattr(self.comando, name)
@@ -126,12 +131,6 @@ class SecureProcess(object): #{{{
         rsrc.setrlimit(rsrc.RLIMIT_NPROC, x2(self.max_cant_procesos))
         rsrc.setrlimit(rsrc.RLIMIT_MEMLOCK, x2(self.max_locks_memoria))
         rsrc.setrlimit(rsrc.RLIMIT_CORE, x2(0))
-        log.debug('Proceso segurizado: chroot=%s, cwd=%s, user=%s(%s), '
-            'group=%s(%s), cpu=%s, as=%sMiB, fsize=%sMiB, nofile=%s, nproc=%s, '
-            'memlock=%s', self.chroot, self.cwd, uinfo.user, uinfo.uid,
-            uinfo.group, uinfo.gid, self.max_tiempo_cpu, self.max_memoria,
-            self.max_tam_archivo, self.max_cant_archivos,
-            self.max_cant_procesos, self.max_locks_memoria)
         # Tratamos de forzar un sync para que entre al sleep del padre FIXME
         import time
         time.sleep(0)
