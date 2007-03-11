@@ -165,7 +165,7 @@ form = EjercicioForm()
 #{{{ Controlador
 class EjercicioController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
-    require = identity.has_permission('admin')
+    require = identity.has_permission('entregar')
 
     entrega = EntregaController()
 
@@ -187,12 +187,14 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
         return dict(records=r, name=name, namepl=namepl, parcial=autor)
 
     @expose(template='kid:%s.templates.new' % __name__)
+    @identity.require(identity.has_permission('admin'))
     def new(self, **kw):
         """Create new records in model"""
         return dict(name=name, namepl=namepl, form=form, values=kw)
 
     @validate(form=form)
     @error_handler(new)
+    @identity.require(identity.has_permission('admin'))
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
@@ -201,6 +203,7 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.edit' % __name__)
+    @identity.require(identity.has_permission('admin'))
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
@@ -209,6 +212,7 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
     @validate(form=form)
     @error_handler(edit)
     @expose()
+    @identity.require(identity.has_permission('admin'))
     def update(self, id, **kw):
         """Save or create record to model"""
         r = validate_set(id, kw)
@@ -222,6 +226,7 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
         return dict(name=name, namepl=namepl, record=r)
 
     @expose()
+    @identity.require(identity.has_permission('admin'))
     def delete(self, id):
         """Destroy record in model"""
         validate_del(id)

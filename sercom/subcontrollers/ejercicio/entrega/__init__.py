@@ -74,7 +74,7 @@ form = EntregaForm()
 #{{{ Controlador
 class EntregaController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
-    require = identity.has_permission('admin')
+    require = identity.has_permission('entregar')
 
     @expose(template='kid:%s.templates.list' % __name__)
     @validate(validators=dict(ejercicio_id=V.Int))
@@ -85,6 +85,7 @@ class EntregaController(controllers.Controller, identity.SecureResource):
         return dict(records=r, name=name, namepl=namepl, parcial=str(ejercicio_id))
 
     @expose(template='kid:%s.templates.new' % __name__)
+    @identity.require(identity.has_permission('admin'))
     def new(self, ejercicio_id, **kw):
         """Create new records in model"""
         form.fields[6].attrs['value'] = ejercicio_id
@@ -93,6 +94,7 @@ class EntregaController(controllers.Controller, identity.SecureResource):
     @validate(form=form)
     @error_handler(new)
     @expose()
+    @identity.require(identity.has_permission('admin'))
     def create(self, ejercicio_id, **kw):
         """Save or create record to model"""
         e = Ejercicio.get(ejercicio_id)
@@ -101,6 +103,7 @@ class EntregaController(controllers.Controller, identity.SecureResource):
         raise redirect('/ejercicio/entrega/'+str(e.id))
 
     @expose()
+    @identity.require(identity.has_permission('admin'))
     def delete(self, id):
         """Destroy record in model"""
         r = validate_get(id)

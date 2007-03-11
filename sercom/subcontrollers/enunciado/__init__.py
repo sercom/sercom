@@ -79,7 +79,7 @@ form = EnunciadoForm()
 #{{{ Controlador
 class EnunciadoController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
-    require = identity.has_permission('admin')
+    require = identity.has_permission('entregar')
 
     @expose()
     def default(self, tg_errors=None):
@@ -102,6 +102,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         return dict(records=r, name=name, namepl=namepl, parcial=autor)
 
     @expose(template='kid:%s.templates.new' % __name__)
+    @identity.require(identity.has_permission('admin'))
     def new(self, **kw):
         """Create new records in model"""
         return dict(name=name, namepl=namepl, form=form, values=kw)
@@ -109,6 +110,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     @validate(form=form)
     @error_handler(new)
     @expose()
+    @identity.require(identity.has_permission('admin'))
     def create(self, archivo, **kw):
         """Save or create record to model"""
         kw['archivo'] = archivo.file.read()
@@ -119,6 +121,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.edit' % __name__)
+    @identity.require(identity.has_permission('admin'))
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
@@ -127,6 +130,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     @validate(form=form)
     @error_handler(edit)
     @expose()
+    @identity.require(identity.has_permission('admin'))
     def update(self, id, **kw):
         """Save or create record to model"""
         r = validate_set(id, kw)
@@ -144,6 +148,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         return dict(name=name, namepl=namepl, record=r)
 
     @expose()
+    @identity.require(identity.has_permission('admin'))
     def delete(self, id):
         """Destroy record in model"""
         r = validate_get(id)
@@ -160,6 +165,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         return r.archivo
 
     @expose("json")
+    @identity.require(identity.has_permission('admin'))
     def de_curso(self, curso_id):
         c = Curso.get(curso_id)
         e = Enunciado.selectByCurso(c)
