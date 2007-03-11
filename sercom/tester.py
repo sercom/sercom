@@ -302,11 +302,20 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
     options = dict(
         close_fds=True,
         stdin=None,
-        stdout=None,
-        stderr=None,
         shell=True,
         preexec_fn=SecureProcess(self, 'var/chroot_pepe', '/home/sercom/build')
     )
+    if self.guardar_stdouterr:
+        options['stdout'] = file('/tmp/sercom.tester.%s.stdouterr'
+            % comando_ejecutado.id, 'w') #TODO /var/lib/sercom?
+        options['stderr'] = sp.STDOUT
+    else:
+        if self.guardar_stdout:
+            options['stdout'] = file('/tmp/sercom.tester.%s.stdout'
+                % comando_ejecutado.id, 'w') #TODO /var/lib/sercom?
+        if self.guardar_stderr:
+            options['stderr'] = file('/tmp/sercom.tester.%s.stderr'
+                % comando_ejecutado.id, 'w') #TODO /var/lib/sercom?
     log.debug(_(u'Ejecutando como root: %s'), self.comando)
     os.seteuid(0) # Dios! (para chroot)
     os.setegid(0)
@@ -324,6 +333,21 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         raise
     proc.wait() #TODO un sleep grande nos caga todo, ver sercom viejo
     comando_ejecutado.fin = datetime.now()
+    buffer = StringIO()
+    zip = ZipFile(buffer, 'w')
+    if self.guardar_stdouterr:
+        zip.write('/tmp/sercom.tester.%s.stdouterr'
+            % comando_ejecutado.id, '__stdouterr__')
+    else:
+        if self.guardar_stdout:
+            azipwrite('/tmp/sercom.tester.%s.stdout'
+                % comando_ejecutado.id, '__stdout__')
+        if self.guardar_stderr:
+            zip.write('/tmp/sercom.tester.%s.stderr'
+                % comando_ejecutado.id, '__stderr__')
+    zip.close()
+    comando_ejecutado.archivos_guardados = buffer.getvalue()
+
 #    if no_anda_ejecucion: # TODO
 #        comando_ejecutado.exito = False
 #        comando_ejecutado.observaciones += 'No anduvo xxx' # TODO mas info
