@@ -111,10 +111,14 @@ class SecureProcess(object): #{{{
     uid = config.get('sercom.tester.chroot.user', 65534)
     MB = 1048576
     # XXX probar! make de un solo archivo lleva nproc=100 y nofile=15
-    def __init__(self, comando, chroot, cwd):
+    def __init__(self, comando, chroot, cwd, close_stdin=False,
+                 close_stdout=False, close_stderr=False):
         self.comando = comando
         self.chroot = chroot
         self.cwd = cwd
+        self.close_stdin = close_stdin
+        self.close_stdout = close_stdout
+        self.close_stderr = close_stderr
         log.debug('Proceso segurizado: chroot=%s, cwd=%s, user=%s, cpu=%s, '
             'as=%sMiB, fsize=%sMiB, nofile=%s, nproc=%s, memlock=%s',
             self.chroot, self.cwd, self.uid, self.max_tiempo_cpu,
@@ -126,6 +130,12 @@ class SecureProcess(object): #{{{
         return config.get('sercom.tester.limits.' + name, self.default[name])
     def __call__(self):
         x2 = lambda x: (x, x)
+        if self.close_stdin:
+            os.close(0)
+        if self.close_stdout:
+            os.close(1)
+        if self.close_stderr:
+            os.close(2)
         os.chroot(self.chroot)
         os.chdir(self.cwd)
         uinfo = UserInfo(self.uid)
@@ -308,23 +318,28 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         dict(__stdin__='/tmp/sercom.tester.%s.stdin' % comando_ejecutado.id)) # TODO /var/run/sercom
     options = dict(
         close_fds=True,
-        stdin=None,
         shell=True,
         preexec_fn=SecureProcess(self, 'var/chroot_pepe', '/home/sercom/build')
     )
     if os.path.exists('/tmp/sercom.tester.%s.stdin' % comando_ejecutado.id): # TODO
         options['stdin'] = file('/tmp/sercom.tester.%s.stdin' % comando_ejecutado.id, 'r') # TODO
+    else:
+        options['preexec_fn'].close_stdin = True
     if self.guardar_stdouterr:
         options['stdout'] = file('/tmp/sercom.tester.%s.stdouterr'
-            % comando_ejecutado.id, 'w') #TODO /var/lib/sercom?
+            % comando_ejecutado.id, 'w') #TODO /var/run/sercom?
         options['stderr'] = sp.STDOUT
     else:
         if self.guardar_stdout:
             options['stdout'] = file('/tmp/sercom.tester.%s.stdout'
-                % comando_ejecutado.id, 'w') #TODO /var/lib/sercom?
+                % comando_ejecutado.id, 'w') #TODO /run/lib/sercom?
+        else:
+            options['preexec_fn'].close_stdout = True
         if self.guardar_stderr:
             options['stderr'] = file('/tmp/sercom.tester.%s.stderr'
-                % comando_ejecutado.id, 'w') #TODO /var/lib/sercom?
+                % comando_ejecutado.id, 'w') #TODO /var/run/sercom?
+        else:
+            options['preexec_fn'].close_stderr = True
     log.debug(_(u'Ejecutando como root: %s'), self.comando)
     os.seteuid(0) # Dios! (para chroot)
     os.setegid(0)
