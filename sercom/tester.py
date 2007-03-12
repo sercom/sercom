@@ -388,6 +388,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
     comando_ejecutado.fin = datetime.now()
     buffer = StringIO()
     zip = ZipFile(buffer, 'w')
+    # Guardamos stdout/stderr
     if self.guardar_stdouterr:
         zip.write('/tmp/sercom.tester.%s.stdouterr'
             % comando_ejecutado.id, '__stdouterr__')
@@ -398,6 +399,16 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         if self.guardar_stderr:
             zip.write('/tmp/sercom.tester.%s.stderr'
                 % comando_ejecutado.id, '__stderr__')
+    # Guardamos otros
+    for f in self.archivos_a_guardar:
+        if not os.path.exists(join(path, f)):
+            comando_ejecutado.exito = False
+            comando_ejecutado.observaciones += _(u'Se esperaba un archivo "%s" pero no fue '
+                u'encontrado') % f
+            log.debug(_(u'Se esperaba un archivo "%s" pero no fue '
+                u'encontrado'), f)
+        else:
+            zip.write(join(path, f), f)
     zip.close()
     comando_ejecutado.archivos_guardados = buffer.getvalue()
 
