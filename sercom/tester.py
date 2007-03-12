@@ -330,17 +330,18 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         options['stdin'] = file('/tmp/sercom.tester.%s.stdin' % comando_ejecutado.id, 'r') # TODO
     else:
         options['preexec_fn'].close_stdin = True
-    if self.guardar_stdouterr:
+    a_guardar = set(self.archivos_a_guardar)
+    if self.STDOUTERR in a_guardar:
         options['stdout'] = file('/tmp/sercom.tester.%s.stdouterr'
             % comando_ejecutado.id, 'w') #TODO /var/run/sercom?
         options['stderr'] = sp.STDOUT
     else:
-        if self.guardar_stdout:
+        if self.STDOUT in a_guardar:
             options['stdout'] = file('/tmp/sercom.tester.%s.stdout'
                 % comando_ejecutado.id, 'w') #TODO /run/lib/sercom?
         else:
             options['preexec_fn'].close_stdout = True
-        if self.guardar_stderr:
+        if self.STDERR in a_guardar:
             options['stderr'] = file('/tmp/sercom.tester.%s.stderr'
                 % comando_ejecutado.id, 'w') #TODO /var/run/sercom?
         else:
@@ -364,6 +365,8 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
     if self.retorno != self.RET_ANY:
         if self.retorno == self.RET_FAIL:
             if proc.returncode == 0:
+                if self.rechazar_si_falla:
+                    entrega.correcta = False
                 comando_ejecutado.exito = False
                 comando_ejecutado.observaciones += _(u'Se esperaba que el '
                     u'programa termine con un error (código de retorno '
@@ -373,6 +376,8 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
                     u'con un error (código de retorno distinto de 0) pero '
                     u'terminó bien (código de retorno 0).\n'))
         elif self.retorno != proc.returncode:
+            if self.rechazar_si_falla:
+                entrega.correcta = False
             comando_ejecutado.exito = False
             if proc.returncode < 0:
                 comando_ejecutado.observaciones += _(u'Se esperaba terminar '
@@ -391,31 +396,41 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
     if comando_ejecutado.exito is None:
         log.debug(_(u'Código de retorno OK'))
     comando_ejecutado.fin = datetime.now()
-    buffer = StringIO()
-    zip = ZipFile(buffer, 'w')
-    # Guardamos stdout/stderr
-    if self.guardar_stdouterr:
-        zip.write('/tmp/sercom.tester.%s.stdouterr'
-            % comando_ejecutado.id, '__stdouterr__')
-    else:
-        if self.guardar_stdout:
-            zip.write('/tmp/sercom.tester.%s.stdout'
-                % comando_ejecutado.id, '__stdout__')
-        if self.guardar_stderr:
-            zip.write('/tmp/sercom.tester.%s.stderr'
-                % comando_ejecutado.id, '__stderr__')
-    # Guardamos otros
-    for f in self.archivos_a_guardar:
-        if not os.path.exists(join(path, f)):
-            comando_ejecutado.exito = False
-            comando_ejecutado.observaciones += _(u'Se esperaba un archivo "%s" pero no fue '
-                u'encontrado') % f
-            log.debug(_(u'Se esperaba un archivo "%s" pero no fue '
-                u'encontrado'), f)
+    if a_guardar:
+        buffer = StringIO()
+        zip = ZipFile(buffer, 'w')
+        # Guardamos stdout/stderr
+        if self.STDOUTERR in a_guardar:
+            a_guardar.remove(self.STDOUTERR)
+            zip.write('/tmp/sercom.tester.%s.stdouterr'
+                % comando_ejecutado.id, '__stdouterr__')
         else:
-            zip.write(join(path, f), f)
-    zip.close()
-    comando_ejecutado.archivos_guardados = buffer.getvalue()
+            if self.STDOUT in a_guardar:
+                a_guardar.remove(self.STDOUT)
+                zip.write('/tmp/sercom.tester.%s.stdout'
+                    % comando_ejecutado.id, '__stdout__')
+            if self.STDERR in a_guardar:
+                a_guardar.remove(self.STDERR)
+                zip.write('/tmp/sercom.tester.%s.stderr'
+                    % comando_ejecutado.id, '__stderr__')
+        # Guardamos otros
+        for f in a_guardar:
+            if not os.path.exists(join(path, f)):
+                if self.rechazar_si_falla:
+                    entrega.correcta = False
+                comando_ejecutado.exito = False
+                comando_ejecutado.observaciones += _(u'Se esperaba un archivo '
+                    u'"%s" pero no fue encontrado') % f
+                log.debug(_(u'Se esperaba un archivo "%s" pero no fue '
+                    u'encontrado'), f)
+            else:
+                zip.write(join(path, f), f)
+        zip.close()
+        comando_ejecutado.archivos_guardados = buffer.getvalue()
+    if comando_ejecutado.exito is None:
+        comando_ejecutado.exito = True
+    elif self.terminar_si_falla:
+        raise ExecutionFailure(self)
 
 #    if no_anda_ejecucion: # TODO
 #        comando_ejecutado.exito = False
@@ -439,8 +454,6 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
 #    else:
 #        comando_ejecutado.exito = True
 #        comando_ejecutado.observaciones += 'xxx OK' # TODO
-    comando_ejecutado.exito = True
-    comando_ejecutado.observaciones += 'xxx OK' # TODO
 ComandoFuente.ejecutar = ejecutar_comando_fuente
 #}}}
 

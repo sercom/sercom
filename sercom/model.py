@@ -357,15 +357,6 @@ class Comando(InheritableSQLObject): #{{{
                                                 # son casos especiales
     activo              = BoolCol(notNone=True, default=True)
 
-    def _get_guardar_stdout(self):
-        return self.STDOUT in self.archivos_a_guardar
-
-    def _get_guardar_stderr(self):
-        return self.STDERR in self.archivos_a_guardar
-
-    def _get_guardar_stdouterr(self):
-        return self.STDOUTERR in self.archivos_a_guardar
-
     def __repr__(self, clave='', mas=''):
         return ('%s(%s comando=%s, descripcion=%s, retorno=%s, '
             'max_tiempo_cpu=%s, max_memoria=%s, max_tam_archivo=%s, '
