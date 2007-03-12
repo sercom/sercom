@@ -165,10 +165,10 @@ class Tester(object): #{{{
         self.home = home
         self.queue = queue
         # Ahora somos mortales (oid mortales)
-        log.debug(_(u'Cambiando usuario y grupo efectivos a %s:%s (%s:%s)'),
-            user_info.user, user_info.group, user_info.uid, user_info.gid)
         os.setegid(user_info.gid)
         os.seteuid(user_info.uid)
+        log.debug(_(u'usuario y grupo efectivos cambiados a %s:%s (%s:%s)'),
+            user_info.user, user_info.group, user_info.uid, user_info.gid)
 
     @property
     def build_path(self):
@@ -235,10 +235,10 @@ class Tester(object): #{{{
         try:
             sp.check_call(rsync)
         finally:
-            log.debug(_(u'Cambiando usuario y grupo efectivos a %s:%s (%s:%s)'),
-                user_info.user, user_info.group, user_info.uid, user_info.gid)
             os.setegid(user_info.gid) # Mortal de nuevo
             os.seteuid(user_info.uid)
+            log.debug(_(u'Usuario y grupo efectivos cambiados a %s:%s (%s:%s)'),
+                user_info.user, user_info.group, user_info.uid, user_info.gid)
         unzip(entrega.archivos, self.build_path)
 
     def clean_chroot(self, entrega):
@@ -361,10 +361,10 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         try:
             proc = sp.Popen(self.comando, **options)
         finally:
-            log.debug(_(u'Cambiando usuario y grupo efectivos a %s:%s (%s:%s)'),
-                user_info.user, user_info.group, user_info.uid, user_info.gid)
             os.setegid(user_info.gid) # Mortal de nuevo
             os.seteuid(user_info.uid)
+            log.debug(_(u'Usuario y grupo efectivos cambiados a %s:%s (%s:%s)'),
+                user_info.user, user_info.group, user_info.uid, user_info.gid)
     except Exception, e:
         if hasattr(e, 'child_traceback'):
             log.error(_(u'Error en el hijo: %s'), e.child_traceback)
