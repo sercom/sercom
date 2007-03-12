@@ -349,6 +349,10 @@ class Comando(InheritableSQLObject): #{{{
     rechazar_si_falla   = BoolCol(notNone=True, default=True)
     archivos_entrada    = BLOBCol(default=None) # ZIP con archivos de entrada
                                                 # __stdin__ es caso especial
+                                                # Si un caso de prueba tiene
+                                                # comandos con stdin y el caso
+                                                # de prueba también tiene stdin
+                                                # se usa el stdin del comando.
     archivos_a_comparar = BLOBCol(default=None) # ZIP con archivos de salida
                                                 # __stdout__, __stderr__ y
                                                 # __stdouterr__ (ambos juntos)
