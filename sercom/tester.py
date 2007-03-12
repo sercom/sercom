@@ -209,10 +209,10 @@ class Tester(object): #{{{
             except Exception, e:
                 if isinstance(e, SystemExit): raise
                 entrega.observaciones += error_interno
-                log.exception(_(u'Hubo una excepción inesperada: %s'), e)
+                log.exception(_('Hubo una excepcion inesperada'))
             except:
                 entrega.observaciones += error_interno
-                log.exception(_(u'Hubo una excepción inesperada desconocida'))
+                log.exception(_('Hubo una excepcion inesperada desconocida'))
             else:
                 entrega.correcta = True
                 log.debug(_(u'Entrega correcta: %s'), entrega)
