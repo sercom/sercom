@@ -80,8 +80,6 @@ class ExecutionFailure(Error, RuntimeError): #{{{
         self.caso_de_prueba = caso_de_prueba
 #}}}
 
-class RsyncError(Error, EnvironmentError): pass
-
 #}}}
 
 def unzip(bytes, default_dst='.', specific_dst=dict()): # {{{
