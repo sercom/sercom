@@ -72,7 +72,12 @@ sp.CalledProcessError = CalledProcessError
 
 class Error(StandardError): pass
 
-class ExecutionFailure(Error, RuntimeError): pass
+class ExecutionFailure(Error, RuntimeError): #{{{
+    def __init__(self, comando, tarea=None, caso_de_prueba=None):
+        self.comando = comando
+        self.tarea = tarea
+        self.caso_de_prueba = caso_de_prueba
+#}}}
 
 class RsyncError(Error, EnvironmentError): pass
 
@@ -274,7 +279,7 @@ def ejecutar_caso_de_prueba(self, path, entrega): #{{{
             if self.rechazar_si_falla:
                 entrega.exito = False
             if self.terminar_si_falla:
-                raise ExecutionError(e.comando, e.tarea, prueba)
+                raise ExecutionFailure(e.comando, e.tarea, self)
         else:
             prueba.exito = True
     finally:
@@ -292,7 +297,7 @@ def ejecutar_tarea_fuente(self, path, entrega): #{{{
         if self.rechazar_si_falla:
             entrega.exito = False
         if self.terminar_si_falla:
-            raise ExecutionError(e.comando, tarea)
+            raise ExecutionFailure(e.comando, self)
 TareaFuente.ejecutar = ejecutar_tarea_fuente
 #}}}
 
@@ -306,7 +311,7 @@ def ejecutar_tarea_prueba(self, path, prueba): #{{{
         if self.rechazar_si_falla:
             prueba.exito = False
         if self.terminar_si_falla:
-            raise ExecutionError(e.comando, tarea)
+            raise ExecutionFailure(e.comando, self)
 TareaPrueba.ejecutar = ejecutar_tarea_prueba
 #}}}
 
