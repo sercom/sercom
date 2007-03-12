@@ -326,7 +326,7 @@ class TareaPrueba(Tarea): #{{{
 class Comando(InheritableSQLObject): #{{{
     # Tipos de retorno especiales
     RET_ANY = None
-    RET_FAIL = -1
+    RET_FAIL = -256
     # Archivos especiales
     STDIN = '__stdin__'
     STDOUT = '__stdout__'
@@ -335,7 +335,8 @@ class Comando(InheritableSQLObject): #{{{
     # Campos
     comando             = UnicodeCol(length=255, notNone=True)
     descripcion         = UnicodeCol(length=255, default=None)
-    retorno             = IntCol(default=None) # None es que no importa
+    retorno             = IntCol(default=None) # Ver RET_XXX y si es negativo
+                                               # se espera una señal
     max_tiempo_cpu      = IntCol(default=None) # En segundos
     max_memoria         = IntCol(default=None) # En MB
     max_tam_archivo     = IntCol(default=None) # En MB
