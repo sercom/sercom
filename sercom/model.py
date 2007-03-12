@@ -294,6 +294,7 @@ class Tarea(InheritableSQLObject): #{{{
 #}}}
 
 class TareaFuente(Tarea): #{{{
+    _inheritable = False
     # Joins
     comandos    = MultipleJoin('ComandoFuente', joinColumn='tarea_id')
 
@@ -309,6 +310,7 @@ class TareaFuente(Tarea): #{{{
 #}}}
 
 class TareaPrueba(Tarea): #{{{
+    _inheritable = False
     # Joins
     comandos    = MultipleJoin('ComandoPrueba', joinColumn='tarea_id')
 
@@ -374,6 +376,7 @@ class Comando(InheritableSQLObject): #{{{
 #}}}
 
 class ComandoFuente(Comando): #{{{
+    _inheritable = False
     # Clave
     tarea       = ForeignKey('TareaFuente', notNone=True, cascade=True)
     orden       = IntCol(notNone=True)
@@ -388,6 +391,7 @@ class ComandoFuente(Comando): #{{{
 #}}}
 
 class ComandoPrueba(Comando): #{{{
+    _inheritable = False
     RET_PRUEBA = -2 # Espera el mismo retorno que el de la prueba.
     # XXX todos los campos de limitación en este caso son multiplicadores para
     # los valores del caso de prueba.
@@ -453,6 +457,7 @@ class Enunciado(SQLObject): #{{{
 #}}}
 
 class CasoDePrueba(Comando): #{{{
+    _inheritable = False
     # Clave
     enunciado           = ForeignKey('Enunciado', cascade=True)
     nombre              = UnicodeCol(length=40, notNone=True)
@@ -811,6 +816,7 @@ class ComandoEjecutado(InheritableSQLObject): #{{{
 #}}}
 
 class ComandoFuenteEjecutado(ComandoEjecutado): #{{{
+    _inheritable = False
     # Clave
     comando = ForeignKey('ComandoFuente', notNone=True, cascade=False)
     entrega = ForeignKey('Entrega', notNone=True, cascade=False)
@@ -826,6 +832,7 @@ class ComandoFuenteEjecutado(ComandoEjecutado): #{{{
 #}}}
 
 class ComandoPruebaEjecutado(ComandoEjecutado): #{{{
+    _inheritable = False
     # Clave
     comando = ForeignKey('ComandoPrueba', notNone=True, cascade=False)
     prueba  = ForeignKey('Prueba', notNone=True, cascade=False)
@@ -842,6 +849,7 @@ class ComandoPruebaEjecutado(ComandoEjecutado): #{{{
 #}}}
 
 class Prueba(ComandoEjecutado): #{{{
+    _inheritable = False
     # Clave
     entrega             = ForeignKey('Entrega', notNone=True, cascade=False)
     caso_de_prueba      = ForeignKey('CasoDePrueba', notNone=True, cascade=False)
