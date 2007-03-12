@@ -320,7 +320,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         entrega.shortrepr())
     comando_ejecutado = entrega.add_comando_ejecutado(self)
     unzip(self.archivos_entrada, path, # TODO try/except
-        dict(__stdin__='/tmp/sercom.tester.%s.stdin' % comando_ejecutado.id)) # TODO /var/run/sercom
+        {self.STDIN: '/tmp/sercom.tester.%s.stdin' % comando_ejecutado.id}) # TODO /var/run/sercom
     options = dict(
         close_fds=True,
         shell=True,
@@ -403,16 +403,16 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         if self.STDOUTERR in a_guardar:
             a_guardar.remove(self.STDOUTERR)
             zip.write('/tmp/sercom.tester.%s.stdouterr'
-                % comando_ejecutado.id, '__stdouterr__')
+                % comando_ejecutado.id, self.STDOUTERR)
         else:
             if self.STDOUT in a_guardar:
                 a_guardar.remove(self.STDOUT)
                 zip.write('/tmp/sercom.tester.%s.stdout'
-                    % comando_ejecutado.id, '__stdout__')
+                    % comando_ejecutado.id, self.STDOUT)
             if self.STDERR in a_guardar:
                 a_guardar.remove(self.STDERR)
                 zip.write('/tmp/sercom.tester.%s.stderr'
-                    % comando_ejecutado.id, '__stderr__')
+                    % comando_ejecutado.id, self.STDERR)
         # Guardamos otros
         for f in a_guardar:
             if not os.path.exists(join(path, f)):
