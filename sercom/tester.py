@@ -79,7 +79,7 @@ class RsyncError(Error, EnvironmentError): pass
 #}}}
 
 def unzip(bytes, default_dst='.', specific_dst=dict()): # {{{
-    """Descomprime un buffer de datos en formato ZIP.
+    u"""Descomprime un buffer de datos en formato ZIP.
     Los archivos se descomprimen en default_dst a menos que exista una entrada
     en specific_dst cuya clave sea el nombre de archivo a descomprimir, en
     cuyo caso, se descomprime usando como destino el valor de dicha clave.
@@ -119,8 +119,8 @@ class SecureProcess(object): #{{{
         self.close_stdin = close_stdin
         self.close_stdout = close_stdout
         self.close_stderr = close_stderr
-        log.debug('Proceso segurizado: chroot=%s, cwd=%s, user=%s, cpu=%s, '
-            'as=%sMiB, fsize=%sMiB, nofile=%s, nproc=%s, memlock=%s',
+        log.debug(_(u'Proceso segurizado: chroot=%s, cwd=%s, user=%s, cpu=%s, '
+            u'as=%sMiB, fsize=%sMiB, nofile=%s, nproc=%s, memlock=%s'),
             self.chroot, self.cwd, self.uid, self.max_tiempo_cpu,
             self.max_memoria, self.max_tam_archivo, self.max_cant_archivos,
             self.max_cant_procesos, self.max_locks_memoria)
