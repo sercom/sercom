@@ -435,7 +435,6 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
                 zip.write(join(path, f), f)
         zip.close()
         comando_ejecutado.archivos_guardados = buffer.getvalue()
-        file('/tmp/guardado.zip', 'w').write(buffer.getvalue()) # XXX TODO FIXME sacar
     def diff(new, zip_in, zip_out, name, longname=None, origname='correcto',
              newname='entregado'):
         if longname is None:
@@ -492,36 +491,11 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
                 diff(join(path, f), zip_a_comparar, zip, f)
         zip.close()
         comando_ejecutado.archivos_guardados = buffer.getvalue()
-        file('/tmp/comparado.zip', 'w').write(buffer.getvalue()) # XXX TODO FIXME sacar
-
-
     if comando_ejecutado.exito is None:
         comando_ejecutado.exito = True
     elif self.terminar_si_falla:
         raise ExecutionFailure(self)
 
-#    if no_anda_ejecucion: # TODO
-#        comando_ejecutado.exito = False
-#        comando_ejecutado.observaciones += 'No anduvo xxx' # TODO mas info
-#        if self.rechazar_si_falla:
-#            entrega.exito = False
-#        if self.terminar_si_falla: # TODO
-#            raise ExecutionFailure(self)
-    # XXX ESTO EN REALIDAD EN COMANDOS FUENTE NO IRIA
-    # XXX SOLO HABRÍA QUE CAPTURAR stdout/stderr
-    # XXX PODRIA TENER ARCHIVOS DE SALIDA PERO SOLO PARA MOSTRAR COMO RESULTADO
-#    for archivo in self.archivos_salida:
-#        pass # TODO hacer diff
-#    if archivos_mal: # TODO
-#        comando_ejecutado.exito = False
-#        comando_ejecutado.observaciones += 'No anduvo xxx' # TODO mas info
-#        if self.rechazar_si_falla:
-#            entrega.exito = False
-#        if self.terminar_si_falla: # TODO
-#            raise ExecutionFailure(self)
-#    else:
-#        comando_ejecutado.exito = True
-#        comando_ejecutado.observaciones += 'xxx OK' # TODO
 ComandoFuente.ejecutar = ejecutar_comando_fuente
 #}}}
 
