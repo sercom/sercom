@@ -356,6 +356,35 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
             log.error(_(u'Error en el hijo: %s'), e.child_traceback)
         raise
     proc.wait() #TODO un sleep grande nos caga todo, ver sercom viejo
+    if self.retorno != self.RET_ANY:
+        if self.retorno == self.RET_FAIL:
+            if proc.returncode == 0:
+                comando_ejecutado.exito = False
+                comando_ejecutado.observaciones += _(u'Se esperaba que el '
+                    u'programa termine con un error (código de retorno '
+                    u'distinto de 0) pero terminó bien (código de retorno '
+                    u'0).\n')
+                log.debug(_(u'Se esperaba que el programa termine '
+                    u'con un error (código de retorno distinto de 0) pero '
+                    u'terminó bien (código de retorno 0).\n'))
+        elif self.retorno != proc.returncode:
+            comando_ejecutado.exito = False
+            if proc.returncode < 0:
+                comando_ejecutado.observaciones += _(u'Se esperaba terminar '
+                    u'con un código de retorno %s pero se obtuvo una señal %s '
+                    u'(%s).\n') % (self.retorno, -proc.returncode,
+                        -proc.returncode) # TODO poner con texto
+                log.debug(_(u'Se esperaba terminar con un código '
+                    u'de retorno %s pero se obtuvo una señal %s (%s).\n'),
+                    self.retorno, -proc.returncode, -proc.returncode)
+            else:
+                comando_ejecutado.observaciones += _(u'Se esperaba terminar '
+                    u'con un código de retorno %s pero se obtuvo %s.\n') \
+                    % (self.retorno, proc.returncode)
+                log.debug(_(u'Se esperaba terminar con un código de retorno '
+                    u'%s pero se obtuvo %s.\n'), self.retorno, proc.returncode)
+    if comando_ejecutado.exito is None:
+        log.debug(_(u'Código de retorno OK'))
     comando_ejecutado.fin = datetime.now()
     buffer = StringIO()
     zip = ZipFile(buffer, 'w')
