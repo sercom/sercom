@@ -320,15 +320,17 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
     log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s)'), path,
         entrega.shortrepr())
     comando_ejecutado = entrega.add_comando_ejecutado(self)
+    basetmp = '/tmp/sercom.tester.fuente' # FIXME TODO /var/run/sercom?
     unzip(self.archivos_entrada, path, # TODO try/except
-        {self.STDIN: '/tmp/sercom.tester.%s.stdin' % comando_ejecutado.id}) # TODO /var/run/sercom
+        {self.STDIN: '%s.%s.stdin' % (basetmp, comando_ejecutado.id)})
     options = dict(
         close_fds=True,
         shell=True,
         preexec_fn=SecureProcess(self, 'var/chroot_pepe', '/home/sercom/build')
     )
-    if os.path.exists('/tmp/sercom.tester.%s.stdin' % comando_ejecutado.id): # TODO
-        options['stdin'] = file('/tmp/sercom.tester.%s.stdin' % comando_ejecutado.id, 'r') # TODO
+    if os.path.exists('%s.%s.stdin' % (basetmp, comando_ejecutado.id)):
+        options['stdin'] = file('%s.%s.stdin' % (basetmp, comando_ejecutado.id),
+            'r')
     else:
         options['preexec_fn'].close_stdin = True
     a_guardar = set(self.archivos_a_guardar)
@@ -340,18 +342,18 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         a_comparar = frozenset()
     a_usar = frozenset(a_guardar | a_comparar)
     if self.STDOUTERR in a_usar:
-        options['stdout'] = file('/tmp/sercom.tester.%s.stdouterr'
-            % comando_ejecutado.id, 'w') #TODO /var/run/sercom?
+        options['stdout'] = file('%s.%s.stdouterr' % (basetmp,
+            comando_ejecutado.id), 'w')
         options['stderr'] = sp.STDOUT
     else:
         if self.STDOUT in a_usar:
-            options['stdout'] = file('/tmp/sercom.tester.%s.stdout'
-                % comando_ejecutado.id, 'w') #TODO /run/lib/sercom?
+            options['stdout'] = file('%s.%s.stdout' % (basetmp,
+                comando_ejecutado.id), 'w')
         else:
             options['preexec_fn'].close_stdout = True
         if self.STDERR in a_usar:
-            options['stderr'] = file('/tmp/sercom.tester.%s.stderr'
-                % comando_ejecutado.id, 'w') #TODO /var/run/sercom?
+            options['stderr'] = file('%s.%s.stderr' % (basetmp,
+                comando_ejecutado.id), 'w')
         else:
             options['preexec_fn'].close_stderr = True
     log.debug(_(u'Ejecutando como root: %s'), self.comando)
@@ -410,17 +412,17 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         # Guardamos stdout/stderr
         if self.STDOUTERR in a_guardar:
             a_guardar.remove(self.STDOUTERR)
-            zip.write('/tmp/sercom.tester.%s.stdouterr'
-                % comando_ejecutado.id, self.STDOUTERR)
+            zip.write('%s.%s.stdouterr' % (basetmp, comando_ejecutado.id),
+                self.STDOUTERR)
         else:
             if self.STDOUT in a_guardar:
                 a_guardar.remove(self.STDOUT)
-                zip.write('/tmp/sercom.tester.%s.stdout'
-                    % comando_ejecutado.id, self.STDOUT)
+                zip.write('%s.%s.stdout' % (basetmp, comando_ejecutado.id),
+                    self.STDOUT)
             if self.STDERR in a_guardar:
                 a_guardar.remove(self.STDERR)
-                zip.write('/tmp/sercom.tester.%s.stderr'
-                    % comando_ejecutado.id, self.STDERR)
+                zip.write('%s.%s.stderr' % (basetmp, comando_ejecutado.id),
+                    self.STDERR)
         # Guardamos otros
         for f in a_guardar:
             if not os.path.exists(join(path, f)):
@@ -465,17 +467,17 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         # Comparamos stdout/stderr
         if self.STDOUTERR in a_comparar:
             a_comparar.remove(self.STDOUTERR)
-            diff('/tmp/sercom.tester.%s.stdouterr' % comando_ejecutado.id,
+            diff('%s.%s.stdouterr' % (basetmp, comando_ejecutado.id),
                 zip_a_comparar, zip, self.STDOUTERR,
                 _(u'La salida estándar y de error combinada'))
         else:
             if self.STDOUT in a_comparar:
                 a_comparar.remove(self.STDOUT)
-                diff('/tmp/sercom.tester.%s.stdout' % comando_ejecutado.id,
+                diff('%s.%s.stdout' % (basetmp, comando_ejecutado.id),
                     zip_a_comparar, zip, self.STDOUT, _(u'La salida estándar'))
             if self.STDERR in a_comparar:
                 a_comparar.remove(self.STDERR)
-                diff('/tmp/sercom.tester.%s.stderr' % comando_ejecutado.id,
+                diff('%s.%s.stderr' % (basetmp, comando_ejecutado.id),
                     zip_a_comparar, zip, self.STDERR, _(u'La salida de error'))
         # Comparamos otros
         for f in a_comparar:
