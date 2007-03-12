@@ -25,9 +25,9 @@
         <td><span py:if="record.entregador" py:replace="record.entregador.shortrepr()">usuario</span></td>
         <td><span py:replace="record.instancia.ejercicio.enunciado.nombre">usuario</span></td>
         <td><span py:replace="record.instancia.shortrepr()">usuario</span></td>
-        <td><span py:replace="record.correcta">fecha asignado</span></td>
-        <td><span py:replace="record.inicio_tareas">fecha corregido</span></td>
-        <td><span py:replace="record.fin_tareas">fecha corregido</span></td>
+        <td><span py:replace="record.exito">fecha asignado</span></td>
+        <td><span py:replace="record.inicio">fecha corregido</span></td>
+        <td><span py:replace="record.fin">fecha corregido</span></td>
         <td><span py:replace="record.observaciones">nota</span></td>
 				<td>
 					<a href="${tg.url('/mis_entregas/corrida/%d' % record.id)}">Corrida</a>

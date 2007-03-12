@@ -200,7 +200,7 @@ class Tester(object): #{{{
 
     def test(self, entrega): #{{{
         log.debug(_(u'Tester.test(entrega=%s)'), entrega)
-        entrega.inicio_tareas = datetime.now()
+        entrega.inicio = datetime.now()
         try:
             try:
                 self.setup_chroot(entrega)
@@ -208,7 +208,7 @@ class Tester(object): #{{{
                 self.ejecutar_tareas_prueba(entrega)
                 self.clean_chroot(entrega)
             except ExecutionFailure, e:
-                entrega.correcta = False
+                entrega.exito = False
                 log.info(_(u'Entrega incorrecta: %s'), entrega)
             except Exception, e:
                 if isinstance(e, SystemExit): raise
@@ -218,10 +218,10 @@ class Tester(object): #{{{
                 entrega.observaciones += error_interno
                 log.exception(_('Hubo una excepcion inesperada desconocida')) # FIXME encoding
             else:
-                entrega.correcta = True
+                entrega.exito = True
                 log.debug(_(u'Entrega correcta: %s'), entrega)
         finally:
-            entrega.fin_tareas = datetime.now()
+            entrega.fin = datetime.now()
     #}}}
 
     def setup_chroot(self, entrega): #{{{ y clean_chroot()
@@ -375,7 +375,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         if self.retorno == self.RET_FAIL:
             if proc.returncode == 0:
                 if self.rechazar_si_falla:
-                    entrega.correcta = False
+                    entrega.exito = False
                 comando_ejecutado.exito = False
                 comando_ejecutado.observaciones += _(u'Se esperaba que el '
                     u'programa termine con un error (código de retorno '
@@ -386,7 +386,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
                     u'terminó bien (código de retorno 0).\n'))
         elif self.retorno != proc.returncode:
             if self.rechazar_si_falla:
-                entrega.correcta = False
+                entrega.exito = False
             comando_ejecutado.exito = False
             if proc.returncode < 0:
                 comando_ejecutado.observaciones += _(u'Se esperaba terminar '
@@ -425,7 +425,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         for f in a_guardar:
             if not os.path.exists(join(path, f)):
                 if self.rechazar_si_falla:
-                    entrega.correcta = False
+                    entrega.exito = False
                 comando_ejecutado.exito = False
                 comando_ejecutado.observaciones += _(u'Se esperaba un archivo '
                     u'"%s" para guardar pero no fue encontrado.\n') % f
@@ -434,7 +434,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
             else:
                 zip.write(join(path, f), f)
         zip.close()
-        comando_ejecutado.archivos_guardados = buffer.getvalue()
+        comando_ejecutado.archivos = buffer.getvalue()
     def diff(new, zip_in, zip_out, name, longname=None, origname='correcto',
              newname='entregado'):
         if longname is None:
@@ -445,7 +445,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
             tofile=name+'.'+newname)))
         if udiff:
             if self.rechazar_si_falla:
-                entrega.correcta = False
+                entrega.exito = False
             comando_ejecutado.exito = False
             comando_ejecutado.observaciones += _(u'%s no coincide con lo '
                 u'esperado (archivo "%s.diff").\n') % (longname, name)
@@ -481,7 +481,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         for f in a_comparar:
             if not os.path.exists(join(path, f)):
                 if self.rechazar_si_falla:
-                    entrega.correcta = False
+                    entrega.exito = False
                 comando_ejecutado.exito = False
                 comando_ejecutado.observaciones += _(u'Se esperaba un archivo '
                     u'"%s" para comparar pero no fue encontrado') % f
@@ -490,7 +490,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
             else:
                 diff(join(path, f), zip_a_comparar, zip, f)
         zip.close()
-        comando_ejecutado.archivos_guardados = buffer.getvalue()
+        comando_ejecutado.diferencias = buffer.getvalue()
     if comando_ejecutado.exito is None:
         comando_ejecutado.exito = True
     elif self.terminar_si_falla:

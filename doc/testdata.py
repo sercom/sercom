@@ -62,11 +62,11 @@ g2.add_miembro(ai2)
 # Entregas
 archivo_zip = file('doc/entrega.zip').read()
 ai1.add_entrega(ide, archivos=archivo_zip)
-entrega = ai2.add_entrega(ide, inicio_tareas=datetime.now(),
-    fin_tareas=datetime.now() + timedelta(0, 0, 1), correcta=True,
+entrega = ai2.add_entrega(ide, inicio=datetime.now(),
+    fin=datetime.now() + timedelta(0, 0, 1), exito=True,
     archivos=archivo_zip)
-entrega2 = g1.add_entrega(ide, inicio_tareas=datetime.now(),
-    fin_tareas=datetime.now() + timedelta(0, 0, 3), correcta=False,
+entrega2 = g1.add_entrega(ide, inicio=datetime.now(),
+    fin=datetime.now() + timedelta(0, 0, 3), exito=False,
     archivos=archivo_zip)
 d.add_entrega(ide, observaciones='Prueba de docente', archivos=archivo_zip)
 

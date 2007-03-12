@@ -724,18 +724,27 @@ class Miembro(SQLObject): #{{{
         return '%s-%s' % (self.alumno.shortrepr(), self.grupo.shortrepr())
 #}}}
 
-class Entrega(SQLObject): #{{{
+class Ejecucion(InheritableSQLObject): #{{{
+    # Campos
+    inicio          = DateTimeCol(notNone=True, default=DateTimeCol.now)
+    fin             = DateTimeCol(default=None)
+    exito           = IntCol(default=None)
+    observaciones   = UnicodeCol(notNone=True, default=u'')
+    archivos        = BLOBCol(default=None) # ZIP con archivos
+
+    def __repr__(self, clave='', mas=''):
+        return ('%s(%s inicio=%s, fin=%s, exito=%s, observaciones=%s%s)'
+            % (self.__class__.__name__, clave, self.inicio, self.fin,
+            self.exito, self.observaciones, mas))
+#}}}
+
+class Entrega(Ejecucion): #{{{
+    _inheritable = False
     # Clave
     instancia           = ForeignKey('InstanciaDeEntrega', notNone=True, cascade=False)
     entregador          = ForeignKey('Entregador', default=None, cascade=False) # Si es None era un Docente
     fecha               = DateTimeCol(notNone=True, default=DateTimeCol.now)
     pk                  = DatabaseIndex(instancia, entregador, fecha, unique=True)
-    # Campos
-    archivos            = BLOBCol(notNone=True) # ZIP con fuentes de la entrega
-    correcta            = BoolCol(default=None) # None es que no se sabe qué pasó
-    inicio_tareas       = DateTimeCol(default=None) # Si es None no se procesó
-    fin_tareas          = DateTimeCol(default=None) # Si es None pero inicio no, se está procesando
-    observaciones       = UnicodeCol(notNone=True, default=u'')
     # Joins
     comandos_ejecutados = MultipleJoin('ComandoFuenteEjecutado')
     pruebas             = MultipleJoin('Prueba')
@@ -759,11 +768,9 @@ class Entrega(SQLObject): #{{{
         Prueba.pk.get(self.id, caso_de_prueba).destroySelf()
 
     def __repr__(self):
-        return 'Entrega(id=%s, instancia=%s, entregador=%s, fecha=%s, ' \
-            'correcta=%s, inicio_tareas=%s, fin_tareas=%s, observaciones=%s)' \
-                % (self.id, self.instancia.shortrepr(), srepr(self.entregador),
-                    self.fecha, self.inicio_tareas, self.fin_tareas,
-                    self.correcta, self.observaciones)
+        return super(Entrega, self).__repr__('instancia=%s, entregador=%s, '
+            'fecha=%s' % (self.instancia.shortrepr(), srepr(self.entregador),
+                self.fecha))
 
     def shortrepr(self):
         return '%s-%s-%s' % (self.instancia.shortrepr(),
@@ -800,19 +807,12 @@ class Correccion(SQLObject): #{{{
         return '%s,%s' % (self.entrega.shortrepr(), self.corrector.shortrepr())
 #}}}
 
-class ComandoEjecutado(InheritableSQLObject): #{{{
+class ComandoEjecutado(Ejecucion): #{{{
     # Campos
-    inicio              = DateTimeCol(notNone=True, default=DateTimeCol.now)
-    fin                 = DateTimeCol(default=None)
-    exito               = IntCol(default=None)
-    archivos_comparados = BLOBCol(default=None) # ZIP con archivos diff
-    archivos_guardados  = BLOBCol(default=None) # ZIP con archivos guardados
-    observaciones       = UnicodeCol(notNone=True, default=u'')
+    diferencias = BLOBCol(default=None) # ZIP con archivos guardados
 
     def __repr__(self, clave='', mas=''):
-        return ('%s(%s inicio=%s, fin=%s, exito=%s, observaciones=%s%s)'
-            % (self.__class__.__name__, clave, self.inicio, self.fin,
-            self.exito, self.observaciones, mas))
+        return super(ComandoFuenteEjecutado, self).__repr__(clave, mas)
 #}}}
 
 class ComandoFuenteEjecutado(ComandoEjecutado): #{{{

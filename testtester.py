@@ -28,6 +28,6 @@ model.hub.rollback()
 #model.hub.commit()
 
 #model.hub.begin()
-#model.Entrega.get(5).correcta = True
+#model.Entrega.get(5).exito = True
 #model.hub.rollback()
 

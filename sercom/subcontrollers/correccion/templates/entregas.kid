@@ -20,8 +20,7 @@
     <tr py:for="record in records">
         <td><span py:replace="record.fecha">usuario</span></td>
 				<td align="center">
-					<span py:if="record.correcta">Si</span>
-					<span py:if="not record.correcta">No</span>
+					<span py:replace="tg.strbool(record.exito)">Si</span>
 				</td>
         <td><span py:replace="record.observaciones">fecha corregido</span></td>
 				<td>
@@ -38,8 +37,7 @@
 							<td>${i.inicio}</td>
 							<td>${i.fin}</td>
 							<td align="center">
-								<span py:if="i.exito">Si</span>
-								<span py:if="not i.exito">No</span>
+								<span py:replace="tg.strbool(i.exito)">Si</span>
 							</td>
 							<td>${i.observaciones}</td>
 						</tr>
