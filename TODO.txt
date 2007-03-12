@@ -4,6 +4,8 @@
     bullet-proof (un sleep(99999999) hace pinchar el sistema). Ver sercom viejo.
   * Hacer el finalizador de entregas (selección de entregas a corregir y round
     robbin para repartir tps).
+  * Poner advertencias (error?) si se sobreescriben archivos de la entrega del
+    alumno con archivos de entrada de los comandos (low priority).
 - Pensar/resolver password en ABM de Docente/Alumno
 - Terminar ABM simples:
   * Curso (nico)
