@@ -393,7 +393,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
             % comando_ejecutado.id, '__stdouterr__')
     else:
         if self.guardar_stdout:
-            azipwrite('/tmp/sercom.tester.%s.stdout'
+            zip.write('/tmp/sercom.tester.%s.stdout'
                 % comando_ejecutado.id, '__stdout__')
         if self.guardar_stderr:
             zip.write('/tmp/sercom.tester.%s.stderr'
