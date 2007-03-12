@@ -18,3 +18,6 @@
 - Hacer Informe bonito para pelu (un poco cada uno)
 - Ejercicio:
   * Poner una columna en el listado con la cantidad de entregas.
+- Arreglar encoding de logging. Probablemente haya que hacer un logger que
+  encodee en UTF-8 para que no sea todo un gran asco (esto es de way too baja
+  prioridad :).

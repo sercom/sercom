@@ -214,10 +214,10 @@ class Tester(object): #{{{
             except Exception, e:
                 if isinstance(e, SystemExit): raise
                 entrega.observaciones += error_interno
-                log.exception(_('Hubo una excepcion inesperada'))
+                log.exception(_('Hubo una excepcion inesperada')) # FIXME encoding
             except:
                 entrega.observaciones += error_interno
-                log.exception(_('Hubo una excepcion inesperada desconocida'))
+                log.exception(_('Hubo una excepcion inesperada desconocida')) # FIXME encoding
             else:
                 entrega.correcta = True
                 log.debug(_(u'Entrega correcta: %s'), entrega)
