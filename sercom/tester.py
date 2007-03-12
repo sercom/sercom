@@ -317,7 +317,7 @@ TareaPrueba.ejecutar = ejecutar_tarea_prueba
 def ejecutar_comando_fuente(self, path, entrega): #{{{
     log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s)'), path,
         entrega.shortrepr())
-    comando_ejecutado = entrega.add_comando_ejecutado(self)
+    comando_ejecutado = entrega.add_comando_ejecutado(self) # TODO debería rodear solo la ejecución del comando
     basetmp = '/tmp/sercom.tester.fuente' # FIXME TODO /var/run/sercom?
     unzip(self.archivos_entrada, path, # TODO try/except
         {self.STDIN: '%s.%s.stdin' % (basetmp, comando_ejecutado.id)})
@@ -370,6 +370,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
             log.error(_(u'Error en el hijo: %s'), e.child_traceback)
         raise
     proc.wait() #TODO un sleep grande nos caga todo, ver sercom viejo
+    comando_ejecutado.fin = datetime.now() # TODO debería rodear solo la ejecución del comando
     if self.retorno != self.RET_ANY:
         if self.retorno == self.RET_FAIL:
             if proc.returncode == 0:
@@ -403,7 +404,6 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
                     u'%s pero se obtuvo %s.\n'), self.retorno, proc.returncode)
     if comando_ejecutado.exito is None:
         log.debug(_(u'Código de retorno OK'))
-    comando_ejecutado.fin = datetime.now()
     if a_guardar:
         buffer = StringIO()
         zip = ZipFile(buffer, 'w')
