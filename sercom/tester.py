@@ -2,6 +2,7 @@
 
 from sercom.model import Entrega, CasoDePrueba
 from sercom.model import TareaFuente, TareaPrueba, ComandoFuente, ComandoPrueba
+from difflib import unified_diff, HtmlDiff
 from zipfile import ZipFile, BadZipfile
 from cStringIO import StringIO
 from shutil import rmtree
@@ -9,8 +10,8 @@ from datetime import datetime
 from os.path import join
 from turbogears import config
 import subprocess as sp
-import os, sys, pwd, grp
 import resource as rsrc
+import os, sys, pwd, grp
 import logging
 
 log = logging.getLogger('sercom.tester')
@@ -331,17 +332,24 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
     else:
         options['preexec_fn'].close_stdin = True
     a_guardar = set(self.archivos_a_guardar)
-    if self.STDOUTERR in a_guardar:
+    if self.archivos_a_comparar:
+        zip_a_comparar = ZipFile(StringIO(self.archivos_a_comparar), 'r')
+        a_comparar = set(zip_a_comparar.namelist())
+    else:
+        zip_a_comparar = None
+        a_comparar = frozenset()
+    a_usar = frozenset(a_guardar | a_comparar)
+    if self.STDOUTERR in a_usar:
         options['stdout'] = file('/tmp/sercom.tester.%s.stdouterr'
             % comando_ejecutado.id, 'w') #TODO /var/run/sercom?
         options['stderr'] = sp.STDOUT
     else:
-        if self.STDOUT in a_guardar:
+        if self.STDOUT in a_usar:
             options['stdout'] = file('/tmp/sercom.tester.%s.stdout'
                 % comando_ejecutado.id, 'w') #TODO /run/lib/sercom?
         else:
             options['preexec_fn'].close_stdout = True
-        if self.STDERR in a_guardar:
+        if self.STDERR in a_usar:
             options['stderr'] = file('/tmp/sercom.tester.%s.stderr'
                 % comando_ejecutado.id, 'w') #TODO /var/run/sercom?
         else:
@@ -420,13 +428,73 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
                     entrega.correcta = False
                 comando_ejecutado.exito = False
                 comando_ejecutado.observaciones += _(u'Se esperaba un archivo '
-                    u'"%s" pero no fue encontrado') % f
-                log.debug(_(u'Se esperaba un archivo "%s" pero no fue '
-                    u'encontrado'), f)
+                    u'"%s" para guardar pero no fue encontrado.\n') % f
+                log.debug(_(u'Se esperaba un archivo "%s" para guardar pero '
+                    u'no fue encontrado'), f)
             else:
                 zip.write(join(path, f), f)
         zip.close()
         comando_ejecutado.archivos_guardados = buffer.getvalue()
+        file('/tmp/guardado.zip', 'w').write(buffer.getvalue()) # XXX TODO FIXME sacar
+    def diff(new, zip_in, zip_out, name, longname=None, origname='correcto',
+             newname='entregado'):
+        if longname is None:
+            longname = name
+        new = file(new, 'r').readlines()
+        orig = zip_in.read(name).split('\n')
+        udiff = ''.join(list(unified_diff(orig, new, fromfile=name+'.'+origname,
+            tofile=name+'.'+newname)))
+        if udiff:
+            if self.rechazar_si_falla:
+                entrega.correcta = False
+            comando_ejecutado.exito = False
+            comando_ejecutado.observaciones += _(u'%s no coincide con lo '
+                u'esperado (archivo "%s.diff").\n') % (longname, name)
+            log.debug(_(u'%s no coincide con lo esperado (archivo "%s.diff")'),
+                longname, name)
+            htmldiff = HtmlDiff().make_file(orig, new,
+                fromdesc=name+'.'+origname, todesc=name+'.'+newname,
+                context=True, numlines=3)
+            zip_out.writestr(name + '.diff', udiff)
+            zip_out.writestr(name + '.diff.html', htmldiff)
+            return True
+        else:
+            return False
+    if a_comparar:
+        buffer = StringIO()
+        zip = ZipFile(buffer, 'w')
+        # Comparamos stdout/stderr
+        if self.STDOUTERR in a_comparar:
+            a_comparar.remove(self.STDOUTERR)
+            diff('/tmp/sercom.tester.%s.stdouterr' % comando_ejecutado.id,
+                zip_a_comparar, zip, self.STDOUTERR,
+                _(u'La salida estándar y de error combinada'))
+        else:
+            if self.STDOUT in a_comparar:
+                a_comparar.remove(self.STDOUT)
+                diff('/tmp/sercom.tester.%s.stdout' % comando_ejecutado.id,
+                    zip_a_comparar, zip, self.STDOUT, _(u'La salida estándar'))
+            if self.STDERR in a_comparar:
+                a_comparar.remove(self.STDERR)
+                diff('/tmp/sercom.tester.%s.stderr' % comando_ejecutado.id,
+                    zip_a_comparar, zip, self.STDERR, _(u'La salida de error'))
+        # Comparamos otros
+        for f in a_comparar:
+            if not os.path.exists(join(path, f)):
+                if self.rechazar_si_falla:
+                    entrega.correcta = False
+                comando_ejecutado.exito = False
+                comando_ejecutado.observaciones += _(u'Se esperaba un archivo '
+                    u'"%s" para comparar pero no fue encontrado') % f
+                log.debug(_(u'Se esperaba un archivo "%s" para comparar pero '
+                    u'no fue encontrado'), f)
+            else:
+                diff(join(path, f), zip_a_comparar, zip, f)
+        zip.close()
+        comando_ejecutado.archivos_guardados = buffer.getvalue()
+        file('/tmp/comparado.zip', 'w').write(buffer.getvalue()) # XXX TODO FIXME sacar
+
+
     if comando_ejecutado.exito is None:
         comando_ejecutado.exito = True
     elif self.terminar_si_falla:
