@@ -355,8 +355,9 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         raise
     proc.wait() #TODO un sleep grande nos caga todo, ver sercom viejo
     comando_ejecutado.fin = datetime.now() # TODO debería rodear solo la ejecución del comando
-    if self.retorno != self.RET_ANY:
-        if self.retorno == self.RET_FAIL:
+    retorno = self.retorno
+    if retorno != self.RET_ANY:
+        if retorno == self.RET_FAIL:
             if proc.returncode == 0:
                 if self.rechazar_si_falla:
                     entrega.exito = False
@@ -368,24 +369,23 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
                 log.debug(_(u'Se esperaba que el programa termine '
                     u'con un error (código de retorno distinto de 0) pero '
                     u'terminó bien (código de retorno 0).\n'))
-        elif self.retorno != proc.returncode:
+        elif retorno != proc.returncode:
             if self.rechazar_si_falla:
                 entrega.exito = False
             comando_ejecutado.exito = False
             if proc.returncode < 0:
                 comando_ejecutado.observaciones += _(u'Se esperaba terminar '
                     u'con un código de retorno %s pero se obtuvo una señal %s '
-                    u'(%s).\n') % (self.retorno, -proc.returncode,
-                        -proc.returncode) # TODO poner con texto
+                    u'(%s).\n') % (retorno, -proc.returncode, -proc.returncode) # TODO poner con texto
                 log.debug(_(u'Se esperaba terminar con un código '
                     u'de retorno %s pero se obtuvo una señal %s (%s).\n'),
-                    self.retorno, -proc.returncode, -proc.returncode)
+                    retorno, -proc.returncode, -proc.returncode)
             else:
                 comando_ejecutado.observaciones += _(u'Se esperaba terminar '
                     u'con un código de retorno %s pero se obtuvo %s.\n') \
-                    % (self.retorno, proc.returncode)
+                    % (retorno, proc.returncode)
                 log.debug(_(u'Se esperaba terminar con un código de retorno '
-                    u'%s pero se obtuvo %s.\n'), self.retorno, proc.returncode)
+                    u'%s pero se obtuvo %s.\n'), retorno, proc.returncode)
     if comando_ejecutado.exito is None:
         log.debug(_(u'Código de retorno OK'))
     if a_guardar:
@@ -559,8 +559,11 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
         raise
     proc.wait() #TODO un sleep grande nos caga todo, ver sercom viejo
     comando_ejecutado.fin_tareas = datetime.now() # TODO debería rodear solo la ejecución del comando
-    if self.retorno != self.RET_ANY:
-        if self.retorno == self.RET_FAIL:
+    retorno = self.retorno
+    if retorno == self.RET_PRUEBA:                # FIXME Esto es propio de ComandoPrueba
+        retorno = prueba.caso_de_prueba.retorno   # FIXME Esto es propio de ComandoPrueba
+    if retorno != self.RET_ANY:
+        if retorno == self.RET_FAIL:
             if proc.returncode == 0:
                 if self.rechazar_si_falla:
                     prueba.exito = False
@@ -572,24 +575,23 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
                 log.debug(_(u'Se esperaba que el programa termine '
                     u'con un error (código de retorno distinto de 0) pero '
                     u'terminó bien (código de retorno 0).\n'))
-        elif self.retorno != proc.returncode:
+        elif retorno != proc.returncode:
             if self.rechazar_si_falla:
                 prueba.exito = False
             comando_ejecutado.exito = False
             if proc.returncode < 0:
                 comando_ejecutado.observaciones += _(u'Se esperaba terminar '
                     u'con un código de retorno %s pero se obtuvo una señal %s '
-                    u'(%s).\n') % (self.retorno, -proc.returncode,
-                        -proc.returncode) # TODO poner con texto
+                    u'(%s).\n') % (retorno, -proc.returncode, -proc.returncode) # TODO poner con texto
                 log.debug(_(u'Se esperaba terminar con un código '
                     u'de retorno %s pero se obtuvo una señal %s (%s).\n'),
-                    self.retorno, -proc.returncode, -proc.returncode)
+                    retorno, -proc.returncode, -proc.returncode)
             else:
                 comando_ejecutado.observaciones += _(u'Se esperaba terminar '
                     u'con un código de retorno %s pero se obtuvo %s.\n') \
-                    % (self.retorno, proc.returncode)
+                    % (retorno, proc.returncode)
                 log.debug(_(u'Se esperaba terminar con un código de retorno '
-                    u'%s pero se obtuvo %s.\n'), self.retorno, proc.returncode)
+                    u'%s pero se obtuvo %s.\n'), retorno, proc.returncode)
     if comando_ejecutado.exito is None:
         log.debug(_(u'Código de retorno OK'))
     if a_guardar:
