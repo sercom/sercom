@@ -804,7 +804,7 @@ class Correccion(SQLObject): #{{{
     pk              = DatabaseIndex(instancia, entregador, unique=True)
     # Campos
     entrega         = ForeignKey('Entrega', notNone=True, cascade=False)
-    corrector       = ForeignKey('DocenteInscripto', default=None, cascade='null')
+    corrector       = ForeignKey('DocenteInscripto', notNone=True, cascade=False)
     asignado        = DateTimeCol(notNone=True, default=DateTimeCol.now)
     corregido       = DateTimeCol(default=None)
     nota            = DecimalCol(size=3, precision=1, default=None)
