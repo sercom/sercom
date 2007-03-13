@@ -12,8 +12,11 @@ from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Curso, AlumnoInscripto, Docente, Grupo, Alumno, Miembro
 from sqlobject import *
-
+from sqlobject.dberrors import *
 from sercom.widgets import *
+import logging
+
+log = logging.getLogger('sercom.tester')
 
 #}}}
 """ Administrador de grupos, mezclar, juntar, dividir"""
@@ -250,7 +253,7 @@ class GrupoAdminController(controllers.Controller, identity.SecureResource):
     def update(self, cursoid, **kw):
         """Save or create record to model"""
 
-        print kw
+        log.debug(kw)
         grupoAId = kw['listaGrupoA']
         grupoBId = kw['listaGrupoB']
         miembrosA = kw.get('grupos_from', [])
@@ -260,6 +263,8 @@ class GrupoAdminController(controllers.Controller, identity.SecureResource):
         tutoresA = kw.get('tutoresA', [])
         tutoresB = kw.get('tutoresB', [])
 
+        log.debug(miembrosA)
+        log.debug(miembrosB)
         """ levanto los grupos originales """
         grupoAorig = validate_get(int(grupoAId))
 
@@ -269,15 +274,26 @@ class GrupoAdminController(controllers.Controller, identity.SecureResource):
             if str(mA.alumno.id) not in miembrosA:
                 grupoAorig.remove_miembro(mA.alumno.id)
 
-        for a in miembrosA:
-            try:
-                grupoA = Grupo.get(grupoAId)
-                grupoA.add_miembro(a)
-            except:
-                continue
+        try:
+            grupoA = validate_get(grupoAId)
+            for a in miembrosA:
+                try:
+                    grupoA.add_miembro(a, baja=None)
+                except DuplicateEntryError:
+                    continue
+        except Exception, e:
+            flash(_(u'Error A %s.' % e))
+            raise redirect('/grupo/list')
         # seteo el reponsable del grupo
         if int(responsableA) != 0:
             grupoA.responsable = AlumnoInscripto.get(int(responsableA))
+
+        for t in tutoresA:
+            try:
+                grupoA.add_tutor(int(t))
+            except:
+                #TODO ver por que no anda el duplicate error, por ahora cacheo silencioso
+                pass
 
 
         #Elimino el grupo si quedo vacio
@@ -304,19 +320,33 @@ class GrupoAdminController(controllers.Controller, identity.SecureResource):
             for mB in Miembro.selectBy(grupo=grupoBorig, baja=None):
                 if str(mB.alumno.id) not in miembrosB:
                     grupoBorig.remove_miembro(mB.alumno.id)
-            for b in miembrosB:
-                try:
-                    grupoB = Grupo.get(grupoBId)
-                    grupoB.add_miembro(b)
-                except:
-                    continue
+            try:
+                grupoB = validate_get(grupoBId)
+                for b in miembrosB:
+                    try:
+                        grupoB.add_miembro(b, baja=None)
+                    except DuplicateEntryError:
+                        continue
+            except Exception, e:
+                flash(_(u'Error B %s.' % e))
+                raise redirect('/grupo/list')
             # seteo el reponsable del grupo
             if int(responsableB) != 0:
                 grupoB.responsable = AlumnoInscripto.get(int(responsableB))
 
             #Elimino el grupo si quedo vacio
             if len(miembrosB) == 0:
-                validate_del(grupoBId)
+                try:
+                    validate_del(grupoBId)
+                except:
+                    pass
+
+            for t in tutoresB:
+                try:
+                    grupoB.add_tutor(int(t))
+                except:
+                    #TODO ver por que no anda el duplicate error, por ahora cahceo silencioso
+                    pass
 
 
         flash(_(u'Los grupos fueron actualizado.'))
