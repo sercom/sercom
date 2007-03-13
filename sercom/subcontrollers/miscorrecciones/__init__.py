@@ -28,6 +28,8 @@ class MisCorreccionesController(controllers.Controller, identity.SecureResource)
     """Basic model admin interface"""
     require = identity.has_permission('entregar')
 
+    hide_to_admin = 1
+
     @expose()
     def default(self, tg_errors=None):
         """handle non exist urls"""
