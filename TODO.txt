@@ -1,5 +1,5 @@
 - Backend (luca)
-  * Implementar casos de prueba.
+  * Probar circuito de casos de prueba.
   * Hacer un control del límite de tiempo que un subproceso puede tomar más
     bullet-proof (un sleep(99999999) hace pinchar el sistema). Ver sercom viejo.
   * Hacer el finalizador de entregas (selección de entregas a corregir y round
