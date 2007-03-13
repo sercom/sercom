@@ -783,6 +783,10 @@ class Entrega(Ejecucion): #{{{
         # FIXME self.id, caso_de_prueba
         Prueba.pk.get(self.id, caso_de_prueba).destroySelf()
 
+    def make_correccion(self, corrector, **kw):
+        return Correccion(instancia=self.instancia, entregador=self.entregador,
+            entrega=self, corrector=corrector, **kw)
+
     def __repr__(self):
         return super(Entrega, self).__repr__('instancia=%s, entregador=%s, '
             'fecha=%s' % (self.instancia.shortrepr(), srepr(self.entregador),
