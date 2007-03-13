@@ -521,6 +521,7 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
     else:
         options['preexec_fn'].close_stdin = True
     a_guardar = set(self.archivos_a_guardar)
+    a_guardar |= set(prueba.caso_de_prueba.archivos_a_guardar) # FIXME Esto es propio de ComandoPrueba
     if self.archivos_a_comparar:
         zip_a_comparar = ZipFile(StringIO(self.archivos_a_comparar), 'r')
         a_comparar = set(zip_a_comparar.namelist())
