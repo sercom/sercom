@@ -34,7 +34,7 @@
     </tr>
     <tr>
         <th>Observaciones:</th>
-	<td><span py:replace="XML(record.observaciones)">observaciones</span></td>
+	<td><span py:replace="record.observaciones">observaciones</span></td>
     </tr>
 </table>
 
