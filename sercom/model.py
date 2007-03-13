@@ -348,14 +348,23 @@ class Comando(InheritableSQLObject): #{{{
     archivos_entrada    = BLOBCol(default=None) # ZIP con archivos de entrada
                                                 # __stdin__ es caso especial
                                                 # Si un caso de prueba tiene
-                                                # comandos con stdin y el caso
-                                                # de prueba también tiene stdin
-                                                # se usa el stdin del comando.
+                                                # comandos que tiene algún
+                                                # archivo de entrada (incluyendo
+                                                # stdin) con los propios, se usa
+                                                # el archivo del caso de prueba,
+                                                # no del comando.
     archivos_a_comparar = BLOBCol(default=None) # ZIP con archivos de salida
                                                 # __stdout__, __stderr__ y
                                                 # __stdouterr__ (ambos juntos)
                                                 # son casos especiales
-    archivos_a_guardar  = TupleCol(notNone=True, default=()) # TODO SetCol
+                                                # Si un caso de prueba tiene
+                                                # comandos que tiene algún
+                                                # archivo a comparar (incluyendo
+                                                # stdout/err) con los propios,
+                                                # se compara contra el archivo
+                                                # del caso de prueba, no del
+                                                # comando.
+    archivos_a_guardar  = TupleCol(notNone=True, default=()) # TODO FrozenSetCol
                                                 # __stdout__, __stderr__ y
                                                 # __stdouterr__ (ambos juntos)
                                                 # son casos especiales

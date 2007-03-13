@@ -520,11 +520,11 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
         os.seteuid(user_info.uid)
         log.debug(_(u'Usuario y grupo efectivos cambiados a %s:%s (%s:%s)'),
             user_info.user, user_info.group, user_info.uid, user_info.gid)
-    unzip(caso_de_prueba.archivos_entrada, path, # TODO try/except
-        {self.STDIN: '%s.%s.stdin' % (basetmp, comando_ejecutado.id)})
     #}}}
     unzip(self.archivos_entrada, path, # TODO try/except
         {self.STDIN: '%s.%s.stdin' % (basetmp, comando_ejecutado.id)})
+    unzip(caso_de_prueba.archivos_entrada, path, # TODO try/except     # FIXME Esto es propio de ComandoPrueba
+        {self.STDIN: '%s.%s.stdin' % (basetmp, comando_ejecutado.id)}) # FIXME Esto es propio de ComandoPrueba
     options = dict(
         close_fds=True,
         shell=True,
@@ -536,9 +536,9 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
     else:
         options['preexec_fn'].close_stdin = True
     a_guardar = set(self.archivos_a_guardar)
-    a_guardar |= set(caso_de_prueba.archivos_a_guardar) # FIXME Esto es propio de ComandoPrueba
-    zip_a_comparar = Multizip(self.archivos_a_comparar,
-        caso_de_prueba.archivos_a_comparar)             # FIXME Esto es propio de ComandoPrueba
+    a_guardar |= set(caso_de_prueba.archivos_a_guardar)           # FIXME Esto es propio de ComandoPrueba
+    zip_a_comparar = Multizip(caso_de_prueba.archivos_a_comparar, # FIXME Esto es propio de ComandoPrueba
+        self.archivos_a_comparar)                                 # FIXME Esto es propio de ComandoPrueba
     a_comparar = set(zip_a_comparar.namelist())
     a_usar = frozenset(a_guardar | a_comparar)
     if self.STDOUTERR in a_usar:
