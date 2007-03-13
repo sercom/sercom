@@ -650,7 +650,7 @@ class Grupo(Entregador): #{{{
     @classmethod
     def selectByAlumno(self, alumno):
         return Miembro.select(AND(Miembro.q.alumnoID == AlumnoInscripto.q.id,
-                AlumnoInscripto.q.alumnoID == alumno.id))
+                AlumnoInscripto.q.alumnoID == alumno.id, Miembro.q.baja == None))
 
     def shortrepr(self):
         return 'grupo:' + self.nombre

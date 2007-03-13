@@ -37,6 +37,7 @@
         <td><a py:if="len(record.ejercicios)" href="${tg.url('/ejercicio/list')}"><span py:replace="len(record.ejercicios)">Ejercicio</span></a></td>
         <td><a href="${tg.url('/curso/show/%d' % record.id)}">Ver</a>
             <a href="${tg.url('/curso/edit/%d' % record.id)}">Editar</a>
+            <a href="${tg.url('/curso/notas/%d' % record.id)}">Notas</a>
             <a href="${tg.url('/curso/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>
 </table>
