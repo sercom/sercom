@@ -9,25 +9,40 @@ import turbogears.i18n
 __builtins__._ = turbogears.i18n.plain_gettext # Nada de gettext lazy
 #}}}
 
-from sercom.tester import *
-from sercom import model
-from Queue import Queue
+from sercom.tester import Tester
+from sercom.model import Entrega, hub
 from os.path import join
+from datetime import datetime
+import time
+import logging
+
+log = logging.getLogger('sercom.tester')
+
+class Queue(object):
+    def __init__(self):
+        self.go_on = True
+    def get(self):
+        while self.go_on:
+            try:
+                hub.begin()
+                try:
+                    e = Entrega.selectBy(inicio=None).orderBy(Entrega.q.fecha)[0]
+                    e.inicio = datetime.now()
+                finally:
+                    hub.commit()
+                return e.id
+            except IndexError:
+                log.debug(_(u'No hay entregas pendientes'))
+                time.sleep(5) # TODO config?
+            except Exception, e:
+                if isinstance(e, SystemExit):
+                    raise
+                log.exception('Queue: ')
+        return None
 
 q = Queue()
-
-q.put(1)
-#q.put(5)
-q.put(None)
 
 tester = Tester(name='pepe', path='var', home=join('home', 'sercom'), queue=q)
 
 tester.run()
-
-model.hub.rollback()
-#model.hub.commit()
-
-#model.hub.begin()
-#model.Entrega.get(5).exito = True
-#model.hub.rollback()
 
