@@ -403,7 +403,7 @@ class ComandoPrueba(Comando): #{{{
     pk                  = DatabaseIndex(tarea, orden, unique=True)
 
     def __repr__(self):
-        return super(ComandoFuente, self).__repr__('tarea=%s, orden=%s'
+        return super(ComandoPrueba, self).__repr__('tarea=%s, orden=%s'
             % (self.tarea.shortrepr(), self.orden))
 
     def shortrepr(self):
