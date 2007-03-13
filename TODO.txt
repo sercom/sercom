@@ -17,6 +17,9 @@
 - Hacer archivos de prueba para las cargas masivas (nico)
 - Hacer Informe bonito para pelu (un poco cada uno)
 - Agregar ABM de Tareas y Comandos, actualizar ABM de CasoDePrueba.
+- Verificar al agregar casos de prueba o comandos que no hayan archivos en
+  archivos_entrada y archivos_a_comparar que se repitan (o al menos advertir al
+  respecto).
 - Ejercicio:
   * Poner una columna en el listado con la cantidad de entregas.
 - Arreglar encoding de logging. Probablemente haya que hacer un logger que
