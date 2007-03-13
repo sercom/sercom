@@ -394,7 +394,7 @@ class ComandoFuente(Comando): #{{{
 
 class ComandoPrueba(Comando): #{{{
     _inheritable = False
-    RET_PRUEBA = -2 # Espera el mismo retorno que el de la prueba.
+    RET_PRUEBA = -257 # Espera el mismo retorno que el de la prueba.
     # XXX todos los campos de limitación en este caso son multiplicadores para
     # los valores del caso de prueba.
     # Clave
