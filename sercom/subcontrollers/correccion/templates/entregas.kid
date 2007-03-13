@@ -16,6 +16,7 @@
         <th width="5%" title="Correcta?">Ok?</th>
         <th width="25%">Observaciones</th>
         <th width="50%">Comandos Ejecutadas</th>
+        <th width="10%">Operaciones</th>
     </tr>
     <tr py:for="record in records">
         <td><span py:replace="record.fecha">usuario</span></td>
@@ -27,6 +28,9 @@
 						<ul>
 							<li py:for="i in record.comandos_ejecutados" py:content="i.shortrepr()" />
 						</ul>
+				</td>
+				<td>
+					<a href="${tg.url('/mis_entregas/get_archivo/%d' % record.id)}">Bajar Archivo</a>
 				</td>
     </tr>
 </table>
