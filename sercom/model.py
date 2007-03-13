@@ -830,7 +830,7 @@ class ComandoFuenteEjecutado(ComandoEjecutado): #{{{
                 self.entrega.shortrepr()))
 
     def shortrepr(self):
-        return '%s-%s' % (self.tarea.shortrepr(), self.entrega.shortrepr())
+        return '%s-%s' % (self.comando.shortrepr(), self.entrega.shortrepr())
 #}}}
 
 class ComandoPruebaEjecutado(ComandoEjecutado): #{{{
