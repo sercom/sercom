@@ -670,6 +670,10 @@ class AlumnoInscripto(Entregador): #{{{
     membresias          = MultipleJoin('Miembro', joinColumn='alumno_id')
     entregas            = MultipleJoin('Entrega', joinColumn='alumno_id')
     correcciones        = MultipleJoin('Correccion', joinColumn='alumno_id')
+    # Notas de la cursada
+    nota_practica       = DecimalCol(size=3, precision=1, default=None)
+    nota_final          = DecimalCol(size=3, precision=1, default=None)
+    nota_libreta        = DecimalCol(size=3, precision=1, default=None)
 
     def _get_nombre(self):
         return self.alumno.padron

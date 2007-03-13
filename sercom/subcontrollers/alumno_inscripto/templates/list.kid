@@ -27,6 +27,7 @@
         <td><a py:if="record.tutor" href="${tg.url('/docente/show/%d' % record.tutor.id)}" py:content="record.tutor.shortrepr()">Tutor</a></td>
 				<td>
 					<a href="${tg.url('/alumno_inscripto/show/%d' % record.id)}">Ver</a>
+					<a href="${tg.url('/alumno_inscripto/notas/%d' % record.id)}">Notas</a>
 				</td>
     </tr>
 </table>

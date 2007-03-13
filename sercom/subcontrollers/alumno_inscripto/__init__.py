@@ -35,14 +35,11 @@ def validate_new(data):
 #{{{ Formulario
 class AlumnoInscriptoForm(W.TableForm):
     class Fields(W.WidgetsList):
-        linstancia = W.Label(label=_(u'Instancia de Entrega'))
-        lentregador = W.Label(label=_(u'Entregador'))
-        lentrega = W.Label(label=_(u'Entrega'))
-        lcorrector = W.Label(label=_(u'Corrector'))
-        nota = W.TextField(label=_(u'Nota'), validator=V.Number(not_empty=True, strip=True))
-        observaciones = W.TextArea(label=_(u'Observaciones'), validator=V.UnicodeString(not_empty=False, strip=True))
+        nota_practica = W.TextField(label=_(u'Nota Practica'), validator=V.Number(not_empty=True, strip=True))
+        nota_final = W.TextField(label=_(u'Nota Final'), validator=V.Number(not_empty=True, strip=True))
+        nota_libreta = W.TextField(label=_(u'Nota Libreta'), validator=V.Number(not_empty=True, strip=True))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_instancia');")]
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nota_practica');")]
 
 def get_cursos():
     return [(0, u'---')] + [(fk1.id, fk1.shortrepr()) for fk1 in Curso.select()]
@@ -81,26 +78,18 @@ class AlumnoInscriptoController(controllers.Controller, identity.SecureResource)
             r = cls.select(cls.q.cursoID == cursoID)
         return dict(records=r, name=name, namepl=namepl, form=filtro, vfilter=vfilter)
 
-    @expose(template='kid:%s.templates.edit' % __name__)
-    def edit(self, id, **kw):
+    @expose(template='kid:%s.templates.notas' % __name__)
+    def notas(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
-        r.linstancia = r.instancia.shortrepr()
-        r.lentregador = r.entregador.shortrepr()
-        r.lentrega = r.entrega.shortrepr()
-        r.lcorrector = r.corrector.shortrepr()
         return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
-    @error_handler(edit)
+    @error_handler(notas)
     @expose()
     def update(self, id, **kw):
         """Save or create record to model"""
-        from sqlobject import DateTimeCol
-        r = Correccion.get(id)
-        r.nota = kw['nota']
-        r.observaciones = kw['observaciones']
-        r.corregido = DateTimeCol.now()
+        r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')
 
@@ -110,11 +99,5 @@ class AlumnoInscriptoController(controllers.Controller, identity.SecureResource)
         r = validate_get(id)
         return dict(name=name, namepl=namepl, record=r)
 
-    @expose(template='kid:%s.templates.entregas' % __name__)
-    @paginate('records')
-    def entregas(self, id):
-        r = validate_get(id)
-        return dict(records=r.entregas, correccion = id)
-        
 #}}}
 
