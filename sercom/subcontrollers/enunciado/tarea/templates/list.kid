@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>Tareas de <span py:replace="enunciado">Objetos</span></h1>
+<h1>Tareas de "<span py:replace="enunciado.nombre">Objetos</span>"</h1>
 
 <table class="list">
     <tr>

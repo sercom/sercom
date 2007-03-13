@@ -33,7 +33,7 @@
 						py:replace="tg.summarize(record.autor.shortrepr(), 30)">autor</span>
 				</td>
         <td py:if="'admin' in identity.current.permissions"><a py:if="len(record.tareas)"
-                href="${tg.url('/enunciado/tarea/list', enunciado=record.id)}"><span
+                href="${tg.url('/enunciado/tarea/list/%d' % record.id)}"><span
                     py:replace="len(record.tareas)">cant</span></a></td>
         <td py:if="'admin' in identity.current.permissions"><a py:if="len(record.casos_de_prueba)"
                 href="${tg.url('/caso_de_prueba/list', enunciado=record.id)}"><span
