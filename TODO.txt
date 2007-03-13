@@ -1,9 +1,9 @@
 - Backend (luca)
-  * Probar circuito de casos de prueba.
-  * Hacer un control del límite de tiempo que un subproceso puede tomar más
-    bullet-proof (un sleep(99999999) hace pinchar el sistema). Ver sercom viejo.
+  * Mergear archivos a comparar de prueba y comando.
   * Hacer el finalizador de entregas (selección de entregas a corregir y round
     robbin para repartir tps).
+  * Hacer un control del límite de tiempo que un subproceso puede tomar más
+    bullet-proof (un sleep(99999999) hace pinchar el sistema). Ver sercom viejo.
   * Poner advertencias (error?) si se sobreescriben archivos de la entrega del
     alumno con archivos de entrada de los comandos (low priority).
 - Pensar/resolver password en ABM de Docente/Alumno
@@ -17,6 +17,7 @@
 - Hacer DB con datos de prueba (nico)
 - Hacer archivos de prueba para las cargas masivas (nico)
 - Hacer Informe bonito para pelu (un poco cada uno)
+- Agregar ABM de Tareas y Comandos, actualizar ABM de CasoDePrueba.
 - Ejercicio:
   * Poner una columna en el listado con la cantidad de entregas.
 - Arreglar encoding de logging. Probablemente haya que hacer un logger que
