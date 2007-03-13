@@ -140,10 +140,14 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
     @expose()
     def create(self, archivo, ejercicio, **kw):
         """Save or create record to model"""
+        archivo = archivo.file.read()
         try:
-            zfile = ZipFile(archivo.file)
+            zfile = ZipFile(StringIO(archivo), 'r')
         except BadZipfile:
-            flash(_(u'El archivo ZIP no es valido'))
+            flash(_(u'El archivo ZIP no es válido'))
+            raise redirect('list')
+        if zfile.testzip() is not None:
+            flash(_(u'El archivo ZIP tiene errores de CRC'))
             raise redirect('list')
 
         # por defecto el entregador es el user loggeado
@@ -171,7 +175,7 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
                 raise redirect('list')
 
             entregador = m.grupo
-        kw['archivos'] = archivo.file.read()
+        kw['archivos'] = archivo
         kw['entregador'] = entregador
         validate_new(kw)
         flash(_(u'Se creó una nueva %s.') % name)

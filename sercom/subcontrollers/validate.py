@@ -51,3 +51,4 @@ def validate_del(cls, name, id):
     except Exception, e:
         flash(_(u'No se pudo eliminar el %s: %s' % (name, e)))
         raise redirect('../list')
+
