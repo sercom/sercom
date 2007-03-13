@@ -69,16 +69,16 @@ entrega2 = g1.add_entrega(ide, inicio=datetime.now(),
 d.add_entrega(ide, observaciones='Prueba de docente', archivos=archivo_zip)
 
 # Comandos ejecutados / pruebas
-cpe = entrega.add_comando_ejecutado(cf, exito=True,
-    fin=datetime(2007, 2, 25, 10, 13, 34),
-    inicio=datetime(2007, 2, 25, 10, 12, 34))
-p = entrega.add_prueba(cp1)
-p.add_comando_ejecutado(cp)
+#cpe = entrega.add_comando_ejecutado(cf, exito=True,
+#    fin=datetime(2007, 2, 25, 10, 13, 34),
+#    inicio=datetime(2007, 2, 25, 10, 12, 34))
+#p = entrega.add_prueba(cp1)
+#p.add_comando_ejecutado(cp)
 
 # Correcciones
-di.add_correccion(entrega, asignado=datetime(2007, 1, 19), nota=7.5,
-    corregido=datetime.now(), observaciones=u'Le faltó un punto')
-di.add_correccion(entrega2)
+#di.add_correccion(entrega, asignado=datetime(2007, 1, 19), nota=7.5,
+#    corregido=datetime.now(), observaciones=u'Le faltó un punto')
+#di.add_correccion(entrega2)
 
 __connection__.hub.commit()
 
