@@ -15,7 +15,7 @@
 				<th width="20%">Fecha</th>
         <th width="5%" title="Correcta?">Ok?</th>
         <th width="25%">Observaciones</th>
-        <th width="50%">Tareas Ejecutadas</th>
+        <th width="50%">Comandos Ejecutadas</th>
     </tr>
     <tr py:for="record in records">
         <td><span py:replace="record.fecha">usuario</span></td>
@@ -24,24 +24,9 @@
 				</td>
         <td><span py:replace="record.observaciones">fecha corregido</span></td>
 				<td>
-					<table width="100%;">
-						<tr>
-							<th><strong>Tarea</strong></th>
-							<th><strong>Desde</strong></th>
-							<th><strong>Hasta</strong></th>
-							<th><strong>Correcta</strong></th>
-							<th><strong>Obs</strong></th>
-						</tr>
-						<tr py:for="i in record.tareas">
-							<td >${i.tarea.shortrepr()}</td>
-							<td>${i.inicio}</td>
-							<td>${i.fin}</td>
-							<td align="center">
-								<span py:replace="tg.strbool(i.exito)">Si</span>
-							</td>
-							<td>${i.observaciones}</td>
-						</tr>
-					</table>
+						<ul>
+							<li py:for="i in record.comandos_ejecutados" py:content="i.shortrepr()" />
+						</ul>
 				</td>
     </tr>
 </table>
