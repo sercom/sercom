@@ -375,5 +375,55 @@ class CursoController(controllers.Controller, identity.SecureResource):
             col["NL"] = i.nota_libreta
             rows.append(col)
         return dict(curso=r, rows=rows, cols=cols)
+
+    @expose()
+    def notascsv(self, cursoid):
+        r = validate_get(cursoid)
+        # Armo las columnas del listado
+        cols = ["Padron", "Nombre", "Grupo"]
+        # Ejercicios
+        for ej in r.ejercicios:
+            for ins in ej.instancias:
+                print "E"+str(ej.numero)+str(ins.numero)
+                cols.append("E"+str(ej.numero)+str(ins.numero))
+        cols.append("EA")
+        cols.append("NP")
+        cols.append("NF")
+        cols.append("NL")
+
+        rows = []
+        for i in r.alumnos:
+            col = []
+            col.append(i.alumno.padron)
+            col.append(i.alumno.nombre)
+            miembro = Grupo.selectByAlumno(i.alumno)
+            if miembro.count() > 0:
+                col.append(miembro[0].grupo.shortrepr())
+            correctas = 0
+            for ej in r.ejercicios:
+                for ins in ej.instancias:
+                    if ej.grupal:
+                        # Busco la correccion del grupo
+                        g = Grupo.selectByAlumno(i.alumno).getOne()
+                        c = Correccion.selectBy(instancia=ins, entregador=g.grupo)
+                    else:
+                        # Busco la correccion del alumno
+                        c = Correccion.selectBy(instancia=ins, entregador=i)
+                    if c.count() > 0:
+                        col.append(str(c[0].nota))
+                        if c[0].nota > 7:
+                            correctas += 1
+                    else:
+                        col.append("")
+            col.append(str(correctas))
+            col.append(str(i.nota_practica))
+            col.append(str(i.nota_final))
+            col.append(str(i.nota_libreta))
+            rows.append(col)
+        s = ",".join(cols) + "\n"
+        for i in rows:
+            s = s + ",".join(i) + "\n"
+        
+        return s
 #}}}
 
