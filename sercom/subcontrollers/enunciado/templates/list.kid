@@ -17,6 +17,7 @@
         <th>Nombre</th>
         <th>Descripción</th>
         <th>Autor</th>
+        <th py:if="'admin' in identity.current.permissions">Tareas</th>
         <th py:if="'admin' in identity.current.permissions" title="Casos de Prueba">CP</th>
         <th>Operaciones</th>
     </tr>
@@ -31,6 +32,9 @@
 					<span py:if="'admin' not in identity.current.permissions and record.autorID is not None"
 						py:replace="tg.summarize(record.autor.shortrepr(), 30)">autor</span>
 				</td>
+        <td py:if="'admin' in identity.current.permissions"><a py:if="len(record.tareas)"
+                href="${tg.url('/enunciado/tarea/list', enunciado=record.id)}"><span
+                    py:replace="len(record.tareas)">cant</span></a></td>
         <td py:if="'admin' in identity.current.permissions"><a py:if="len(record.casos_de_prueba)"
                 href="${tg.url('/caso_de_prueba/list', enunciado=record.id)}"><span
                     py:replace="len(record.casos_de_prueba)">cant</span></a></td>
