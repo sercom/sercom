@@ -9,6 +9,8 @@
 
 <h1>Administración de <span py:replace="namepl">Objetos</span></h1>
 
+<div py:replace="form(value=vfilter, action=tg.url('/grupo/list'),	submit_text=_(u'Filtrar'))">Filtros</div>
+
 <table class="list">
     <tr>
         <th>Curso</th>

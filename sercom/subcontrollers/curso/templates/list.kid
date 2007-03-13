@@ -33,7 +33,7 @@
         <td><span py:replace="record.descripcion">descripcion</span></td>
         <td><a py:if="len(record.docentes)" href="${tg.url('/docente/list')}"><span py:replace="len(record.docentes)">Docentes</span></a></td>
         <td><a py:if="len(record.alumnos)"  href="${tg.url('/alumno_inscripto/list/%d' % record.id)}"><span py:replace="len(record.alumnos)">Alumnos</span></a></td>
-        <td><a py:if="len(record.grupos)"  href="${tg.url('/grupo/list')}"><span py:replace="len(record.grupos)">Grupos</span></a></td>
+        <td><a py:if="len(record.grupos)"  href="${tg.url('/grupo/list/%d' % record.id)}"><span py:replace="len(record.grupos)">Grupos</span></a></td>
         <td><a py:if="len(record.ejercicios)" href="${tg.url('/ejercicio/list')}"><span py:replace="len(record.ejercicios)">Ejercicio</span></a></td>
         <td><a href="${tg.url('/curso/show/%d' % record.id)}">Ver</a>
             <a href="${tg.url('/curso/edit/%d' % record.id)}">Editar</a>

@@ -153,6 +153,15 @@ class GrupoForm(W.TableForm):
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('curso');"), W.JSSource(ajax)]
     form_attrs = dict(onsubmit='return onsubmit()')
 
+def get_cursos():
+    return [(0, u'---')] + [(fk1.id, fk1.shortrepr()) for fk1 in Curso.select()]
+
+class GrupoFiltros(W.TableForm):
+    class Fields(W.WidgetsList):
+        cursoID = W.SingleSelectField(label=_(u'Curso'), options = get_cursos, validator = V.Int(not_empty=True))
+    fields = Fields()
+
+filtro = GrupoFiltros()
 form = GrupoForm()
 
 #}}}
@@ -173,10 +182,14 @@ class GrupoController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.list' % __name__)
     @paginate('records')
-    def list(self):
+    def list(self, cursoID = 0):
         """List records in model"""
-        r = cls.select()
-        return dict(records=r, name=name, namepl=namepl)
+        vfilter = dict(cursoID = cursoID)
+        if int(cursoID) == 0:
+            r = cls.select()
+        else:
+            r = cls.select(cls.q.cursoID == cursoID)
+        return dict(records=r, name=name, namepl=namepl, form=filtro, vfilter=vfilter)
 
     @expose()
     def activate(self, id, activo):
