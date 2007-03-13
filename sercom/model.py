@@ -468,7 +468,7 @@ class CasoDePrueba(Comando): #{{{
     pruebas             = MultipleJoin('Prueba')
 
     def __repr__(self):
-        return super(ComandoFuente, self).__repr__('enunciado=%s, nombre=%s'
+        return super(CasoDePrueba, self).__repr__('enunciado=%s, nombre=%s'
             % (srepr(self.enunciado), self.nombre))
 
     def shortrepr(self):
@@ -818,7 +818,7 @@ class ComandoEjecutado(Ejecucion): #{{{
     diferencias = BLOBCol(default=None) # ZIP con archivos guardados
 
     def __repr__(self, clave='', mas=''):
-        return super(ComandoFuenteEjecutado, self).__repr__(clave, mas)
+        return super(ComandoEjecutado, self).__repr__(clave, mas)
 #}}}
 
 class ComandoFuenteEjecutado(ComandoEjecutado): #{{{
