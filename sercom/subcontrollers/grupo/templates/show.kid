@@ -33,7 +33,7 @@
         <th>Integrantes:</th>
 				<td>
 					<span py:for="a in record.miembros">
-						<span py:replace="a.alumno.shortrepr()" />
+						<a href="${tg.url('/alumno_inscripto/show/%d' % a.alumno.id)}" py:content="a.alumno.shortrepr()" />
 						<br />
 					</span>		
 				</td>
