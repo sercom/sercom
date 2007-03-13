@@ -741,7 +741,7 @@ class Miembro(SQLObject): #{{{
 
 class Ejecucion(InheritableSQLObject): #{{{
     # Campos
-    inicio          = DateTimeCol(notNone=True, default=DateTimeCol.now)
+    inicio          = DateTimeCol(default=None)
     fin             = DateTimeCol(default=None)
     exito           = IntCol(default=None)
     observaciones   = UnicodeCol(notNone=True, default=u'')

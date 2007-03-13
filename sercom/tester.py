@@ -288,7 +288,7 @@ def ejecutar_caso_de_prueba(self, path, entrega): #{{{
         entrega.shortrepr())
     tareas = [t for t in entrega.instancia.ejercicio.enunciado.tareas
                 if isinstance(t, TareaPrueba)]
-    prueba = entrega.add_prueba(self)
+    prueba = entrega.add_prueba(self, inicio=datetime.now())
     try:
         try:
             for tarea in tareas:
@@ -319,7 +319,7 @@ Tarea.ejecutar = ejecutar_tarea
 def ejecutar_comando_fuente(self, path, entrega): #{{{
     log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s)'), path,
         entrega.shortrepr())
-    comando_ejecutado = entrega.add_comando_ejecutado(self) # TODO debería rodear solo la ejecución del comando
+    comando_ejecutado = entrega.add_comando_ejecutado(self)
     basetmp = '/tmp/sercom.tester.fuente' # FIXME TODO /var/run/sercom?
     unzip(self.archivos_entrada, path, # TODO try/except
         {self.STDIN: '%s.%s.stdin' % (basetmp, comando_ejecutado.id)})
@@ -353,6 +353,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         else:
             options['preexec_fn'].close_stderr = True
     comando = self.comando # FIXME Acá tiene que diferenciarse de ComandoPrueba
+    comando_ejecutado.inicio = datetime.now()
     log.debug(_(u'Ejecutando como root: %s'), comando)
     os.seteuid(0) # Dios! (para chroot)
     os.setegid(0)
@@ -369,7 +370,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
             log.error(_(u'Error en el hijo: %s'), e.child_traceback)
         raise
     proc.wait() #TODO un sleep grande nos caga todo, ver sercom viejo
-    comando_ejecutado.fin = datetime.now() # TODO debería rodear solo la ejecución del comando
+    comando_ejecutado.fin = datetime.now()
     retorno = self.retorno
     if retorno != self.RET_ANY:
         if retorno == self.RET_FAIL:
@@ -504,7 +505,7 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
     log.debug(_(u'ComandoPrueba.ejecutar(path=%s, prueba=%s)'), path,
         prueba.shortrepr())
     caso_de_prueba = prueba.caso_de_prueba
-    comando_ejecutado = prueba.add_comando_ejecutado(self) # TODO debería rodear solo la ejecución del comando
+    comando_ejecutado = prueba.add_comando_ejecutado(self)
     basetmp = '/tmp/sercom.tester.prueba' # FIXME TODO /var/run/sercom?
     #{{{ Código que solo va en ComandoPrueba (setup de directorio)
     rsync = ('rsync', '--stats', '--itemize-changes', '--human-readable',
@@ -557,6 +558,7 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
         else:
             options['preexec_fn'].close_stderr = True
     comando = self.comando + ' ' + caso_de_prueba.comando # FIXME Esto es propio de ComandoPrueba
+    comando_ejecutado.inicio = datetime.now()
     log.debug(_(u'Ejecutando como root: %s'), comando)
     os.seteuid(0) # Dios! (para chroot)
     os.setegid(0)
@@ -573,7 +575,7 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
             log.error(_(u'Error en el hijo: %s'), e.child_traceback)
         raise
     proc.wait() #TODO un sleep grande nos caga todo, ver sercom viejo
-    comando_ejecutado.fin_tareas = datetime.now() # TODO debería rodear solo la ejecución del comando
+    comando_ejecutado.fin = datetime.now()
     retorno = self.retorno
     if retorno == self.RET_PRUEBA:                # FIXME Esto es propio de ComandoPrueba
         retorno = caso_de_prueba.retorno   # FIXME Esto es propio de ComandoPrueba
