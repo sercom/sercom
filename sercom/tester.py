@@ -338,12 +338,13 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
                 comando_ejecutado.id), 'w')
         else:
             options['preexec_fn'].close_stderr = True
-    log.debug(_(u'Ejecutando como root: %s'), self.comando)
+    comando = self.comando # FIXME Acá tiene que diferenciarse de ComandoPrueba
+    log.debug(_(u'Ejecutando como root: %s'), comando)
     os.seteuid(0) # Dios! (para chroot)
     os.setegid(0)
     try:
         try:
-            proc = sp.Popen(self.comando, **options)
+            proc = sp.Popen(comando, **options)
         finally:
             os.setegid(user_info.gid) # Mortal de nuevo
             os.seteuid(user_info.uid)
@@ -542,12 +543,13 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
                 comando_ejecutado.id), 'w')
         else:
             options['preexec_fn'].close_stderr = True
-    log.debug(_(u'Ejecutando como root: %s'), self.comando)
+    comando = self.comando + ' ' + prueba.caso_de_prueba.comando # FIXME Esto es propio de ComandoPrueba
+    log.debug(_(u'Ejecutando como root: %s'), comando)
     os.seteuid(0) # Dios! (para chroot)
     os.setegid(0)
     try:
         try:
-            proc = sp.Popen(self.comando, **options)
+            proc = sp.Popen(comando, **options)
         finally:
             os.setegid(user_info.gid) # Mortal de nuevo
             os.seteuid(user_info.uid)
