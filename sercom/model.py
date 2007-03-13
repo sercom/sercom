@@ -281,8 +281,6 @@ class Tarea(InheritableSQLObject): #{{{
     nombre              = UnicodeCol(length=30, alternateID=True)
     # Campos
     descripcion         = UnicodeCol(length=255, default=None)
-    terminar_si_falla   = BoolCol(notNone=True, default=True)
-    rechazar_si_falla   = BoolCol(notNone=True, default=True)
     # Joins
     enunciados          = RelatedJoin('Enunciado', addRemoveName='_enunciado')
 

@@ -12,15 +12,13 @@ d = Docente(usuario='luca', nombre=u'Leandro Lucarella', password='luca',
 a = Alumno(padron='77891', nombre='Tito Puente', password='77891', roles=[r2])
 
 # Tareas y comandos
-tf = TareaFuente(nombre='Compilar C con Makefile',
-    terminar_si_falla=True, rechazar_si_falla=True)
+tf = TareaFuente(nombre='Compilar C con Makefile')
 cf = tf.add_comando(1, 'make tito', retorno=0, max_cant_archivos=15,
     max_cant_procesos=200, terminar_si_falla=True, rechazar_si_falla=True,
     archivos_a_guardar=('__stdouterr__',),
     descripcion='Compila un programa en C con make ' \
     'sin usar un Makefile (debe ser un solo archivo que se llame tito.c)')
-tp = TareaPrueba(nombre='Probar', terminar_si_falla=True,
-    rechazar_si_falla=True)
+tp = TareaPrueba(nombre='Probar')
 cp = tp.add_comando(1, retorno=0, terminar_si_falla=True,
     rechazar_si_falla=True, descripcion='Prueba normalmente, sin filtros')
 

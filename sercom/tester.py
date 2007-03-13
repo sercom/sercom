@@ -1,7 +1,7 @@
 # vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker:
 
-from sercom.model import Entrega, CasoDePrueba
-from sercom.model import TareaFuente, TareaPrueba, ComandoFuente, ComandoPrueba
+from sercom.model import Entrega, CasoDePrueba, Tarea, TareaFuente, TareaPrueba
+from sercom.model import ComandoFuente, ComandoPrueba
 from difflib import unified_diff, HtmlDiff
 from zipfile import ZipFile, BadZipfile
 from cStringIO import StringIO
@@ -286,33 +286,15 @@ def ejecutar_caso_de_prueba(self, path, entrega): #{{{
 CasoDePrueba.ejecutar = ejecutar_caso_de_prueba
 #}}}
 
-def ejecutar_tarea_fuente(self, path, entrega): #{{{
-    log.debug(_(u'TareaFuente.ejecutar(path=%s, entrega=%s)'), path,
-        entrega.shortrepr())
-    try:
-        for cmd in self.comandos:
-            cmd.ejecutar(path, entrega)
-    except ExecutionFailure, e:
-        if self.rechazar_si_falla:
-            entrega.exito = False
-        if self.terminar_si_falla:
-            raise ExecutionFailure(e.comando, self)
-TareaFuente.ejecutar = ejecutar_tarea_fuente
+def ejecutar_tarea(self, path, ejecucion): #{{{
+    log.debug(_(u'Tarea.ejecutar(path=%s, ejecucion=%s)'), path,
+        ejecucion.shortrepr())
+    for cmd in self.comandos:
+        cmd.ejecutar(path, ejecucion)
+Tarea.ejecutar = ejecutar_tarea
 #}}}
 
-def ejecutar_tarea_prueba(self, path, prueba): #{{{
-    log.debug(_(u'TareaPrueba.ejecutar(path=%s, prueba=%s)'), path,
-        prueba.shortrepr())
-    try:
-        for cmd in self.comandos:
-            cmd.ejecutar(path, prueba)
-    except ExecutionFailure, e:
-        if self.rechazar_si_falla:
-            prueba.exito = False
-        if self.terminar_si_falla:
-            raise ExecutionFailure(e.comando, self)
-TareaPrueba.ejecutar = ejecutar_tarea_prueba
-#}}}
+# TODO generalizar ejecutar_comando_xxxx!!!
 
 def ejecutar_comando_fuente(self, path, entrega): #{{{
     log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s)'), path,
