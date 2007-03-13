@@ -15,6 +15,7 @@ from curso_alumno import *
 from sqlobject import *
 from sqlobject.dberrors import *
 from sercom.widgets import *
+from alumno import AlumnoInscriptoController
 #}}}
 
 #{{{ Configuración
@@ -168,6 +169,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_permission('admin')
     curso_alumno = CursoAlumnoController()
+    alumno = AlumnoInscriptoController()
 
     @expose()
     def default(self, tg_errors=None):

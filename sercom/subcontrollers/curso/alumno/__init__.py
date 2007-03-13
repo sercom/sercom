@@ -44,12 +44,6 @@ class AlumnoInscriptoForm(W.TableForm):
 def get_cursos():
     return [(0, u'---')] + [(fk1.id, fk1.shortrepr()) for fk1 in Curso.select()]
 
-class AlumnoInscriptoFiltros(W.TableForm):
-    class Fields(W.WidgetsList):
-        cursoID = W.SingleSelectField(label=_(u'Curso'), options = get_cursos, validator = V.Int(not_empty=True))
-    fields = Fields()
-
-filtro = AlumnoInscriptoFiltros()
 form = AlumnoInscriptoForm()
 #}}}
 
@@ -71,33 +65,36 @@ class AlumnoInscriptoController(controllers.Controller, identity.SecureResource)
     @paginate('records')
     def list(self, cursoID = 0):
         """List records in model"""
-        vfilter = dict(cursoID = cursoID)
-        if int(cursoID) == 0:
-            r = cls.select()
+        cursoID = int(cursoID)
+        if cursoID == 0:
+            raise redirect('..')
         else:
             r = cls.select(cls.q.cursoID == cursoID)
-        return dict(records=r, name=name, namepl=namepl, form=filtro, vfilter=vfilter)
+        return dict(records=r, name=name, namepl=namepl, cursoid=cursoID)
 
     @expose(template='kid:%s.templates.notas' % __name__)
-    def notas(self, id, **kw):
+    def notas(self, id, cursoID, **kw):
         """Edit record in model"""
+        cursoID = int(cursoID)
         r = validate_get(id)
-        return dict(name=name, namepl=namepl, record=r, form=form)
+        return dict(name=name, namepl=namepl, record=r, form=form, cursoid=cursoID)
 
     @validate(form=form)
     @error_handler(notas)
     @expose()
-    def update(self, id, **kw):
+    def update(self, id, cursoID, **kw):
         """Save or create record to model"""
+        cursoID = int(cursoID)
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
-        raise redirect('../list')
+        raise redirect('../list/%d' % cursoID)
 
     @expose(template='kid:%s.templates.show' % __name__)
-    def show(self,id, **kw):
+    def show(self,id,cursoID, **kw):
         """Show record in model"""
+        cursoID = int(cursoID)
         r = validate_get(id)
-        return dict(name=name, namepl=namepl, record=r)
+        return dict(name=name, namepl=namepl, record=r, cursoid=cursoID)
 
 #}}}
 
