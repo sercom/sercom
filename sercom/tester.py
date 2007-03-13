@@ -208,8 +208,7 @@ class Tester(object): #{{{
                 self.ejecutar_tareas_prueba(entrega)
                 self.clean_chroot(entrega)
             except ExecutionFailure, e:
-                entrega.exito = False
-                log.info(_(u'Entrega incorrecta: %s'), entrega)
+                pass
             except Exception, e:
                 if isinstance(e, SystemExit): raise
                 entrega.observaciones += error_interno
@@ -217,11 +216,14 @@ class Tester(object): #{{{
             except:
                 entrega.observaciones += error_interno
                 log.exception(_('Hubo una excepcion inesperada desconocida')) # FIXME encoding
-            else:
-                entrega.exito = True
-                log.debug(_(u'Entrega correcta: %s'), entrega)
         finally:
             entrega.fin = datetime.now()
+            if entrega.exito is None:
+                entrega.exito = True
+            if entrega.exito:
+                log.info(_(u'Entrega correcta: %s'), entrega)
+            else:
+                log.info(_(u'Entrega incorrecta: %s'), entrega)
     #}}}
 
     def setup_chroot(self, entrega): #{{{ y clean_chroot()
@@ -274,15 +276,15 @@ def ejecutar_caso_de_prueba(self, path, entrega): #{{{
             for tarea in tareas:
                 tarea.ejecutar(path, prueba)
         except ExecutionFailure, e:
-            prueba.exito = False
-            if self.rechazar_si_falla:
-                entrega.exito = False
-            if self.terminar_si_falla:
-                raise ExecutionFailure(e.comando, e.tarea, self)
-        else:
-            prueba.exito = True
+            pass
     finally:
         prueba.fin = datetime.now()
+        if prueba.exito is None:
+            prueba.exito = True
+    if not prueba.exito and self.rechazar_si_falla:
+        entrega.exito = False
+    if not prueba.exito and self.terminar_si_falla:
+        raise ExecutionFailure(prueba)
 CasoDePrueba.ejecutar = ejecutar_caso_de_prueba
 #}}}
 
