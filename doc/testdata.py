@@ -59,8 +59,7 @@ g2.add_miembro(ai2)
 
 # Entregas
 archivo_zip = file('doc/entrega.zip').read()
-ai1.add_entrega(ide, archivos=archivo_zip)
-entrega = ai2.add_entrega(ide, inicio=datetime.now(),
+entrega = g2.add_entrega(ide, inicio=datetime.now(),
     fin=datetime.now() + timedelta(0, 0, 1), exito=True,
     archivos=archivo_zip)
 entrega2 = g1.add_entrega(ide, inicio=datetime.now(),
