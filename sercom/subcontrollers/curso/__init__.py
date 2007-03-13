@@ -354,7 +354,15 @@ class CursoController(controllers.Controller, identity.SecureResource):
             correctas = 0
             for ej in r.ejercicios:
                 for ins in ej.instancias:
-                    c = Correccion.selectBy(instancia=ins, entregador=i)
+                    if ej.grupal:
+                        # Busco la correccion del grupo
+                        g = Grupo.selectByAlumno(i.alumno).getOne()
+                        c = Correccion.selectBy(instancia=ins, entregador=g.grupo)
+                        print "  ", list(c)
+                    else:
+                        print "Alumno"
+                        # Busco la correccion del alumno
+                        c = Correccion.selectBy(instancia=ins, entregador=i)
                     if c.count() > 0:
                         col["E"+str(ej.numero)+str(ins.numero)] = c[0].nota
                         if c[0].nota > 7:
