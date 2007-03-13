@@ -103,6 +103,24 @@ def unzip(bytes, default_dst='.', specific_dst=dict()): # {{{
     zfile.close()
 #}}}
 
+class Multizip(object): #{{{
+    def __init__(self, *zip_streams):
+        self.zips = [ZipFile(StringIO(z), 'r') for z in zip_streams
+            if z is not None]
+        self.names = set()
+        for z in self.zips:
+            self.names |= set(z.namelist())
+    def read(self, name):
+        for z in self.zips:
+            try:
+                return z.read(name)
+            except KeyError:
+                pass
+        raise KeyError(name)
+    def namelist(self):
+        return self.names
+#}}}
+
 class SecureProcess(object): #{{{
     default = dict(
         max_tiempo_cpu      = 120,
@@ -316,12 +334,8 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
     else:
         options['preexec_fn'].close_stdin = True
     a_guardar = set(self.archivos_a_guardar)
-    if self.archivos_a_comparar:
-        zip_a_comparar = ZipFile(StringIO(self.archivos_a_comparar), 'r')
-        a_comparar = set(zip_a_comparar.namelist())
-    else:
-        zip_a_comparar = None
-        a_comparar = frozenset()
+    zip_a_comparar = Multizip(self.archivos_a_comparar)
+    a_comparar = set(zip_a_comparar.namelist())
     a_usar = frozenset(a_guardar | a_comparar)
     if self.STDOUTERR in a_usar:
         options['stdout'] = file('%s.%s.stdouterr' % (basetmp,
@@ -489,6 +503,7 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
     # y setup/clean de test.
     log.debug(_(u'ComandoPrueba.ejecutar(path=%s, prueba=%s)'), path,
         prueba.shortrepr())
+    caso_de_prueba = prueba.caso_de_prueba
     comando_ejecutado = prueba.add_comando_ejecutado(self) # TODO debería rodear solo la ejecución del comando
     basetmp = '/tmp/sercom.tester.prueba' # FIXME TODO /var/run/sercom?
     #{{{ Código que solo va en ComandoPrueba (setup de directorio)
@@ -505,7 +520,7 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
         os.seteuid(user_info.uid)
         log.debug(_(u'Usuario y grupo efectivos cambiados a %s:%s (%s:%s)'),
             user_info.user, user_info.group, user_info.uid, user_info.gid)
-    unzip(prueba.caso_de_prueba.archivos_entrada, path, # TODO try/except
+    unzip(caso_de_prueba.archivos_entrada, path, # TODO try/except
         {self.STDIN: '%s.%s.stdin' % (basetmp, comando_ejecutado.id)})
     #}}}
     unzip(self.archivos_entrada, path, # TODO try/except
@@ -521,13 +536,10 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
     else:
         options['preexec_fn'].close_stdin = True
     a_guardar = set(self.archivos_a_guardar)
-    a_guardar |= set(prueba.caso_de_prueba.archivos_a_guardar) # FIXME Esto es propio de ComandoPrueba
-    if self.archivos_a_comparar:
-        zip_a_comparar = ZipFile(StringIO(self.archivos_a_comparar), 'r')
-        a_comparar = set(zip_a_comparar.namelist())
-    else:
-        zip_a_comparar = None
-        a_comparar = frozenset()
+    a_guardar |= set(caso_de_prueba.archivos_a_guardar) # FIXME Esto es propio de ComandoPrueba
+    zip_a_comparar = Multizip(self.archivos_a_comparar,
+        caso_de_prueba.archivos_a_comparar)             # FIXME Esto es propio de ComandoPrueba
+    a_comparar = set(zip_a_comparar.namelist())
     a_usar = frozenset(a_guardar | a_comparar)
     if self.STDOUTERR in a_usar:
         options['stdout'] = file('%s.%s.stdouterr' % (basetmp,
@@ -544,7 +556,7 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
                 comando_ejecutado.id), 'w')
         else:
             options['preexec_fn'].close_stderr = True
-    comando = self.comando + ' ' + prueba.caso_de_prueba.comando # FIXME Esto es propio de ComandoPrueba
+    comando = self.comando + ' ' + caso_de_prueba.comando # FIXME Esto es propio de ComandoPrueba
     log.debug(_(u'Ejecutando como root: %s'), comando)
     os.seteuid(0) # Dios! (para chroot)
     os.setegid(0)
@@ -564,7 +576,7 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
     comando_ejecutado.fin_tareas = datetime.now() # TODO debería rodear solo la ejecución del comando
     retorno = self.retorno
     if retorno == self.RET_PRUEBA:                # FIXME Esto es propio de ComandoPrueba
-        retorno = prueba.caso_de_prueba.retorno   # FIXME Esto es propio de ComandoPrueba
+        retorno = caso_de_prueba.retorno   # FIXME Esto es propio de ComandoPrueba
     if retorno != self.RET_ANY:
         if retorno == self.RET_FAIL:
             if proc.returncode == 0:

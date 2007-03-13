@@ -1,5 +1,4 @@
 - Backend (luca)
-  * Mergear archivos a comparar de prueba y comando.
   * Hacer el finalizador de entregas (selección de entregas a corregir y round
     robbin para repartir tps).
   * Hacer un control del límite de tiempo que un subproceso puede tomar más

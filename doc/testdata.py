@@ -38,7 +38,8 @@ c = Curso(anio=2007, cuatrimestre=1, numero=1, descripcion=u'Martes',
 cp1 = e1.add_caso_de_prueba(nombre=u'Sin parámetros', retorno=0,
     descripcion=u'Un caso', comando='./tito')
 cp2 = e1.add_caso_de_prueba(nombre=u'2 parámetross', retorno=1,
-    comando='./tito --test -c "con espacios"', terminar_si_falla=False)
+    comando='./tito --test -c "con espacios"', terminar_si_falla=False,
+    archivos_a_guardar=('__stdout__',))
 
 # Ejercicios
 ej1 = c.ejercicios[0]
