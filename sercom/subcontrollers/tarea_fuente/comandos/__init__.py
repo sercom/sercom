@@ -138,5 +138,20 @@ class ComandoFuenteController(controllers.Controller, identity.SecureResource):
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../list/%d' % tareaID)
 
+    @expose()
+    def get_archivos_entrada(self, id):
+        from cherrypy import request, response
+        r = validate_get(id)
+        response.headers["Content-Type"] = "application/zip"
+        response.headers["Content-disposition"] = "attachment;filename=archivos_entrada.zip"
+        return r.archivos_entrada
+
+    @expose()
+    def get_archivos_a_comparar(self, id):
+        from cherrypy import request, response
+        r = validate_get(id)
+        response.headers["Content-Type"] = "application/zip"
+        response.headers["Content-disposition"] = "attachment;filename=archivos_a_comparar.zip"
+        return r.archivos_a_comparar
 #}}}
 
