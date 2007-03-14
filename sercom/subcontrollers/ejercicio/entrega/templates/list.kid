@@ -16,6 +16,7 @@
         <th>Inicio</th>
         <th>Fin</th>
         <th>Procesada?</th>
+        <th>En proceso?</th>
         <th>Activa?</th>
         <th>Observaciones</th>
         <th>Operaciones</th>
@@ -24,8 +25,9 @@
         <td><span py:replace="record.numero">numero</span></td>
         <td><span py:replace="record.inicio">inicio</span></td>
         <td><span py:replace="record.fin">fin</span></td>
-        <td><span py:replace="record.procesada">procesada</span></td>
-        <td><span py:replace="record.activo">activa</span></td>
+        <td><span py:replace="tg.strbool(record.fin_proceso is not None)">procesada</span></td>
+        <td><span py:replace="tg.strbool(record.inicio_proceso is not None and record.fin_proceso is None)">en proceso</span></td>
+        <td><span py:replace="tg.strbool(record.activo)">activa</span></td>
         <td><span py:replace="record.observaciones">obs</span></td>
         <td>
             <a py:if="'admin' in identity.current.permissions" href="${tg.url('/ejercicio/entrega/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>

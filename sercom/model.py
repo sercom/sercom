@@ -524,7 +524,8 @@ class InstanciaDeEntrega(SQLObject): #{{{
     # Campos
     inicio          = DateTimeCol(notNone=True)
     fin             = DateTimeCol(notNone=True)
-    procesada       = BoolCol(notNone=True, default=False)
+    inicio_proceso  = DateTimeCol(default=None)
+    fin_proceso     = DateTimeCol(default=None)
     observaciones   = UnicodeCol(default=None)
     activo          = BoolCol(notNone=True, default=True)
     # Joins
@@ -533,9 +534,10 @@ class InstanciaDeEntrega(SQLObject): #{{{
 
     def __repr__(self):
         return 'InstanciaDeEntrega(id=%s, numero=%s, inicio=%s, fin=%s, ' \
-            'procesada=%s, observaciones=%s, activo=%s)' \
+            'inicio_proceso=%s, fin_proceso=%s, observaciones=%s, activo=%s)' \
                 % (self.id, self.numero, self.inicio, self.fin,
-                    self.procesada, self.observaciones, self.activo)
+                    self.inicio_proceso, self.fin_proceso, self.observaciones,
+                    self.activo)
 
     def shortrepr(self):
         return self.numero
