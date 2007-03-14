@@ -84,7 +84,19 @@ class ComandoFuenteController(controllers.Controller, identity.SecureResource):
         orden = kw['orden']
         del(kw['orden'])
         del(kw['tareaID'])
-        kw['archivos_a_guardar'] = tuple(kw['archivos_a_guardar'].split(','))
+        if kw['archivos_entrada'].filename:
+            kw['archivos_entrada'] = kw['archivos_entrada'].file.read()
+        else:
+            kw['archivos_entrada'] =  None
+        if kw['archivos_a_comparar'].filename:
+            kw['archivos_a_comparar'] = kw['archivos_a_comparar'].file.read()
+        else:
+            kw['archivos_a_comparar'] =  None
+        # TODO : Hacer ventanita mas amigable para cargar esto.
+        try:
+            kw['archivos_a_guardar'] = tuple(kw['archivos_a_guardar'].split(','))
+        except:
+            kw['archivos_a_guardar'] = None 
         t.add_comando(orden, **kw)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list/%d' % t.id)
