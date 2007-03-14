@@ -18,13 +18,13 @@
     <tr py:for="record in records">
         <td><span py:replace="record.orden">telefono</span></td>
         <td><span py:replace="record.comando">telefono</span></td>
-        <td><a href="${tg.url('/tarea_fuente/comandos/edit/%d' % record.id)}">Editar</a>
-            <a href="${tg.url('/tarea_fuente/comandos/delete/%d' % record.id)}" onclick="if (confirm('${_(u'EstÃ¡s seguro? Tal vez sÃ³lo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
+        <td><a href="${tg.url('/tarea_prueba/comandos/edit/%d' % record.id)}">Editar</a>
+            <a href="${tg.url('/tarea_prueba/comandos/delete/%d' % record.id)}" onclick="if (confirm('${_(u'EstÃ¡s seguro? Tal vez sÃ³lo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>
 </table>
 
 <br/>
-<a href="${tg.url('/tarea_fuente/comandos/new/%d' % tareaID)}">Agregar</a>
+<a href="${tg.url('/tarea_prueba/comandos/new/%d' % tareaID)}">Agregar</a>
 
 <div py:for="page in tg.paginate.pages">
     <a py:if="page != tg.paginate.current_page"

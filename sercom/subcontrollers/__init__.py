@@ -11,3 +11,4 @@ from misentregas import MisEntregasController
 from grupo_admin import GrupoAdminController
 from miscorrecciones import MisCorreccionesController
 from tarea_fuente import TareaFuenteController
+from tarea_prueba import TareaPruebaController

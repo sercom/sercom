@@ -121,6 +121,8 @@ class Root(controllers.RootController):
 
     tarea_fuente = TareaFuenteController()
 
+    tarea_prueba = TareaPruebaController()
+
     caso_de_prueba = CasoDePruebaController()
 
     curso = CursoController()
