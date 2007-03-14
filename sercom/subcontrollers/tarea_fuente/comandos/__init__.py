@@ -49,10 +49,10 @@ class ComandoFuenteForm(W.TableForm):
         rechazar_si_falla = W.CheckBox(label=_(u'Terminar si falla'), default=1, validator=V.Bool(if_empty=1))
         archivos_entrada = W.FileField(label=_(u'Archivos Entrada'))
         archivos_a_comparar = W.FileField(label=_(u'Archivos a Comparar'))
-        archivos_a_guardar = W.TextField(label=_(u'Archivos a Guardar'))
+        archivos_guardar = W.TextField(label=_(u'Archivos a Guardar'))
         activo = W.CheckBox(label=_(u'Activo'), default=1, validator=V.Bool(if_empty=1))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_comando');")]
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_orden');")]
 
 form = ComandoFuenteForm()
 #}}}
@@ -94,9 +94,9 @@ class ComandoFuenteController(controllers.Controller, identity.SecureResource):
             kw['archivos_a_comparar'] =  None
         # TODO : Hacer ventanita mas amigable para cargar esto.
         try:
-            kw['archivos_a_guardar'] = tuple(kw['archivos_a_guardar'].split(','))
+            kw['archivos_a_guardar'] = tuple(kw['archivos_guardar'].split(','))
         except:
-            kw['archivos_a_guardar'] = None 
+            del(kw['archivos_guardar'])
         t.add_comando(orden, **kw)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list/%d' % t.id)
@@ -105,6 +105,7 @@ class ComandoFuenteController(controllers.Controller, identity.SecureResource):
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
+        r.archivos_guardar = ",".join(r.archivos_a_guardar)
         return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
@@ -114,7 +115,7 @@ class ComandoFuenteController(controllers.Controller, identity.SecureResource):
         """Save or create record to model"""
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
-        raise redirect('../list')
+        raise redirect('../list/%d' % r.tarea.id)
 
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self,id, **kw):
@@ -130,59 +131,10 @@ class ComandoFuenteController(controllers.Controller, identity.SecureResource):
     def delete(self, id):
         """Destroy record in model"""
         r = validate_get(id)
+        tareaID = r.tarea.id
         r.destroySelf()
         flash(_(u'El %s fue eliminado permanentemente.') % name)
-        raise redirect('../list')
+        raise redirect('../list/%d' % tareaID)
 
-    @expose(template='kid:%s.templates.from_file' % __name__)
-    def from_file(self):
-        return dict()
-
-    @expose(template='kid:%s.templates.import_results' % __name__)
-    def from_file_add(self, archivo):
-        """ Se espera :
-             padron,nombre,email,telefono
-        """
-        import csv
-        lines = archivo.file.read().split('\n')
-        ok = []
-        fail = []
-        entregador = Rol.get(2)
-        for line in lines:
-            for row in csv.reader([line]):
-                if row == []:
-                    continue
-                try:
-                    u = Alumno(row[0], nombre=row[1])
-                    u.email = row[2]
-                    u.telefono = row[3]
-                    u.password = row[0]
-                    u.activo = True
-                    u.add_rol(entregador)
-                    ok.append(row)
-                except Exception, e:
-                    row.append(str(e))
-                    fail.append(row)
-        return dict(ok=ok, fail=fail)
-    
-    @expose('json')
-    def get_alumno(self, padron):
-        msg = u''
-        error=False
-        try:
-            # Busco el alumno inscripto
-            alumno = Alumno.byPadron(padron=padron)
-            msg = {}
-            msg['id'] = alumno.id
-            msg['value'] = alumno.shortrepr()
-        except SQLObjectNotFound:
-            msg = 'No existe el alumno con padron: %s.' % padron
-            error=True
-        except Exception, (inst):
-            msg = u"""Se ha producido un error inesperado al buscar el registro:\n      %s""" % str(inst)
-            error = True
-        return dict(msg=msg, error=error)
-
-   
 #}}}
 

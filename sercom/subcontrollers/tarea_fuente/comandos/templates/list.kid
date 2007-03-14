@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>Administración de <span py:replace="namepl">Objetos</span></h1>
+<h1>Administraci�n de <span py:replace="namepl">Objetos</span></h1>
 
 <table class="list">
     <tr>
@@ -18,8 +18,8 @@
     <tr py:for="record in records">
         <td><span py:replace="record.orden">telefono</span></td>
         <td><span py:replace="record.comando">telefono</span></td>
-        <td><a href="${tg.url('/alumno/edit/%d' % record.id)}">Editar</a>
-            <a href="${tg.url('/alumno/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
+        <td><a href="${tg.url('/tarea_fuente/comandos/edit/%d' % record.id)}">Editar</a>
+            <a href="${tg.url('/tarea_fuente/comandos/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>
 </table>
 
