@@ -60,18 +60,23 @@ def validate_del(id):
 class CasoDePruebaForm(W.TableForm):
     class Fields(W.WidgetsList):
         enunciadoID = W.HiddenField()
-        nombre = W.TextField(label=_(u'Nombre'),
-            help_text=_(u'Requerido y único.'),
-            validator=V.UnicodeString(min=5, max=60, strip=True))
-        descripcion = W.TextField(label=_(u'Descripción'),
-            validator=V.UnicodeString(not_empty=False, max=255,
-                strip=True))
-        comando = W.TextField(label=_(u'Comando'),
-            validator=V.UnicodeString(not_empty=False, strip=True))
-        retorno = W.TextField(label=_(u'Código de retorno'),
-            validator=V.Int(not_empty=False, strip=True))
-        max_tiempo_cpu = W.TextField(label=_(u'Máximo tiempo de CPU'),
-            validator=V.Number(not_empty=False, strip=True))
+        nombre = W.TextField(label=_(u'Nombre'), validator=V.UnicodeString(min=3, max=255, strip=True))
+        comando = W.TextField(label=_(u'Comando'), validator=V.UnicodeString(min=3, max=255, strip=True))
+        descripcion = W.TextField(label=_(u'Descripcion'), validator=V.UnicodeString(min=3, max=255, strip=True))
+        retorno = W.TextField(label=_(u'Retorno'), help_text=u"Codigo de retorno esperado",validator=V.Int(if_empty=0))
+        max_tiempo_cpu = W.TextField(label=_(u'CPU'), help_text=u"Maximo tiempo de CPU que puede utilizar [seg]",validator=V.Int())
+        max_memoria = W.TextField(label=_(u'Memoria'), help_text=u"Maximo cantidad de memoria que puede utilizar [MB]",validator=V.Int())
+        max_tam_archivo = W.TextField(label=_(u'Tam. Archivo'), help_text=u"Maximo tamanio de archivo a crear [MB]",validator=V.Int())
+        max_cant_archivos = W.TextField(label=_(u'Archivos'),validator=V.Int())
+        max_cant_procesos = W.TextField(label=_(u'Procesos'),validator=V.Int())
+        max_locks_memoria = W.TextField(label=_(u'Mem. Locks'),validator=V.Int())
+        terminar_si_falla = W.CheckBox(label=_(u'Terminar si falla'), default=1, validator=V.Bool(if_empty=1))
+        rechazar_si_falla = W.CheckBox(label=_(u'Rechazar si falla'), default=1, validator=V.Bool(if_empty=1))
+        publico = W.CheckBox(label=_(u'Es público?'), default=1, validator=V.Bool(if_empty=1))
+        archivos_entrada = W.FileField(label=_(u'Archivos Entrada'))
+        archivos_a_comparar = W.FileField(label=_(u'Archivos a Comparar'))
+        archivos_guardar = W.TextField(label=_(u'Archivos a Guardar'))
+        activo = W.CheckBox(label=_(u'Activo'), default=1, validator=V.Bool(if_empty=1))
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');")]
 
@@ -93,24 +98,43 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
         return dict(records=r, name=name, namepl=namepl, enunciado=enunciado)
 
     @expose(template='kid:%s.templates.new' % __name__)
-    def new(self, enunciado=0, **kw):
+    def new(self, enunciadoID=0, **kw):
         """Create new records in model"""
-        form.fields[0].attrs['value'] = enunciado or kw['enunciadoID']
-        return dict(name=name, namepl=namepl, form=form, values=kw, enunciado=int(enunciado))
+        form.fields[0].attrs['value'] = enunciadoID or kw['enunciadoID']
+        return dict(name=name, namepl=namepl, form=form, values=kw, enunciado=int(enunciadoID))
 
     @validate(form=form)
     @error_handler(new)
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
-        r = validate_new(kw)
+        t = Enunciado.get(kw['enunciadoID'])
+        del(kw['enunciadoID'])
+        if kw['archivos_entrada'].filename:
+            kw['archivos_entrada'] = kw['archivos_entrada'].file.read()
+        else:
+            kw['archivos_entrada'] =  None
+        if kw['archivos_a_comparar'].filename:
+            kw['archivos_a_comparar'] = kw['archivos_a_comparar'].file.read()
+        else:
+            kw['archivos_a_comparar'] =  None
+        # TODO : Hacer ventanita mas amigable para cargar esto.
+        try:
+            kw['archivos_a_guardar'] = tuple(kw['archivos_guardar'].split(','))
+        except AttributeError:
+            pass
+        del(kw['archivos_guardar'])
+        nombre = kw['nombre'];
+        del(kw['nombre'])
+        t.add_caso_de_prueba(nombre, **kw)
         flash(_(u'Se creó un nuevo %s.') % name)
-        raise redirect('list/%d' % r.enunciado.id)
+        raise redirect('list/%d' % t.id)
 
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
+        r.archivos_guardar = ",".join(r.archivos_a_guardar)
         form.fields[0].attrs['value'] = r.enunciado.id
         return dict(name=name, namepl=namepl, record=r, form=form)
 
@@ -119,6 +143,20 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     @expose()
     def update(self, id, **kw):
         """Save or create record to model"""
+        if kw['archivos_entrada'].filename:
+            kw['archivos_entrada'] = kw['archivos_entrada'].file.read()
+        else:
+            kw['archivos_entrada'] =  None
+        if kw['archivos_a_comparar'].filename:
+            kw['archivos_a_comparar'] = kw['archivos_a_comparar'].file.read()
+        else:
+            kw['archivos_a_comparar'] =  None
+        # TODO : Hacer ventanita mas amigable para cargar esto.
+        try:
+            kw['archivos_a_guardar'] = tuple(kw['archivos_guardar'].split(','))
+        except AttributeError:
+            pass
+        del(kw['archivos_guardar'])
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list/%d' % r.enunciado.id)
