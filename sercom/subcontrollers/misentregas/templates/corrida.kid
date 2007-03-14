@@ -11,19 +11,33 @@
 <h1>Corrida</h1>
 
 <h2>Comandos Ejecutados</h2>
-<ul>
-    <li py:for="comando in entrega.comandos_ejecutados">
-    ${comando.shortrepr()}
-    </li>
-</ul>
+<table>
+		<!-- TODO : Solo mostrar con ce.comando.publico == True -->
+		<tr py:for="ce in entrega.comandos_ejecutados">
+			<td py:content="ce.comando.shortrepr()"></td>
+			<td py:content="ce.inicio"></td>
+			<td py:content="ce.fin"></td>
+			<td py:content="tg.strbool(ce.exito)"></td>
+			<td py:content="ce.archivos"></td>
+			<td py:content="ce.diferencias"></td>
+			<td py:content="ce.observaciones"></td>
+		</tr>
+	</table>
 <h2>Pruebas Realizadas</h2>
-<ul>
-    <li py:for="prueba in entrega.pruebas">
-    ${prueba.shortrepr()}
-    </li>
-</ul>
+<table>
+		<!-- TODO : Solo mostrar con ce.caso_de_prueba.publico == True -->
+		<tr py:for="p in entrega.pruebas">
+			<td py:content="ce.caso_de_prueba.shortrepr()"></td>
+			<td py:content="ce.inicio"></td>
+			<td py:content="ce.fin"></td>
+			<td py:content="tg.strbool(ce.exito)"></td>
+			<td py:content="ce.archivos"></td>
+			<td py:content="ce.diferencias"></td>
+			<td py:content="ce.observaciones"></td>
+		</tr>
+	</table>
 
-<a href="${tg.url('/mis_entregas/list')}">Volver</a>
+<a href="javascript:window.history.go(-1);">Volver</a>
 
 </body>
 </html>
