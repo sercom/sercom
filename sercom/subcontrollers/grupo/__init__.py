@@ -99,18 +99,17 @@ ajax = u"""
 
     function buscar_alumno()
     {
+        /* Obtengo el padron ingresado */
+        p = MochiKit.DOM.getElement('form_responsable');
+        padron = p.value;
+        if (padron == '') {
+            return;
+        }
         /* Obtengo el curso */
         l = MochiKit.DOM.getElement('form_cursoID');
         cursoid = l.options[l.selectedIndex].value;
         if (cursoid <= 0) {
             alert('Debe seleccionar un curso');
-            return;
-        }
-        /* Obtengo el padron ingresado */
-        p = MochiKit.DOM.getElement('form_responsable');
-        padron = p.value;
-        if (padron == '') {
-            alert('Debe ingresar el padrón del alumno responsable');
             return;
         }
         url = "/grupo/get_inscripto?cursoid="+cursoid+'&padron='+padron;
@@ -123,7 +122,7 @@ ajax = u"""
         connect('form_responsable', 'onblur', buscar_alumno);
     }
 
-    function onsubmit()
+    function doSubmit()
     {
         /* TODO : Validar datos y evitar el submit si no esta completo */
 
@@ -145,13 +144,13 @@ class GrupoForm(W.TableForm):
     class Fields(W.WidgetsList):
         cursoID = W.SingleSelectField(label=_(u'Curso'), options = get_cursos, validator = V.Int(not_empty=True))
         nombre = W.TextField(label=_(u'Nombre'), validator=V.UnicodeString(not_empty=True,strip=True))
-        responsable = CustomTextField(label=_(u'Responsable'), validator=V.UnicodeString(not_empty=True), attrs=dict(size='8'))
+        responsable = CustomTextField(label=_(u'Responsable'), validator=V.UnicodeString(), attrs=dict(size='8'))
         miembros = AjaxMultiSelect(label=_(u'Miembros'), validator=V.Int(), on_add="alumnos_agregar_a_la_lista")
         tutores = W.MultipleSelectField(label=_(u'Tutores'), validator=V.Int(), options=get_docentes)
 
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('curso');"), W.JSSource(ajax)]
-    form_attrs = dict(onsubmit='return onsubmit()')
+    form_attrs = dict(onsubmit='return doSubmit()')
 
 def get_cursos():
     return [(0, u'---')] + [(fk1.id, fk1.shortrepr()) for fk1 in Curso.select()]
@@ -213,8 +212,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
             resp = AlumnoInscripto.selectBy(cursoID=kw['cursoID'],
                 alumno=Alumno.byPadron(kw['responsable'])).getOne()
         except SQLObjectNotFound:
-            flash(_(u'El responsable %s no existe') % resp)
-            raise redirect('list')
+            resp = None
         kw['responsable'] = resp
 
         r = validate_new(kw)
@@ -255,8 +253,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
             resp = AlumnoInscripto.selectBy(cursoID=kw['cursoID'],
                 alumno=Alumno.byPadron(kw['responsable'])).getOne()
         except SQLObjectNotFound:
-            flash(_(u'El responsable %s no existe') % resp)
-            raise redirect('../list')
+            resp = None
         kw['responsable'] = resp
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
