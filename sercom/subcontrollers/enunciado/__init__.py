@@ -11,7 +11,6 @@ from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Enunciado, Docente, Curso
 from cherrypy import request, response
-from tarea import TareaController
 
 #}}}
 
@@ -82,8 +81,6 @@ form = EnunciadoForm()
 class EnunciadoController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_permission('entregar')
-
-    tarea = TareaController()
 
     @expose()
     def default(self, tg_errors=None):
