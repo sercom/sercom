@@ -10,3 +10,4 @@ from correccion import CorreccionController
 from misentregas import MisEntregasController
 from grupo_admin import GrupoAdminController
 from miscorrecciones import MisCorreccionesController
+from tarea_fuente import TareaFuenteController
