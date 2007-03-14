@@ -21,11 +21,11 @@ class Menu:
         option = u"""<option value="%s">%s</option>" """
         template = """
         <div id="navbar">
-    			Ir a :
-		    	<select OnChange="window.location=this.options[this.selectedIndex].value;">
-    				%s
-		    	</select>
-    		</div>
+                Ir a :
+                <select OnChange="window.location=this.options[this.selectedIndex].value;">
+                    %s
+                </select>
+            </div>
         """
         s = option % ('', '-----')
         for i in self.items:
