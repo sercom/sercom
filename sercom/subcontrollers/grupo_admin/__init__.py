@@ -170,7 +170,7 @@ ajax = u"""
 
     function cargarGrupo(grupoid, lista) {
         //url = "/grupo/get_inscripto?cursoid="+cursoid+'&padron='+padron
-        var result = loadJSONDoc('/grupo/get_alumnos?grupoid='+id);
+        var result = loadJSONDoc('/curso/grupo/get_alumnos?grupoid='+id);
         result.addCallbacks(partial(cargarLista, lista), err)
     }
 
@@ -200,7 +200,7 @@ class GrupoAdminForm(W.TableForm):
     class Fields(W.WidgetsList):
         listaGrupoA = W.SingleSelectField(label=_(u'Grupo A'), options = get_gruposA, attrs = dict(onChange='onListaAChange()'), validator = V.Int(not_empty=True))
         listaGrupoB = W.SingleSelectField(label=_(u'Grupo B'), options = get_gruposB, attrs = dict(onChange='onListaBChange()'), validator = V.Int(not_empty=True))
-        grupos = AjaxDosListasSelect(label=_(u'Grupos'),title_from="Grupo A", title_to="Grupo B", validator=V.Int(not_empty=True))
+        grupos = AjaxDosListasSelect(label=_(u'Grupos'),title_from="Grupo A", size=8, title_to="Grupo B", validator=V.Int(not_empty=True))
         responsableA = W.SingleSelectField(label=_(u'Responsable A'), validator = V.Int())
         responsableB = W.SingleSelectField(label=_(u'Responsable B'), validator = V.Int())
         tutoresA = W.MultipleSelectField(label=_(u'Tutores A'), options = get_docentes, validator = V.Int(not_empty=True))
@@ -263,11 +263,21 @@ class GrupoAdminController(controllers.Controller, identity.SecureResource):
         tutoresA = kw.get('tutoresA', [])
         tutoresB = kw.get('tutoresB', [])
 
-        log.debug(miembrosA)
-        log.debug(miembrosB)
+        # por las dudas de que no sea una lista
+        if not isinstance(miembrosA, list):
+            miembrosA = [miembrosA]
+        if not isinstance(miembrosB, list):
+            miembrosB = [miembrosB]
+        if not isinstance(tutoresA, list):
+            tutoresA = [tutoresA]
+        if not isinstance(tutoresB, list):
+            tutoresB = [tutoresB]
+
+
         """ levanto los grupos originales """
         grupoAorig = validate_get(int(grupoAId))
-
+        log.debug(miembrosA)
+        log.debug(Miembro.selectBy(grupo=grupoAorig, baja=None))
         """ Si el grupo A quedo vacio deberia eliminarlo (primero
             genero los otros para que no elimine los alumnos)"""
         for mA in Miembro.selectBy(grupo=grupoAorig, baja=None):
@@ -282,6 +292,7 @@ class GrupoAdminController(controllers.Controller, identity.SecureResource):
                 except DuplicateEntryError:
                     continue
         except Exception, e:
+            log.debug(e)
             flash(_(u'Error A %s.' % e))
             raise redirect('/grupo/list')
         # seteo el reponsable del grupo
@@ -316,6 +327,9 @@ class GrupoAdminController(controllers.Controller, identity.SecureResource):
             Grupo(miembros = nuevosMiembros, tutores = nuevosTutores, cursoID=cursoid, nombre='NuevoGrupo'+str(cursoid))
         else:
             grupoBorig = validate_get(int(grupoBId))
+            log.debug(miembrosB)
+            b = list(Miembro.selectBy(grupo=grupoBorig, baja=None))
+            log.debug(b)
             #borro todos y los vuelvo a agregar
             for mB in Miembro.selectBy(grupo=grupoBorig, baja=None):
                 if str(mB.alumno.id) not in miembrosB:
@@ -328,6 +342,7 @@ class GrupoAdminController(controllers.Controller, identity.SecureResource):
                     except DuplicateEntryError:
                         continue
             except Exception, e:
+                log.debug(e)
                 flash(_(u'Error B %s.' % e))
                 raise redirect('/grupo/list')
             # seteo el reponsable del grupo
