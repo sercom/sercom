@@ -345,6 +345,7 @@ class Comando(InheritableSQLObject): #{{{
     max_locks_memoria   = IntCol(default=None)
     terminar_si_falla   = BoolCol(notNone=True, default=True)
     rechazar_si_falla   = BoolCol(notNone=True, default=True)
+    publico             = BoolCol(notNone=True, default=True)
     archivos_entrada    = BLOBCol(default=None) # ZIP con archivos de entrada
                                                 # __stdin__ es caso especial
                                                 # Si un caso de prueba tiene
