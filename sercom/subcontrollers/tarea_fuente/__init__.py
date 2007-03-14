@@ -51,6 +51,8 @@ class TareaFuenteController(controllers.Controller, identity.SecureResource):
 
     comandos = ComandoFuenteController()
 
+    hide_to_entregar = 1
+
     @expose()
     def default(self, tg_errors=None):
         """handle non exist urls"""

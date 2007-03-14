@@ -14,6 +14,7 @@ class Menu:
 
     def _check(self, c):
         if hasattr(c, 'hide_to_admin') and 'admin' in identity.current.permissions: return False
+        if hasattr(c, 'hide_to_entregar') and 'admin' not in identity.current.permissions: return False
         return c.require.eval_with_object(identity.current)
 
     def __repr__(self):
