@@ -128,8 +128,8 @@ class CursoForm(W.TableForm):
         numero = W.TextField(label=_(u'Numero'),
             help_text=_(u'Requerido'),
             validator=V.Number(min=1, max=2, strip=True))
-        descripcion = W.TextArea(name='descripcion', label=_(u'Descripcion'),
-            help_text=_(u'Descripcion.'),
+        descripcion = W.TextField(label=_(u'Descripción'),
+            help_text=_(u'Descripción.'),
             validator=V.UnicodeString(not_empty=False, strip=True))
 
         #docentes = W.MultipleSelectField(name="docentes",
