@@ -96,8 +96,9 @@ class ComandoFuenteController(controllers.Controller, identity.SecureResource):
         # TODO : Hacer ventanita mas amigable para cargar esto.
         try:
             kw['archivos_a_guardar'] = tuple(kw['archivos_guardar'].split(','))
-        except:
-            del(kw['archivos_guardar'])
+        except AttributeError:
+            pass
+        del(kw['archivos_guardar'])
         t.add_comando(orden, **kw)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list/%d' % t.id)
