@@ -33,11 +33,12 @@ class Queue(object):
                 return e.id
             except IndexError:
                 log.debug(_(u'No hay entregas pendientes'))
-                time.sleep(5) # TODO config?
+                time.sleep(10) # TODO config?
             except Exception, e:
                 if isinstance(e, SystemExit):
                     raise
                 log.exception('Queue: ')
+                time.sleep(10) # TODO config?
         return None
 
 q = Queue()
