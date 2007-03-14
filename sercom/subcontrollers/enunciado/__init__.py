@@ -178,8 +178,8 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
-        r.tareas_fuente = [{"id":t.id, "label":t.shortrepr()} for t in filter(lambda x: isinstance(x, TareaFuente), r.tareas)]
-        r.tareas_prueba = [{"id":t.id, "label":t.shortrepr()} for t in filter(lambda x: isinstance(x, TareaPrueba), r.tareas)]
+        r.tareas_fuente = [{"id":t.id, "label":t.shortrepr()} for t in r.tareas if isinstance(t, TareaFuente)]
+        r.tareas_prueba = [{"id":t.id, "label":t.shortrepr()} for t in r.tareas if isinstance(x, TareaPrueba)]
         return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
