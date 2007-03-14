@@ -54,7 +54,7 @@
 					</ul>
 				</td>
     </tr>
-    <tr>
+    <tr py:if="'admin' in identity.current.permissions">
 				<th>Ejercicios en los<br /> que es Usado:</th>
 				<td>
 					<ul>
@@ -66,7 +66,7 @@
 
 <br/>
 <a py:if="'admin' in identity.current.permissions" href="${tg.url('/enunciado/edit/%d' % record.id)}">Editar</a> |
-<a href="${tg.url('/enunciado/list')}">Volver</a>
+<a href="javascript:window.history.go(-1);">Volver</a>
 
 </body>
 </html>
