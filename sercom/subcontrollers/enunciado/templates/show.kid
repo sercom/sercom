@@ -33,7 +33,9 @@
     </tr>
     <tr>
         <th>Archivo:</th>
-				<td><span py:replace="record.archivo_name">descripcion</span></td>
+				<td>
+           <a py:if="record.archivo_name" href="${tg.url('/enunciado/files/%d' % record.id)}" py:content="record.archivo_name">Bajar Enunciado</a>
+				</td>
     </tr>
     <tr>
         <th>Tareas:</th>
