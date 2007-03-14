@@ -95,7 +95,7 @@ class EnunciadoForm(W.TableForm):
             options=get_options, validator=V.Int(not_empty=False))
         descripcion = W.TextField(label=_(u'Descripción'),
             validator=V.UnicodeString(not_empty=False, max=255, strip=True))
-        archivo = W.FileField(label=_(u'Archivo'))
+        el_archivo = W.FileField(label=_(u'Archivo'))
         tareas_fuente = AjaxDosListasSelect(label=_(u'Tareas Fuente'),
             title_from=u'Disponibles',
             title_to=u'Asignadas',
@@ -150,11 +150,11 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     @error_handler(new)
     @expose()
     @identity.require(identity.has_permission('admin'))
-    def create(self, archivo, **kw):
+    def create(self, el_archivo, **kw):
         """Save or create record to model"""
-        kw['archivo'] = archivo.file.read()
-        kw['archivo_name'] = archivo.filename
-        kw['archivo_type'] = archivo.type
+        kw['archivo'] = el_archivo.file.read()
+        kw['archivo_name'] = el_archivo.filename
+        kw['archivo_type'] = el_archivo.type
         if 'tareas_fuente_to' in kw.keys() and 'tareas_prueba_to' in kw.keys():
             kw['tareas'] = list(kw['tareas_fuente_to']) + list(kw['tareas_prueba_to'])
             del(kw['tareas_fuente_to'])
@@ -186,8 +186,12 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     @error_handler(edit)
     @expose()
     @identity.require(identity.has_permission('admin'))
-    def update(self, id, archivo, **kw):
+    def update(self, id, el_archivo, **kw):
         """Save or create record to model"""
+        if el_archivo.filename:
+            kw['archivo'] = el_archivo.file.read()
+            kw['archivo_name'] = el_archivo.filename
+            kw['archivo_type'] = el_archivo.type
         if 'tareas_fuente_to' in kw.keys() and 'tareas_prueba_to' in kw.keys():
             kw['tareas'] = list(kw['tareas_fuente_to']) + list(kw['tareas_prueba_to'])
             del(kw['tareas_fuente_to'])
