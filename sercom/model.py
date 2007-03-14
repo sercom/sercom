@@ -312,8 +312,8 @@ class TareaPrueba(Tarea): #{{{
     # Joins
     comandos    = MultipleJoin('ComandoPrueba', joinColumn='tarea_id')
 
-    def add_comando(self, orden, **kw):
-        return ComandoPrueba(tarea=self, orden=orden, comando='', **kw)
+    def add_comando(self, orden, comando='', **kw):
+        return ComandoPrueba(tarea=self, orden=orden, comando=comando, **kw)
 
     def remove_comando(self, orden):
         ComandoPrueba.pk.get(self.id, orden).destroySelf()
