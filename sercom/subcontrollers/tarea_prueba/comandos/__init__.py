@@ -36,9 +36,9 @@ class ComandoPruebaForm(W.TableForm):
     class Fields(W.WidgetsList):
         tareaID = W.HiddenField()
         orden = W.TextField(label=_(u'Orden'), validator=V.Int(not_empty=True))
-        comando = W.TextField(label=_(u'Comando'), validator=V.UnicodeString(min=3, max=255, strip=True))
-        descripcion = W.TextField(label=_(u'Descripcion'), validator=V.UnicodeString(min=3, max=255, strip=True))
-        retorno = W.TextField(label=_(u'Retorno'), help_text=u"Codigo de retorno esperado",validator=V.Int(if_empty=0))
+        comando = W.TextField(label=_(u'Comando'), validator=V.UnicodeString(max=255, strip=True))
+        descripcion = W.TextField(label=_(u'Descripcion'), validator=V.UnicodeString(min=5, max=255, strip=True))
+        retorno = W.TextField(label=_(u'Retorno'), help_text=u"Codigo de retorno esperado",validator=V.Int(if_empty=ComandoPrueba.RET_PRUEBA))
         max_tiempo_cpu = W.TextField(label=_(u'CPU'), help_text=u"Maximo tiempo de CPU que puede utilizar [seg]",validator=V.Int())
         max_memoria = W.TextField(label=_(u'Memoria'), help_text=u"Maximo cantidad de memoria que puede utilizar [MB]",validator=V.Int())
         max_tam_archivo = W.TextField(label=_(u'Tam. Archivo'), help_text=u"Maximo tamanio de archivo a crear [MB]",validator=V.Int())
