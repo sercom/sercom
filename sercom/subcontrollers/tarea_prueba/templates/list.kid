@@ -16,7 +16,7 @@
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-        <td><span py:replace="record.nombre">nombre</span></td>
+				<td><a href="${tg.url('/tarea_prueba/show/%d' % record.id)}" py:content="record.nombre"></a></td>
         <td><span py:replace="record.descripcion">nota</span></td>
         <td>
             <a href="${tg.url('/tarea_prueba/comandos/list/%d' % record.id)}">Comandos</a>
