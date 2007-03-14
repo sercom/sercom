@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#"
-    py:extends="'../../../templates/master.kid'">
+    py:extends="'../../../../templates/master.kid'">
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
 <title>new</title>
@@ -9,10 +9,10 @@
 
 <h1>Crear Nuevo <span py:replace="name">Objeto</span></h1>
 
-<p py:replace="form(action=tg.url('/caso_de_prueba/create'), value=values, submit_text=_('Crear'))">Formulario</p>
+<p py:replace="form(action=tg.url('/enunciado/caso_de_prueba/create'), value=values, submit_text=_('Crear'))">Formulario</p>
 
 <br/>
-<a href="${tg.url('/caso_de_prueba/list')}">Cancelar</a>
+<a href="${tg.url('/enunciado/caso_de_prueba/list/%d' % enunciado)}">Cancelar</a>
 
 </body>
 </html>

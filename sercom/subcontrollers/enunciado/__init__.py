@@ -12,6 +12,7 @@ from sercom.subcontrollers import validate as val
 from sercom.model import Enunciado, Docente, Curso, Tarea, TareaFuente, TareaPrueba
 from cherrypy import request, response
 from sercom.widgets import *
+from caso_de_prueba import CasoDePruebaController
 #}}}
 
 #{{{ Configuración
@@ -116,6 +117,8 @@ form = EnunciadoForm()
 class EnunciadoController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_permission('entregar')
+
+    caso_de_prueba = CasoDePruebaController()
 
     @expose()
     def default(self, tg_errors=None):

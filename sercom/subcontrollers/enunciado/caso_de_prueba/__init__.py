@@ -33,6 +33,10 @@ def validate_fk(data):
             flash(_(u'No se pudo crear el nuevo %s porque el %s con '
                 'identificador %d no existe.' % (name, fkname, fk)))
             raise redirect('new', **data)
+    else:
+        flash(_(u'No se pudo crear el nuevo %s porque el %s con '
+            'identificador %d no existe.' % (name, fkname, fk)))
+        raise redirect('new', **data)
     data.pop(fkname + 'ID', None)
     data[fkname] = fk
     return fk
@@ -53,17 +57,12 @@ def validate_del(id):
 #}}}
 
 #{{{ Formulario
-def get_options():
-    return [(0, _(u'<<General>>'))] + [(fk.id, fk.shortrepr())
-        for fk in fkcls.select()]
-
 class CasoDePruebaForm(W.TableForm):
     class Fields(W.WidgetsList):
+        enunciadoID = W.HiddenField()
         nombre = W.TextField(label=_(u'Nombre'),
             help_text=_(u'Requerido y único.'),
             validator=V.UnicodeString(min=5, max=60, strip=True))
-        fk = W.SingleSelectField(name=fkname+'ID', label=_(fkname.capitalize()),
-            options=get_options, validator=V.Int(not_empty=False))
         descripcion = W.TextField(label=_(u'Descripción'),
             validator=V.UnicodeString(not_empty=False, max=255,
                 strip=True))
@@ -85,44 +84,34 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_permission('admin')
 
-    @expose()
-    def default(self, tg_errors=None):
-        """handle non exist urls"""
-        raise redirect('list')
-
-    @expose()
-    def index(self):
-        raise redirect('list')
-
     @expose(template='kid:%s.templates.list' % __name__)
     @validate(validators=dict(enunciado=V.Int))
     @paginate('records')
-    def list(self, enunciado=None):
+    def list(self, enunciado):
         """List records in model"""
-        if enunciado is None:
-            r = cls.select()
-        else:
-            r = cls.selectBy(enunciadoID=enunciado)
-        return dict(records=r, name=name, namepl=namepl, parcial=enunciado)
+        r = cls.selectBy(enunciadoID=enunciado)
+        return dict(records=r, name=name, namepl=namepl, enunciado=enunciado)
 
     @expose(template='kid:%s.templates.new' % __name__)
-    def new(self, **kw):
+    def new(self, enunciado=0, **kw):
         """Create new records in model"""
-        return dict(name=name, namepl=namepl, form=form, values=kw)
+        form.fields[0].attrs['value'] = enunciado or kw['enunciadoID']
+        return dict(name=name, namepl=namepl, form=form, values=kw, enunciado=int(enunciado))
 
     @validate(form=form)
     @error_handler(new)
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
-        validate_new(kw)
+        r = validate_new(kw)
         flash(_(u'Se creó un nuevo %s.') % name)
-        raise redirect('list')
+        raise redirect('list/%d' % r.enunciado.id)
 
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
+        form.fields[0].attrs['value'] = r.enunciado.id
         return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
@@ -132,7 +121,7 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
         """Save or create record to model"""
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
-        raise redirect('../list')
+        raise redirect('../list/%d' % r.enunciado.id)
 
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self, id, **kw):
@@ -145,10 +134,10 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
         return dict(name=name, namepl=namepl, record=r)
 
     @expose()
-    def delete(self, id):
+    def delete(self, enunciado, id):
         """Destroy record in model"""
         validate_del(id)
         flash(_(u'El %s fue eliminado permanentemente.') % name)
-        raise redirect('../list')
+        raise redirect('../../list/%d' % int(enunciado))
 #}}}
 

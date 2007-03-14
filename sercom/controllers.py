@@ -123,8 +123,6 @@ class Root(controllers.RootController):
 
     tarea_prueba = TareaPruebaController()
 
-    caso_de_prueba = CasoDePruebaController()
-
     curso = CursoController()
 
     docente_inscripto = DocenteInscriptoController()
