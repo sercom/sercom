@@ -9,9 +9,9 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Enunciado, Docente, Curso, Tarea
+from sercom.model import Enunciado, Docente, Curso, Tarea, TareaFuente, TareaPrueba
 from cherrypy import request, response
-
+from sercom.widgets import *
 #}}}
 
 #{{{ Configuración
@@ -23,6 +23,24 @@ fkcls = Docente
 fkname = 'autor'
 fknamepl = fkname + 'es'
 #}}}
+
+ajax = u"""
+    function doSubmit()
+    {
+        /* TODO : Validar datos y evitar el submit si no esta completo */
+
+        /* Selecciono todos los miembros si no, no llegan al controllere*/
+        l = MochiKit.DOM.getElement('form_tareas_fuente_to');
+        for (i=0; i<l.options.length; i++) {
+            l.options[i].selected = true;
+        }
+        l = MochiKit.DOM.getElement('form_tareas_prueba_to');
+        for (i=0; i<l.options.length; i++) {
+            l.options[i].selected = true;
+        }
+        return true; // Dejo hacer el submit
+    }
+"""
 
 #{{{ Validación
 def validate_fk(data):
@@ -56,7 +74,10 @@ def get_options():
     return [(0, _(u'--'))] + [(fk.id, fk.shortrepr()) for fk in fkcls.select()]
 
 def get_tareas_fuente():
-    return [(fk.id, fk.shortrepr()) for fk in Tarea.select()]
+    return [(fk.id, fk.shortrepr()) for fk in TareaFuente.select()]
+
+def get_tareas_prueba():
+    return [(fk.id, fk.shortrepr()) for fk in TareaPrueba.select()]
 
 class EnunciadoForm(W.TableForm):
     class Fields(W.WidgetsList):
@@ -74,12 +95,19 @@ class EnunciadoForm(W.TableForm):
         descripcion = W.TextField(label=_(u'Descripción'),
             validator=V.UnicodeString(not_empty=False, max=255, strip=True))
         archivo = W.FileField(label=_(u'Archivo'))
-        tareasList = W.MultipleSelectField(label=_(u'Tareas'),
-            attrs=dict(style='width:300px'),
+        tareas_fuente = AjaxDosListasSelect(label=_(u'Tareas Fuente'),
+            title_from=u'Disponibles',
+            title_to=u'Asignadas',
             options=get_tareas_fuente,
             validator=V.Int(not_empty=True))
+        tareas_prueba = AjaxDosListasSelect(label=_(u'Tareas Prueba'),
+            title_from=u'Disponibles',
+            title_to=u'Asignadas',
+            options=get_tareas_prueba,
+            validator=V.Int(not_empty=True))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');")]
+    form_attrs = dict(onsubmit='return doSubmit();')
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');"), W.JSSource(ajax)]
 
 form = EnunciadoForm()
 #}}}
@@ -124,8 +152,20 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         kw['archivo'] = archivo.file.read()
         kw['archivo_name'] = archivo.filename
         kw['archivo_type'] = archivo.type
-        kw['tareas'] = kw['tareasList']
-        del(kw['tareasList'])
+        if 'tareas_fuente_to' in kw.keys() and 'tareas_prueba_to' in kw.keys():
+            kw['tareas'] = list(kw['tareas_fuente_to']) + list(kw['tareas_prueba_to'])
+            del(kw['tareas_fuente_to'])
+            del(kw['tareas_prueba_to'])
+        elif 'tareas_fuente_to' in kw.keys():
+            kw['tareas'] = list(kw['tareas_fuente_to'])
+            del(kw['tareas_fuente_to'])
+        elif 'tareas_prueba_to' in kw.keys():
+            kw['tareas'] = list(kw['tareas_prueba_to'])
+            del(kw['tareas_prueba_to'])
+        else:
+            kw['tareas'] = []
+        del(kw['tareas_prueba'])
+        del(kw['tareas_fuente'])
         validate_new(kw)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
@@ -135,17 +175,30 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
-        r.tareasList = [a.id for a in r.tareas]
+        r.tareas_fuente = [{"id":t.id, "label":t.shortrepr()} for t in filter(lambda x: isinstance(x, TareaFuente), r.tareas)]
+        r.tareas_prueba = [{"id":t.id, "label":t.shortrepr()} for t in filter(lambda x: isinstance(x, TareaPrueba), r.tareas)]
         return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
     @error_handler(edit)
     @expose()
     @identity.require(identity.has_permission('admin'))
-    def update(self, id, **kw):
+    def update(self, id, archivo, **kw):
         """Save or create record to model"""
-        kw['tareas'] = kw['tareasList']
-        del(kw['tareasList'])
+        if 'tareas_fuente_to' in kw.keys() and 'tareas_prueba_to' in kw.keys():
+            kw['tareas'] = list(kw['tareas_fuente_to']) + list(kw['tareas_prueba_to'])
+            del(kw['tareas_fuente_to'])
+            del(kw['tareas_prueba_to'])
+        elif 'tareas_fuente_to' in kw.keys():
+            kw['tareas'] = list(kw['tareas_fuente_to'])
+            del(kw['tareas_fuente_to'])
+        elif 'tareas_prueba_to' in kw.keys():
+            kw['tareas'] = list(kw['tareas_prueba_to'])
+            del(kw['tareas_prueba_to'])
+        else:
+            kw['tareas'] = []
+        del(kw['tareas_prueba'])
+        del(kw['tareas_fuente'])
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')

@@ -4,6 +4,32 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
 <title>edit</title>
+<script type="text/javascript">
+    function init_data() {
+        <span py:for="a in record.tareas_fuente" py:strip="True">
+            MochiKit.DOM.appendChildNodes("form_tareas_fuente_to", OPTION({"value":${a['id']}}, '${a['label']}'))
+        </span>
+        <span py:for="a in record.tareas_prueba" py:strip="True">
+            MochiKit.DOM.appendChildNodes("form_tareas_prueba_to", OPTION({"value":${a['id']}}, '${a['label']}'))
+        </span>
+        // Saco de FROM los que ya estan en TO
+        replaceChildNodes('form_tareas_fuente_from', list(ifilterfalse(
+           partial(esta_en_to, $('form_tareas_fuente_to').options),
+           $('form_tareas_fuente_from').options
+        )));
+        replaceChildNodes('form_tareas_prueba_from', list(ifilterfalse(
+           partial(esta_en_to, $('form_tareas_prueba_to').options),
+           $('form_tareas_prueba_from').options
+        )));
+    }
+    function esta_en_to (options, i) {
+            for (j=0; j &lt; options.length; j++)
+                if (options[j].value == i.value)
+                    return true;
+            return false;
+        }
+    MochiKit.DOM.addLoadEvent(init_data)
+</script>
 </head>
 <body>
 
