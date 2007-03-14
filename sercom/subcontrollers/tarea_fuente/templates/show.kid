@@ -10,12 +10,46 @@
 <table class="show">
     <tr>
         <th>Nombre:</th>
-	<td><span py:replace="record.nombre">nombre</span></td>
+		<td><span py:replace="record.nombre">nombre</span></td>
     </tr>
     <tr>
         <th>Descripcion:</th>
-	<td><span py:replace="record.descripcion">nombre</span></td>
+				<td><span py:replace="record.descripcion">nombre</span></td>
     </tr>
+</table>
+<h2>Comandos</h2>
+<table>
+	<tr>
+		<th title="Orden">#</th>
+		<th>Descripcion</th>
+		<th>Comando</th>
+		<th title="Código de Retorno">RET</th>
+		<th title="Archivos de Entrada">Entrada</th>
+		<th title="Archivos a Comparar">Comparar</th>
+		<th title="Archivos a Guardar">Guarda</th>
+	</tr>
+	<tr py:for="i in record.comandos">
+		<td py:content="i.orden" />
+		<td py:content="i.descripcion" />
+		<td py:content="i.comando" />
+		<td py:content="i.retorno" />
+		<td>
+			<span py:if="i.archivos_entrada">
+				<a href="${tg.url('/tarea_fuente/comandos/get_archivos_entrada/%d' % i.id)}">Bajar</a>
+			</span>
+			<span py:if="not i.archivos_entrada">No tiene</span>
+		</td>
+		<td>
+			<span py:if="i.archivos_a_comparar">
+				<a href="${tg.url('/tarea_fuente/comandos/get_archivos_a_comparar/%d' % i.id)}">Bajar</a>
+			</span>
+			<span py:if="not i.archivos_a_comparar">No tiene</span>
+		</td>
+		<td>
+			<span py:if="i.archivos_a_guardar" py:content="', '.join(i.archivos_a_guardar)"></span>
+			<span py:if="not i.archivos_a_guardar">No Guarda</span>
+		</td>
+	</tr>
 </table>
 
 <br/>
