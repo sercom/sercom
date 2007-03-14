@@ -9,7 +9,7 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Enunciado, Docente, Curso
+from sercom.model import Enunciado, Docente, Curso, Tarea
 from cherrypy import request, response
 
 #}}}
@@ -55,6 +55,9 @@ def validate_new(data):
 def get_options():
     return [(0, _(u'--'))] + [(fk.id, fk.shortrepr()) for fk in fkcls.select()]
 
+def get_tareas_fuente():
+    return [(fk.id, fk.shortrepr()) for fk in Tarea.select()]
+
 class EnunciadoForm(W.TableForm):
     class Fields(W.WidgetsList):
         anio = W.TextField(label=_(u'Año'),
@@ -64,13 +67,17 @@ class EnunciadoForm(W.TableForm):
             help_text=_(u'Requerido.'),
             validator=V.Number(min=1, max=1, strip=True))
         nombre = W.TextField(label=_(u'Nombre'),
-            help_text=_(u'Requerido y único.'),
+            help_text=_(u'Requerido y Único.'),
             validator=V.UnicodeString(min=5, max=60, strip=True))
         fk = W.SingleSelectField(name=fkname+'ID', label=_(fkname.capitalize()),
             options=get_options, validator=V.Int(not_empty=False))
         descripcion = W.TextField(label=_(u'Descripción'),
             validator=V.UnicodeString(not_empty=False, max=255, strip=True))
         archivo = W.FileField(label=_(u'Archivo'))
+        tareasList = W.MultipleSelectField(label=_(u'Tareas'),
+            attrs=dict(style='width:300px'),
+            options=get_tareas_fuente,
+            validator=V.Int(not_empty=True))
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');")]
 
@@ -117,6 +124,8 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         kw['archivo'] = archivo.file.read()
         kw['archivo_name'] = archivo.filename
         kw['archivo_type'] = archivo.type
+        kw['tareas'] = kw['tareasList']
+        del(kw['tareasList'])
         validate_new(kw)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
@@ -126,6 +135,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
+        r.tareasList = [a.id for a in r.tareas]
         return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
@@ -134,6 +144,8 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     @identity.require(identity.has_permission('admin'))
     def update(self, id, **kw):
         """Save or create record to model"""
+        kw['tareas'] = kw['tareasList']
+        del(kw['tareasList'])
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')
