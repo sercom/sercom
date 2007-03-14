@@ -18,7 +18,9 @@
     <tr py:for="record in records">
         <td><span py:replace="record.nombre">nombre</span></td>
         <td><span py:replace="record.descripcion">nota</span></td>
-        <td><a href="${tg.url('/tarea_fuente/edit/%d' % record.id)}">Editar</a>
+        <td>
+            <a href="${tg.url('/tarea_fuente/comandos/list/%d' % record.id)}">Comandos</a>
+            <a href="${tg.url('/tarea_fuente/edit/%d' % record.id)}">Editar</a>
             <a href="${tg.url('/tarea_fuente/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>
 </table>

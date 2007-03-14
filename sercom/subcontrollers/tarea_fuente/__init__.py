@@ -12,6 +12,7 @@ from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import TareaFuente 
 from sqlobject import *
+from comandos import ComandoFuenteController
 #}}}
 
 #{{{ Configuración
@@ -47,6 +48,8 @@ form = TareaFuenteForm()
 class TareaFuenteController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_permission('admin')
+
+    comandos = ComandoFuenteController()
 
     @expose()
     def default(self, tg_errors=None):
