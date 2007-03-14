@@ -1,6 +1,7 @@
 # vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker :
 
 from sercom.model import InstanciaDeEntrega
+from datetime import datetime
 import logging
 
 log = logging.getLogger('sercom.finalizer')
