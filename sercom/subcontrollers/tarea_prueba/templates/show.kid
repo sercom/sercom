@@ -20,7 +20,7 @@
 
 <br/>
 <a href="${tg.url('/tarea_prueba/edit/%d' % record.id)}">Editar</a> |
-<a href="${tg.url('/tarea_prueba/list')}">Volver</a>
+<a href="javascript:window.history.go(-1);">Volver</a>
 
 </body>
 </html>
