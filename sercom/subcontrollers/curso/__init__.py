@@ -304,7 +304,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
                 try:
                     u.email = row[2]
                     u.telefono = row[3]
-                    u.contrasenia = row[0]
+                    u.password = row[0]
                     u.activo = True
                     curso.add_alumno(u)
                     ok.append(row)
