@@ -144,27 +144,9 @@ def get_gruposB(cursoID):
     return [(0, u'Nuevo Grupo')] + [(g.id, g.shortrepr()) for g in Grupo.select(Grupo.q.cursoID==cursoID)]
 
 ajaxadmin = u"""
-    function alumnos_agregar_a_la_lista(texto, lista)
-    {
-        t = MochiKit.DOM.getElement(texto);
-
-        url = "/alumno/get_alumno?padron="+t.value;
-        t.value = "";
-        return url;
-    }
-
     function err (err)
     {
         alert("The metadata for MochiKit.Async could not be fetched :(");
-    }
-
-    function procesar(result)
-    {
-        l = MochiKit.DOM.getElement('form_responsable_info');
-        if (result.error)
-            l.innerHTML = result.msg;
-        else
-            l.innerHTML = result.msg.value;
     }
 
     function doSubmit()
@@ -209,11 +191,6 @@ ajaxadmin = u"""
         grupoA = MochiKit.DOM.getElement('form_grupos_from');
         id = lista.options[lista.selectedIndex].value
         cargarGrupo(id, grupoA);
-        //carga la lista para seleccionar un responsable
-        responsableA = MochiKit.DOM.getElement('form_responsableA');
-        responsableA.options.length = 0;
-        MochiKit.DOM.appendChildNodes(responsableA, OPTION({"value":0}, "---"));
-        cargarGrupo(id, responsableA);
     }
 
     function onListaBChange() {
@@ -232,17 +209,14 @@ ajaxadmin = u"""
             grupoB = MochiKit.DOM.getElement('form_grupos_to');
             id = lista.options[lista.selectedIndex].value
             cargarGrupo(id, grupoB);
-
-            //carga la lista para seleccionar un responsable
-            responsableB = MochiKit.DOM.getElement('form_responsableB');
-            responsableB.options.length = 0;
-            MochiKit.DOM.appendChildNodes(responsableB, OPTION({"value":0}, "---"));
-            cargarGrupo(id, responsableB);
         }
+    }
+    
+    function makeOption(option) {
+        return OPTION({"value": option.value}, option.text);
     }
 
     function cargarGrupo(grupoid, lista) {
-        //url = "/grupo/get_inscripto?cursoid="+cursoid+'&padron='+padron
         var result = loadJSONDoc('/curso/grupo/get_alumnos?grupoid='+id);
         result.addCallbacks(partial(cargarLista, lista), err)
     }
@@ -263,8 +237,16 @@ ajaxadmin = u"""
             label = alumnos[i].label;
             MochiKit.DOM.appendChildNodes(lista, OPTION({"value":id}, label))
         }
+        ActualizarResponsables();
     }
 
+    function ActualizarResponsables()
+    {
+        replaceChildNodes('form_responsableA', '');
+        replaceChildNodes('form_responsableB', '');
+        appendChildNodes('form_responsableA', map(makeOption, $('form_grupos_from').options));
+        appendChildNodes('form_responsableB', map(makeOption, $('form_grupos_to').options));
+    }
 """
 
 class GrupoAdminForm(W.TableForm):
@@ -272,7 +254,7 @@ class GrupoAdminForm(W.TableForm):
         cursoID = W.HiddenField()
         listaGrupoA = W.SingleSelectField(label=_(u'Grupo A'), attrs = dict(onChange='onListaAChange()'), validator = V.Int(not_empty=True))
         listaGrupoB = W.SingleSelectField(label=_(u'Grupo B'), attrs = dict(onChange='onListaBChange()'), validator = V.Int(not_empty=True))
-        grupos = AjaxDosListasSelect(label=_(u'Grupos'),title_from=u"Grupo A", size=8, title_to=u"Grupo B", validator=V.Int(not_empty=True))
+        grupos = AjaxDosListasSelect(label=_(u'Grupos'),title_from=u"Grupo A", size=8, move_signal="ActualizarResponsables();", title_to=u"Grupo B", validator=V.Int(not_empty=True))
         responsableA = W.SingleSelectField(label=_(u'Responsable A'), validator = V.Int())
         responsableB = W.SingleSelectField(label=_(u'Responsable B'), validator = V.Int())
         tutoresA = W.MultipleSelectField(label=_(u'Tutores A'), validator = V.Int(not_empty=True))
