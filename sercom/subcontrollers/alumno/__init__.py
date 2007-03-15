@@ -107,6 +107,7 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
+        kw['roles'] = [Rol.by_nombre('alumno')]
         validate_new(kw)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
@@ -163,7 +164,7 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
                 if row == []:
                     continue
                 try:
-                    u = Alumno(row[0], nombre=row[1])
+                    u = Alumno(row[0], nombre=row[1], roles=[Rol.by_nombre('alumno')])
                     u.email = row[2]
                     u.telefono = row[3]
                     u.password = row[0]

@@ -10,7 +10,7 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Curso, Correccion, Ejercicio, Alumno, Docente, Grupo, DocenteInscripto
+from sercom.model import Curso, Correccion, Ejercicio, Alumno, Docente, Grupo, DocenteInscripto, Rol
 from curso_alumno import *
 from sqlobject import *
 from sqlobject.dberrors import *
@@ -298,7 +298,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
                 if row == []:
                     continue
                 try:
-                    u = Alumno(row[0], nombre=row[1])
+                    u = Alumno(row[0], nombre=row[1], roles=[Rol.by_nombre('alumno')])
                 except:
                     u = Alumno.byPadron(row[0])
                 try:
