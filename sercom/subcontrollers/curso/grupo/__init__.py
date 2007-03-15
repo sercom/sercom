@@ -7,13 +7,17 @@ from turbogears import validate, flash, error_handler
 from turbogears import validators as V
 from turbogears import widgets as W
 from turbogears import identity
-from turbogears import paginate
+from turbogears import paginate, url
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Curso, AlumnoInscripto, Docente, DocenteInscripto, Grupo, Alumno, Miembro
 from sqlobject import *
 
 from sercom.widgets import *
+
+import logging
+
+log = logging.getLogger('sercom.curso.grupo.admin')
 
 #}}}
 
@@ -431,6 +435,125 @@ class GrupoController(controllers.Controller, identity.SecureResource):
             tutoresA=get_docentes_inscriptos(cursoID),
             tutoresB=get_docentes_inscriptos(cursoID),
         )
+        kw['cursoID'] = cursoID
         return dict(name=name, namepl=namepl, options=options, form=formadmin, values=kw, cursoID=int(cursoID))
+
+    @validate(form=formadmin)
+    @error_handler(admin)
+    @expose()
+    def adminupdate(self, **kw):
+        """Save or create record to model"""
+        cursoID = int(kw['cursoID'])
+        log.debug(kw)
+        grupoAId = kw['listaGrupoA']
+        grupoBId = kw['listaGrupoB']
+        miembrosA = kw.get('grupos_from', [])
+        miembrosB = kw.get('grupos_to', [])
+        responsableA = kw['responsableA']
+        responsableB = kw['responsableB']
+        tutoresA = kw.get('tutoresA', [])
+        tutoresB = kw.get('tutoresB', [])
+
+        # por las dudas de que no sea una lista
+        if not isinstance(miembrosA, list):
+            miembrosA = [miembrosA]
+        if not isinstance(miembrosB, list):
+            miembrosB = [miembrosB]
+        if not isinstance(tutoresA, list):
+            tutoresA = [tutoresA]
+        if not isinstance(tutoresB, list):
+            tutoresB = [tutoresB]
+
+
+        """ levanto los grupos originales """
+        grupoAorig = validate_get(int(grupoAId))
+        log.debug(miembrosA)
+        log.debug(Miembro.selectBy(grupo=grupoAorig, baja=None))
+        """ Si el grupo A quedo vacio deberia eliminarlo (primero
+            genero los otros para que no elimine los alumnos)"""
+        for mA in Miembro.selectBy(grupo=grupoAorig, baja=None):
+            if str(mA.alumno.id) not in miembrosA:
+                grupoAorig.remove_miembro(mA.alumno.id)
+
+        try:
+            grupoA = validate_get(grupoAId)
+            for a in miembrosA:
+                try:
+                    grupoA.add_miembro(a, baja=None)
+                except DuplicateEntryError:
+                    continue
+        except Exception, e:
+            log.debug(e)
+            flash(_(u'Error A %s.' % e))
+            raise redirect(url('/curso/grupo/list' % int(cursoID)))
+        # seteo el reponsable del grupo
+        if int(responsableA) != 0:
+            grupoA.responsable = AlumnoInscripto.get(int(responsableA))
+
+        for t in tutoresA:
+            try:
+                grupoA.add_tutor(int(t))
+            except:
+                #TODO ver por que no anda el duplicate error, por ahora cacheo silencioso
+                pass
+
+
+        #Elimino el grupo si quedo vacio
+        if len(miembrosA) == 0:
+            try:
+                validate_del(grupoAId)
+            except:
+                pass
+
+        # si se selecciono un grupo nuevo
+        if int(grupoBId) == 0:
+            # creo un grupo nuevo
+            nuevosMiembros = []
+            for m in miembrosB:
+                nuevosMiembros.append(AlumnoInscripto.get(int(m)))
+            nuevosTutores = []
+            for t in tutoresB:
+                nuevosTutores.append(Docente.get(t))
+            #Creo el nuevo grupo
+            Grupo(miembros = nuevosMiembros, tutores = nuevosTutores, cursoID=cursoID, nombre='NuevoGrupo'+str(cursoID))
+        else:
+            grupoBorig = validate_get(int(grupoBId))
+            log.debug(miembrosB)
+            b = list(Miembro.selectBy(grupo=grupoBorig, baja=None))
+            log.debug(b)
+            #borro todos y los vuelvo a agregar
+            for mB in Miembro.selectBy(grupo=grupoBorig, baja=None):
+                if str(mB.alumno.id) not in miembrosB:
+                    grupoBorig.remove_miembro(mB.alumno.id)
+            try:
+                grupoB = validate_get(grupoBId)
+                for b in miembrosB:
+                    try:
+                        grupoB.add_miembro(b, baja=None)
+                    except DuplicateEntryError:
+                        continue
+            except Exception, e:
+                log.debug(e)
+                flash(_(u'Error B %s.' % e))
+                raise redirect(url('/curso/grupo/list/%d' % int(cursoID)))
+            # seteo el reponsable del grupo
+            if int(responsableB) != 0:
+                grupoB.responsable = AlumnoInscripto.get(int(responsableB))
+
+            #Elimino el grupo si quedo vacio
+            if len(miembrosB) == 0:
+                try:
+                    validate_del(grupoBId)
+                except:
+                    pass
+
+            for t in tutoresB:
+                try:
+                    grupoB.add_tutor(int(t))
+                except:
+                    #TODO ver por que no anda el duplicate error, por ahora cahceo silencioso
+                    pass
+        flash(_(u'Los grupos fueron actualizado.'))
+        raise redirect(url('/curso/grupo/list/%d' % int(cursoID)))
 #}}}
 

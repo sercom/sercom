@@ -9,7 +9,7 @@
 <body>
 
 <h1>Administrar <span py:replace="namepl">Objeto</span></h1>
-<p py:replace="form(action=tg.url('/curso/admin/adminupdate/%d' % cursoID), options=options, value=values, submit_text=_('Actualizar'))">Formulario</p>
+<p py:replace="form(action=tg.url('/curso/grupo/adminupdate'), options=options, value=values, submit_text=_('Actualizar'))">Formulario</p>
 
 <br/>
 <a href="${tg.url('/curso/grupo/list/%d' % cursoID)}">Cancelar</a>
