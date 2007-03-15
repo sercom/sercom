@@ -70,7 +70,7 @@ class CasoDePruebaForm(W.TableForm):
         max_cant_archivos = W.TextField(label=_(u'Archivos'),validator=V.Int)
         max_cant_procesos = W.TextField(label=_(u'Procesos'),validator=V.Int)
         max_locks_memoria = W.TextField(label=_(u'Mem. Locks'),validator=V.Int)
-        terminar_si_falla = W.CheckBox(label=_(u'Terminar si falla'), default=1, validator=V.Bool(if_empty=1))
+        terminar_si_falla = W.CheckBox(label=_(u'Terminar si falla'), default=0, validator=V.Bool(if_empty=0))
         rechazar_si_falla = W.CheckBox(label=_(u'Rechazar si falla'), default=1, validator=V.Bool(if_empty=1))
         publico = W.CheckBox(label=_(u'Es público?'), default=1, validator=V.Bool(if_empty=1))
         los_archivos_entrada = W.FileField(label=_(u'Archivos Entrada'))
