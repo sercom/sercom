@@ -5,12 +5,15 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
 <title>new</title>
 </head>
+<script type="text/javascript">
+    function select_enunciado() {}
+</script>
 <body>
 
 <h1>Crear Nuevo <span py:replace="name">Objeto</span></h1>
 
 <div id="hint">
-	Buscando registros ...
+    Buscando registros ...
 </div>
 
 <p py:replace="form(action=tg.url('/ejercicio/create'), value=values, submit_text=_('Crear'))">Formulario</p>
