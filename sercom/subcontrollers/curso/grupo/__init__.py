@@ -10,7 +10,7 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Curso, AlumnoInscripto, Docente, Grupo, Alumno, Miembro
+from sercom.model import Curso, AlumnoInscripto, Docente, DocenteInscripto, Grupo, Alumno, Miembro
 from sqlobject import *
 
 from sercom.widgets import *
@@ -21,36 +21,16 @@ from sercom.widgets import *
 cls = Grupo
 name = 'grupo'
 namepl = 'grupos'
-
-fkcls = Curso
-fkname = 'curso'
-fknamepl = fkname + 's'
 #}}}
 
 #{{{ Validación
-def validate_fk(data):
-    fk = data.get(fkname + 'ID', None)
-    if fk == 0: fk = None
-    if fk is not None:
-        try:
-            fk = fkcls.get(fk)
-        except LookupError:
-            flash(_(u'No se pudo crear el nuevo %s porque el %s con '
-                'identificador %d no existe.' % (name, fkname, fk)))
-            raise redirect('new', **data)
-    data.pop(fkname + 'ID', None)
-    data[fkname] = fk
-    return fk
-
 def validate_get(id):
     return val.validate_get(cls, name, id)
 
 def validate_set(id, data):
-    validate_fk(data)
     return val.validate_set(cls, name, id, data)
 
 def validate_new(data):
-    validate_fk(data)
     return val.validate_new(cls, name, data)
 
 def validate_del(id):
@@ -61,8 +41,10 @@ def validate_del(id):
 def get_docentes():
     return [(fk1.id, fk1.shortrepr()) for fk1 in Docente.select()]
 
-def get_cursos():
-    return [(0, u'---')] + [(fk1.id, fk1.shortrepr()) for fk1 in Curso.select()]
+def get_docentes_inscriptos(id):
+    def func():
+        return [(fk1.id, fk1.shortrepr()) for fk1 in DocenteInscripto.select(DocenteInscripto.q.cursoID==id)]
+    return func
 
 ajax = u"""
     function alumnos_agregar_a_la_lista(texto, lista)
@@ -74,11 +56,11 @@ ajax = u"""
             alert("No deberias ver esto, y quiere decir que tu form esta roto.\\nTe falta un combo de curso");
             return;
         }
-        if (curso.options[curso.selectedIndex].value <= 0) {
+        if (curso.value <= 0) {
             alert('Debes seleccionar un curso primero');
             return;
         }
-        url = "/grupo/get_inscripto?cursoid="+curso.options[curso.selectedIndex].value+"&padron="+t.value;
+        url = "/curso/grupo/get_inscripto?cursoid="+curso.value+"&padron="+t.value;
         t.value = "";
         return url;
     }
@@ -107,12 +89,12 @@ ajax = u"""
         }
         /* Obtengo el curso */
         l = MochiKit.DOM.getElement('form_cursoID');
-        cursoid = l.options[l.selectedIndex].value;
+        cursoid = l.value;
         if (cursoid <= 0) {
             alert('Debe seleccionar un curso');
             return;
         }
-        url = "/grupo/get_inscripto?cursoid="+cursoid+'&padron='+padron;
+        url = "/curso/grupo/get_inscripto?cursoid="+cursoid+'&padron='+padron;
         var d = loadJSONDoc(url);
         d.addCallbacks(procesar, err);
     }
@@ -137,30 +119,19 @@ ajax = u"""
     MochiKit.DOM.addLoadEvent(prepare)
 
 """
-def get_docentes():
-    return [(fk1.id, fk1.shortrepr()) for fk1 in Docente.select()]
 
 class GrupoForm(W.TableForm):
     class Fields(W.WidgetsList):
-        cursoID = W.SingleSelectField(label=_(u'Curso'), options = get_cursos, validator = V.Int(not_empty=True))
+        cursoID = W.HiddenField()
         nombre = W.TextField(label=_(u'Nombre'), validator=V.UnicodeString(not_empty=True,strip=True))
         responsable = CustomTextField(label=_(u'Responsable'), validator=V.UnicodeString(), attrs=dict(size='8'))
         miembros = AjaxMultiSelect(label=_(u'Miembros'), validator=V.Int(), on_add="alumnos_agregar_a_la_lista")
         tutores = W.MultipleSelectField(label=_(u'Tutores'), validator=V.Int(), options=get_docentes)
 
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('curso');"), W.JSSource(ajax)]
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');"), W.JSSource(ajax)]
     form_attrs = dict(onsubmit='return doSubmit()')
 
-def get_cursos():
-    return [(0, u'---')] + [(fk1.id, fk1.shortrepr()) for fk1 in Curso.select()]
-
-class GrupoFiltros(W.TableForm):
-    class Fields(W.WidgetsList):
-        cursoID = W.SingleSelectField(label=_(u'Curso'), options = get_cursos, validator = V.Int(not_empty=True))
-    fields = Fields()
-
-filtro = GrupoFiltros()
 form = GrupoForm()
 
 #}}}
@@ -173,33 +144,25 @@ class GrupoController(controllers.Controller, identity.SecureResource):
     @expose()
     def default(self, tg_errors=None):
         """handle non exist urls"""
-        raise redirect('list')
+        raise redirect(tg.url('/curso/list'))
 
     @expose()
     def index(self):
-        raise redirect('list')
+        raise redirect(tg.url('/curso/list'))
 
     @expose(template='kid:%s.templates.list' % __name__)
     @paginate('records')
-    def list(self, cursoID = 0):
+    def list(self, cursoID):
         """List records in model"""
-        vfilter = dict(cursoID = cursoID)
-        if int(cursoID) == 0:
-            r = cls.select()
-        else:
-            r = cls.select(cls.q.cursoID == cursoID)
-        return dict(records=r, name=name, namepl=namepl, form=filtro, vfilter=vfilter)
-
-    @expose()
-    def activate(self, id, activo):
-        """Save or create record to model"""
-        r = validate_get(id)
-        raise redirect('../../list')
+        r = cls.select(cls.q.cursoID == cursoID)
+        return dict(records=r, name=name, namepl=namepl, cursoID=int(cursoID))
 
     @expose(template='kid:%s.templates.new' % __name__)
-    def new(self, **kw):
+    def new(self, cursoID, **kw):
         """Create new records in model"""
-        return dict(name=name, namepl=namepl, form=form, values=kw)
+        form.fields[0].attrs['value'] = cursoID
+        form.fields[4].options = get_docentes_inscriptos(cursoID)
+        return dict(name=name, namepl=namepl, cursoID=int(cursoID), form=form, values=kw)
 
     @validate(form=form)
     @error_handler(new)
@@ -217,7 +180,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
 
         r = validate_new(kw)
         flash(_(u'Se creó un nuevo %s.') % name)
-        raise redirect('list')
+        raise redirect('list/%d' % int(kw['cursoID']))
 
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
@@ -227,6 +190,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
         # de manera comoda y facil de formatear segun lo que espera la UI (que
         # en este caso es super particular). Ese EmptyClass no se si hay algo estandar
         # en python que usar, puse {} y [] pero cuando quiero hacer values.id = XX explota.
+        form.fields[4].options = get_docentes_inscriptos(r.curso.id)
         class EmptyClass:
             pass
         values = EmptyClass()
@@ -257,7 +221,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
         kw['responsable'] = resp
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
-        raise redirect('../list')
+        raise redirect('../list/%d' % r.curso.id)
 
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self,id, **kw):
@@ -266,11 +230,11 @@ class GrupoController(controllers.Controller, identity.SecureResource):
         return dict(name=name, namepl=namepl, record=r)
 
     @expose()
-    def delete(self, id):
+    def delete(self, cursoID, id):
         """Destroy record in model"""
         validate_del(id)
         flash(_(u'El %s fue eliminado permanentemente.') % name)
-        raise redirect('../list')
+        raise redirect('../../list/%d' % int(cursoID))
 
     @expose('json')
     def get_inscripto(self, cursoid, padron):

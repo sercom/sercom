@@ -4,7 +4,6 @@ from curso import CursoController
 from enunciado import EnunciadoController
 from ejercicio import EjercicioController
 from docente_inscripto import DocenteInscriptoController
-from grupo import GrupoController
 from correccion import CorreccionController
 from misentregas import MisEntregasController
 from grupo_admin import GrupoAdminController
