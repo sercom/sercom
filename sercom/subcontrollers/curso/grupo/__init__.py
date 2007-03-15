@@ -42,9 +42,7 @@ def get_docentes():
     return [(fk1.id, fk1.shortrepr()) for fk1 in Docente.select()]
 
 def get_docentes_inscriptos(id):
-    def func():
-        return [(fk1.id, fk1.shortrepr()) for fk1 in DocenteInscripto.select(DocenteInscripto.q.cursoID==id)]
-    return func
+    return [(fk1.id, fk1.shortrepr()) for fk1 in DocenteInscripto.select(DocenteInscripto.q.cursoID==id)]
 
 ajax = u"""
     function alumnos_agregar_a_la_lista(texto, lista)
@@ -126,7 +124,7 @@ class GrupoForm(W.TableForm):
         nombre = W.TextField(label=_(u'Nombre'), validator=V.UnicodeString(not_empty=True,strip=True))
         responsable = CustomTextField(label=_(u'Responsable'), validator=V.UnicodeString(), attrs=dict(size='8'))
         miembros = AjaxMultiSelect(label=_(u'Miembros'), validator=V.Int(), on_add="alumnos_agregar_a_la_lista")
-        tutores = W.MultipleSelectField(label=_(u'Tutores'), validator=V.Int(), options=get_docentes)
+        tutores = W.MultipleSelectField(label=_(u'Tutores'), validator=V.Int())
 
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');"), W.JSSource(ajax)]
@@ -161,8 +159,8 @@ class GrupoController(controllers.Controller, identity.SecureResource):
     def new(self, cursoID, **kw):
         """Create new records in model"""
         form.fields[0].attrs['value'] = cursoID
-        form.fields[4].options = get_docentes_inscriptos(cursoID)
-        return dict(name=name, namepl=namepl, cursoID=int(cursoID), form=form, values=kw)
+        options = dict(tutores=get_docentes_inscriptos(cursoID))
+        return dict(name=name, namepl=namepl, cursoID=int(cursoID), form=form, options=options, values=kw)
 
     @validate(form=form)
     @error_handler(new)
@@ -190,7 +188,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
         # de manera comoda y facil de formatear segun lo que espera la UI (que
         # en este caso es super particular). Ese EmptyClass no se si hay algo estandar
         # en python que usar, puse {} y [] pero cuando quiero hacer values.id = XX explota.
-        form.fields[4].options = get_docentes_inscriptos(r.curso.id)
+        options = dict(tutores=get_docentes_inscriptos(r.curso.id))
         class EmptyClass:
             pass
         values = EmptyClass()
@@ -202,7 +200,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
             values.responsable = r.responsable.alumno.padron
         values.miembros = [{"id":i.alumno.id, "label":i.alumno.alumno.nombre} for i in filter(lambda x: x.baja is None, r.miembros)]
         values.tutores = [a.docenteID for a in r.tutores]
-        return dict(name=name, namepl=namepl, record=values, form=form)
+        return dict(name=name, namepl=namepl, record=values, options=options, form=form)
 
     @validate(form=form)
     @error_handler(edit)

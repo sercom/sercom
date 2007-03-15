@@ -9,7 +9,7 @@
 
 <h1>Crear Nuevo <span py:replace="name">Objeto</span></h1>
 
-<p py:replace="form(action=tg.url('/curso/grupo/create'), value=values, submit_text=_('Crear'))">Formulario</p>
+<p py:replace="form(action=tg.url('/curso/grupo/create'), options=options, value=values, submit_text=_('Crear'))">Formulario</p>
 
 <br/>
 <a href="${tg.url('/curso/grupo/list/%d' % cursoID)}">Cancelar</a>
