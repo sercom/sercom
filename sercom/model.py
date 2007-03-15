@@ -634,7 +634,16 @@ class Grupo(Entregador): #{{{
     def add_miembro(self, alumno, **kw):
         if isinstance(alumno, AlumnoInscripto):
             alumno = alumno.id
-        return Miembro(grupo=self, alumnoID=alumno, **kw)
+        # FIXME acá habría que sacarle la unicidad a Miembro.pk para que
+        # un alumno pueda ser miembro varias veces del mismo grupo, de
+        # manera de tener la historia completa, pero hay que tener cuidad
+        # y arreglar todos los lugares donde se asume esa unicidad
+        try:
+            m = Miembro.selectBy(grupo=self, alumnoID=alumno).getOne()
+            m.baja = None # si ya existía, le sacamos la fecha de baja
+            return m
+        except SQLObjectNotFound: # creo uno nuevo
+            return Miembro(grupo=self, alumnoID=alumno, **kw)
 
     def remove_miembro(self, alumno):
         if isinstance(alumno, AlumnoInscripto):
@@ -645,7 +654,13 @@ class Grupo(Entregador): #{{{
     def add_tutor(self, docente, **kw):
         if isinstance(docente, DocenteInscripto):
             docente = docente.id
-        return Tutor(grupo=self, docenteID=docente, **kw)
+        # FIXME ídem add_miembro()
+        try:
+            t = Tutor.selectBy(grupo=self, docenteID=alumno).getOne()
+            t.baja = None # si ya existía, le sacamos la fecha de baja
+            return t
+        except SQLObjectNotFound: # creo uno nuevo
+            return Tutor(grupo=self, docenteID=docente, **kw)
 
     def remove_tutor(self, docente):
         if isinstance(docente, DocenteInscripto):
