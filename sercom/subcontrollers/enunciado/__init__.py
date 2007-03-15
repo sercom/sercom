@@ -152,9 +152,8 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     @identity.require(identity.has_permission('admin'))
     def create(self, el_archivo, **kw):
         """Save or create record to model"""
-        kw['archivo'] = el_archivo.file.read()
-        kw['archivo_name'] = el_archivo.filename
-        kw['archivo_type'] = el_archivo.type
+        if el_archivo.filename:
+            kw['archivos'] = el_archivo.file.read() # TODO verificar que es ZIP
         if 'tareas_fuente_to' in kw.keys() and 'tareas_prueba_to' in kw.keys():
             kw['tareas'] = list(kw['tareas_fuente_to']) + list(kw['tareas_prueba_to'])
             del(kw['tareas_fuente_to'])
@@ -189,9 +188,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     def update(self, id, el_archivo, **kw):
         """Save or create record to model"""
         if el_archivo.filename:
-            kw['archivo'] = el_archivo.file.read()
-            kw['archivo_name'] = el_archivo.filename
-            kw['archivo_type'] = el_archivo.type
+            kw['archivos'] = el_archivo.file.read()
         if 'tareas_fuente_to' in kw.keys() and 'tareas_prueba_to' in kw.keys():
             kw['tareas'] = list(kw['tareas_fuente_to']) + list(kw['tareas_prueba_to'])
             del(kw['tareas_fuente_to'])
@@ -232,12 +229,11 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     @expose()
     def files(self, id):
         r = validate_get(id)
-        response.headers["Content-Type"] = r.archivo_type
-        response.headers["Content-disposition"] = "attachment;filename=%s" % (r.archivo_name)
-        flash(_(u'El %s fue eliminado permanentemente.') % name)
-        return r.archivo
+        response.headers["Content-Type"] = 'application/zip'
+        response.headers["Content-disposition"] = 'attachment;filename=enunciado.zip'
+        return r.archivos
 
-    @expose("json")
+    @expose('json')
     @identity.require(identity.has_permission('admin'))
     def de_curso(self, curso_id):
         c = Curso.get(curso_id)

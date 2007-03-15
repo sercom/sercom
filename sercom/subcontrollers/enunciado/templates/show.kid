@@ -32,9 +32,9 @@
 				<td><span py:replace="record.creado">descripcion</span></td>
     </tr>
     <tr>
-        <th>Archivo:</th>
+        <th>Archivos:</th>
 				<td>
-           <a py:if="record.archivo_name" href="${tg.url('/enunciado/files/%d' % record.id)}" py:content="record.archivo_name">Bajar Enunciado</a>
+           <a py:if="record.archivos" href="${tg.url('/enunciado/files/%d' % record.id)}">Bajar Enunciado</a>
 				</td>
     </tr>
     <tr>

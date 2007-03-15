@@ -430,9 +430,7 @@ class Enunciado(SQLObject): #{{{
     descripcion     = UnicodeCol(length=255, default=None)
     autor           = ForeignKey('Docente', cascade='null')
     creado          = DateTimeCol(notNone=True, default=DateTimeCol.now)
-    archivo         = BLOBCol(default=None)
-    archivo_name    = UnicodeCol(length=255, default=None)
-    archivo_type    = UnicodeCol(length=255, default=None)
+    archivos        = BLOBCol(default=None)
     # Joins
     ejercicios      = MultipleJoin('Ejercicio')
     casos_de_prueba = MultipleJoin('CasoDePrueba')
