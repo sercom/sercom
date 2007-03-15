@@ -63,18 +63,18 @@ class CasoDePruebaForm(W.TableForm):
         nombre = W.TextField(label=_(u'Nombre'), validator=V.UnicodeString(min=3, max=255, strip=True))
         comando = W.TextField(label=_(u'Comando'), validator=V.UnicodeString(min=3, max=255, strip=True))
         descripcion = W.TextField(label=_(u'Descripcion'), validator=V.UnicodeString(min=3, max=255, strip=True))
-        retorno = W.TextField(label=_(u'Retorno'), help_text=u"Codigo de retorno esperado",validator=V.Int(if_empty=0))
-        max_tiempo_cpu = W.TextField(label=_(u'CPU'), help_text=u"Maximo tiempo de CPU que puede utilizar [seg]",validator=V.Int())
-        max_memoria = W.TextField(label=_(u'Memoria'), help_text=u"Maximo cantidad de memoria que puede utilizar [MB]",validator=V.Int())
-        max_tam_archivo = W.TextField(label=_(u'Tam. Archivo'), help_text=u"Maximo tamanio de archivo a crear [MB]",validator=V.Int())
-        max_cant_archivos = W.TextField(label=_(u'Archivos'),validator=V.Int())
-        max_cant_procesos = W.TextField(label=_(u'Procesos'),validator=V.Int())
-        max_locks_memoria = W.TextField(label=_(u'Mem. Locks'),validator=V.Int())
+        retorno = W.TextField(label=_(u'Retorno'), help_text=u"Codigo de retorno esperado",validator=V.Int)
+        max_tiempo_cpu = W.TextField(label=_(u'CPU'), help_text=u"Maximo tiempo de CPU que puede utilizar [seg]",validator=V.Int)
+        max_memoria = W.TextField(label=_(u'Memoria'), help_text=u"Maximo cantidad de memoria que puede utilizar [MB]",validator=V.Int)
+        max_tam_archivo = W.TextField(label=_(u'Tam. Archivo'), help_text=u"Maximo tamanio de archivo a crear [MB]",validator=V.Int)
+        max_cant_archivos = W.TextField(label=_(u'Archivos'),validator=V.Int)
+        max_cant_procesos = W.TextField(label=_(u'Procesos'),validator=V.Int)
+        max_locks_memoria = W.TextField(label=_(u'Mem. Locks'),validator=V.Int)
         terminar_si_falla = W.CheckBox(label=_(u'Terminar si falla'), default=1, validator=V.Bool(if_empty=1))
         rechazar_si_falla = W.CheckBox(label=_(u'Rechazar si falla'), default=1, validator=V.Bool(if_empty=1))
         publico = W.CheckBox(label=_(u'Es público?'), default=1, validator=V.Bool(if_empty=1))
-        archivos_entrada = W.FileField(label=_(u'Archivos Entrada'))
-        archivos_a_comparar = W.FileField(label=_(u'Archivos a Comparar'))
+        los_archivos_entrada = W.FileField(label=_(u'Archivos Entrada'))
+        los_archivos_a_comparar = W.FileField(label=_(u'Archivos a Comparar'))
         archivos_guardar = W.TextField(label=_(u'Archivos a Guardar'))
         activo = W.CheckBox(label=_(u'Activo'), default=1, validator=V.Bool(if_empty=1))
     fields = Fields()
@@ -110,22 +110,20 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
         """Save or create record to model"""
         t = Enunciado.get(kw['enunciadoID'])
         del(kw['enunciadoID'])
-        if kw['archivos_entrada'].filename:
-            kw['archivos_entrada'] = kw['archivos_entrada'].file.read()
-        else:
-            kw['archivos_entrada'] =  None
-        if kw['archivos_a_comparar'].filename:
-            kw['archivos_a_comparar'] = kw['archivos_a_comparar'].file.read()
-        else:
-            kw['archivos_a_comparar'] =  None
+        if kw['los_archivos_entrada'].filename:
+            kw['archivos_entrada'] = kw['los_archivos_entrada'].file.read()
+        del kw['los_archivos_entrada']
+        if kw['los_archivos_a_comparar'].filename:
+            kw['archivos_a_comparar'] = kw['los_archivos_a_comparar'].file.read()
+        del kw['los_archivos_a_comparar']
         # TODO : Hacer ventanita mas amigable para cargar esto.
         try:
             kw['archivos_a_guardar'] = tuple(kw['archivos_guardar'].split(','))
         except AttributeError:
             pass
-        del(kw['archivos_guardar'])
+        del kw['archivos_guardar']
         nombre = kw['nombre'];
-        del(kw['nombre'])
+        del kw['nombre']
         t.add_caso_de_prueba(nombre, **kw)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list/%d' % t.id)
@@ -143,20 +141,18 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     @expose()
     def update(self, id, **kw):
         """Save or create record to model"""
-        if kw['archivos_entrada'].filename:
-            kw['archivos_entrada'] = kw['archivos_entrada'].file.read()
-        else:
-            kw['archivos_entrada'] =  None
-        if kw['archivos_a_comparar'].filename:
-            kw['archivos_a_comparar'] = kw['archivos_a_comparar'].file.read()
-        else:
-            kw['archivos_a_comparar'] =  None
+        if kw['los_archivos_entrada'].filename:
+            kw['archivos_entrada'] = kw['los_archivos_entrada'].file.read()
+        del kw['los_archivos_entrada']
+        if kw['los_archivos_a_comparar'].filename:
+            kw['archivos_a_comparar'] = kw['los_archivos_a_comparar'].file.read()
+        del kw['los_archivos_a_comparar']
         # TODO : Hacer ventanita mas amigable para cargar esto.
         try:
             kw['archivos_a_guardar'] = tuple(kw['archivos_guardar'].split(','))
         except AttributeError:
             pass
-        del(kw['archivos_guardar'])
+        del kw['archivos_guardar']
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list/%d' % r.enunciado.id)
