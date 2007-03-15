@@ -104,17 +104,8 @@ def validate_del(id):
     return val.validate_del(cls, name, id)
 #}}}
 
-def get_ejercicios():
-    return [(fk1.id, fk1.shortrepr()) for fk1 in Ejercicio.select()]
-
 def get_docentes():
-    return [(fk1.id, fk1.shortrepr()) for fk1 in Docente.select()]
-
-def get_alumnos():
-    return [(fk1.id, fk1.shortrepr()) for fk1 in Alumno.select()]
-
-def get_grupos():
-    return [(fk1.id, fk1.shortrepr()) for fk1 in Grupo.select()]
+    return [(fk1.id, fk1.shortrepr()) for fk1 in Docente.selectBy(activo=True)]
 
 
 #{{{ Formulario
@@ -229,20 +220,10 @@ class CursoController(controllers.Controller, identity.SecureResource):
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
-        class EmptyClass:
-            pass
-        values = EmptyClass()
-        values.id = r.id
-        values.anio = r.anio
-        values.numero = r.numero
-        values.cuatrimestre = r.cuatrimestre
-        values.cursoID = r.id
-        values.descripcion = r.descripcion
         # cargo la lista con los docentes asignados al curso
-        values.docentes_to = [{"id":d.docente.id, "label":d.docente.shortrepr()} for d in DocenteInscripto.selectBy(curso=r.id)]
-        values.alumnos_inscriptos = [{"id":a.alumno.id, "label":a.alumno.shortrepr()} for a in AlumnoInscripto.selectBy(curso=r.id)]
-
-        return dict(name=name, namepl=namepl, record=values, form=form)
+        r.docentes_to = [{"id":d.docente.id, "label":d.docente.shortrepr()} for d in r.docentes]
+        r.alumnos_inscriptos = [{"id":a.alumno.id, "label":a.alumno.shortrepr()} for a in r.alumnos]
+        return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
     @error_handler(edit)
@@ -372,7 +353,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
                         if c[0].nota > 7:
                             correctas += 1
                     else:
-                        col["E"+str(ej.numero)+str(ins.numero)] = "" 
+                        col["E"+str(ej.numero)+str(ins.numero)] = ""
             col["EA"] = correctas
             col["NP"] = i.nota_practica
             col["NF"] = i.nota_final
@@ -427,7 +408,6 @@ class CursoController(controllers.Controller, identity.SecureResource):
         s = ",".join(cols) + "\n"
         for i in rows:
             s = s + ",".join(i) + "\n"
-        
         return s
 #}}}
 
