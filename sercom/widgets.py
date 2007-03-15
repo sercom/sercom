@@ -159,10 +159,10 @@ class AjaxDosListasSelect(widgets.MultipleSelectField):
     </select>
     </td>
     <td style="padding:0 10px 0 10px;" valign="center" align="center">
-        <input type="button" value="&gt;&gt;&gt;" style="font-size:90%;" onClick="moveOption('${field_id}_from', '${field_id}_to');" />
+        <input type="button" value="&gt;&gt;&gt;" style="font-size:90%;" onClick="moveOption('${field_id}_from', '${field_id}_to'); ${move_signal}; " />
         <br />
         <br />
-        <input type="button" value="&lt;&lt;&lt;" style="font-size:90%;" onClick="moveOption('${field_id}_to', '${field_id}_from');" />
+        <input type="button" value="&lt;&lt;&lt;" style="font-size:90%;" onClick="moveOption('${field_id}_to', '${field_id}_from'); ${move_signal}; " />
     </td>
     <td style="padding:0 0 0 0;">
     <select
@@ -182,11 +182,14 @@ class AjaxDosListasSelect(widgets.MultipleSelectField):
     javascript = [widgets.JSSource(DosListasAjax)]
     title_from = ""
     title_to = ""
+    move_signal = ""
 
     def __init__(self, **kw):
         self.params.append('title_from')
         self.params.append('title_to')
+        self.params.append('move_signal')
         self.title_from = "&nbsp;"
         self.title_to = "&nbsp;"
+        self.move_signal = ""
         widgets.MultipleSelectField.__init__(self, **kw)
 
