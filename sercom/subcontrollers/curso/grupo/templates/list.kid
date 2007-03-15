@@ -28,7 +28,10 @@
 
 <br/>
 <a href="${tg.url('/curso/grupo/new/%d' % cursoID)}">Agregar</a> |
+<a href="${tg.url('/curso/grupo/admin/%d' % cursoID)}">Mezclar, Juntar, Separar Grupos</a> |
 <a href="${tg.url('/curso/list')}">Volver a Cursos</a>
+<br/>
+<br/>
 <br/>
 <br/>
 <div py:for="page in tg.paginate.pages">

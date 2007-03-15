@@ -37,14 +37,9 @@
 <div py:replace="form(value=record, action=tg.url('/curso/update/%d' % record.id),
     submit_text=_(u'Guardar'))">Formulario</div>
 <br/>
-<a href="${tg.url('/curso/from_file/%d' % record.id)}">Agregar Alumnos desde archivo</a>
-    <br/>
-    <br/>
-<a href="${tg.url('/grupo_admin/new/%d' % record.id)}">Mezclar, Juntar, Separar Grupos</a>
-<br/>
-<br/>
-<a href="${tg.url('/curso/show/%d' % record.id)}">Ver (cancela)</a>
-<a href="${tg.url('/curso/list')}">Volver (cancela)</a>
+<a href="${tg.url('/curso/from_file/%d' % record.id)}">Agregar Alumnos desde archivo</a> |
+<a href="${tg.url('/curso/show/%d' % record.id)}">Ver (cancela)</a> |
+<a href="${tg.url('/curso/list')}">Volver (cancela)</a> |
 
 </body>
 </html>
