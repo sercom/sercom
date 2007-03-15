@@ -177,6 +177,10 @@ ajaxadmin = u"""
         MochiKit.DOM.getElement('form_listaGrupoB').disabled = disabled;
         MochiKit.DOM.getElement('form_grupos_to').disabled = disabled;
         MochiKit.DOM.getElement('form_grupos_from').disabled = disabled;
+        MochiKit.DOM.getElement('form_tutoresA').disabled = true;
+        MochiKit.DOM.getElement('form_tutoresB').disabled = true;
+        MochiKit.DOM.getElement('form_responsableA').disabled = true;
+        MochiKit.DOM.getElement('form_responsableB').disabled = true;
     }
 
     function onListaAChange() {
@@ -246,6 +250,21 @@ ajaxadmin = u"""
         replaceChildNodes('form_responsableB', '');
         appendChildNodes('form_responsableA', map(makeOption, $('form_grupos_from').options));
         appendChildNodes('form_responsableB', map(makeOption, $('form_grupos_to').options));
+
+        if (getElement('form_grupos_from').options.length == 0) {
+            getElement('form_tutoresA').disabled = true;
+            getElement('form_responsableA').disabled = true;
+        } else {
+            getElement('form_tutoresA').disabled = false;
+            getElement('form_responsableA').disabled = false;
+        }
+        if (getElement('form_grupos_to').options.length == 0) {
+            getElement('form_tutoresB').disabled = true;
+            getElement('form_responsableB').disabled = true;
+        } else {
+            getElement('form_tutoresB').disabled = false;
+            getElement('form_responsableB').disabled = false;
+        }
     }
 """
 
@@ -496,7 +515,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
                 nuevosMiembros.append(AlumnoInscripto.get(int(m)))
             nuevosTutores = []
             for t in tutoresB:
-                nuevosTutores.append(Docente.get(t))
+                nuevosTutores.append(DocenteInscripto.get(t))
             #Creo el nuevo grupo
             Grupo(miembros = nuevosMiembros, tutores = nuevosTutores, cursoID=cursoID, nombre='NuevoGrupo'+str(cursoID))
         else:
