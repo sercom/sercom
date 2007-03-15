@@ -489,7 +489,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
             flash(_(u'Error A %s.' % e))
             raise redirect(url('/curso/grupo/list' % int(cursoID)))
         # seteo el reponsable del grupo
-        if int(responsableA) != 0:
+        if responsableA and int(responsableA) != 0:
             grupoA.responsable = AlumnoInscripto.get(int(responsableA))
 
         for t in tutoresA:
@@ -539,7 +539,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
                 flash(_(u'Error B %s.' % e))
                 raise redirect(url('/curso/grupo/list/%d' % int(cursoID)))
             # seteo el reponsable del grupo
-            if int(responsableB) != 0:
+            if responsableB and int(responsableB) != 0:
                 grupoB.responsable = AlumnoInscripto.get(int(responsableB))
 
             #Elimino el grupo si quedo vacio
