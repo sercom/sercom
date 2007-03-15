@@ -113,6 +113,21 @@ class ComandoFuenteController(controllers.Controller, identity.SecureResource):
     @expose()
     def update(self, id, **kw):
         """Save or create record to model"""
+        orden = kw['orden']
+        del kw['orden']
+        del kw['tareaID']
+        if kw['los_archivos_entrada'].filename:
+            kw['archivos_entrada'] = kw['los_archivos_entrada'].file.read()
+        del kw['los_archivos_entrada']
+        if kw['los_archivos_a_comparar'].filename:
+            kw['archivos_a_comparar'] = kw['los_archivos_a_comparar'].file.read()
+        del kw['los_archivos_a_comparar']
+        # TODO : Hacer ventanita mas amigable para cargar esto.
+        try:
+            kw['archivos_a_guardar'] = tuple(kw['archivos_guardar'].split(','))
+        except AttributeError:
+            pass
+        del kw['archivos_guardar']
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list/%d' % r.tarea.id)
