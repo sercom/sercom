@@ -23,3 +23,4 @@
 - Arreglar encoding de logging. Probablemente haya que hacer un logger que
   encodee en UTF-8 para que no sea todo un gran asco (esto es de way too baja
   prioridad :).
+- Permitir bajar archivos de Comandos y CasoDePrueba.
