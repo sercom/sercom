@@ -12,6 +12,7 @@ from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Curso, AlumnoInscripto, Docente, DocenteInscripto, Grupo, Alumno, Miembro
 from sqlobject import *
+from sqlobject.dberrors import *
 
 from sercom.widgets import *
 
