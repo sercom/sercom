@@ -6,7 +6,6 @@ from ejercicio import EjercicioController
 from docente_inscripto import DocenteInscriptoController
 from correccion import CorreccionController
 from misentregas import MisEntregasController
-from grupo_admin import GrupoAdminController
 from miscorrecciones import MisCorreccionesController
 from tarea_fuente import TareaFuenteController
 from tarea_prueba import TareaPruebaController
