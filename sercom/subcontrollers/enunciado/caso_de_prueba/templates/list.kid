@@ -12,23 +12,19 @@
 <table class="list">
     <tr>
         <th>Nombre</th>
-        <th>Enunciado</th>
-        <th>Descripción</th>
-        <th>Parámetros</th>
+        <th>Comando</th>
         <th title="Código de retorno">RET</th>
-        <th title="Máximo tiempo de CPU">CPU</th>
+        <th title="Es público?">PUB</th>
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-        <td><a href="${tg.url('/caso_de_prueba/show/%d'% record.id)}"><span py:replace="record.nombre">nombre</span></a></td>
-        <td><a py:if="record.enunciadoID is not None"
-                href="${tg.url('/enunciado/show/%d' % record.enunciado.id)}"><span
-                    py:replace="tg.summarize(record.enunciado.shortrepr(), 30)">enunciado</span></a></td>
-        <td><span py:replace="tg.summarize(record.descripcion, 30)">descripción</span></td>
-        <td><span py:if="record.comando" py:replace="tg.summarize(record.comando, 30)">comando --con-parámetros</span></td>
+        <td><span py:replace="record.nombre">nombre</span></td>
+        <td><span py:if="record.comando" py:replace="record.comando">comando --con-parámetros</span></td>
         <td><span py:replace="record.retorno">retorno</span></td>
-        <td><span py:replace="record.max_tiempo_cpu">máx tiempo de cpu</span></td>
-        <td><a href="${tg.url('/enunciado/caso_de_prueba/edit/%d' % record.id)}">Editar</a>
+        <td><span py:replace="tg.strbool(record.publico)">No</span></td>
+        <td>
+            <a href="${tg.url('/caso_de_prueba/show/%d'% record.id)}">Ver</a>
+            <a href="${tg.url('/enunciado/caso_de_prueba/edit/%d' % record.id)}">Editar</a>
             <a href="${tg.url('/enunciado/caso_de_prueba/delete/%d/%d' % (record.enunciado.id, record.id))}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>
 </table>
