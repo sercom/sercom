@@ -5468,8 +5468,4 @@ INSERT INTO "usuario" VALUES(34, 'pablo', 'a05bd890c4868ea1807f8564055d1fba77c6b
 INSERT INTO "usuario" VALUES(35, 'mazzi', NULL, 'Lautaro Mazzitelli', 'lmazzitelli@gmail.com', '', '2007-03-14 15:34:04', '', 1, 'Docente');
 INSERT INTO "usuario" VALUES(36, 'lele', NULL, 'Leandro Fernández', 'drkbugs@gmail.com', '', '2007-03-14 15:39:35', '', 1, 'Docente');
 
-INSERT INTO "visita" VALUES(1, '130e81757111cfb5cd420641f73511eeec94310b', '2007-03-14 15:16:50', '2007-03-14 18:11:30');
-
-INSERT INTO "visita_usuario" VALUES(1, '130e81757111cfb5cd420641f73511eeec94310b', 22);
-
 COMMIT;
