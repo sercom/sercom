@@ -17,8 +17,6 @@
         <th>E-Mail</th>
         <th>Teléfono</th>
         <th>Nota</th>
-        <th>Observaciones</th>
-        <!--th>Enunciados</th-->
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
@@ -26,15 +24,13 @@
             document.createElement('form'); this.parentNode.appendChild(f);
             f.method = 'POST'; f.action = '${tg.url('/alumno/activate/%d/%d' % (record.id, int(not record.activo)))}';
             f.submit(); return false;" py:attrs="checked=tg.checker(record.activo)" /></td>
-        <td><a href="${tg.url('/alumno/show/%d' % record.id)}"><span py:replace="record.usuario">usuario</span></a></td>
+        <td><span py:replace="record.usuario">usuario</span></td>
         <td><span py:replace="record.nombre">nombre</span></td>
-        <td><a py:if="record.email" href="mailto:${record.email}"><span py:replace="record.email">email</span></a></td>
-        <td><span py:replace="tg.summarize(record.telefono, 10)">telefono</span></td>
+        <td><a py:if="record.email" href="mailto:${record.email}"><span py:replace="tg.summarize(record.email, 30)">email</span></a></td>
+        <td><span py:replace="tg.summarize(record.telefono, 12)">telefono</span></td>
         <td><span py:replace="record.nota">nota</span></td>
-        <td><span py:replace="tg.summarize(record.observaciones, 20)">observaciones</span></td>
-        <!--td><a py:if="len(record.enunciados)" href="${tg.url('/enunciado/list', autor=record.id)}"><span
-                    py:replace="len(record.enunciados)">cant</span></a></td-->
-        <td><a href="${tg.url('/alumno/edit/%d' % record.id)}">Editar</a>
+        <td><a href="${tg.url('/alumno/show/%d' % record.id)}">Ver</a>
+            <a href="${tg.url('/alumno/edit/%d' % record.id)}">Editar</a>
             <a href="${tg.url('/alumno/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>
 </table>
