@@ -663,7 +663,7 @@ class Grupo(Entregador): #{{{
             docente = docente.id
         # FIXME ídem add_miembro()
         try:
-            t = Tutor.selectBy(grupo=self, docenteID=alumno).getOne()
+            t = Tutor.selectBy(grupo=self, docenteID=docente).getOne()
             t.baja = None # si ya existía, le sacamos la fecha de baja
             return t
         except SQLObjectNotFound: # creo uno nuevo
