@@ -155,7 +155,8 @@ class Curso(SQLObject): #{{{
 
 class Usuario(InheritableSQLObject): #{{{
     # Clave (para docentes puede ser un nombre de usuario arbitrario)
-    usuario         = UnicodeCol(length=10, alternateID=True)
+    usuario         = UnicodeCol(length=10, alternateID=True,
+                        alternateMethodName='by_usuario')
     # Campos
     contrasenia     = UnicodeCol(length=255, default=None)
     nombre          = UnicodeCol(length=255, notNone=True)
@@ -186,6 +187,10 @@ class Usuario(InheritableSQLObject): #{{{
 
     def _get_user_name(self): # para identity
         return self.usuario
+
+    @classmethod
+    def byUsuario(cls, usuario): # TODO eliminar, backward compat
+        return cls.by_usuario(usuario)
 
     @classmethod
     def by_user_name(cls, user_name): # para identity
@@ -266,8 +271,12 @@ class Alumno(Usuario): #{{{
         self.usuario = padron
 
     @classmethod
-    def byPadron(cls, padron):
+    def byPadron(cls, padron): # TODO eliminar, backward compat
         return cls.byUsuario(unicode(padron))
+
+    @classmethod
+    def by_padron(cls, padron):
+        return cls.by_usuario(unicode(padron))
 
     def __repr__(self):
         return 'Alumno(id=%s, padron=%s, nombre=%s, password=%s, email=%s, ' \
