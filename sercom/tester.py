@@ -247,7 +247,8 @@ class Tester(object): #{{{
     def setup_chroot(self, entrega): #{{{ y clean_chroot()
         log.debug(_(u'Tester.setup_chroot(entrega=%s)'), entrega.shortrepr())
         rsync = ('rsync', '--stats', '--itemize-changes', '--human-readable',
-            '--archive', '--acls', '--delete-during', '--force', # TODO config
+            '--archive', '--acls', '--delete-during', '--force',
+            '--exclude', '/proc', # TODO config
             join(self.orig_chroot, ''), self.chroot)
         log.debug(_(u'Ejecutando como root: %s'), ' '.join(rsync))
         os.seteuid(0) # Dios! (para chroot)
