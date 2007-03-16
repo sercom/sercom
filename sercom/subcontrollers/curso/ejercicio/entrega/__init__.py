@@ -73,17 +73,19 @@ class EntregaController(controllers.Controller, identity.SecureResource):
     require = identity.has_permission('entregar')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @validate(validators=dict(ejercicio_id=V.Int))
+    @validate(validators=dict(ejercicio=V.Int))
     @paginate('records')
-    def list(self, ejercicio_id):
-        r = cls.selectBy(ejercicioID=ejercicio_id)
-        return dict(records=r, name=name, namepl=namepl, ejercicio=ejercicio_id)
+    def list(self, ejercicio):
+        ejercicio = Ejercicio.get(ejercicio)
+        r = cls.selectBy(ejercicio=ejercicio).orderBy(cls.q.numero)
+        return dict(records=r, name=name, namepl=namepl, ejercicio=ejercicio)
 
     @expose(template='kid:%s.templates.new' % __name__)
+    @validate(validators=dict(ejercicio=V.Int))
     @identity.require(identity.has_permission('admin'))
-    def new(self, ejercicio_id, **kw):
+    def new(self, ejercicio, **kw):
         """Create new records in model"""
-        kw['ejercicioID'] = ejercicio_id
+        kw['ejercicioID'] = ejercicio
         return dict(name=name, namepl=namepl, form=form, values=kw)
 
     @validate(form=form)
@@ -97,15 +99,38 @@ class EntregaController(controllers.Controller, identity.SecureResource):
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list/%s' % e.id)
 
+    @expose(template='kid:%s.templates.edit' % __name__)
+    @identity.require(identity.has_permission('admin'))
+    def edit(self, id, **kw):
+        """Edit record in model"""
+        r = validate_get(id)
+        return dict(name=name, namepl=namepl, record=r, form=form)
+
+    @validate(form=form)
+    @error_handler(edit)
+    @expose()
+    @identity.require(identity.has_permission('admin'))
+    def update(self, id, **kw):
+        """Save or create record to model"""
+        r = validate_set(id, kw)
+        flash(_(u'El %s fue actualizado.') % name)
+        raise redirect('../list/%s' % r.ejercicioID)
+
+    @expose(template='kid:%s.templates.show' % __name__)
+    def show(self,id, **kw):
+        """Show record in model"""
+        r = validate_get(id)
+        return dict(name=name, namepl=namepl, record=r)
+
     @expose()
     @identity.require(identity.has_permission('admin'))
     def delete(self, id):
         """Destroy record in model"""
         r = validate_get(id)
-        ejercicio_id = r.ejercicioID
+        ejercicio = r.ejercicioID
         r.destroySelf()
         flash(_(u'El %s fue eliminado permanentemente.') % name)
-        raise redirect('../list/%s' % ejercicio_id)
+        raise redirect('../list/%s' % ejercicio)
 
 #}}}
 
