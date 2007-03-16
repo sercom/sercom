@@ -12,12 +12,14 @@
 <table class="list">
     <tr>
         <th>Nombre</th>
+        <th>Integrantes</th>
         <th>Responsable</th>
         <th>Tutores</th>
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
         <td><span py:replace="record.nombre">nombre</span></td>
+        <td><span py:replace="', '.join((ai.alumno.padron for ai in record.alumnos))">tito, juanca</span></td>
         <td><a py:if="record.responsable is not None" href="${tg.url('/alumno/show/'+str(record.responsable.alumno.id))}" py:content="record.responsable.alumno.shortrepr()"></a></td>
         <td><span py:replace="', '.join((di.docente.usuario for di in record.docentes))">tito, juanca</span></td>
         <td>
