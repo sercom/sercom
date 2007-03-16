@@ -456,7 +456,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
                 fromdesc=name+'.'+origname, todesc=name+'.'+newname,
                 context=True, numlines=3)
             zip_out.writestr(name + '.diff', udiff)
-            zip_out.writestr(name + '.diff.html', htmldiff)
+            zip_out.writestr(name + '.diff', htmldiff)
             return True
         else:
             return False
@@ -667,7 +667,7 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
                 fromdesc=name+'.'+origname, todesc=name+'.'+newname,
                 context=True, numlines=3)
             zip_out.writestr(name + '.diff', udiff)
-            zip_out.writestr(name + '.diff.html', htmldiff)
+            zip_out.writestr(name + '.html', htmldiff)
             return True
         else:
             return False
