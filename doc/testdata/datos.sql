@@ -51,16 +51,13 @@ INSERT INTO "caso_de_prueba" VALUES(11, 1, 'Chequeo de memoria');
 INSERT INTO "caso_de_prueba" VALUES(12, 1, 'Bubble Sort');
 INSERT INTO "caso_de_prueba" VALUES(13, 1, 'Sin parÃ¡metros');
 
-INSERT INTO "comando" VALUES(1, 'make -f Makefile', 'Compila C++ usando un Makefile genÃ©rico que compila todo en un ejecutable llamado tp', 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 'älg 0$n~‹Rµ~ïë#$1i}‡‚…ˆqp%èaèaq” ©q÷Ž÷R,™2Û~cn~Í.…ãe;Æª÷î°¾†æd:åjùÂµ* ž0ˆ¤¼î³‰[¼k
-®ÖVïeP8­ž2#ƒë
-:Òü9×1¥p~þbÈŽÁ=ƒ¢]ô	VIÜGPžáÖ+SÁÒL—ØËû{Ý.jkjúTI&ð¯.emÉœ#­|uˆP`AƒbDá–ŒêŠPDåaâAŸía ;²a­««;::PG™‰îÿ«$c”ïå÷†2 ÿà…Ylà`Ë2¢ÄGþêçžI°¹žµp0Œ"ajmßã^€ršêDcÁILß³º:œqJ1OìýÐ—Ü8PŒj{««wQxû-Q®ê,7¿$Xô|xa:Ho)eEÎ^Ü9†bchp
-Í Õ hŸaõ‰JÔh@ƒY H¦ýs¨¬#x%{M,÷€r@¾êtè˜Ô<ªW8g`£?zHHN\RÔ¦ñÛµ|ìÕGAJ|õ­ðmÄ®LS.-ÅMoð’–5m}<"Tw$J(Ïì³Ê«©mÃ„m&Ø7¾Í² /ßN_\¹6¢¨J›’hu»ÛWºÕàéæÐ°±Š1g€­2Ó¤‹AT{P PŸÝë|,PÛ©ƒ‰NéeDp±®¦psYò"^û%ûbÝ„ª”ÛOÁÜÄK”Õ¤urd
-%ÐÍ oÅhA1«TB`oß&1åÑ±tî)l3­ÂËÝ7h"ßÇí’YoEf8{á~mÂj‡‹ß¼¦!KiÿásU“×ä–ß×ùÅx®h—NoN/#<ñ €¦™¾Ú/)ÆOë2(oÀìGçrð¸ÁÄ+xDÈ”ñRxw”†”Ò*eUC*÷»„3 Z´©Ÿ„T£L¤ÞÇ$O£JìEâO4(=&ÚNôûÅBKQžBiÍðÞ/ÖæžÈ–©
-2·Rß²Ñèd	WN¥aôk—q†“.™%÷ðßf€&ºã‡\¨–Ã¥×/·“Èû)1ñyÔä~µðQì×Fm*Ø÷ÁãÊ‰!)?Àxà9ö¹É9Õ„v ÏõvÑ`¤Gæ¦çóó—Cò:ÐOªÉùä£	_ÚÏ5»%ý]Æ4IB¢™&ŠqõŒ0!ƒËláËïå;™¼íþ&{%ªŸ«™ Æ‰6Û)€GšUGˆÕÌ!ØT\Ù‘Ëùu/½ßÒ%†©üV©{€;Ü éù†/Z$›U©~¥J¨¢üg)iRÎåÉßî7Ì’Î:4…}þöÝ+ˆ3cÓŠÊ¿žcšÏV¿­L0Ù–h@ð…|ôÂ JŽy“£×c·rÃÝ<6»+‘$ZîT™µF´~×O—cÏš«AT¤+lg30$n~‹Rµ~ïë#$)Ài}‡‚…ˆqp!èaq”lg!"_N ', NULL, '(V__stdouterr__
+INSERT INTO "comando" VALUES(1, 'make -f Makefile', 'Compila C++ usando un Makefile genÃ©rico que compila todo en un ejecutable llamado tp', 0, NULL, 64, NULL, 200, 1000, NULL, 1, 1, 1, 'tÜ× ŒŒŒ”Œ¬üÂC‚[†ŒŒ^“ŒŒ”Œ¡ŒÙí÷ñòõøñáà•Œƒ†ÑXï…ÑáŒttágþgÂœ	ÂKîÓÞî=žõSÕ«6g^ .öVÔªUÚa2%š ø,^#ˆùË,Û…zFÆ_ÕÀ¨¢“ó[zªÂm©G¡àŽînÒ8þ1­óÍduÄÙL·ÀQF“Ã1ŒB¼|vH;k€ê‰ŒM€–ZÚÛkÄÙ–`…žÕÝ9“ìåøÀÐ±óÒ´QFüMúÀ´UÑR±mñ«"ÑƒÚÚªªªˆÀ·	ù^”Ó}g]|¦/UdõÊ‡ÜPä;¢4·nZW¹ |)%à üšÑÚÝSÎðâ
+Z´Ó1¹¼O#~*ªwáº¡¿\rw@GL¨ÀüÚëçÁèkÁZœ§/”ÈdìýèÑªˆÿ¸ß™Õµ>ÎL©öÒÓtØà‹z=%ØÑeùºDØ°óé¸€mã“è•ë½œgðâ°.ZäXD°Ç¨×‚Ð¯ê¸¸¾ÌÂD‡aK%ì\J·±ºìe`ýD¼Ãžÿ5½ß`þ¡€Üí¬~’Äç”º˜?\‚#:Ý3ôÝ–H§.="ŸOq¾ÏÌ)¦u˜;
+wØŠå+KÇ*EPYV@ !ú¡×ð¢Cû±ÄëÀÀƒM„[,«ÀJtóù¾UÕ´pà!àãÉb’Îk•kÒMüsK¿1Lï4»EåâÔz•ï@=ß5Ø±¡Ä²ÐßO–¡UA!ä^™Ü“²;Mw‡wmsÉßµÖ¨ïëQîÝ2ÚÿûÏK‘»ÙoQãÅÆTÊk|úA÷¬£H°_*X XPÔÁ­%î+ôËv¦7™s*¹¤rÔ=c"94YÄo×Ý+VDÜä~6ûDBXƒý÷¤*;ïÞZ}sJ‰ÍÔ{u´D’¿”´H<Ð¿”lžYîÀŠŒ.l·?‰¹+ö„Þ¯ôd ×¹È-=¸´a6itú=û¿xæW`J¯ä°¹Aã4âgº]&¬KÙÉ(<Ð2lH’PTr+FÇ9KSæl‹iÜÝi¸"Õé‘I· qLÇ©v8mfå\¿ÎVÑhÍGajÆJÑÄ9áãD.8JÈ+{)äg\ZÇB_±·^A¡…Zòf²“5î%¤JƒµDá…3í X(IÎ…#KÚR€2··ÄšÊ‚œ4öh3‹2#9„q8<qN¢|nŒI‡NciâÙšgz³4Áw¨‰®Ÿ„Œj³ôxâ§|}Ó„WÅ¶"ôPËž5-‚ÒÚEÁå•bòb‘â¹Øè„n€bYÌ|dûàó¨±˜Ñ;ªŸ•ËIÈÿ¼øßŽ£E:GOi/Ù7,«º’?Æ«õ.JØ!ÉØ=a*J/ýKSž¨Ðˆ“Ü×Ž£ ŒŒŒ”Œ¬üÂC‚[†ŒŒ^“ŒŒ”Œ™ŒŒŒŒŒŒŒŒ0ŒŒŒŒÙí÷ñòõøñáà‘Œƒ†ÑáŒŒÜ×‘’ŒŒŒŒŒŒÏŒŒŒÁŒŒŒŒ', NULL, '(V__stdouterr__
 tp1
 .', 1, 'ComandoFuente');
 INSERT INTO "comando" VALUES(2, '', 'Corre el caso de prueba sin filtros', -257, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, '(t.', 1, 'ComandoPrueba');
-INSERT INTO "comando" VALUES(3, 'valgrind --trace-children=yes --track-fds=yes --num-callers=20 --leak-check=full --show-reachable=yes --leak-resolution=high', 'Chequea memoria con valgrind', -257, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, '(V__stdouterr__
+INSERT INTO "comando" VALUES(3, 'valgrind --trace-children=yes --track-fds=yes --num-callers=20 --leak-check=full --show-reachable=yes --leak-resolution=high -v', 'Chequea memoria con valgrind', -257, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 1, NULL, NULL, '(V__stderr__
 tp1
 .', 1, 'ComandoPrueba');
 INSERT INTO "comando" VALUES(4, './tp 8 2 100 -3 prueba1.asm de mas', 'Debe fallar porque tiene parÃ¡metros de mÃ¡s', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, NULL, 'IDüýùùùùùJ[h/ùùùùùùùùùùùùùùXXlm]hnmXXNMùüÃ\ò>Ã\ò>NqýùáüáüIDúûüùùùùùJ[h/ùùùùùùùùùùùùùùùùùùùùùùzùùùùXXlm]hnmXXNMþùüÃ\ò>NqùùIDþÿùùùùúùúù>ùùù6ùùùùù', '(t.', 1, 'CasoDePrueba');
@@ -89,10 +86,5272 @@ INSERT INTO "comando" VALUES(12, './tp 32000 12 20000 -20000 prueba6.asm', '', 0
 Ì—,‰ÞD‘Q\/Î*âW}AÚbxuû‹ÑN‘‚3ÇðÓOªÚàÂ5£þU¤ŸUVkWhTTT\T¨ÓÃŠ<BônYTTkTT_TaTTTTTUTTTôÕTTTTÄÆÉ¹¶µŠ‚µÇÁ©¨YTW³ëM™©ÌTT¤ŸYZTTTTUTUTšTTT¬YTTTT', '83ëìüèèèðè8JWy¯s6èèèzèèèòèýèGG[\LW]\GG=<ñèë¯Ká-¯Ká-=`ìèÐëÐëõµŸõ¨(ø¬¨„½Ä‚_åétoªlšÀ÷õúòBP‹kb`˜˜YXÙªdÙ+,fŒLy5ö¡Ì¹‰ŠŽç™\¹5÷¥Ü™ÎWn÷83éêÿëüèèèðè8JWy¯s6èèèzèèèòèõèèèèèéèèèŒièèèèGG[\LW]\GG=<íèë¯Ká-=`èè83íîèèèèéèéè-èèèsèèèèè', '(t.', 1, 'CasoDePrueba');
 INSERT INTO "comando" VALUES(13, './tp', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, NULL, 'IDüýùùùùùJ[h/ùùùùùùùùùùùùùùXXlm]hnmXXNMùüÃ\ò>Ã\ò>NqýùáüáüIDúûüùùùùùJ[h/ùùùùùùùùùùùùùùùùùùùùùùzùùùùXXlm]hnmXXNMþùüÃ\ò>NqùùIDþÿùùùùúùúù>ùùù6ùùùùù', '(t.', 1, 'CasoDePrueba');
 
+INSERT INTO "comando_ejecutado" VALUES(2, NULL, 'ComandoFuenteEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(3, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(4, '83ëìüèèèèèïqXOýoÙ…éèè…éèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò ! ! ! ! !òòòòòòò ò!òòòòòòòòò ò!òòòòòòòòò ò!òòòòòòòòò ò!òòòòòòòòò ò!òòò83ëìüèèèèèïqX8ýìÐaóèèaóèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&!$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&!$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèèïqXOýoÙ…éèè…éèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèèïqX8ýìÐaóèèaóèè÷èèèèèèèèèèèèè²éèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèèXõèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(5, '83ëìüèèèèèïqX\:ˆï¿èèè¿èèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò ! ! ! ! !83ëìüèèèèèïqX+aOîèèîèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG 
+& $\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+& $[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&!$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG 
+& $\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+& $[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&!$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG 
+& $\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+& $[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&!$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG 
+& $\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+& $[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&!$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG 
+& $\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+& $[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&!$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèèïqX\:ˆï¿èèè¿èèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèèïqX+aOîèèîèè÷èèèèèèèèèèèèèìéèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèè èèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(6, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(7, '83ëìüèèèèèïqX8â¦ËEèèèEèèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò ò òò83ëìüèèèèèïqX},™óèè™óèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$IPZMN%
+LQNNTQJGKPOG\WGG
+&N$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG
+&N$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+& $\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+& $\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèèïqX8â¦ËEèèèEèèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèèïqX},™óèè™óèè÷èèèèèèèèèèèèèrèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèèPôèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(8, '83ëìüèèèèèïqXUJÞi7èèè7èèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò 83ëìüèèèèèïqXöú>Yóèèóèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+& $[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèèïqXUJÞi7èèè7èèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèèïqXöú>Yóèèóèè÷èèèèèèèèèèèèèdèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèè*ôèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(9, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(10, '83ëìüèèèèèïqXx/]Q,èèè,èèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò83ëìüèèèèèïqX˜ÉbÍðèèÍðèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèèïqXx/]Q,èèè,èèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèèïqX˜ÉbÍðèèÍðèè÷èèèèèèèèèèèèèYèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèèkñèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(11, 'C>ö÷óóóóóú|c)ƒ:h\7óóó7óóóóóóRRfgWbhgRR!W\YY   RRfgWbhgRR!VbeeXVgbýRRfgWbhgRR!XageXZTWbý33 $$$#33ý C>ö÷óóóóóú|c)ÁÓlÿØûóóØûóóóóóRRfgWbhgRR![g`_ý/7B6GLC8[g`_CH5?<6 ""J&6""7G7K;G@?$!#GeTaf\g\baT_""8Aý[ggc-""jjj!j&!beZ"GE"k[g`_$"7G7"k[g`_$ geTaf\g\baT_!WgW1ýý/[g`_1ýý/[XTW1ý/`XgT[ggc Xdh\i06bagXag GlcXýVbagXag0gXkg"[g`_.V[TefXg0<FB ++(, $"1ý/g\g_X1/"g\g_X1ý/fgl_XglcX0gXkg"Vff1ýgTU_X!W\YYnYbag YT`\_l-6bhe\Xe.UbeWXe-`XW\h`.pý!W\YYR[XTWXenUTV^ZebhaW Vb_be-X#X#X#pýgW!W\YYR[XTWXengXkg T_\Za-e\Z[gpý!W\YYRaXkgnUTV^ZebhaW Vb_be-V#V#V#pý!W\YYRTWWnUTV^ZebhaW Vb_be-TTYYTTpý!W\YYRV[ZnUTV^ZebhaW Vb_be-YYYY**pý!W\YYRfhUnUTV^ZebhaW Vb_be-YYTTTTpý/"fgl_X1ý/"[XTW1ýý/UbWl1ýý/gTU_XV_Tff0W\YY\W0W\YY_\URV[ZRgb(RRgbcýVX__fcTV\aZ0#VX__cTWW\aZ0#eh_Xf0Zebhcf1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/g[XTW1/ge1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!VbeeXVgb/"g[1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!XageXZTWb/"g[1/"ge1/"g[XTW1ý/gUbWl1ý/ge1/gWV_Tff0W\YYRaXkg\W0W\YY_\URV[ZRgb(RR#1/T[eXY0W\YY_\URV[ZRgb(RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`(R$1$/"gW1/gWabjeTc0abjeTc1/fcTaV_Tff0W\YYRfhU1aUfc./"fcTa1/"gW1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb(RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe1/"gW1/gWabjeTc0abjeTc1/"gW1/"ge1ý/"gUbWl1ý/"gTU_X1ý/gTU_XV_Tff0W\YYfh``Tel0?XZXaWf1ý/ge1/g[Vb_fcTa0%1?XZXaWf/"g[1/"ge1ý/ge1/gW1/gTU_XUbeWXe0fh``Tel06b_bef1ý/ge1/g[16b_bef/"g[1/"ge1ý/ge1/gWV_Tff0W\YYRTWW1aUfc.4WWXWaUfc./"gW1/"ge1ý/ge1/gWV_Tff0W\YYRV[Z16[TaZXW/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRfhU17X_XgXW/"gW1/"ge1ý/"gTU_X1/"gW1ý/gW1/gTU_XUbeWXe0fh``Tel0?\a^f1ý/ge1/g[Vb_fcTa0%1?\a^f/"g[1/"ge1ý/ge1/gW1Y\efgV[TaZX/"gW1/"ge1ý/ge1/gW1aXkgV[TaZX/"gW1/"ge1ý/ge1/gW1gbc/"gW1/"ge1ý/"gTU_X1/"gW1/"ge1ý/"gTU_X1ý/"UbWl1ýý/"[g`_1C>ôõóóóóóóú|c)ƒ:h\7óóó7óóóóóóóóóóóóóóóóóóóóRRfgWbhgRR!W\YYC>ôõóóóóóóú|c)ÁÓlÿØûóóØûóóóóóóóóóóóóóóódóóóRRfgWbhgRR![g`_C>øùóóóóõóõómóóóvüóóóó', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(12, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(13, 'C>ö÷óóóóóú|c)ƒ:h\7óóó7óóóóóóRRfgWbhgRR!W\YY   RRfgWbhgRR!VbeeXVgbýRRfgWbhgRR!XageXZTWbý33 $$$#33ý C>ö÷óóóóóú|c)¥ÄŠØûóóØûóóóóóRRfgWbhgRR![g`_ý/7B6GLC8[g`_CH5?<6 ""J&6""7G7K;G@?$!#GeTaf\g\baT_""8Aý[ggc-""jjj!j&!beZ"GE"k[g`_$"7G7"k[g`_$ geTaf\g\baT_!WgW1ýý/[g`_1ýý/[XTW1ý/`XgT[ggc Xdh\i06bagXag GlcXýVbagXag0gXkg"[g`_.V[TefXg0<FB ++(, $"1ý/g\g_X1/"g\g_X1ý/fgl_XglcX0gXkg"Vff1ýgTU_X!W\YYnYbag YT`\_l-6bhe\Xe.UbeWXe-`XW\h`.pý!W\YYR[XTWXenUTV^ZebhaW Vb_be-X#X#X#pýgW!W\YYR[XTWXengXkg T_\Za-e\Z[gpý!W\YYRaXkgnUTV^ZebhaW Vb_be-V#V#V#pý!W\YYRTWWnUTV^ZebhaW Vb_be-TTYYTTpý!W\YYRV[ZnUTV^ZebhaW Vb_be-YYYY**pý!W\YYRfhUnUTV^ZebhaW Vb_be-YYTTTTpý/"fgl_X1ý/"[XTW1ýý/UbWl1ýý/gTU_XV_Tff0W\YY\W0W\YY_\URV[ZRgb)RRgbcýVX__fcTV\aZ0#VX__cTWW\aZ0#eh_Xf0Zebhcf1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/g[XTW1/ge1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!VbeeXVgb/"g[1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!XageXZTWb/"g[1/"ge1/"g[XTW1ý/gUbWl1ý/ge1/gWV_Tff0W\YYRaXkg\W0W\YY_\URV[ZRgb)RR#1/T[eXY0W\YY_\URV[ZRgb)RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`)R$1$/"gW1/gWabjeTc0abjeTc1/fcTaV_Tff0W\YYRfhU1aUfc./"fcTa1/"gW1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb)RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe1/"gW1/gWabjeTc0abjeTc1/"gW1/"ge1ý/"gUbWl1ý/"gTU_X1ý/gTU_XV_Tff0W\YYfh``Tel0?XZXaWf1ý/ge1/g[Vb_fcTa0%1?XZXaWf/"g[1/"ge1ý/ge1/gW1/gTU_XUbeWXe0fh``Tel06b_bef1ý/ge1/g[16b_bef/"g[1/"ge1ý/ge1/gWV_Tff0W\YYRTWW1aUfc.4WWXWaUfc./"gW1/"ge1ý/ge1/gWV_Tff0W\YYRV[Z16[TaZXW/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRfhU17X_XgXW/"gW1/"ge1ý/"gTU_X1/"gW1ý/gW1/gTU_XUbeWXe0fh``Tel0?\a^f1ý/ge1/g[Vb_fcTa0%1?\a^f/"g[1/"ge1ý/ge1/gW1Y\efgV[TaZX/"gW1/"ge1ý/ge1/gW1aXkgV[TaZX/"gW1/"ge1ý/ge1/gW1gbc/"gW1/"ge1ý/"gTU_X1/"gW1/"ge1ý/"gTU_X1ý/"UbWl1ýý/"[g`_1C>ôõóóóóóóú|c)ƒ:h\7óóó7óóóóóóóóóóóóóóóóóóóóRRfgWbhgRR!W\YYC>ôõóóóóóóú|c)¥ÄŠØûóóØûóóóóóóóóóóóóóóódóóóRRfgWbhgRR![g`_C>øùóóóóõóõómóóóvüóóóó', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(14, 'C>ö÷óóóóóú|c)ƒ:h\7óóó7óóóóóóRRfgWbhgRR!W\YY   RRfgWbhgRR!VbeeXVgbýRRfgWbhgRR!XageXZTWbý33 $$$#33ý C>ö÷óóóóóú|c)Y4<ÔØûóóØûóóóóóRRfgWbhgRR![g`_ý/7B6GLC8[g`_CH5?<6 ""J&6""7G7K;G@?$!#GeTaf\g\baT_""8Aý[ggc-""jjj!j&!beZ"GE"k[g`_$"7G7"k[g`_$ geTaf\g\baT_!WgW1ýý/[g`_1ýý/[XTW1ý/`XgT[ggc Xdh\i06bagXag GlcXýVbagXag0gXkg"[g`_.V[TefXg0<FB ++(, $"1ý/g\g_X1/"g\g_X1ý/fgl_XglcX0gXkg"Vff1ýgTU_X!W\YYnYbag YT`\_l-6bhe\Xe.UbeWXe-`XW\h`.pý!W\YYR[XTWXenUTV^ZebhaW Vb_be-X#X#X#pýgW!W\YYR[XTWXengXkg T_\Za-e\Z[gpý!W\YYRaXkgnUTV^ZebhaW Vb_be-V#V#V#pý!W\YYRTWWnUTV^ZebhaW Vb_be-TTYYTTpý!W\YYRV[ZnUTV^ZebhaW Vb_be-YYYY**pý!W\YYRfhUnUTV^ZebhaW Vb_be-YYTTTTpý/"fgl_X1ý/"[XTW1ýý/UbWl1ýý/gTU_XV_Tff0W\YY\W0W\YY_\URV[ZRgb*RRgbcýVX__fcTV\aZ0#VX__cTWW\aZ0#eh_Xf0Zebhcf1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/g[XTW1/ge1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!VbeeXVgb/"g[1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!XageXZTWb/"g[1/"ge1/"g[XTW1ý/gUbWl1ý/ge1/gWV_Tff0W\YYRaXkg\W0W\YY_\URV[ZRgb*RR#1/T[eXY0W\YY_\URV[ZRgb*RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`*R$1$/"gW1/gWabjeTc0abjeTc1/fcTaV_Tff0W\YYRfhU1aUfc./"fcTa1/"gW1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb*RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe1/"gW1/gWabjeTc0abjeTc1/"gW1/"ge1ý/"gUbWl1ý/"gTU_X1ý/gTU_XV_Tff0W\YYfh``Tel0?XZXaWf1ý/ge1/g[Vb_fcTa0%1?XZXaWf/"g[1/"ge1ý/ge1/gW1/gTU_XUbeWXe0fh``Tel06b_bef1ý/ge1/g[16b_bef/"g[1/"ge1ý/ge1/gWV_Tff0W\YYRTWW1aUfc.4WWXWaUfc./"gW1/"ge1ý/ge1/gWV_Tff0W\YYRV[Z16[TaZXW/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRfhU17X_XgXW/"gW1/"ge1ý/"gTU_X1/"gW1ý/gW1/gTU_XUbeWXe0fh``Tel0?\a^f1ý/ge1/g[Vb_fcTa0%1?\a^f/"g[1/"ge1ý/ge1/gW1Y\efgV[TaZX/"gW1/"ge1ý/ge1/gW1aXkgV[TaZX/"gW1/"ge1ý/ge1/gW1gbc/"gW1/"ge1ý/"gTU_X1/"gW1/"ge1ý/"gTU_X1ý/"UbWl1ýý/"[g`_1C>ôõóóóóóóú|c)ƒ:h\7óóó7óóóóóóóóóóóóóóóóóóóóRRfgWbhgRR!W\YYC>ôõóóóóóóú|c)Y4<ÔØûóóØûóóóóóóóóóóóóóóódóóóRRfgWbhgRR![g`_C>øùóóóóõóõómóóóvüóóóó', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(15, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(16, 'C>ö÷óóóóóú|c)ƒ:h\7óóó7óóóóóóRRfgWbhgRR!W\YY   RRfgWbhgRR!VbeeXVgbýRRfgWbhgRR!XageXZTWbý33 $$$#33ý C>ö÷óóóóóú|c)rÄlØûóóØûóóóóóRRfgWbhgRR![g`_ý/7B6GLC8[g`_CH5?<6 ""J&6""7G7K;G@?$!#GeTaf\g\baT_""8Aý[ggc-""jjj!j&!beZ"GE"k[g`_$"7G7"k[g`_$ geTaf\g\baT_!WgW1ýý/[g`_1ýý/[XTW1ý/`XgT[ggc Xdh\i06bagXag GlcXýVbagXag0gXkg"[g`_.V[TefXg0<FB ++(, $"1ý/g\g_X1/"g\g_X1ý/fgl_XglcX0gXkg"Vff1ýgTU_X!W\YYnYbag YT`\_l-6bhe\Xe.UbeWXe-`XW\h`.pý!W\YYR[XTWXenUTV^ZebhaW Vb_be-X#X#X#pýgW!W\YYR[XTWXengXkg T_\Za-e\Z[gpý!W\YYRaXkgnUTV^ZebhaW Vb_be-V#V#V#pý!W\YYRTWWnUTV^ZebhaW Vb_be-TTYYTTpý!W\YYRV[ZnUTV^ZebhaW Vb_be-YYYY**pý!W\YYRfhUnUTV^ZebhaW Vb_be-YYTTTTpý/"fgl_X1ý/"[XTW1ýý/UbWl1ýý/gTU_XV_Tff0W\YY\W0W\YY_\URV[ZRgb+RRgbcýVX__fcTV\aZ0#VX__cTWW\aZ0#eh_Xf0Zebhcf1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/g[XTW1/ge1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!VbeeXVgb/"g[1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!XageXZTWb/"g[1/"ge1/"g[XTW1ý/gUbWl1ý/ge1/gWV_Tff0W\YYRaXkg\W0W\YY_\URV[ZRgb+RR#1/T[eXY0W\YY_\URV[ZRgb+RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`+R$1$/"gW1/gWabjeTc0abjeTc1/fcTaV_Tff0W\YYRfhU1aUfc./"fcTa1/"gW1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb+RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe1/"gW1/gWabjeTc0abjeTc1/"gW1/"ge1ý/"gUbWl1ý/"gTU_X1ý/gTU_XV_Tff0W\YYfh``Tel0?XZXaWf1ý/ge1/g[Vb_fcTa0%1?XZXaWf/"g[1/"ge1ý/ge1/gW1/gTU_XUbeWXe0fh``Tel06b_bef1ý/ge1/g[16b_bef/"g[1/"ge1ý/ge1/gWV_Tff0W\YYRTWW1aUfc.4WWXWaUfc./"gW1/"ge1ý/ge1/gWV_Tff0W\YYRV[Z16[TaZXW/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRfhU17X_XgXW/"gW1/"ge1ý/"gTU_X1/"gW1ý/gW1/gTU_XUbeWXe0fh``Tel0?\a^f1ý/ge1/g[Vb_fcTa0%1?\a^f/"g[1/"ge1ý/ge1/gW1Y\efgV[TaZX/"gW1/"ge1ý/ge1/gW1aXkgV[TaZX/"gW1/"ge1ý/ge1/gW1gbc/"gW1/"ge1ý/"gTU_X1/"gW1/"ge1ý/"gTU_X1ý/"UbWl1ýý/"[g`_1C>ôõóóóóóóú|c)ƒ:h\7óóó7óóóóóóóóóóóóóóóóóóóóRRfgWbhgRR!W\YYC>ôõóóóóóóú|c)rÄlØûóóØûóóóóóóóóóóóóóóódóóóRRfgWbhgRR![g`_C>øùóóóóõóõómóóóvüóóóó', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(17, 'C>ö÷óóóóóû|c)ƒ:h\7óóó7óóóóóóRRfgWbhgRR!W\YY   RRfgWbhgRR!VbeeXVgbýRRfgWbhgRR!XageXZTWbý33 $$$#33ý C>ö÷óóóóóû|c)ð"<ØûóóØûóóóóóRRfgWbhgRR![g`_ý/7B6GLC8[g`_CH5?<6 ""J&6""7G7K;G@?$!#GeTaf\g\baT_""8Aý[ggc-""jjj!j&!beZ"GE"k[g`_$"7G7"k[g`_$ geTaf\g\baT_!WgW1ýý/[g`_1ýý/[XTW1ý/`XgT[ggc Xdh\i06bagXag GlcXýVbagXag0gXkg"[g`_.V[TefXg0<FB ++(, $"1ý/g\g_X1/"g\g_X1ý/fgl_XglcX0gXkg"Vff1ýgTU_X!W\YYnYbag YT`\_l-6bhe\Xe.UbeWXe-`XW\h`.pý!W\YYR[XTWXenUTV^ZebhaW Vb_be-X#X#X#pýgW!W\YYR[XTWXengXkg T_\Za-e\Z[gpý!W\YYRaXkgnUTV^ZebhaW Vb_be-V#V#V#pý!W\YYRTWWnUTV^ZebhaW Vb_be-TTYYTTpý!W\YYRV[ZnUTV^ZebhaW Vb_be-YYYY**pý!W\YYRfhUnUTV^ZebhaW Vb_be-YYTTTTpý/"fgl_X1ý/"[XTW1ýý/UbWl1ýý/gTU_XV_Tff0W\YY\W0W\YY_\URV[ZRgb,RRgbcýVX__fcTV\aZ0#VX__cTWW\aZ0#eh_Xf0Zebhcf1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/g[XTW1/ge1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!VbeeXVgb/"g[1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!XageXZTWb/"g[1/"ge1/"g[XTW1ý/gUbWl1ý/ge1/gWV_Tff0W\YYRaXkg\W0W\YY_\URV[ZRgb,RR#1/T[eXY0W\YY_\URV[ZRgb,RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`,R$1$/"gW1/gWabjeTc0abjeTc1/fcTaV_Tff0W\YYRfhU1aUfc./"fcTa1/"gW1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb,RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe1/"gW1/gWabjeTc0abjeTc1/"gW1/"ge1ý/"gUbWl1ý/"gTU_X1ý/gTU_XV_Tff0W\YYfh``Tel0?XZXaWf1ý/ge1/g[Vb_fcTa0%1?XZXaWf/"g[1/"ge1ý/ge1/gW1/gTU_XUbeWXe0fh``Tel06b_bef1ý/ge1/g[16b_bef/"g[1/"ge1ý/ge1/gWV_Tff0W\YYRTWW1aUfc.4WWXWaUfc./"gW1/"ge1ý/ge1/gWV_Tff0W\YYRV[Z16[TaZXW/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRfhU17X_XgXW/"gW1/"ge1ý/"gTU_X1/"gW1ý/gW1/gTU_XUbeWXe0fh``Tel0?\a^f1ý/ge1/g[Vb_fcTa0%1?\a^f/"g[1/"ge1ý/ge1/gW1Y\efgV[TaZX/"gW1/"ge1ý/ge1/gW1aXkgV[TaZX/"gW1/"ge1ý/ge1/gW1gbc/"gW1/"ge1ý/"gTU_X1/"gW1/"ge1ý/"gTU_X1ý/"UbWl1ýý/"[g`_1C>ôõóóóóóóû|c)ƒ:h\7óóó7óóóóóóóóóóóóóóóóóóóóRRfgWbhgRR!W\YYC>ôõóóóóóóû|c)ð"<ØûóóØûóóóóóóóóóóóóóóódóóóRRfgWbhgRR![g`_C>øùóóóóõóõómóóóvüóóóó', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(18, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(19, 'C>ö÷óóóóóû|c)×>’¦eóóóeóóóóóóRRfgWbhgRR!W\YY   RRfgWbhgRR!VbeeXVgbýRRfgWbhgRR!XageXZTWbý33 $,$+33ý # % $ #  $  $  $ % #ý%ý$ý#ý $ý $ý $ý%ýC>ö÷óóóóóû|c)aˆùcþóócþóóóóóRRfgWbhgRR![g`_ý/7B6GLC8[g`_CH5?<6 ""J&6""7G7K;G@?$!#GeTaf\g\baT_""8Aý[ggc-""jjj!j&!beZ"GE"k[g`_$"7G7"k[g`_$ geTaf\g\baT_!WgW1ýý/[g`_1ýý/[XTW1ý/`XgT[ggc Xdh\i06bagXag GlcXýVbagXag0gXkg"[g`_.V[TefXg0<FB ++(, $"1ý/g\g_X1/"g\g_X1ý/fgl_XglcX0gXkg"Vff1ýgTU_X!W\YYnYbag YT`\_l-6bhe\Xe.UbeWXe-`XW\h`.pý!W\YYR[XTWXenUTV^ZebhaW Vb_be-X#X#X#pýgW!W\YYR[XTWXengXkg T_\Za-e\Z[gpý!W\YYRaXkgnUTV^ZebhaW Vb_be-V#V#V#pý!W\YYRTWWnUTV^ZebhaW Vb_be-TTYYTTpý!W\YYRV[ZnUTV^ZebhaW Vb_be-YYYY**pý!W\YYRfhUnUTV^ZebhaW Vb_be-YYTTTTpý/"fgl_X1ý/"[XTW1ýý/UbWl1ýý/gTU_XV_Tff0W\YY\W0W\YY_\URV[ZRgb$#RRgbcýVX__fcTV\aZ0#VX__cTWW\aZ0#eh_Xf0Zebhcf1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/g[XTW1/ge1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!VbeeXVgb/"g[1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!XageXZTWb/"g[1/"ge1/"g[XTW1ý/gUbWl1ý/ge1/gWV_Tff0W\YYRaXkg\W0W\YY_\URV[ZRgb$#RR#1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`$#R)1)/"gW1/gWabjeTc0abjeTc1 $/"gW1/gWV_Tff0W\YYRaXkg1/"gW1/gWV_Tff0W\YYR[XTWXe\W0gb$#R)1)/"gW1/gWabjeTc0abjeTc1 $/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRaXkg1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`$#R*1*/"gW1/gWabjeTc0abjeTc1 $/"gW1/gWV_Tff0W\YYRaXkg1/"gW1/gWV_Tff0W\YYR[XTWXe\W0gb$#R*1*/"gW1/gWabjeTc0abjeTc1 $/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRaXkg1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`$#R+1+/"gW1/gWabjeTc0abjeTc1%/"gW1/gWV_Tff0W\YYRaXkg1/"gW1/gWV_Tff0W\YYR[XTWXe\W0gb$#R+1+/"gW1/gWabjeTc0abjeTc1%/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb$#RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`$#R,1,/"gW1/gWabjeTc0abjeTc1/fcTaV_Tff0W\YYRfhU1aUfc./"fcTa1/"gW1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb$#RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe1/"gW1/gWabjeTc0abjeTc1/"gW1/"ge1ý/"gUbWl1ý/"gTU_X1ý/gTU_XV_Tff0W\YYfh``Tel0?XZXaWf1ý/ge1/g[Vb_fcTa0%1?XZXaWf/"g[1/"ge1ý/ge1/gW1/gTU_XUbeWXe0fh``Tel06b_bef1ý/ge1/g[16b_bef/"g[1/"ge1ý/ge1/gWV_Tff0W\YYRTWW1aUfc.4WWXWaUfc./"gW1/"ge1ý/ge1/gWV_Tff0W\YYRV[Z16[TaZXW/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRfhU17X_XgXW/"gW1/"ge1ý/"gTU_X1/"gW1ý/gW1/gTU_XUbeWXe0fh``Tel0?\a^f1ý/ge1/g[Vb_fcTa0%1?\a^f/"g[1/"ge1ý/ge1/gW1Y\efgV[TaZX/"gW1/"ge1ý/ge1/gW1aXkgV[TaZX/"gW1/"ge1ý/ge1/gW1gbc/"gW1/"ge1ý/"gTU_X1/"gW1/"ge1ý/"gTU_X1ý/"UbWl1ýý/"[g`_1C>ôõóóóóóóû|c)×>’¦eóóóeóóóóóóóóóóóóóóóóóóóóRRfgWbhgRR!W\YYC>ôõóóóóóóû|c)aˆùcþóócþóóóóóóóóóóóóóóó’óóóRRfgWbhgRR![g`_C>øùóóóóõóõómóóó/ÿóóóó', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(20, '83ëìüèèèèèðqXÁ¢?èèè?èèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((!((ò83ëìüèèèèèðqX®Qˆøèèøèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG 
+& $\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèèðqXÁ¢?èèè?èèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèèðqX®Qˆøèèøèè÷èèèèèèèèèèèèèlèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèè¶øèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(21, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(22, '83ëìüèèèèèðqX.ŠMèèèMèèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((òòòòòò83ëìüèèèèèðqXžTZóèèZóèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèèðqX.ŠMèèèMèèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèèðqXžTZóèèZóèè÷èèèèèèèèèèèèèzèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèèôèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(23, 'Zöñ©ªº¦¦¦¦¦®/Ü¦i‘ø¦¦¦ø¦¦¦µ¦¦¦
+Ô
+ÓÓÓÆ
+Ô		Æ°ÑÑÑÆ
+Ô
+Æ°ææÆÓ×ÒÜÆÑ×ÒÖÆææ°ÓÓÙÓÝÓÖÓ×ÖÖÓØÙÓöñ©ªº¦¦¦¦¦®/Üªó­‚³¦¦³¦¦µ¦¦¦
+Ô°âÇêõéúÿöëÆÆöûèòïéÆÈÓÕÕýÙéÕÕêúêÆþîúóòÆ×ÔÖÆúÕÕëôÈ°ÆÆÆÆÆÆÆÆÆÆÈàÕÕÔÙÔÕúøÕ×ÕêúêÕ×ÓÔ
+
+Èä°°âä°°â
+ä°ÆÆÆÆâÆÓãÈéÓúÈ°ÆÆÆÆÆÆÆÆÆÆ	ãÈÕáÆ	ãïùõÓÞÞÛßÓ×ÈÆÕä°ÆÆÆÆâäâÕä°ÆÆÆÆâÆãÈÕ	Èä°ÆÆÆÆÆÆÆÆÔ
+Æ!ÓàéáÆ
+à
+á#°ÆÆÆÆÆÆÆÆÔ
+
+Æ!	
+Ó	àÉÖÖÖ#°ÆÆÆÆÆÆÆÆ
+Ô
+
+Æ!Óà#°ÆÆÆÆÆÆÆÆÔ
+Æ!	
+Ó	àÉ	Ö	Ö	Ö#°ÆÆÆÆÆÆÆÆÔ
+
+
+Æ!	
+Ó	àÉ#°ÆÆÆÆÆÆÆÆÔ
+	Æ!	
+Ó	àÉÝÝ#°ÆÆÆÆÆÆÆÆÔ
+Æ!	
+Ó	àÉ#°ÆÆÆÆâÕä°âÕ
+ä°°â
+ä°ÆÆÆÆ°ÆÆÆÆâÆ	ãÈ
+ÈÆ
+ãÈ
+	×ÙÈ°ÆÆÆÆÆÆÆÆÆÆÆ		ãÈÖÈÆ	
+
+ãÈÖÈÆãÈÈÆä°ÆÆÆÆÆÆÆÆâ	äâÕ	äÆâ	äâÕ	äÆâ	äâÕ	ä°ÆÆÆÆÆÆÆÆâ	äâÕ	äÆâ	äâÕ	äÆâ	äâÕ	ä°ÆÆÆÆÆÆÆÆâ
+äâäâÆ	ãÈ
+ÈäâÆÕäâÕäâÆ	ãÈØÈÆ	ãÈ
+
+Èä
+Ô		âÕäâÆ	ãÈ
+ÈäâÆÕäâÕäâÆ	ãÈØÈÆ	ãÈ
+
+Èä
+Ô
+âÕäâÕäâÕ
+ä°ÆÆÆÆÆÆÆÆâ
+ä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈÆ
+ãÈ
+	×ÙÖÈäâÆãÈÉ
+	×ÙÈäâÕäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈ×Ù×Èä×âÕ
+äâ
+ÆãÈÈäâÆ	ãÈ
+ÈäÓÙâÕäâÕ
+äâ
+Æ	ãÈ
+ÈäâÆãÈÉ
+	×ÙÈäâÕäâÕ
+äâ
+Æ	ãÈ
+
+ÈäâÕ
+äâ
+ÆãÈÈäâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈ×ÙØÈäØâÕ
+äâ
+ÆãÈÈäâÆ	ãÈ
+ÈäÝâÕäâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈäâÕ
+äâ
+ÆãÈÈäâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈ×ÙÙÈäÙâÕ
+äâ
+ÆãÈÈäâÆ	ãÈ
+ÈäÖâÕäâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈäâÕ
+äâ
+ÆãÈÈäâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈ×ÙÚÈäÚâÕ
+äâ
+ÆãÈÈäâÆ	ãÈ
+Èä×ÖÖâÕäâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈäâÕ
+äâ
+ÆãÈÈäâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈ×ÙÛÈäÛâÕ
+äâ
+ÆãÈÈäâÆ	ãÈ
+ÈäØÙâÕäâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈäâÕ
+äâ
+ÆãÈÈäâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈ×ÙÜÈäÜâÕ
+äâ
+ÆãÈÈäâÆ	ãÈ
+ÈäÌáâÕäâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈäâÕ
+äâ
+ÆãÈÈäâÕ
+äâÕä°ÆÆÆÆÆÆÆÆâÕ
+ä°ÆÆÆÆâÕä°ÆÆÆÆâÆ	ãÈ
+ÈÆãÈò
+Èä°ÆÆÆÆÆÆÆÆâäÆâÆ	ãÈØÈäÆò
+ÆâÕäÆâÕä°ÆÆÆÆÆÆÆÆâäÆâ
+äÆâÆ
+ãÈÈÆãÈéÈä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâäÆéÆâÕäÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+
+
+ÈäÌáç
+
+
+ÌáâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+	Èäé
+âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+Èäê
+âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâÕäâÕ
+ä°ÆÆÆÆÆÆÆÆÆÆÆÆÆâ
+äÆâÆ
+ãÈÈÆãÈòÈä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâÆ	ãÈØÈäÆòÆâÕäÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+äÎÏÆ	âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+äÎÏÆ	âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+äÎÏâÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâÕäâÕ
+äÆâÕä°ÆÆÆÆâÕä°âÕ
+ä°°âÕäöñ§¨º¦º¦¦¦¦¦®/Ü¦i‘ø¦¦¦ø¦¦¦µ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+Ô
+öñ§¨º¦º¦¦¦¦¦®/Üªó­‚³¦¦³¦¦µ¦¦¦¦¦¦¦¦¦¦¦¦¦%¦¦¦
+Ôöñ«¬¦¦¦¦¨¦¨¦ ¦¦¦¾´¦¦¦¦', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(24, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(25, 'Zöñ©ªº¦¦¦¦¦®/ÜJÙ’¾¦¦¦¦¦¦µ¦¦¦
+Ô
+ÓÓÓÆ
+Ô		Æ°ÑÑÑÆ
+Ô
+Æ°ææÆÓ×ÒÜÆÑ×ÒÛÆææ°Ó×ÖÓØÖÓÙÖÓÚÖÓÓÚÖÓÑ×Ö°ÑØÖ°ÑÙÖ°ÑÚÖ°ÑÓÚÖ°öñ©ªº¦¦¦¦¦®/ÜRË~"±¦¦±¦¦µ¦¦¦
+Ô°âÇêõéúÿöëÆÆöûèòïéÆÈÓÕÕýÙéÕÕêúêÆþîúóòÆ×ÔÖÆúÕÕëôÈ°ÆÆÆÆÆÆÆÆÆÆÈàÕÕÔÙÔÕúøÕ×ÕêúêÕ×ÓÔ
+
+Èä°°âä°°â
+ä°ÆÆÆÆâÆÓãÈéÓúÈ°ÆÆÆÆÆÆÆÆÆÆ	ãÈÕáÆ	ãïùõÓÞÞÛßÓ×ÈÆÕä°ÆÆÆÆâäâÕä°ÆÆÆÆâÆãÈÕ	Èä°ÆÆÆÆÆÆÆÆÔ
+Æ!ÓàéáÆ
+à
+á#°ÆÆÆÆÆÆÆÆÔ
+
+Æ!	
+Ó	àÉÖÖÖ#°ÆÆÆÆÆÆÆÆ
+Ô
+
+Æ!Óà#°ÆÆÆÆÆÆÆÆÔ
+Æ!	
+Ó	àÉ	Ö	Ö	Ö#°ÆÆÆÆÆÆÆÆÔ
+
+
+Æ!	
+Ó	àÉ#°ÆÆÆÆÆÆÆÆÔ
+	Æ!	
+Ó	àÉÝÝ#°ÆÆÆÆÆÆÆÆÔ
+Æ!	
+Ó	àÉ#°ÆÆÆÆâÕä°âÕ
+ä°°â
+ä°ÆÆÆÆ°ÆÆÆÆâÆ	ãÈ
+ÈÆ
+ãÈ
+	×ÚÈ°ÆÆÆÆÆÆÆÆÆÆÆ		ãÈÖÈÆ	
+
+ãÈÖÈÆãÈÈÆä°ÆÆÆÆÆÆÆÆâ	äâÕ	äÆâ	äâÕ	äÆâ	äâÕ	ä°ÆÆÆÆÆÆÆÆâ	äâÕ	äÆâ	äâÕ	äÆâ	äâÕ	ä°ÆÆÆÆÆÆÆÆâ
+äâäâÆ	ãÈ
+ÈäâÆÕäâÕäâÆ	ãÈØÈÆ	ãÈ
+
+Èä
+Ô		âÕäâÆ	ãÈ
+ÈäâÆÕäâÕäâÆ	ãÈØÈÆ	ãÈ
+
+Èä
+Ô
+âÕäâÕäâÕ
+ä°ÆÆÆÆÆÆÆÆâ
+ä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈÆ
+ãÈ
+	×ÚÖÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈ×ÚÙÈäÙâÕ
+äâ
+ÆãÈÈäÙÖâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈ×ÚÙÈäÙâÕ
+äâ
+ÆãÈÈäÙÖâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈ×ÚÚÈäÚâÕ
+äâ
+ÆãÈÈäÚÖâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈ×ÚÚÈäÚâÕ
+äâ
+ÆãÈÈäÚÖâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈ×ÚÛÈäÛâÕ
+äâ
+ÆãÈÈäÓÚÖâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈ×ÚÛÈäÛâÕ
+äâ
+ÆãÈÈäÓÚÖâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÆãÈÉ
+	×ÚÈäâÕäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈ×ÚÜÈäÜâÕ
+äâ
+ÆãÈÈäâÆ	ãÈ
+ÈäÌáâÕäâÕ
+äâ
+Æ	ãÈ
+ÈäâÆãÈÉ
+	×ÚÈäâÕäâÕ
+äâ
+Æ	ãÈ
+
+ÈäâÕ
+äâ
+ÆãÈÈäâÕ
+äâÕä°ÆÆÆÆÆÆÆÆâÕ
+ä°ÆÆÆÆâÕä°ÆÆÆÆâÆ	ãÈ
+ÈÆãÈò
+Èä°ÆÆÆÆÆÆÆÆâäÆâÆ	ãÈØÈäÆò
+ÆâÕäÆâÕä°ÆÆÆÆÆÆÆÆâäÆâ
+äÆâÆ
+ãÈÈÆãÈéÈä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâäÆéÆâÕäÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+
+
+ÈäÌáç
+
+
+ÌáâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+	Èäé
+âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+Èäê
+âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâÕäâÕ
+ä°ÆÆÆÆÆÆÆÆÆÆÆÆÆâ
+äÆâÆ
+ãÈÈÆãÈòÈä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâÆ	ãÈØÈäÆòÆâÕäÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+äÎÏÆ	âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+äÎÏÆ	âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+äÎÏâÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâÕäâÕ
+äÆâÕä°ÆÆÆÆâÕä°âÕ
+ä°°âÕäöñ§¨º¦º¦¦¦¦¦®/ÜJÙ’¾¦¦¦¦¦¦µ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+Ô
+öñ§¨º¦º¦¦¦¦¦®/ÜRË~"±¦¦±¦¦µ¦¦¦¦¦¦¦¦¦¦¦¦¦<¦¦¦
+Ôöñ«¬¦¦¦¦¨¦¨¦ ¦¦¦Ý²¦¦¦¦', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(26, '83ëìüèèèèèðqX¶­sˆ<èèè<èèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò83ëìüèèèèèðqXtB‹VõèèVõèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèèðqX¶­sˆ<èèè<èèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèèðqXtB‹VõèèVõèè÷èèèèèèèèèèèèèièèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèèöèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(27, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(28, '83ëìüèèèèèðqXžqÊJèèèJèèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((òòòòòòò83ëìüèèèèèðqX”òŒäTóèèTóèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèèðqXžqÊJèèèJèèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèèðqX”òŒäTóèèTóèè÷èèèèèèèèèèèèèwèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèèôèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(29, '83ëìüèèèèèðqXôuš8èèè8èèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò83ëìüèèèèèðqXšˆÊÃ6öèè6öèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèèðqXôuš8èèè8èèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèèðqXšˆÊÃ6öèè6öèè÷èèèèèèèèèèèèèeèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèèàöèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(30, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(31, 'C>ö÷óóóóóû|c)ƒ:h\7óóó7óóóóóóRRfgWbhgRR!W\YY   RRfgWbhgRR!VbeeXVgbýRRfgWbhgRR!XageXZTWbý33 $$$#33ý C>ö÷óóóóóû|c)¥Ôc+ÝûóóÝûóóóóóRRfgWbhgRR![g`_ý/7B6GLC8[g`_CH5?<6 ""J&6""7G7K;G@?$!#GeTaf\g\baT_""8Aý[ggc-""jjj!j&!beZ"GE"k[g`_$"7G7"k[g`_$ geTaf\g\baT_!WgW1ýý/[g`_1ýý/[XTW1ý/`XgT[ggc Xdh\i06bagXag GlcXýVbagXag0gXkg"[g`_.V[TefXg0<FB ++(, $"1ý/g\g_X1/"g\g_X1ý/fgl_XglcX0gXkg"Vff1ýgTU_X!W\YYnYbag YT`\_l-6bhe\Xe.UbeWXe-`XW\h`.pý!W\YYR[XTWXenUTV^ZebhaW Vb_be-X#X#X#pýgW!W\YYR[XTWXengXkg T_\Za-e\Z[gpý!W\YYRaXkgnUTV^ZebhaW Vb_be-V#V#V#pý!W\YYRTWWnUTV^ZebhaW Vb_be-TTYYTTpý!W\YYRV[ZnUTV^ZebhaW Vb_be-YYYY**pý!W\YYRfhUnUTV^ZebhaW Vb_be-YYTTTTpý/"fgl_X1ý/"[XTW1ýý/UbWl1ýý/gTU_XV_Tff0W\YY\W0W\YY_\URV[ZRgb$+RRgbcýVX__fcTV\aZ0#VX__cTWW\aZ0#eh_Xf0Zebhcf1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/g[XTW1/ge1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!VbeeXVgb/"g[1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!XageXZTWb/"g[1/"ge1/"g[XTW1ý/gUbWl1ý/ge1/gWV_Tff0W\YYRaXkg\W0W\YY_\URV[ZRgb$+RR#1/T[eXY0W\YY_\URV[ZRgb$+RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`$+R$1$/"gW1/gWabjeTc0abjeTc1/fcTaV_Tff0W\YYRfhU1aUfc./"fcTa1/"gW1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb$+RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe1/"gW1/gWabjeTc0abjeTc1/"gW1/"ge1ý/"gUbWl1ý/"gTU_X1ý/gTU_XV_Tff0W\YYfh``Tel0?XZXaWf1ý/ge1/g[Vb_fcTa0%1?XZXaWf/"g[1/"ge1ý/ge1/gW1/gTU_XUbeWXe0fh``Tel06b_bef1ý/ge1/g[16b_bef/"g[1/"ge1ý/ge1/gWV_Tff0W\YYRTWW1aUfc.4WWXWaUfc./"gW1/"ge1ý/ge1/gWV_Tff0W\YYRV[Z16[TaZXW/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRfhU17X_XgXW/"gW1/"ge1ý/"gTU_X1/"gW1ý/gW1/gTU_XUbeWXe0fh``Tel0?\a^f1ý/ge1/g[Vb_fcTa0%1?\a^f/"g[1/"ge1ý/ge1/gW1Y\efgV[TaZX/"gW1/"ge1ý/ge1/gW1aXkgV[TaZX/"gW1/"ge1ý/ge1/gW1gbc/"gW1/"ge1ý/"gTU_X1/"gW1/"ge1ý/"gTU_X1ý/"UbWl1ýý/"[g`_1C>ôõóóóóóóû|c)ƒ:h\7óóó7óóóóóóóóóóóóóóóóóóóóRRfgWbhgRR!W\YYC>ôõóóóóóóû|c)¥Ôc+ÝûóóÝûóóóóóóóóóóóóóóódóóóRRfgWbhgRR![g`_C>øùóóóóõóõómóóó{üóóóó', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(32, '83ëìüèèèèèðqXx/]Q,èèè,èèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò83ëìüèèèèèðqXÂ7sÒðèèÒðèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\W!GG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\W!GG
+&$IPZMN%
+LQNNTQJGKPOG\W!GG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWU!G
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\W!GG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèèðqXx/]Q,èèè,èèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèèðqXÂ7sÒðèèÒðèè÷èèèèèèèèèèèèèYèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèèpñèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(34, NULL, 'ComandoFuenteEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(36, NULL, 'ComandoFuenteEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(38, NULL, 'ComandoFuenteEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(39, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(40, '83ëìüèèèèè²qXOýoÙ…éèè…éèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò ! ! ! ! !òòòòòòò ò!òòòòòòòòò ò!òòòòòòòòò ò!òòòòòòòòò ò!òòòòòòòòò ò!òòò83ëìüèèèèè²qXÂ¿lóèèlóèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&!$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&!$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèè²qXOýoÙ…éèè…éèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèè²qXÂ¿lóèèlóèè÷èèèèèèèèèèèèè²éèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèècõèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(41, '83ëìüèèèèè²qX\:ˆï¿èèè¿èèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò ! ! ! ! !83ëìüèèèèè²qXÝ„˜&èè&èè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG 
+& $\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+& $[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&!$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG 
+& $\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+& $[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&!$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG 
+& $\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+& $[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&!$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG 
+& $\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+& $[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&!$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG 
+& $\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+& $[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&!$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèè²qX\:ˆï¿èèè¿èèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèè²qXÝ„˜&èè&èè÷èèèèèèèèèèèèèìéèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèèW èèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(42, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(43, '83ëìüèèèèè²qX8â¦ËEèèèEèèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò ò òò83ëìüèèèèè²qXÒÍ¦óèè¦óèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$IPZMN%
+LQNNTQJGKPOG\WGG
+&N$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG
+&N$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+& $\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+& $\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèè²qX8â¦ËEèèèEèèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèè²qXÒÍ¦óèè¦óèè÷èèèèèèèèèèèèèrèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèè]ôèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(44, '83ëìüèèèèè²qXUJÞi7èèè7èèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò 83ëìüèèèèè²qXóî§‰óèè‰óèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+& $[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèè²qXUJÞi7èèè7èèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèè²qXóî§‰óèè‰óèè÷èèèèèèèèèèèèèdèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèè2ôèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(45, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(46, '83ëìüèèèèè³qXx/]Q,èèè,èèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò83ëìüèèèèè³qXÔÉñôÒðèèÒðèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèè³qXx/]Q,èèè,èèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèè³qXÔÉñôÒðèèÒðèè÷èèèèèèèèèèèèèYèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèèpñèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(47, 'C>ö÷óóóóó¾|c)ƒ:h\7óóó7óóóóóóRRfgWbhgRR!W\YY   RRfgWbhgRR!VbeeXVgbýRRfgWbhgRR!XageXZTWbý33 $$$#33ý C>ö÷óóóóó¾|c)]Í)²ÝûóóÝûóóóóóRRfgWbhgRR![g`_ý/7B6GLC8[g`_CH5?<6 ""J&6""7G7K;G@?$!#GeTaf\g\baT_""8Aý[ggc-""jjj!j&!beZ"GE"k[g`_$"7G7"k[g`_$ geTaf\g\baT_!WgW1ýý/[g`_1ýý/[XTW1ý/`XgT[ggc Xdh\i06bagXag GlcXýVbagXag0gXkg"[g`_.V[TefXg0<FB ++(, $"1ý/g\g_X1/"g\g_X1ý/fgl_XglcX0gXkg"Vff1ýgTU_X!W\YYnYbag YT`\_l-6bhe\Xe.UbeWXe-`XW\h`.pý!W\YYR[XTWXenUTV^ZebhaW Vb_be-X#X#X#pýgW!W\YYR[XTWXengXkg T_\Za-e\Z[gpý!W\YYRaXkgnUTV^ZebhaW Vb_be-V#V#V#pý!W\YYRTWWnUTV^ZebhaW Vb_be-TTYYTTpý!W\YYRV[ZnUTV^ZebhaW Vb_be-YYYY**pý!W\YYRfhUnUTV^ZebhaW Vb_be-YYTTTTpý/"fgl_X1ý/"[XTW1ýý/UbWl1ýý/gTU_XV_Tff0W\YY\W0W\YY_\URV[ZRgb%(RRgbcýVX__fcTV\aZ0#VX__cTWW\aZ0#eh_Xf0Zebhcf1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/g[XTW1/ge1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!VbeeXVgb/"g[1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!XageXZTWb/"g[1/"ge1/"g[XTW1ý/gUbWl1ý/ge1/gWV_Tff0W\YYRaXkg\W0W\YY_\URV[ZRgb%(RR#1/T[eXY0W\YY_\URV[ZRgb%(RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`%(R$1$/"gW1/gWabjeTc0abjeTc1/fcTaV_Tff0W\YYRfhU1aUfc./"fcTa1/"gW1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb%(RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe1/"gW1/gWabjeTc0abjeTc1/"gW1/"ge1ý/"gUbWl1ý/"gTU_X1ý/gTU_XV_Tff0W\YYfh``Tel0?XZXaWf1ý/ge1/g[Vb_fcTa0%1?XZXaWf/"g[1/"ge1ý/ge1/gW1/gTU_XUbeWXe0fh``Tel06b_bef1ý/ge1/g[16b_bef/"g[1/"ge1ý/ge1/gWV_Tff0W\YYRTWW1aUfc.4WWXWaUfc./"gW1/"ge1ý/ge1/gWV_Tff0W\YYRV[Z16[TaZXW/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRfhU17X_XgXW/"gW1/"ge1ý/"gTU_X1/"gW1ý/gW1/gTU_XUbeWXe0fh``Tel0?\a^f1ý/ge1/g[Vb_fcTa0%1?\a^f/"g[1/"ge1ý/ge1/gW1Y\efgV[TaZX/"gW1/"ge1ý/ge1/gW1aXkgV[TaZX/"gW1/"ge1ý/ge1/gW1gbc/"gW1/"ge1ý/"gTU_X1/"gW1/"ge1ý/"gTU_X1ý/"UbWl1ýý/"[g`_1C>ôõóóóóóó¾|c)ƒ:h\7óóó7óóóóóóóóóóóóóóóóóóóóRRfgWbhgRR!W\YYC>ôõóóóóóó¾|c)]Í)²ÝûóóÝûóóóóóóóóóóóóóóódóóóRRfgWbhgRR![g`_C>øùóóóóõóõómóóó{üóóóó', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(48, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(49, 'C>ö÷óóóóó¾|c)ƒ:h\7óóó7óóóóóóRRfgWbhgRR!W\YY   RRfgWbhgRR!VbeeXVgbýRRfgWbhgRR!XageXZTWbý33 $$$#33ý C>ö÷óóóóó¾|c)”ƒù¤ÝûóóÝûóóóóóRRfgWbhgRR![g`_ý/7B6GLC8[g`_CH5?<6 ""J&6""7G7K;G@?$!#GeTaf\g\baT_""8Aý[ggc-""jjj!j&!beZ"GE"k[g`_$"7G7"k[g`_$ geTaf\g\baT_!WgW1ýý/[g`_1ýý/[XTW1ý/`XgT[ggc Xdh\i06bagXag GlcXýVbagXag0gXkg"[g`_.V[TefXg0<FB ++(, $"1ý/g\g_X1/"g\g_X1ý/fgl_XglcX0gXkg"Vff1ýgTU_X!W\YYnYbag YT`\_l-6bhe\Xe.UbeWXe-`XW\h`.pý!W\YYR[XTWXenUTV^ZebhaW Vb_be-X#X#X#pýgW!W\YYR[XTWXengXkg T_\Za-e\Z[gpý!W\YYRaXkgnUTV^ZebhaW Vb_be-V#V#V#pý!W\YYRTWWnUTV^ZebhaW Vb_be-TTYYTTpý!W\YYRV[ZnUTV^ZebhaW Vb_be-YYYY**pý!W\YYRfhUnUTV^ZebhaW Vb_be-YYTTTTpý/"fgl_X1ý/"[XTW1ýý/UbWl1ýý/gTU_XV_Tff0W\YY\W0W\YY_\URV[ZRgb%)RRgbcýVX__fcTV\aZ0#VX__cTWW\aZ0#eh_Xf0Zebhcf1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/g[XTW1/ge1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!VbeeXVgb/"g[1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!XageXZTWb/"g[1/"ge1/"g[XTW1ý/gUbWl1ý/ge1/gWV_Tff0W\YYRaXkg\W0W\YY_\URV[ZRgb%)RR#1/T[eXY0W\YY_\URV[ZRgb%)RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`%)R$1$/"gW1/gWabjeTc0abjeTc1/fcTaV_Tff0W\YYRfhU1aUfc./"fcTa1/"gW1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb%)RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe1/"gW1/gWabjeTc0abjeTc1/"gW1/"ge1ý/"gUbWl1ý/"gTU_X1ý/gTU_XV_Tff0W\YYfh``Tel0?XZXaWf1ý/ge1/g[Vb_fcTa0%1?XZXaWf/"g[1/"ge1ý/ge1/gW1/gTU_XUbeWXe0fh``Tel06b_bef1ý/ge1/g[16b_bef/"g[1/"ge1ý/ge1/gWV_Tff0W\YYRTWW1aUfc.4WWXWaUfc./"gW1/"ge1ý/ge1/gWV_Tff0W\YYRV[Z16[TaZXW/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRfhU17X_XgXW/"gW1/"ge1ý/"gTU_X1/"gW1ý/gW1/gTU_XUbeWXe0fh``Tel0?\a^f1ý/ge1/g[Vb_fcTa0%1?\a^f/"g[1/"ge1ý/ge1/gW1Y\efgV[TaZX/"gW1/"ge1ý/ge1/gW1aXkgV[TaZX/"gW1/"ge1ý/ge1/gW1gbc/"gW1/"ge1ý/"gTU_X1/"gW1/"ge1ý/"gTU_X1ý/"UbWl1ýý/"[g`_1C>ôõóóóóóó¾|c)ƒ:h\7óóó7óóóóóóóóóóóóóóóóóóóóRRfgWbhgRR!W\YYC>ôõóóóóóó¾|c)”ƒù¤ÝûóóÝûóóóóóóóóóóóóóóódóóóRRfgWbhgRR![g`_C>øùóóóóõóõómóóó{üóóóó', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(50, 'C>ö÷óóóóó¾|c)ƒ:h\7óóó7óóóóóóRRfgWbhgRR!W\YY   RRfgWbhgRR!VbeeXVgbýRRfgWbhgRR!XageXZTWbý33 $$$#33ý C>ö÷óóóóó¾|c)ž,õÝûóóÝûóóóóóRRfgWbhgRR![g`_ý/7B6GLC8[g`_CH5?<6 ""J&6""7G7K;G@?$!#GeTaf\g\baT_""8Aý[ggc-""jjj!j&!beZ"GE"k[g`_$"7G7"k[g`_$ geTaf\g\baT_!WgW1ýý/[g`_1ýý/[XTW1ý/`XgT[ggc Xdh\i06bagXag GlcXýVbagXag0gXkg"[g`_.V[TefXg0<FB ++(, $"1ý/g\g_X1/"g\g_X1ý/fgl_XglcX0gXkg"Vff1ýgTU_X!W\YYnYbag YT`\_l-6bhe\Xe.UbeWXe-`XW\h`.pý!W\YYR[XTWXenUTV^ZebhaW Vb_be-X#X#X#pýgW!W\YYR[XTWXengXkg T_\Za-e\Z[gpý!W\YYRaXkgnUTV^ZebhaW Vb_be-V#V#V#pý!W\YYRTWWnUTV^ZebhaW Vb_be-TTYYTTpý!W\YYRV[ZnUTV^ZebhaW Vb_be-YYYY**pý!W\YYRfhUnUTV^ZebhaW Vb_be-YYTTTTpý/"fgl_X1ý/"[XTW1ýý/UbWl1ýý/gTU_XV_Tff0W\YY\W0W\YY_\URV[ZRgb%*RRgbcýVX__fcTV\aZ0#VX__cTWW\aZ0#eh_Xf0Zebhcf1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/g[XTW1/ge1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!VbeeXVgb/"g[1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!XageXZTWb/"g[1/"ge1/"g[XTW1ý/gUbWl1ý/ge1/gWV_Tff0W\YYRaXkg\W0W\YY_\URV[ZRgb%*RR#1/T[eXY0W\YY_\URV[ZRgb%*RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`%*R$1$/"gW1/gWabjeTc0abjeTc1/fcTaV_Tff0W\YYRfhU1aUfc./"fcTa1/"gW1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb%*RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe1/"gW1/gWabjeTc0abjeTc1/"gW1/"ge1ý/"gUbWl1ý/"gTU_X1ý/gTU_XV_Tff0W\YYfh``Tel0?XZXaWf1ý/ge1/g[Vb_fcTa0%1?XZXaWf/"g[1/"ge1ý/ge1/gW1/gTU_XUbeWXe0fh``Tel06b_bef1ý/ge1/g[16b_bef/"g[1/"ge1ý/ge1/gWV_Tff0W\YYRTWW1aUfc.4WWXWaUfc./"gW1/"ge1ý/ge1/gWV_Tff0W\YYRV[Z16[TaZXW/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRfhU17X_XgXW/"gW1/"ge1ý/"gTU_X1/"gW1ý/gW1/gTU_XUbeWXe0fh``Tel0?\a^f1ý/ge1/g[Vb_fcTa0%1?\a^f/"g[1/"ge1ý/ge1/gW1Y\efgV[TaZX/"gW1/"ge1ý/ge1/gW1aXkgV[TaZX/"gW1/"ge1ý/ge1/gW1gbc/"gW1/"ge1ý/"gTU_X1/"gW1/"ge1ý/"gTU_X1ý/"UbWl1ýý/"[g`_1C>ôõóóóóóó¾|c)ƒ:h\7óóó7óóóóóóóóóóóóóóóóóóóóRRfgWbhgRR!W\YYC>ôõóóóóóó¾|c)ž,õÝûóóÝûóóóóóóóóóóóóóóódóóóRRfgWbhgRR![g`_C>øùóóóóõóõómóóó{üóóóó', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(51, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(52, '83ëìüèèèèè³qXx/]Q,èèè,èèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò83ëìüèèèèè³qX¨²°ÒðèèÒðèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\W GG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\W GG
+&$IPZMN%
+LQNNTQJGKPOG\W GG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWU G
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\W GG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèè³qXx/]Q,èèè,èèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèè³qX¨²°ÒðèèÒðèè÷èèèèèèèèèèèèèYèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèèpñèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(53, 'C>ö÷óóóóó¾|c)ƒ:h\7óóó7óóóóóóRRfgWbhgRR!W\YY   RRfgWbhgRR!VbeeXVgbýRRfgWbhgRR!XageXZTWbý33 $$$#33ý C>ö÷óóóóó¾|c)9äêzÝûóóÝûóóóóóRRfgWbhgRR![g`_ý/7B6GLC8[g`_CH5?<6 ""J&6""7G7K;G@?$!#GeTaf\g\baT_""8Aý[ggc-""jjj!j&!beZ"GE"k[g`_$"7G7"k[g`_$ geTaf\g\baT_!WgW1ýý/[g`_1ýý/[XTW1ý/`XgT[ggc Xdh\i06bagXag GlcXýVbagXag0gXkg"[g`_.V[TefXg0<FB ++(, $"1ý/g\g_X1/"g\g_X1ý/fgl_XglcX0gXkg"Vff1ýgTU_X!W\YYnYbag YT`\_l-6bhe\Xe.UbeWXe-`XW\h`.pý!W\YYR[XTWXenUTV^ZebhaW Vb_be-X#X#X#pýgW!W\YYR[XTWXengXkg T_\Za-e\Z[gpý!W\YYRaXkgnUTV^ZebhaW Vb_be-V#V#V#pý!W\YYRTWWnUTV^ZebhaW Vb_be-TTYYTTpý!W\YYRV[ZnUTV^ZebhaW Vb_be-YYYY**pý!W\YYRfhUnUTV^ZebhaW Vb_be-YYTTTTpý/"fgl_X1ý/"[XTW1ýý/UbWl1ýý/gTU_XV_Tff0W\YY\W0W\YY_\URV[ZRgb%,RRgbcýVX__fcTV\aZ0#VX__cTWW\aZ0#eh_Xf0Zebhcf1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/g[XTW1/ge1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!VbeeXVgb/"g[1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!XageXZTWb/"g[1/"ge1/"g[XTW1ý/gUbWl1ý/ge1/gWV_Tff0W\YYRaXkg\W0W\YY_\URV[ZRgb%,RR#1/T[eXY0W\YY_\URV[ZRgb%,RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`%,R$1$/"gW1/gWabjeTc0abjeTc1/fcTaV_Tff0W\YYRfhU1aUfc./"fcTa1/"gW1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb%,RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe1/"gW1/gWabjeTc0abjeTc1/"gW1/"ge1ý/"gUbWl1ý/"gTU_X1ý/gTU_XV_Tff0W\YYfh``Tel0?XZXaWf1ý/ge1/g[Vb_fcTa0%1?XZXaWf/"g[1/"ge1ý/ge1/gW1/gTU_XUbeWXe0fh``Tel06b_bef1ý/ge1/g[16b_bef/"g[1/"ge1ý/ge1/gWV_Tff0W\YYRTWW1aUfc.4WWXWaUfc./"gW1/"ge1ý/ge1/gWV_Tff0W\YYRV[Z16[TaZXW/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRfhU17X_XgXW/"gW1/"ge1ý/"gTU_X1/"gW1ý/gW1/gTU_XUbeWXe0fh``Tel0?\a^f1ý/ge1/g[Vb_fcTa0%1?\a^f/"g[1/"ge1ý/ge1/gW1Y\efgV[TaZX/"gW1/"ge1ý/ge1/gW1aXkgV[TaZX/"gW1/"ge1ý/ge1/gW1gbc/"gW1/"ge1ý/"gTU_X1/"gW1/"ge1ý/"gTU_X1ý/"UbWl1ýý/"[g`_1C>ôõóóóóóó¾|c)ƒ:h\7óóó7óóóóóóóóóóóóóóóóóóóóRRfgWbhgRR!W\YYC>ôõóóóóóó¾|c)9äêzÝûóóÝûóóóóóóóóóóóóóóódóóóRRfgWbhgRR![g`_C>øùóóóóõóõómóóó{üóóóó', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(54, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(55, 'C>ö÷óóóóó¾|c)×>’¦eóóóeóóóóóóRRfgWbhgRR!W\YY   RRfgWbhgRR!VbeeXVgbýRRfgWbhgRR!XageXZTWbý33 $,$+33ý # % $ #  $  $  $ % #ý%ý$ý#ý $ý $ý $ý%ýC>ö÷óóóóó¾|c)NÆácþóócþóóóóóRRfgWbhgRR![g`_ý/7B6GLC8[g`_CH5?<6 ""J&6""7G7K;G@?$!#GeTaf\g\baT_""8Aý[ggc-""jjj!j&!beZ"GE"k[g`_$"7G7"k[g`_$ geTaf\g\baT_!WgW1ýý/[g`_1ýý/[XTW1ý/`XgT[ggc Xdh\i06bagXag GlcXýVbagXag0gXkg"[g`_.V[TefXg0<FB ++(, $"1ý/g\g_X1/"g\g_X1ý/fgl_XglcX0gXkg"Vff1ýgTU_X!W\YYnYbag YT`\_l-6bhe\Xe.UbeWXe-`XW\h`.pý!W\YYR[XTWXenUTV^ZebhaW Vb_be-X#X#X#pýgW!W\YYR[XTWXengXkg T_\Za-e\Z[gpý!W\YYRaXkgnUTV^ZebhaW Vb_be-V#V#V#pý!W\YYRTWWnUTV^ZebhaW Vb_be-TTYYTTpý!W\YYRV[ZnUTV^ZebhaW Vb_be-YYYY**pý!W\YYRfhUnUTV^ZebhaW Vb_be-YYTTTTpý/"fgl_X1ý/"[XTW1ýý/UbWl1ýý/gTU_XV_Tff0W\YY\W0W\YY_\URV[ZRgb&#RRgbcýVX__fcTV\aZ0#VX__cTWW\aZ0#eh_Xf0Zebhcf1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/g[XTW1/ge1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!VbeeXVgb/"g[1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!XageXZTWb/"g[1/"ge1/"g[XTW1ý/gUbWl1ý/ge1/gWV_Tff0W\YYRaXkg\W0W\YY_\URV[ZRgb&#RR#1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`&#R)1)/"gW1/gWabjeTc0abjeTc1 $/"gW1/gWV_Tff0W\YYRaXkg1/"gW1/gWV_Tff0W\YYR[XTWXe\W0gb&#R)1)/"gW1/gWabjeTc0abjeTc1 $/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRaXkg1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`&#R*1*/"gW1/gWabjeTc0abjeTc1 $/"gW1/gWV_Tff0W\YYRaXkg1/"gW1/gWV_Tff0W\YYR[XTWXe\W0gb&#R*1*/"gW1/gWabjeTc0abjeTc1 $/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRaXkg1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`&#R+1+/"gW1/gWabjeTc0abjeTc1%/"gW1/gWV_Tff0W\YYRaXkg1/"gW1/gWV_Tff0W\YYR[XTWXe\W0gb&#R+1+/"gW1/gWabjeTc0abjeTc1%/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb&#RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`&#R,1,/"gW1/gWabjeTc0abjeTc1/fcTaV_Tff0W\YYRfhU1aUfc./"fcTa1/"gW1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb&#RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe1/"gW1/gWabjeTc0abjeTc1/"gW1/"ge1ý/"gUbWl1ý/"gTU_X1ý/gTU_XV_Tff0W\YYfh``Tel0?XZXaWf1ý/ge1/g[Vb_fcTa0%1?XZXaWf/"g[1/"ge1ý/ge1/gW1/gTU_XUbeWXe0fh``Tel06b_bef1ý/ge1/g[16b_bef/"g[1/"ge1ý/ge1/gWV_Tff0W\YYRTWW1aUfc.4WWXWaUfc./"gW1/"ge1ý/ge1/gWV_Tff0W\YYRV[Z16[TaZXW/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRfhU17X_XgXW/"gW1/"ge1ý/"gTU_X1/"gW1ý/gW1/gTU_XUbeWXe0fh``Tel0?\a^f1ý/ge1/g[Vb_fcTa0%1?\a^f/"g[1/"ge1ý/ge1/gW1Y\efgV[TaZX/"gW1/"ge1ý/ge1/gW1aXkgV[TaZX/"gW1/"ge1ý/ge1/gW1gbc/"gW1/"ge1ý/"gTU_X1/"gW1/"ge1ý/"gTU_X1ý/"UbWl1ýý/"[g`_1C>ôõóóóóóó¾|c)×>’¦eóóóeóóóóóóóóóóóóóóóóóóóóRRfgWbhgRR!W\YYC>ôõóóóóóó¾|c)NÆácþóócþóóóóóóóóóóóóóóó’óóóRRfgWbhgRR![g`_C>øùóóóóõóõómóóó/ÿóóóó', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(56, '83ëìüèèèèè³qXÁ¢?èèè?èèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((!((ò83ëìüèèèèè³qXDâÆ/øèèøèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG 
+& $\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG!
+&!$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèè³qXÁ¢?èèè?èèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèè³qXDâÆ/øèèøèè÷èèèèèèèèèèèèèlèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèè¶øèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(57, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(58, '83ëìüèèèèè³qX.ŠMèèèMèèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((òòòòòò83ëìüèèèèè³qXÌ&Å~ZóèèZóèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèè³qX.ŠMèèèMèèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèè³qXÌ&Å~ZóèèZóèè÷èèèèèèèèèèèèèzèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèèôèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(59, 'Zöñ©ªº¦¦¦¦¦q/Ü¦i‘ø¦¦¦ø¦¦¦µ¦¦¦
+Ô
+ÓÓÓÆ
+Ô		Æ°ÑÑÑÆ
+Ô
+Æ°ææÆÓ×ÒÜÆÑ×ÒÖÆææ°ÓÓÙÓÝÓÖÓ×ÖÖÓØÙÓöñ©ªº¦¦¦¦¦q/Üç"¶ ³¦¦³¦¦µ¦¦¦
+Ô°âÇêõéúÿöëÆÆöûèòïéÆÈÓÕÕýÙéÕÕêúêÆþîúóòÆ×ÔÖÆúÕÕëôÈ°ÆÆÆÆÆÆÆÆÆÆÈàÕÕÔÙÔÕúøÕ×ÕêúêÕ×ÓÔ
+
+Èä°°âä°°â
+ä°ÆÆÆÆâÆÓãÈéÓúÈ°ÆÆÆÆÆÆÆÆÆÆ	ãÈÕáÆ	ãïùõÓÞÞÛßÓ×ÈÆÕä°ÆÆÆÆâäâÕä°ÆÆÆÆâÆãÈÕ	Èä°ÆÆÆÆÆÆÆÆÔ
+Æ!ÓàéáÆ
+à
+á#°ÆÆÆÆÆÆÆÆÔ
+
+Æ!	
+Ó	àÉÖÖÖ#°ÆÆÆÆÆÆÆÆ
+Ô
+
+Æ!Óà#°ÆÆÆÆÆÆÆÆÔ
+Æ!	
+Ó	àÉ	Ö	Ö	Ö#°ÆÆÆÆÆÆÆÆÔ
+
+
+Æ!	
+Ó	àÉ#°ÆÆÆÆÆÆÆÆÔ
+	Æ!	
+Ó	àÉÝÝ#°ÆÆÆÆÆÆÆÆÔ
+Æ!	
+Ó	àÉ#°ÆÆÆÆâÕä°âÕ
+ä°°â
+ä°ÆÆÆÆ°ÆÆÆÆâÆ	ãÈ
+ÈÆ
+ãÈ
+	ÙÙÈ°ÆÆÆÆÆÆÆÆÆÆÆ		ãÈÖÈÆ	
+
+ãÈÖÈÆãÈÈÆä°ÆÆÆÆÆÆÆÆâ	äâÕ	äÆâ	äâÕ	äÆâ	äâÕ	ä°ÆÆÆÆÆÆÆÆâ	äâÕ	äÆâ	äâÕ	äÆâ	äâÕ	ä°ÆÆÆÆÆÆÆÆâ
+äâäâÆ	ãÈ
+ÈäâÆÕäâÕäâÆ	ãÈØÈÆ	ãÈ
+
+Èä
+Ô		âÕäâÆ	ãÈ
+ÈäâÆÕäâÕäâÆ	ãÈØÈÆ	ãÈ
+
+Èä
+Ô
+âÕäâÕäâÕ
+ä°ÆÆÆÆÆÆÆÆâ
+ä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈÆ
+ãÈ
+	ÙÙÖÈäâÆãÈÉ
+	ÙÙÈäâÕäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈÙÙ×Èä×âÕ
+äâ
+ÆãÈÈäâÆ	ãÈ
+ÈäÓÙâÕäâÕ
+äâ
+Æ	ãÈ
+ÈäâÆãÈÉ
+	ÙÙÈäâÕäâÕ
+äâ
+Æ	ãÈ
+
+ÈäâÕ
+äâ
+ÆãÈÈäâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈÙÙØÈäØâÕ
+äâ
+ÆãÈÈäâÆ	ãÈ
+ÈäÝâÕäâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈäâÕ
+äâ
+ÆãÈÈäâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈÙÙÙÈäÙâÕ
+äâ
+ÆãÈÈäâÆ	ãÈ
+ÈäÖâÕäâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈäâÕ
+äâ
+ÆãÈÈäâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈÙÙÚÈäÚâÕ
+äâ
+ÆãÈÈäâÆ	ãÈ
+Èä×ÖÖâÕäâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈäâÕ
+äâ
+ÆãÈÈäâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈÙÙÛÈäÛâÕ
+äâ
+ÆãÈÈäâÆ	ãÈ
+ÈäØÙâÕäâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈäâÕ
+äâ
+ÆãÈÈäâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈÙÙÜÈäÜâÕ
+äâ
+ÆãÈÈäâÆ	ãÈ
+ÈäÌáâÕäâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈäâÕ
+äâ
+ÆãÈÈäâÕ
+äâÕä°ÆÆÆÆÆÆÆÆâÕ
+ä°ÆÆÆÆâÕä°ÆÆÆÆâÆ	ãÈ
+ÈÆãÈò
+Èä°ÆÆÆÆÆÆÆÆâäÆâÆ	ãÈØÈäÆò
+ÆâÕäÆâÕä°ÆÆÆÆÆÆÆÆâäÆâ
+äÆâÆ
+ãÈÈÆãÈéÈä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâäÆéÆâÕäÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+
+
+ÈäÌáç
+
+
+ÌáâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+	Èäé
+âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+Èäê
+âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâÕäâÕ
+ä°ÆÆÆÆÆÆÆÆÆÆÆÆÆâ
+äÆâÆ
+ãÈÈÆãÈòÈä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâÆ	ãÈØÈäÆòÆâÕäÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+äÎÏÆ	âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+äÎÏÆ	âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+äÎÏâÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâÕäâÕ
+äÆâÕä°ÆÆÆÆâÕä°âÕ
+ä°°âÕäöñ§¨º¦º¦¦¦¦¦q/Ü¦i‘ø¦¦¦ø¦¦¦µ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+Ô
+öñ§¨º¦º¦¦¦¦¦q/Üç"¶ ³¦¦³¦¦µ¦¦¦¦¦¦¦¦¦¦¦¦¦%¦¦¦
+Ôöñ«¬¦¦¦¦¨¦¨¦ ¦¦¦¾´¦¦¦¦', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(60, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(61, 'Zöñ©ªº¦¦¦¦¦q/ÜJÙ’¾¦¦¦¦¦¦µ¦¦¦
+Ô
+ÓÓÓÆ
+Ô		Æ°ÑÑÑÆ
+Ô
+Æ°ææÆÓ×ÒÜÆÑ×ÒÛÆææ°Ó×ÖÓØÖÓÙÖÓÚÖÓÓÚÖÓÑ×Ö°ÑØÖ°ÑÙÖ°ÑÚÖ°ÑÓÚÖ°öñ©ªº¦¦¦¦¦q/Ü¢¯E±¦¦±¦¦µ¦¦¦
+Ô°âÇêõéúÿöëÆÆöûèòïéÆÈÓÕÕýÙéÕÕêúêÆþîúóòÆ×ÔÖÆúÕÕëôÈ°ÆÆÆÆÆÆÆÆÆÆÈàÕÕÔÙÔÕúøÕ×ÕêúêÕ×ÓÔ
+
+Èä°°âä°°â
+ä°ÆÆÆÆâÆÓãÈéÓúÈ°ÆÆÆÆÆÆÆÆÆÆ	ãÈÕáÆ	ãïùõÓÞÞÛßÓ×ÈÆÕä°ÆÆÆÆâäâÕä°ÆÆÆÆâÆãÈÕ	Èä°ÆÆÆÆÆÆÆÆÔ
+Æ!ÓàéáÆ
+à
+á#°ÆÆÆÆÆÆÆÆÔ
+
+Æ!	
+Ó	àÉÖÖÖ#°ÆÆÆÆÆÆÆÆ
+Ô
+
+Æ!Óà#°ÆÆÆÆÆÆÆÆÔ
+Æ!	
+Ó	àÉ	Ö	Ö	Ö#°ÆÆÆÆÆÆÆÆÔ
+
+
+Æ!	
+Ó	àÉ#°ÆÆÆÆÆÆÆÆÔ
+	Æ!	
+Ó	àÉÝÝ#°ÆÆÆÆÆÆÆÆÔ
+Æ!	
+Ó	àÉ#°ÆÆÆÆâÕä°âÕ
+ä°°â
+ä°ÆÆÆÆ°ÆÆÆÆâÆ	ãÈ
+ÈÆ
+ãÈ
+	ÙÚÈ°ÆÆÆÆÆÆÆÆÆÆÆ		ãÈÖÈÆ	
+
+ãÈÖÈÆãÈÈÆä°ÆÆÆÆÆÆÆÆâ	äâÕ	äÆâ	äâÕ	äÆâ	äâÕ	ä°ÆÆÆÆÆÆÆÆâ	äâÕ	äÆâ	äâÕ	äÆâ	äâÕ	ä°ÆÆÆÆÆÆÆÆâ
+äâäâÆ	ãÈ
+ÈäâÆÕäâÕäâÆ	ãÈØÈÆ	ãÈ
+
+Èä
+Ô		âÕäâÆ	ãÈ
+ÈäâÆÕäâÕäâÆ	ãÈØÈÆ	ãÈ
+
+Èä
+Ô
+âÕäâÕäâÕ
+ä°ÆÆÆÆÆÆÆÆâ
+ä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈÆ
+ãÈ
+	ÙÚÖÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈÙÚÙÈäÙâÕ
+äâ
+ÆãÈÈäÙÖâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈÙÚÙÈäÙâÕ
+äâ
+ÆãÈÈäÙÖâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈÙÚÚÈäÚâÕ
+äâ
+ÆãÈÈäÚÖâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈÙÚÚÈäÚâÕ
+äâ
+ÆãÈÈäÚÖâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈÙÚÛÈäÛâÕ
+äâ
+ÆãÈÈäÓÚÖâÕ
+äâ
+Æ	ãÈ
+ÈäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈÙÚÛÈäÛâÕ
+äâ
+ÆãÈÈäÓÚÖâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+ÈäâÆãÈÉ
+	ÙÚÈäâÕäâÕ
+äâ
+Æ	ãÈ
+
+ÈÆ
+ãÈÙÚÜÈäÜâÕ
+äâ
+ÆãÈÈäâÆ	ãÈ
+ÈäÌáâÕäâÕ
+äâ
+Æ	ãÈ
+ÈäâÆãÈÉ
+	ÙÚÈäâÕäâÕ
+äâ
+Æ	ãÈ
+
+ÈäâÕ
+äâ
+ÆãÈÈäâÕ
+äâÕä°ÆÆÆÆÆÆÆÆâÕ
+ä°ÆÆÆÆâÕä°ÆÆÆÆâÆ	ãÈ
+ÈÆãÈò
+Èä°ÆÆÆÆÆÆÆÆâäÆâÆ	ãÈØÈäÆò
+ÆâÕäÆâÕä°ÆÆÆÆÆÆÆÆâäÆâ
+äÆâÆ
+ãÈÈÆãÈéÈä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâäÆéÆâÕäÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+
+
+ÈäÌáç
+
+
+ÌáâÕ
+äâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+	Èäé
+âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+Æ	ãÈ
+Èäê
+âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâÕäâÕ
+ä°ÆÆÆÆÆÆÆÆÆÆÆÆÆâ
+äÆâÆ
+ãÈÈÆãÈòÈä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâÆ	ãÈØÈäÆòÆâÕäÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+äÎÏÆ	âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+äÎÏÆ	âÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâäâ
+äÎÏâÕ
+äÆâÕä°ÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆÆâÕäâÕ
+äÆâÕä°ÆÆÆÆâÕä°âÕ
+ä°°âÕäöñ§¨º¦º¦¦¦¦¦q/ÜJÙ’¾¦¦¦¦¦¦µ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+Ô
+öñ§¨º¦º¦¦¦¦¦q/Ü¢¯E±¦¦±¦¦µ¦¦¦¦¦¦¦¦¦¦¦¦¦<¦¦¦
+Ôöñ«¬¦¦¦¦¨¦¨¦ ¦¦¦Ý²¦¦¦¦', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(62, '83ëìüèèèèè³qX¶­sˆ<èèè<èèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò83ëìüèèèèè³qXÏ<ÁVõèèVõèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèè³qX¶­sˆ<èèè<èèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèè³qXÏ<ÁVõèèVõèè÷èèèèèèèèèèèèèièèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèèöèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(63, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(64, '83ëìüèèèèè³qXžqÊJèèèJèèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((òòòòòòò83ëìüèèèèè³qXE
+ü†TóèèTóèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+\WG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèè³qXžqÊJèèèJèèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèè³qXE
+ü†TóèèTóèè÷èèèèèèèèèèèèèwèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèèôèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(65, '83ëìüèèèèè³qXôuš8èèè8èèè÷èèèGG[\LW]\GGLQNNGG[\LW]\GGKWZZMK\WòGG[\LW]\GGMV\ZMOILWò((((ò83ëìüèèèèè³qX_ˆ’N6öèè6öèè÷èèèGG[\LW]\GGP\UTò$	,7+<A8-P\UT8=*41+
+?+,<,@0<54<ZIV[Q\QWVIT-6
+ò
+P\\X"____WZO<:`P\UT,<,`P\UT\ZIV[Q\QWVITL\L
+&òò$P\UT&òò$PMIL&ò$UM\IP\\XMY]Q^%
++WV\MV\<aXM
+òKWV\MV\%
+\M`\P\UT#KPIZ[M\%1;7  !
+&ò$\Q\TM&$\Q\TM&ò$[\aTM\aXM%
+\M`\K[[
+&ò\IJTMLQNNcNWV\NIUQTa"+W]ZQMZ#JWZLMZ"UMLQ]U#eòLQNNGPMILMZcJIKSOZW]VLKWTWZ"MMMeò\LLQNNGPMILMZc\M`\ITQOV"ZQOP\eòLQNNGVM`\cJIKSOZW]VLKWTWZ"KKKeòLQNNGILLcJIKSOZW]VLKWTWZ"IINNIIeòLQNNGKPOcJIKSOZW]VLKWTWZ"NNNNeòLQNNG[]JcJIKSOZW]VLKWTWZ"NNIIIIeò$[\aTM&ò$PMIL&òò$JWLa&òò$\IJTMKTI[[%
+LQNN
+QL%
+LQNNTQJGKPOG\WGG\WX
+òKMTT[XIKQVO%
+
+KMTTXILLQVO%
+
+Z]TM[%
+OZW]X[
+&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&$KWTOZW]X&ò$\PMIL&$\Z&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGKWZZMK\W$\P&$\PKTI[[%
+LQNNGVM`\
+&$JZ&$\P&$\PKWT[XIV%
+
+KTI[[%
+LQNNGPMILMZ
+&GG[\LW]\GGMV\ZMOILW$\P&$\Z&$\PMIL&ò$\JWLa&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+QL%
+LQNNTQJGKPOG\WGG
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$IPZMN%
+LQNNTQJGKPOG\WGG\WX
+&\$I&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+QL%
+NZWUG
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$[XIVKTI[[%
+LQNNG[]J
+&VJ[X#$[XIV&$\L&$\LKTI[[%
+LQNNGVM`\
+&$\L&$\LKTI[[%
+LQNNGPMILMZ
+&$\L&$\LVW_ZIX%
+VW_ZIX
+&$\L&$\Z&ò$\JWLa&ò$\IJTM&ò$\IJTMKTI[[%
+LQNN
+[]UUIZa%
+4MOMVL[
+&ò$\Z&$\PKWT[XIV%
+
+&4MOMVL[$\P&$\Z&ò$\Z&$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
++WTWZ[
+&ò$\Z&$\P&+WTWZ[$\P&$\Z&ò$\Z&$\LKTI[[%
+LQNNGILL
+&VJ[X#)LLMLVJ[X#$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNGKPO
+&+PIVOML$\L&$\Z&ò$\Z&$\LKTI[[%
+LQNNG[]J
+&,MTM\ML$\L&$\Z&ò$\IJTM&$\L&ò$\L&$\IJTMJWZLMZ%
+
+[]UUIZa%
+4QVS[
+&ò$\Z&$\PKWT[XIV%
+
+&4QVS[$\P&$\Z&ò$\Z&$\L&NQZ[\KPIVOM$\L&$\Z&ò$\Z&$\L&VM`\KPIVOM$\L&$\Z&ò$\Z&$\L&\WX$\L&$\Z&ò$\IJTM&$\L&$\Z&ò$\IJTM&ò$JWLa&òò$P\UT&83éêüèüèèèèè³qXôuš8èèè8èèè÷èèèèèèèèèèèèèèèèèGG[\LW]\GGLQNN83éêüèüèèèèè³qX_ˆ’N6öèè6öèè÷èèèèèèèèèèèèèeèèèGG[\LW]\GGP\UT83íîèèèèêèêèbèèèàöèèèè', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(66, NULL, 'Prueba');
+INSERT INTO "comando_ejecutado" VALUES(67, 'C>ö÷óóóóó¿|c)ƒ:h\7óóó7óóóóóóRRfgWbhgRR!W\YY   RRfgWbhgRR!VbeeXVgbýRRfgWbhgRR!XageXZTWbý33 $$$#33ý C>ö÷óóóóó¿|c)áÆ“#ÝûóóÝûóóóóóRRfgWbhgRR![g`_ý/7B6GLC8[g`_CH5?<6 ""J&6""7G7K;G@?$!#GeTaf\g\baT_""8Aý[ggc-""jjj!j&!beZ"GE"k[g`_$"7G7"k[g`_$ geTaf\g\baT_!WgW1ýý/[g`_1ýý/[XTW1ý/`XgT[ggc Xdh\i06bagXag GlcXýVbagXag0gXkg"[g`_.V[TefXg0<FB ++(, $"1ý/g\g_X1/"g\g_X1ý/fgl_XglcX0gXkg"Vff1ýgTU_X!W\YYnYbag YT`\_l-6bhe\Xe.UbeWXe-`XW\h`.pý!W\YYR[XTWXenUTV^ZebhaW Vb_be-X#X#X#pýgW!W\YYR[XTWXengXkg T_\Za-e\Z[gpý!W\YYRaXkgnUTV^ZebhaW Vb_be-V#V#V#pý!W\YYRTWWnUTV^ZebhaW Vb_be-TTYYTTpý!W\YYRV[ZnUTV^ZebhaW Vb_be-YYYY**pý!W\YYRfhUnUTV^ZebhaW Vb_be-YYTTTTpý/"fgl_X1ý/"[XTW1ýý/UbWl1ýý/gTU_XV_Tff0W\YY\W0W\YY_\URV[ZRgb&+RRgbcýVX__fcTV\aZ0#VX__cTWW\aZ0#eh_Xf0Zebhcf1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/g[XTW1/ge1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!VbeeXVgb/"g[1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!XageXZTWb/"g[1/"ge1/"g[XTW1ý/gUbWl1ý/ge1/gWV_Tff0W\YYRaXkg\W0W\YY_\URV[ZRgb&+RR#1/T[eXY0W\YY_\URV[ZRgb&+RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`&+R$1$/"gW1/gWabjeTc0abjeTc1/fcTaV_Tff0W\YYRfhU1aUfc./"fcTa1/"gW1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb&+RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe1/"gW1/gWabjeTc0abjeTc1/"gW1/"ge1ý/"gUbWl1ý/"gTU_X1ý/gTU_XV_Tff0W\YYfh``Tel0?XZXaWf1ý/ge1/g[Vb_fcTa0%1?XZXaWf/"g[1/"ge1ý/ge1/gW1/gTU_XUbeWXe0fh``Tel06b_bef1ý/ge1/g[16b_bef/"g[1/"ge1ý/ge1/gWV_Tff0W\YYRTWW1aUfc.4WWXWaUfc./"gW1/"ge1ý/ge1/gWV_Tff0W\YYRV[Z16[TaZXW/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRfhU17X_XgXW/"gW1/"ge1ý/"gTU_X1/"gW1ý/gW1/gTU_XUbeWXe0fh``Tel0?\a^f1ý/ge1/g[Vb_fcTa0%1?\a^f/"g[1/"ge1ý/ge1/gW1Y\efgV[TaZX/"gW1/"ge1ý/ge1/gW1aXkgV[TaZX/"gW1/"ge1ý/ge1/gW1gbc/"gW1/"ge1ý/"gTU_X1/"gW1/"ge1ý/"gTU_X1ý/"UbWl1ýý/"[g`_1C>ôõóóóóóó¿|c)ƒ:h\7óóó7óóóóóóóóóóóóóóóóóóóóRRfgWbhgRR!W\YYC>ôõóóóóóó¿|c)áÆ“#ÝûóóÝûóóóóóóóóóóóóóóódóóóRRfgWbhgRR![g`_C>øùóóóóõóõómóóó{üóóóó', 'ComandoPruebaEjecutado');
+INSERT INTO "comando_ejecutado" VALUES(68, 'C>ö÷óóóóó¿|c)ƒ:h\7óóó7óóóóóóRRfgWbhgRR!W\YY   RRfgWbhgRR!VbeeXVgbýRRfgWbhgRR!XageXZTWbý33 $$$#33ý C>ö÷óóóóó¿|c)[Û’vÝûóóÝûóóóóóRRfgWbhgRR![g`_ý/7B6GLC8[g`_CH5?<6 ""J&6""7G7K;G@?$!#GeTaf\g\baT_""8Aý[ggc-""jjj!j&!beZ"GE"k[g`_$"7G7"k[g`_$ geTaf\g\baT_!WgW1ýý/[g`_1ýý/[XTW1ý/`XgT[ggc Xdh\i06bagXag GlcXýVbagXag0gXkg"[g`_.V[TefXg0<FB ++(, $"1ý/g\g_X1/"g\g_X1ý/fgl_XglcX0gXkg"Vff1ýgTU_X!W\YYnYbag YT`\_l-6bhe\Xe.UbeWXe-`XW\h`.pý!W\YYR[XTWXenUTV^ZebhaW Vb_be-X#X#X#pýgW!W\YYR[XTWXengXkg T_\Za-e\Z[gpý!W\YYRaXkgnUTV^ZebhaW Vb_be-V#V#V#pý!W\YYRTWWnUTV^ZebhaW Vb_be-TTYYTTpý!W\YYRV[ZnUTV^ZebhaW Vb_be-YYYY**pý!W\YYRfhUnUTV^ZebhaW Vb_be-YYTTTTpý/"fgl_X1ý/"[XTW1ýý/UbWl1ýý/gTU_XV_Tff0W\YY\W0W\YY_\URV[ZRgb&,RRgbcýVX__fcTV\aZ0#VX__cTWW\aZ0#eh_Xf0Zebhcf1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1/Vb_Zebhc1/"Vb_Zebhc1ý/g[XTW1/ge1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!VbeeXVgb/"g[1/g[V_Tff0W\YYRaXkg1/Ue"1/"g[1/g[Vb_fcTa0%V_Tff0W\YYR[XTWXe1RRfgWbhgRR!XageXZTWb/"g[1/"ge1/"g[XTW1ý/gUbWl1ý/ge1/gWV_Tff0W\YYRaXkg\W0W\YY_\URV[ZRgb&,RR#1/T[eXY0W\YY_\URV[ZRgb&,RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe\W0Yeb`&,R$1$/"gW1/gWabjeTc0abjeTc1/fcTaV_Tff0W\YYRfhU1aUfc./"fcTa1/"gW1/gWV_Tff0W\YYRaXkg1/T[eXY0W\YY_\URV[ZRgb&,RRgbc1g/"T1/"gW1/gWV_Tff0W\YYR[XTWXe1/"gW1/gWabjeTc0abjeTc1/"gW1/"ge1ý/"gUbWl1ý/"gTU_X1ý/gTU_XV_Tff0W\YYfh``Tel0?XZXaWf1ý/ge1/g[Vb_fcTa0%1?XZXaWf/"g[1/"ge1ý/ge1/gW1/gTU_XUbeWXe0fh``Tel06b_bef1ý/ge1/g[16b_bef/"g[1/"ge1ý/ge1/gWV_Tff0W\YYRTWW1aUfc.4WWXWaUfc./"gW1/"ge1ý/ge1/gWV_Tff0W\YYRV[Z16[TaZXW/"gW1/"ge1ý/ge1/gWV_Tff0W\YYRfhU17X_XgXW/"gW1/"ge1ý/"gTU_X1/"gW1ý/gW1/gTU_XUbeWXe0fh``Tel0?\a^f1ý/ge1/g[Vb_fcTa0%1?\a^f/"g[1/"ge1ý/ge1/gW1Y\efgV[TaZX/"gW1/"ge1ý/ge1/gW1aXkgV[TaZX/"gW1/"ge1ý/ge1/gW1gbc/"gW1/"ge1ý/"gTU_X1/"gW1/"ge1ý/"gTU_X1ý/"UbWl1ýý/"[g`_1C>ôõóóóóóó¿|c)ƒ:h\7óóó7óóóóóóóóóóóóóóóóóóóóRRfgWbhgRR!W\YYC>ôõóóóóóó¿|c)[Û’vÝûóóÝûóóóóóóóóóóóóóóódóóóRRfgWbhgRR![g`_C>øùóóóóõóõómóóó{üóóóó', 'ComandoPruebaEjecutado');
+
 INSERT INTO "comando_fuente" VALUES(1, 1, 1);
+
+INSERT INTO "comando_fuente_ejecutado" VALUES(2, 1, 1);
+INSERT INTO "comando_fuente_ejecutado" VALUES(34, 1, 33);
+INSERT INTO "comando_fuente_ejecutado" VALUES(36, 1, 35);
+INSERT INTO "comando_fuente_ejecutado" VALUES(38, 1, 37);
 
 INSERT INTO "comando_prueba" VALUES(2, 2, 1);
 INSERT INTO "comando_prueba" VALUES(3, 2, 2);
+
+INSERT INTO "comando_prueba_ejecutado" VALUES(4, 2, 3);
+INSERT INTO "comando_prueba_ejecutado" VALUES(5, 3, 3);
+INSERT INTO "comando_prueba_ejecutado" VALUES(7, 2, 6);
+INSERT INTO "comando_prueba_ejecutado" VALUES(8, 3, 6);
+INSERT INTO "comando_prueba_ejecutado" VALUES(10, 2, 9);
+INSERT INTO "comando_prueba_ejecutado" VALUES(11, 3, 9);
+INSERT INTO "comando_prueba_ejecutado" VALUES(13, 2, 12);
+INSERT INTO "comando_prueba_ejecutado" VALUES(14, 3, 12);
+INSERT INTO "comando_prueba_ejecutado" VALUES(16, 2, 15);
+INSERT INTO "comando_prueba_ejecutado" VALUES(17, 3, 15);
+INSERT INTO "comando_prueba_ejecutado" VALUES(19, 2, 18);
+INSERT INTO "comando_prueba_ejecutado" VALUES(20, 3, 18);
+INSERT INTO "comando_prueba_ejecutado" VALUES(22, 2, 21);
+INSERT INTO "comando_prueba_ejecutado" VALUES(23, 3, 21);
+INSERT INTO "comando_prueba_ejecutado" VALUES(25, 2, 24);
+INSERT INTO "comando_prueba_ejecutado" VALUES(26, 3, 24);
+INSERT INTO "comando_prueba_ejecutado" VALUES(28, 2, 27);
+INSERT INTO "comando_prueba_ejecutado" VALUES(29, 3, 27);
+INSERT INTO "comando_prueba_ejecutado" VALUES(31, 2, 30);
+INSERT INTO "comando_prueba_ejecutado" VALUES(32, 3, 30);
+INSERT INTO "comando_prueba_ejecutado" VALUES(40, 2, 39);
+INSERT INTO "comando_prueba_ejecutado" VALUES(41, 3, 39);
+INSERT INTO "comando_prueba_ejecutado" VALUES(43, 2, 42);
+INSERT INTO "comando_prueba_ejecutado" VALUES(44, 3, 42);
+INSERT INTO "comando_prueba_ejecutado" VALUES(46, 2, 45);
+INSERT INTO "comando_prueba_ejecutado" VALUES(47, 3, 45);
+INSERT INTO "comando_prueba_ejecutado" VALUES(49, 2, 48);
+INSERT INTO "comando_prueba_ejecutado" VALUES(50, 3, 48);
+INSERT INTO "comando_prueba_ejecutado" VALUES(52, 2, 51);
+INSERT INTO "comando_prueba_ejecutado" VALUES(53, 3, 51);
+INSERT INTO "comando_prueba_ejecutado" VALUES(55, 2, 54);
+INSERT INTO "comando_prueba_ejecutado" VALUES(56, 3, 54);
+INSERT INTO "comando_prueba_ejecutado" VALUES(58, 2, 57);
+INSERT INTO "comando_prueba_ejecutado" VALUES(59, 3, 57);
+INSERT INTO "comando_prueba_ejecutado" VALUES(61, 2, 60);
+INSERT INTO "comando_prueba_ejecutado" VALUES(62, 3, 60);
+INSERT INTO "comando_prueba_ejecutado" VALUES(64, 2, 63);
+INSERT INTO "comando_prueba_ejecutado" VALUES(65, 3, 63);
+INSERT INTO "comando_prueba_ejecutado" VALUES(67, 2, 66);
+INSERT INTO "comando_prueba_ejecutado" VALUES(68, 3, 66);
+
 
 INSERT INTO "curso" VALUES(1, 2005, 1, 1, 'Martes');
 INSERT INTO "curso" VALUES(2, 2005, 1, 2, 'Jueves');
@@ -128,7 +5387,374 @@ INSERT INTO "docente_inscripto" VALUES(5, 8, 32, 1, NULL);
 INSERT INTO "docente_inscripto" VALUES(6, 8, 35, 1, NULL);
 INSERT INTO "docente_inscripto" VALUES(7, 8, 36, 1, NULL);
 
+INSERT INTO "ejecucion" VALUES(1, '2007-03-16 17:07:37', '2007-03-16 17:08:17', 1, '', '×yt,-=)))1)a‹Á]*Í|¿¬*)),))2)>)ŒrjmmWŒ™™~}2),EumEum~¡-),,¶|zxëY9§Ÿòì²2’š±OM+XMQïmˆµ8Þ}ÑBûŸ#iàž¬IªOô› ¦ &¤€eÌ’ZùË¼$!fÌ¼u’‚yónÿ*D².üLºœ«YyŠçàfQ¸ã¹BÐón£ò~ ‰)ÜÐ9
+)Ÿ%ÑnGš^StJµ<iØ,×4£@@ç€§HkÍ·-$‹ÝùmKÉl»zõ?y>wV®ý,‘tßy*•ÂFhªÖ­ÍïÖSha¶Õ£[‚l¢§olÎšU5€où÷4OÞ©¾WÖÒŒÔì`r®­gOdÊ,3FBÃÅ›à&èP6óz[~ÍÃõ®òp/ž°ðÀ=P0&D´¨Ã}°ì¤¼c£ÏTr¢­Éã©Ohb…ö‚Îj¯ªÛž®âû„a8ìžþ£à£Œ–.‚@Ÿ›ZÓ—^Ž¨©ß4@¢Aý=}„\¿æQé0ìíä¸Žal?˜º7­ÄÌ( “‹èþ”[!¼cL
+8yt,-=)))1)a‹Á]9ãb+))Ü0))2)>)ŒrlvyWŒ™™~}2),EumEum~¡-),,¶¾t¸ÄY9ðø´í Á—Î>mÍ„„ûùfÖÝ×SÞÀÓ0“å2>êºª9ÎÈæ§©Ï‚te%Á%ðŒ¯a£„^Ít3c·±`–ð¤kSÿUiöÕdÚŒ~MR9O=pIDÐ†øD‘Hæ_~ä3¬øx¢»‰ºüðrÃ×5à4AféS·¼Ú£=i¨zû .x©¥UCëçù†NÛläåë6Ðä_¬jþ¥L¸é¡~Aä¬ÀVÞxó¶’ž¥®ìßT€TOÝû)`ðÇ·ªà¶ËÒ™b–$ãTs/D¡W¿×Ð.Ç©.pÂá¯Ö®e@ÿ›hçèuï¸ÞNà£¯mU¥ÜªxˆHGû’°íz)®Mó‡ÎQé›‘;±,i+nœãó.7ã1¡º$W 1aŠ°Ì±ä¥L„’!ýµ´üæ:Ùf£CËAÙJS>‚pxªÁŽ•ˆÎë»0½õÔšÖÀJÜhíßF~R]‰‘H‹zsÑäeæ\¿èÜ^Z}A,FTï;mî¹ž`ÔóÚƒÝ#éLé·¢“g]¦í¹¹O”ÖjÝúE6BC’qú¹plœ]•‘ÐŠnìÜ]–c~–d.Ž]<×~ÐI¦9ã-kXiƒºÆvH²XJ¨ºI(q³ÏG¹©ò“‡ú³ŠyX÷Á_("_±Ê²ŽðaÍ·ƒ[q¡+ÉJéè#0ÓT¡r6„{*yt,-=)))1)b‹Á]0†*))y,))2)>)Œrlw}WŒ™™~}2),GumGum~¡-),,¶{êwëi9füÍ(Y‹kß6‘£VëjwM1ïÑ@Œq·ÙÏñ_Gµ§ä–R9:Í’Â Ä¤ÀSÀ‚ºKÝ¡]¦åƒÞ¦ø a¯4R>JásEXúµ‘Ì;:©M„ æx¬YÃ«œñÌ>Î˜‘*Ü$q-j ç	c­V,­Ö¿¾ø«Q3	dóëMUiOâÍ0…Sd/DæK_lYWž@“þè¸åì^ÚsCã#ÇpÃñ6}–JÑvCðî6Ævª•1§­h-·‰)æ‡7v¤dé7Å‹ýn»½sy-@,ÁgvO&\,ó6mì:E’Ù°ÌyÌ¢w[S€Ú@®¤þ®êE¢—X;¥eÄG€gS‡ðÍúÔ,Ûv©6q>lÀ4 +*÷[ÉvÖ¶8ÃªÙè,”28Å«„²®B‹9·Y™‹ÐÔ0"×ûFá¾cã=Dß»0yt,-=)))1)b‹Á]âsÜâY*))Ä+))2)>)ŒrnwmWŒ™™~}2),GumGum~¡-),,¶{ösíY9g˜IYÕÙÝŽæ€êÈìG½î`±ùouv{e±gärã’@zÉÝ’$ò`
+k’¶^ëƒGHW^Åò¬ß÷µ{Sû.íÆÛ•ùûÉm¿¬Mèød9óÉD¶/¶˜|˜ƒŽ þ‰ÑZË@">HÙXIZiÚˆÖa4ø\zÀ-.­òi1V2D–¹æßVB€êï‰Œà™{&æ,½Áš&Ý¶Å]úõy^%lùããUò¤núìAúa«NÏýß!YU«ûÞ»+m0RS¡F:å¥Ø]#½?é q þýnp(P42Ð÷üY%!YÇ«¶µŠãZ!+HmƒmD¹ÀÜÆU¥šùºQGñ4pO)ì“ª˜%²øV(}Ü!z÷á”ÅÒ,ô@yt,-=)))1)b‹Á] }£,$*))".))2)>)ŒrsvyWŒ™™~}2),GumGum~¡-),,¶}t˜ÅY9g0²(YvÍ1Øñ¬EÀO°½QXn“X~8ýaä×µ•¼GËàð˜YÙsVëéõ`Heû±ßá”+°!¤ÁO’«˜ƒJ¢¸ZŽ3õÄ£l^‘¾Jéuæx¼à]*¦aºf˜ÊN¨Ö˜Oà}Å…Ò©ðÐKlbÄž.>c]lÑu¼ a„ªp®þêjÃ˜ïCÈ½%JáÀ>ø)¨ÔƒõÇò¯S“u¥>„ï>EœÛ:baO$8çPdï’>Ÿÿ÷h¸Ýb28ÊÝ$¸­kÿ^|…rÞ¬×P…[ÁrÐF^Så6™2ŽiA…µKÅ±çº~ö½ÀS7R—ìF¦ª•rÁÞøBÀÔEÅqLñ‰æîú\†åy‰ãGhŒíˆŽEÒRXÀ&7öÎí¡Ši§‘|:ÄãîªZ‚¨ïÓæ}óÎµLÀê?›AÿG6vL‘ Se|ôHîˆfA—…+b×ÉB3“Qaç[ƒ$ª9|]ÓßQ{Qà#{ˆ·•ùGÝ×YfÂÂOŒ÷ƒ©^øVßâÆOWÕ°ö‹27Ôì]ëÍ$Æ9Jì‘P¡ãŒ&ï¤ŠþÈÉƒÛ7Ãž@W—+8£B‘œz<M÷J»//–ÃxHX“ßa³ïzVˆÒoéþb-ù½+©$­¨Ÿ6„Ë/ÝO*|Ì¥)yt,-=)))1)b‹Á]¦|¼²*)),))1)>)ŒrswWŒ™™~}2),GumGum~¡-),,¶|ô—ëY9e`{ŠtÎñ²{GbOé*w}=Ós{¹C@…®aÛÆ©à÷DË½ƒs¾Ÿ”üáÌZ·ûVªG‡eÕ#$Ç’Á/‡ík=Œó‹0ª±ÅÜ­¯ñ/õýÚ’Ev,mÏe¯Á¥yM }x>§&]kß4¶ÔŒ¿¡}õžOª’Å‰	iR+÷	ï] ÷}IÈ-Ð[1UµZ¤OdÓ¥[Z?¤ï=UwŸë®ë€ ë¸éa6TJ¸õ…¼³s¼¨13â¦Ïå»)»;WBÝCÒªcT¥®:YªŠùq»Ÿ!qŠòØV¨4“ÿgwmCò™ô=GRÿ-XôÎF=ÉC‡°«¿e$ÕëûÇû­úc9¶Øjptc¬Ž’Œ‚2DÆ†vA¯_Å4üÍXsikÑ7³ÊÕ=«¶Õ¾üÍ&PÊPy(*>àí»º„–f`˜ÞŽà£
+…Xè"Õ”½\rÛ¸Ð÷§&ŽP¤ –ŸD(4yt,-=)))1)b‹Á]çìdÕ´*))ó,))2)>)ŒrswƒWŒ™™~}2),GumGum~¡-),,¶|vx+Z9fär(ì±òÏNTˆð†
+)P5«Zº¬ïìƒSýUvþ,ê—&+º‘¼öŸû åwº î|ÃT/VcæÆhž_VJ¸w|ÎŽwR@’DrA×ÂÇ±µðÁ)>E¢dª†»…Ï¹Ûø+´¯ÔºJU$Á-™98Ã,×O_>OMkGã–ÑÓiä¤šªe$æ3º}KdÌâ·N/c·|SGÃDÒkÑ¶¹£-ç”>iÒ%Ë •TM¸”ß±¬èÂnvO”Søzy~A3Ì¾î„ÜÅrV	ís4Ý‚
+Lw­­JË¬ýPÎÛ˜YßŒøˆË¯%¼u²·€ë	ÚŠ†7ŠaÄºÑ-^ð5ÝºÌ7T¢Ï[w?)lŠ¥¬¸÷›Oh!ç>ƒ÷µñGbWõÜ·Ó)wí¸cvywŽ†Ic•úöƒ^uÿwÞ€	o÷&)À KÛ§y˜0jŠ×â¤-›»Pe¥t.Ÿ¥ðÕqàhù¾ëç³ð!ñ$/yt,-=)))1)b‹Á]5æ~…±*))Ý,))1)>)ŒrsyWŒ™™~}2),GumGum~¡-),,¶|†xëY=¦òì>¼Î†OëG`	*ÇYQím‡µ8Ü}ÑBûŸ#iàDšúO„£üœâ ÿß×‚k•tÊx? êç˜„ßn?²}KL­í.œ9-dÓeŽ:ëiágßÖÌ–ª‚«ÓuM¹ùøE³ýÇòÄÒïØÿL­f‘î§<ý›—[JµlcêÖ4¾1áàæÇ–Â¾áUªç|»ÒqIIÜQJ%ºÁ×¼ôÚœÊÏ	1ã¼G½žžX›x8…ÙÑF³$Ä‚‘{z|‚#8jÒßjéžÖ]c©¼}Q7@oCÉò3Hzõ.u‰Aß{ˆqä‹ÍZÏœôˆë¯¾PÑõ‹>–âïLöãÃéìü›²ì;ýéÄF¤üù³°øcÕóü£ÄQ‡Îg«ë!/HŸûºHE0ù9ïÏãå¸¶ºù¬ªø¾‚c¹þŠzï8ÎOQÐÛ¿1vì¶¼Gß‹öµÂhÉG¡cÖ>†§˜©X£58ßkbhM¥ežcäˆn‚ˆ"ôû•#/yt,-=)))1)b‹Á]Àœ³*)),))1)>)ŒrsƒWŒ™™~}2),GumGum~¡-),,¶|†xëY=¦òì>¼Î†OñG`
+*ÇYQïmG]gõ{ÊÕt,ê—ä˜«<Äâvøâ Ü„ã2²Ü^®gÂg8ß¦ÛV[xÍ;BJµPWÁ´Iy^R´9/ëÞ––4õ;}ŽKª­§yÍßu‡v]§"Yk¬ÿ˜÷eÂÅÂu1ùß7YÊS+ÙÜVÜa¸t2¬»un+*Âo2
+¸ìÝwW˜¿4^*pù¶ÉýþæñFšêËÃàT÷¢z¼³Ãóû¨=½“F-…”Îú7Å]ÌkšaZû)v!µ‹W‰5ŠTr’€µ]ïÝ%›•"”Ù›$-¾‚ÕË^¡Í‚@Œá¨ƒU™«C¡<Ú 6Ö¡!ÑìsÇ×à³ŽLQµ˜Š°NF"êšµÙå®¾ò×Ð•Õ$ðð®‚c¹>ÉyúWýmmÿÔÓ/q¸€ZÓõ@yexp‡F#‡ŠÈ·h.!ÍÔÉ&}Ït½œnë$lÐ0èd}ñ#÷»DÎ¨:÷õ*hyt,-=)))1)c‹Á]°,^-!*))ì-))3)>)ŒruxjmWŒ™™~}2),IumIum~¡-),,¶½˜üY9ðÈDR(ìZÍRÒ[o$ÁÙsY‡O>³¹	Ž¬ƒLP7Ÿ5kü!Ð"0a"òcZt~–¤¦a£R“W–²™ëØßäàˆFwQ·!~–ƒ–b@Ó‡k!Rø ‡ÓoÙM.×q9p š-—’•Ö×ÊïÈÆa’8ëÅ–Q‹ ’¾ÍBu÷ÕÃÞYÀW€»ÏnEfé";#”‰¢çíº$SN0D!6â–Âw©èŒ^€ÈšXñÖ[˜õjŸ,ÐC O¬÷ü´¨és’ê¯áSÅÜ(p¯dz8ÊË¢ï®ÏV…º€>Å_?žÔ	:uƒmêIqòS/5M¬d„ä‡i²;C“Ma­Ð×Á2È©ÊX3Åî™Ðlæ÷
+0¼sì.åWOH¾àýTûá¥ï=Œ½˜»oŒŽôsn#­Ë‡…éðX–ƒËzgíFr$áoÚàp ¦Ž›Õ<1~¶#s+±/Cm™têîÈÃá’/ßîC^‹ò±g¶§01ç„-ëTÅG²hÄbÒX›ËiV¼‡ôzT®‡ZTfA9Òê£?)æcAˆåËªÕ‡$`(ÇcøšqblhL§µ¤8xT¥l+Ša}Üó¯c4FÏÆHq¸ÿ¾HÂòíPR#
+rEðŠG¨ (YWlE&.yt,-=)))1)c‹Á]ÆÍ.»«*)),))2)>)ŒrvxWŒ™™~}2),IumIum~¡-),,¶|„˜«YA¦¿­(öNÏ9Å¬pÁg¼²·Žò¥‚é“Ð†¹»ß•8ï&¾›kÝ2Êˆ£÷ bf^¶¤Ã	a„<"[…f•$ÏŠC¡Ç1ò\µRt•ùPçèJ›ï{CJ4Y|ÏÚ`6ñ@P[2MàéKâÎ‹az­în¿,Ö”‹¿£}õ}ñÛ+üaéñ¯Ó3Ì‡ø]¼Úá“«¥<Åò±LéüQê¾•Ñ“¾²PÚŽ…w‰éòoayŸÿæ»AÐzö>ÚœÆ‚ýMåÏû¯«k×¦ÈÒ‡rÝ¬jÃ:WBÅrÂ,Õ<îµìAG¬üû_™€Šº¸^(1C¿ÿ¸<ºî[ƒ\®p³ž`¯àîë3sy,˜ŸtjTÇž]ŠþÇÓà³Y9=ë`!Él»×%@)“š a:ã1|À×ôÇ—«û°žóÉf½Ÿ€ŽH×ë}#0Ñ}ÇÎ×|˜fÐ¹xvªž_¾§Vü9’çM”¨ý	ÛkŽŒ¨îœ{%Ôã*8yt,-=)))1)c‹Á]Ï¿Ûh)))C+))2)>)ŒrwxyWŒ™™~}2),IumIum~¡-),,¶zô“ìY9epÉ¨{1ß2ö6fÝÐE#É¨É×@pNÿÃ¾u8Î&óÛ=sH4k±Â‚ö‘žŠFÇ¯¯‰¶°$°ðôƒTÖ	¥¹*úÛÔIžãÎ™ôæ^n2ñÚØþÄY¿yAíªÌ’ßQØÝ£°†.B,þ—Þû“eøõÐurX­lY{)A°%mÖ¶ë ñ;×ŠLý#Võch@zð‹ö«Ï ˜ÍrÛi–(8jHÃãáTÂ7_&i;A÷ïÚ\øz¾Ûb" úÅòrãÉ©4ö ÃR»‡5SÙiõŽM#–nŒ÷RŽÁÁCƒ±o¿xyt,-=)))1)c‹Á]•”ÃBƒ*))V,))2)>)Œrx~}WŒ™™~}2),IumIum~¡-),,¶{xëY9§Ïò°<<‘@½ž%¡ùP;9Œé@ÊŸ>“ï—’ä!‰˜àï©1Nôû¦ &+›Ò[º?²­ßÁõÀ´ždI*:¼õ†1ÊY4ê¡NV³|/+†gIÈ*ª[ÝÝ®÷I¼H~VÞ”Ž×ï7Yè¸QŒ¬©¥jh­V,­&TI ³Á—.ä=®Ã«á
+Âé0â{×6]lÜo–ðùú›Ž£yÔÇ7Z¼Dý³`ávžÆpÃ{`y¾(lùM·úS"/c¢JÞn!Žü:9-LQ‘ôé,Ÿy½¿ÏqVxÙ-n™Z«äcaü	WÖ©_Eqª´ã&
+ùR!§G¢³vÈÜÊy˜jlè€€ø¨d‰`(“ô%&8Q¡p)ñb@˜	•7ý†\ò0£§à,‚ýifF{¨¤|à†ÖW²•s¿Hyt,-=)))1)d‹Á]ÁøÚ*)){-))4)>)Œr|}x{nWŒ™™~}2),KumKum~¡-),,¶|vxìY5fØ{(¬Bû½Œdßéª²,;Y]‰À²lqì?½_~»ë*ê˜PrhÐ–C¿SóÜ&%#Zô2X|3l›$eÄÅ×°ç¤_€ƒ¿­Yº°yèî³ÒQAo*9Š9ç ¤‰v{†óE›#þÉº‡\ž›Ž{¸Œ=mù´P†U³2||„5.j¤h™?kü0ëÜêé  O-±ù8ss¶N+›¶œKî5ŠÊWýƒq¦.Lr€S«Ã§L ]<»
+_XÔ™þ¼ó_¾>(‘ÑCðë™Îa¬zz{Ò.•ò’õñÉQ™·\5Aa¯ [à©½›Q™SÒzð‘üˆ~fuxÈs¯QÙ=ÔÇªŒ7ÈÁ42À™Ç˜¶@óÚê£ôööçO†¿»ÍÓCÐë	ºòcã­°ÀääIÒjFåäª_¢ê¯³6fü˜ª"ÕÁIÑÏòG þ§`´Ý&‡ÕŒ`ëïÑÌÜ˜T˜©R`Ä™ôÛh¦êÞ,1ÓN±‹EÞMÓ½]Çd51Ÿ7Af›®…²Od!Ôô—þƒ¿èöø•”Eå–$,yt,-=)))1)d‹Á]	_|œ±*))&,))2)>)Œr|~kWŒ™™~}2),KumKum~¡-),,¶|†xëY=¦òì><û»J·ðv¡©P;=Ìê@ìUžýµž’d¦I!¦©¼i¼Žæb ¤£cUNrçÏùNþüžFJ}Sº<ë¡0œ;-Z~\ÇÚ1ŠI…Èä÷÷žÉ«Ó…Í¹û˜´n“ì‰Ë2ôpHŠ87z<•íÕq®Y7†8ìg}SùHŸc×|¥ÅP~:¼»…n+*ÂoR
+x]ã}W¯4^ªÇÉÚÉÕK ô.´“ÿï¢ÏþÍËÏÛ+jÒÿjéžÖ]kXôÒyEƒ?éKT¥n2@Y¯IžtãX¥¶Rƒ§f%V•ïhjŽÇÑ‘ö^G’ÿþAG´.7ty,˜ŸllTGgÙSxæmò[DJÙï`!­NÐàø;‰K¶/@Ñ1SéYÙ~%:“«›U”®Ùp\•þ]ŠÜŒ˜õ%)¾@ê\ÔàLøãÒ )àÃ57Hø²5YT;xƒèŠŽŠhž’’ä)4yt,-=)))1)c‹Á]%Äþ>*))ð,));)>)Œr—œ›žŒŒ’˜—kxWŒ™™~}2),IumIum~¡-),,¶»ê—ìI5¯qå¬þ†»S†~·ÖßìŸÒ¦¯ºÑjÓk.À’¤+ÏÍ¹ÝÂx²Z˜(Á»@úœˆ`Ù	$wDþœW š¡–@½yVn6òŸÔDœa—3sŽi‡_NNh½©6ü3æ£àR¡œ0dÀÌ@ÿtétÙ…hðÛ±ŽŒU_ëÛb®š’ÜîÀ½p¨<¥Èp:(ÂTSy7döww2ç]“ÑïÓDE.ÀPm_p2:VªA½!œÝæOÐ 7¸¯-¶
+‡e0Ð(yi¿3$£9š2Ó¨=PØ3ìÜ·ÿZtÿRxx—êÌ1¯!kdØº3™®ÔYmTÜÁ?Î²+0“ž<îE 3yt,-=)))1)c‹Á]B8‘×)))Ö*));)>)Œr—œ›žŒŒ’˜—vxWŒ™™~}2),IumIum~¡-),,ž¹j3¬Y9n ,œ°ê—}‘îÖûäQ7Z‘ÉMN²½vµA5ŸŸ"È¢1ëjqÁ£wBäsŒíÁyÿÆï5*
+ÎmxÏ’5àæ÷öÑÝNÕ4­`+âÚÌYð´´´ÿ1HÓs3t}GD|9á.Z³>ÓâÆÝµŸJ7ºqš9{vbÖ=ö þ(õ›¨ß…Ô]®øQ{ÂÆþýä6É]H"ó Hyt,-=)))1)c‹Á]	B“u*))þ,))@)>)Œr—œ›žŒŒ’˜—vŽ–˜›’ŠWŒ™™~}2),IumIum~¡-),,¾»v—ëY9®²½dez2N9¾ßt‘ä‰ðËk.¹šo	³ýh†=út +^O·mÄKóCø¥\§˜Ûoqçš>Êðûa@sçyÖÝ‰à‡¿Ò¹?FØZ€ûÛs®y´#Aí<O´ýû»Mæ‘´Å@‚ãô{E¸OÝåáÜãð‘©\¥5o°ú¿s–ãÚo‚ÏœR¼…æûs!UŽGöƒ’$µçÏ¾Rú÷¡ú
+6è®]½€‹·ü¹—b‹¤Qï*(N‹^#„pS=ƒBDÝx;XJ>ì0¦:5Êº.w[±Qà­ˆDïbB.¯QÚxØ‘rÐœ"Nü}¼`m¬_±ÿ-h»{°°ìòJæ4ˆjú„Œ™`˜9b«½y$Ûæg½1D˜j@=€‘¥ûcø,bYL×¨þÅð(ÆØ·‘‚#,yt,-=)))1)d‹Á]MrÒP*))`.))@)>)Œu’œŠr—œ›žŒŒ’˜—ŽœWŒ™™~}2),KumKum~¡-),,¾}ö³Y9g	 Á—Šºæ •+ÎyQ­£3Ê‘ÎÒÌÿqÒM’ô†$OFò_š•ÎêZÛ^#Íš¿çƒý¶má:de¨ØÆà¶9ó‘ ðÄUöûÜz;Ïô»€?T—ý½^YŠ‘GíÉÓ)ž¢ñÜ¿O8.a­Ó
+›‘]0Šw³,²Ñ"ÙE¹×ÃÞp¶ûQG‘âhSà‡×ßÐïFhfš¾6Øß>#à*Â"ctˆ©¡p«,‡¿‡Æ^“w‘â`Ÿ¨‰¶ŸÓK‹{j9fàï×ªUãÏ…Cé°¸äCÀÎ
+×g,ü1|Tw&iût‰*YB‹Ù‹…ÇªÅNXàDÔXÍæ‡b8æÒêŽªåâÞïÓSí–NÖÿ!5÷ôÛeÌIåðÉßÕJ0ÿ@€ú"íú¯ó›N„¿8Æqo	&$Ç`Oi+^ÆþùÐ«Ô79?"©t£É63ç^1å_ˆá&f5™]Á°¨6UÈZî.\è?UY¾Î—®*rÄG"PÍÁÌË"Ñ“-?tˆ–‰®ƒ7#Ë6y‹	#wÈ2˜M "™Ì½‹i2Î³G‚:™Lx;o  Ú ;ãž.¼|“²·-íhyt,-=)))1)e‹Á]¥oaP^0))<J))6)>)Œy›˜›Š–ŠWŒ™™~}2),MumMum~¡-),,‚†xDb=¦—Í%0ìs+*C¡LÎ;tÒý1;íðgÝk¾\MÆ|ø5V¸ùàgÞfÇ<´ûs„t>rïgg ”¸„Ø&o‚A:jÄ
+Î	LªP¡˜å‚Øþ” ÅoÑ%±°â9½È2ênùÕG^}Ý•uüÀìÜÔTµ[º¼wæ.˜L¤5 êmuQ0h`æ3Ó^mª©¯/gj<®ÅÎÂ,Uq¿4Ú_é[©¦]H:áÕ©1æ5ËM¸„9ó‘qÚQL`‰=ÙnGaV™É=(£öÃÒ%A‘1Î‚½«Û:ëKEü¤g:F ìÅÙµ]ÐMŸ=Çü]ì˜)pŠqbL½¦Zó
+–Ñ£ÅËç­µÙ™)z	PþROzzÔ‰q/ÿ3YvVž‘ª–d?w±éù(†¹Ü½·A²9ŽB‹çÅãQ«Í¢Å
+±,"¢º7zÙ:‰½jÃ‘”4Âˆ½2
+ÐÂgaÝ´Ïœ¡Ÿ!ÜkµsÄ+§Âš2ˆ×÷;×‘õê9¿‡lóËt5Èz‰¤4®aK5àûZ@É‡g’ò®Û®q£SŽíi;øÞqÖLËÓéÚ¸‡Éßzù+¯è<¢È&¼9½=#g`æ=^„É²»ˆŠDüg}Í¹fÍððÑ–B$êzˆøÐ,¼ª06ý‘òÈÄFÐÌ2LyL·†Õûó+ªŽ	èÃ[g·’uy9sïD9Ð›¼²Ù"	„ÁY÷w÷¼“}V<þ•˜Hëƒ
+kŸgør	7/€Ïm%´›¯»½‡kRnµtû­©µ±k]BF{14ÑêNñ1´	ÑšþÁ—1ã®ŒU97ÜEðÎ;ŸŸ)×k›X]ŒI.©jGÇ‘¹ÐJ¿µ;jPm)ã©zª¦¬Ø]l7µ(¿tBŠ½‰ºznAàB}Ê¹Qª’3ž¸ªOúmÈhÀ­I0¶¯Ÿ®õò4¼ÁÙz_¿îï.ƒ·KÜF~ÄÈ
+k4S±Œ[#³)>µOÌµRLAÇZmAM\<¹²ÅöÓ]ìXï.Vñ²[ÉíÒOß“õÓ3¾#¾pP@Pb¬ÝÎ")¹J¤i3«¦T-ðBípO2NÈ½×x‘)BeNuÂ`º½qÜS iVÔ//vüûã¯iB‰­\5°¹FòŸöÔZI¡]äzb
+jrGðU¿js‹‹J’€Œ|>[G0.¿Múk‘þ3
+=´‰‚Ò¹š9Ï½tÜÌÏQ•**ogPfR“òiBòÌ<Âðjuü.¡¢*Ò•ÔÙ+¹q²ìÆƒ,ÿ½aBE|Ã\áÞíb+"– eÃÁèÕà’þ¤Ûƒ1Ñ= ’Mãu6*«)ª+jfRgê«"8›®°„CÍé)]ÏÆ+òpDîi}céyQ-ÏD¬GdY~©µÛ¢·X¾n{çfë°j‚w–(¼xû—N0ÖùwÇ¿ô¼§Èö>êæYOA‡Ò•=æo~+¾¨žR¶qCÒ>”í*èëà”Tƒð²s´:ò¼é5“·¾k6g=Ó[^[ê{úNK*Œ·O­jÎfU`rÆòªþÁ;µ‡GÌl.€Ÿ»LöëšZdà[ø=À-^÷Cp{GQã	Ö0d¥þŸ„}ŽYãU‚þÏÐ«vâÀ—‰La.#Ô¤Þ›–)Ï&”âÈnòb bœ84î"Ë(ðKïr„—¦ó¯v(²†²“àl"«™»¬þ)8.Õ“3*.£êÕ1É.²@"Fºx½ñPØ‡&ƒKli¸:¢^ª$1€+ ˜˜§Óé~f‰§ùÒ-ÖLix2ùˆ×|¡É¤}•øŠ¤×Ç x§Ú.JL#šTqÅ«¹¿çu4¥iR%æç&F†Ø÷[äd $—¦
+ÅøÓ¹àI^žIþ£ÂœÄh¸çò˜¥¼ôEÖ`&ÀÎ„%7§¤Æ×—Ø|–Øü6cæ›Ç…x.¢£›ì]a…6š~\jo+×L5AAÅÙ„&â§DßäãŠäÙ´tý¦´ãf!0È£h ÝYÅãÔ†]G˜‡Báµo‡‚î“ô~ .Zå\&Âx;NªIJFñD²Gqbå›vX´?ËŒÒèÔf &Þôæà×ßNËe›Fø¬„eC®‘.Û’€èUØÄ„ãPáMW¦MWÈ¯íÓEÆšng¹Kh¼–NffÁ‡š¤ÖÌËƒm¯a¸\Hdhâk¯.trß.¸T¸õFHY²ØsÓ.jÿ[ìl“Væÿ(l²p«µÙa²ˆ|¯Œ,ºD¡¹µÉ.f%à“ÇóšuL¦XÔá©ºåÛ—Ÿó‘Vzõ®"õ®yœrCÎOVWyþ6Ëâe†·sÍ()yt,-=)))1)e‹Á])‡5–z*)),))1)>)–Š’—WŒ™™~}2),MumMum~¡-),,Î»òwìY9¯¾7lâaz’RJ†—EºyØÑÓ/ðvµ;äCæ}e^X©ÆmJVI­c@¸¨ø¥ÜMú	{S‡ãuéÅDÄ¾žB]Ò¶Nª¾@¤¹hrwÃ”ŽrÀÁ’C@ì9
+µ}bQÕ­J@	²ÜÉtŽÊkÒ™¹›g+‡Ij&&ôc·/°‘)ëäê{14áÃ÷ƒž4Uê‹*8šÌÞ2¥º]–¯ûqå¹¤æ
+c¼â•ÆyÙãó&cÇžb%ÂwJåì§u®x;Y;½/öFº%)Ði9’+Uª¤åÈn½^Ô¯C*Šb{b­ûŠëE@J‘%áƒÚaG7ùâÊâü÷vÊòWÊ3c,ˆŒiÔŽ\F¸·9¨ íö"±„¸a¸™ OáŸŸ}æ ÞCdçßü]>˜«d´íÇ‹ãÈ#
+æ¬­žÍiHxyt,-=)))1)a‹Á]°Oî,C-))÷4)):)>)ŒkŠ—Œ˜{Ž’œ›˜œW‘~}2),EumEum~¡-),,Æˆ˜_9¨ß*¨°¬4-»]”Å/ä‰DùN®Üf.ªêqÀ©uÒM¾^6Û8ãà¦­‹ˆ‰ MNz»¼6>9Â:¸ è$ d÷ÏXoáª´h¥Ávˆù{S(ª¤·LÓ…—ü‚Tå‡è¨ ìî$ôþ"xè…&ßãåƒ(å‡ ÐÈSTEŠÇÖ™T¶n&#üÅ ·?Ì.¶¾o¬ó3é+ÕÕsñ’º4„ëCj=dºÊ;#˜.n’qÇ¾‘ƒV·|´äÓ9?
+]T­ZÍ5%S¤P}×ƒ’ÁvHür4½m@Ù‘þV|Æ9‚Ú<s¿tïaÒkPÝÃú«)HXØw1†¶îFc	Ä°§ô¯’>jãÌPò­Û[@¢ˆ·F×s¬1’ ­&ÅuÍßÞQAÉºˆZrJT¾ÚåYyØúÿƒª&Mö
+‚ö)i-:Q<Õ\Ÿ¤xÞI­Å¼ØŽ®ƒÎ/Š²uÌ	R¬µE!ì¿7èÎ¡Ù\l:÷:²’â¾s=Gˆ¤g»ÇožÀíÚ¡@àÉ8AýížîkÁ¦•óvû@tüÄ‡u$¯_~kÒ»¡rhÐìñÀXê¢íWú¤[éŸV˜êt?Ö´Ú‘ãsGd¨êCÀ¬epZ˜Ûö~fÕ6ûuÛNºìOMc˜Éõ*6t‡%"[×–	+	SI¶È”²ÃcdôYpöC/®ûøp,"#Oš¥
+>g|(×™$…ªï3.Ób85J\â6É+j–t&±ØQþ3™ TßMöjí]Íëúk™Ìóu¿3·’ÒòIº©Kÿ;¹²…Ç@qy^º…~;¼[	!™TŸ1˜¥AÃX°°ô7ìIOÍÖWUâk¢‡4jNÝ™½;\Q	w=ífmßÑù2AýÙ< n2›tbAÒÌ°.\MÍ ÙlnÛjžuŽIiŽ÷ég~¤‚»æHñò6M¹ÝJcÌs
+	I#ý¾˜ÿ]FÒ¡AÏ¨17„Ø‚µì#aÿ]»2&ƒA”BÛ˜€ÊT¦ˆ7YlÊª5‰HbûaIî¼9…`cŒ—ñâ‹TR‹¯ÅÙchÊjG;waõE÷!çùÝ9Z^•U&³ðw¥‚|.#Þ}å—ùà]Z£¥¥9qG„­}|nýíƒ´¤¯‡þýóËÃOÕ()…PÚö!9E¦/E³û‚ÎÉƒ}»B°‘/p\YÉ#·’ÈœË¶›<‘kµ;Çý³`­ˆ–²VáTÚ4œ‹¥Hék»2ê-èœx‚|ÚÌ:³´LÈ!×Y²éÈìs³síðdF3†õ@Y ¤jÈ!ÑüÅi´²§“¹šmùî`ÁðÒò„q0¶¾ODU&³ôˆì’¤Ã.yt,-=)))1)a‹Á]*òvÖ+))”.))0)>)ŒrjmmW‘~}2),EumEum~¡-),,Æ}xY9§wÎ%8P¹y~Œ9û©vl‹,ê…†ÅÌANçõ·Ìrüx–xäœÝ>8É‚“£çH¦gdH0€û,¥"Ÿ¦Æ¸nÝ·û7û£Ps›Î¦ñp"	å……æèå…¥ƒU_ZdsžÏ³NêÒù£ë#•pæ×ÅÌZ¿"öðf^Ä3l)ÌiY°O?¾^Ù2¹¸§LV×àø$ö“–_°ü–ìö&EsK~Fj;ƒ5QD­¯¬~¥šªÃ“?
+¤MYƒtwL™P¸Wì¶á¾}*@xý›;ví3+ªžFD-úý‹S¢d£SAK£ôƒ{ji÷ÉˆË3S„¹@ÚëÊAxª¥°>üì¶‚“–×ÏÙÍk”ExÝºùÇ‚gû_p‚¿¦Á¬Ü—Âã}®ÛžX®}ýÊyÙ‰Ö¯DÒôhWºÒúÛ…´“Üõ‹vI‚ŸÎñ®@Y7TË+]AÙ½¨ì^ôïÌ¹bš„p»¬»¿eVÖI\ERÂFœ­9‹¶Y?$:åzà2YedÎ€Ö^sË2Ž[OÜ(m3Ý%Ý{¬ª|PÒ¶ê€Xå.ÔÐmŠ¯Çñíßh6âì3rë²=[töq‚Ïü5Ü%:Ôi“ÿ¢ñÛM=õþ)h/œ·÷³ô™CGà™I¦°€Ý“g œaíÖ››È¼%9“Ä€M5–bÈØ‡7a‘K¢âˆZ§Z£ùèNŒqò®ÌIGø£»msÙY¢*!"ž$Æ	ð¼<Ú&cr8…£V‹–æ°£Y()yt,-=)))1)b‹Á]Ã]U°+))\1))0)>)ŒrlvyW‘~}2),GumGum~¡-),,Ö~wDZ9¦q"°:qQm’Jò„Ée]“~MQ:Ýøºd-Ì¶æŽ~}ÞhHµ`O}-2Tó£âÅb\ßäÆlžØ\å°ØØ×ãÆlÃS¶z«aw’:žÏäÆ—ÖeÈxXÐÜ"À"¥Œüƒ†V¹JÅTånÚå‘VHñtvjsŽ$°,½â™7Mäª2=Jö¾­ÏGiàÔr¬ÚGuZe”1ÌÏYª§®^GÎð•ûi”½ó#I›Q¶óéÊèÂ6¤ÞÜÀþpÞ#‘HšÖgg×éÚ‡¾D…ta˜âÇvIì[‰‡K-vWÝp”i¹IÉYwnÓ±NW¶~+§--’Ý€Ñk•¬Îö«ý[õêÍ¸vÅsï9½W¶=iTtóõ¿žÈ_«4ëSìBÏ1ÑÎÙ4ŠBm×{Ý]ön¶ðËl„³Õ.Í¨û½ÿ%^Ô°.#RlFœg÷ÈN…Í’ñ¥Nr[ä&]*ÖKÏô4uFêòÚ=í¾=ÒŠuÏI{&þºN´.¬ü‡ÇƒðÏM²cÌuv“òÂšTïE=ë²µçûU629„ÿáó×#ÈÃN˜Y¾Îñvn8Â…QðóeDê<¨ï‚9Ô‚}ÒAœA›x:²•ÿH7Ë`*wV+>|"®OÝd¶8zFgéR¹›>;F¹BV‹(Ã5„Otmrå‰—ô/žì¯qÚ¬þö;&ÍpV}-÷:Ž~•“­h>švý{§~ëÏË_
+ßÚ2Ü‚7¢¤þ†šÛ—ÕýÁå7û,"z‘’—®a¸+·1ÏDel(¹~ ÏÔ—HŽ…no„„Ô‹èÙ÷¼ò¯®ÌKÉÎägG$a‘µÖ´P§$’Z¶àS6=ÃWø¿‚$€ 
+ËãŸ`™/ê¾1o˜·‰%s-ÜN”2þä¬#ºCýüúc¯ðÑfÇîP£Úñk<,¶ Æ!0yt,-=)))1)b‹Á]Êþóyr+))F.))0)>)Œrlw}W‘~}2),GumGum~¡-),,¶}wDZ9¦¾HoIÊ9Êûç/ílzXq=9ù‘ÿG«ºŒ˜¦²Óx 0Á—»vznVN”øõÂÚÄ£eav8™ÛÒ ¢”E¾<½¿®Ý¢‘ŒeÈÈˆÅˆøhø„ÈFÊcŽÜOa^gÏiáe:Ò4ðÕ½4V¦Y!šÈ?nýó‹µÉM>õÉôÖ^3ŸV*Ã#|4%‡h8ìG·ÐŒîö5]Ö[>jŸ;.8ñ0­÷pL-¿f‡!¿2½ ò¹<8òLt"·ö]‚<NˆßSÌ®q‰óT-¿U‚Î&¤óûE\/î}|tiwŠ‰9-ÿÝ=¡”š,OyÍÙkfkZf€OMre“34s«š›Q®í{~vVèZp~~§Áª\—zÓ=ªÙžðiUÖ¹R{£jdïÎõH€ñ2ý2UÀyÆÂÞNq~ÕÆC¦DaÁ¸,z:cµÑ"Ô%ûJI¼=¥&ó(PÏp\¨wQ5ÝYEæ‰yñVúÑ®Ñ*¸ =áJtS©ð=~YÛY‘ö8OZëLïý ðXâ+hóE±¶F0WZC’yÀâ1£K¾|¾V8™fQZÑ—1~ò­ûö¦mDrýûãÓƒ`Ö—ëxiæpÐ%y›e¶¸gÍ\a‰;:åÁëèÀCï˜AÊÌf$Å=_×Ï$¸­Z•¡/	Éô=!SÕP~Öj¨Py»\î	> À(ä-Â±Ø¼M¾ ¶0¦«2$øyt,-=)))1)b‹Á]¸•vo+))].))0)>)ŒrnwmW‘~}2),GumGum~¡-),,¶}ö—Y5g©ª‘ªK2«ŽÍŠ†´>ãÉ÷ªU\Ò3p<5DßÀ4µ½<’8Â);¨g»H’>"â‚3çñø¢”UÏ<ÍÇ®‘TÜWË\‡Ö×—Gg×gÖæøºy•Ö×Œ®™’ñ0°“¤žMgü ¿z”lº“‘ýN¢ºƒ¢8ÆZ¹rqÁl<ô‘A‹+="ØKÀKcø2]05Á0y^ñXª8ÇÝz¾«ƒªb	&Þ¼‚4OÔÞjæáüñÃv¯³ÀÐb}á´9ËŽDù:QgQ‘ñÄ½]ÀèîVbÌ	¤mù¬jTGQwS´C_ÔÙ/SˆYyÏce›dû3ÛŽ~nl2tÌ¸óB;ü3t-Ýƒâ¶›»j–såŽ+7òaŸõs¸\M…¹éì/u‰¬
+ƒ›E¶Î9H?‚5bóÛ•"¡\0”O~R+Š²<Òšð6*Ös»•Ñ
+åÍB²E°¶ÍŽìj+ò»ÞÖáoSF¬º<Êz‡~%þÝNg9‰™„èç^þ«ï@ýZ*4ì°ÒBAd5ú‚!aT˜­üO›@ƒK$ý°
+=aK8é]úvV}OŸÒTÍÓÌÑ®Ud…;þF%10Ž^fï¡Rûh¼4€™
+™Ð™‡X&â›à#ÝD<†“Ã(1l^ÈØ.á‘KcÇì¹Å6¨#0HÈé¡dà¨;û‘å9êÝG¸	‹¼O%,yt,-=)))1)b‹Á]6TOÜ),))¸0))0)>)ŒrsvyW‘~}2),GumGum~¡-),,¶~vxDZ9f˜Í%°:qQ²Kg£u9°ËÎ«;*fp‡9µ_ÇÖæ·S~È¶|Mä4ÍÙ³=¨õõ¤• ¤$?¡8çˆ‡¤$e]?5 õ´‘4œàï""îÔ%ô¥!?îÿ[=1Ð¯¥yVøcô¤#ë£ù¹f¥¼v†SjtAÁi>û‘‘*¤è#fJHñþiþòÝô›Ë{ïÃ?!€bÓzu»lÖµÔ¬SŠnÏ)¸Ù6`Åç’çïBy°2E;W•\bCj¤Ÿ¦dª+€*ô>+[µSòs2ÓŸO8^2o[c“ïD“²&KÎ[­¶5dj²#J/“lèÃú¯îo8øÌg6ºFkÿJúÿ1=x=}v)—ÆNWòB.h+3k–ù³°£‡aÕu»Ë%:bNBQA«ÚTûs›ˆj–:Ø/H½\MÏ.U»þóV½±-ÎòúÙ}„[7fã¾Sý(Tþº}…a—ÎóÍœÜ×o‚¿ö—gvéCä±‚ó«Ñžôms…R¿qÔÅ­6~õtÄè_³Ù;ƒßÛ_ñåD¬ú?ÅL·¬ºˆ4Ê{‡>%Ø’reš³n›¼ˆË	Ñ1c¿óÔ»înTQ!±cm5:Ä8
+«¦þAGÁ?3¿9_Ì½é¡ï²îÝxKá@¾äÅ¾-4õæ	ãV²™Š²$@{µÑÕCœV@x¥Þ1 aw¡9n;“¥.žÂÏ‰ÎD»ZÃ<ZWZnx2Gp)›U¦n¥žó`Upõ»ú„BVžFÿê‚áœuòDªÖ+ð·ÿÒÃƒxì^|”C»^ÎyÂQ‹D˜¸ÿ~£½–’øUEv!*¸ó“ã‚”x6œ/0Õ×Hì´¼%ü€•&ÿð%ßëmàž^þd)¦†uO°/7Ó©·dþ4ÞØZq¸øÉ¢‡ïùâ
+$ÙTýohZ‰aæwXSHÿÄRþ!0yt,-=)))1)b‹Á]|þ×ß‚+))l.))/)>)ŒrswW‘~}2),GumGum~¡-),,¶}vxi9fd»(ì1M=ËÑ=·*š)ÞS>.-bƒØ°Ù‘Ü£Ös~$Ð$0c\7·R°ÎaäÜæÚôòç¤5^gëöà›Ûø„@yxÉfDZýÚÅ½¬›¢¢""’â¯µ–BÕø^ëÂÌýo]€f¤>ÇÖž=W—fòÞONÙÅ0?ùód4ØF*óòø›Kñ#$n¨Õ
+‘_çáä¦i¶†oJéêÊîq‰!‰ÉÊMhäéC=ÆªBê{‘F/²YØñÛýÙ„¶GÑ£ï¿”Ü¹9…ñC‰ôÃØ“CpøÃ|_úºáÿJ‰ÙO×u=-~A¢ö)O‹ëÂ£­‹ŸÝ Wß{¡õþ5‡3ïÊ]»üËQPDœ}=î&°.-@ÎA­Ö0/Ú\uº^>2C“AÀž¨«»<Ú:Ê^›‡SÖORýdýL~º¼z9¾ÉZòý%˜’v¥±¯r³½#a¦OPžï¼{;šž5ÁÁ¸é/¾¯þÄl<Ò÷>vïÔ/©ø‘/ðØ`Y¶5*œópÒ™+Î›Ž¡e=±gKßb/!CâYLŒúÃõ¶’Îß€“ô6™LàíRÓP¶>[wzŽHoÌr4²ÅnKn°|Ù@Oãð¾tëü‚£ËÇì*¬wœ¡\Â(W$ÎHÌJ—\º¦vµlÑ”Ì‰“î‹ìj¼ZÛ]X|á\£Éˆ«R‘–!¡g•xfpåüÕ™áLÀàÈGÇiìºèwÎÈj§’ßˆc:Xyt,-=)))1)b‹Á]Œ„|Ž+))}.))0)>)ŒrswƒW‘~}2),GumGum~¡-),,¶}vxi9fd»(ì1M½mzRE,)“~S31tXú¡f2´ÅF ”~Óh„xÆ‚0ðR°ÎMÜ"öúÊ†ã»¿™$OHF³‘FÎDÍ½säõp¢å…†¨å&ã!Ù•ŒŸ½u>t«œôÊ­´FªâŸË¸ïŸÀ ˜Ç7ý•S5*µO«býÚÑÕª†x©¥LHRá÷gWÄÜæEx°¯$äðb½ýoÓƒ«M^ByW1^0Ô"î.ÿÝ˜:çn+ì×Ú]+ Z…´„r>™u6PúmÕI9Ûj9öƒuN8ÌÐË¶JËàÕ×N>-5#>£ny«å±>‰e.V¿,=üÖƒ‘
+J€|zœÎAð<–M]‚¿¸\QôÛ$° œ™ÿÖ{ÀÓyßG.qnV3n/4]…4WŒ¨äm·ÐƒŠâ/þˆS´^Nò»àTÎpWåMÙJSi¶*t"^åâ¡=»e°Wwè.…Ùó‡´>P{eÖwéZ¹mò	y¤WÌrì5N#ªÇòí-JŠB9I!®vBåõÐ¹#tUÊUïuÛ#=©êé?Ò²êX51mÂˆFÎð}â¯ßÎ²ç„’€ãtbžÝÎóÜ¥©§TŒ>qöcU¤Â’ê…ð‰WúB§É¾6s¢¡‹…éº:“r(f|àz¦ì$LäÃ$y„(pêù½"6©Ìc»ÀzæUÖl SµJ>@³xæ¡cq;RÎ®òÇíØ(aè{#•8G2&¢¿‡ÛUóh‘+yt,-=)))1)b‹Á])›Ä_‚+))m.))/)>)ŒrsyW‘~}2),GumGum~¡-),,¶}v˜Y5fd©(,ú+nC-Œƒù‹ìc”ù—©¿Â}®L£»Ž•AßhæhY{wFb+q=hGÌ¾¸·û¾Ý­øˆúÚ•ÖÌ«Ý³º…’À"QÆ@´ä¸î°î‹D[ÝÒÐ\~U2×U°ï<×Ø õp÷²fCŒeå¢gû”|Š1‰M8õÉ·nŽ6c+ÌÈ"qºž ÜÙ‚ì¡Z¨¡Ãjr–ÍÓN±w«†lÇ*©yœÙÃˆ…‰v”?
+„MYCtwL™Ð·WìÞá¾}*@Xý™Ã±>-+ƒ_1‹‚ô~òì²Œ±VÔ”r.*b¬§®‡:}ßIX3¤YÇ+"?ô*³òŸƒ‘
+J€<zœÔAðÐq‘WÜUH¹ÌUô¸	Õ„ÎWþÉ•f2¹³ƒ=³5?Õ‘á?…ïš²ExÞë›6Æ¦ÖUàRr¿å†Rf›
+NB°6z*“5óØ
+^ôêÌ¹bš(¼~ƒÕaz’ž7=‰¶hí¹Í:Ïy¤WÌr³<Ùs³)æ¹²2þGuýJ9wn§Ø>WIžÂákB¸*Exv7ç¡ÒEÕÓpUN˜cÒßù Tvsx»ŒÃ-W~Ï¼&UçðSÍsÓ¿æS‚Y€¦#ZÁD¯H’Ž¬;ž>Ç`™KÑì=oŽgžœýð–“£aÛÔrç8Þ¨=5vbÄ–g¥aÒL¢zž58o˜Fû|Y¯}„AgÈ´’ðº{af¹ (”"ÖðÐÀ0ùqØô¡Î yçÃ|ÐË&.yt,-=)))1)c‹Á]*lºþ‹+))‚.))/)>)ŒrsƒW‘~}2),IumIum~¡-),,¶}vxi9fd»(ì1M=ËÑ=·*š)ÞS>V1tXú¡f­n÷·äÞS~Èÿ|ÿêŸóJ†Rò¥ç¢\¥Û˜H…r8"žg@úcs`qÖQò¾JÈæ›¢¢ì›b­µžu>t«\ôÊ­VÇâ›Ë¸ïŸ@`˜G ý•S5*µª.ýÚÑÕª–p©¥\ÈQÛ÷çWÄ\…·Œìö&+s“L~Vj;C5Q@­Ã¬þ%+”ƒÜà1LªŠ›Cª„žA×îÖÍ3á¡Ë¯¼‘K91Õ”I±VÏ»ðú\úï9ú„»3+›/&3æKÑ•j‡í3¤YÇ+"?ô:³úIàÿ`ƒ¡õþ5ý…SïÊ_;ÃüUôP#Bœ½Žä.aÒt~Q„ +ÍË?®K¬.TC×.ÀÚøWºÒ×jÞÀó‹vrÛsº4Xòa•±3yŒé{§6Ø‚WG®MøJî–EÕ{‹î²BxÔŒI²¼úöÊ…o¼ïBÙs,)£K<<±­“TAK+1È[£Ø’xIžÁ¡k‚¶âuð’ž¬ªÜ6]"ým	´@3-Ç5Ù·ûS|D¡ËH#¾{sÆV ãƒgÖiè¿Ú3ÍF–¿æ5Þ‰×#|Y@5úó/UeÛ˜÷
+iÃ1œ¡ÞÎ(GÒ„Òg—Ü‹º†v¦ÑÖ(Ì‰‘óî‹/éjFòôÍ‡_›	¹‡®RÍëå@xFpKÎÕ™áLh÷˜ögfe÷¹’£úûQ¨Î
+&ü&.yt,-=)))1)c‹Á]Ù5€0|+))].))1)>)ŒruxjmW‘~}2),IumIum~¡-),,¶}”Y9§Ÿé(ìúkrlgÏÎÙžDT”’à™¿ØÒ³ÌMô5ïx –xä¼Fð‚0ÆI§¥ ÆÍ¥Û˜†r "þ~g@úcsCÍƒµs¤Èxê¢âåáåã§—"šâ/ƒþÂS¿-¿l2dfœíG¶ÚgúÃæî€8¤ŒS5*us04ÑŒz‚,(0ñPh²KÅ?ÆûØÖ›]D˜…VÉÍ_{þ;mPê×Jø©ËIýEÕ?:@ ®çn+ì×Ú]+ […´„r>™q6PúmÕI9Ûj9ôƒßsGpøíClm˜‚†tS1ñBT³ÉÛ.¢:TEé¡3„UpQp„âÞçúëŒëÙËkZw8ÞºùÅ‚gúÁÌUô——Xé‚às†Ójã<I>ÞQ=BUú™Váµ¦›²ExÞë›6Ç}¿½Mt×½Gâ»µlx}©C,¿^åze3rÇl@ÀX½6ŠnBÝÛ»Å
+Þ?T‘;‰}¾aG¹yÐUÍò¥&wË<q&My7ë…Ù#Æ³B5eë
+Ò²ê@X60ÔÓÌÝm¸‹üö‘ô3¦àûÆ]¼{Síg~Ï0òÐª8°,ª„0ÂŽÄ:?õþ¹§3Vcìàf™?G`™IÖ­bed¼¨XüˆÄJ×P“›€¼%9“(QAÃ›Ú˜hEýºå…µö"¤Z£ùh.|qþ®"IÇõd¿ms¢
+®õøXóØW(}_¨ÇÏSæ£›PïøÃ÷8yt,-=)))1)c‹Á]ðÍËb+))-))0)>)ŒrvxW‘~}2),IumIum~¡-),,¶}“i9¦¿i(YM9•ŒÃO¸›ñlkt,rF»ßØÞCdDd‡mÊÝhHó¿ê†ÙÞdÀ\øµ}Ð“–“…ìØ  n§ó„ŽYÆIÖ •m|Ôžº@l“ž¤ Ù%ß#Ýƒœ7µZÿqF“­Tn÷„=öª"mBß0R>ÂÄäÀ¼¿ƒa0[+j2–ÑÝ»™A2yh´e»&Ž¨×&
+¥_ŸeWÈtÑÚ4Ñd­‰a¡Ý-«8+ƒ›Sœ1]¹~+ç0-rïT]ZlEý²t{ôŠ^“É>fÎÖ5k¬lyÏLR©V6ä“CøC…9z5ÖÚkiL®1DB‘~ÊÖ?,B´7–P:´"§RŒ
+Ú\Éè¶EPü¡:@‚`ÿQôÛðÐ8NAŽ_¿ú9þ£KCdê;rzzlV»¸r•LVnÒ†ŽO¹UnÄÃq¾ŽY›„ÊEÝë²ÃÈ»C¬>U»NÎ(OI`³ØšÌAÂ	K³2v_2fXª»‘ËèÍ	ç·™U#‰6¥ÚuÒQ DÁ;çË5ç¡¨T%ÊÁF¼Šµ¢+ÎGS´¬‰|ì¯J#QÝt¾‹LÛ•«³q8<¹`ëq£»ž€®Õè¯\ÏÏ†ÊH©J˜d9Â¦vÝlÓ“(ÌÉž‚—ˆ‚a”,ƒG%Eö0X-{š¿!‹g•XæqåtÙYf+%Ÿ÷¨P!òêçˆ´ŽrÈRÇú°Q_Xyt,-=)))1)c‹Á]0†wò@+))Á-))0)>)ŒrwxyW‘~}2),IumIum~¡-),,¶}ê—Y5f©(ª‘ªK2«žÐŠî¯>É÷ªU\Ò3nMôA_•hæHARP·ÜG[*ßN»¸¥£Ë~“…ì&ääKhÒšÁ¹ï¤_ËÔöãñ´J¡Þãâæ¨×gØ0õºz‹ÆßÚoá[=ƒ¸“¤¦güà·z”lôÂaÞ~J©¿]yk<T”]µ)³%º4Ú„´aUWŒð
+Ò­Cä±ßl±·ê×nxÉ¡ÊÉÊ‰{ŸÏÞîV¢Ì	„mùƒ¬w9Ñ·5v6°þ‘ªÓ€•Rvž}?+«šF’.•ÛÔÏZ£ïÿAË¯MÝï3*Æ§ÌåYÙÏkø|Ô/[G,#wþL?Üôìå\ç¾ëŒÎÙêoawÏÛºùWÛÕñB”½ŽŒ2÷ávÎAmÖPO‹Ú|Uº>2D“ÁÀ_¨…;ðŒLÝ…Ôí¾Ä»RþåpÓePÌÙ<SiÌ«Ó"Ô’tå³n=£…£d%óÃH…èxÓéØ8o	\À‰mòO›^¥nF‡ç,Š%—áY
+ŒÈPºÒx¾òB$?l¨¥{_ÉánUÔ„:J&-0]fï-J¨>‡ñà™
+š<Ï†F#t¨ß,— ÿüñçO#*“Ã(QAãU ¨K…]:f ç^wË8*&bª2ù%ÆÉ¼kÅè?_q€4 9þ(+yt,-=)))1)c‹Á]á4÷d+))Y.))0)>)Œrx~}W‘~}2),IumIum~¡-),,¶}t”DZ9gØŠ(ì¹i‹DüÝ€dùùûi{°e—.Ì¾ï·«ÕÚÝ½è`ÿ|pƒ¤æ—7×é‡’ç¢¥\{baÿtÔ™2ÈHØØôêZ˜Þî¥«åÛ9Öûô›yŸï´îþ%Š’ÚŠ­òÿs<>ëâOHE³îÇ!q‡‚¿pR^Ä"ÄÐÌÍ¿o¡8[b«RýÚ[ƒëçNib!z7{›Ö§G_” aD >à$RQ•KÃ/Jƒ/©·ijiv‡P(•+”…¼ü+ço-r_‘Ý2JÍNÒ\®/Ñ£ïi¢TÌY	:Ý–q3‰òÃ~³#ZtÌ¸ë’sÏ3T-Ý{á¾™R,ÌTå^ËtïÊp1þô‹¥ß`®=áøþAAW|·ìzSí°‚z½¬œ}=î°R–€âóMq•œK/Dê=rzzó¯“÷t_¼Ùw’I»w˜LÜ_dRÛÞ~…L~·Æº9Ê?‡Qsƒ<HÅ‰»E"?À(:ˆOÙ:¯…O
+sÜ½JU	œFúŽê4Ì¾ÁYÆÔÑ ¯Ö^<%Kâ™#îÇÛÒßâh?«×Ü@¬¢â‹¾ÐjšAËÜ	á™Ø|ñÎ
+\óA‡ê˜ÃÔË¡ïOZÞ×³]yW`çDï¸ë¡uýùËßÛK[Æ$Jñ ësã9	ø&<â™*Pu²ÈéÔ% òÄŸ¹cÙO°º–uF}(:ù0^Æ—×gÅ•CÞÆì¬Æj$A5J0³ê)%Ö!¾Æ5pÜ¬z¨÷T¾ÈeçFæpV^Xyt,-=)))1)d‹Á]hW–w+))W.))2)>)Œr|}x{nW‘~}2),KumKum~¡-),,¶}vxDZ9f˜Í&8L¹y±Ë{aW±l:–º‘j2fp‡¤;µ_ÇÖæ·S~È¶|åÄö/Sztò¢Ç¥‘À÷	;ç§äæöp°eÞ7ü3û¡øoïWzdX?€`°ä‹ÚlæY´èü~]1@¿kzÖX õ0#ïÚf“–ò¦ê^¢ÔfG±¸×}1É¡yiFôó“!0)IH&õp{•}Ý´—?P¼
+ï&å)¬Ä±þ/Jc/ä/fª®«Ã«¾M+Wú ±Éò^?ÆIý‡GBÃ“Ÿ\*¾xyÃÑS11ÿ–qT‰ôÃà56ú<ßï9¾àM×/t-ƒ"¾{jŽteÖ}ˆµð©§ÌõÉ³òò—çÚçºílëOÙës“EHtLÊbøÛ¥MèJp‚¿ø×4™ÿÖ{À‹9ß…q®Dî=’~»}l^ÎHÀñt‚×zÛàÂ¢`.ò»à\L¾Ç¬z±3yÔÉ5¨^Ö²@‡ZrÇk´t(ÈÁG¼!áÛEÃ	½r»uCTÌ¯sR:¼âŠBfô]íÈj“KzÊ&R¼è£ŸÌ~Éj›¸v7Ge BÕ‘}p,ÈyðÏ>p.Ù; ¹k³¥†Ñuw¸xS PÌÓ+óßÑÀŽ„sËÓ8h/&jbvÜ×™:Gò`À™íÖ­Råc±X°s¸±Ãç¶•œËÊß¸­ÊZnú¢aÓL£ç6l O£Ù¦)ï¹û\òÐü§£_–’‚35ð˜­§¦f§ 2ï+&žÇ‡Ðv¤÷mÆèyt,-=)))1)d‹Á]§ ®Ò~+))·.))0)>)Œr|~kW‘~}2),KumKum~¡-),,Æ}v˜Y5f©(,ú+n;ûŒ{¹‹ì3”úÕi¿Â}®L£»Ž5AßhæwLíšùl«2quº¥Ë½ÎŽ4…ê$$Ufúµd±,Tú?¾Î‚å…VÇôøôgiRçÀÊiá_”°“œœÉgü ¿j”lŸuõã}¬?IÁk>û‘a-ñûÈ‚SîÞ’ä×&›ý`egUÏy‰<Ù•9«‰„ÌLyåzyº`«øWÙê6bÌ	¤iù”¬KýjG‚ÃSŸTÙ-óˆÚÏQÉs1ï_Í>ÙìÏ«#úLÿ/H½\M×.1‘Þ›”Í«ûU~€µl¸×znØ³ú‡—µÔNšÈÔ:ÕÚç¾C0l’íÜMò{"bs»=ÕÚÎQ­Ö.@{‹ÌÁKÖ›»“ÑãÝ"ŒLb7TRôÿs•ÀÂÖ:M²ß	GR 5o§t½°s¢~€ü¯¡=¼ñàš¨<¹8³„›á_µuY:[D~{ôz­|8Š+í“1-˜·ÝÞ¬²mRÇ¶
+!¨Êe×(ƒRTxæ¿Eÿê‚!Ád˜Ôé	TyàðæPA¨AO³¢
+{ïÚ
+V}K\%r¾GîU\ºMä’ñ²ó7§)£×ÕÏÐVÈè¹Ô˜	«d P]ÔèÝÜî–œ¥eÛö²×4^þ22¦†uÐ,WÓ©·—½¸oF )Zb|eB þáN²Î14ìLé˜Ø1hA÷·ýìÊè6µ8Sæ¼R8yt,-=)))1)c‹Á]9LÚ&*))d-))7)>)Œr—œ›žŒŒ’˜—W‘~}2),IumIum~¡-),,¶|“DZ9¦®&°J®¹Cüryü{l-d¢‡Ýû¡ÌI”ßãU®ûØ8M¶|‘Ž·£ÏSTæüDÔ™,ôÐädçÚÑVDœîsÝs˜ï÷žfˆU¸ÔÐ"¥šèÕèÿZ˜ß=’Î²3
+o¼87î¾#u§;û3„öHÇø‡‚è
+¿Å?ÐÆhãÕØs’­ I@¿œmR^‚©Ó%‚¾n@DÌµÎËSŠ¨WPpB	
+§f,®¦müLm4†ÝÅÃinip‡µ…¡äl,L«MD]=JïºýÚÄk,ýå‰ÉUóQ5¡-–¤»+ÜŽ¼Ëš­Þúp
+]N€®6+ƒR…T…k‰¬·nL/Y7fã‡Ñ:³òzÞ4ÒÁÆ2ÝA2î$9H	L…†P·w¢S³Š¢/_è]R;Œ”/ŒÙ@u¼=6NmýZ_Ò¨u¹ìWjÜjMÄg}”w{˜Ô!Æýawo§x¿°w¡Ê!T’t¥š«²
+ñš7l?GFÀcºýnw«XQŒZœíªh]™]pän“Èô]8Ö(Kµðw>îªá¯ñ5X	‰˜%\â™47„h®`¼™£7<fía& Š°y&pjHý•ßfaKcGðšü+&ó(ä®ßèmr~*yt,-=)))1)c‹Á]Ï7RU…+))Ð0))9)>)Œr—œ›žŒŒ’˜—kxW‘~}2),IumIum~¡-),,Ö~”Y9¨Çê(ìV®»­×’&ÁØ°­êës…ÝXŒ-n;ªT.r7µ»&d‚ÚD÷ãj8hw ü¦b5W!ƒM•6ÐääYáéL@UIÐD=[ºžA­Î›bÆöH@8xüUÇxàöá"ÿƒ4Ã2¬JÀQo‡ïÇán+BÎ…³–ô‡û½‘6Ð@¼A#ÙôRÐÇEI5‡ì	¼sŽi—0PuÂ¾½Òf|²©wrìÑŠrh5éÌf€OLRNxi\<ßtÆê$zÒG&¬#:,šQÖª¤Ú¸ûŒ£sµ$!Ú82U\‰A´Í{*ú»›»qI_7|m	b«ˆ-Š9‰Yñ-ÒÞ½lK+>MÓ©‹D·Àyz§>iZ5/0Ï=ïý5a9n(+ƒâÕBž¤G”ôWNA‘èAì+_õe¼=<þ/cJ«ó°L)fí$t­ÌØÃ‰ÈNÄtY[º ·¤Æ(ƒŠ-Õ|í{e«Äj^R)¥6–Y„×èµÚç…x£ cvÁ4hw¦Òn~ö“ëc—týÎ´Rõ@}­–ó§!J§ÿŒ=úQ5¶¹xŠÔQ !•‚­†~”]˜¥sjŽ-þ/¶w7^²‹O|ëÊžéš¢”Ñ“$~Ó?õN¡Ko~Í†;¨‹³á›•ëª†¥HªI#x-úðLÑx~à Wü.Ë‹.¿L{«c‚"hÝÊ…ý€öö{âË‚Fƒ¯¯rÑ‚è¦½"aHuäHUâø’ô0yt,-=)))1)c‹Á]¢í1i.*))p+))9)>)Œr—œ›žŒŒ’˜—vxW‘~}2),IumIum~¡-),,ž{f˜¬Y9Æ”ò(
+½U¹Ê’A‚³½iý]\KßrU‚_0tþÉûCú¼0èä¤ ¥ï‘ôdr‚0þ¡í‘Ø…Û:ê‘XòMFo¡w—ÃËÕW˜ËQ}`Øvt‡¸/ßMëz/D{sŒÞL­T"%­I:ÖZ`™ÓJ¬-PºH)Ì8µÇõl’4ÓhG!ü”ŽBÚµAj,ÿÞ+/îRAJÂm8¢|ÜÁGª&7¿ÞøN,ó/ðíé©"OÖy¤-ÝÄÜS²‘ä¦-¨v»¼ç=±\(´‚å~+q¹tÂÚÖß(³4OÊñgW—%)§#Þö¯Šç*yt,-=)))1)c‹Á]6¦åŒ*))Û,))>)>)Œr—œ›žŒŒ’˜—vŽ–˜›’ŠW‘~}2),IumIum~¡-),,¶|ˆ”ëY9¨—J
+y9¾[àf:Ï5y4—g°ÃÇÃz¼»Í¤Bˆ—ž—‡£â$&2 6šä¥P‹ê“Ü9à”|WÙaj:àß±Kd»CuefèÕ`¢9×¿¸ô™FeùPsè>ªc«N‚µY
+{D®úšQ U;u×šø–„ÄlÐú†zSGÆÀteÓ£IÕsïAÀ‹??vÛMûC§ßwË	lÃ–<÷Éò,IdšÆ}r¬õ‰¬‘<B´ë)¼ëmÚ}½t£Uîïyp—Ã¨tˆâ^QyúƒM1Tº‰Å¼FPÐèšŽÛQªÖ½2	TÛõmÓ8,Ä¬}3f®¤j¥NÓÒÿ¼æ·†6èÏÝÎÚ_ÚÈ,ÎBSLŠ¹¸|ÄšT®Oû{$y…4£þæ€·ú®B5×^äþSgXAÆÞáà>%QŸ„gZA6(¥_ìz·L@yt,-=)))1)d‹Á]YÔþÈ*))+-))>)>)Œu’œŠr—œ›žŒŒ’˜—ŽœW‘~}2),KumKum~¡-),,Æ|v”ëi9fP¹(YmQÃl‚ÖIû{jÝý£SN•`ŒãÙ•—_°¿x$0cD<¶]£G¯&Á¢Œ_d‹Ì;é‹fÈ0§°ßkŠ¢«›ùNÓm•+haMðg„fx´þü£cÆV@ Ô!J·¸1@{E·ûO1Ì+¢ÇšS\Ž›–b@Âã§8†gÀõA	œŠ›ÿ¡n,9!ˆ‡	¤Ox/¬fÑ29êAK	ÂózŠ»J¡7ù`R!©ŸúpW£¸ôþ)ÓZŽIB­±=+¼iûQ;t£½·¶´OL0<†U[º}£KôóWZZbÅ[•ý ¯^F;/ð~[1¾âQJËM1Á:Ò‹…}ÌÍ‹I—Ò”´š€¤)Û4—8ÕƒüÝqF¨Y<]_È^\[ÎD*J‚²÷ã¶ÎmÉSö‘|½n^¥ÞÅ€´¡¢ƒµé­É£y“c»W¸}=|tÇ–.ÔÉ„ XÄ*@	CBþ_Jd`ÜH? /=7¬h{!ý6”D§÷P¦Àš(’ÊHÆ&±×‚	(+yt,-=)))1)d‹Á]PÎÇ+))ó/))3)>)ŒvŽ–˜›’ŠW‘~}2),KumKum~¡-),,¶~“Y=çI™É•WÄœ†P®ú5_‘ÿÚúÔ9«“Æ+p•bDVä:ï‡‰p»èŒã²¥ç¥³Ww2êŸ¤Ü£äã$öŸdÆ…¹zSeÚür<
+ß\ˆ‰µµÑ­Ba«Î¯;´;T}Ã,ÉŽº¬É¶	•I>ÍÁ2#²mÊñáoÁÐ{z«”™ä®°å½E‰c¢ÃwAÎ·…‰+š¥í}N¥Ö:û…’Ê%ø–TêêÎÁwuØ½i,€[xÅª»?lOüTbeùÑ^¦å$¥n·^pÝ¹QòØ¥…êPYTqâû{™ŠÅÃ¯uÐn‡J¯×á‚z•T#øÌUžö\ü‘NHZ16Ýs 7xÿ×;ž†SùˆŒDÍ¥OM½dƒÛ
+Úÿóñœ	‹ª€1öù2¢‡‰ò.ú÷Tâ€e¾è>ú94õ¬¤ËõÙ?mµ*ýÇö’‡óæ}e4v!AËìÿ™á)®5f”Hãjæroš/ßºoJÖ5Úûý!™–Š	ïÓ“e|ÃŸý¡I¾/â©‚+;YWwÿôô5æ&›l&àÊÖš!‰Á&±wäµZh#ñáPÌ¢ 1êO6Ÿû½H<¿ÒH&­BD÷ŸÒäÒ×`*6­½V|ÂÔÛ]rS‰§x­i8¥5å‘7Åì¶®amÛQF-XÊ({=ž‹²úþÙ2óÆ1XB€µÚß5ŠÀ#ïô&@¶7&FSœò£3U•öFØ\–NsÝ<NeL.êõ:øÕ3À¦:7Ü¤2ÛzdwžÜÍPÖz³Üµ-Þ[ F.â|¨c•WãÄ×Àí¸¿ÒœÁG)ýqlu¦Òª‰.ßEø²¦¥ôk7ì òá%*yt,-=)))1)d‹Á]ßÖ9°é,))«4))<)>)Œv’Œ›˜Œ˜—›˜•Š˜›W‘~}2),KumKum~¡-),,¾—_5ç·*è,,-ŸÄ_–û.ã64ù_j¿A5n„6ßò›øê7ãÀgXYsßE(í†-±Uº%ñ¸=’$IÇÛAÈ	$¤$itºÊ¦,$¥vÄÁîò %oa³Gÿ äöšè¨ ì@&Enp&z*ŒLrBLkð²aÕ¤k?ƒJt€Fú4©Ò}«å…ßèBÀd¥?ÍN´Òd˜$P„NÈ>tT¤ç`è-Ì‰ ÉY€‰ÏB‰+ƒ;S:-ZéBM5aôÝ±‚5IŠ¸Þi3ãõAUŠ0î¥˜[¼ñª÷qªníû¾bS?t.@à@ÍÉñÑuöè++1²Uµ"ËÝ7Å’³kâÅ$Çï]xÁ_-PÕQ‰è«“êH-€»të¹²zæø_•)ðV2Ðþ›·ãED2®ønœ¥ME²åb¹‚ÊÊŠCÏ¢æƒ+õ2>…Ùs»‘îƒ¼ó‹ÚÑ©ýs}ƒWÔ“’[Ñî_mÝÕB–Wt†„f+ÿñ^ï´ôæ3Ît¿Ý¬è­ý”9cjð»¤={ŽY6´Q×€^ŠÊ´%6–d‰»›; éÕ~Ç®róé®×ÖšxcrÝÃñKH	×àãÙ•q€t,	Ïï	î~’#cH³8š)þ^?$•`èUÑ¼™®’þ‰[!ï
+€¿qœÔ<ãfÞŒðâ&Sn•¢9Ç›Á³D;]‚åã«ÉÑ^ùŸ[X8²	´ßÎ;[V¡®´¨KX^|êÉ¬i“_w£mF‰vÂNk/çéàŸáUäËÚ%eZ¦7ƒ‹¾DÀÔ€º9èBó«¸ŽÎmÊ>Êÿ™‚ÿ-ÒŽ{÷þÀx«3laÐçpOcøÍoÓ¢#nMAAóè«É»}™¡æ#šàÌ¨Áw
+½¢¡€ Ð$ãÞ(ÔOT^zÏ*õž»L_E¾wåS“1äþ)±ÏŒ†],Ì€2*6xvjko7Æßõáµ½”iPŽÈK„ºž¡µJ\µ|ºÞnpef[Ë«N]Ò|dbÌëZšd´Ó)ŒýÑñ’dû°ª.É•úžmCéÇÛüÆ’N7Î—à<xöŒù^¥XMì}ùæð¢¸Û èL?¢ÈöÅáÔR‘‡P˜¿ú†Uƒ\åa·(ë™jSï0_D\ÑûBÛ˜b˜­üKD«fõÃˆØevïŠ3
+É!,yœt‹•iÆR¤„€$
+ukLÈìoˆyt,-=)))1)e‹Á]aåá©¤,))a3))4)>)Œy›˜›Š–ŠW‘~}2),MumMum~¡-),,Î†˜Y=¦G{ì~S~y~„ ss†ðçm*ÚŸ8ÄOÅÄ	óõw¹ã’èã¨‰7J2¯žükáaðÇ¤ÑœM{¾‰3Ìä
+YEúÔy(ª¨÷Q±S:’ý²ß¼Üò%—£žœ^¤hÄþ«*àoš‚M1Øáö<RÀö“œ¬•³zqÑÛÞalŠœjú‰êâù3nÃúA5¯×å2‹`¼Y_ã6‹¬záÇÞHp¤kˆëÇ¾
+Õ
+!SmæB¨7‹Ìšá!WeîÐ9o‡$ý
+»‚4¥‹»j¨~õÎ	Ùp!Ñ\½Á”VJFuÐñ8Ì–Í#¦š{æ*uÏ¬gÑ‹2À™Ÿ3ÅNÑAA…BÝÑ›/.&>>Ì«âi.Ò_t¿ÙïWx¦q™†É…LÉ­^¼ymkuÄðÙ‹?õ¶¯WîoUú]«?2M:åÚÎ¨áÛàB|²/+¸ú‡”‹í}·Z
+	Æù£óåÃz˜¡k”bÜÃª®Zëù}iŒ±R:ûÀ—"›W=PON3Â\+¨.y˜	*@@¹[’à™PXÓ`Ã¹|ÍBy’O<p>ã=x#&Ûë·`ãÈ«†‘¼äÅë·;êû¤ùd¨“òç%À/±Â
+4Úÿ\×<º‚ƒÉ€ÀýM^ujo™©ö]!‡É¼aP\Iî ª’çyâÀƒ]6Û¸–Û™/õµÿí¤Ñ+îì¯,–™±R>vI‚DÃ{ø®¬.E€ÆØßmç¡eHüÓa£j\¦™åÀ¼ôpýR´àHOÊw/©½ùâm·‡.¾E"ž Í£:rÀs¿*^,6Cvk7\c7&â?OXqºÞ?ò/q8EoààÐšeê¾¡q²Ì¼ÁõDé×ý¨uˆb‘¿k’X {ÔW~2ŸAôd«¤Žœª(«Ëœg*n\SQ˜Í,A/®;”‘QvY ŽàÕšÒ*..ÁynúÊ‹¡©Á9Œ‰†Lü°3ÌN¦.—7³´]vÃsljAøÒ¥ÕáÞ×—³}F ’¨ìÊ¶36Žè8hó—FžÇ^UO<¤Ä*>Îšó©ŠSüž—ó$Æ³BÄ@Â¼;Và—ÊÕñ=O-uã÷{$x!èµ“¼ˆ	˜‡ûÍâü¢ßè*yt,-=)))1)e‹Á]Ì¬™Óú+))Ù0))4)>)Œ{Ž’œŽ›W‘~}2),MumMum~¡-),,Æ~“i9¦¿i(Ya9•¼_¦·å½ù?û4²€Úºï«—†Â­¹”gÉx&ª÷õÍ½AˆÂœ÷Â¾Ëq³= Ž=GúÎWyªåùK?ÒnŠý.ðÔ´ H×à@€$a±ëüNmJ*–*V‰/w€NÍ1Ò›N%Ñ:»Û™CRÂ_6ÞžÏ½µŽ³`1·ß51çwt7ST]SV6õÿ\Ñ½z-ºØ*UÅjñsô5ß?Û(í]ÛûKšºŒÕ’=cõÔub­ž»R”Š¤7Kâ»#²¬£ç¸ëó½7<°‚=/ê?7HþSa†G}o½"Ö÷æ/~¶mk®}·â\Øwcy­¢f­W/9è³@i™Ó®A‚É;€ÔUÐpŸ™Ož|cb4+¯:~žù¯¼ñ	fã˜«bˆYÍžE¡øˆªj€Ä+ –ˆÆ$+¡&*‘eo²ÇSÉ7Nô\+;ŽŽ“áÂøéË«…^fyâ¶É‰×FBU1êÙ:™Ž×õLX"2;òÙ_7Å¨y‹ZÉ/å±{{¤ç»¬®Ýø‘¢|~¢ÏëHsÆ{ŽÖ­ùa5´‡§{K‘C„œ>3ÕKt}Ë¨@ÌR*hOªêåÚ´Ï?ÿG
+F!1Dìíý)\´g·j¥ýã´ûn,53öàŠOº¼"’„ ®$
+:HrLÂH“æâh6xåÛ£ˆy(öz˜$àæéGÙ¾âd"Ú°š{÷8$]éæWQ˜‰ìiøv@ã<·b¤>ïJ¶S¬¹oµgÏ|Îf–t·žC¿þ£åŽxàZû
+l:42¶~×´ú¨â±’Zúý/e9’^¿g°éÌÊ
+Vz¹ñ—­¤Ë›x!æ©ŠhÖ¼¦€<ÔÇr­L—’÷½Å¾F¢„_mé{ÙAŠN8‚¢ûŠó:¨)yt,-=)))1)e‹Á]>ÊhBŸ*))ô,))6)>)Œ{Ž’œ›˜ryW‘~}2),MumMum~¡-),,Æ|”ëY9§—Ê(ìÊYƒžüæÓŽµv¹v…àûÎz,–{û}­
+°öÃöò‘’W  †£ªN”Ã
+^eçU?ª¾„kÚßiØºeí]Lé8Uar—€  ¡]ˆO8r>¢ëÎQó5l0Ö¯}+Ô–p¢-Wóe>AÏQxÔ3BÁö:ñ¥b¯Û§ô2+De¶ª(G!oËCñáb”®ˆ)TZx.ùlqÑ©¦ý	U²‡‹tÓô‚®î”Ã\G¯ï]Ÿ-¦á·Ë²<ìÚÑb®Çëƒø*¯f¼_¼’tª)ð.Ï«j˜QhÔÕy0b#°W·(Õ4ëA³x3¿}\/I–kF„˜;¢±qÃì6µió é‚Nk{ã­7†ä:Ú9íÑ=€Lþ+R˜ÉÇqÀ
+¢fz¯7#ÿšw_­sòºüêü³DÙR@^€pÕMÒ>ŒÑŸ­´ƒ"‘Î8Vz³[•Ò=ìŠËÐqøÊ(ÁZ®"-yt*+@,=)))1)a‹Á]*Í|¿¬*)),))2)6)))))*)))Íª))))ŒrjmmWŒ™™~}.),Eum~¡))yt*+@,=)))1)a‹Á]9ãb+))Ü0))2)6)))))*)))Íªè*))ŒrlvyWŒ™™~}.),Eum~¡))yt*+@,=)))1)b‹Á]0†*))y,))2)6)))))*)))Íª]-))Œrlw}WŒ™™~}.),Gum~¡))yt*+@,=)))1)b‹Á]âsÜâY*))Ä+))2)6)))))*)))Íªÿ.))ŒrnwmWŒ™™~}.),Gum~¡))yt*+@,=)))1)b‹Á] }£,$*))".))2)6)))))*)))Íªk0))ŒrsvyWŒ™™~}.),Gum~¡))yt*+@,=)))1)b‹Á]¦|¼²*)),))1)6)))))*)))Íª¢2))ŒrswWŒ™™~}.),Gum~¡))yt*+@,=)))1)b‹Á]çìdÕ´*))ó,))2)6)))))*)))Íªf4))ŒrswƒWŒ™™~}.),Gum~¡))yt*+@,=)))1)b‹Á]5æ~…±*))Ý,))1)6)))))*)))Íª-6))ŒrsyWŒ™™~}.),Gum~¡))yt*+@,=)))1)b‹Á]Àœ³*)),))1)6)))))*)))Íªð7))ŒrsƒWŒ™™~}.),Gum~¡))yt*+@,=)))1)c‹Á]°,^-!*))ì-))3)6)))))*)))Íªµ9))ŒruxjmWŒ™™~}.),Ium~¡))yt*+@,=)))1)c‹Á]ÆÍ.»«*)),))2)6)))))*)))Íªê;))ŒrvxWŒ™™~}.),Ium~¡))yt*+@,=)))1)c‹Á]Ï¿Ûh)))C+))2)6)))))*)))Íª¨=))ŒrwxyWŒ™™~}.),Ium~¡))yt*+@,=)))1)c‹Á]•”ÃBƒ*))V,))2)6)))))*)))ÍªÖ>))Œrx~}WŒ™™~}.),Ium~¡))yt*+@,=)))1)d‹Á]ÁøÚ*)){-))4)6)))))*)))Íªl@))Œr|}x{nWŒ™™~}.),Kum~¡))yt*+@,=)))1)d‹Á]	_|œ±*))&,))2)6)))))*)))Íª[B))Œr|~kWŒ™™~}.),Kum~¡))yt*+@,=)))1)c‹Á]%Äþ>*))ð,));)6)))))*)))ÍªC))Œr—œ›žŒŒ’˜—kxWŒ™™~}.),Ium~¡))yt*+@,=)))1)c‹Á]B8‘×)))Ö*));)6)))))*)))ÍªyE))Œr—œ›žŒŒ’˜—vxWŒ™™~}.),Ium~¡))yt*+@,=)))1)c‹Á]	B“u*))þ,))@)6)))))*)))ÍªlF))Œr—œ›žŒŒ’˜—vŽ–˜›’ŠWŒ™™~}.),Ium~¡))yt*+@,=)))1)d‹Á]MrÒP*))`.))@)6)))))*)))ÍªG))Œu’œŠr—œ›žŒŒ’˜—ŽœWŒ™™~}.),Kum~¡))yt*+@,=)))1)e‹Á]¥oaP^0))<J))6)6)))))*)))Íª/J))Œy›˜›Š–ŠWŒ™™~}.),Mum~¡))yt*+@,=)))1)e‹Á])‡5–z*)),))1)6)))))*)))Íª¤Q))–Š’—WŒ™™~}.),Mum~¡))yt*+@,=)))1)a‹Á]°Oî,C-))÷4)):)6)))))*)))Íª0S))ŒkŠ—Œ˜{Ž’œ›˜œW‘~}.),Eum~¡))yt*+@,=)))1)a‹Á]*òvÖ+))”.))0)6)))))*)))ÍªŽW))ŒrjmmW‘~}.),Eum~¡))yt*+@,=)))1)b‹Á]Ã]U°+))\1))0)6)))))*)))ÍªY))ŒrlvyW‘~}.),Gum~¡))yt*+@,=)))1)b‹Á]Êþóyr+))F.))0)6)))))*)))Íª5]))Œrlw}W‘~}.),Gum~¡))yt*+@,=)))1)b‹Á]¸•vo+))].))0)6)))))*)))Íª¸_))ŒrnwmW‘~}.),Gum~¡))yt*+@,=)))1)b‹Á]6TOÜ),))¸0))0)6)))))*)))Íª8b))ŒrsvyW‘~}.),Gum~¡))yt*+@,=)))1)b‹Á]|þ×ß‚+))l.))/)6)))))*)))Íªre))ŒrswW‘~}.),Gum~¡))yt*+@,=)))1)b‹Á]Œ„|Ž+))}.))0)6)))))*)))Íªg))ŒrswƒW‘~}.),Gum~¡))yt*+@,=)))1)b‹Á])›Ä_‚+))m.))/)6)))))*)))Íª£j))ŒrsyW‘~}.),Gum~¡))yt*+@,=)))1)c‹Á]*lºþ‹+))‚.))/)6)))))*)))Íª5m))ŒrsƒW‘~}.),Ium~¡))yt*+@,=)))1)c‹Á]Ù5€0|+))].))1)6)))))*)))ÍªÐo))ŒruxjmW‘~}.),Ium~¡))yt*+@,=)))1)c‹Á]ðÍËb+))-))0)6)))))*)))Íª^r))ŒrvxW‘~}.),Ium~¡))yt*+@,=)))1)c‹Á]0†wò@+))Á-))0)6)))))*)))ÍªÑt))ŒrwxyW‘~}.),Ium~¡))yt*+@,=)))1)c‹Á]á4÷d+))Y.))0)6)))))*)))Íª"v))Œrx~}W‘~}.),Ium~¡))yt*+@,=)))1)d‹Á]hW–w+))W.))2)6)))))*)))Íª´y))Œr|}x{nW‘~}.),Kum~¡))yt*+@,=)))1)d‹Á]§ ®Ò~+))·.))0)6)))))*)))Íª>|))Œr|~kW‘~}.),Kum~¡))yt*+@,=)))1)c‹Á]9LÚ&*))d-))7)6)))))*)))ÍªÍ~))Œr—œ›žŒŒ’˜—W‘~}.),Ium~¡))yt*+@,=)))1)c‹Á]Ï7RU…+))Ð0))9)6)))))*)))Íª€))Œr—œ›žŒŒ’˜—kxW‘~}.),Ium~¡))yt*+@,=)))1)c‹Á]¢í1i.*))p+))9)6)))))*)))Íªªƒ))Œr—œ›žŒŒ’˜—vxW‘~}.),Ium~¡))yt*+@,=)))1)c‹Á]6¦åŒ*))Û,))>)6)))))*)))Íªò„))Œr—œ›žŒŒ’˜—vŽ–˜›’ŠW‘~}.),Ium~¡))yt*+@,=)))1)d‹Á]YÔþÈ*))+-))>)6)))))*)))Íª†))Œu’œŠr—œ›žŒŒ’˜—ŽœW‘~}.),Kum~¡))yt*+@,=)))1)d‹Á]PÎÇ+))ó/))3)6)))))*)))Íª„ˆ))ŒvŽ–˜›’ŠW‘~}.),Kum~¡))yt*+@,=)))1)d‹Á]ßÖ9°é,))«4))<)6)))))*)))Íª_‹))Œv’Œ›˜Œ˜—›˜•Š˜›W‘~}.),Kum~¡))yt*+@,=)))1)e‹Á]aåá©¤,))a3))4)6)))))*)))Íªe))Œy›˜›Š–ŠW‘~}.),Mum~¡))yt*+@,=)))1)e‹Á]Ì¬™Óú+))Ù0))4)6)))))*)))Íª’))Œ{Ž’œŽ›W‘~}.),Mum~¡))yt*+@,=)))1)e‹Á]>ÊhBŸ*))ô,))6)6)))))*)))Íª-–))Œ{Ž’œ›˜ryW‘~}.),Mum~¡))yt./))))X)X)þ5))ã—))))', 'Entrega');
+INSERT INTO "ejecucion" VALUES(2, '2007-03-16 17:07:53', '2007-03-16 17:08:13', 1, '', 'HCûüøøøøøþh.¶yi‚øø‚øøøøøWWkl\gml]jjWW_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[A9<<&g[A9<<&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[A;EH&g[A;EH&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[A;FL&g[A;FL&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[A=F<&g[A=F<&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[ABEH&g[ABEH&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[ABF&g[ABF&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[ABFR&g[ABFR&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[ABH&g[ABH&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[ABR&g[ABR&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[ADG9<&g[ADG9<&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[AEGN&g[AEGN&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[AFGH&g[AFGH&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[AGML&g[AGML&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[AKLGJ=&g[AKLGJ=&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[AKM:&g[AKM:&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[Afkljm[[agf:G&g[Afkljm[[agf:G&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[Afkljm[[agfEG&g[Afkljm[[agfEG&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[Afkljm[[agfE]egjaY&g[Afkljm[[agfE]egjaY&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[DaklYAfkljm[[agf]k&g[DaklYAfkljm[[agf]k&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[Hjg_jYeY&g[Hjg_jYeY&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%geYaf&geYaf&[hh[Afkljm[[agf&`2)02oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##[A9<<&g[A;EH&g[A;FL&g[A=F<&g[ABEH&g[ABF&g[ABFR&g[ABH&g[ABR&g[ADG9<&g[AEGN&g[AFGH&g[AGML&g[AKLGJ=&g[AKM:&g[Afkljm[[agf:G&g[Afkljm[[agfEG&g[Afkljm[[agfE]egjaY&g[DaklYAfkljm[[agf]k&g[Hjg_jYeY&geYaf&g%glhHCùúøøøøøøþh.¶yi‚øø‚øøøøøøøøøøøøøœyøøøøWWkl\gml]jjWWHCýþøøøøùøùø3øøø­øøøø', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(3, '2007-03-16 17:08:13', '2007-03-16 17:08:14', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(4, '2007-03-16 17:08:14', '2007-03-16 17:08:14', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(5, '2007-03-16 17:08:14', '2007-03-16 17:08:14', 0, 'Se esperaba terminar con un cÃ³digo de retorno 0 pero se obtuvo 1.
+La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõü~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõü~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(6, '2007-03-16 17:08:14', '2007-03-16 17:08:15', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(7, '2007-03-16 17:08:14', '2007-03-16 17:08:15', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(8, '2007-03-16 17:08:15', '2007-03-16 17:08:15', 0, 'Se esperaba terminar con un cÃ³digo de retorno 0 pero se obtuvo 1.
+La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõü~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõü~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(9, '2007-03-16 17:08:15', '2007-03-16 17:08:15', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(10, '2007-03-16 17:08:15', '2007-03-16 17:08:15', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(11, '2007-03-16 17:08:15', '2007-03-16 17:08:15', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõü~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõü~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(12, '2007-03-16 17:08:15', '2007-03-16 17:08:15', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(13, '2007-03-16 17:08:15', '2007-03-16 17:08:15', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(14, '2007-03-16 17:08:15', '2007-03-16 17:08:15', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõü~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõü~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(15, '2007-03-16 17:08:15', '2007-03-16 17:08:16', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(16, '2007-03-16 17:08:15', '2007-03-16 17:08:15', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(17, '2007-03-16 17:08:16', '2007-03-16 17:08:16', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõý~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõý~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(18, '2007-03-16 17:08:16', '2007-03-16 17:08:16', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(19, '2007-03-16 17:08:16', '2007-03-16 17:08:16', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(20, '2007-03-16 17:08:16', '2007-03-16 17:08:16', 0, 'Se esperaba terminar con un cÃ³digo de retorno 0 pero se obtuvo 1.
+La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõý~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõý~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(21, '2007-03-16 17:08:16', '2007-03-16 17:08:16', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(22, '2007-03-16 17:08:16', '2007-03-16 17:08:16', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(23, '2007-03-16 17:08:16', '2007-03-16 17:08:16', 0, 'Se esperaba terminar con un cÃ³digo de retorno 0 pero se obtuvo 1.
+La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõý~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõý~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(24, '2007-03-16 17:08:16', '2007-03-16 17:08:17', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(25, '2007-03-16 17:08:16', '2007-03-16 17:08:16', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(26, '2007-03-16 17:08:16', '2007-03-16 17:08:16', 0, 'Se esperaba terminar con un cÃ³digo de retorno 0 pero se obtuvo 1.
+La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõý~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõý~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(27, '2007-03-16 17:08:17', '2007-03-16 17:08:17', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(28, '2007-03-16 17:08:17', '2007-03-16 17:08:17', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(29, '2007-03-16 17:08:17', '2007-03-16 17:08:17', 0, 'Se esperaba terminar con un cÃ³digo de retorno 0 pero se obtuvo 1.
+La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõý~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõý~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(30, '2007-03-16 17:08:17', '2007-03-16 17:08:17', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(31, '2007-03-16 17:08:17', '2007-03-16 17:08:17', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(32, '2007-03-16 17:08:17', '2007-03-16 17:08:17', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõý~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõý~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(33, '2007-03-16 17:10:47', '2007-03-16 17:10:53', 0, '', 'º–‘IJZFFFNFØÒßzpŒ GFFôKFFZF[F’¯¹º§´¹º¸»©©¯µ´«¹t®›šOFIšÎ”ŠšÎ”Š›¾JF.I.I™£•ÉvZÃm…šÝ^fY:Ûk€“jÿ²]©Ü 4¢Û—\Óà?!sºvì»Ï„mÀ4/ÿ-ÄV¾;ÿÎÙ)®väÒôAC.°¶|<1æ]Ü³û.rÓ§Ìì%ÿ9ï˜wàU§sÖØjÕG»åÇŽC¿õG4šŽäYˆŸ0½áWç6K©ÿrW!ØöXrÛröV®ˆy‰@á¢–g·úœL§¡5üË~ÙM
+ç]a1ØÑô9À.ìR´Î»:Û¦Äå––yª½"€D§lJoÚÎö®Ò@Þ…z?Ô¯I°¬qKdÇ*X9SÓYâX¼Pi¾–¼~YÛ‚°i¸OQoô†»›¦ÓÌ[é§aO_Íg™GQú}Ç‘ŒzÛ®æþ¬¥üû2²ß)=\/Ò§®2¤$+å:)î=+«”Y†Ô§SÂÛh»{;Ã£ã)ß>=Þ‚oüõM“? Þdªrá\Õ–¢¼HÕç„jwœ?\!‡HJÃ™½½EsÄ$sCný¨‘™Ä·»Ò«*¨ð)|Ú\E°8²»£·0ýá2ÍÛµí6šžn¯C›• Öºœº,Y–‘IJZFFFNFØÒßze:óÀ«HFFÐMFFRF[F§¸¯º³«º¯©§t®›šOFIšÎ”ŠšÎ”Š›¾JF.I.Iš‘Õ vVi7eŒ˜Û–ŠÔ§ùXôšT!èr0[_­FgìÔù˜ûè©-+˜Ö@Ö6<¾,á-¦V}±àÝ•?²Pé£2ô‡5;Áý¨ÙíþÇ›­þ@þ0#Ø’*¾h|UÙâ­«Ð¶i8ˆñØ¹g94"[€[¸ú5=F@ƒÓA‰z¿ÐHÜ(f5ç€9ïXÀÕ ¶\c»l~6¿-= <ÁµY‡Ï¸Z›}ùŠôg_•fN„oOZ_½ûÚ_òÙîiˆgf’kbÞ¨ZÙd¦G«TO´KËÚ‰öòö¬œ¦ì7jœ.PëG°Ó@QêxLÏMQ.ë"ùMîÔšÖ:=>PQ0"³»âã¿Là`U1Ò›~ú¦´··ÓûÊ7mãÙeô]§ó7q8˜yKdÅ¦ÝÕÚðî€IÉÍz_HÅšÈ{ˆØö÷ãu`ÿàuÌ†	W‹ØZ<6´—è-Øà4ÊÅÛhËzÉfÚðÕYyÈ‡vÙÒ®ïtÝž[„ÐD¨3Jl)žÓ±âzŸwòµº¯:Þ‚}6þ÷&Õ›L›´Åßõ#ð†ûdå0¬£8­ù):“´o|&—KÃ¨H,¡O%ÎT8ÆÐÆÖcªøæ/õ·š»Â¹îŽÕ“ŸÃ¨á‰æ÷{yo>é_™¡ìrƒª‚òëåÊF¡÷EDò‚:£ÀbiX«¡ZT§E]Í…Í—µ[X¡‹¯ÑŽÅaV¡®?Ïôœèû±¼„*7Ê¼(h2¹Ìjm¥—AeêÞçŒ•5Š§( nýÞí¨©”…G–‘IJZFFFNF×Òßzèñª*øGFFSKFFXF[F¨§´©µª«¸«­¯¹º¸µ¹t®›šOFI˜Î”Š˜Î”Š›¾JF.I.Iã™´vV(e\þÊÎõj¤°ÁGO–u›[Ë
+Æ¦ÔIšîC< ·X"†–!*(2ò}s±zâÓ-vß¨@>¢s,‘ñ›xŒ[µÎÍ|¦Æz‘!•ü—[_’êplôe¿NpR³·_³4p þ]¸UÑ†ÕcÖoÑÉ0+®e>T]o½Vœ~æI–­½*VÝ”hU‘ÿªÆ¾HÌUèîéØ·="Z$™¢FŽý«oVNsh^w
+Â ôŒ½ 
+Ê	g¢Ñ«I¾·B¹âwï»uŠ¥’À@†÷m®§èÜøþÒ—Çô‰ß¤X-±ÔNð×þ4#,+îo»€Å½R«·{¸²?uÌ¯…4öÕWÜA3àø¼~Ú‹ÃÈÔ¿€y¯ò !@š˜ªyÎã¼"½vkÕÔ;´zØ"í^ …l¼1°^Z³(þâY:BI û©U?Îiy‰CH½eSXÁ¯ ¤~"ûVµŸçÕ¥ò¥<)ßœ Dð¦ÓÍý y¬–J$×YY]o 3’I‰‚¨ê†Õ0’[WUµ*/a–‘IJZFFFNF×Òßz?ÆßëGFFúJFFKF[F©³¶t®›šOFI˜Î”Š˜Î”Š›¾JF.I.I˜ƒµvV#i7erÖðJëÖsVL¦n‰›Z›£×·t&p×)º‡/µõã
+¦g†ã0½¥5´‚¢³ŒÍþ-:âGžP_ p²A»LæRÒó‰ºVi¿ÛH0™œ—Wˆac@ mž*žHà×bÝk@æKåé<“Ühpð£”Oh1‘0òO0íäÉoJÝ†jê—±1‰ßŠvHl†G³Yq¥ý¼»ÎNBlš’:òh…“âÓ2~WÂGïj\kQN¥‡HÁð>9ø+ÔÌÑz7W¿Éi]Za–ßPz÷1ÓÀ)é˜ì—
+ÛI6Wƒ³pVØÁÊqŸò<%âì®K pp"ùä„ Ãç³Z‹ÕÃO¨§ê“l÷vðl§rúæ;%À» û«e*zÐ ÏEò4?%z‰ôñ‘Áé=ãJL(Y-¢þ
+Ñ)áÔ9 ¾¢˜sœX¤¬ër÷©ÙW>u¬á0<ÈÊôÎû=ïey÷³|=_K<ÄÝ-Ë[AëäµðáÛÿƒB¬å3¥3<¿~o*fÛM À¬MM˜à/u–‘IJZFFFNF×Òßz<So£GFF”IFFKF[F©´ºt®›šOFI˜Î”Š˜Î”Š›¾JF.I.I˜´vV…ò†ðân(·SîM&–TóVˆŒ$ÆqŒaíÝðC<€OÇú01šåø)ã¾÷v´ºÒ§všÿ×Þ‰üÂ«½Ÿv:Ëx§–™ÒÛŠ^n™€ðÊ–Zžž˜ÂºbZÍ¹Ív]àÝk2$ˆAsÜëí°õÛF÷”þµma´^ÊG>Xüî•#Ú·†®¼Ë%`Õ2óÆ•npOÞž¶i2Pý¾–¤ÜóV
+Qÿ“†Â–ÍÝd2þ1“ÍÀÙ†/ªà ÅÇÆá“Ë*²jòýÙÅüP±ÁÐ+@»<‰„$ˆqÚìÃá/ýwwàlklÙªX{ç¿ÏoâYAïOø%?ç¤¼Ç©éØÇiÜ¼à‰ÉÚ¿ô)˜ì²¼$Œ\»Q‡.px&‰
+Ÿ©<±ñé;óÄÀõŽ.Öÿépé¼&VÓš¿ã(–‘IJZFFFNF×Òßz…EdtGFF3HFFKF[F«´ªt®›šOFI˜Î”Š˜Î”Š›¾JF.I.I—´vV…òÎšKŠÉÀ{IKïúˆî0{x<HôÒc”u[ÂÁ3þgÝÀ0äùyA^ÕL|\Õ¹¼tLé~ÐéŠ²ZSZô¤"]—(XçöI‹wŸ¹Êä–Û{{©ˆñ²9{ÑA˜˜Ñv§Øœ[‚Ï˜%ˆ¾ùË(êò˜v¦¿mãzê~ÀÑi¶W^jj„t3Õ&>KŸ±sG6KŸ³ïÇÚî¨ÀÔq"P}§LR¬Â{J<ÆÁ³J³‡Ý€ö+,\}?¸NÛ+Ê®†Íñ«Ó0„´Cù?õ ¶Þé…Þ:š„ÒÅ7
+#VLWX4¯b~B“·ÚÂu®¢Cù‡íu“ƒùå#—ùëš°Ù¤%>5A·99…¿Á0—è4Š;v‡>T–‘IJZFFFNF×Òßza	¼jGFFÙHFFSF[F¯´¹º¸»©©¯µ´t®›šOFI˜Î”Š˜Î”Š›¾JF.I.IÛÖwµvVË=Ž?Umh›Æ–.bfIvÖço/b<—ô2·žð8!1zSJšp;lA-9Á}cuÐ(£8 ‹÷Ÿ:±‚»c7®uK4gÓ(Ý”Þ´˜ùÖj$8<Ï*¿sVL_Ù¢O>ŒÛð8UÉÄ)<ì—¦çz÷±€m«ÐöUqiŽ?Íö?¦—,ž¹œ›öé˜Ëä¿j31à¹˜»„¢M²Û»ÜYU ‘™Ã¶zz”½ì¬ª+Æ5±	zR?øê„µ#ÒÝhßFÅ°Y¼¤s’A.þÔüYöWÉ&m‚²±ŒÓÆq±N\6>ÑÝéhG±²RÙdäûÓ:¹<ìÀ_¡M‡¶ãAÁ¹¼E¬â4U7–P }íu–‘IJZFFFNF×ÒßzmD~Š«GFF”JFFZF[F¯´¹º¸»©©¯µ´³«³µ¸¯§t®›šOFI˜Î”Š˜Î”Š›¾JF.I.Ië˜“µÈ†VÙ6e|À—©úÀŠ¯l¸–Y°JÜw´Èª_À¯2µ5Ä–
+Ðb2¤<©$}9¬íi%ò¦AU…œñ¦ýkáýtR¤l±c^“£»@2™~ÖîÇñ¦€¸@p~"O¡H”ùxK©†Ÿ˜JåbÁ€Ì¶ù^Çr¯\]Kù¢‚YÁìKÇÙÖr<8x^Ps“Ô1ÂÿT—qÝHÇhêä1›¦ÒpÑ·jš¶Ò™gilèÙk£¢Æ`W`UÏV_?¥’9‡1Ù[ˆ;ª‘²îý:wj¸|ô>+Â²®;´šC	Ì½a‹Y®–jNbª.›í¦o¿K“*¦î&Kð6¿wÜ!pò?ä=¦Õ;ßuÅÃ¼AP¤#ë„qÙÃ°Ò„%õ’ÿé¡¥BíÐEÇ!©@@•Ûã™ò£ÙÆë*½DºÍþßÃÍ@åµ—1ëÖGFÕò^ Ë„6ÚcúU–‘IJZFFFNF×Òßz4*•èGFFÖJFFKF[F°³¶t®›šOFI˜Î”Š˜Î”Š›¾JF.I.I™´vR0…žf“sˆf·röI¶^Ž®îà¼‹g{Öïj›à4Èý“®/^ˆ2ø¢˜…<ù!5Òñùžôæýõ”%=ÂõsüxsòÄŸÁ³xÊ
+¼•j•ÑJçkª´ºÿ–øýµ{ƒ`½ÈÂ°øT%y¾˜¬VŒ‚«¿Tµh™&?(Ö‹Ÿ÷KM„¶Ô2i%@dúxSl×ùù—pË“‚^KYFg]æêÇïy*x{ŽB‡~Hbûdºs§¿¡dpæ?:1öÓ	U*Ë§`H„§Øñ_­‹¸[ºl"K
+ÉÈ›fßJûÀ[ô-ñt*lÏh‹TªM¾ [îÓPÿh`/…ÛŽ¦ÌëÎˆMûAzyK°kÐhÔâÈDV¹ôyá[mdÒ/ÿ¤x0µàÞ!_ƒÞ;1˜³«Åd”éÃ÷ËÆjNã»’sn$Ú/cÁ­ï‡–V<¤}Lk°Í—ª¹zàˆ‘æñÃ¸]ì„Ö¨@¹ÛµŸ«µ1°}óï1…´Èo`R¤*çáµa«hükA}–‘IJZFFFNF×Òßz‡žùü9GFFUMFFNF[F°¶µ¸³³t®›šOFI˜Î”Š˜Î”Š›¾JF.I.I3š“±)vVa8eŠIÑ[ˆ:.Ë³ÀL{¬±–*é¨¡¬ruÚØD<ÛrÅ»æƒº•ñÑó}yÀ•9js­Äyüÿ
+f£b¡¦üâ~Y­pTŸRMø!ÌU—V2Ä2âïäÑRÀÖ“¾˜†täÂ·vÞÈz•ÞHø,OqP8‘*8ÌÅ´O"mÈ1¯àõñ>
+¿ß~ŠÕbëHôf<2"R×oXóô¦u«ˆH<r7AL–W®õô¬¹“ƒô,ür{«Ò1ø`9ÐH;Îgàä<¤á».–H‚Gu[‰(8¡Ü·¿MW‚Ðˆçr2ü2|Ô,ÊMÖZòG;šÉ“4Ã&¾eç¨Ù€Frk%X–«œîdCeo¨¸M€ñZ.üû·&òM¼eÜ9„db±•1Ý4äõ™°¯ÀDµZ>€ûÏòÂ²r2â9€é$Ž}Oe"†­’k-ºÄ-”LEü©(†"ôIÈuô)ôçìÑÍÈR6}‘jÐ$¢+¸a¼ÿøìšaˆ%èiÏ¶Ó°vÂªÜ«Ú?Ð<ÕÄÅfîXyèÕgÒªâ$‰ÖZv_Ï)x}µõ.-ªSê;N“D?_¥Ý:m¥*/"ãôäãdÎ3ãÑgGKô€ÐÈ Í¬PŸrT,>Q–‘IJZFFFNF×ÒßzbÞg5GFFMMFFMF[F°¶µ¸Àt®›šOFI˜Î”Š˜Î”Š›¾JF.I.I3š“µ)fV¡Å¦a¯«èn*.Û :Š ³ª›Ák¾Ø–§öv4ëD<K)õª#ð›ûÁ ÿßƒ^¦€Pa¡«˜³lÍe“M$aøãŽ¦Íüñ;‰ú$µç·ßÆ\·¯È8hGº7Ú¬Ù	Ëzê_m`[+ji*{¸¹ øKŸW¹ŒÓÝ¬«¾&R‚ªr™˜IÖJýÊŒ2øK¨o 4Qµ\æª[·Ñ¼0bßµ²2ðÞóhš›†ò,)ØÔœQx2þ‰<ñ LåQÆmæËlP?:ÜNp5fÈƒûØÿ!Z`#l^5ÖŽS`Æ»4¸£)°ÿdé¢m‡f“FŽÐôQ– ¨p‹ô:Øk.T’œÚ%ÊÕÝµbÅÿO[Jå~ßì™·zU“k~Âçgzï»ª\ð¿³Üpý³A*}sob¥%»ÿÕ Å"û,þT?3<÷I¥€Ý"
+Ã‘ÓmU÷LG0m˜?RÍ}‚ãô|³¸íôô{3í®•¨³ÛÓmQè<
+:˜·=½“ÇtÚ†,Hˆ•7•N¾TC‘h÷¥,(:³Ä’ßú° Sœæ*eáÕº,Ñ/EôBëô7ôU6:£åÃÍ‘ÆÉL¥ežÔ#•yJ×öã£B}–‘IJZFFFNFØÒßzî2ýcóGFF‹JFFLF[F²µ§ªt®›šOFIšÎ”ŠšÎ”Š›¾JF.I.I™£‘qwVÃ¥.Å^rŽüts<·qÈ ˆøÎõ‘|ß0|oòu˜Å?.üü"Á;/ÌË²l-ß®vÅàV4Mé¤íëØþÊaAx/Yo"_ÀÏMo—ýXÊš©“qJ¯ûÛ|
+Íõmd¨·ûôÿ‹þV{µ`¾èûÊ>u,àÂ#œ{OVùÑÍ.(hÆÁuGýhvÕMHå×ø¦yîúôçx)RÈ3äT¨€¹„i/oV7S‹±ÿGlôÿXÀÐKÖŽ}wS^¢hI·ÖaR"_2²²×‡©«ä±½ÇÂKíÑ\Óïôµ%{ÞèuäR!£µlEÖVi+?õ›Epw¹’·åML}R%O@Yoj¼BØ5,ÎÜð¨âÔŒ³é‡èæN~Ú‹‹ØIpn´5WD÷µ[9Oë	a´¤þ¿,û|ò~ÞncWS!hdq-O~“¿!
+S1LýïQ•4+Ž(ÜeÍC0Ó± —J¥RÝ Úê3Ñ‚áÊTCÿ…§RU@¹zÙCj®×°.÷Õ=DQ–‘IJZFFFNFØÒßz”ü¯MòGFFJFFOF[F³«³µ¸¯§t®›šOFIšÎ”ŠšÎ”Š›¾JF.I.IÓØ—•vV%Ý2Ú6øs6ÛGOGX“†Y;V˜hÓé£TéJ…3 ÛPÈ4«1#E4ÄE¡)®‚aƒ“bµ_mVº|—2Áj±à({ží9Í8¼/{«Æ–2ÚzÔáÊèò’w.5vXÒ½|‰­–ÌJ$,_ZxÊxžZ&ß*²N:}xJý=ƒfåâÙã<:ƒ•¥Ó·ÜhÏicK¸VðˆÐôfšÆÁp3iŒOvó›ŒÖÿddîÈwêˆ½UÙ~dy N¤ð_CÝs–ØO„nŽv	ÞMt‰Þ~´^+rDP‡ëßVÔWhÒüº7JP,0Ã5Öî»¥¢é‡A/;t¿øQ¼\yN¢€Cg_L”èw.Ì€û…˜c3üIñ‰ãr|[Šµf.ÃUE£~áü&Ìò§Ì„(IJu¶ÌÈ+Lx
+WñùÞ	ˆ¼1ü0†‡„+²%Ê0p£§óÄo6?……+¼<$e~ðY>€©k³=l!£ð]è*6ø‹¸ÛÅí:Å#ñ¤²ÿ_á€Ðt!w„ò¸w–ù±}“’™øœ¥%–‘IJZFFFNFØÒßz—é„HFFÍMFFXF[F³¯©¸µ©µ´º¸µ²§ªµ¸t®›šOFIšÎ”ŠšÎ”Š›¾JF.I.Iš£±!vZÃU*…®cR¾WÁ“àˆáT\®Ü&Ì÷ýçhöki³ç²ÃØ;W·€¤,†²c££#¹4×– t8;¨C»áõ5ôµÞ2™zd­âÚ³‡‹‹qg_ä2u¨:G¹hPp/Ô{Ðì}37+ì}—‘÷Ùþ0ërŸÚ”¸[É’.ZZ`²a½æ—º0¾ªÄÐœ»ÏÛÔlk´`ö«ûþH<áò^×ÈNôQo·g*¾:xdGCØƒ0‹™xUŸŸàÝ|‡0Ìùn(–ëÿí2‰µÐF¿ÖM°ªÿÏ‰|”Re&—Rˆw¯6§˜ïÊQî!ÍØ×i\ƒFà¦ñÙ¸lzïò™NrvâS>?atËÖ^…fnƒtè4Ð®¶ßë.ÊÊ5¶X÷>Ã˜^ÒíeKq-åžéö¨
+•—pòâ*·œL|Å¤·6(/:ú}ñ]Së_~i ÐøMÈãI-â„;"OUË¿hU K	¬ËÇ‡¢ÁšüŸ¬0A^$Åý…œ%ÃòíxõÕ3ÑÖ{1ÇÎœ;mÈjì·ìµNS½4Žù³b4œ^¸°®‡‘ðnº6Bc`ûæ}Ïß¾Ô	K»„…¡ÛaçP[39Rëõ‚ EíƒqoÆV qnßòeZ+š¼£Í8´D7™¨‰¥TmVÌAnß>Yþ*à¦‘NY‚lâøtÅ\€ÖËc5n{§€gD‡Ó£Mc2Z‰/ÅðÆ¿ß„/…–‘IJZFFFNFØÒßzyw©ßGFFîJFFKF[F³µ¼t®›šOFIšÎ”ŠšÎ”Š›¾JF.I.I™“µ(vV(…ÒÐú–ŠZÔçš°/§º‡ÐqxFôÈÓbÍ‘ÛC3ü9è3ðí;g7?¾)}¼xŸ:1³Ë/ï}mn^K©·ÖKd¦$#=£vl‰Ž2²eh¿Ÿ]NUˆœŒâQkííM1‘l…öÃì«;×ÕÛoÊàää²Ò9ëªÌ–¤øðÈå(èä5?á¬ÝÀ¥PTÂ{ÚÅº‡é&©ZFóÑœLÿh9üE kêÇ‚ãU¤ïX<?²Ä]¹Q(özˆä…aBüñ¬/z´Q0Ÿ20‘í´èáØ¢”º%NiõSV8]lÿÀbÕÈÔïpÅŠÞZ¿’Ò¾œ öTjÙt¼û/¶ 
+†(¬ßhMøyÂ!îÓÐþh;´.õZ6Ðœ—ç	$#3Ž„cPc™«‹.ÍÚíQ#“ÈLöæ6hé%Ù2Q4êµ ñói°„•·ƒD×>EMíµuË~†ŽXŠ˜O~¾›Æk¢Ÿïz9îk®‚HI‹+Ãvÿ|[“Ý’eß$ âv•)\£5S2&Ÿ#þEöò×¸l˜hÏÔ#YCã­"1ìÁ²EV#£ù¡5ô¢uÇk`Rš—}Bwˆb24}–‘IJZFFFNFØÒßz\1”»mGFF*HFFKF[F´µ¶t®›šOFIšÎ”ŠšÎ”Š›¾JF.I.I—ƒµÉvV#×>Uíf›ÆèªÍú‰ÚçR“—c<ëþx|ø“Ýp?3û·@ëp™µ(Á½=ž,ýeK!`\³F?xÔ(nM6FÓ±{=“Ú~k”~Žj[I‰Þ·¯òdn+t ß5Ÿ2À‡rÐP¨R‚7¤#‡>ì¡]Cö]âHótnÐéý~H‡—J&AòVíe¤oG>ÈºöŠ‰Š˜ûc„¹}ŒßvH8{!Ç„¦ízmY/æim³›•ô0^ÐˆÿLØT´0Gû›_–+EzE›·La:m·ã¬™AžD×Ïg’pÐ¶Þ7€/€ÞÑÝªB5Ö[z ‡‘¶W§tCA©Ú¥œDÜ1?‹ÌHsìü+lQuln_…>~$G–‘IJZFFFNFØÒßzM”ôGFF”IFFKF[Fµ»ºt®›šOFIšÎ”ŠšÎ”Š›¾JF.I.Iû×´vRÌ5Û@T\Ž™ÑV"!øI(FÍOÊôîjt¾PÛì¢l<2‘™ ø¶á•;µAÑC½€à;÷Ä%“Ü=ºzSÉv^˜g\öýC¸eR³ˆX³×’b§†øx¬ÒÚââL§–jÕ–_äjœv…íÆ¹o¸ÉÖw×[2îšõÄù»³Øø„N¨œ½¤,à&qRŒï/¨Oá{‡\Õ/ó4N¤ÿŒ“Õ©â$;µ6ÛÉ˜H6YŸ³¸SWá-ØïK |³š´Hé%ÔÇŸ¯ìœ2Àá”ñ=G¤|{°é¨ì2Ó$1]‹b\"“€0:ç³¼E<Ûj?»ª5Û#¬ìãym4ÁÞámT6ª
+_+CÍ¯6û4œøîçÙ;æŠC×QëiQÓùw–¸7"I-ÅåE—æâîÐ¡*ï>G–‘IJZFFFNFØÒßz•ÓÜ­MFF|FFPF[F¶¸µ­¸§³§t®›šOFIšÎ”ŠšÎ”Š›¾JF.I.I3¡¡µ!|ZÄ}&E†©ªíŸa~;F·Jg´@ÖznZß¸Úæ‘PúÄAT»÷o0tc 3qÖZ¿¾¾teoÏZ¡Ã\9ñåÙµ5Üžõƒ[ø
+P@2^’Lå%ÅôƒÍXÛ&–§ŒqYŸ¹Ü^{^?3ýÍL¡lßðüp‘"SßÂ &ŠvŸ¸kàt7‹±C×qg€uŽ½>4s¡}wõFÒ®,Pð«‘]
+ø“Ü›ã¦ó†E¾³®ØÓaŸÙrQÃ–SCU*£¹™¥ß 0_ìŽÔPÀ)|î±N¦Þ0iŽ1¿n.ÃzÚzêïù´UØÏ ‰¯ÏÏœÏÓšèÈn²!ÊÜèýÔk‘Q»{Ý†ÉòœäÄ’õaCÜI™Ä–e;çš@MYaÑsŸÍ×f¤<ÀvhÛòÑÞÀs×35óªüž¬Ò(ßJûºIáXþ.<ô/V‘£WºÍŒJ*<zõäØà¶õm§™õÉ5âyN7ô±Î&›ŽÝÓeZ:Ê$ÀH5@CÉéI§¡ÉW“GÈ@¦KÂ\t<`edx•!‘òŸ~pŒ×æ~œq5v+¥ešSéì°Ç	šá™Ž—û%jó´~*àbãâPËíŒHËK—ºªŽÜÔj€ÆÚÔWºÃr
+Ñy÷3Þª1i5í*&æ4Ô
+Œ*ÏÊM±¬%ö­V®eNÑ]·½„»&œøùs_è~%œ´$68ác»aÁÝÏÚ^^KŒôÜ©ÆˆI“5ti˜Òy—Ê\q¼AHy#ä¼4@Ó•ãÌ…P0ÿ´ÇßHùD~¬Å:Å¾*¨Mÿ­â¨:[fxÈàw°ý—	úa_ónü†rZˆB%áðï/º T"ð^@17~`¸ÄÞƒ™öô†{‡F‡®óÈf™øV×ËkJù~È¿’8z†Ç*ÞÖ–œü®Zû•³Víø¼[èöðüB&Œ+³-”ÎœÎ¯)@Žøv€^b:(µíúR¦¼AR7Bt†f´_–þùìLw7P»K¿gUYHÛ=ÐýSU…cµƒOz]õT¨’V`Ún pªb~³+Ök+‰.T§QÊpá$ c=w…´õA	tcÄYˆ/z_‚ÌØÿ¨]q†¥×‚r5‚´à#|ãù ,·)¤OŸÜ¿c«bdacÍ³jŠd^šÐý˜Ü(Z?ó(”¦Y.ôX"áž@q‹
+ÙnÉŠeT\iúþäRÆ¸YB2«vo	¹M‰Ìžº3€âÄ†öRãÙU(‘‰Ãà\0fÃúN
+Ü):l7T`XÁ)ß’ª €?œÀ6C†“{k‹Ï×Ý-ðz n­¤G,ø£m~À³²™V~Âß04Zì‹‡ˆyuót™m9b8/8ÌD·õì4+z­À“8ê]3j%Z»Øµ¼wCš{3˜
+A=¸)¥µ/ü…)Ê¹˜Äô Æß§<„ÿê™än˜}Ýû—¼#\P8ábk…µÊ,?’ª’Ô¬Ÿ¦«.U½ç±ÍPÎZOw°.,Sý†"òXy©Ûhi¤oø9Ü¨"ë¯Ž×%Ž‹˜à¨ú¼‹ÎhÃ†Êî:3ØÛ”ÿ>¸€‰Öâ¢_A¿äª6Á79…©ä©—oUJÓUHÚ*ËF6‰Æð¿h†¸p’WŒÆb
+WfeÇJîÆŽH2’nGPžùnùJn¦‚²ùWa§ãââ%¯%ýñØˆZW*·ô›Ž’õ„q“¹veÕ‚…f§¨—s»÷]Ó÷{Á/ÔžZŽ\îÔ‹ËúèxPª—Y«/Ö‹O¥Zç“}Wðj%Ðn4CV½”µ ÎÄàfxZ¦*q×8øhOÁŸÂKî¬W\æh¼!Uù3á8sqðæúXošÔ<†©Û™žWù5¥…Üî|2ÛÙ~äVÜŸK=¹ƒ¸Óµx!ûÙØ¥ë@e£}Ý¯µËÏµËÙÛÏUÎWŸ@Ö0?5õkzÓxAñ(ä&õŸÖï½©*ðÞ}$ù©£ ÂœsAKÉh9ÉšŸœrÄ¿ÌäÝ#Ä§„ÛÔ­É9ú²ÞšØSkä(ƒóCˆveEéV`?UË2© p’qáì÷o²Ü8O%Áv”Á–vûÑTÅ,*"Ó– FÑXôPË¦SÕg\µy^(EÓžEŒrÝzÄU)A$Ï›Ï§<‡Ns.Êèï;(Ð²+,7ÑìÜ±Bè‘UÐ¥vå~¡BsmBñIªkmË¥ãB\Xé“C¬$Œ+.3¶OšÌÆmÓöôÊµ³Å‡kµ•|™‡×{c:èáìgˆÍ]éññ_`Ó&°>D()ñÿÛ”b“ñ˜rŠqöí°ùŠèÎ"Š
+œàÓ:	NÓìú9;vÞXô×Åh2Y¯–µì;_¹ˆmðŽßã‡mEV’[OãÎk½Çl; ¹’ÜðˆõDG–‘IJZFFFNFØÒßzkR%žGFFlJFFPF[F¸«­¯¹º¸µt®›šOFIšÎ”ŠšÎ”Š›¾JF.I.Iã™“±	vRM8eRz«ú}“t©òÒˆ¼s´èºHOÔYPkC3Ñãuí|å*m/ÀÜ]yõ!ý=#¼y¥aæ}¡Ü³“v(gŠª%J3AXsg*¶Éð®dörJø«Î7B!îÊ™îrÆzk’¨åš¼öËiì˜
+ü»÷s˜äŠ
+XHOøñéx]«÷¶µUÀd¨±rTRIÉïó}ç?ÏäåŽ³hµ’*^f«ÔÜ®è·~Õwjušbï´ôë’-ü‡HM—oµ„òïü=+nõKrDÛAQo­íÃg#ñ¾0Ç‰¾Ðéi=Z×AýôôiiÛº=8ûIØ·/!Gvh™SóšÝ”K¤ÍïLzî0ÇF‘§V"Ø?Hí¹^wl¯µ¥Ñ2A_ÿ÷<‹ó+ƒ{:öI{@qðf†¬È=›“„Gd¨ª¡…–‘IJZFFFNF×ÒßzÁU¡%LGFFÂHFFRF[F¸«­¯¹º¸µ–t®›šOFI˜Î”Š˜Î”Š›¾JF.I.IÛ–£‘	vZÃU:…Ê;‹}""±ýRŠ
+[ÚÛ€< ø<¼L¨ ZJ%´„@×ÏT•}-âÁÿŸ’Ï/	©Bø•½~”,¡åÞtHZæÖÛèÆX­t”ø³ÌˆÓwG…¦}f¸$\ÆmX”ò—øà”Rç&ó,šG¤-â|S$ù ¦-¯íÓÙî´Õâ+iúüFÃJN1¸º*dìqiMå/A;°ÚÂ?`åö@mF¯Ëâ)L]nÐDxdè0½k³-½b·ØG§È"rÓ9Ò÷¼]\®²·­1¯2ž#£!Ícc[NÖ<Ô%4ï‚—Mã9ù«u×æ o«€ Nè¦ëÏ>S–‘IJZFFFNFØÒßzË;’¡ÿGFFÞJFFMF[F¹ºµ¸«t®›šOFIšÎ”ŠšÎ”Š›¾JF.I.I˜‘±)vVa8eLH‹“’¹úÁ.É´æësÁ{øz¯û˜Ö+Ú:ýUó‘	<ú¦.A,7ªÑe	¿¾uõ§?‚ÞÑ²ÜØÿ"pÇ¡î±;ñ,ÚP%ƒd¬÷#{hâ9Ì»c‚ãDO7eò|Þ5@×b> »:â‘ó4öŒø9ÆäkuùJ"Ï‚`D
+FŠpQ,rË 1L°ùg¾"%9Ç¡ê/»¦Ã:KlD‡$¡¬Æ6QìþXåêñ½÷Vž¢ÎxK„ïT\ºI¼>ÀÙˆ­‹ä±=ÆòËÙ“Õ°û±;‰@ Pþˆ%zªÂ$]¤é`Ì|¨ø‚EZ?—çÏ©ÀÔA‚v.E´GéòEèËì"EòBþ–¸Qêtz@”É†É‡Z¶nÑPLîæŸ‹>~w(™+ky•ÒV¥b£$ÔÉ,}±úgt®@ëEÒH~ŸLIpÊ`‡/Ö&\bÑ•UQÕ…²€b`×ÍŒê°—Ž¬-Lìc¢ ‚¤3ßª9Xwç“k»ïâä\§6¥Õƒ2>º2å|ÄbÑLsXAr Rzk*%$F–‘IJZFFFNF×Òßz§ßì½¿GFF(HFFMF[F«°yt©¶¶›šOFI˜Î”Š˜Î”Š›¾JF.I.I³˜°vZÃu>U½cŽaÐ‹#<æœV·ö§WýÝÍr“{é“`Í©2%ÝŠã¢n“¸¸4ƒ}}ŒÏy¬=½=n´¿s5Ø·˜´¹PÄs (P½|IÕ`ÛyÒ£òª[™µõ^×ÈNôên·têé„°àH^öªû^`“ùïv)VÞ[Ü±XG¦OŽõ%å§A²¿æ3#ÂLîî³ÞG<Eè”P—™ãL¢õh6ë8	çÒ×ÿXÆ¥kÙëv]CO«KJlÐj“N3|J‹Ã×‚‚-§þ­bêóTo‹‰Skbä–Øc¤°ª´zÌò½r	«ßyžìúöX².äyìQ´b5âØ4ä*ç:Eç6%Úq‘·”EÞ¹n#ÇïxøËŠœqø/è^¯5MIhüpˆ·1ÿø|øyÁQÔ&Äè«‰$÷Ü Øh6ížAóÁkárlï4OhêêŠ§VKc±ZC†|u¢á_éÉ¹¼ŽðüØ‰=jíµ–‘GH]IZFFFNFØÒßzpŒ GFFôKFFZFSFFFFFGFFFêÇFFFF’¯¹º§´¹º¸»©©¯µ´«¹t®›šKFIšÎ”Š›¾FF–‘GH]IZFFFNFØÒßze:óÀ«HFFÐMFFRFSFFFFFGFFFêÇTHFF§¸¯º³«º¯©§t®›šKFIšÎ”Š›¾FF–‘GH]IZFFFNF×Òßzèñª*øGFFSKFFXFSFFFFFGFFFêÇøJFF¨§´©µª«¸«­¯¹º¸µ¹t®›šKFI˜Î”Š›¾FF–‘GH]IZFFFNF×Òßz?ÆßëGFFúJFFKFSFFFFFGFFFêÇïLFF©³¶t®›šKFI˜Î”Š›¾FF–‘GH]IZFFFNF×Òßz<So£GFF”IFFKFSFFFFFGFFFêÇÌNFF©´ºt®›šKFI˜Î”Š›¾FF–‘GH]IZFFFNF×Òßz…EdtGFF3HFFKFSFFFFFGFFFêÇaPFF«´ªt®›šKFI˜Î”Š›¾FF–‘GH]IZFFFNF×Òßza	¼jGFFÙHFFSFSFFFFFGFFFêÇÇQFF¯´¹º¸»©©¯µ´t®›šKFI˜Î”Š›¾FF–‘GH]IZFFFNF×ÒßzmD~Š«GFF”JFFZFSFFFFFGFFFêÇ+RFF¯´¹º¸»©©¯µ´³«³µ¸¯§t®›šKFI˜Î”Š›¾FF–‘GH]IZFFFNF×Òßz4*•èGFFÖJFFKFSFFFFFGFFFêÇ×TFF°³¶t®›šKFI˜Î”Š›¾FF–‘GH]IZFFFNF×Òßz‡žùü9GFFUMFFNFSFFFFFGFFFêÇ±VFF°¶µ¸³³t®›šKFI˜Î”Š›¾FF–‘GH]IZFFFNF×ÒßzbÞg5GFFMMFFMFSFFFFFGFFFêÇßXFF°¶µ¸Àt®›šKFI˜Î”Š›¾FF–‘GH]IZFFFNFØÒßzî2ýcóGFF‹JFFLFSFFFFFGFFFêÇZFF²µ§ªt®›šKFIšÎ”Š›¾FF–‘GH]IZFFFNFØÒßz”ü¯MòGFFJFFOFSFFFFFGFFFêÇî\FF³«³µ¸¯§t®›šKFIšÎ”Š›¾FF–‘GH]IZFFFNFØÒßz—é„HFFÍMFFXFSFFFFFGFFFêÇÖ^FF³¯©¸µ©µ´º¸µ²§ªµ¸t®›šKFIšÎ”Š›¾FF–‘GH]IZFFFNFØÒßzyw©ßGFFîJFFKFSFFFFFGFFFêÇYaFF³µ¼t®›šKFIšÎ”Š›¾FF–‘GH]IZFFFNFØÒßz\1”»mGFF*HFFKFSFFFFFGFFFêÇhcFF´µ¶t®›šKFIšÎ”Š›¾FF–‘GH]IZFFFNFØÒßzM”ôGFF”IFFKFSFFFFFGFFFêÇÇdFFµ»ºt®›šKFIšÎ”Š›¾FF–‘GH]IZFFFNFØÒßz•ÓÜ­MFF|FFPFSFFFFFGFFFêÇVfFF¶¸µ­¸§³§t®›šKFIšÎ”Š›¾FF–‘GH]IZFFFNFØÒßzkR%žGFFlJFFPFSFFFFFGFFFêÇúmFF¸«­¯¹º¸µt®›šKFIšÎ”Š›¾FF–‘GH]IZFFFNF×ÒßzÁU¡%LGFFÂHFFRFSFFFFFGFFFêÇoFF¸«­¯¹º¸µ–t®›šKFI˜Î”Š›¾FF–‘GH]IZFFFNFØÒßzË;’¡ÿGFFÞJFFMFSFFFFFGFFFêÇÔpFF¹ºµ¸«t®›šKFIšÎ”Š›¾FF–‘GH]IZFFFNF×Òßz§ßì½¿GFF(HFFMFSFFFFFGFFFêÇÇrFF«°yt©¶¶›šKFI˜Î”Š›¾FF–‘KLFFFF\F\F,KFFztFFFF', 'Entrega');
+INSERT INTO "ejecucion" VALUES(34, '2007-03-16 17:10:51', '2007-03-16 17:10:53', 0, 'Se esperaba terminar con un cÃ³digo de retorno 0 pero se obtuvo 2.
+', '83ëìüèèèèèBqXÚ®ãèèãèèõèèèGG[\LW]\MZZGGO?ITTIV[QXMLIV\QKMZZWZ[7,6,-*=/NVWQVTQVMKWMRWMRKXXò1VNQTMQVKT]LMLNZWU][ZTQJOKKQ TQV]`OV]QVKT]LMKJIKS_IZL^MK\WZP"!òNZWUJIVKWLMZMOQ[\ZW[P" òNZWUQV[\Z]KKQWVP"òNZWURUXP"òNZWURXWZbP"òNZWUXZWOZIUIP"òNZWUMRKXX""ò][ZTQJOKKQ TQV]`OV]QVKT]LMKJIKS_IZLJIKS_IZLG_IZVQVOP"""_IZVQVO"_IZVQVO<PQ[NQTMQVKT]LM[I\TMI[\WVMLMXZMKI\MLWZIV\QY]I\MLPMILMZ8TMI[MKWV[QLMZ][QVOWVMWN\PMPMILMZ[NW]VLQV[MK\QWVWN\PM+[\IVLIZL-`IUXTM[QVKT]LM[]J[\Q\]\QVO\PM$@&PMILMZNWZ\PM$@P&PMILMZNWZ+QVKT]LM[WZ$QW[\ZMIU&QV[\MILWN\PMLMXZMKI\MLPMILMZ$QW[\ZMIUP&<WLQ[IJTM\PQ[_IZVQVO][M?VWLMXZMKI\MLò1VNQTMQVKT]LMLNZWUXZWOZIUIP"òNZWUMRKXX""òW]\P"""MZZWZ"VWVM_TQVMI\MVLWNNQTMòZMOQ[\ZW18P"1VKWV[\Z]K\WZÊh€K:MOQ[\ZW18$<QXW&""K:MOQ[\ZW18<QXWÊh"òZMOQ[\ZW18P" "MZZWZ"Êh€>ITWZÊh_I[VW\LMKTIZMLQV\PQ[[KWXMòZMOQ[\ZW18P"!"MZZWZ"Êh€>5I`Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòZMOQ[\ZW18P""MZZWZ"Êh€>5QVÊh_I[VW\LMKTIZMLQV\PQ[[KWXMòZMOQ[\ZW18P"1VUMUJMZN]VK\QWVÊh€<QXWK:MOQ[\ZW18$<QXW&""4MMZÊh"òZMOQ[\ZW18P""MZZWZ"\PMZMIZMVWIZO]UMV\[\WÊh€7J\MVMZ>ITWZÊh\PI\LMXMVLWVI\MUXTI\MXIZIUM\MZ[WILMKTIZI\QWVWNÊh€7J\MVMZ>ITWZÊhU][\JMI^IQTIJTMòZMOQ[\ZW18P""MZZWZ"QNaW]][MÊh€NXMZUQ[[Q^MÊh/_QTTIKKMX\aW]ZKWLMJ]\ITTW_QVO\PM][MWNIV]VLMKTIZMLVIUMQ[LMXZMKI\MLòZMOQ[\ZW18P""MZZWZ"\PMZMIZMVWIZO]UMV\[\WÊh€7J\MVMZ>ITWZÊh\PI\LMXMVLWVI\MUXTI\MXIZIUM\MZ[WILMKTIZI\QWVWNÊh€7J\MVMZ>ITWZÊhU][\JMI^IQTIJTMòRXWZbP"1VKWV[\Z]K\WZÊh€K2XWZB$<QXW&""K2XWZBQV\JWWTJWWTQV\<QXWÊh"òRXWZbP""MZZWZ"Êh€J:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZbP""MZZWZ"Êh€:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZbP""MZZWZ"Êh€+\MÊh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZbP"1VUMUJMZN]VK\QWVÊh€JWWTK2XWZB$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\Êh"òRXWZbP""MZZWZ"Êh€J:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZbP""MZZWZ"Êh€:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZbP""MZZWZ"Êh€+\MÊh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZbP""MZZWZ"Êh€J:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZbP" "MZZWZ"Êh€:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZbP""MZZWZ"Êh€+\MÊh_I[VW\LMKTIZMLQV\PQ[[KWXMòIZQ\UM\QKIP"1VUMUJMZN]VK\QWVÊh€JWWTK)ZQ\UM\QKI$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\Êh"òIZQ\UM\QKIP""_IZVQVO"VWZM\]ZV[\I\MUMV\QVN]VK\QWVZM\]ZVQVOVWV^WQLòKV\P"1VUMUJMZN]VK\QWVÊh€JWWTK+V\$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\Êh"òKV\P" "MZZWZ"Êh€:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòKV\P" "MZZWZ"\PMZMIZMVWIZO]UMV\[\WÊh€WJ\MVMZGKWV\ILWZGQWGUMUWZQIÊh\PI\LMXMVLWVI\MUXTI\MXIZIUM\MZ[WILMKTIZI\QWVWNÊh€WJ\MVMZGKWV\ILWZGQWGUMUWZQIÊhU][\JMI^IQTIJTMòKUXP"1VUMUJMZN]VK\QWVÊh€JWWTK+UX$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\Êh"òKUXP""_IZVQVO"VWZM\]ZV[\I\MUMV\QVN]VK\QWVZM\]ZVQVOVWV^WQLòMVLP"1VUMUJMZN]VK\QWVÊh€JWWTK-VL$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\Êh"òMVLP""_IZVQVO"VWZM\]ZV[\I\MUMV\QVN]VK\QWVZM\]ZVQVOVWV^WQLòTWILP"1VUMUJMZN]VK\QWVÊh€JWWTK4WIL$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\Êh"òTWILP""MZZWZ"Êh€J:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòTWILP" "MZZWZ"Êh€:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòTWILP" "MZZWZ"Êh€:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòTWILP""MZZWZ"Êh€:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòTWILP""MZZWZ"Êh€+\MÊh_I[VW\LMKTIZMLQV\PQ[[KWXMòTWILP""MZZWZ"Êh€KWV\ILWZGQWGUMUWZQIÊh_I[VW\LMKTIZMLQV\PQ[[KWXMòTWILP""_IZVQVO"VWZM\]ZV[\I\MUMV\QVN]VK\QWVZM\]ZVQVOVWV^WQLòUW^P"1VUMUJMZN]VK\QWVÊh€JWWTK5W^$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\Êh"òUW^P""_IZVQVO"VWZM\]ZV[\I\MUMV\QVN]VK\QWVZM\]ZVQVOVWV^WQLòW]\P"1VUMUJMZN]VK\QWVÊh€JWWTK7]\$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\Êh"òW]\P""_IZVQVO"VWZM\]ZV[\I\MUMV\QVN]VK\QWVZM\]ZVQVOVWV^WQLò[\WZMP"1VUMUJMZN]VK\QWVÊh€JWWTK;\WZM$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\Êh"ò[\WZMP""MZZWZ"Êh€J:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMò[\WZMP" "MZZWZ"Êh€:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMò[\WZMP" "MZZWZ"Êh€:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMò[\WZMP""MZZWZ"Êh€+\MÊh_I[VW\LMKTIZMLQV\PQ[[KWXMò[\WZMP""MZZWZ"Êh€:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMò[\WZMP""MZZWZ"Êh€KWV\ILWZGQWGUMUWZQIÊh_I[VW\LMKTIZMLQV\PQ[[KWXMò[\WZMP""_IZVQVO"VWZM\]ZV[\I\MUMV\QVN]VK\QWVZM\]ZVQVOVWV^WQLòRXWZUUP"1VKWV[\Z]K\WZÊh€K2XWZ5U$<QXW&""K2XWZ5UQV\JWWTJWWTQV\<QXWÊh"òRXWZUUP""MZZWZ"Êh€J:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZUUP""MZZWZ"Êh€:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZUUP""MZZWZ"Êh€+\MÊh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZUUP"1VUMUJMZN]VK\QWVÊh€JWWTK2XWZ5U$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\Êh"òRXWZUUP""MZZWZ"Êh€J:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZUUP""MZZWZ"Êh€:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZUUP" "MZZWZ"Êh€+\MÊh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZUUP""MZZWZ"Êh€J:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZUUP"!"MZZWZ"Êh€:Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòRXWZUUP""MZZWZ"Êh€+\MÊh_I[VW\LMKTIZMLQV\PQ[[KWXMòXZWOZIUIP"1VUMUJMZN]VK\QWVÊh€K1V[\Z]KKQWV$<QXW&K8ZWOZIUI$<QXW&""WXMZI\WZCE]V[QOVMLQV\KWV[\Êh"òXZWOZIUIP""MZZWZ"Êh€>MK\WZ1V[\Z]KKQWVM[Êh_I[VW\LMKTIZMLQV\PQ[[KWXMòQV[\Z]KKQWVP")\OTWJIT[KWXM"òQV[\Z]KKQWVP"1VQV[\IV\QI\QWVWNÊh€K1V[\Z]KKQWV$QV\&Êh"òIZQ\UM\QKIP""QV[\IV\QI\MLNZWUÊh€K)ZQ\UM\QKI$QV\&ÊhòXZWOZIUIP""QV[\IV\QI\MLNZWUÊh€K8ZWOZIUI$<QXW&""K8ZWOZIUIKPIZC_Q\P<QXW%QV\EÊhòMRKXX"!"QV[\IV\QI\MLNZWUPMZMòQV[\Z]KKQWVP""_IZVQVO"Êh€KTI[[K1V[\Z]KKQWV$QV\&ÊhPI[^QZ\]ITN]VK\QWV[J]\VWV^QZ\]ITLM[\Z]K\WZòIZQ\UM\QKIP"1VQV[\IV\QI\QWVWNÊh€K)ZQ\UM\QKI$QV\&Êh"òXZWOZIUIP""QV[\IV\QI\MLNZWUÊh€K8ZWOZIUI$<QXW&""K8ZWOZIUIKPIZC_Q\P<QXW%QV\EÊhòMRKXX"!"QV[\IV\QI\MLNZWUPMZMòIZQ\UM\QKIP""_IZVQVO"Êh€KTI[[K)ZQ\UM\QKI$QV\&ÊhPI[^QZ\]ITN]VK\QWV[J]\VWV^QZ\]ITLM[\Z]K\WZòQV[\Z]KKQWVUMUWZQIP"1VQV[\IV\QI\QWVWNÊh€K1V[\Z]KKQWV5MUWZQI$QV\&Êh"òKV\P" "QV[\IV\QI\MLNZWUÊh€K+V\$QV\&ÊhòXZWOZIUIP" "QV[\IV\QI\MLNZWUÊh€K8ZWOZIUI$<QXW&""K8ZWOZIUIKPIZC_Q\P<QXW%QV\EÊhòMRKXX"!"QV[\IV\QI\MLNZWUPMZMòQV[\Z]KKQWVUMUWZQIP"!"_IZVQVO"Êh€KTI[[K1V[\Z]KKQWV5MUWZQI$QV\&ÊhPI[^QZ\]ITN]VK\QWV[J]\VWV^QZ\]ITLM[\Z]K\WZòKV\P"1VQV[\IV\QI\QWVWNÊh€K+V\$QV\&Êh"òXZWOZIUIP" "QV[\IV\QI\MLNZWUÊh€K8ZWOZIUI$<QXW&""K8ZWOZIUIKPIZC_Q\P<QXW%QV\EÊhòMRKXX"!"QV[\IV\QI\MLNZWUPMZMòKV\P" "_IZVQVO"Êh€KTI[[K+V\$QV\&ÊhPI[^QZ\]ITN]VK\QWV[J]\VWV^QZ\]ITLM[\Z]K\WZòKUXP"1VQV[\IV\QI\QWVWNÊh€K+UX$QV\&Êh"òXZWOZIUIP" "QV[\IV\QI\MLNZWUÊh€K8ZWOZIUI$<QXW&""K8ZWOZIUIKPIZC_Q\P<QXW%QV\EÊhòMRKXX"!"QV[\IV\QI\MLNZWUPMZMòKUXP""_IZVQVO"Êh€KTI[[K+UX$QV\&ÊhPI[^QZ\]ITN]VK\QWV[J]\VWV^QZ\]ITLM[\Z]K\WZòRUXP"1VQV[\IV\QI\QWVWNÊh€K2UX$QV\&Êh"òXZWOZIUIP"!"QV[\IV\QI\MLNZWUÊh€K8ZWOZIUI$<QXW&""K8ZWOZIUIKPIZC_Q\P<QXW%QV\EÊhòMRKXX"!"QV[\IV\QI\MLNZWUPMZMòRUXP""_IZVQVO"Êh€KTI[[K2UX$QV\&ÊhPI[^QZ\]ITN]VK\QWV[J]\VWV^QZ\]ITLM[\Z]K\WZòRXWZbP"1VQV[\IV\QI\QWVWNÊh€K2XWZB$QV\&Êh"òXZWOZIUIP""QV[\IV\QI\MLNZWUÊh€K8ZWOZIUI$<QXW&""K8ZWOZIUIKPIZC_Q\P<QXW%QV\EÊhòMRKXX"!"QV[\IV\QI\MLNZWUPMZMòRXWZbP"!"_IZVQVO"Êh€KTI[[K2XWZB$QV\&ÊhPI[^QZ\]ITN]VK\QWV[J]\VWV^QZ\]ITLM[\Z]K\WZòRXWZUUP"1VQV[\IV\QI\QWVWNÊh€K2XWZ5U$QV\&Êh"òXZWOZIUIP""QV[\IV\QI\MLNZWUÊh€K8ZWOZIUI$<QXW&""K8ZWOZIUIKPIZC_Q\P<QXW%QV\EÊhòMRKXX"!"QV[\IV\QI\MLNZWUPMZMòRXWZUUP"!"_IZVQVO"Êh€KTI[[K2XWZ5U$QV\&ÊhPI[^QZ\]ITN]VK\QWV[J]\VWV^QZ\]ITLM[\Z]K\WZòMVLP"1VQV[\IV\QI\QWVWNÊh€K-VL$QV\&Êh"òXZWOZIUIP""QV[\IV\QI\MLNZWUÊh€K8ZWOZIUI$<QXW&""K8ZWOZIUIKPIZC_Q\P<QXW%QV\EÊhòMRKXX"!"QV[\IV\QI\MLNZWUPMZMòMVLP"!"_IZVQVO"Êh€KTI[[K-VL$QV\&ÊhPI[^QZ\]ITN]VK\QWV[J]\VWV^QZ\]ITLM[\Z]K\WZòTWILP"1VQV[\IV\QI\QWVWNÊh€K4WIL$QV\&Êh"òXZWOZIUIP""QV[\IV\QI\MLNZWUÊh€K8ZWOZIUI$<QXW&""K8ZWOZIUIKPIZC_Q\P<QXW%QV\EÊhòMRKXX"!"QV[\IV\QI\MLNZWUPMZMòTWILP" "_IZVQVO"Êh€KTI[[K4WIL$QV\&ÊhPI[^QZ\]ITN]VK\QWV[J]\VWV^QZ\]ITLM[\Z]K\WZòUW^P"1VQV[\IV\QI\QWVWNÊh€K5W^$QV\&Êh"òXZWOZIUIP""QV[\IV\QI\MLNZWUÊh€K8ZWOZIUI$<QXW&""K8ZWOZIUIKPIZC_Q\P<QXW%QV\EÊhòMRKXX"!"QV[\IV\QI\MLNZWUPMZMòUW^P""_IZVQVO"Êh€KTI[[K5W^$QV\&ÊhPI[^QZ\]ITN]VK\QWV[J]\VWV^QZ\]ITLM[\Z]K\WZòVWXP"1VQV[\IV\QI\QWVWNÊh€K6WX$QV\&Êh"òXZWOZIUIP""QV[\IV\QI\MLNZWUÊh€K8ZWOZIUI$<QXW&""K8ZWOZIUIKPIZC_Q\P<QXW%QV\EÊhòMRKXX"!"QV[\IV\QI\MLNZWUPMZMòVWXP"!"_IZVQVO"Êh€KTI[[K6WX$QV\&ÊhPI[^QZ\]ITN]VK\QWV[J]\VWV^QZ\]ITLM[\Z]K\WZòW]\P"1VQV[\IV\QI\QWVWNÊh€K7]\$QV\&Êh"òXZWOZIUIP" "QV[\IV\QI\MLNZWUÊh€K8ZWOZIUI$<QXW&""K8ZWOZIUIKPIZC_Q\P<QXW%QV\EÊhòMRKXX"!"QV[\IV\QI\MLNZWUPMZMòW]\P""_IZVQVO"Êh€KTI[[K7]\$QV\&ÊhPI[^QZ\]ITN]VK\QWV[J]\VWV^QZ\]ITLM[\Z]K\WZò[\WZMP"1VQV[\IV\QI\QWVWNÊh€K;\WZM$QV\&Êh"òXZWOZIUIP"!"QV[\IV\QI\MLNZWUÊh€K8ZWOZIUI$<QXW&""K8ZWOZIUIKPIZC_Q\P<QXW%QV\EÊhòMRKXX"!"QV[\IV\QI\MLNZWUPMZMò[\WZMP""_IZVQVO"Êh€KTI[[K;\WZM$QV\&ÊhPI[^QZ\]ITN]VK\QWV[J]\VWV^QZ\]ITLM[\Z]K\WZòUQKZWKWV\ZWTILWZP"1VUMUJMZN]VK\QWVÊh€^WQLK5QKZWKWV\ZWTILWZ$<QXW&""-RC_Q\P<QXW%QV\EÊh"òMRKXX""QV[\IV\QI\MLNZWUPMZMòUQKZWKWV\ZWTILWZP""_IZVQVO"]V][ML^IZQIJTMÊh€I]`Êhò[\WZMP"1VUMUJMZN]VK\QWVÊh€JWWTK;\WZM$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\C_Q\P<QXW%QV\EÊh"òMRKXX""QV[\IV\QI\MLNZWUPMZMò[\WZMP""_IZVQVO"VWZM\]ZV[\I\MUMV\QVN]VK\QWVZM\]ZVQVOVWV^WQLòW]\P"1VUMUJMZN]VK\QWVÊh€JWWTK7]\$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\C_Q\P<QXW%QV\EÊh"òMRKXX""QV[\IV\QI\MLNZWUPMZMòW]\P""_IZVQVO"VWZM\]ZV[\I\MUMV\QVN]VK\QWVZM\]ZVQVOVWV^WQLòUW^P"1VUMUJMZN]VK\QWVÊh€JWWTK5W^$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\C_Q\P<QXW%QV\EÊh"òMRKXX""QV[\IV\QI\MLNZWUPMZMòUW^P" "_IZVQVO"VWZM\]ZV[\I\MUMV\QVN]VK\QWVZM\]ZVQVOVWV^WQLòTWILP"1VUMUJMZN]VK\QWVÊh€JWWTK4WIL$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\C_Q\P<QXW%QV\EÊh"òMRKXX""QV[\IV\QI\MLNZWUPMZMòTWILP""_IZVQVO"VWZM\]ZV[\I\MUMV\QVN]VK\QWVZM\]ZVQVOVWV^WQLòMVLP"1VUMUJMZN]VK\QWVÊh€JWWTK-VL$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\C_Q\P<QXW%QV\EÊh"òMRKXX""QV[\IV\QI\MLNZWUPMZMòMVLP""_IZVQVO"VWZM\]ZV[\I\MUMV\QVN]VK\QWVZM\]ZVQVOVWV^WQLòKUXP"1VUMUJMZN]VK\QWVÊh€JWWTK+UX$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\C_Q\P<QXW%QV\EÊh"òMRKXX""QV[\IV\QI\MLNZWUPMZMòKUXP""_IZVQVO"VWZM\]ZV[\I\MUMV\QVN]VK\QWVZM\]ZVQVOVWV^WQLòIZQ\UM\QKIP"1VUMUJMZN]VK\QWVÊh€JWWTK)ZQ\UM\QKI$<QXW&""MRMK]\IZK*IVKW,M:MOQ[\ZW[$<QXW&K5MUWZQI$<QXW&K:MOQ[\ZW18$<QXW&[\L""W[\ZMIUKWV[\C_Q\P<QXW%QV\EÊh"òMRKXX""QV[\IV\QI\MLNZWUPMZMòIZQ\UM\QKIP""_IZVQVO"VWZM\]ZV[\I\MUMV\QVN]VK\QWVZM\]ZVQVOVWV^WQLòUISM"CMRWE-ZZWZò83éêüèüèèèèèBqXÚ®ãèèãèèõèèèèèèèèèèèŒièèèèGG[\LW]\MZZGG83íîèèèèéèéè#èèèèèèè', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(35, '2007-03-16 17:12:53', '2007-03-16 17:12:55', 0, '', '¿‘ŒDEUAAAIA|¸ÚuÎ²AAAÝBAAIAVA¤‚¥¥o¤±±–•JADc¤…c¤…–¹EA)D)DæÑ«qMÇr9^…H¢bñ_s¯|MŸá¹÷×»e—Ñ&ž¾ó7ñ÷>?Àšxbûb¼ÅÖ¼1ÿ~íõ+Î©ÁúÇïD=ØsY8©ää˜-„SçEüµa×¼™t7êB8Íd²ñ½}Ã{€»»ÂžÏj5R~Ý¦¢«aÊ0{kSõdíèÍm•¬6æ–VŒõ¡êë««TßÇ¡W a4ªH#ü»Âøúª!—NÈÅ@s>„öú“ž¦ Úó4>‡²]‡
+]‚y$—ì°î¿A‘ŒDEUAAAIAz¸ÚuÇ;<3)AAA@BAAIAVA¤„®±o¤±±–•JAD_¤…_¤…–¹EA)D)DæÒ‚ŒqQÆj5€}—™“éœn¼ÔH‚=DŒ¨üÒwjÔÌ9 Žüoü_KÃÈ33ÜÖòûÐn¢æ`Èò{í3mÝ,rþ’á¸riÇP«8‹Þ2ÂÞˆ$PÏW¬çØuyw+íPˆb¾ÞËßŸ…,Ž¨êJt¤J`û·Jbv¡~‡#!Ë}<t¢7Ñ”Èëäñ$`d:â»øm¸š¡ÌF//XØ½¥m§ ÑÜStöj/†ƒÿâT?_ã:ÀÉ,æUL=Zàh™æö/oÇoÐ‡bó†!‰Ê÷ ‘ŒDEUAAAIAz¸Úu2çë7AAA°BAAIAVA¤„¯µo¤±±–•JAD_¤…_¤…–¹EA)D)DžÑ‹QÆð\	|]kÕEW°£2cXã9C¢üZÖàÁÉ0/çi Ú4©ì-Jœ6¡Äy°4mGŒÏûGþÒË‚{U+Ÿ›ðu©`]¼]>Úžù!léh[ª:œ`pÆûËX]ä6»ñ${çèK5¶ªÅ%ÉU
+Fo4-tw·"jµ¯žÓ‰›ÜÃéÕ§üûg6jÑfj÷‚7-û7úœJËómNü3ñšo02©1 bÅ´etTãÆ`9Á¢M’ûß‚WÊB0aÀÂˆuÊ‘cþò<´¥2$Ô„µWJÖOº7Ö¨ ‘ŒDEUAAAIA{¸Úu€7‹IÐAAA÷AAAIAVA¤†¯¥o¤±±–•JADa¤…a¤…–¹EA)D)D†Ì‚KqQ†N%O„Æã‘}moKoI#N£s÷Òg”§ÓÖ¹¸l“?8 Å%ç#R«¸‹¿€›ª¶hÛ!üYhûÓn6wzû"QetJµsS(duÍÄõ!oYÊÄ>49Dö‡(lµfŠYS»™öqøa\„ÌÃwƒtX%|îŸÖ—V¤oÝ!¢hÄ—°î‘ŒDEUAAAIA|¸Úujú€AAA“AAAPAVA¤†´±¦¤ª¢­¦´o¤±±–•JADc¤…c¤…–¹EA)D)D”ŒjŽŠ–‘‹·no‰ŽŠn‘##ƒ#l™šja´vËt3Ì‹UMvúëúyS´3ÌMV­Â½¬ï›oA‘ŒDEUAAAIA|¸Úu4‹:AAA¾AAAMAVA¤ˆ¦¯¦³¢­o¤±±–•JADc¤…c¤…–¹EA)D)D”ŒjŽŠ–‘‹·Œn‹‘##Ã²UííU!­Î#Í=ãSÆs„^Fi‰ˆbj€€ˆböyúe–ÔìÛÌômrh	‘Wé[tC2ÍÁ}á[aTãÛì×LA‘ŒDEUAAAIAz¸Úu`s=:pAAAƒAAAQAVA¤Š¯´µ³¶¤¤ª°¯o¤±±–•JAD_¤…_¤…–¹EA)D)D”ŒjŽŠ–‘‹7lojkŽ‘##ƒW‘ñó“é„R%ë#ë&#CA‘ŒDEUAAAIA|¸Úu|š­³ÆAAAAAAXAVA¤Š¯´µ³¶¤¤ª°¯Ž¦®°³ª¢o¤±±–•JADc¤…c¤…–¹EA)D)D®Î‚KaQ†VýÑ¯›Iæû	Bû)ZÅIBv¯ƒ/Ÿæ*À4(îˆøG{½:ÙÇ©
+‹+²Ú6J[nMDÓ»çámê6Ý1]ìwÛÈ¯²âÑaÌ_e¼9Qzq’¢s¸·oš|Kã}	£=äíil×þÓÀƒ"Äôp‘ŒDEUAAAIA|¸Úu‹‡ÙËýAAA^BAAIAVA¤‹®±o¤±±–•JADc¤…c¤…–¹EA)D)D¦KqMð¸IKóÂMý2!Ž‚Q «X¨¦¬‡Û»R {^_}f  3ŽÞø®íRg·6&¶ãÖ—¨ãWYëK1ÇwË¢	.¹Œˆ­QçAì±f×vYÜqHüÏÚ` ¾ÉeÎâ.B—H¹í¢õú¿O‚+ëã¥‚íÐ	ƒÆ—Pîs¸ŠðFTsØB&µxnæƒ™UmŠG=¸ýÜÖŽ=nq§G³4£yÑóÍSÄ±æ—îŸ‘ŒDEUAAAIA}¸Úu·ÜB|-AAAÎBAAHAVA¤‹¯o¤±±–•JADe¤…e¤…–¹EA)D)D¶Ñ‹qQÇN%^ÇV×E×ï/òn_ýjiãPñµ÷\ŠÔsŠýÉ0¯›•„¡3@>t
+Æ²ç_¢ä0¾±Ì8W3VÛG1V¶ËË)\&õÀÅ‰Xß#v­JÈñD¾Ðähäÿ6²R³¬Æ¯`âŒoÙ¢Pì|Iò°[àné‡Jj»
+|¨ÖzÂiT+B$ÒÿÃÜóßï%möÑæÅ>_ßÖÎkÔÆß²^’×ûs”^—A×ÍÄ­ì„\1P€ÔPgpR`:íjze@,2üÆ­¯P_óŸ÷R…Ocf­z=h‘ŒDEUAAAIA}¸Úuº]O0AAAÑBAAIAVA¤‹¯»o¤±±–•JADe¤…e¤…–¹EA)D)D¶Ñ‹qQÇN%^V×E×ï/òž~¹”‘…`¡Ê*ÎåŠÚe_U åöéáÈ%à@<¨Ó”$õŽ^‹ ùø;ù#Íôh0nÕ|uN!L+UVÂ˜ª@ÁþJÒ½Á¾y»ËØñg-G5nOßÍ;Èš	îFûÿÈ¾³5O|™­§Éž9­‚v»‰ŒzìtÉsâ/r_)l‰ýk,*#•LJhX±g¢üÆˆ¦ä©hŸˆÕæï™ÈÆÁz¥hë5G=4)ð´ˆŒ‹O
+ ¼92±bóÞÈqðØ®ÅrÒÄ‰Jœs@J‘ŒDEUAAAIA}¸Úu0Ý±{.AAAÎBAAHAVA¤‹±o¤±±–•JADe¤…e¤…–¹EA)D)D¶Ñ‹qQÇN%^ÇV×E×ï/òž7ñøVUH™£{·dª“gÊX2Ž›ÌK»I?:Àgúsbí5.™ —Ý²7-þÆ½ÆçB½†ÞãcQ;éÝ7ÐÜQ
+HÈÌè¹Áv¢`wá0±1¥øƒ¯n*B7
+F|-¡òÚ²Db·Ž$ôFA,rb†pz¼(íspaÅû¹çða2çíè\zÊ”ne]!›·L‡Ö
+ƒùÏiŒžÚòOLA´÷–*âN9È(à
+ü Ô(ÉÐ½×Õ]Ó@6=$ƒ÷¦ø¼P¢ŸpI¤cHÒS÷Ý¦?T‘ŒDEUAAAIA}¸Úu%…05šAAAµAAAJAVA¤‹¶®±o¤±±–•JADe¤…e¤…–¹EA)D)D”ŒjŽŠ–‘‹7kn‘##CôUííUaMÎ#Í=ãSÆs„^Fi‰ˆbj€€ˆböyúe–ÔìÛÌômrh	‘Wé[tC2ÍÁ}á[aTãÛì×LA‘ŒDEUAAAIA}¸Úu-¢€/AAAÏBAAHAVA¤‹»o¤±±–•JADe¤…e¤…–¹EA)D)D¶Ñ‹qQÇN%^ÇV×E×ï/ò6!Ž‚R¾Áfç¤xÓg¦Ó¹‘½¸ÔãÃ_CÔÀ?0àŠÍw¶Il¾4—à—Ý²7%þÆ½ÆçB½‚ÞãcQ;‹z.`ñxbÓPñPh2SÅ¾ÁÿÔ’ ;qLúö8ñoÙ¢HÌÍ\Iò¬[ànéG™ÐJj»
+|¨ÖºG’g~d¾FÊ˜¦~ž	ŠÝ«b"±Á´Jn}k\–‡L2{ãm¶¦{mEb|—æÈw!`ßÀ‡0¿Îßd3š“³‰?$ÐÈL×/}Åºþ­dÍÊ]…‹³×:‘ŒDEUAAAIA~¸Úu&^I]+AAA)BAAXAVA¤ª´µ¢Š¯´µ³¶¤¤ª°¯¦´o¤±±–•JADg¤…g¤…–¹EA)D)D¶Ñ‚¯M†tèñ)§Gk)ÛÕD•+N‘ÆÊœícu7ñAô¸ÓUvÖÓæ@ø>à?D²y&G¢RŸŠõ¿¢Õ„á	i,$J^÷œtf|°ð§°ÿ¨Ð‰Ä¦ŽÖv`rz£F~–E±/5öFÞðÁ—l°[0/ðÒpçTk>îh\Fn¢ÛT£ÌêÙ¡@Goôh¤D^J¼IòíX¥Ô‘´#‘oÜqÄS³ÊíÙã}ƒœÿâ…¡MiåRs Oßdv´yÃ»á’€/ÀœþÖ©GÕw21ŸÈp±Ä–ÖÅ`‘ŒDEUAAAIA~¸Úui;ÿNBAA$BAAJAVA¤°¢¥o¤±±–•JADg¤…g¤…–¹EA)D)DÎ’‹qQ~øÀY—™›·ª¤¸2áh‚‚=ÂSÔò\ªt¶Ó¹R@­,/ÄQ‰3ýºpÔl,5QN‹€Ós6¢–%†?‹uCá®B ’áY‹¾èÝçX-îP_7?]¯¢<n)h]Êî{$$JQ«R~}{°¼ÈG×s|®H÷efé‡™Rz‘–% †ßxòOiøç
+óä˜.rµ}øÅ3”Nxœ‰<¶ö…5˜]è_QºW–¨VuNl/VMKg3—œ³aôÚ¦1BZìTpº±19`ô8X=£àµoì m‘.åêmŽoi„š+×UÜÒõ”n žÍö}þÜr…·Qyã¾X:P‘ŒDEUAAAIA~¸Úup£òAAA‘BAAIAVA¤Ž°·o¤±±–•JADg¤…g¤…–¹EA)D)D¶ÑËqQÇN%^GFªâU5™¦P¼#L‰ÛæÕ
+Ì9/ç–’Pßs4€@à¥/ý.£ÄqôµëÏtîõT¶q7‘Á@©äYÇ¿\°ªÌîLU¡TÏ3FLwÕªB¼£¨ßýÂu»m>=g;!›ÐN}¥¯ib‰”Õe©»™MRšé+í–Oj›q¶šwg–B¦¸„	çdŸÖqÞ£Þf^·B€	hÿáü‚rêÌxø2K„Ö?ª83Ë=WiÒ~Iˆ¬¶+K‘ŒDEUAAAIA~¸ÚutQÜAAAAAAIAVA¤°±o¤±±–•JADg¤…g¤…–¹EA)D)DŽÏ‚KqU…N%OàKæÆDåÆ|XË¹BÊ*èÎõ:"hšÊ¸xc†Øt4§ÙÞ¶§Šdƒª%üúÕƒË|C`N‹BåéZ«´Vh\c”Áb²PV$U›qhÊî?:,	—{Ÿ¡‰o
+"I\§¾LbÏ‹’‡‘ð‘:Å]êÒ#j†¢¾Ø?g+çp³YT|ÉÝñØ#f\‘ŒDEUAAAIA~¸ÚufÎ)AAAtBAAIAVA¤¶µo¤±±–•JADg¤…g¤…–¹EA)D)DŽ‘ŽŒqQ~xÑ@q•™›™ó¹.W‚_ë“}KŒÇ¯åŽ¥#†=0güo»Ü8ýÚ\(Ýmƒ®ßTì”nÆU0b‘qµ^!HÛÛárPÜq#%c”É”aÿÄN"Uø¡GCz>pXcŒ"F;%äÜ}›ùûÆ	÷,ƒ÷áŸ¡ôgeOîU “-·q©°v©É»·ºÉqšæUýÏ"*¿ÕãûÅá0â5’T3Ò¿ƒ4ê(ø.Ú~ŽœÝ6Üð8&%îk#9ð©/ìmQ³cPJô4œË`‘ŒDEUAAAIA¸Úu)/[;CAA•HAALAVA¤‘¢³´¦³o¤±±–•JADi¤…i¤…–¹EA)D)D¾–ž°qU¾¿nÔ‹QÕ‚¾Ö¶“sªéE…~µÛÑ\M™Kw³Sï£¾8:áŠZP	7z88ÎÑ‚ÙyÃrR.¦¶2*ª{1ã™LúAê—8ÛÚO×£ä[/ô,†	«æ8S­™ý‡ä(¯¸5?§Ãa•R8m0ŸêQ³ó%Ð2uUÓœ÷ÙÄ¨·É©«Cw!1QOS˜´Í&{‰´W}wÜI©Éâù$©_h›ƒíTÏî,1q#;Ý"ÙQso}á•‰€JCâ¥+EZ¬VZY:7	Ú˜È{ŠË75¬Ûé âÁø°"›Ó~BÐM6›QìÖÃ‰ÆK¹IrgíQÐ£‡ÕÅ_ŠnÐWf8Y,õ‘Øcçº-³i³5a#¡J_î@+=÷ÈTñÉ„¾™Èm0¯Ð­Nˆ€t1ýß¤G|ýñ¬ß^Hgø 6©)9ä•îÊtéb›¬6.ž
+pýeÔ‰Ú?øš-’",9[¥Ù ¡0NÐZ·–¡`M·v{TûŠ)ÅoÇ$˜‚í-0”P7&Ä[¦7(“wÄÞÄ"YDP/)x@§/#¤‘–/·7ß,!ïƒ//h<–72¿·?<^9V3Š*};n¶.V7>Œ%9Ýf¢ÝÄˆ7þ7hÔÅëBë^Åë¸uœº•óMœ$NLTÝWí»ç9ÆUçwòíÒÍv†È‡–ã°›Œ€mý£öÖäOhŒ\›fÉ?^ÒØº™£´Äpê˜«±e²Ñÿ94‡Ø\ƒ‹­zµoµUòz›‘¬ZßªÇã-$tX†ø¥dçw»ê$-ÝL]æè¥<‹g­vå—àŽ,ˆÑ‰½b‘B8oSç¨çŠî!J§½Ô1±ä­@†bË/Ù1m—§_ûÎ##ÕÜøº7>¦âZEKàbÔ2@ ÒTåùæüâçÃÿ`rP7‡ÏzúÖp	€‘ŒDEUAAAIA¸Úu·>?É)CAAòLAANAVA¤‘³°¨³¢®¢o¤±±–•JADi¤…i¤…–¹EA)D)Dþ× °qQàÄ@±.åj‰®šƒü`•¾¡Æ~•nê·P¼‚gr¡n·á,>ð<·÷”›‹‰‚ÖQf:¼àüt7þ¤}ôÅ¯½j‘ÓrzY.—l=ZÛŽ¹»1¤ÖGæÔ§”ª
+9QTZÐ»ò‰»ÄÍ³Ž¬‘ð„Ü7ê=HJ”TcÊEÛ…ËÙkB)NUV`$Œxe>Ø›‹ ÉUe–¹ùGÇ?&ÕåÂúÅyw_Šoµ*Þ/æÍ” ©¹9¦D1¸ç,ŸhF$ËŽF±B5ÏjŽB°Õgqfr„yP*}pÀ¶CDÓk«å_1ˆ2?ÆÍtÛç¦7yLðôRŒj9g]ñº›%‰”{U¦q¡ÝåÐ«wèÇ•8-‘Wdj¸R»«µ}C ÿêÚR|xgËƒ5M/†5M"(ÚÓjY=¡P“Þ×¨äÿç]ÂíBE±Ü’vÅyqYæ	.Xó@xõû¢Ê¯I®ƒY™Ít(Á­4ª+†ÝaÿQ” ïD,¡©¯;ÓÓ ¯žùUÅoFî·¼.Uý[Ó˜Ç‹ÓC}¬Ëò"Yð¯ÿ¯Ê2k,Xrï#|µ½6,½æ¿äœ¦ÏÝô¯µškVTå-`Þº—Fjm=kºðä0Þ®ÖžLŠx¢=-Yü°n=jàX¿ÖðpúðÌöôò‡_×Ž[årXj^W3¥¨í§PuN<Ý¾–Þ×¸œ™Vj¯íù"W­Íù.#‚6õv#—«ÅäÝÕQÅhC7DÙÛ´F
+s“·Á³¸	‰c€Üˆÿ`ý÷øGÂL<(×0>gÌxI^ž¸¬¹½tÿÇ$œÀþR°óR¢ßþîf°dûdŒ*÷u|}jyd}0õ¡ YøÀ]€Ú"#‡Sàöqh0(·­€˜î}m¶Ààöv1—÷ìžqvÚ³®¤¯Ê]{Ô}0mÐ.@‘ŒDEUAAAIA‚¸ÚuaÔo»7AAAùBAAKAVA¤”µ°³¦o¤±±–•JADk¤…k¤…–¹EA)D)DÎ’‹qQ~xÀY—™›÷µ²Ð¶2a¹1a	ë(Sr\ªt¦s2c?ü¯XVUWCtº0¼¢³"ý*¤ÈñqÐƒÍ6¿ÒìþQ6±…áªA …MÆúOîLU¡\7³NŒ‡\kq8yQ|>ÎPˆa’èâüH‡`Ý6ŠKÃµŽ„ŠÃ»Á&YÒÆ¾%k´ðj›ñÅ6[“FM1õ¼ÿŽwHw«/u¨"fö†ªºOm¶½š!X¦F”ôjðÓH7BôÃþ?®¿*¡KŒÑXRøÏzT—ìD*{¾‰<¤–uiÒ~Iˆ¾B‘ŒDEUAAAIA‚¸Úu«fytAAAÝBAAIAVA¤”¶£o¤±±–•JADk¤…k¤…–¹EA)D)DæÑ«qMÇr9^…HÂmñ_ó¯~U7A¶õfòÃm0s7/´×öÈÞ·ó6*8@»16ê†™ù8µéÐLîõ{Q6quÁhµŠmÄ²pwy»ˆ¢ËñÊˆ£ºÇf¤Xl±|]Éþ>&Z%67Vwj… F­"k4¤F’çâm‚|³	ƒæ— ›V?dˆLëiçå{ã-:£I§‡Nsà÷h¿k¨y Ž:yàìKoþ¶ÒñÐ9p€•ì|ž5Þò|  ­Ý¢ÕBÅTïö;+H‘ŒDEUAAAIA‚¸Úu«§Óà@BAAÏEAAIAVA®¢ª¯o¤±±–•JADk¤…k¤…–¹EA)D)Dî“¯qM~Á@Â.ÁJýåûâ‰]w5bÈc!¥¡ŒBf¨FË¾6¿¡Õ«è²ø+Ì%ˆ322’2¾¸š»Î=sz¦L9¥‹ÅìŠÓÝàÝóõ‚®gkŒ0ñ*uŒ ªä+÷e™©,}Tw„1 Ù•C^Á+›l÷[÷3¥´}Éð—ÍN‡}Œœh]¡ñbø††!½ºR±®}Å’bPx%‹Váw	$± Ðó5jŒè”™âñÒµ´´ÁÜVãâ§jH”&!¤}õJÈ;ž+Ë)…€_¹")SÐéÿã2ûS…)·LãsÔ3i–Š%œw±»BâË³QÝ}b3‡0íMÒµJ{èlTü.¯€Ð#Á
+JY°<fY;JpÒýäIf
+¸¬¬áˆ.}Šc5†`×V:6tßqZ]¶Ú£•3UÅÌ°÷ðèûX[ƒ‰ô‘=,ºÙÎ¦PŸ)Î÷¬²óO3œN³[H*sÖ™øOÏP´§ÈzóÉ¢5$akü_…»ä…9¬jÆ¾Z‰UQ*ñ¢®z‹ÊÉwD…ß½~§¹®Êþž|í¦.3ÿí²¿0ÿÅ|ÈóŸ€,†•þÕGÃ(Àê<’E’†R9œ ý­|O@€#:Ý¿Ñ«~s%òˆ¨‡Šv
+?»ÏI·,|Ò``‘ŒDEUAAAIAz¸ÚuX‘ÌAAA”BAAGAVA¤‚¥¥o©–•JAD_¤…_¤…–¹EA)D)DŽ‘‹qQ\	|MüñµâI»ÍÌáØ¦PÃ9Cb|Ú·dª“3$¦¨¸›6×0¸ó¶B¾öE\}“á¥=.¦dÆUœFŒ^©Î«M„X)`dF»Ôt™™bí~“æ™yf%Âg £k1²,ÿÆ´Í_i¬mõH6ÜÈÇ®íð64Â¬ÿ×_Çq$f=™ÌŠ!ôJY é¸úåÙ"qàºÅžãøÁpu%`€mEŒ¬)5KÈ[ó,Dš™®¯%kVƒ§Á™jÖù(NÏ:i™Š2N‘ŒDEUAAAIAz¸Úu?K¢zlCAAðGAARAVA¤ƒ¢¯¤°“¦¨ª´µ³°´o©–•JAD_¤…_¤…–¹EA)D)Dæ•Œ°ÜQÄÀÙ“F²«ì˜€³©æßí_k»óc…¡±—›p©ºõ–&?7-[ÃråÎ³‚|ÐÞ:<ÇÞJÖ	{†ùŠÿ"‚ÕÖXxß,útÒêUtÉã%”íÓýNØ’…‚ËIÆ$‚î1™	ùƒesoŒI0_Gß<´Ln[žºï¢Îƒ$¢Ž/Q•ˆ™o"´ïkÂ[fé;É{Hƒðàl“;’Ëü­H¿IŠíko·Hb]$à#ÙˆŽm´®­â{|™Ð`yY<ˆ·Ú5€˜:÷‹ÀëDÛ7§}§óÍ÷Ô¹É(Ã aiÜÝ«wú‰â]+GzX6»‹ÏB“Ç÷›žú „ÙRtEd\Añ.oôðñoÆ€!“(¾Ü6ªšïXÐ¬QÜwq¨¬èWO6±­êþ¹Yl( Ãý/Q¡š&Ñ©åÝ‘løåÚ¼ü%ÝÉxsyþsÇqˆ¥!\¼¢J0üžÎª®‡Ïó…TÜò¸wó¯T•Œ=L8sN:¨7–F¨F»J~R­üØ¦ñx<,/Ì¡‚#…eÊ£[jùÄ@
+îµ~Þ÷ŽLÍ	ÊÊ;cUÊkÂÇ£n<o3Ï= þæå÷áDdZ­5ÑŠü=@¯Â*ewN¿ÉEêî³ã{¦(öã0DZš€Û¥=VóLêòëöC4;/üÙ«§_ã2g@¹ß­øŸØP8¦ld9P¬[‘æc4‘ŒDEUAAAIAz¸Úuf±ÄJBAAãBAAGAVA¤„®±o©–•JAD_¤…_¤…–¹EA)D)DŽ’‚«qQ}ˆá€mJE\ƒ„ÜÜÔ7_‹PÆPY†Ÿ|kó¥—“oâ¾¼ËÞ7c·¨‡tÄõsam6l{e¦0Œjå™Úvƒž,Ø¿é¬‡¹vO@b“­øqo¡{(ŠÒCõácÚ¤Ë_–œV9ÍiyÇíï¡‰ˆ¬uÒ“åY	Ý–‹Ë†yºË±—¯—Ð…kg;¿D5±Ü·f•xœi™¥ì­SoÔd}ó¯P -ý9ú{Ï¥ÐœpjkÃƒ€lè>h·g…3BOzJÅžÁ¿Ô’À¹ÀFÙÛpþ¾búPÅNst±$•Ö¨Jë_„ƒËÿ%O¤Ð=B)[‹2L‘ŒDEUAAAIA{¸ÚuvZ	 AAA BAAGAVA¤„¯µo©–•JADa¤…a¤…–¹EA)D)DŽÑ«qMÈt9^…LfÆsn~­-¡-FÃllêÈdH@æµ|šªoÇ è×%ö¦µQí1~ÏÅ—|ËØÖU,ˆ&rÆÍ©~À!ÄÔ’ÞÏN¶÷9ê®LjsnÉU)µÍ‘ôÃràÞ†™uÔ#kÍÖU–ÄgŸ½‰14óFöµâê)»X2¸wŒÅjàþ¸ Åz*ANÿ«‡@†þnô<IÈ*
+d­C6²H9	ÄPtiæ<æh]sˆtZù¬·‚‡j UD­b:.ÿï»Ü3N·“=B‘ŒDEUAAAIA|¸Úu¥PoÔAAAqBAAGAVA¤†¯¥o©–•JADc¤…c¤…–¹EA)D)DŽÐËCrMÇœ)|EFZ‚7Bë-¢_E2FÇÛ§‰è^Û7e/ô°H¸±Ï@8ÀJ
+ÛD;#I—¹ÕÒÑîh:ýîõ«ž±‚#rù÷îå‡Oõa›âøcq¦D¤ú»‡™í+âL\îgNÛnÙætÂH}8ö@ÞÆ@½ÎDJŒ÷J[=÷B$Æ»×Ýã‚¯r&pe+¦H¹ãbg÷°ýîâàt]‹Q/DzÙv_¸aZTìƒ·Á™i&ùîx¸jy/õ;D‘ŒDEUAAAIA|¸Úuž#JÒ"AAAÎBAANAVA¤†´±¦¤ª¢­¦´o©–•JADc¤…c¤…–¹EA)D)D®Ñ«qMÇv9^…DæÆóñ¬›·Y-¡-FÃìiêË¤H/æ­èžš™¼>ÿ °X-çÇ¡Ï|hre…7/*qëmÌÈ3Þ»`s›VûÇ›é¬½ÔÂÑÎfê,ms¦ˆ8ƒlõ‡EgYkYs5Ñ—¨îïý«wp˜±ÇðÀkH`cÝß˜ä:¿y‘×ôTÈÙÍÆþ8W)‰ÙãJñ˜$À“úÂXŸ÷þc‘h¬ ¸@2?KóûN.¡ÜÝ±(éÂœÍÈv‰­ë(IÚ_W„ãQ>™³­ÕËî—€‘ŒDEUAAAIA|¸ÚugËÀ… AAAœBAAKAVA¤ˆ¦¯¦³¢­o©–•JADc¤…c¤…–¹EA)D)DžÑ«C‚MÈO|EF’™k.²Ö_ýÉÈƒ*LM¤wüçm4Ìõ.œ93f:ÒF¼µæbÙ$è]LcH@±ß¬æÃœ ‘L!Â}†,ÍRkÉ~>ä›âôjáÇâÝ]d=ží–ìÒ›¿&–{ÈÙ"3™6•jEHÕM§›°?ý,¬ùÈñ§·"ÙÌñ¿hm‡™"»M°ò]PJ· ¼à¢ZêŒV!L6bóþ4¿EÛÇÏðñl²(êÂŠ$‚cçïÄi¥¼™OÆ£OøÅø…3`3Nø›¾B‘ŒDEUAAAIA|¸ÚurˆºWBAA8BAAOAVA¤Š¯´µ³¶¤¤ª°¯o©–•JADc¤…c¤…–¹EA)D)D®ÑŒ¬CrUÆG3`OKãaö.³Knõaõ‘­ü_£{ç¥ÓbPx£À¼t¤Hž0Ý%ŸÿÂs“ÓØ‰üå‹:!í5z\Ýxëî”#[`<Ì8¥§Tf’zÌŸÚK‡%\bJÕz¨®¸®‹›äi%å·Õ“š”UjŠ™Z;h"«"~z¨|[¨D
+¦š°íLK®ž¿z ø4›Î•rÞ#&26$ZŸ™Ñ°2EàðO*Wæ$‹lÚ64YÎ¸<]Ê?"·
+—úQÆ‡øÍÿŠa]‡˜Ûr,ÏÜ¤)é3T]~à¹¾Aj{úm[ðk„fÏv›ôš7h_gÓL·ÍHç¼7H(¥‹ö-X‘ŒDEUAAAIA|¸Úu7:lâjBAACAAVAVA¤Š¯´µ³¶¤¤ª°¯Ž¦®°³ª¢o©–•JADc¤…c¤…–¹EA)D)D¶Ò«CrQÇG3OÄÃi‰Ø7ùl~5âõ5FƒwZv¦xôeTp£ ø°í¶îwèÑ@àÚ0àÝxŽóI”ô2Ò„sÒÀæÑ£÷#WÕûV òæ!õ“Ñ–(2ÀÄUçrÉMfµê¯ÝúTæy‹F£uÍ÷Õ£Sš´wz¡	ô÷UÕd?·ê!0UF©OïÑT6Ôrx|P*|Î‚m#ßC"²FØK«ãGqëÍñí³"©&SÏ±ë/Jê§5YÖµ4wÑ7?ŠÐHz–¾Ã7Ü
+3X%!ChùeBW†¼„`ù´ZÏcíJß¢_±X˜¡G,<¦•×Çã|íÔÐ¯(¡´žŸGóå­‚ýŒYÙ;ž5Â4äø¯lP‘ŒDEUAAAIA|¸Úu{`{BAA9BAAGAVA¤‹®±o©–•JADc¤…c¤…–¹EA)D)DŽ’‚«qQ}!€MJÕE„³µ„Pþv‘i>Á’%Îä£¬ÞÖUiâ>¬ÀöÞõtôôôìú4÷Žv¢§¸ê,`Ïô}ôú|9ÛOékü,;ë“…Œ(*`Ó¨ìV5Nâ”³eÅn¤ÎÉ*iKX)šÂ²wnGÂ%Hï2mç§½Ã}éÞ‰íˆ©ÓÒ›nGèÏÅâ2Å[XTÍ‡Þ‡Ž3±ÿ·è…Ä…²<Uˆú«‡€[ö•:Ñ¸iCÇ=f;õ°Þùµßž3­C}ü\E™ÅdŒºž!;Utøûæ¿ŒÕ”tWë’3G ÿ_$¼sS¤~¶¿ÑŽIW7¹0ÞC÷$Íh,ÛâÁ¾æÏÚ€ýÜAæ¯Žp°g`5Û•$g´þÎ¶šó‹	µù0TŠ%æ§Y³)€Ó_-Ñ¨‘ŒDEUAAAIA}¸Úu}`µºAAA„BAAFAVA¤‹¯o©–•JADe¤…e¤…–¹EA)D)D†‘Œ«qU˜á|MJEHâžëâÌ/[IÕŸiôä£Œ‡à­ƒ¼7ÿvªÿ°H|•ˆ¤^è‡Kj÷ÿLÏ{©®Ð‚¬gY:¸ƒK|ÙÝ‘¢ë(œN“å™IfD,©3fçÃ,”Ì@´Ì´ÍDi¬œ©Pö¥ñÈÖÿ¾±ItÃ ¥¬rJÎ¾t+¾oj§]Tðf+´L¼ãrg°/=ùQmîâ8P]«	ÿP%ñ=¬Ì”kóÆÉ•jÖù(NÀ|9iy Š2L‘ŒDEUAAAIA}¸Úu€…AAA‰BAAGAVA¤‹¯»o©–•JADe¤…e¤…–¹EA)D)DŽÑ«qQÅV)^×EÃDç_„°NE‹ iìöä£Œ‡€zuõö–u -O{Ð„òE\}×²û­åÑ£,{°êDî2)€ö§º;ˆååEô—qÖ4!Q×f“åéŠ²x\áŠØQt`›9¾~÷±O¢A‹[t.‚qu-""Ë° ý$üo¢JÌï
+PÓŽÅG Í1þŒzÇEÈ&t-c6êF}YãtÀ½íÁˆ¬)6NOh¼óñ¶ô–kñÆIüê‘¢^_=p%î,å9B‘ŒDEUAAAIA}¸ÚuÙ¸‹nAAA„BAAFAVA¤‹±o©–•JADe¤…e¤…–¹EA)D)D†‘Œ«qU˜á|MJEHâžûâÌ/[IÕŸiôä£Œƒà­ƒ¼7ÿvªÿ°ºt—ŒÙ¤Þ#$¦dÆUœ¼Œ~ÕséUTÍÝè|bÆZ¶¡b4)MGj¯“m…hD,©3fåÃ,”Ì@´Ì´Idil”©Ð¯
+ã¢PÌl¾<¿"ËàúÄR§ùE	ãT[4çþJàuù“	yhŸòŒu%W…”‰ :ªb™›„0`y•à!
+£öú	¬Ì.ûWT·ò“k¢\?·1àÑøïØ#X‘ŒDEUAAAIA}¸Úuw¹ô{AAABAAHAVA¤‹¶®±o©–•JADe¤…e¤…–¹EA)D)DŽÑËCrQ†G3PÆÃiudt—ù”YYHƒí•øf*å
+ÎÍ ¯õœž³+%ft·©ôbÙ#Usc¼8²Û‹bÍ\¨éBæ1ÑüŸêÃÞ^þdj+Y"JáÇ`ndý(Š²Ö£!öUÔÔPJoàVÍèðKÏœáéq³ž)o"KÀFí—ÔLÈÕö^t¢{C¸â@æ×›`¢4M}‘\l°+½¡>üBÕ,?Hw†¯^Z¹ªØ¿
+öpK*O¾çÑ=ää’:T³Ç\j/‘ŒDEUAAAIA}¸ÚuE‘á_AAA„BAAFAVA¤‹»o©–•JADe¤…e¤…–¹EA)D)D†‘‹DrUž\	€]›i”YEž#ÞF‚=ÂÑg¸çjt
+ÑÈLÌ¿üZÈ/³ß8ÑîP·éÏñò{8(ÎU“­¾X]¶_õ§ÃÒPµdåñÄ
+ZMVç»[ýa–ËÆ‘“òÏgà¤k9½©2@»­²Ë²A¦®L.â×m[7ñù0hï9Ú|Y¢ÇŒ1ƒ÷WÔXT­=á(Ó£¢2Ížãøñ°u%Î`XÃæv5;Ï„N8Â]—Üà¹®²‹†÷ÑZòÜkæS8ý"°H@JF(|j¿B‘ŒDEUAAAIA~¸ÚuïS…YAAAØBAAVAVA¤ª´µ¢Š¯´µ³¶¤¤ª°¯¦´o©–•JADg¤…g¤…–¹EA)D)D¶Ñ«qQ†ßðY#ÎÔ†óø„—U;HæI¦u¯HÒQ‹4.’Sike|~ÞÄ›’Ûó¤p
+ÈDõÀÊÐjñ>ïãVþ«JtÒ¹¿îáá’^Ð©MþŠ÷#]ÎÂ÷’¿B©ór#DK€qHš­#_ÛÙ  V8öÁ¶]¡Šé¾‘Æ»Á=Å!¯Èp½N_h`²ÛyÕÄ»˜êïg9ÚÄnƒ0`¦Î3ê-‘uâïÒ=ŽëšýyÍÝÍ•pü@~x•EÀÈ3àí‡ùA‘ŒDEUAAAIA~¸Úu¢w7#AAA·BAAHAVA¤°¢¥o©–•JADg¤…g¤…–¹EA)D)D®ÑŽ¬qMÇt9€ÉW‹K¢ñ^ôó¯ÆN?Á²¦f–Š-!Ðž7è&Ä.Ü6)d"n¼-Ìd!è]LcH@‡„É­0\îõ³,^ö¡MÿG,ÍRev¼;ÐõçET©¡mèßR¯™öû«vø\î/ç}•*]£ÇÈ[×¤NèQ»á¥q_Ûœï‹Geú§ï £=ŸÕ“E§Æñ¥\âX,r½‘ãLJO¨†+“Nùù@9qDªî„¸yUàù4%¡Î2i¨u‚c¥HÎÆ£O¼ú"8O:w3Ïœî¿A‘ŒDEUAAAIA~¸Úu›p³BAAWFAAKAVA¤Ž¦®°³ª¢o©–•JADg¤…g¤…–¹EA)D)Dî”ŽÌqQ~!@qfõeæ
+»mUß”q‡ÖÁmFâ78PµebðÞ®©LþÙ2½ýº4uôã—xƒžZŒãïôµo¹&BüôSDŸk8‘ÿÈ¡õm¾ôæLh&šÛÕ1÷ýá]Ín=àU»éfë‡1@º=ë‰ûõ™O,SµÉ8Ü£RÉß¼ÿ*72`JÜ‚b›H´wB"£éÂÈ’‡¹@†i¤0¢‹¹k¯NWÒž}È ³Å.wÁ~iBl©QÃÌ‚»A3ÃO±AÎ á}ûËÄn½eŠi;¯Av-¡qOÔ
+¡Š¬{-Ká¾í§</¯ÉÀãËœ-ý¹Ôïªm!Ò@º#Ø#<S«¢.¿ Ž^!4Ø$R»ÝÒÃ!·å×í½2£jS§Øá+ÒæÆF7ìASâ@Å4ƒ1ìÝhFŽ\FžðÂgº¾æ	´·-2¹Ï7HýFKYNu¸ú
+Ý=À<G4FPÛtK³
+êÃ(ûÆ—-&3½¿\BÍÚ^ÀÑUa
+’2Î1;3[¸â-_Ÿ)¨[(ƒß¾ pzòyÍ—ˆ‹±#Ýë‰¯t4¨úa¸,‡@tF„2þãÅlNöš;L‘ŒDEUAAAIA~¸ÚudN¡VPCAAFAATAVA¤Žª¤³°¤°¯µ³°­¢¥°³o©–•JADg¤…g¤…–¹EA)D)D”«Q~ŒáÀY£i³±Þü%9„aÈiÿÖcwìò~‚VüløQÀ.àµ·fz‰—IzHºv°§7þxäFjšöfÇõ¶G†þŽ#QýÓP™¬„£¾ý[ÆJf6¸}Q©|†H!?²Ë}[¾qãß5ýž.ä¼–#_ËƒÑu›«îk’«”UMt‡K ÄÔ¢•²˜šJ¬¢øÆ/±ÒàpŠY{²·×a·f¶¸¾¹mäGPw°‹xîóµ‘™Ã~«$÷Ž	{y,ÇpŽÀB¯¯ù_NkŠCƒç‘Oúûs»”ùå†$uXÅ ù‹à÷KkR‘n¶,ý^Ž<•Ò-%Ž5„ûD•U*ãüÃ^‰g’Ù‚ïÐ#¸²SV|-ÆÈIê’¥Ï±¢††føÝ8¡*.:t„kA­ÆdJhŽf!tJÇoô¬`™Ö‡™2Í=¨?	Jq_‰g2¬/þÙ ÏÌß¿šwD= ó?µ¢úK<ÙºšÍz±ñËªàDÂˆ{ãôM J|9š<§ˆ<‚ôq/¸|¿ýHâ>ÔV|£"WÝªr;¶åKb&qh†pR€cºÜ—‹KïÊ ³Ÿäôp€éš`¶çæà¿pdàz"ÿ6zôÀ`X˜’2¶ øÄÅõ`G$(Î[›Nè¯]"ì¹6¼¿ˆKÃÝFëÓ7Š=P‘ŒDEUAAAIA~¸ÚucP"›AAA’BAAGAVA¤Ž°·o©–•JADg¤…g¤…–¹EA)D)DŽ‘‹qUž\	€]§¡)RµZHX¯Æa?	åøÞ‰ÛÕ}§t)ø¼|ö+o(ºPû¡¾.I\<ÂÓ2øèÎU“­ž`{+âö¾Î¨îÚ¢)C>¤åñ%ÍZl6)Þd†ËÆ”“_u:U”:ï,ÿr‡PW„>ñÎ6–ú½±Q˜ýÅ€	£S[<¥ÃÎ0uù“y}£Ø©	nPærg¨?9²b™›„p°yÑQé«´TpoÞ“Òn¥‡-ç‹ê~°Ù¸10‘)px‘ŒDEUAAAIA~¸ÚudAÖAAApBAAGAVA¤°±o©–•JADg¤…g¤…–¹EA)D)DŽÐ‚«DrM†v9OcÂÑ)B†aÌo›‹oqyó§ã!òÎ¦ðƒ¼7¹‰È3@eåvH5Rí1eÊÑîhºþïõ«¾±„"˜ž‰Ì]©‚õƒ°†¡G“þ¹‡™í+ïT\îŸgN÷|qŒè&|=ýö;¸/@3f‡Pµdí§#GÍ¨[™‹ÏCHú¢ÔªÑ~!hÎrô>($Tõ«_;9Ç„N„aHôªP“Ýròj¥ˆå‹úžü¢ûä~²ðD‘ŒDEUAAAIA¸Úu÷	à™AAAzBAAGAVA¤¶µo©–•JADi¤…i¤…–¹EA)D)DŽÑ«qMÇt9^…LfÆ“l|M·¢­5FÃllêÇ¤HæíŸèâm@è`âvH5Rí1ž‡ƒ÷ß¥ÀŸªæÛü!éÄ÷ðÓ÷Ó[zÃ©ÆËÕNÍ&%Z¢’æ†ìZ\îßgN[zÕ"8ºL§*ƒtâ ŒVðôšd4j‡P5„™óŽ!ÜNYÐô%UFO8˜e+¦H9Š„­@:qÄ{»m¾½âE"ÑÄÈ$Oe|¤£–	OñZLæ]ø6Ç*Ï;CKÏ|î¯‘ŒDEUAAAIA¸ÚuÛÑÛAYCAA¸EAAJAVA¤‘¢³´¦³o©–•JADi¤…i¤…–¹EA)D)DÞ•Ž°TrU}¨æ=Èè…ƒ®FNâ½ØcÖçHãwÊ‹âØÖ$¾\mº.	7‡ÖQ=·Žó‘o±\ðÚx7/‘Zê,Ã*„*Ä¤’¾-¨žMb¦—I¡ªKoj&ƒyoR……Z?~«Ðosã£WÓ
+È#uæW”œÿ8ôöôÂ¦!#¾€,ê—CÖ‹t[»N~ª‘IÝ6“lZlRH®Âò²oÝ=çw7QæäRÞd…íêÎ“¢âà}£‡­ÃTÇáÈÕÕ›‹¦N<z"Ž»•KÎ»ðû¤Íf7‚Ñ™k·Ófîº¦ŠÑðbI^x.>‹­áÊÀŒ×«s=Q3©·%Vt‡u7‘ò`¾Í×©èJõ#Ñ¸Gwîˆ	/·…Üêl·Qž¯Óz`•ké¤méF{é«ŒêšVÐÉð( Ê)Í(ÔŠpÁ¾‹9E¹¿¸Ü1Œ!½Ò1l!ì::e#ò?·¿´J=G9£FßŸx6$(r_~vÊ	}ÞxÈ‰~žõÚÔÕªPÒ=³I]h7õ¨ôR{/¶‡q*©õÂ©›y’^…¬ŽÃj#h)ê:1õ8	ž„ÄÕ\…äÂíŒÇæŸO±ž jKŒÄ§!Aà
+Àz & é$Ö3Ò·FÂ#óFä8ÇÄ¶¹‹ù=.¼ l¥àß +ü`	`N|$`*Pq¥m–7ô ‘ŒDEUAAAIA¸Úu[Û;SBAAÚCAALAVA¤‘³°¨³¢®¢o©–•JADi¤…i¤…–¹EA)D)D®Œ«qQG!¶MÿÑªwoÆÓ·ˆáHQóu·EÏ‡)R‹Œ¼åëŽc¦<ð(ƒªHÊ±,ý–ûülÌÒ#ŠˆNƒixü:š*šz+)ÏnøO.á¨?ƒÈõ6ŸÕ„ÔnŠ}°4¥r˜sj~+­5n9Õ{ä›(õ:…(ÕÐ**»›nòF“¨:ßtWzÛÙ³šÉß|HT—¡ƒlBXßæmÿ™¶!_ìóÙv…~!ˆ-{WÇú«WL”[LËJ!ýíë2œVø£EŠG_Øví—1ÁN ÑZ¯úF-™S)I#:@HáÙ=´SþíÐ¼)ô²`ä¿Žá×ënÌ€‘ŒDEUAAAIA¸ÚuÛ(ôÝ BAA~EAALAVA¤“¦¨ª´µ³°o©–•JADi¤…i¤…–¹EA)D)DÞ”
+«qQ~ŒáÀY1fÇƒ»÷$5`Ë0ò‚áÌiÅ5ìf÷åen®p‡4§ÜÊ©üGœ!ý¿äYèâ(Ý…¤ã¼ÙJ¨šŽIü›—$I&_¤Î¤5)ºQ‹ˆ¦ÍÓSH˜Ö-ÈÚãLD\Ìå±ÂBèº)Íö Z!ô¦;Üv «9•#”¸¬vÔûýÄ•î¶‰’\ê¬PÇ‹tË”0# ËÌ­<![í†fÌÑ¾GMW‘þ©¡*g"çŠ»yžÜ!Ÿ08S•Û·LäA–õÖ]R[•t‹ÆÁsYîÌÙÇ:o¡â¤õ<½Âì)Þ÷óM?€È¯à9¾V’ÿªx™…Xkç,°ˆŒñ»ÿ÷<º¡¹™Ù,k‘®6æzJ’´Â9Š®:™nýD˜	àð_L:T4T³õãÆNiiK±Èå¢óË?’X=ñ—‹Ãžd›‡A‘ŒDEUAAAIA‚¸Úu&ó[BAA…CAANAVA¤“¦¨ª´µ³°Š‘o©–•JADk¤…k¤…–¹EA)D)D¾‘Ž°ÃQ~t#†oÌ©ä~Z‘0þvN¸ƒØƒXCìÈ[@¼¨â—[Ž43·¾­	—¡ç Â¼v`tãÑlœÛKº?ýzÆƒóv¸}z4Æt+û)¼¥¼Í¡óØá~ÿí°wÚÏ³Û‘Ñâ®ÝòÛLi÷O·B€µ¢žÕ¹n¬TŽi…‰?iƒž†4C~ÀÚçÃcòÊW™†y$Ó“±«ùUºÞ‡_7
+çž!ÎÓ%àý“¤jêéÜO|í÷Så¹ø‹œùLË$ÉÃtF¶´Ý´™úù‘¨òô€¥MvÁ&È¾Y¶é7a.žœJzå4 ’#¼qo`®=˜M¥]L)°ýÍyu÷%ËÿB‘ŒDEUAAAIA‚¸Úu>vk#AAA¼BAAIAVA¤”µ°³¦o©–•JADk¤…k¤…–¹EA)D)D®ÑŽŒDrQÇG3`ÇWWW‚Ðò¹1Äa;D×µsüÞóÜm:1“5ø|wž…)n}4ÔØšôòyÃV/¾òa³1ðuÆ	7?ù‹ìv8’PžÈ`z…+{¢C€çVÏwféOddQ¬¶ëÏÎ—¸¶BÛµMr(„L¤LÈQ‡á¢çnÙœó‡Weú¥ ã=ŸÝC!ƒë)…™óÎ!Ì6Yª¡2ÆEüØñÊuåW1k@$”Fs›×7°ñl2!
+S$š¨¨ÑIJw´âÙ—{=7ÑÒ¸¬6D‘ŒDEUAAAIA‚¸ÚuëK`nAAA’BAAGAVA¤”¶£o©–•JADk¤…k¤…–¹EA)D)DŽ‘‹qQ\	|MüñµâI»ÍÌHpóÈFHI*¥ÎåŠ
+ÐØ†à*ëø½4ÒîL)ìf!tF‹ ßx“‰ò¶¾ñÄ9—|îÚ¢)C>¤å°³ÇZlÙ«(^d†ËÆ”“_©3zçC`¸n=ý/œ)£5š¤â~é }u­¤¾–oàP4ö5qÅlŸ0ÅöÙENÚÁ2ÖGØŒËZOtÐñŒu%W1…¤=2$ƒñõÇÏp±ébübÑÆgŸí“Òn¥‡ŽÖ“Ê¼q0! â¡žpx‘ŒBCXDUAAAIA|¸ÚuÎ²AAAÝBAAIANAAAAABAAAåÂAAAA¤‚¥¥o¤±±–•FADc¤…–¹AA‘ŒBCXDUAAAIAz¸ÚuÇ;<3)AAA@BAAIANAAAAABAAAåÂVBAA¤„®±o¤±±–•FAD_¤…–¹AA‘ŒBCXDUAAAIAz¸Úu2çë7AAA°BAAIANAAAAABAAAåÂyCAA¤„¯µo¤±±–•FAD_¤…–¹AA‘ŒBCXDUAAAIA{¸Úu€7‹IÐAAA÷AAAIANAAAAABAAAåÂªDAA¤†¯¥o¤±±–•FADa¤…–¹AA‘ŒBCXDUAAAIA|¸Úujú€AAA“AAAPANAAAAABAAAåÂtEAA¤†´±¦¤ª¢­¦´o¤±±–•FADc¤…–¹AA‘ŒBCXDUAAAIA|¸Úu4‹:AAA¾AAAMANAAAAABAAAåÂõEAA¤ˆ¦¯¦³¢­o¤±±–•FADc¤…–¹AA‘ŒBCXDUAAAIAz¸Úu`s=:pAAAƒAAAQANAAAAABAAAåÂFAA¤Š¯´µ³¶¤¤ª°¯o¤±±–•FAD_¤…–¹AA‘ŒBCXDUAAAIA|¸Úu|š­³ÆAAAAAAXANAAAAABAAAåÂFAA¤Š¯´µ³¶¤¤ª°¯Ž¦®°³ª¢o¤±±–•FADc¤…–¹AA‘ŒBCXDUAAAIA|¸Úu‹‡ÙËýAAA^BAAIANAAAAABAAAåÂÑGAA¤‹®±o¤±±–•FADc¤…–¹AA‘ŒBCXDUAAAIA}¸Úu·ÜB|-AAAÎBAAHANAAAAABAAAåÂÈHAA¤‹¯o¤±±–•FADe¤…–¹AA‘ŒBCXDUAAAIA}¸Úuº]O0AAAÑBAAIANAAAAABAAAåÂîIAA¤‹¯»o¤±±–•FADe¤…–¹AA‘ŒBCXDUAAAIA}¸Úu0Ý±{.AAAÎBAAHANAAAAABAAAåÂJAA¤‹±o¤±±–•FADe¤…–¹AA‘ŒBCXDUAAAIA}¸Úu%…05šAAAµAAAJANAAAAABAAAåÂ?KAA¤‹¶®±o¤±±–•FADe¤…–¹AA‘ŒBCXDUAAAIA}¸Úu-¢€/AAAÏBAAHANAAAAABAAAåÂÔLAA¤‹»o¤±±–•FADe¤…–¹AA‘ŒBCXDUAAAIA~¸Úu&^I]+AAA)BAAXANAAAAABAAAåÂüMAA¤ª´µ¢Š¯´µ³¶¤¤ª°¯¦´o¤±±–•FADg¤…–¹AA‘ŒBCXDUAAAIA~¸Úui;ÿNBAA$BAAJANAAAAABAAAåÂ0NAA¤°¢¥o¤±±–•FADg¤…–¹AA‘ŒBCXDUAAAIA~¸Úup£òAAA‘BAAIANAAAAABAAAåÂyPAA¤Ž°·o¤±±–•FADg¤…–¹AA‘ŒBCXDUAAAIA~¸ÚutQÜAAAAAAIANAAAAABAAAåÂ„QAA¤°±o¤±±–•FADg¤…–¹AA‘ŒBCXDUAAAIA~¸ÚufÎ)AAAtBAAIANAAAAABAAAåÂZRAA¤¶µo¤±±–•FADg¤…–¹AA‘ŒBCXDUAAAIA¸Úu)/[;CAA•HAALANAAAAABAAAåÂoSAA¤‘¢³´¦³o¤±±–•FADi¤…–¹AA‘ŒBCXDUAAAIA¸Úu·>?É)CAAòLAANANAAAAABAAAåÂ§VAA¤‘³°¨³¢®¢o¤±±–•FADi¤…–¹AA‘ŒBCXDUAAAIA‚¸ÚuaÔo»7AAAùBAAKANAAAAABAAAåÂÏYAA¤”µ°³¦o¤±±–•FADk¤…–¹AA‘ŒBCXDUAAAIA‚¸Úu«fytAAAÝBAAIANAAAAABAAAåÂZAA¤”¶£o¤±±–•FADk¤…–¹AA‘ŒBCXDUAAAIA‚¸Úu«§Óà@BAAÏEAAIANAAAAABAAAåÂ[AA®¢ª¯o¤±±–•FADk¤…–¹AA‘ŒBCXDUAAAIAz¸ÚuX‘ÌAAA”BAAGANAAAAABAAAåÂQ^AA¤‚¥¥o©–•FAD_¤…–¹AA‘ŒBCXDUAAAIAz¸Úu?K¢zlCAAðGAARANAAAAABAAAåÂd_AA¤ƒ¢¯¤°“¦¨ª´µ³°´o©–•FAD_¤…–¹AA‘ŒBCXDUAAAIAz¸Úuf±ÄJBAAãBAAGANAAAAABAAAåÂÓaAA¤„®±o©–•FAD_¤…–¹AA‘ŒBCXDUAAAIA{¸ÚuvZ	 AAA BAAGANAAAAABAAAåÂbAA¤„¯µo©–•FADa¤…–¹AA‘ŒBCXDUAAAIA|¸Úu¥PoÔAAAqBAAGANAAAAABAAAåÂ-cAA¤†¯¥o©–•FADc¤…–¹AA‘ŒBCXDUAAAIA|¸Úuž#JÒ"AAAÎBAANANAAAAABAAAåÂ-dAA¤†´±¦¤ª¢­¦´o©–•FADc¤…–¹AA‘ŒBCXDUAAAIA|¸ÚugËÀ… AAAœBAAKANAAAAABAAAåÂNfAA¤ˆ¦¯¦³¢­o©–•FADc¤…–¹AA‘ŒBCXDUAAAIA|¸ÚurˆºWBAA8BAAOANAAAAABAAAåÂjgAA¤Š¯´µ³¶¤¤ª°¯o©–•FADc¤…–¹AA‘ŒBCXDUAAAIA|¸Úu7:lâjBAACAAVANAAAAABAAAåÂÁhAA¤Š¯´µ³¶¤¤ª°¯Ž¦®°³ª¢o©–•FADc¤…–¹AA‘ŒBCXDUAAAIA|¸Úu{`{BAA9BAAGANAAAAABAAAåÂ2iAA¤‹®±o©–•FADc¤…–¹AA‘ŒBCXDUAAAIA}¸Úu}`µºAAA„BAAFANAAAAABAAAåÂ¥kAA¤‹¯o©–•FADe¤…–¹AA‘ŒBCXDUAAAIA}¸Úu€…AAA‰BAAGANAAAAABAAAåÂ²lAA¤‹¯»o©–•FADe¤…–¹AA‘ŒBCXDUAAAIA}¸ÚuÙ¸‹nAAA„BAAFANAAAAABAAAåÂÆmAA¤‹±o©–•FADe¤…–¹AA‘ŒBCXDUAAAIA}¸Úuw¹ô{AAABAAHANAAAAABAAAåÂÓnAA¤‹¶®±o©–•FADe¤…–¹AA‘ŒBCXDUAAAIA}¸ÚuE‘á_AAA„BAAFANAAAAABAAAåÂèoAA¤‹»o©–•FADe¤…–¹AA‘ŒBCXDUAAAIA~¸ÚuïS…YAAAØBAAVANAAAAABAAAåÂöpAA¤ª´µ¢Š¯´µ³¶¤¤ª°¯¦´o©–•FADg¤…–¹AA‘ŒBCXDUAAAIA~¸Úu¢w7#AAA·BAAHANAAAAABAAAåÂqAA¤°¢¥o©–•FADg¤…–¹AA‘ŒBCXDUAAAIA~¸Úu›p³BAAWFAAKANAAAAABAAAåÂ+rAA¤Ž¦®°³ª¢o©–•FADg¤…–¹AA‘ŒBCXDUAAAIA~¸ÚudN¡VPCAAFAATANAAAAABAAAåÂ<tAA¤Žª¤³°¤°¯µ³°­¢¥°³o©–•FADg¤…–¹AA‘ŒBCXDUAAAIA~¸ÚucP"›AAA’BAAGANAAAAABAAAåÂ‘wAA¤Ž°·o©–•FADg¤…–¹AA‘ŒBCXDUAAAIA~¸ÚudAÖAAApBAAGANAAAAABAAAåÂ£xAA¤°±o©–•FADg¤…–¹AA‘ŒBCXDUAAAIA¸Úu÷	à™AAAzBAAGANAAAAABAAAåÂ£yAA¤¶µo©–•FADi¤…–¹AA‘ŒBCXDUAAAIA¸ÚuÛÑÛAYCAA¸EAAJANAAAAABAAAåÂ«zAA¤‘¢³´¦³o©–•FADi¤…–¹AA‘ŒBCXDUAAAIA¸Úu[Û;SBAAÚCAALANAAAAABAAAåÂÿ|AA¤‘³°¨³¢®¢o©–•FADi¤…–¹AA‘ŒBCXDUAAAIA¸ÚuÛ(ôÝ BAA~EAALANAAAAABAAAåÂO~AA¤“¦¨ª´µ³°o©–•FADi¤…–¹AA‘ŒBCXDUAAAIA‚¸Úu&ó[BAA…CAANANAAAAABAAAåÂìAA¤“¦¨ª´µ³°Š‘o©–•FADk¤…–¹AA‘ŒBCXDUAAAIA‚¸Úu>vk#AAA¼BAAIANAAAAABAAAåÂFAA¤”µ°³¦o©–•FADk¤…–¹AA‘ŒBCXDUAAAIA‚¸ÚuëK`nAAA’BAAGANAAAAABAAAåÂc‚AA¤”¶£o©–•FADk¤…–¹AA‘ŒFGAAAAuAuAAOAAvƒAAAA', 'Entrega');
+INSERT INTO "ejecucion" VALUES(36, '2007-03-16 17:12:54', '2007-03-16 17:12:55', 0, 'Se esperaba terminar con un cÃ³digo de retorno 0 pero se obtuvo 2.
+', 'HCûüøøøøø“h.È½-wRüøøRüøøøøøWWkl\gml]jjWW_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[9\\&g[9\\&[hh[:Yf[gJ]_akljgk&`2Af[ghq[gfkljm[lgjÚx[:Yf[gJ]_akljgk4L622[:Yf[gJ]_akljgk [:Yf[gJ]_akljgk4L6!Úx‘2[:Yf[gJ]_akljgk&`2+,2]jjgj2ÚxFMDDÚx‘oYkfgl\][dYj]\afl`akk[gh][E]egjaY&`2Af[ghq[gfkljm[lgjÚx[E]egjaY4L622[E]egjaY [E]egjaY4L6!Úx‘2[E]egjaY&`2*12]jjgj2ÚxFMDDÚx‘oYkfgl\][dYj]\afl`akk[gh][J]_akljgAH&`2Afe]eZ]j^mf[lagfÚxnga\[J]_akljgAH4L622af[WJ]_akljgAH !Úx‘2[J]_akljgAH&`2+(2]jjgj2l`]j]Yj]fgYj_me]flklgÚx_]lWnYdgjÚx‘l`Yl\]h]f\gfYl]ehdYl]hYjYe]l]j$kgY\][dYjYlagfg^Úx_]lWnYdgjÚx‘emklZ]YnYadYZd][J]_akljgAH&`2+(2]jjgj2 a^qgmmk]Úx%^h]jeakkan]Úx‘$?##oaddY[[]hlqgmj[g\]$ZmlYddgoaf_l`]mk]g^Yfmf\][dYj]\fYe]ak\]hj][Yl]\![Afkljm[[agf&`29l_dgZYdk[gh]2[Afkljm[[agf&`2))2oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[?]f]jYd&`2/2oYjfaf_2Úx[dYkk[?]f]jYdÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[9\\&`2/2oYjfaf_2Úx[dYkk[9\\Úx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgjeYc]2"""S[9\\&gU=jjgj)HCùúøøøøøø“h.È½-wRüøøRüøøøøøøøøøøøøøœyøøøøWWkl\gml]jjWWHCýþøøøøùøùø3øøø}üøøøø', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(37, '2007-03-16 17:14:15', '2007-03-16 17:14:24', 1, '', 'êfa*­¨¯J» 8©Ò‘-+yb‰Šw_„‰Šˆ‹yy…„{‰Dy††kjÄ¨dZÄ¨dZkŽþþ“ic…ñF"Ó1•6pvÆBóOˆïVÆqeWF>(q)iºb54Ì·¹ÂN¬1Tî4^õ¨§P@š1Ï;5Ú-ù™¡h¨Kþmócsódž8OeS¦û" ù¼">™‹É&¹ÞRÕ ?ckÝ×Ðp&ÇtE±,ì¶iÎåaøìëó3>2f’1ÛDlù0‹š¤ãf;K íÊ‹Këö&ÓŠŠVV#šXoÑSFÄŠþSBôå=nô„õäÐz*_²*æ)JO%ÿ*ðh©½õîÊƒœ´/ÿ‡.¸Iï¨s¼‰;•f‘2wu5Íñoq$¥‘C6V]×ÈDÈé/s&`êk…_CMÜ;‚¥‡¶-ÏØòÇSÎLðLµÚß´Ô3šT#™Kµkãª #ezÃœtZµÎh…OZŽ]©’ÔÉ)R¬~V€š™5‚²b±f€‹W/¯šÿ*cV}E‹ÚA\@™BÕ9œ¸Èy‰dqVI§Þ	+‰þ÷)æ@/ÏDD±ÝöèU›“ZãY­ØhX;ÃjimÒ”áÜSy’¼ÓA£áŒSBø5fa*®¨¯Jßã
+Ð^#+y†ˆ…}ˆwƒwDy††kjÆ¨dZÆ¨dZkŽþþro…ñ\&”-¶Æ‹–žÈ³à¬ˆÊhûX«öV÷9%"™·l,gŸJ^àwÎÕÓQ‘¦a`øˆ_ÐØ%^Òï|}|Õ/p uï¤ËråFðÉ4RôImü¥¡ÓkîÕÖü"‘Ïù§u’UÆÏP¿íËË…QÞGmî•FC¢vì™ìTp÷Ö³ÏT])0ÃÁD§‹×[ŒÑm—]LÎŒå³ÖÆr8¡SþË•ž›þËóÂí´Kš‚LÜÚ¹ëµmÊwc@¨¢å§7edv/8†Æ2*Žò™4Ò
+‡‚z„¨4H
+"Ñ:+Êß+‘œËFSzk…ŒvC"¡¡W¸5o¼¥gù¾çûÃùÆë$q³ÆÌç£E’-$Ó%q5ØìewýúØMz6çÌé|Ž„Ä­WML‡é4Ê¯ñ›NÌñûÔ§â‰¥™§vÙŒÊHžâ9åu¨/’U€[¦JÔ253ó—OïßMØ·YÈï7 ,Ìüz„EG€FÙÓ®=Ï¶},—/ç ±·Ë•‡TTÕTJÎX½}~N0r³[]¼grÅ_<±w]=•ƒìØ”ŠB|õÑ	KŒò:D2§vL÷ˆáÈs\zÒlá r¥Ë;1
+çò“Ö¤Ç‹é5ÃQÈ¯çRò	šÇ"‡5c„\¹<«…~D¯!±˜ÕÑŸd?vöpÛí¦• Bí€·!é	Ça˜!‡¸gÌ<&<6`³[†_ìAH½‚¥o~¥ÏËŠ“B³Â?RþðIOL;hnhÕ¦5­¦‚	µ3Ä,û©4ô×žÞ™+4b=•‹$t‚aOÞ;Õ9ñÉS5Ì•.~¤óÏ’$†çç,ñ¦}IÛ›Ñ4¢©	ÿó††L/J‘çŠÜažó»E]Íx]—½úË-G<WN´”ð²7ÙÕ!ÿÉÛY8»€ïÍãºt_R/þ–óÈ¾}52
+æ	Ä;ÿ1àÏ\‹€i‡®ÝÍö¼Ü{Y¿”F–œnÄ»Àœ~!éÍë¼úLUS™¦Ëÿøc‰Í¿Ïñ@‰A¤À?ªËÆ¥ì¤Ÿ>‹±š\ÉB)”¡;àj^DYvÕB „¾"ÔAöS–p9[•Y,÷19¸l€ñJ/u_‹¬‡Üw™Ü\k©&Ó§m[ƒñåfgñl#õê¬ÛEáƒ(Ç#de‹žcf1…³ÝN@£ùöXi©ñ’é^G¿8¨@Ä¢·øà Ay0jr¿–`˜Z¬mMÕÿ§{¨7N# ªˆé`¹XV„PâÌ“DpzÐ±ð
+^kàY§–˜­Ã6ktÏA9ƒè¹z±¬±T¿Lð* ÞY¹–ØôCd½–XD>;ßÒSÓRé{ìŠˆ¯À¡ªÈŒº”Š•u«¹ÀˆÊ@]y0jû¾ÿ(:è2c¥˜(iþ¹ ôøµñ2…’„©šP¬®öå@×ŒÃ|Ã!>Ãz@Ëü*À‘É¡ßsH-oÏvÀtôp.fXÛjXc"Ž¸Ÿ7‘“"æ†u·P¯€¬ÁlúÃ­»ZVO‹I¶†.HaªhØÝåð[J]€„ž—[Ûí+um’s‹Ûí2o;àŠ“§­Ä”×6Üì©Â‚ãJ*µäË…—T½“NÍÃöë
+DŸ¨øþé›V÷Ê§e‚·J8¶ÿhVäÊ8f>Óª,2–hè£V?’æªÃ­œˆÎÕ†p(Þµ´ º?—h9¿ÒÊ;fpNÊJ¦‰ï:ÉÌrãNìd_´nÀªºV«¨Àª*·`_k`hWe™ndðb_Ñ¬ÓZÀè‘^1RºW¨è®3‡„4ÜëÒ„®¬\ò•P!OlY¼T³€iJp¢X‰]¿ÂÏKZˆH|«îäà†HD)®Ü`¹Ôå^˜ÿ\añšÇýªÕV3º¡ôÔDD…‰ƒ¾m¾cSz¼4¤E¦¡œ©ªó¸ÚÙa‡E)µÔ«!KÌ«ö¥rlÂE‚¶C%6d¨Ñ€êGfýµMfýû"ê·º1^ø–÷nâWÏJ£«+ËòûŠˆVõók¬3GßVÜÐ’=ŒßžÔ;±\©\Íë°bkÊ23¤âKÈz/Cƒ¯D}àEö\€²cdÉÀÇ“èÄ¦:6`xhÅÆ)®´@l‚Ò„W·t(±¡Ìòê¾¼w¦)@õ­‘•¯ Sˆ$ÿ+ÜTÿb.‰œ­NÖÆÇêâûT’mã=”$ÿ“-÷uºí
+þ4•fa*®¨¯J\Ù™ª~+ƒw„Dy††kjÆ¨dZÆ¨dZkŽþþ›hcùV"Ó5Z!×D<ÿ„U$dè4››ÓB;>ùŸÃx¥h<‚nÕÅÜ‡b±ÌŠdIee_0s¨I‹>BBžqE,±þt®³†?îöÊÐŽ™ÅÞ1ŒtÎÜ˜ûRÙ¿pFœîÃ‚ÙX} !#©A½«ð£]úR’¦¨ýç7àÅŸíãš;råe_#¨aø»J/® û@ôÕµèþŽâyõ²Ð_PàóiPUH|Iîq·C/œ­v·Ëf÷Wrf×–17qÁÈ¿~ÅVáœÊÄ71Wžƒ®«?™<DîªðunÁzàÏ$ÌzîN.Š´ BV}ÊYãÇP÷,$æ(˜k\E &~!Ç-á;òÙzè]é.ÑÌxç_ï\!_Ð] ´ÿN™…Ù"´îÈž²îöµ}ú±zˆµ¨…u§“§ý4ÜŒÛ	åº#U«x)Ì_Pæõƒ÷¸é”fQÛ7Ÿc}çL1ÀãœhÈ©WL’%º‰XPåÉK×¹:ÓauãÕÎ¨GiÂ%øÐ3›­ÐÞ•fa*¬¨¯J3=¥ƒG+yWZZD~kjÂ¨dZÂ¨dZkŽþþ£kc…ñF"ÓÞ•öp¶†0M[Å‡)¶q%1æƒÖ–0>H¾Æ;e¨É[þÅnŸûÂÐî¼45ß]pÐ,Ÿ¢G—ãüéé		ü	|I³r©W^RÇ§k^´«GØ+8£ë;ýXß=9hßÀÍÛàS(XÞŠs¢/²Îv[ÏãUÝŠL³ÃX¡SÉÎ‚ÔðËk@JUF+úÁ6€ÇK¹Ã8vŒ`qæ#ÂØìÆ}oþF×Â‘QŸ\ášÏqbQ(nš§5c`)¤´&WdÁ<¥¾
+D4ˆÊ@l¼Ãm¯ùüt~qhÎ¼Àmú»{Pö5¯úÀ¡y4í†yXöuGmpÆ¹C…Ô½Ù5ÍZWàïŽÏjz\¬Ùcg¸Ì€rg!°K¯X8t+.­þ&Fók2A°NFÕa—07m‘ê+8|l#þäIÐÃž^KÉ^çŒ‘×¶iÉW‘V:&êä5lýá¡ñ„äQ†hlq¡Ñ’ÞPä¶åÙvö¯N=°ðpª¿P§¤°ª¸:÷pjA4™.£+h)À¬mÜ#³uâ¦SHÐk4OÜ;@Ã`ý·%T8xÉ°uìªOÁRbìªýÅ@ÇvRI~2üÁTà‘,Ü§·xõInÓ<Û˜äÕöw,kë xTÕì~aC—$W2[3FIu š@àŽ/E¦¤#zñRé
+bðG˜a3™Ï‘\¤+Ø64Xõ˜À¨£îÙìÖv‰ÚÝ9¾ÝJÄñoé2}ýËQçóq,Ž¼:3¹MláBe‰$j!3Ù×û€ðýH³2¸]/¡zPfa*¬¨¯J°ÓŽ(_u+yXw„y…h{}‰Šˆ…‰D~kjÂ¨dZÂ¨dZkŽþþÃlq…ðF*”]øU2+àƒÅ:ZpÁ±jË(˜fz(¬˜£‚éƒXÍåGŒøN#ÁTQ-ç7°øKÚã½ñýEõ4µü%¥íN„ÍP`]>„hAX©¦xÎ`üŽYšú‚ÊÓˆúw8z`nª1aÒñ}^@7:/(´Þ´Wz4ß#¸ÉgZÑ‹‚ÍV“²RA½ÿ«•Ü“V²¹õ¶ø-AyŠYú7›ªfÊ90Ý»uw1 CùHw{ˆ»«D@Wj@ÇûQ
+Aü‹	3·p‚z¼Ù@9ŸiÍÆÁs«±.*×[ÒtæþÓÙò=˜%0bå,»5UV;Îå ‚ÆÊÈ‰£‘<ÂÖrG¬—£µgÜÎ×÷O´˜ÜGž’¦·¯¤ÿ
+ƒÊ+‰ˆaÚFÈ³š¯@`éd»iÕRëÏ»Ï æÀà$£ègÉdö¸°Óí¢Y­fZd+[@ï‹ÅzîaÎ6áœ²sc˜ÀŠFçZ%´Ed¯·ÏÜÇì¤@ùi“L‡Mß}òn®»@Cô[qnM¹	€ìAfëÐFGÑî2
+öÞŠÛ½LÆÔüå?N¬©­ø"Áâ”ÐÎhÕnÐ-
+ºÇtÎ	Ëa	øžc½-%fÏöz#s•¹¯}‚‡B%²s†‚5¡[Û¯Öä(0íW¤fM½/¼T¡#Þ‹C	,ÎþªØ¯%È}…çS	‹~ èFh?•ú_ÐP«‰ÕC9–Ã
+H]yÐ\`4² P®¼ÀâÎÿ%Øufa*¬¨¯Jj7ý·Du+yYcfD~kjÂ¨dZÂ¨dZkŽþþ«kc…ñF"ÓÞ•ö06Æ!=³‰¢)5ì3L¶3œñK†{Pgwa—:…˜gž3•Š¿’§>Ô]Ÿ,}RG<ÆñST•õ“ï¼©/ÃÏÖÌß”IDn°ÝÁæ\û¢‡?4{Œ¢jz½áÙsáYDrY!{ºKF¸™K2	­ªI.7¯ddéæ>óìûØ$!V5ºH¶†ïü”ÔÍ×²°?#‰öpB€Ù›šƒW*"QïºèÛvòkÃþ¢ˆ„¼%%¦·§Çêë/»„L•‰{>›-?iÖmzÏŸªÙT[˜ß5Îý:¯ê±øÆ7âË/I¿ŽŠÇ{û°Œ€á,U¨d<tÅ;¯Gàv”âg/ÿ©Š/íxsh›šÕ`æ2Eç7v€%qFYr ïŒyõq¿º­‘J´éÓ%Mþ"R½6Æ›…Uµ´ðÍsuŠBE•RÇ¸òösŠÁÍÿl„Åbœß_`ì°-gü	H©‡§¶‰r\=ÿÀ-7³ûmª`ûÎÆ>Žñ¼³Ë‰8¨C’í´\a’eë£.y™E‹aNØ‘M*ß‹ÖÆ¤m>(lm(l+þõ.ð••öãköc=øìÞ¡ñYÙ†Sª3­
+*Q1n›<mþ+ÜW½	¦i£9¢½ FŸÞ=.V%®Üÿd†[íµ%|Ñ³òa»¶‰Ê)êêª“»ÁÎíÿtÛ…áÄ=Ìí³™¸o¸žH³fa*¬¨¯J6qÑ8+yYdjD~kjÂ¨dZÂ¨dZkŽþþ“ic…ñF"Ó1•öp¶† BÛÄŒ±Y‘o—Äœ‚>HÆ¦;e5ó–8“
+mÎÿŠ¨ô¹45?¨`svI°ý‡ŠßR×.;Ck>&„³ÍºÁ"Ð¦¥°ç6;/Óïu²fUÆ8<cÝ§jØO¦Â"?Jw½^Ø2ÓÛ€BÓ ¥•€­ñ1×x«‹Ý7Â©^w Ë©?.l)LƒSÏåñLúÄ!âözcÇ‘‰Ki.MzL„8uß6*¢g–E>™-L§XaIÌ×óŒäÌ†ûì6ÕwƒBŸ9l}|Ü9[ã0²EèêF¢¸œÁ<¶|è†da³°³]s/Vëìíß×–ö“«?Ê½X*6ÖÛ|­8a1íæÍáƒ@
+9­21Ïà¬jXèôŠåÕ´´ü¥GR_êöuìØ;áð™$Ký²eßæM„\q8ð²‘ö[w‚S5°®ÒÙIÊ‡IùBÒ¥äô‚Ž¨©EýN¡Tn#‚õÇ;–à³?„¦>Éï—1}€tK^{J¥ì¹S@éo«CSaK„>¤$oõg-jÜçUfa*­¨¯Júh…u!+y[dZD~kjÄ¨dZÄ¨dZkŽþþ{§cÙF"œœçX]o_ÿ·ñvQ‚—ö@`÷n×5ñ7úÕåãß’Fè	pÈÃ`if
+²Õü8ì>Y!,¿H¾YW†Šô@‰Sãæ õbºgÇÒÃ,è=sk*ÏùŸVC³¢³7›PrÊX®­=¸–ZÚÃ­éTÑÅ‘óŒMûcQÛjúÏví-È±Ú…{“¦0Dâ0þ¡FŽÍŽ¬®æ3ó£ÃU×Üõ¿xÁúÞÀÕR@Ùgh4²Eèª9<o×¼$zSOÔÂ¯Ü.­;5Â—h€]ïºÍ=´±	¾ïÚ×ý,BÑ£#
+|{FïóFŸ~Éyß*ÀbÚEfa*­¨¯J…²ê0u$+y_„‰Šˆ‹yy…„D~kjÄ¨dZÄ¨dZkŽþþ“¨aeW"–±•~67xŽú6-OžIŠ¡êâdíŽGÑ¨]~HÿíŒèEéü«A[G³ãut-…éÿtR,[´Ë+Æ¹¡b?QÊ¿:~÷™‡>!ý&ÓšÐ‹ZAÀÚÉOcÏT<y,c©¿<ãAœìšN‰°cžBDåÔ	"JÊÊ¢Ùã»Ÿ×@ h ’Ç¥ßnbc8–ëihVˆ;©¡*Ö®»dK.«[ôÎ¹wcMmË»`Q¢5ö„hÚ“&<ûM=<ÜwCTd¶)ä!—e1[ÃÈ4Cíí}›n$q™æ¿)>sVg“†%¹	+ÁÓÊøŠ©_oúïåþ1JTm£Âaõú-fa*­¨¯Jð¿šêÅ?.+y_„‰Šˆ‹yy…„W‰}„wy…„D~kjÄ¨dZÄ¨dZkŽþþ›¥U%˜F&Û<$#ÐÙêF~-bVýð­JCÿ5,ùÍÖ¶Î¼D­áwFh#š	 ëÓj+ÑëÊ{­°Ä¤uOÝ>e+FeAÖ3»8¯vÜ-›diŒV£07WÑû.óeÔ-¾çŠÁ9¯yÅW2N\e¢^è‚f8>o	À	¯æö¶¥×j–»©ì•ÆµÂ!Ú¿‡U8ƒá¬dq­èmÏÓº¢š¹Mfa*­¨¯J[säÚ½@/+y_„‰Šˆ‹yy…„Y…ƒ†wˆwy…„D~kjÄ¨dZÄ¨dZkŽþþ›¥G%˜F&›<%#<PØZ6™vfýñD×¬Ê{Hqr:ç„õÑrDÛdAþ®&ÒÂä­üàomÒT´ ¼žl2š¶:#/êE,˜¾ûNAvŸBË	Œ¬(£ô"ß Kæy–|¯Ý¨y2r÷üTËÌ£¬{‚°…9àk–¨;B~ÈÜ™
+¶È5ûySÉæ×ê<˜ø›EÆ!ö¯E5—lîgfa*­¨¯JÑ|Šÿ(Ê++y_„‰Šˆ‹yy…„c{ƒ…ˆwD~kjÄ¨dZÄ¨dZkŽþþ»hcaÙV&Ó5œ¸*Âý*%(‰^gåaÈQç—z½dÒªÍcñ."8NÍóü“ÆÑºÜ0‚V¿JñÔÒ¬…°+ñ?EàgSA+]á–©Ûõ>—ZlÍÓWnþâ‡ÓìÚyG—`’½ÿT¤Šq%õ-ˆîgÐ;Sù~5]&|ýnf!°zNoÅ·(]‹EwHm êâC¶Õšî¢ž­`˜/oãl@ÙdÁ„^‰<$Ÿ\á¹}Ø<N$.5¨µb<þ¨¼à»}ÿ±ñ§ÌµÁµ:I?öM†.m}ù‰C~ç¿ÁVlr¼Ì$»å×/¤eLueQFÉø€K?N,S‚d•"Ã·<¤Ôfa*­¨¯JŠaþXµ*+y_„‰Šˆ‹yy…„iw‚zwD~kjÄ¨dZÄ¨dZkŽþþ“¤U!™F*ÚVÔÙYÐ:Œ~¶næŒ$GŸ6:¨UiÿÅë·‹ÿƒ”Ýá‡Ê`¥ÖÙðôS°œóðÔÔÈ‰ãE²i¨Å.Ã©nI~»_`Y<¯#ç=?çïé²3f½=r·ñ’`º7Ö…·-«>w_™WVªR?—k¡gá¾kÏõ5+žþ‡^ç›Å1|ý9ŽSÉ+;Å€‘lq›9ffa*­¨¯JGYÿ&â)+y_„‰Šˆ‹yy…„iw‚Š…D~kjÄ¨dZÄ¨dZkŽþþ‹§UÙF&Û™ÕÙ§BèjÒêf(žéoÞèïOfŠ\•Òª”`dcx`„¨
+‘_ðh…K6Zó2ð	ÿÁÄ±ù·“R5Û&{ÇcªBT-:o{¸\î¾Üö¸hÚÈo·)$ª6åý{·¢
+441pÙ4Üî/hAj,õ{¿\ÝkVÓÕ‰Œ6™¹D_V©êÎyL–”ÇÅÚuî®ºwmû?yÚªê¹Ûßqð–Övù+3Y8$»Eã²Š3û —‹$HÉÝ6)©déÙ’å­±Ïåí•¯œ[«çeKUHpc“ŒŽ)Õfa*­¨¯JEx)£æ^+y`cfD~kjÄ¨dZÄ¨dZkŽþþ£jc…ñF"Ó•Ž–ØDè
+4ÍOÊ#F‚îÄœ8é¤[àBÏ1fÕ¥À³ÚD`ubÿ§ªÊj¯_?Y¨’¬’`¨vÇzu/0Eëõh/¿áª†;U1ý¡h`{ã%·ÓsÅ\‘$@©…:¿›‰¦bš#¤ûdAŸ¡
+v(BÖìLÃiq³.Øƒ÷BÊClîoÁWQûžöááüàó„±RÊŸž—bYºn¤{vùÚNÉ7Á0”†6…iPçì#×}khþd…¨»-[>U 9ƒÕ³Ñ…ÀðøðÃ6µþv!;tí$Ãå§40hÝ+²eM1áá:$ÎT¬jŽ1Wp9Pi/Øá˜¹?þz”mÇóHÏ*Sßµ¨ö+‡çh.Åh§XÖv[G]ŒtìccÞ)†²’5!]y¢øOÀ¼Lä–ÅU55½Á€@Áa† 
+¥ï$ÛšÝË9ÁôKzôñƒô‘çÒ Æu,’Æ,kã^ÑM*‹ê¯vj¢?ò:1º‰iPúðÉÚé:vˆY²ÿS©0Mþ8N©ictÔ”£5¨1^ƒ#uÉï]·-vþ…Ä¢ZÅD„]*µàÀäª¡@„t[H¿à˜Û•fa*­¨¯JlÌhea[+y`dD~kjÄ¨dZÄ¨dZkŽþþ£kc¥ðF&Ó95|;*lB‡¬Ye€á·ë ¢IÅ˜³ð$ƒ›õQŒ((^ò„$&‘|ôÓ¯¢…Z8ybvÓ”oÃUÅíÙ×#C›Úì$ßéR\ÎüuºÇPýr>³»lcíC˜¢X„­Dž½â.öEA®W¬…h×·)S22¶=éøÖBäàk®³è,J„5ý«±Ý’êˆ±j¬@S—£h?¶œq.MGÝÉ:Œ=âóèÙ‰Që¯ïù§Óµ
+R˜?ˆ
+¡OrRcjçÒôõÙ4Ã «¿þ?é.%Xñ²»+©úÏ{Pøµ®úÀd},´
+(\|A«,ÊÍEíz¿e<§§tL´ã*ƒ9ñÙ>ágqKÄ¾fýP³¤ ŸŽmvö…˜YÖêßl(_§¢¼çwÖYø*ÍD®IéCðð,K[/u îW*Z4ú/l…ÅÅF0Ïûó¨•Î[ynÖYÑ\6¬bA _Ê;+´þ·A(¢ôÁÔ^•²d]Š©Ù{9´}m1¡ˆÁDêË»mÒ‚Zøx;óE„ªU)é7ât÷µà‘RškajaôaåiŠr°t·®¦=·|ii­â—ÍA.T!&¾ãË0B.
+@FKužš§íÒÍ7 Ôã•–œ€qßwàe¢_íwÓ÷r¦¥ê»CZÝ.žÿ÷ëÉ+<"ÑééË&Sœa—Ø+Ó9É´ ú,ŽÀ:#ÝöºÅ	_û£|Þbðy”èñ" †h,‰•C¸¢[H2fa*­¨¯JÐ"»øb+y`dpD~kjÄ¨dZÄ¨dZkŽþþ£k×„ñF"ÓÞUÆ#&N[°ŒSÜƒ$QƒYíÙœÆa¶ÞŠ¸Ø§R_äLgÈ3áÇÓcxa:5^ ´žj<®ØÿûÙS4c~E:œ]M¨}[˜†ãU`y‹×ÏfAáÂpÄ9›òÄ²å®GÖ¬¦-±b†þ®¥]Ý~ûp2®Û{Ï‰áªÌ¶‡DÄjR\¶÷Æ¹V…tÓ5n¼
+2L`{–ü!„wì.3±mpŒ=âà/ÙiþÁ;Ž:EµGV¥¤9ž²8[ÕŸ÷xKl½ü$~k¸bÛe¯\Ž&ð,BÁ®Ò7EBé•å:mËQ	þ_Åv€üÖUùt×ä}ˆe¨pB(Oûá<á»¸yz‘®ü€Á|Ö+k¿³½‰¾¦ M\8Nârð`øUÞˆµIãJP"ÎVr\‡ù¢?w|Ç[qá¸¼>Éá:Œ&[ §Ï˜­íý}®dóŒ[–õrÓ¸¯)óCfØz_ËøÕ¿°ÚqhûŸ5ÐÄÖÎôÓÉ
+Šp¸2DQÇsƒBàÃÐ^Å+>“àádº!­>ÿ‡¹’bb%w|w64”,%wëO•¾‰ôaåiŠr°|7±7cXã-¼Ä¯%aN2!&¾CÊ0AN¾‹ØâöU7h\p‡…Y²$Pjñ@3¼ÒybÐ$‹šesØZŠšLSÒ¤œŸ4sªJ9ÐÀC½ôm%ÊQ†Ri¨üðö¦Ä¯_oä|VâÙSrÒˆ”·ªñiÕ€>)§¤]•fa*­¨¯Jé«Na+y`fD~kjÄ¨dZÄ¨dZkŽþþ£kg…ðF&”]øUr¡šX[í]èüweqëcë¼+/ýÄ˜³ï$ñšQQG:ï|:(T’¯žb¼®×€ÐÆp£])° Ÿ× cšú¯8r	¥ènsˆDªàˆÁ,ñÖ^\7MŸ!øOI	AB·>íÏöæŸ4¥$ùæ>ÊîI¡á€üœï@ƒWùüsrÑŽ¢Ö™¶¹ÖƒtÕoÄ
+2ì`û–ü!„|ƒæ·“»wÍØò<D0´ØÓäâ4¦ëIþ18½ÞçexÎ.ƒêÇ“ÓÑ™3p«@i	i¼K›Ì;á@…ÞaáŠÚõIßkÉ³
+Â)®°OeÎipÆéðÄ°©»U¯ZW˜ïŠÏjÊ¢‚é¸Zƒë"Î¸B³ŠP@zøc—–Õ$‰=q[[ ¼¯\3žáiòÎv(âBL~1qê<{Œ?xgz&¦Á=û¼iMÓcÑámJ™Ù ~ wÇxpé™õªb¸C?Z%s)FÄŠÅ8‡P+çó2D!’ËÌ>MXsAfÛÁXº¬@ÿ‡Ã¯®4Ø+wV%U¡Æ0ß50ß‘ÿ ¤aqA*Iú_¾ÛØJ?‰öwå€aC—Ð $3GMež¢§mòq&ÝÔÛÕ–$ûÌ¬Ùjm¢_mwÓ1ØÏ6©­fž¤‡6¼måèFç™Q;ž„ïÝô|í
+ÉI†Rm¨ððv¥„®_oËÌUâÙ$SrÒÀ“]ÚNÜÁœH+ïŽ
+fa*­¨¯J1£hb+y`pD~kjÄ¨dZÄ¨dZkŽþþ£kc…ñF"ÓÞ•v16Æ¡J¢±2Œð „#ñ·­V§ÿZ›9¨²ƒ>õ]ßŒy±Ú¬^TÿSh
+b:HÜÌñ½­ŒP¯çj^‚ÃÎõb^´üGØK>£ëOýXßÅBË€Î„ï5ß>ú”ù˜Žà¢
+AÞs@N
+¸½©Íÿ~zp²®ÛkO‰Ù2ªÌ¶‡DÀrR\á™¶™¬ñ¸UÇjÿª`ã-òYîÚÒKÅJW®ñ£!œ‹‘Á!ÉÝ9‘¢’T˜Î?ˆ
+©P¹Ÿ@°íÑQN¸kÇH+S{0ù_~±ÉÊx RÍbS©rëñ¯]e‰É¥`!ŒtQ¬‰Èê}©Þ^E1Ål ¬§3w´û¾Ã —A`è»dý¹X8t+.¡ö&F‹È«Ú•fúGy°Š.†õ™þ´øÜ©v|Ï]qñ˜<?wmÚ4¸^66m/ü‰MÓó&ö­Å6š0ñ;fmØz_ËøÕ?±ÚqhüŸ5Ð„ÖÎèÓ0 
+ýÿ«Z•‰þløû€}gk]tAfßá`º,Aÿ‡½¯®4Ù2jwZ%5\ynËü%Ëü™
+R[Ý»?, /	:ê‚²OŒ Ýå€‰C—Ð ¤+®0=ZØÞA0Bžx~E¶yÏÃúFû3yèkîöœ†?Þú»CZåN(IÖv²þ±Q;–ÄÛÛvÍÁ1pI†Rk¨ð~©Ä¯_ÿq”é5,Cs,óq-Ìioj@*§²·¢[H³fa*­¨¯Jše¨<+ybeWZD~kjÄ¨dZÄ¨dZkŽþþólq…ðF*”]øU²Ëh+@`Ëíº[ððcxÁJ¿‘[ÜOmŸã‚ƒX³NGÏf´}^äû	Ôù!íxCyrÙˆÊŽ
+ÒÈr¤]íz(e£z,¨½¢†ÛÕ`y‹äÏf1|`!Lñr%ú,H¯-R{ÜE¦6šƒÔ`4š~U4£Ã,Q|GBõ wL`qæ®R¹ÇXÀ¾ðÇjÿd\üü	Ær7—OƒF¼Æh@JUF—_©É…4î£F	¼0ŽŠNge¦Y(ÚÊˆE“gÄ ¶uå“~47YÁx{@TàJä³æL}k1òH3åbˆkå„42ÝOò®?`¹CAõßiÝ5sxaîN"+¯§{†ÉãgqKÄ¾™½Ø2a›ËŽivö5˜YÖÊf¾ê7lÊöÖ6Ú~¦W¨I3Ió×­ˆq6¦\|¬¶Ã“WÑ+©¾:ì&Îò%¥‹ÇpÍíuF3P+•
+[ÐPsdûŠP±poªŸP§¢°©¶šuOè]6oHËY#ÂææÃÖ7Öt+uzŠáÆ]Wµv§TBzãÅ6èŠÕÞ?/"^:ÕwÀàãbêÒÚÕ«¡j?ÓzáyyÆòìqðJ„™ÔòãŸ	å8S.|ÿ>ˆÂVPy÷@Ï†Ä9m÷ÉjÇN6Æ_Z¶l{Â÷\7}ÊFIùËÝ;cEnÝ7ÌIP ™¥ýx¤öFºB£/`PX´*“Ýž»çüp÷övêi™XÂ/[[Ó°2¢}VmË@cŒGåj‹¼·-¬ÁS3þG#ÍzõÈ­SìM¯å,ŽÀ:s~™í‡#C‹ÏÍk´Ê‰^ð2òŽŠžòU4ªÇn¥]fa*­¨¯JÚÒ´š5Ÿ++yb‰Šw_„‰Šˆ‹yy…„{‰D~kjÄ¨dZÄ¨dZkŽþþ“hSÙF&ó#%]"Û¦‡F*EKš*°z@Û>èOT¦;9ßt`ñAí#g°ÊÍÿ“ò‘X`¾l¾Àxs„¥û|Ñ‘ï-[Ò¿´À@¤(å¨ØÕtX át6âŽ¿ÂISýºëÒ¯ê Ê}¦Ë$Þ³L-¦m§P˜šºÙÒßÝÆNÃ-–xCð¤‡e}9ä;É,°ÂyW%Ê‡
+4]ö½IðZ*áÿRäjw+L•ÞW¤aÈ5m•¦Ú­yÚßÊní©×±å£
+T	Ú›köß/íI¼U…Å8Ø¸¶QJâE“a×LðNf&Àc"ÌVÉ­¤ð†‰»:{çN|Xg.*^ON¸A®ˆ:®ÎDF@WŽ	•Tç-fa*®¨¯JBR#_¶+ycelD~kjÆ¨dZÆ¨dZkŽþþ›kg…±F&”¥ª†» @°€Å·ŸÊ{©Ðk°ÊÔ\¤OžAx}Ìß<[QŒý-öóõ3ÃÞ{œO‚LuÔÕÒ„Ô„L	ïC/šÚ—£ÂXÈà&„MÂÄN-`”H¸¦Â”q„2æ)7šBìË=E¯GÖŸ!¬†¾Ì»ööý®åd	/æP~‡z,­ãmÑÌ`«–ü=,˜’+ºCØþV^®³è,ŠY´¿ºK2o¯Nb‡Œ0ÉQw4ì0¡¤lSo—(Çè¸=º4š©ÀŸ´Ø~tý~k¼bqÁHüg~qgÞ¼ºMú«{Pøµ¯úÀ!}´DËÅ÷ä:º$«,€ñMõÊé÷ÅqøVÈï‚Ïjz\ÌÑY›ðÀ.Î¸#+Ñ¼ ÏŽivöu¸YÖ(ŠmŽ¼~òÖ6Ä€šÓP¸Ä/É€XMäþÔ<8â¸Vñ[©lÛÿš_ú&s²UÂöÝÅý}ž=¦éÎ™Èðpã0Û¯Ê‘0"Ü	L¢¼Ì,{·èg© ª:rA´€Ûy¦·ÇX@…XàèæÛÒ"É]\ÍàA]nèÄèÐº”4ö+¸`ëN¿t4ìj×³ˆ*=´Žg2,Šz[5ÙËûAC—¤A"¸än0"ìõHú¢V¿QTùQº·ÿ«Lã5àú{|î·²dý©ÿ-*þÕ ÐcLT4KR¼ÆR=`”4œäeXÐt@_Ý~Œþþ;Ä±ŸtŸ‘C:ù)7do²‘SäÿûÌ[¯Ÿ’Tfa*®¨¯Jˆü¾¦>)+ycyˆ…y…„Šˆ…‚wz…ˆD~kjÆ¨dZÆ¨dZkŽþþÃksñF*“EúUòÌf²§»_iîèØiXJœgz;ëÆ:e¨ÑWþ•µÔÞ„)„8ô‘¤Š¤Äú‰Ðü/oY°d|éûxÐÎ•rDüu„,á
+q°däc¬ˆÈÕÖªf¤	H9†œ/wXhJ’TšÕ8¤Û¨‚¾èh¾ŒÌ`æ¸³?ºî^Úp’mj®ˆ˜îË³s)lú^±Fö2?¥Ê&í÷/õgB,òæý>)ˆñQI _u"|úõÖ”ÿm44š¢¹˜¼žfÍÀ‡+²S–Â5ù˜6"D@Ÿglÿ‚J (cW_º,yAëÃÒrû*]!ÕÒ½ÅÚpÞ7â‰a¡‚b›6.åj¿_m»L1&á„/ªns¶#½8#L"²¿–í;^#ŒBÃ÷ /©Ô¶r^¡f——g4HÒ}WÀfdIÉ¬¬‘ð±³3ÇŠB é§†Á–)b*¨jÖÅÈ{~ØMž2ˆcD®£J-¾Jè*Ù¡¶/¦µ­0_ŽqYuÝãL…Š1üñˆJÑÐÓtÝ±…õÌžDþØÔ‰Ús®g¦³Ê‚þäÌÑ¨¬oC5Ðž°$fCT¿kŠˆŽ¹¨œuÐþb]²–†aœ‰†®ÄŒõ+%¥
+TˆôùŒ—D~ƒÃ4†ÆM–òáWó_¶ÛÑgs+‘S|Üôw$M-´q#i×Uû÷ÙË(8M5A)Foø™(Båšá®õ0û îX^(ÍFs`OÈ‚+KòôõN¤õåJ=¦nœéŸÝ\îlè#àâà#äœÑÅü†Y
+7ÿ.mBxƒCŠe	êot˜ß“ÔÄCygi"nëo™Ž0	(ÌèAäåþÐ-fa*®¨¯JæÁ-6+ydefD~kjÆ¨dZÆ¨dZkŽþþ{§c…ØF"œåZà•ÆVXšVÑÌžÙŒï$æV+r-˜ðÎàÝŒ¾!ÂÊ[á7 µídM!s¯¨@> ý¥åø»>ºnZ¶#óÇ^Ë×PªqýÃLóãëZ0&K±‡”=“çW]§År Â«‰–|Þ¶#p9bá»þV Îˆì]­‹¿aèGäùÉ—œR­XŒ¹ÃÃ%ÀœS‰#Š8"tïµªWÔ‹þÌÞìvÿl–…êÆë€vãu2«q6ÿŒä­oÜ©€vïÈ´iV¤©‹y1ÙèPpªR¼Ï*É/n×0ž<fT|µUËÆ|)Ý®0ˆl•Å·µôÐ2ÅEò$S¨ø²u•±b¿A?”fa*®¨¯JãB•8¼3+yekjD~kjÆ¨dZÆ¨dZkŽþþ“ic…ñF"ÓÞ•öp¶† LÛÄÇ±ÙŒ—ÄÌ‹mY«›8¨ò+õ]¹äxRŸú‘¥([´i!B7åÕ”•«õû’ŒDÈeb¸zË¿!šI“…“†ËìÚ½Hj¾ûü¦_¬‚Ë¤Bƒª¶[}Ñï¦œG“Tñå}6ì8lÃ)C()Õw-ÖËîÛ¦ò%Ý~wYÆ€—†ñiè$FÖ%ÙüÌ.Îvõk}U:uß›p/Ž|L–E¾¶r¸Õ>Ál:vµKqÙ›Õ#Í^ÓÝÌÃE¯4´¸ó+fÂlBwjqÎîëþEVÉŠþú‹k·º-e–…8–r½"è‘õK
+špH¨ºY”owþ‰ß_-ÿ^}*¶(¨\éCRTSRÖxï•VƒuêSùÕ[Úð/ŽkœsnÂÄíˆ	õçe<//ÇË°¦{#Cá°ðØº©;~ÍªdTeáO"ËÉ6™¡ùwâVù‡`]‚Uj{a;
+FO·&4ã;~Ùl|ù‹þªCÍ~
+ÏŠjÆ$Éè:@ýÉÕfa*®¨¯JixàO¤þ!+yh{}‰Šˆ…D~kjÆ¨dZÆ¨dZkŽþþÃjcšF&Ó!ÖØ¸ÊÛ´íëa?ƒ%»Æs+M|ÍcÚÚ»fõ±%Uø<þì©ä1õ±MIß 5_—¤6á4Œ¥eEóq²{ÔÍ(gb¦#4]ksü2—CB‰ÜÖ4íJ3æIôfõS6´Ð×}§ÒçuŸ8¦	5pd¯œ!à\nè—‰tè<Œu	ErgMšßë·Ú†@!?ËË¦é|¢%; ¿h¯8Òë[\ê<Ø&ý;^Ö“.eŠ@Ú7ã¿0b‰} !Ö&¦"Weì¸èæ¿áçŒ™r+M¥e&»¤êØZXUÇ2ÿfô‚KÐïróÄ†n£>0=×UGÑa£¡Ì°òÇ³¼Šz°7~½ŸšŸÔ
+R…n‹Þ÷ðOÉ×T˜VÝÖL‡noÅQJc‚÷F5Á,‹”fßæN\YD‹¾£šL¿«ƒ‚ÝjzõºCÊhKàëàáë4ðî6ôLÚoùkPóoè%UÌXv^š•rRùÎ$
+cXø´›^7ŒYrVìÃ!fa*®¨¯J4DS!û#+yh{}‰Šˆ…†D~kjÆ¨dZÆ¨dZkŽþþ“ga¡ØF&Ô-5 è˜ÁÓpÛ¡Þ„e`m0òJÃób_hEÛÔÿÙƒ‹¡‰`Ô¯G¢¯b[¢¨‘`$§“FüP´Ûg ¿¬øÂKZú¾£¸ªë—’MXà‚s½Œ3Æë¹éêˆ²º3ÃÎ7Kö9oUžAq	†4»L-ê…qCâíÏ6û×LCNäRÙ»³U—U9Á›û8…5×™³ó].`_Q©4°mØ*PLÙ‰!£ÐÏô¿lØj`OQ»;òìãƒR7iâ°*)½fa*®¨¯J84=E––+yijeh[D~kjÆ¨dZÆ¨dZkŽþþÛló…ðF&•]ø•ÎËh+@`ëmèÆ€è<‹YTt§‡¤ö@Gñw±@s2Xb^àô|ÆùUµƒDë`=Î˜ÛøÍ	ÛÝÛxNÎz§èî¨Èr¯+Ø›ºÃI›ª 
+}âß>Gou,ÂlP³«„H)ì˜
+fF›cÇâªš$ž÷ö‹N41¹ÌØ÷Êp«ÙÄßNî ¢bò¬0bý\»¾ùpÔ]—¦@›¾‡Ñ1MÖyn({–/i.KdÅãªqA‘IQZš%)îroåÕ&í?3of _6L	¡}íb……7]]ï“_z1ûl/m†ž@-ª›)<¨›¬jÙñ‘uû"Ä.ú´™BÅìÂ¿%@Ëw˜rH³(¡gú†Ë?æN0—:ôÓy€$¿Ø`Ó&n±÷&FA_À cæˆ:Ús,á; ^!w(‡ìäýÐšwÀ:[m¸ì¤¢ø)2Ë˜ÞÑÔ‘–Eõµ´ØóÃMO±©¨‹š¹áèÝOïðévæ„Àù~ÊŠ¾iP¸£À„o6•*È:½C0&;™db¾2³:ä‘n
+Sñ×vnvÿôezsuo^éãÿ·fpz/ký²a!2kâ`»{otu1“–ë÷ô×ýŠ”Iù°•ªg•«T¥èÝ?úaFgT©ÉÇ)ÞvÚçØvyÜ‘A¸ðbü¢ôÈÿÎF½iH®¹üY^³²?ã¶A¢Ü×tÁ3|,åXÂqÛ³ÑÏ(Ôð‘0äÇesµîƒÒPÎ&©ðð¥ÖO®ìÅZnûKÞ¢JU,Ó¥s#ÃmŒÌ„ñ‡î£eDÕg’rO}Ê¡UêŸp#•fa*®¨¯J
+4²Áq>+yikXD~kjÆ¨dZÆ¨dZkŽþþ£kg…±F&”¥ª†» j:ëtY)óá<‹±Ê¿‘£2‰&mÚä‚©c Q<Ãu–	óõ}äÍ8§G<Æï’ÊÈïb=Íz&(QLÈ ßÉR\Î÷u»ÇPýr>ßžjÈƒÇÑ‡²4ßYÞŠs\¢/²Æv’±$”¢ÿúJ³Ã™,]|‡o“ëÁj~”x@>lWj´3íHi|½Ês—Ý@Â#]¬›$(âðÎi=±óIub1nË~§Ý«¦«<=Xö†€ukÿ9þÃLÀ~u54v¥lÛàêã@é„4›ÌO»Â[´q¼Ú:mcP	Ž„”#<#`!ŒÇÁ…ðEqøVÒïŽÏjz\ÌÑY¤ðÀ/†[Œ/Ñª ŸŽkvöU˜YÖ"ŠéŽÂþÒ—W©!ê‘‹ZsÚâÀrÕ¸(žÞI¡*ƒÉ-"º°[:§V†$Æ˜EååÄ£“PƒëÓÛû/ÞSb	ìã¼Ì,{ÀPê§^?`8Ä<eëúGžçn7«Í¶ˆg×ßR5|%£„­-¢‡`±dá¬ð	æ<57Çp5bÓÇõÙŠÔ¼X•­«ù»W3GuËô/~,Ü7ø")Ôý‚ËÊ2,J™¥íÁÉÏ¬VÙ%]Ó â"Ô§F Ò,Tù+æÇ¹ná|Àõ³_Q†kÁÏQ7ñ§MûgwN£]?”im–×ü^¢e¥²öieI=Î.¤ˆˆÒ´?_)“
+¸€¶;ÃÄÔm·á•N®dDiÛ›8Põ>y§b=fa*­¨¯JêÓÄÍ +yƒ{ƒ…ˆwD~kjÄ¨dZÄ¨dZkŽþþ³«aùF*›—!›×„=ùäLd"Y/~-wv®s?\§…¾V¬¢usªÏ¨59¥ÌpïÏèSµ¤1‡f46¤5ŒÕ•T 5ùŽÏÎ·_·†LÕrª®|¨«1ö¨+)¯œ¾Ó÷Qb‹DîˆÔr£B-K¿íã³/\•!2{Ø æc!k}À’.TÞÀÓ*’fòÃ‹ˆ§Æº?Ù)ÈxyŒ£öq ¿5Œ@½ÅË^¶>‹¤´Ë¹À
+Ñ>é›öXÁ÷øl7KaÒlw44Y=Î]FZû^[F„ÓÔv´y&†€ÅÏDu[Ç 2BîdØ§Äé>’ÉCReupWýöoñx‘5˜îâL¸ßÑQóÇ.„Bt~­^JÜ_¦)]K•ØI”â(‰ä	noÝ£ÐSƒ¬…8ç;ûîŸ™hw	ŠV0@ÛnW˜‹›È\VK©óñ@ÄkŸ`f@ÖØksú¹R›’Dñ¤ÅN&°—ã,Ò?›ëe5IdKÃð0]o¶é$ÈèŽ`ÿówœ­ÿ¥‚-²ô‡\>0k×o„*äBÎ@:Ì£\m§ÅÌÉ"ïmì¿Dñ€å
+a\”
+·(2á@m	Ä„ÙM]ƒ>éšÕžyšÅ/X¼µ&ÀšV§ÿ…þUfa*®¨¯JìxÝ!+y†ˆ…}ˆwƒwD~kjÆ¨dZÆ¨dZkŽþþƒhç€ØF*“-¡˜j/ÐÝç¤—NÍ+² ©Ó¢7G_ñ!ƒÄ:¿"Üaq}qGeßOÏý´‘¨T\`Þ|ãI“³tÐ³ÔYfßLþvjRã›š‘yèN~y0kòš’—ÜÈfO@ý2__IdÃ1#Èºüqí/ÄŒÉÿù’OÎÑCn´Hy–ÅKÛ°{âUú*Orÿê’QöìWù§oÿm½xS›¡8b{©Fã)R(FY2¯†±ê+k#¸Sg ]¬¸¶ö“A]õh¾ÂÝß¯–@".®1F!2tl·oüït€¥=b…DuõUÚèDr44@!/Õl#ô.²ßïXÃGN£Îù:F¼sªa{ûF>€›õp¸Ü;ª_a˜â¿?¯<ï’ØæW€|_•’¦A™Ç¨  œf0>52®Lè»ÄÓAÓ­­âef$¿\›½ìýfa*®¨¯J£yáE¼>#+~{wz{ˆ‰_„‰ŠD~kjÆ¨dZÆ¨dZkŽþþ›¤ã$˜F&:Ò™—Ñf·&#%t°¼CÐÊœµ­™½Dø‹|á¼æQy©ª;OƒZßZA!?ù>óNNÑ½Ld%ÁÇ½Z­„t¼k`”?HÙé¿Ugƒ]U—P>š0,•×2#z”’Á¨ý7(ó;ZKÕ¹Àû##÷«)J]/Xë9:¢õXªÇ,ó·¾x~Àxžêþ¤~Rl1ÊäV5]5fa-*­¨¯J» 8©Ò‘-#º—yb‰Šw_„‰Šˆ‹yy…„{‰Dy††kjÄ¨dZkŽfa-*®¨¯Jßã
+Ð^##º—y†ˆ…}ˆwƒwDy††kjÆ¨dZkŽfa-*®¨¯J\Ù™ª~#º—ƒw„Dy††kjÆ¨dZkŽfa-*¬¨¯J3=¥ƒG#º—å yWZZD~kjÂ¨dZkŽfa-*¬¨¯J°ÓŽ(_u#º—‹#yXw„y…h{}‰Šˆ…‰D~kjÂ¨dZkŽfa-*¬¨¯Jj7ý·Du#º—&yYcfD~kjÂ¨dZkŽfa-*¬¨¯J6qÑ8#º—(yYdjD~kjÂ¨dZkŽfa-*­¨¯Júh…u!#º—s*y[dZD~kjÄ¨dZkŽfa-*­¨¯J…²ê0u$#º—´+y_„‰Šˆ‹yy…„D~kjÄ¨dZkŽfa-*­¨¯Jð¿šêÅ?.#º—,y_„‰Šˆ‹yy…„W‰}„wy…„D~kjÄ¨dZkŽfa-*­¨¯J[säÚ½@/#º—	-y_„‰Šˆ‹yy…„Y…ƒ†wˆwy…„D~kjÄ¨dZkŽfa-*­¨¯JÑ|Šÿ(Ê+#º—ü.y_„‰Šˆ‹yy…„c{ƒ…ˆwD~kjÄ¨dZkŽfa-*­¨¯JŠaþXµ*#º—V0y_„‰Šˆ‹yy…„iw‚zwD~kjÄ¨dZkŽfa-*­¨¯JGYÿ&â)#º—<1y_„‰Šˆ‹yy…„iw‚Š…D~kjÄ¨dZkŽfa-*­¨¯JEx)£æ^#º—o2y`cfD~kjÄ¨dZkŽfa-*­¨¯JlÌhea[#º—x4y`dD~kjÄ¨dZkŽfa-*­¨¯JÐ"»øb#º—û6y`dpD~kjÄ¨dZkŽfa-*­¨¯Jé«Na#º—€9y`fD~kjÄ¨dZkŽfa-*­¨¯J1£hb#º—;y`pD~kjÄ¨dZkŽfa-*­¨¯Jše¨<#º—‡>ybeWZD~kjÄ¨dZkŽfa-*­¨¯JÚÒ´š5Ÿ+#º—SAyb‰Šw_„‰Šˆ‹yy…„{‰D~kjÄ¨dZkŽfa-*®¨¯JBR#_¶#º—ºBycelD~kjÆ¨dZkŽfa-*®¨¯Jˆü¾¦>)#º—<Eycyˆ…y…„Šˆ…‚wz…ˆD~kjÆ¨dZkŽfa-*®¨¯JæÁ-6#º—GydefD~kjÆ¨dZkŽfa-*®¨¯JãB•8¼3#º—bIyekjD~kjÆ¨dZkŽfa-*®¨¯JixàO¤þ!#º—AKyh{}‰Šˆ…D~kjÆ¨dZkŽfa-*®¨¯J4DS!û##º—Lyh{}‰Šˆ…†D~kjÆ¨dZkŽfa-*®¨¯J84=E––#º—2Nyijeh[D~kjÆ¨dZkŽfa-*®¨¯J
+4²Áq>#º—íPyikXD~kjÆ¨dZkŽfa-*­¨¯JêÓÄÍ #º—Syƒ{ƒ…ˆwD~kjÄ¨dZkŽfa-*®¨¯JìxÝ!#º—³Uy†ˆ…}ˆwƒwD~kjÆ¨dZkŽfa-*®¨¯J£yáE¼>##º—SW~{wz{ˆ‰_„‰ŠD~kjÆ¨dZkŽfa66ê9X', 'Entrega');
+INSERT INTO "ejecucion" VALUES(38, '2007-03-16 17:14:16', '2007-03-16 17:14:21', 1, '', 'HCûüøøøøøÂh.}.éC3øø3øøøøøWWkl\gml]jjWW_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[DaklYAfkljm[[agf]k&g[DaklYAfkljm[[agf]k&[hh[Afkljm[[agf&`2))2oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%g[hjg_jYeY&g[hjg_jYeY&[hh[Afkljm[[agf&`2))2oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[Afkljm[[agf9ka_fY[agf&`202oYjfaf_2Úx[dYkk[Afkljm[[agf9ka_fY[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[Afkljm[[agfE]egjaY&`202oYjfaf_2Úx[dYkk[Afkljm[[agfE]egjaYÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[Afkljm[[agfKYdlg&`202oYjfaf_2Úx[dYkk[Afkljm[[agfKYdlgÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[Afkljm[[agfKYda\Y&`202oYjfaf_2Úx[dYkk[Afkljm[[agfKYda\YÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[Afkljm[[agf;gehYjY[agf&`212oYjfaf_2Úx[dYkk[Afkljm[[agf;gehYjY[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[9<<&`202oYjfaf_2Úx[dYkk[9<<Úx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[KM:&`202oYjfaf_2Úx[dYkk[KM:Úx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[EGN&`202oYjfaf_2Úx[dYkk[EGNÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[KLGJ=&`202oYjfaf_2Úx[dYkk[KLGJ=Úx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[DG9<&`202oYjfaf_2Úx[dYkk[DG9<Úx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[=F<&`212oYjfaf_2Úx[dYkk[=F<Úx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[BR&`212oYjfaf_2Úx[dYkk[BRÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[FGH&`212oYjfaf_2Úx[dYkk[FGHÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[;FL&`212oYjfaf_2Úx[dYkk[;FLÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[BH&`212oYjfaf_2Úx[dYkk[BHÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[BFR&`212oYjfaf_2Úx[dYkk[BFRÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[BF&`202oYjfaf_2Úx[dYkk[BFÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[BEH&`212oYjfaf_2Úx[dYkk[BEHÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[GML&`202oYjfaf_2Úx[dYkk[GMLÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[;EH&`212oYjfaf_2Úx[dYkk[;EHÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##%OYdd%Yfka%h]\Yfla[%]jjgjk%G+%<F<=:M?%^fg%afdaf]%[%geYaf&geYaf&[hh[Afkljm[[agf&`2))2oYjfaf_2Úx[dYkk[Afkljm[[agfÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj[Afkljm[[agfE]egjaY&`202oYjfaf_2Úx[dYkk[Afkljm[[agfE]egjaYÚx‘`YknajlmYd^mf[lagfkZmlfgf%najlmYd\]kljm[lgj_##[DaklYAfkljm[[agf]k&g[hjg_jYeY&geYaf&g%glhHCùúøøøøøøÂh.}.éC3øø3øøøøøøøøøøøøøœyøøøøWWkl\gml]jjWWHCýþøøøøùøùø3øøø^øøøø', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(39, '2007-03-16 17:14:21', '2007-03-16 17:14:21', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(40, '2007-03-16 17:14:21', '2007-03-16 17:14:21', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(41, '2007-03-16 17:14:21', '2007-03-16 17:14:21', 0, 'Se esperaba terminar con un cÃ³digo de retorno 0 pero se obtuvo 1.
+La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõ¿~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõ¿~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(42, '2007-03-16 17:14:21', '2007-03-16 17:14:21', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(43, '2007-03-16 17:14:21', '2007-03-16 17:14:21', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(44, '2007-03-16 17:14:21', '2007-03-16 17:14:21', 0, 'Se esperaba terminar con un cÃ³digo de retorno 0 pero se obtuvo 1.
+La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõ¿~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõ¿~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(45, '2007-03-16 17:14:21', '2007-03-16 17:14:22', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(46, '2007-03-16 17:14:21', '2007-03-16 17:14:22', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(47, '2007-03-16 17:14:22', '2007-03-16 17:14:22', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõÀ~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõÀ~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(48, '2007-03-16 17:14:22', '2007-03-16 17:14:22', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(49, '2007-03-16 17:14:22', '2007-03-16 17:14:22', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(50, '2007-03-16 17:14:22', '2007-03-16 17:14:22', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõÀ~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõÀ~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(51, '2007-03-16 17:14:22', '2007-03-16 17:14:22', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(52, '2007-03-16 17:14:22', '2007-03-16 17:14:22', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(53, '2007-03-16 17:14:22', '2007-03-16 17:14:22', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõÀ~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõÀ~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(54, '2007-03-16 17:14:22', '2007-03-16 17:14:23', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(55, '2007-03-16 17:14:22', '2007-03-16 17:14:22', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(56, '2007-03-16 17:14:22', '2007-03-16 17:14:23', 0, 'Se esperaba terminar con un cÃ³digo de retorno 0 pero se obtuvo 1.
+La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõÀ~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõÀ~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(57, '2007-03-16 17:14:23', '2007-03-16 17:14:23', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(58, '2007-03-16 17:14:23', '2007-03-16 17:14:23', 0, 'Se esperaba terminar con un cÃ³digo de retorno 0 pero se obtuvo una seÃ±al 6 (6).
+La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(59, '2007-03-16 17:14:23', '2007-03-16 17:14:23', 0, 'Se esperaba terminar con un cÃ³digo de retorno 0 pero se obtuvo 1.
+La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõÀ~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõÀ~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(60, '2007-03-16 17:14:23', '2007-03-16 17:14:23', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(61, '2007-03-16 17:14:23', '2007-03-16 17:14:23', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(62, '2007-03-16 17:14:23', '2007-03-16 17:14:23', 0, 'Se esperaba terminar con un cÃ³digo de retorno 0 pero se obtuvo 1.
+La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõÀ~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõÀ~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(63, '2007-03-16 17:14:23', '2007-03-16 17:14:23', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(64, '2007-03-16 17:14:23', '2007-03-16 17:14:23', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(65, '2007-03-16 17:14:23', '2007-03-16 17:14:23', 0, 'Se esperaba terminar con un cÃ³digo de retorno 0 pero se obtuvo 1.
+La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõÀ~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõÀ~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(66, '2007-03-16 17:14:23', '2007-03-16 17:14:24', 1, '', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(67, '2007-03-16 17:14:24', '2007-03-16 17:14:24', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', NULL, 'ComandoEjecutado');
+INSERT INTO "ejecucion" VALUES(68, '2007-03-16 17:14:24', '2007-03-16 17:14:24', 0, 'La salida estÃ¡ndar no coincide con lo esperado (archivo "__stdout__.diff").
+', 'E@øù	õõõõõÁ~e+pþ©õõõõõõÿõõõTThiYZggTTkVa\g^cY/HiVgijedgXdc[^\jgVi^dcZggdg/ÿ8VciXgZViZXa^ZciXbYa^cZ[^aZ^c$ibe#ÿkVa\g^cY/JcVWaZidhiVgijeegdeZgan#<^k^c\je#ÿE@ö÷	õ	õõõõõÁ~e+pþ©õõõõõõÿõõõõõõõõõõõ™võõõõTThiYZggTTE@úûõõõõöõöõ-õõõ§õõõõõ', 'ComandoEjecutado');
+
 INSERT INTO "ejercicio" VALUES(1, 8, 3, 1, 0);
+
+INSERT INTO "entrega" VALUES(1, 1, 8, '2007-03-16 17:06:52');
+INSERT INTO "entrega" VALUES(33, 1, 8, '2007-03-16 17:10:46');
+INSERT INTO "entrega" VALUES(35, 1, 8, '2007-03-16 17:12:45');
+INSERT INTO "entrega" VALUES(37, 1, 8, '2007-03-16 17:14:08');
 
 INSERT INTO "entregador" VALUES(1, NULL, NULL, '', 1, 'AlumnoInscripto');
 INSERT INTO "entregador" VALUES(2, NULL, NULL, '', 1, 'AlumnoInscripto');
@@ -168,6 +5794,12 @@ INSERT INTO "entregador" VALUES(40, NULL, NULL, '', 1, 'AlumnoInscripto');
 INSERT INTO "entregador" VALUES(41, NULL, NULL, '', 1, 'AlumnoInscripto');
 INSERT INTO "entregador" VALUES(42, NULL, NULL, '', 1, 'AlumnoInscripto');
 INSERT INTO "entregador" VALUES(43, NULL, NULL, '', 1, 'AlumnoInscripto');
+INSERT INTO "entregador" VALUES(44, NULL, NULL, '', 1, 'Grupo');
+INSERT INTO "entregador" VALUES(45, NULL, NULL, '', 1, 'Grupo');
+INSERT INTO "entregador" VALUES(46, NULL, NULL, '', 1, 'Grupo');
+INSERT INTO "entregador" VALUES(47, NULL, NULL, '', 1, 'Grupo');
+INSERT INTO "entregador" VALUES(48, NULL, NULL, '', 1, 'Grupo');
+INSERT INTO "entregador" VALUES(49, NULL, NULL, '', 1, 'Grupo');
 
 INSERT INTO "enunciado" VALUES(1, 'Simulador de un microcontrolador', 2007, 1, '', 23, '2007-03-14 16:17:11', 'áoj"#3°S8ê²df\#›£#&4„‰RMƒ…ts("Ñbc»dt—#""³Û‚ÏßõÕØŒúÕŒúÕŒúÕŒúÕŒúÕ‹\†…‰‰ýÎ	˜CÈÝrÈiõ	“Íš”¹s`c«µ°­$5©“×ƒ×†×ŒW>5©¨Ÿ ßýç)5©¦¦Ÿ}åóíûä¡Ÿ^ŒiÏo###µUMÅmøú7Ù·©·9úº·áaàaXÚW¸9ùáa˜»	‰e²“A†Dë¢ÄJJT“˜¶×$&ûÑó.TÊ	qqqdGgÃ…·9ƒíq	Y	bÜõ
 žÖ~–½“Xé6‰¢ØŠ”
@@ -1266,8 +6898,57 @@ Mx#ƒîÛû‘Œÿn?¿š3×ö”ª>îÖÞ¢•ý Ù\‰–Ëüw¡÷¬J^³Âîõ4ªH¢TtÏ¬!t‹÷T!+ú¿œ
 INSERT INTO "enunciado_tarea" VALUES(1, 1);
 INSERT INTO "enunciado_tarea" VALUES(1, 2);
 
+INSERT INTO "grupo" VALUES(44, 8, '1', 1);
+INSERT INTO "grupo" VALUES(45, 8, '2', 6);
+INSERT INTO "grupo" VALUES(46, 8, '3', 9);
+INSERT INTO "grupo" VALUES(47, 8, '4', 10);
+INSERT INTO "grupo" VALUES(48, 8, '5', NULL);
+INSERT INTO "grupo" VALUES(49, 8, '6', 17);
+
 INSERT INTO "instancia_de_entrega" VALUES(1, 1, 1, '2007-03-16 00:51:00', '2007-03-18 12:00:00', NULL, NULL, NULL, 1);
 INSERT INTO "instancia_de_entrega" VALUES(2, 1, 2, '2007-03-19 01:01:00', '2007-03-21 20:00:00', NULL, NULL, NULL, 1);
+
+INSERT INTO "miembro" VALUES(1, 44, 1, NULL, '2007-03-16 17:29:09', NULL);
+INSERT INTO "miembro" VALUES(2, 44, 2, NULL, '2007-03-16 17:29:09', NULL);
+INSERT INTO "miembro" VALUES(3, 44, 3, NULL, '2007-03-16 17:29:09', NULL);
+INSERT INTO "miembro" VALUES(4, 44, 4, NULL, '2007-03-16 17:29:09', NULL);
+INSERT INTO "miembro" VALUES(5, 45, 6, NULL, '2007-03-16 17:29:59', NULL);
+INSERT INTO "miembro" VALUES(6, 45, 5, NULL, '2007-03-16 17:29:59', NULL);
+INSERT INTO "miembro" VALUES(7, 46, 7, NULL, '2007-03-16 17:30:22', NULL);
+INSERT INTO "miembro" VALUES(8, 46, 8, NULL, '2007-03-16 17:30:22', NULL);
+INSERT INTO "miembro" VALUES(9, 46, 9, NULL, '2007-03-16 17:30:22', NULL);
+INSERT INTO "miembro" VALUES(17, 49, 17, NULL, '2007-03-16 17:31:49', NULL);
+INSERT INTO "miembro" VALUES(18, 49, 18, NULL, '2007-03-16 17:31:49', NULL);
+INSERT INTO "miembro" VALUES(19, 49, 19, NULL, '2007-03-16 17:31:50', '2007-03-16 17:34:06');
+INSERT INTO "miembro" VALUES(20, 48, 14, NULL, '2007-03-16 17:32:15', NULL);
+INSERT INTO "miembro" VALUES(21, 48, 15, NULL, '2007-03-16 17:32:15', NULL);
+INSERT INTO "miembro" VALUES(22, 48, 16, NULL, '2007-03-16 17:32:15', NULL);
+INSERT INTO "miembro" VALUES(23, 47, 10, NULL, '2007-03-16 17:34:34', NULL);
+INSERT INTO "miembro" VALUES(24, 47, 11, NULL, '2007-03-16 17:34:34', NULL);
+INSERT INTO "miembro" VALUES(25, 47, 12, NULL, '2007-03-16 17:34:34', NULL);
+INSERT INTO "miembro" VALUES(26, 47, 13, NULL, '2007-03-16 17:34:34', NULL);
+INSERT INTO "miembro" VALUES(27, 47, 19, NULL, '2007-03-16 17:34:34', NULL);
+
+INSERT INTO "prueba" VALUES(3, 1, 12);
+INSERT INTO "prueba" VALUES(6, 1, 11);
+INSERT INTO "prueba" VALUES(9, 1, 4);
+INSERT INTO "prueba" VALUES(12, 1, 5);
+INSERT INTO "prueba" VALUES(15, 1, 6);
+INSERT INTO "prueba" VALUES(18, 1, 9);
+INSERT INTO "prueba" VALUES(21, 1, 8);
+INSERT INTO "prueba" VALUES(24, 1, 7);
+INSERT INTO "prueba" VALUES(27, 1, 10);
+INSERT INTO "prueba" VALUES(30, 1, 13);
+INSERT INTO "prueba" VALUES(39, 37, 12);
+INSERT INTO "prueba" VALUES(42, 37, 11);
+INSERT INTO "prueba" VALUES(45, 37, 4);
+INSERT INTO "prueba" VALUES(48, 37, 5);
+INSERT INTO "prueba" VALUES(51, 37, 6);
+INSERT INTO "prueba" VALUES(54, 37, 9);
+INSERT INTO "prueba" VALUES(57, 37, 8);
+INSERT INTO "prueba" VALUES(60, 37, 7);
+INSERT INTO "prueba" VALUES(63, 37, 10);
+INSERT INTO "prueba" VALUES(66, 37, 13);
 
 INSERT INTO "rol" VALUES(1, 'admin', NULL, '2007-03-14 15:18:27', '(ccopy_reg
 _reconstructor
@@ -1358,6 +7039,15 @@ INSERT INTO "tarea" VALUES(2, 'Ejecutar + valgrind', 'Ejecuta primero de forma n
 INSERT INTO "tarea_fuente" VALUES(1);
 
 INSERT INTO "tarea_prueba" VALUES(2);
+
+INSERT INTO "tutor" VALUES(1, 44, 1, '2007-03-16 17:29:09', NULL);
+INSERT INTO "tutor" VALUES(2, 45, 2, '2007-03-16 17:29:59', NULL);
+INSERT INTO "tutor" VALUES(3, 46, 3, '2007-03-16 17:30:22', NULL);
+INSERT INTO "tutor" VALUES(7, 49, 1, '2007-03-16 17:31:50', NULL);
+INSERT INTO "tutor" VALUES(8, 48, 6, '2007-03-16 17:32:15', NULL);
+INSERT INTO "tutor" VALUES(12, 49, 5, '2007-03-16 17:34:06', NULL);
+INSERT INTO "tutor" VALUES(13, 47, 5, '2007-03-16 17:34:34', NULL);
+INSERT INTO "tutor" VALUES(14, 47, 7, '2007-03-16 17:34:34', NULL);
 
 INSERT INTO "usuario" VALUES(1, '76335', '462d3127e7a1dbd3cf12c1f1a7203c79238849e9', 'JORGE EDUARDO PITARO', 'jep77ar@gmail.com', '', '2007-03-13 00:54:15', NULL, 1, 'Alumno');
 INSERT INTO "usuario" VALUES(2, '78548', 'e925d542f0eba2b90a62f9655a17120f7168fc6e', 'MARTIN FERRARI', 'martinferra@yahoo.com.ar', '4322-9652', '2007-03-13 00:54:15', NULL, 1, 'Alumno');
