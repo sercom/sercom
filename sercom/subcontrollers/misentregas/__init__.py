@@ -116,11 +116,6 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
     def index(self):
         raise redirect('list')
 
-    @expose(template='kid:%s.templates.new' % __name__)
-    def new(self, **kw):
-        """Create new records in model"""
-        return dict(name=name, namepl=namepl, form=form, values=kw)
-
     @expose(template='kid:%s.templates.list' % __name__)
     @paginate('records')
     def list(self):
@@ -134,6 +129,11 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
             pass
         r = cls.select(IN(cls.q.entregadorID, m))
         return dict(records=r, name=name, namepl=namepl)
+
+    @expose(template='kid:%s.templates.new' % __name__)
+    def new(self, **kw):
+        """Create new records in model"""
+        return dict(name=name, namepl=namepl, form=form, values=kw)
 
     @validate(form=form)
     @error_handler(new)
@@ -195,9 +195,13 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         return r.archivos
 
-    @expose("json")
+    @expose('json')
     def instancias(self, ejercicio_id):
-        c = Ejercicio.get(ejercicio_id)
-        return dict(instancias=c.instancias)
+        instancias = InstanciaDeEntrega.select(AND(
+                InstanciaDeEntrega.q.ejercicioID == ejercicio_id,
+                InstanciaDeEntrega.q.activo == True,
+                InstanciaDeEntrega.q.inicio <= DateTimeCol.now(),
+                InstanciaDeEntrega.q.fin >= DateTimeCol.now()))
+        return dict(instancias=instancias)
 #}}}
 
