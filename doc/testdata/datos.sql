@@ -128,6 +128,8 @@ INSERT INTO "docente_inscripto" VALUES(5, 8, 32, 1, NULL);
 INSERT INTO "docente_inscripto" VALUES(6, 8, 35, 1, NULL);
 INSERT INTO "docente_inscripto" VALUES(7, 8, 36, 1, NULL);
 
+INSERT INTO "ejercicio" VALUES(1, 8, 3, 1, 0);
+
 INSERT INTO "entregador" VALUES(1, NULL, NULL, '', 1, 'AlumnoInscripto');
 INSERT INTO "entregador" VALUES(2, NULL, NULL, '', 1, 'AlumnoInscripto');
 INSERT INTO "entregador" VALUES(3, NULL, NULL, '', 1, 'AlumnoInscripto');
@@ -1263,6 +1265,9 @@ Mx#ƒîÛû‘Œÿn?¿š3×ö”ª>îÖÞ¢•ý Ù\‰–Ëüw¡÷¬J^³Âîõ4ªH¢TtÏ¬!t‹÷T!+ú¿œ
 
 INSERT INTO "enunciado_tarea" VALUES(1, 1);
 INSERT INTO "enunciado_tarea" VALUES(1, 2);
+
+INSERT INTO "instancia_de_entrega" VALUES(1, 1, 1, '2007-03-16 00:51:00', '2007-03-18 12:00:00', NULL, NULL, NULL, 1);
+INSERT INTO "instancia_de_entrega" VALUES(2, 1, 2, '2007-03-19 01:01:00', '2007-03-21 20:00:00', NULL, NULL, NULL, 1);
 
 INSERT INTO "rol" VALUES(1, 'admin', NULL, '2007-03-14 15:18:27', '(ccopy_reg
 _reconstructor
