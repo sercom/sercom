@@ -84,7 +84,7 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
     @paginate('records')
     def list(self, curso):
         """List records in model"""
-        r = cls.selectBy(cursoID=curso)
+        r = cls.selectBy(cursoID=curso).orderBy(cls.q.numero)
         return dict(records=r, name=name, namepl=namepl, curso=curso)
 
     @expose(template='kid:%s.templates.new' % __name__)
