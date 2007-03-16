@@ -285,8 +285,8 @@ class Tester(object): #{{{
 #}}}
 
 def ejecutar_caso_de_prueba(self, path, entrega): #{{{
-    log.debug(_(u'CasoDePrueba.ejecutar(path=%s, entrega=%s)'), path,
-        entrega.shortrepr())
+    log.debug(_(u'CasoDePrueba.ejecutar(caso=%s, path=%s, entrega=%s)'), self,
+        path, entrega.shortrepr())
     tareas = [t for t in entrega.instancia.ejercicio.enunciado.tareas
                 if isinstance(t, TareaPrueba)]
     prueba = entrega.add_prueba(self, inicio=datetime.now())
@@ -539,16 +539,20 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
         options['preexec_fn'].close_stdin = True
     a_guardar = set(self.archivos_a_guardar)
     a_guardar |= set(caso_de_prueba.archivos_a_guardar)           # FIXME Esto es propio de ComandoPrueba
+    log.debug('archivos a guardar: %s', a_guardar)
     zip_a_comparar = Multizip(caso_de_prueba.archivos_a_comparar, # FIXME Esto es propio de ComandoPrueba
         self.archivos_a_comparar)                                 # FIXME Esto es propio de ComandoPrueba
     a_comparar = set(zip_a_comparar.namelist())
+    log.debug('archivos a comparar: %s', a_comparar)
     a_usar = frozenset(a_guardar | a_comparar)
+    log.debug('archivos a usar: %s', a_usar)
     if self.STDOUTERR in a_usar:
         options['stdout'] = file('%s.%s.stdouterr' % (basetmp,
             comando_ejecutado.id), 'w')
         options['stderr'] = sp.STDOUT
     else:
         if self.STDOUT in a_usar:
+            log.debug('capurando salida en: %s.%s.stdout', basetmp, comando_ejecutado.id)
             options['stdout'] = file('%s.%s.stdout' % (basetmp,
                 comando_ejecutado.id), 'w')
         else:
@@ -678,6 +682,7 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
                 _(u'La salida estándar y de error combinada'))
         else:
             if self.STDOUT in a_comparar:
+                log.debug('comparando salida con: %s.%s.stdout', basetmp, comando_ejecutado.id)
                 a_comparar.remove(self.STDOUT)
                 diff('%s.%s.stdout' % (basetmp, comando_ejecutado.id),
                     zip_a_comparar, zip, self.STDOUT, _(u'La salida estándar'))
