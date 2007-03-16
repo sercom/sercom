@@ -12,7 +12,7 @@
 <p py:replace="form(action=tg.url('/curso/grupo/create'), options=options, value=values, submit_text=_('Crear'))">Formulario</p>
 
 <br/>
-<a href="${tg.url('/curso/grupo/list/%d' % cursoID)}">Cancelar</a>
+<a href="${tg.url('/curso/grupo/list/%d' % values['cursoID'])}">Cancelar</a>
 
 </body>
 </html>

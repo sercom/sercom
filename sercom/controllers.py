@@ -115,8 +115,6 @@ class Root(controllers.RootController):
 
     enunciado = EnunciadoController()
 
-    ejercicio = EjercicioController()
-
     tarea_fuente = TareaFuenteController()
 
     tarea_prueba = TareaPruebaController()

@@ -52,9 +52,6 @@ def validate_new(data):
 #}}}
 
 #{{{ Formulario
-def get_options():
-    return [(0, _(u'--'))] + [(fk.id, fk.shortrepr()) for fk in fkcls.select()]
-
 class EntregaForm(W.TableForm):
     class Fields(W.WidgetsList):
         numero = W.TextField(name="numero",label=_(u'Nro'), help_text=_(u'Requerido.'),
@@ -65,7 +62,7 @@ class EntregaForm(W.TableForm):
         observaciones = W.TextArea(rows="5", cols="40")
         ejercicio_id= W.HiddenField()
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');")]
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_numero');")]
 
 form = EntregaForm()
 #}}}
@@ -78,37 +75,37 @@ class EntregaController(controllers.Controller, identity.SecureResource):
     @expose(template='kid:%s.templates.list' % __name__)
     @validate(validators=dict(ejercicio_id=V.Int))
     @paginate('records')
-    def default(self, ejercicio_id):
-        e = Ejercicio.get(ejercicio_id)
-        r = e.instancias
-        return dict(records=r, name=name, namepl=namepl, parcial=str(ejercicio_id))
+    def list(self, ejercicio_id):
+        r = cls.selectBy(ejercicioID=ejercicio_id)
+        return dict(records=r, name=name, namepl=namepl, ejercicio=ejercicio_id)
 
     @expose(template='kid:%s.templates.new' % __name__)
     @identity.require(identity.has_permission('admin'))
     def new(self, ejercicio_id, **kw):
         """Create new records in model"""
-        form.fields[5].attrs['value'] = ejercicio_id
-        return dict(name=name, namepl=namepl, form=form, values=kw, partial=str(ejercicio_id))
+        kw['ejercicioID'] = ejercicio_id
+        return dict(name=name, namepl=namepl, form=form, values=kw)
 
     @validate(form=form)
     @error_handler(new)
     @expose()
     @identity.require(identity.has_permission('admin'))
-    def create(self, ejercicio_id, **kw):
+    def create(self, **kw):
         """Save or create record to model"""
-        e = Ejercicio.get(ejercicio_id)
+        e = Ejercicio.get(kw['ejercicioID'])
         e.add_instancia(**kw)
         flash(_(u'Se creó un nuevo %s.') % name)
-        raise redirect('/ejercicio/entrega/'+str(e.id))
+        raise redirect('list/%s' % e.id)
 
     @expose()
     @identity.require(identity.has_permission('admin'))
     def delete(self, id):
         """Destroy record in model"""
         r = validate_get(id)
+        ejercicio_id = r.ejercicioID
         r.destroySelf()
         flash(_(u'El %s fue eliminado permanentemente.') % name)
-        raise redirect('../list')
+        raise redirect('../list/%s' % ejercicio_id)
 
 #}}}
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <?python from turbogears import identity ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#"
-    py:extends="'../../../../templates/master.kid'">
+    py:extends="'../../../../../templates/master.kid'">
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
 <title>list</title>
@@ -30,14 +30,14 @@
         <td><span py:replace="tg.strbool(record.activo)">activa</span></td>
         <td><span py:replace="record.observaciones">obs</span></td>
         <td>
-            <a py:if="'admin' in identity.current.permissions" href="${tg.url('/ejercicio/entrega/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
+            <a py:if="'admin' in identity.current.permissions" href="${tg.url('/curso/ejercicio/entrega/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
         </td>
     </tr>
 </table>
 
 <br/>
-<a py:if="'admin' in identity.current.permissions" href="${tg.url('/ejercicio/entrega/new/'+parcial)}">Agregar</a>
-<a href="${tg.url('/ejercicio/list')}">Volver a Ejericicios</a>
+<a py:if="'admin' in identity.current.permissions" href="${tg.url('/curso/ejercicio/entrega/new/%s' % ejercicio)}">Agregar</a>
+<a href="${tg.url('/curso/ejercicio/list')}">Volver a Ejericicios</a>
 
 <div py:for="page in tg.paginate.pages">
     <a py:if="page != tg.paginate.current_page"

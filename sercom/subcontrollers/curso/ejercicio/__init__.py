@@ -21,13 +21,9 @@ cls = Ejercicio
 name = 'ejercicio'
 namepl = name + 's'
 
-fkcls = Curso
-fkname = 'curso'
+fkcls = Enunciado
+fkname = 'enunciado'
 fknamepl = fkname + 's'
-
-fk1cls = Enunciado
-fk1name = 'enunciado'
-fk1namepl = fk1name + 's'
 #}}}
 
 #{{{ Validación
@@ -45,31 +41,15 @@ def validate_fk(data):
     data[fkname] = fk
     return fk
 
-def validate_fk1(data):
-    fk = data.get(fk1name + 'ID', None)
-    if fk == 0: fk = None
-    if fk is not None:
-        try:
-            fk = fk1cls.get(fk)
-        except LookupError:
-            flash(_(u'No se pudo crear el nuevo %s porque el %s con '
-                'identificador %d no existe.' % (name, fk1name, fk)))
-            raise redirect('new', **data)
-    data.pop(fk1name + 'ID', None)
-    data[fk1name] = fk
-    return fk
-
 def validate_get(id):
     return val.validate_get(cls, name, id)
 
 def validate_set(id, data):
     validate_fk(data)
-    validate_fk1(data)
     return val.validate_set(cls, name, id, data)
 
 def validate_new(data):
     validate_fk(data)
-    validate_fk1(data)
     return val.validate_new(cls, name, data)
 
 def validate_del(id):
@@ -77,87 +57,17 @@ def validate_del(id):
 #}}}
 
 #{{{ Formulario
-def get_options():
-    return [(0, _(u'--'))] + [(fk.id, fk.shortrepr()) for fk in fkcls.select()]
-
-# Un poco de ajax para llenar los cursos
-ajax = """
-    function showHint()
-    {
-        MochiKit.DOM.showElement('hint')
-    }
-
-    function hideHint()
-    {
-        MochiKit.DOM.hideElement('hint')
-    }
-
-    function clearEnunciados ()
-    {
-        l = MochiKit.DOM.getElement('form_enunciadoID');
-        l.options.length = 0;
-        l.disabled = true;
-    }
-
-    function mostrarEnunciados (res)
-    {
-        clearEnunciados();
-        for(i in res.enunciados) {
-            id = res.enunciados[i].id;
-            label = res.enunciados[i].nombre;
-            MochiKit.DOM.appendChildNodes("form_enunciadoID", OPTION({"value":id}, label))
-        }
-        l.disabled = false;
-        hideHint();
-    }
-
-    function err (err)
-    {
-        alert("The metadata for MochiKit.Async could not be fetched :(");
-        hideHint();
-    }
-
-    function actualizar_enunciados ()
-    {
-        l = MochiKit.DOM.getElement('form_cursoID');
-        id = l.options[l.selectedIndex].value;
-        if (id == 0) {
-            clearEnunciados();
-            return;
-        }
-
-        url = "/enunciado/de_curso?curso_id="+id;
-        var d = loadJSONDoc(url);
-        d.addCallbacks(mostrarEnunciados, err);
-        showHint();
-    }
-
-    function prepare()
-    {
-        connect('form_cursoID', 'onchange', actualizar_enunciados);
-        hideHint();
-        clearEnunciados();
-        actualizar_enunciados();
-        if (select_enunciado) {
-            wait(0.1).addCallback(function (res) { return select_enunciado() });
-        }
-    }
-
-    MochiKit.DOM.addLoadEvent(prepare)
-"""
-
 class EjercicioForm(W.TableForm):
     class Fields(W.WidgetsList):
-        fk = W.SingleSelectField(name=fkname+'ID', label=_(fkname.capitalize()),
-            options=get_options, validator=V.Int(not_empty=True))
+        cursoID = W.HiddenField(validator=V.Int)
         numero = W.TextField(name="numero",label=_(u'Nro'),
             help_text=_(u'Requerido.'),
             validator=V.Int(not_empty=True))
-        fk1 = W.SingleSelectField(name=fk1name+'ID', label=_(fk1name.capitalize()),
+        fk = W.SingleSelectField(name=fkname+'ID', label=_(fkname.capitalize()),
             validator=V.Int(not_empty=True))
-        grupal = W.CheckBox(name='grupal', label=_(u"Grupal?"))
+        grupal = W.CheckBox(name='grupal', label=_(u"Grupal?"), validator=V.Bool(if_empty=0), default=0)
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');"), W.JSSource(ajax)]
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_numero');")]
 
 form = EjercicioForm()
 #}}}
@@ -172,25 +82,31 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
     @expose()
     def default(self, tg_errors=None):
         """handle non exist urls"""
-        raise redirect('list')
+        raise redirect('../list')
 
     @expose()
     def index(self):
-        raise redirect('list')
+        raise redirect('../list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @validate(validators=dict(autor=V.Int))
+    @validate(validators=dict(curso=V.Int))
     @paginate('records')
-    def list(self, autor=None):
+    def list(self, curso):
         """List records in model"""
-        r = cls.select()
-        return dict(records=r, name=name, namepl=namepl, parcial=autor)
+        r = cls.selectBy(cursoID=curso)
+        return dict(records=r, name=name, namepl=namepl, curso=curso)
 
     @expose(template='kid:%s.templates.new' % __name__)
+    @validate(validators=dict(curso=V.Int))
     @identity.require(identity.has_permission('admin'))
-    def new(self, **kw):
+    def new(self, curso, **kw):
         """Create new records in model"""
-        return dict(name=name, namepl=namepl, form=form, values=kw)
+        kw['cursoID'] = curso
+        curso = Curso.get(curso)
+        options = { fkname+'ID': [(fk.id, fk.shortrepr()) for fk in
+            Enunciado.selectBy(anio=curso.anio,
+                cuatrimestre=curso.cuatrimestre)] }
+        return dict(name=name, namepl=namepl, form=form, values=kw, options=options)
 
     @validate(form=form)
     @error_handler(new)
@@ -200,14 +116,18 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
         """Save or create record to model"""
         validate_new(kw)
         flash(_(u'Se creó un nuevo %s.') % name)
-        raise redirect('list')
+        raise redirect('list/%s' % kw['cursoID'])
 
     @expose(template='kid:%s.templates.edit' % __name__)
     @identity.require(identity.has_permission('admin'))
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
-        return dict(name=name, namepl=namepl, record=r, form=form)
+        curso = Curso.get(r.cursoID)
+        options = { fkname+'ID': [(fk.id, fk.shortrepr()) for fk in
+            Enunciado.selectBy(anio=curso.anio,
+                cuatrimestre=curso.cuatrimestre)] }
+        return dict(name=name, namepl=namepl, record=r, form=form, options=options)
 
     @validate(form=form)
     @error_handler(edit)
@@ -217,7 +137,7 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
         """Save or create record to model"""
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
-        raise redirect('../list')
+        raise redirect('../list/%s' % r.cursoID)
 
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self,id, **kw):

@@ -2,7 +2,6 @@ from docente import DocenteController
 from alumno import AlumnoController
 from curso import CursoController
 from enunciado import EnunciadoController
-from ejercicio import EjercicioController
 from docente_inscripto import DocenteInscriptoController
 from correccion import CorreccionController
 from misentregas import MisEntregasController

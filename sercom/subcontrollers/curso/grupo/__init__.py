@@ -125,11 +125,11 @@ ajax = u"""
 
 class GrupoForm(W.TableForm):
     class Fields(W.WidgetsList):
-        cursoID = W.HiddenField()
+        cursoID = W.HiddenField(validator=V.Int)
         nombre = W.TextField(label=_(u'Nombre'), validator=V.UnicodeString(not_empty=True,strip=True))
         responsable = CustomTextField(label=_(u'Responsable'), validator=V.UnicodeString(), attrs=dict(size='8'))
         miembros = AjaxMultiSelect(label=_(u'Miembros'), validator=V.Int(), on_add="alumnos_agregar_a_la_lista")
-        tutores = W.MultipleSelectField(label=_(u'Tutores'), validator=V.Int())
+        tutores = W.MultipleSelectField(label=_(u'Tutores'), validator=V.Int)
 
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');"), W.JSSource(ajax)]
@@ -302,18 +302,20 @@ class GrupoController(controllers.Controller, identity.SecureResource):
         raise redirect(tg.url('/curso/list'))
 
     @expose(template='kid:%s.templates.list' % __name__)
+    @validate(validators=dict(curso=V.Int))
     @paginate('records')
-    def list(self, cursoID):
+    def list(self, curso):
         """List records in model"""
-        r = cls.select(cls.q.cursoID == cursoID)
-        return dict(records=r, name=name, namepl=namepl, cursoID=int(cursoID))
+        r = cls.selectBy(cursoID=curso)
+        return dict(records=r, name=name, namepl=namepl, cursoID=curso)
 
     @expose(template='kid:%s.templates.new' % __name__)
-    def new(self, cursoID, **kw):
+    @validate(validators=dict(curso=V.Int))
+    def new(self, curso, **kw):
         """Create new records in model"""
-        form.fields[0].attrs['value'] = cursoID
-        options = dict(tutores=get_docentes_inscriptos(cursoID))
-        return dict(name=name, namepl=namepl, cursoID=int(cursoID), form=form, options=options, values=kw)
+        kw['cursoID'] = curso # FIXME esto está roto porque los widgets son stateless
+        options = dict(tutores=get_docentes_inscriptos(curso))
+        return dict(name=name, namepl=namepl, form=form, options=options, values=kw)
 
     @validate(form=form)
     @error_handler(new)

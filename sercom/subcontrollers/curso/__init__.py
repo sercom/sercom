@@ -17,6 +17,7 @@ from sqlobject.dberrors import *
 from sercom.widgets import *
 from alumno import AlumnoInscriptoController
 from grupo import GrupoController
+from ejercicio import EjercicioController
 #}}}
 
 #{{{ Configuración
@@ -163,6 +164,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
     curso_alumno = CursoAlumnoController()
     alumno = AlumnoInscriptoController()
     grupo = GrupoController()
+    ejercicio = EjercicioController()
 
     @expose()
     def default(self, tg_errors=None):

@@ -1,25 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#"
-    py:extends="'../../../templates/master.kid'">
+    py:extends="'../../../../templates/master.kid'">
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
 <title>new</title>
 </head>
-<script type="text/javascript">
-    function select_enunciado() {}
-</script>
 <body>
 
 <h1>Crear Nuevo <span py:replace="name">Objeto</span></h1>
 
-<div id="hint">
-    Buscando registros ...
-</div>
-
-<p py:replace="form(action=tg.url('/ejercicio/create'), value=values, submit_text=_('Crear'))">Formulario</p>
+<p py:replace="form(action=tg.url('/curso/ejercicio/create'), options=options, value=values, submit_text=_('Crear'))">Formulario</p>
 
 <br/>
-<a href="${tg.url('/ejercicio/list')}">Cancelar</a>
+<a href="${tg.url('/curso/ejercicio/list/%s' % values['cursoID'])}">Cancelar</a>
 
 </body>
 </html>
