@@ -79,15 +79,6 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
 
     entrega = EntregaController()
 
-    @expose()
-    def default(self, tg_errors=None):
-        """handle non exist urls"""
-        raise redirect('../list')
-
-    @expose()
-    def index(self):
-        raise redirect('../list')
-
     @expose(template='kid:%s.templates.list' % __name__)
     @validate(validators=dict(curso=V.Int))
     @paginate('records')
