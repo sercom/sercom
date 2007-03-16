@@ -11,6 +11,7 @@
 
 <table class="list">
     <tr>
+        <th>#</th>
         <th>Numero</th>
         <th>Cuatrimestre</th>
         <th>Anio</th>
@@ -22,12 +23,8 @@
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-        <!--td><input type="checkbox" onclick="var f =
-            document.createElement('form'); this.parentNode.appendChild(f);
-            f.method = 'POST'; f.action = '${tg.url('/alumno/activate/%d/%d' % (record.id, int(not record.activo)))}';
-            f.submit(); return false;"
-            py:attrs="checked=tg.checker(record.activo)" /></td-->
-        <td><a href="${tg.url('/curso/show/%d' % record.id)}"><span py:replace="record.numero">numero</span></a></td>
+        <td><span py:replace="record.id">id</span></td>
+        <td><span py:replace="record.numero">numero</span></td>
         <td><span py:replace="record.cuatrimestre">cuatrimestre</span></td>
         <td><span py:replace="record.anio">anio</span></td>
         <td><span py:replace="record.descripcion">descripcion</span></td>
