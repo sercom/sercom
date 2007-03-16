@@ -1,6 +1,6 @@
 # vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker :
 
-from sercom.model import InstanciaDeEntrega
+from sercom.model import InstanciaDeEntrega, Entrega, SQLObjectNotFound
 from datetime import datetime
 import logging
 
@@ -53,14 +53,14 @@ def instancia_finalizar(self): #{{{
     docentes = [di.docente for di in curso.docentes if di.corrige]
     curr_docente = 0
     for ai in curso.alumnos:
-        mejor_entrega = None
-        for entrega in Entrega.selectBy(instancia=self, entregador=ai).orderBy(-Entrega.q.fecha):
-            if not mejor_entrega or not mejor_entrega.exito and entrega.exito:
-                mejor_entrega = entrega
-        if mejor_entrega:
-            mejor_entrega.make_correccion(docentes[curr_docente])
+        try:
+            e = Entrega.selectBy(instancia=self, entregador=ai) \
+                .orderBy(-Entrega.q.fecha) \
+                .limit(1) \
+                .getOne()
+            e.make_correccion(docentes[curr_docente])
             curr_docente = (curr_docente + 1) % len(docentes)
-        else:
+        except SQLObjectNotFound:
             log.info(_(u'El alumno inscripto %s no entregó', ai))
 
 InstanciaDeEntrega.finalizar = instancia_finalizar
