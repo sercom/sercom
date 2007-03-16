@@ -24,6 +24,7 @@
         <td>
             <a href="${tg.url('/curso/ejercicio/show/%d' % record.id)}">Ver</a>
             <a href="${tg.url('/curso/ejercicio/entrega/%d' % record.id)}">Entregas</a>
+            <a href="${tg.url('/enunciado/files/%d' % record.enunciadoID)}">Bajar archivos</a>
             <a py:if="'admin' in identity.current.permissions" href="${tg.url('/curso/ejercicio/edit/%d' % record.id)}">Editar</a>
             <a py:if="'admin' in identity.current.permissions" href="${tg.url('/curso/ejercicio/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
         </td>

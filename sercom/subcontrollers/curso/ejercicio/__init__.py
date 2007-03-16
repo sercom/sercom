@@ -143,13 +143,5 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
         validate_del(id)
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../list')
-
-    @expose()
-    def files(self, id):
-        r = validate_get(id)
-        response.headers["Content-Type"] = r.archivo_type
-        response.headers["Content-disposition"] = "attachment;filename=%s" % (r.archivo_name)
-        flash(_(u'El %s fue eliminado permanentemente.') % name)
-        return r.archivo
 #}}}
 
