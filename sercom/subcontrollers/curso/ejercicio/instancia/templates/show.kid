@@ -43,8 +43,8 @@
     </table>
 
 <br/>
-<a href="${tg.url('/curso/ejercicio/entrega/edit/%s' % record.id)}">Editar</a> |
-<a href="${tg.url('/curso/ejercicio/entrega/list/%s' % record.ejercicioID)}">Volver</a>
+<a href="${tg.url('/curso/ejercicio/instancia/edit/%s' % record.id)}">Editar</a> |
+<a href="${tg.url('/curso/ejercicio/instancia/list/%s' % record.ejercicioID)}">Volver</a>
 
 </body>
 </html>

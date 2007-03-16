@@ -52,7 +52,7 @@ def validate_new(data):
 #}}}
 
 #{{{ Formulario
-class EntregaForm(W.TableForm):
+class InstanciaForm(W.TableForm):
     class Fields(W.WidgetsList):
         numero = W.TextField(name="numero",label=_(u'Nro'), help_text=_(u'Requerido.'),
             validator=V.Int(not_empty=True))
@@ -64,11 +64,11 @@ class EntregaForm(W.TableForm):
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_numero');")]
 
-form = EntregaForm()
+form = InstanciaForm()
 #}}}
 
 #{{{ Controlador
-class EntregaController(controllers.Controller, identity.SecureResource):
+class InstanciaController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_permission('entregar')
 

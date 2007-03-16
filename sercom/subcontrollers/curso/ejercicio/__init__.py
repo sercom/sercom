@@ -11,9 +11,7 @@ from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Ejercicio, Curso, Enunciado
 from cherrypy import request, response
-
-from entrega import  *
-
+from instancia import InstanciaController
 #}}}
 
 #{{{ Configuración
@@ -77,7 +75,7 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_permission('entregar')
 
-    entrega = EntregaController()
+    instancia = InstanciaController()
 
     @expose(template='kid:%s.templates.list' % __name__)
     @validate(validators=dict(curso=V.Int))

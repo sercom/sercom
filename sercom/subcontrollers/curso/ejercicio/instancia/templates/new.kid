@@ -9,10 +9,10 @@
 
 <h1>Crear Nuevo <span py:replace="name">Objeto</span></h1>
 
-<p py:replace="form(action=tg.url('/curso/ejercicio/entrega/create'), value=values, submit_text=_('Crear'))">Formulario</p>
+<p py:replace="form(action=tg.url('/curso/ejercicio/instancia/create'), value=values, submit_text=_('Crear'))">Formulario</p>
 
 <br/>
-<a href="${tg.url('/curso/ejercicio/entrega/%s' % values.ejercicioID)}">Cancelar</a>
+<a href="${tg.url('/curso/ejercicio/instancia/%s' % values.ejercicioID)}">Cancelar</a>
 
 </body>
 </html>
