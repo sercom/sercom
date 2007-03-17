@@ -352,7 +352,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
                         c = Correccion.selectBy(instancia=ins, entregador=i)
                     if c.count() > 0:
                         col["E"+str(ej.numero)+str(ins.numero)] = c[0].nota
-                        if c[0].nota > 7:
+                        if c[0].nota >= 7:
                             correctas += 1
                     else:
                         col["E"+str(ej.numero)+str(ins.numero)] = ""
