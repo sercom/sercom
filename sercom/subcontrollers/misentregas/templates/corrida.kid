@@ -45,9 +45,32 @@
 		else:
 			color = "pruebafail"
 	?>
-	<div>
+	<div style="background:#ddd; border:1px solid black; margin-bottom:10px;">
     <h3 py:content="p.caso_de_prueba.shortrepr()" />
-		<table border="1" class="${color}">
+			<table class="${color}" border="1" width="100%">
+				<tr>
+					<td width="20%">Descripcion</td>
+					<td width="80%" py:content="p.caso_de_prueba.descripcion"></td>
+				</tr>
+				<tr>
+					<td>Comando</td>
+					<td py:content="p.caso_de_prueba.comando"></td>
+				</tr>
+				<tr>
+					<td>Inicio</td>
+					<td py:content="p.inicio"></td>
+				</tr>
+				<tr>
+					<td>Fin</td>
+					<td py:content="p.fin"></td>
+				</tr>
+				<tr>
+					<td>Observaciones</td>
+					<td py:content="p.observaciones"></td>
+				</tr>
+			</table>
+			<h4>Comandos Ejecutados para la Prueba</h4>	
+		<table border="1" class="${color}" width="100%">
     <tr>
         <th>#</th>
         <th>Tarea</th>

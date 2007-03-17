@@ -74,6 +74,10 @@ h3 {
   font-size: 100%;
 }
 
+h4 {
+  font-size: 90%;
+}
+
 #getting_started_steps a {
   text-decoration: none;
 }
