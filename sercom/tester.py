@@ -461,22 +461,23 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         else:
             return False
     if a_comparar:
+        condiff = False
         buffer = StringIO()
         zip = ZipFile(buffer, 'w')
         # Comparamos stdout/stderr
         if self.STDOUTERR in a_comparar:
             a_comparar.remove(self.STDOUTERR)
-            diff('%s.%s.stdouterr' % (basetmp, comando_ejecutado.id),
+            condiff |= diff('%s.%s.stdouterr' % (basetmp, comando_ejecutado.id),
                 zip_a_comparar, zip, self.STDOUTERR,
                 _(u'La salida estándar y de error combinada'))
         else:
             if self.STDOUT in a_comparar:
                 a_comparar.remove(self.STDOUT)
-                diff('%s.%s.stdout' % (basetmp, comando_ejecutado.id),
+                condiff |= diff('%s.%s.stdout' % (basetmp, comando_ejecutado.id),
                     zip_a_comparar, zip, self.STDOUT, _(u'La salida estándar'))
             if self.STDERR in a_comparar:
                 a_comparar.remove(self.STDERR)
-                diff('%s.%s.stderr' % (basetmp, comando_ejecutado.id),
+                condiff |= diff('%s.%s.stderr' % (basetmp, comando_ejecutado.id),
                     zip_a_comparar, zip, self.STDERR, _(u'La salida de error'))
         # Comparamos otros
         for f in a_comparar:
@@ -489,9 +490,10 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
                 log.debug(_(u'Se esperaba un archivo "%s" para comparar pero '
                     u'no fue encontrado'), f)
             else:
-                diff(join(path, f), zip_a_comparar, zip, f)
+                condiff |= diff(join(path, f), zip_a_comparar, zip, f)
         zip.close()
-        comando_ejecutado.diferencias = buffer.getvalue()
+        if condiff:
+            comando_ejecutado.diferencias = buffer.getvalue()
     if comando_ejecutado.exito is None:
         comando_ejecutado.exito = True
     elif self.terminar_si_falla:
@@ -672,23 +674,24 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
         else:
             return False
     if a_comparar:
+        condiff = False
         buffer = StringIO()
         zip = ZipFile(buffer, 'w')
         # Comparamos stdout/stderr
         if self.STDOUTERR in a_comparar:
             a_comparar.remove(self.STDOUTERR)
-            diff('%s.%s.stdouterr' % (basetmp, comando_ejecutado.id),
+            condiff |= diff('%s.%s.stdouterr' % (basetmp, comando_ejecutado.id),
                 zip_a_comparar, zip, self.STDOUTERR,
                 _(u'La salida estándar y de error combinada'))
         else:
             if self.STDOUT in a_comparar:
                 log.debug('comparando salida con: %s.%s.stdout', basetmp, comando_ejecutado.id)
                 a_comparar.remove(self.STDOUT)
-                diff('%s.%s.stdout' % (basetmp, comando_ejecutado.id),
+                condiff |= diff('%s.%s.stdout' % (basetmp, comando_ejecutado.id),
                     zip_a_comparar, zip, self.STDOUT, _(u'La salida estándar'))
             if self.STDERR in a_comparar:
                 a_comparar.remove(self.STDERR)
-                diff('%s.%s.stderr' % (basetmp, comando_ejecutado.id),
+                condiff |= diff('%s.%s.stderr' % (basetmp, comando_ejecutado.id),
                     zip_a_comparar, zip, self.STDERR, _(u'La salida de error'))
         # Comparamos otros
         for f in a_comparar:
@@ -701,9 +704,10 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
                 log.debug(_(u'Se esperaba un archivo "%s" para comparar pero '
                     u'no fue encontrado'), f)
             else:
-                diff(join(path, f), zip_a_comparar, zip, f)
+                condiff |= diff(join(path, f), zip_a_comparar, zip, f)
         zip.close()
-        comando_ejecutado.diferencias = buffer.getvalue()
+        if condiff:
+            comando_ejecutado.diferencias = buffer.getvalue()
     if comando_ejecutado.exito is None:
         comando_ejecutado.exito = True
     elif self.terminar_si_falla:
