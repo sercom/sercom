@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?python import turbogears as tg ?>
 <?python from sercom.model import Grupo, AlumnoInscripto ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#"
     py:extends="'../../../templates/master.kid'">
@@ -24,16 +25,16 @@
         <th>Archivos Guardados</th>
     </tr>
 		<!-- TODO : Solo mostrar con ce.comando.publico == True -->
-		<tr py:for="ce in entrega.comandos_ejecutados">
+		<tr py:for="ce in entrega.comandos_ejecutados" py:if="ce.comando.publico">
         <td py:content="ce.comando.orden" />
         <td py:content="ce.comando.tarea.shortrepr()" />
         <td py:content="ce.comando.comando" />
         <td py:content="ce.inicio" />
         <td py:content="ce.fin" />
-        <td py:content="ce.exito" />
+        <td py:content="tg.strbool(ce.exito)" align="center" />
         <td py:content="ce.observaciones" />
-        <td><a href="/" py:if="ce.diferencias">Bajar</a></td>
-        <td><a href="/" py:if="ce.archivos">Bajar</a></td>
+        <td align="center"><a href="/" py:if="ce.diferencias">Bajar</a></td>
+        <td align="center"><a href="/" py:if="ce.archivos">Bajar</a></td>
     </tr>
 	</table>
 <h2>Pruebas Realizadas</h2>
@@ -52,17 +53,17 @@
         <th>Archivos Guardados</th>
     </tr>
 		<!-- TODO : Solo mostrar con ce.comando.publico == True -->
-		<tr py:for="ce in p.comandos_ejecutados">
+		<tr py:for="ce in p.comandos_ejecutados" py:if="ce.comando.publico">
         <td py:content="ce.comando.orden" />
         <td py:content="ce.comando.tarea.shortrepr()" />
         <td py:content="ce.comando.comando" />
         <td py:content="ce.inicio" />
         <td py:content="ce.fin" />
-        <td py:content="ce.exito" />
+        <td py:content="tg.strbool(ce.exito)" align="center" />
         <td py:content="ce.observaciones" />
-        <td><a href="/" py:if="ce.diferencias">Bajar</a></td>
-        <td><a href="/" py:if="ce.archivos">Bajar</a></td>
-    </tr>
+        <td align="center"><a href="/" py:if="ce.diferencias">Bajar</a></td>
+				<td align="center"><a href="/" py:if="ce.archivos">Bajar</a></td>
+			</tr>
 	</table>
 </div>
 
