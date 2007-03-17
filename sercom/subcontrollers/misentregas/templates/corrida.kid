@@ -12,28 +12,35 @@
 
 <h2>Comandos Ejecutados</h2>
 <table>
+    <tr>
+        <th>#</th>
+        <th>Tarea</th>
+        <th>Comando</th>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Exito?</th>
+        <th>Observaciones</th>
+        <th>Diferencias</th>
+        <th>Archivos Guardados</th>
+    </tr>
 		<!-- TODO : Solo mostrar con ce.comando.publico == True -->
 		<tr py:for="ce in entrega.comandos_ejecutados">
-			<td py:content="ce.comando.shortrepr()"></td>
-			<td py:content="ce.inicio"></td>
-			<td py:content="ce.fin"></td>
-			<td py:content="tg.strbool(ce.exito)"></td>
-			<td py:content="ce.archivos"></td>
-			<td py:content="ce.diferencias"></td>
-			<td py:content="ce.observaciones"></td>
-		</tr>
+        <td py:content="ce.comando.orden" />
+        <td py:content="ce.comando.tarea.shortrepr()" />
+        <td py:content="ce.comando.comando" />
+        <td py:content="ce.inicio" />
+        <td py:content="ce.fin" />
+        <td py:content="ce.exito" />
+        <td py:content="ce.observaciones" />
+        <td><a href="/" py:if="ce.diferencias">Bajar</a></td>
+        <td><a href="/" py:if="ce.archivos">Bajar</a></td>
+    </tr>
 	</table>
 <h2>Pruebas Realizadas</h2>
 <table>
 		<!-- TODO : Solo mostrar con ce.caso_de_prueba.publico == True -->
 		<tr py:for="p in entrega.pruebas">
-			<td py:content="ce.caso_de_prueba.shortrepr()"></td>
-			<td py:content="ce.inicio"></td>
-			<td py:content="ce.fin"></td>
-			<td py:content="tg.strbool(ce.exito)"></td>
-			<td py:content="ce.archivos"></td>
-			<td py:content="ce.diferencias"></td>
-			<td py:content="ce.observaciones"></td>
+			<td py:content="p"></td>
 		</tr>
 	</table>
 
