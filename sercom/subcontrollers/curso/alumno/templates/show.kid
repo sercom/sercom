@@ -67,7 +67,7 @@
 </table>
 
 <br/>
-<a href="${tg.url('/curso/alumno/list')}">Volver</a>
+<a href="${tg.url('/curso/alumno/list/%d' % record.curso.id)}">Volver</a>
 
 </body>
 </html>

@@ -33,7 +33,7 @@
 
 <br/>
 <a py:if="'admin' in identity.current.permissions" href="${tg.url('/curso/ejercicio/new/%s' % curso)}">Agregar</a>
-<a href="${tg.url('/curso')}">Volver a Cursos</a>
+| <a href="${tg.url('/curso')}">Volver a Cursos</a>
 
 <div py:for="page in tg.paginate.pages">
     <a py:if="page != tg.paginate.current_page"

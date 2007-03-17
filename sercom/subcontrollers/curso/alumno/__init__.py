@@ -70,7 +70,8 @@ class AlumnoInscriptoController(controllers.Controller, identity.SecureResource)
             raise redirect('..')
         else:
             r = cls.select(cls.q.cursoID == cursoID)
-        return dict(records=r, name=name, namepl=namepl, cursoid=cursoID)
+        curso = Curso.get(cursoID)
+        return dict(records=r, name=name, namepl=namepl, curso=curso)
 
     @expose(template='kid:%s.templates.notas' % __name__)
     def notas(self, id, cursoID, **kw):
@@ -90,11 +91,10 @@ class AlumnoInscriptoController(controllers.Controller, identity.SecureResource)
         raise redirect('../list/%d' % cursoID)
 
     @expose(template='kid:%s.templates.show' % __name__)
-    def show(self,id,cursoID, **kw):
+    def show(self,id, **kw):
         """Show record in model"""
-        cursoID = int(cursoID)
         r = validate_get(id)
-        return dict(name=name, namepl=namepl, record=r, cursoid=cursoID)
+        return dict(name=name, namepl=namepl, record=r)
 
 #}}}
 

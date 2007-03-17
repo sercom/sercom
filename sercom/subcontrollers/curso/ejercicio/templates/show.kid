@@ -22,9 +22,21 @@
     </tr>
     <tr>
         <th>Es grupal?:</th>
-	<td>
-			<span py:replace="tg.strbool(record.grupal)">grupal</span>
-	</td>
+				<td>
+					<span py:replace="tg.strbool(record.grupal)">grupal</span>
+				</td>
+  </tr>
+    <tr>
+        <th>Instancias de Entrega:</th>
+				<td>
+					<ul>
+						<li py:for="i in record.instancias">
+							${i.numero} -
+							${i.inicio} -
+							${i.fin}
+						</li>	
+					</ul>
+				</td>
   </tr>
 </table>
 

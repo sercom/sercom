@@ -7,27 +7,29 @@
 <title>list</title>
 </head>
 <body>
-
-<h1>Alumnos</h1>
+   
+    <h1>Alumnos del curso <span py:replace="curso.shortrepr()"></span></h1>
 
 <table class="list">
     <tr>
-        <th>Curso</th>
         <th>Alumno</th>
         <th>Condicional?</th>
         <th>Tutor</th>
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-        <td><a href="${tg.url('/curso/show/%d' % record.curso.id)}" py:content="record.curso.shortrepr()">curso</a></td>
         <td><a href="${tg.url('/curso/alumno/show/%d' % record.alumno.id)}" py:content="record.alumno.shortrepr()">alumno</a></td>
         <td><span py:replace="record.condicional">fecha corregido</span></td>
         <td><a py:if="record.tutor" href="${tg.url('/docente/show/%d' % record.tutor.id)}" py:content="record.tutor.shortrepr()">Tutor</a></td>
         <td>
-            <a href="${tg.url('/curso/alumno/notas/%d/%d' % (record.id, cursoid))}">Notas</a>
+            <a href="${tg.url('/curso/alumno/notas/%d/%d' % (record.id, curso.id))}">Notas</a>
         </td>
     </tr>
 </table>
+
+<br />
+<a href="${tg.url('/curso/list')}">Volver</a>
+<br /><br />
 
 <div py:for="page in tg.paginate.pages">
     <a py:if="page != tg.paginate.current_page"

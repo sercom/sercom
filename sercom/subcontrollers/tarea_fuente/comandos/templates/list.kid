@@ -24,7 +24,8 @@
 </table>
 
 <br/>
-<a href="${tg.url('/tarea_fuente/comandos/new/%d' % tareaID)}">Agregar</a>
+<a href="${tg.url('/tarea_fuente/comandos/new/%d' % tareaID)}">Agregar</a> |
+<a href="${tg.url('/tarea_fuente/list')}">Volver</a>
 
 <div py:for="page in tg.paginate.pages">
     <a py:if="page != tg.paginate.current_page"
