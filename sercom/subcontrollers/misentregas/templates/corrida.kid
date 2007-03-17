@@ -38,9 +38,16 @@
     </tr>
 	</table>
 <h2>Pruebas Realizadas</h2>
-<div py:for="p in entrega.pruebas">
+<div py:for="p in entrega.pruebas" py:strip="True">
+	<?python
+		if p.exito:
+			color = "pruebaok"
+		else:
+			color = "pruebafail"
+	?>
+	<div>
     <h3 py:content="p.caso_de_prueba.shortrepr()" />
-<table>
+		<table border="1" class="${color}">
     <tr>
         <th>#</th>
         <th>Tarea</th>
@@ -65,6 +72,7 @@
         <td align="center"><a href="${tg.url('/mis_entregas/file/%d' % ce.id)}" py:if="ce.archivos">Bajar</a></td>
 			</tr>
 	</table>
+</div>
 </div>
 
 <a href="javascript:window.history.go(-1);">Volver</a>

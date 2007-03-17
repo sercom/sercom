@@ -259,4 +259,33 @@ form.filter th {
 	background:red;
 }
 
+.pruebaok {
+	background: #b9ffb9;
+}
+
+.pruebaok {
+border-collapse: collapse;
+}
+
+.pruebafail {
+border-collapse: collapse;
+}
+
+.pruebaok tr {
+	background: gray;
+}
+.pruebaok th {
+	background: #b9ffb9;
+}
+.pruebaok td {
+	background: #b9ffb9;
+}
+
+.pruebafail th {
+	background: #ffdddd;
+}
+.pruebafail td {
+	background: #ffdddd;
+}
+
 
