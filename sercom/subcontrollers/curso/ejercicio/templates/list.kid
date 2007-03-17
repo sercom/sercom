@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h1>Administración de <span py:replace="namepl">Objetos</span></h1>
+	<h1>Administración de <span py:replace="namepl">Objetos</span> Curso <span py:replace="curso.shortrepr()" /></h1>
 
 <table class="list">
     <tr>

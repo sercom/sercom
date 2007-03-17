@@ -54,13 +54,13 @@ def validate_new(data):
 #{{{ Formulario
 class InstanciaForm(W.TableForm):
     class Fields(W.WidgetsList):
+        ejercicioID = W.HiddenField()
         numero = W.TextField(name="numero",label=_(u'Nro'), help_text=_(u'Requerido.'),
             validator=V.Int(not_empty=True))
         inicio = W.CalendarDateTimePicker(label=_(u"Inicio"))
         fin = W.CalendarDateTimePicker(label=_(u"Fin"))
         activo = W.CheckBox(label=_(u"Activo?"), attrs=dict(checked='checked'))
         observaciones = W.TextArea(rows="5", cols="40")
-        ejercicio_id= W.HiddenField()
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_numero');")]
 

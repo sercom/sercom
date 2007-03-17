@@ -83,7 +83,7 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
     def list(self, curso):
         """List records in model"""
         r = cls.selectBy(cursoID=curso).orderBy(cls.q.numero)
-        return dict(records=r, name=name, namepl=namepl, curso=curso)
+        return dict(records=r, name=name, namepl=namepl, curso=Curso.get(curso))
 
     @expose(template='kid:%s.templates.new' % __name__)
     @validate(validators=dict(curso=V.Int))

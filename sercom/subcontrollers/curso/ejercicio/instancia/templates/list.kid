@@ -38,7 +38,7 @@
 </table>
 
 <br/>
-<a py:if="'admin' in identity.current.permissions" href="${tg.url('/curso/ejercicio/instancia/new/%s' % ejercicio.id)}">Agregar</a>
+<a py:if="'admin' in identity.current.permissions" href="${tg.url('/curso/ejercicio/instancia/new/%s' % ejercicio.id)}">Agregar</a> |
 <a href="${tg.url('/curso/ejercicio/list/%s' % ejercicio.curso.id)}">Volver a Ejericicios</a>
 
 <div py:for="page in tg.paginate.pages">
