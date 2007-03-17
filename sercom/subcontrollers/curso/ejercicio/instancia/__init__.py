@@ -136,6 +136,6 @@ class InstanciaController(controllers.Controller, identity.SecureResource):
     def entregas(self,instanciaid, **kw):
         """Show record in model"""
         r = validate_get(instanciaid)
-        return dict(name=name, namepl=namepl, record=r)
+        return dict(name=name, namepl=namepl, instancia=r)
 #}}}
 

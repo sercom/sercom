@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h1>Entregas para la Instancia de Entrega <span py:replace="record.shortrepr()">Objetos</span></h1>
+<h1>Entregas para la Instancia de Entrega <span py:replace="instancia.shortrepr()">Objetos</span></h1>
 
 <table class="list">
     <tr>
@@ -19,7 +19,7 @@
         <th>Observaciones</th>
 				<th>Operaciones</th>
     </tr>
-    <tr py:for="record in record.entregas">
+    <tr py:for="record in instancia.entregas">
         <td><span py:if="record.entregador" py:replace="record.entregador.shortrepr()">usuario</span></td>
         <td><span py:replace="record.exito">fecha asignado</span></td>
         <td><span py:replace="record.inicio">fecha corregido</span></td>
@@ -31,6 +31,9 @@
 				</td>
     </tr>
 </table>
+
+<br/>
+<a href="${tg.url('/curso/ejercicio/instancia/list/%s' % instancia.ejercicio.id)}">Volver</a>
 
 </body>
 </html>
