@@ -70,6 +70,10 @@ h2 {
   font-size: 150%;
 }
 
+h3 {
+  font-size: 100%;
+}
+
 #getting_started_steps a {
   text-decoration: none;
 }

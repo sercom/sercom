@@ -37,12 +37,34 @@
     </tr>
 	</table>
 <h2>Pruebas Realizadas</h2>
+<div py:for="p in entrega.pruebas">
+    <h3 py:content="p.caso_de_prueba.shortrepr()" />
 <table>
-		<!-- TODO : Solo mostrar con ce.caso_de_prueba.publico == True -->
-		<tr py:for="p in entrega.pruebas">
-			<td py:content="p"></td>
-		</tr>
+    <tr>
+        <th>#</th>
+        <th>Tarea</th>
+        <th>Comando</th>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Exito?</th>
+        <th>Observaciones</th>
+        <th>Diferencias</th>
+        <th>Archivos Guardados</th>
+    </tr>
+		<!-- TODO : Solo mostrar con ce.comando.publico == True -->
+		<tr py:for="ce in p.comandos_ejecutados">
+        <td py:content="ce.comando.orden" />
+        <td py:content="ce.comando.tarea.shortrepr()" />
+        <td py:content="ce.comando.comando" />
+        <td py:content="ce.inicio" />
+        <td py:content="ce.fin" />
+        <td py:content="ce.exito" />
+        <td py:content="ce.observaciones" />
+        <td><a href="/" py:if="ce.diferencias">Bajar</a></td>
+        <td><a href="/" py:if="ce.archivos">Bajar</a></td>
+    </tr>
 	</table>
+</div>
 
 <a href="javascript:window.history.go(-1);">Volver</a>
 
