@@ -238,3 +238,25 @@ form.filter th {
     background: none;
     font-weight:bold;
 }
+
+.list .exitosa {
+	background: #b9ffb9;
+}
+
+.list .noexitosa {
+	background: #ffdddd;
+}
+
+.list .entregaok {
+	background:green;
+}
+
+.list .entregamaso {
+	background:yellow;
+}
+
+.list .entregamal {
+	background:red;
+}
+
+
