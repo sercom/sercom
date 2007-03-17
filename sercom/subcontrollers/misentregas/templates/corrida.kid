@@ -33,8 +33,8 @@
         <td py:content="ce.fin" />
         <td py:content="tg.strbool(ce.exito)" align="center" />
         <td py:content="ce.observaciones" />
-        <td align="center"><a href="/" py:if="ce.diferencias">Bajar</a></td>
-        <td align="center"><a href="/" py:if="ce.archivos">Bajar</a></td>
+				<td align="center"><a href="${tg.url('/mis_entregas/diff/%d' % ce.id)}" py:if="ce.diferencias">Bajar</a></td>
+        <td align="center"><a href="${tg.url('/mis_entregas/file/%d' % ce.id)}" py:if="ce.archivos">Bajar</a></td>
     </tr>
 	</table>
 <h2>Pruebas Realizadas</h2>
@@ -61,8 +61,8 @@
         <td py:content="ce.fin" />
         <td py:content="tg.strbool(ce.exito)" align="center" />
         <td py:content="ce.observaciones" />
-        <td align="center"><a href="/" py:if="ce.diferencias">Bajar</a></td>
-				<td align="center"><a href="/" py:if="ce.archivos">Bajar</a></td>
+				<td align="center"><a href="${tg.url('/mis_entregas/diff/%d' % ce.id)}" py:if="ce.diferencias">Bajar</a></td>
+        <td align="center"><a href="${tg.url('/mis_entregas/file/%d' % ce.id)}" py:if="ce.archivos">Bajar</a></td>
 			</tr>
 	</table>
 </div>

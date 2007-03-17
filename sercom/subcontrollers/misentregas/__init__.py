@@ -10,7 +10,7 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Entrega, Correccion, Curso, Ejercicio, InstanciaDeEntrega, Grupo, Miembro, AlumnoInscripto
+from sercom.model import ComandoEjecutado, Entrega, Correccion, Curso, Ejercicio, InstanciaDeEntrega, Grupo, Miembro, AlumnoInscripto
 from sqlobject import *
 from zipfile import ZipFile, BadZipfile
 from cStringIO import StringIO
@@ -192,8 +192,23 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
         r = validate_get(entregaid)
         response.headers["Content-Type"] = "application/zip"
         response.headers["Content-disposition"] = "attachment;filename=Ej_%s-Entrega_%s-%s.zip" % (r.instancia.ejercicio.numero, r.instancia.numero, r.entregador.nombre)
-        flash(_(u'El %s fue eliminado permanentemente.') % name)
         return r.archivos
+
+    @expose()
+    def file(self, id):
+        from cherrypy import request, response
+        r = ComandoEjecutado.get(id)
+        response.headers["Content-Type"] = "application/zip"
+        response.headers["Content-disposition"] = "attachment;filename=comando_ejecutado_%d.zip" % (r.id)
+        return r.archivos
+
+    @expose()
+    def diff(self, id):
+        from cherrypy import request, response
+        r = ComandoEjecutado.get(id)
+        response.headers["Content-Type"] = "application/zip"
+        response.headers["Content-disposition"] = "attachment;filename=diferencias_%d.zip" % (r.id)
+        return r.diferencias
 
     @expose('json')
     def instancias(self, ejercicio_id):
