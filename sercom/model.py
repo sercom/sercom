@@ -884,11 +884,11 @@ class ComandoPruebaEjecutado(ComandoEjecutado): #{{{
 
     def __repr__(self):
         return super(ComandoPruebaEjecutado, self).__repr__(
-            'comando=%s, entrega=%s' % (self.comando.shortrepr(),
-                self.entrega.shortrepr()))
+            'comando=%s, prueba=%s' % (self.comando.shortrepr(),
+                self.prueba.shortrepr()))
 
     def shortrepr(self):
-        return '%s:%s:%s' % (self.tarea.shortrepr(), self.entrega.shortrepr(),
+        return '%s:%s:%s' % (self.tarea.shortrepr(), self.prueba.shortrepr(),
             self.caso_de_prueba.shortrepr())
 #}}}
 
