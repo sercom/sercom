@@ -347,9 +347,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
                         # Busco la correccion del grupo
                         g = Grupo.selectByAlumno(i.alumno).getOne()
                         c = Correccion.selectBy(instancia=ins, entregador=g.grupo)
-                        print "  ", list(c)
                     else:
-                        print "Alumno"
                         # Busco la correccion del alumno
                         c = Correccion.selectBy(instancia=ins, entregador=i)
                     if c.count() > 0:
