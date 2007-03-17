@@ -441,7 +441,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         if longname is None:
             longname = name
         new = file(new, 'r').readlines()
-        orig = zip_in.read(name).split('\n')
+        orig = zip_in.read(name).splitlines(True)
         udiff = ''.join(list(unified_diff(orig, new, fromfile=name+'.'+origname,
             tofile=name+'.'+newname)))
         if udiff:
@@ -652,7 +652,7 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
         if longname is None:
             longname = name
         new = file(new, 'r').readlines()
-        orig = zip_in.read(name).split('\n')
+        orig = zip_in.read(name).splitlines(True)
         udiff = ''.join(list(unified_diff(orig, new, fromfile=name+'.'+origname,
             tofile=name+'.'+newname)))
         if udiff:
