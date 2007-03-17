@@ -1,4 +1,7 @@
 - Backend (luca)
+  * Ver por qué no anda valgrind en chroot.
+  * Hacer que se usen los parametros ComandoPrueba como multiplicadores de
+    CasoDePrueba.
   * Arreglar bug. Al mezclar los archivos_entrada, archivos_a_comparar y
     archivos_a guardar en los ComandoPrueba con los de los CasoDePrueba, si se
     especifica __stdouterr__ en uno y __stdout__ o __stderr__ en otro, el
