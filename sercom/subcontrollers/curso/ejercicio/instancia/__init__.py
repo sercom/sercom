@@ -132,5 +132,10 @@ class InstanciaController(controllers.Controller, identity.SecureResource):
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../list/%s' % ejercicio)
 
+    @expose(template='kid:%s.templates.entregas' % __name__)
+    def entregas(self,instanciaid, **kw):
+        """Show record in model"""
+        r = validate_get(instanciaid)
+        return dict(name=name, namepl=namepl, record=r)
 #}}}
 

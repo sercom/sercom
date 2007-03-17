@@ -18,6 +18,7 @@
         <th>Procesada?</th>
         <th>En proceso?</th>
         <th>Activa?</th>
+        <th>Entregas</th>
         <th>Observaciones</th>
         <th>Operaciones</th>
     </tr>
@@ -25,9 +26,10 @@
         <td><span py:replace="record.numero">numero</span></td>
         <td><span py:replace="record.inicio">inicio</span></td>
         <td><span py:replace="record.fin">fin</span></td>
-        <td><span py:replace="tg.strbool(record.fin_proceso is not None)">procesada</span></td>
-        <td><span py:replace="tg.strbool(record.inicio_proceso is not None and record.fin_proceso is None)">en proceso</span></td>
-        <td><span py:replace="tg.strbool(record.activo)">activa</span></td>
+        <td align="center"><span py:replace="tg.strbool(record.fin_proceso is not None)">procesada</span></td>
+        <td align="center"><span py:replace="tg.strbool(record.inicio_proceso is not None and record.fin_proceso is None)">en proceso</span></td>
+        <td align="center"><span py:replace="tg.strbool(record.activo)">activa</span></td>
+				<td align="center"><a href="${tg.url('/curso/ejercicio/instancia/entregas/%d' % record.id)}" py:content="len(record.entregas)">activa</a></td>
         <td><span py:replace="record.observaciones">obs</span></td>
         <td>
             <a py:if="'admin' in identity.current.permissions" href="${tg.url('/curso/ejercicio/instancia/show/%d' % record.id)}">Ver</a>
