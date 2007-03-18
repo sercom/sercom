@@ -13,7 +13,7 @@
 			MochiKit.DOM.appendChildNodes("form_miembros", OPTION({"value":${i['id']}}, '${i['label']}'))
 		</span>
 	}
-	MochiKit.DOM.addLoadEvent(init_data)
+	MochiKit.DOM.addLoadEvent(init_data);
 </script>
 
 <body>
