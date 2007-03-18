@@ -12,7 +12,7 @@
 
 <table class="list">
     <tr>
-        <th>Cuatrimestre</th>
+        <th>Cuat.</th>
         <th>Año</th>
         <th>Nombre</th>
         <th>Descripción</th>
@@ -22,8 +22,8 @@
         <th>Operaciones</th>
     </tr>
 		<tr py:for="record in records">
-        <td><span py:replace="record.cuatrimestre">descripción</span></td>
-        <td><span py:replace="record.anio">descripción</span></td>
+        <td align="center"><span py:replace="record.cuatrimestre">descripción</span></td>
+        <td align="center"><span py:replace="record.anio">descripción</span></td>
         <td><a href="${tg.url('/enunciado/show/%d' % record.id)}"><span py:replace="record.nombre">nombre</span></a></td>
         <td><span py:replace="tg.summarize(record.descripcion, 30)">descripción</span></td>
 				<td>
@@ -32,10 +32,10 @@
 					<span py:if="'admin' not in identity.current.permissions and record.autorID is not None"
 						py:replace="tg.summarize(record.autor.shortrepr(), 30)">autor</span>
 				</td>
-        <td py:if="'admin' in identity.current.permissions"><a py:if="len(record.tareas)"
-                href="${tg.url('/enunciado/show/%d' % record.id)}"><span
+				<td align="center" py:if="'admin' in identity.current.permissions">
+					<a if="len(record.tareas)" href="${tg.url('/enunciado/show/%d' % record.id)}"><span
                     py:replace="len(record.tareas)">cant</span></a></td>
-        <td py:if="'admin' in identity.current.permissions"><span py:content="len(record.casos_de_prueba)" /></td>
+        <td align="center" py:if="'admin' in identity.current.permissions"><span py:content="len(record.casos_de_prueba)" /></td>
         <td>
             <a py:if="'admin' in identity.current.permissions" href="${tg.url('/enunciado/caso_de_prueba/list/%d' % record.id)}">Casos de Prueba</a>
             <a py:if="'admin' in identity.current.permissions" href="${tg.url('/enunciado/edit/%d' % record.id)}">Editar</a>

@@ -161,10 +161,6 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     def show(self, id, **kw):
         """Show record in model"""
         r = validate_get(id)
-        if r.descripcion is None:
-            r.desc = ''
-        else:
-            r.desc = publish_parts(r.descripcion, writer_name='html')['html_body']
         return dict(name=name, namepl=namepl, record=r)
 
     @expose()
@@ -173,5 +169,19 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
         validate_del(id)
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../../list/%d' % int(enunciado))
+
+    @expose()
+    def file(self, id, name):
+        from cherrypy import request, response
+        r = validate_get(id)
+        response.headers["Content-Type"] = "application/zip"
+        response.headers["Content-disposition"] = "attachment;filename=%s_%d.zip" % (name, r.id)
+        if name == "archivos_entrada":
+            ret = r.archivos_entrada
+        elif name == "archivos_a_comparar":
+            ret = r.archivos_a_comparar
+        else:
+            raise NotFound
+        return ret
 #}}}
 

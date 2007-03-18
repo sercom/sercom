@@ -23,7 +23,7 @@
         <td><span py:replace="record.retorno">retorno</span></td>
         <td><span py:replace="tg.strbool(record.publico)">No</span></td>
         <td>
-            <a href="${tg.url('/caso_de_prueba/show/%d'% record.id)}">Ver</a>
+            <a href="${tg.url('/enunciado/caso_de_prueba/show/%d'% record.id)}">Ver</a>
             <a href="${tg.url('/enunciado/caso_de_prueba/edit/%d' % record.id)}">Editar</a>
             <a href="${tg.url('/enunciado/caso_de_prueba/delete/%d/%d' % (record.enunciado.id, record.id))}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>
