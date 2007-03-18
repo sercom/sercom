@@ -171,7 +171,7 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
         raise redirect('../../list/%d' % int(enunciado))
 
     @expose()
-    def file(self, id, name):
+    def file(self, name, id):
         from cherrypy import request, response
         r = validate_get(id)
         response.headers["Content-Type"] = "application/zip"

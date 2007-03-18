@@ -136,10 +136,6 @@ class ComandoPruebaController(controllers.Controller, identity.SecureResource):
     def show(self,id, **kw):
         """Show record in model"""
         r = validate_get(id)
-        if r.observaciones is None:
-            r.obs = ''
-        else:
-            r.obs = publish_parts(r.observaciones, writer_name='html')['html_body']
         return dict(name=name, namepl=namepl, record=r)
 
     @expose()
@@ -152,19 +148,17 @@ class ComandoPruebaController(controllers.Controller, identity.SecureResource):
         raise redirect('../list/%d' % tareaID)
 
     @expose()
-    def get_archivos_entrada(self, id):
+    def file(self, name, id):
         from cherrypy import request, response
         r = validate_get(id)
         response.headers["Content-Type"] = "application/zip"
-        response.headers["Content-disposition"] = "attachment;filename=archivos_entrada.zip"
-        return r.archivos_entrada
-
-    @expose()
-    def get_archivos_a_comparar(self, id):
-        from cherrypy import request, response
-        r = validate_get(id)
-        response.headers["Content-Type"] = "application/zip"
-        response.headers["Content-disposition"] = "attachment;filename=archivos_a_comparar.zip"
-        return r.archivos_a_comparar
+        response.headers["Content-disposition"] = "attachment;filename=%s_%d.zip" % (name, r.id)
+        if name == "archivos_entrada":
+            ret = r.archivos_entrada
+        elif name == "archivos_a_comparar":
+            ret = r.archivos_a_comparar
+        else:
+            raise NotFound
+        return ret
 #}}}
 

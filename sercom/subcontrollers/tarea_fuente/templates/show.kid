@@ -36,13 +36,13 @@
 		<td py:content="i.retorno" />
 		<td>
 			<span py:if="i.archivos_entrada">
-				<a href="${tg.url('/tarea_fuente/comandos/get_archivos_entrada/%d' % i.id)}">Bajar</a>
+				<a href="${tg.url('/tarea_fuente/comandos/file/archivos_entrada/%d' % i.id)}">Bajar</a>
 			</span>
 			<span py:if="not i.archivos_entrada">No tiene</span>
 		</td>
 		<td>
 			<span py:if="i.archivos_a_comparar">
-				<a href="${tg.url('/tarea_fuente/comandos/get_archivos_a_comparar/%d' % i.id)}">Bajar</a>
+				<a href="${tg.url('/tarea_fuente/comandos/file/archivos_a_comparar/%d' % i.id)}">Bajar</a>
 			</span>
 			<span py:if="not i.archivos_a_comparar">No tiene</span>
 		</td>
