@@ -18,6 +18,7 @@ from sercom.widgets import *
 from alumno import AlumnoInscriptoController
 from grupo import GrupoController
 from ejercicio import EjercicioController
+from docente import DocenteInscriptoController
 #}}}
 
 #{{{ Configuración
@@ -165,6 +166,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
     alumno = AlumnoInscriptoController()
     grupo = GrupoController()
     ejercicio = EjercicioController()
+    docente = DocenteInscriptoController()
 
     @expose()
     def default(self, tg_errors=None):

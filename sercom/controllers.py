@@ -121,8 +121,6 @@ class Root(controllers.RootController):
 
     curso = CursoController()
 
-    docente_inscripto = DocenteInscriptoController()
-
     correccion = CorreccionController()
 
     admin = identity.SecureObject(CatWalk(model), identity.has_permission('admin'))

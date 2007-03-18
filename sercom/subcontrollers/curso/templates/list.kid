@@ -12,8 +12,8 @@
 <table class="list">
     <tr>
         <th>#</th>
-        <th>Numero</th>
-        <th>Cuatrimestre</th>
+        <th>Nro</th>
+        <th># Cuat.</th>
         <th>Anio</th>
         <th>Descripcion</th>
         <th>Docentes</th>
@@ -24,14 +24,14 @@
     </tr>
     <tr py:for="record in records">
         <td><span py:replace="record.id">id</span></td>
-        <td><span py:replace="record.numero">numero</span></td>
-        <td><span py:replace="record.cuatrimestre">cuatrimestre</span></td>
-        <td><span py:replace="record.anio">anio</span></td>
+        <td align="center"><span py:replace="record.numero">numero</span></td>
+        <td align="center"><span py:replace="record.cuatrimestre">cuatrimestre</span></td>
+        <td align="center"><span py:replace="record.anio">anio</span></td>
         <td><span py:replace="record.descripcion">descripcion</span></td>
-        <td><a href="${tg.url('/docente/list')}"><span py:replace="len(record.docentes)">Docentes</span></a></td>
-        <td><a href="${tg.url('/curso/alumno/list/%d' % record.id)}"><span py:replace="len(record.alumnos)">Alumnos</span></a></td>
+        <td align="center"><a href="${tg.url('/curso/docente/list/%d' % record.id)}"><span py:replace="len(record.docentes)">Docentes</span></a></td>
+        <td align="center"><a href="${tg.url('/curso/alumno/list/%d' % record.id)}"><span py:replace="len(record.alumnos)">Alumnos</span></a></td>
         <td align="center"><a href="${tg.url('/curso/grupo/list/%d' % record.id)}"><span py:replace="len(record.grupos)">Grupos</span></a></td>
-        <td><a href="${tg.url('/curso/ejercicio/list/%s' % record.id)}"><span py:replace="len(record.ejercicios)">Ejercicio</span></a></td>
+        <td align="center"><a href="${tg.url('/curso/ejercicio/list/%s' % record.id)}"><span py:replace="len(record.ejercicios)">Ejercicio</span></a></td>
         <td><a href="${tg.url('/curso/show/%d' % record.id)}">Ver</a>
             <a href="${tg.url('/curso/edit/%d' % record.id)}">Editar</a>
             <a href="${tg.url('/curso/notas/%d' % record.id)}">Notas</a>
