@@ -15,7 +15,8 @@
 				<th>Entregador</th>
 				<th>Ejercicio</th>
 				<th><span title="Instancia de Entrega">IE</span></th>
-        <th>Correcta</th>
+        <th>OK?</th>
+        <th>Fecha</th>
         <th>InicioTareas</th>
         <th>FinTareas</th>
         <th>Observaciones</th>
@@ -26,6 +27,7 @@
         <td><span py:replace="record.instancia.ejercicio.enunciado.nombre">usuario</span></td>
         <td><span py:replace="record.instancia.shortrepr()">usuario</span></td>
         <td><span py:replace="record.exito">fecha asignado</span></td>
+        <td><span py:replace="record.fecha">fecha corregido</span></td>
         <td><span py:replace="record.inicio">fecha corregido</span></td>
         <td><span py:replace="record.fin">fecha corregido</span></td>
         <td><span py:replace="record.observaciones">nota</span></td>
