@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <?python import turbogears as tg ?>
 <?python from sercom.model import Grupo, AlumnoInscripto ?>
+<?python from turbogears import identity ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#"
     py:extends="'../../../templates/master.kid'">
 <head>
@@ -25,7 +26,7 @@
         <th>Archivos Guardados</th>
     </tr>
 		<!-- TODO : Solo mostrar con ce.comando.publico == True -->
-		<tr py:for="ce in entrega.comandos_ejecutados" py:if="ce.comando.publico">
+		<tr py:for="ce in entrega.comandos_ejecutados" py:if="ce.comando.publico or 'admin' in identity.current.permissions">
         <td py:content="ce.comando.orden" />
         <td py:content="ce.comando.tarea.shortrepr()" />
         <td py:content="ce.comando.comando" />
@@ -70,7 +71,7 @@
 				</tr>
 			</table>
 			<h4>Comandos Ejecutados para la Prueba</h4>	
-		<table border="1" class="${color}" width="100%">
+		<table border="1" class="prueba" width="100%">
     <tr>
         <th>#</th>
         <th>Tarea</th>
@@ -83,19 +84,25 @@
         <th>Archivos Guardados</th>
     </tr>
 		<!-- TODO : Solo mostrar con ce.comando.publico == True -->
-		<tr py:for="ce in p.comandos_ejecutados" py:if="ce.comando.publico">
-        <td py:content="ce.comando.orden" />
-        <td py:content="ce.comando.tarea.shortrepr()" />
-        <td py:content="ce.comando.comando" />
-        <td py:content="ce.inicio" />
-        <td py:content="ce.fin" />
-        <td py:content="tg.strbool(ce.exito)" align="center" />
-        <td py:content="ce.observaciones" />
-        <td align="center">
+		<tr py:for="ce in p.comandos_ejecutados" py:if="ce.comando.publico or 'admin' in identity.current.permissions">
+	<?python
+		if ce.exito:
+			color = "pruebaok"
+		else:
+			color = "pruebafail"
+	?>
+				<td class="${color}" py:content="ce.comando.orden" />
+        <td class="${color}"  py:content="ce.comando.tarea.shortrepr()" />
+        <td class="${color}" py:content="ce.comando.comando" />
+        <td class="${color}" py:content="ce.inicio" />
+        <td class="${color}" py:content="ce.fin" />
+        <td class="${color}" py:content="tg.strbool(ce.exito)" align="center" />
+        <td class="${color}" py:content="ce.observaciones" />
+        <td class="${color}" align="center">
             <a href="${tg.url('/mis_entregas/diff/%d' % ce.id)}" py:if="ce.diferencias">Bajar</a>
             <a href="${tg.url('/mis_entregas/verdiff/%d' % ce.id)}" py:if="ce.diferencias">Ver</a>
         </td>
-        <td align="center"><a href="${tg.url('/mis_entregas/file/%d' % ce.id)}" py:if="ce.archivos">Bajar</a></td>
+        <td class="${color}" align="center"><a href="${tg.url('/mis_entregas/file/%d' % ce.id)}" py:if="ce.archivos">Bajar</a></td>
 			</tr>
 	</table>
 </div>

@@ -263,16 +263,18 @@ form.filter th {
 	background:red;
 }
 
-.pruebaok {
-	background: #b9ffb9;
+.prueba {
+	border-collapse: collapse;
 }
 
 .pruebaok {
-border-collapse: collapse;
+	background: #b9ffb9;
+	border-collapse: collapse;
 }
 
 .pruebafail {
-border-collapse: collapse;
+	border-collapse: collapse;
+	background: #ffdddd;
 }
 
 .pruebaok tr {
@@ -285,6 +287,9 @@ border-collapse: collapse;
 	background: #b9ffb9;
 }
 
+.pruebafail {
+	background: #ffdddd;
+}
 .pruebafail th {
 	background: #ffdddd;
 }
