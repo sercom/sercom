@@ -533,7 +533,7 @@ class InstanciaDeEntrega(SQLObject): #{{{
     fin             = DateTimeCol(notNone=True)
     inicio_proceso  = DateTimeCol(default=None)
     fin_proceso     = DateTimeCol(default=None)
-    observaciones   = UnicodeCol(default=None)
+    observaciones   = UnicodeCol(notNone=True, default=u'')
     activo          = BoolCol(notNone=True, default=True)
     # Joins
     entregas        = MultipleJoin('Entrega', joinColumn='instancia_id')
