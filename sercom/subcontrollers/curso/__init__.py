@@ -225,8 +225,8 @@ class CursoController(controllers.Controller, identity.SecureResource):
         """Edit record in model"""
         r = validate_get(id)
         # cargo la lista con los docentes asignados al curso
-        r.docentes_to = [{"id":d.docente.id, "label":d.docente.shortrepr()} for d in r.docentes]
-        r.alumnos_inscriptos = [{"id":a.alumno.id, "label":a.alumno.shortrepr()} for a in r.alumnos]
+        r.docentes_to = [{"id":d.docente.id, "label":d.docente.shortrepr().replace("'", "\\'")} for d in r.docentes]
+        r.alumnos_inscriptos = [{"id":a.alumno.id, "label":a.alumno.shortrepr().replace("'", "\\'")} for a in r.alumnos]
         return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
