@@ -24,7 +24,7 @@
             f.submit(); return false;"
             py:attrs="checked=tg.checker(record.activo)" /></td-->
         <td><a href="${tg.url('/curso/show/%d' % record.id)}"><span py:replace="record.curso.shortrepr()">curso</span></a></td> 
-        <td><a href="${tg.url('/docente/show/%d' % record.id)}"><span py:replace="record.docente.shortrepr()">docentes</span></a></td> 
+        <td><a href="${tg.url('/docente/show/%d' % record.docente.id)}"><span py:replace="record.docente.shortrepr()">docentes</span></a></td> 
         <td><span py:if="record.corrige">SI</span><span py:if="not record.corrige">NO</span></td>
         <td><span py:replace="record.observaciones">observaciones</span></td>
         <td><a href="${tg.url('/docente_inscripto/edit/%d' % record.id)}">Editar</a>
