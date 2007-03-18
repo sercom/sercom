@@ -13,12 +13,14 @@
 <h1>Diferencias</h1>
 
 
-<?python i = 0 ?>
 <div py:for="info in zip.infolist()">
+	<?python
+	n, ext = os.path.splitext(info.filename)
+	if ext != ".diff":
+		continue
+	?>
 	<h3>${info.filename}</h3>
-		<?python n, ext = os.path.splitext(info.filename) ?>
-		<textarea name="code" class="${ext[1:]}:collapse">${zip.read(info.filename)}</textarea>
-	<?python i += 1 ?>
+	<textarea name="code" class="${ext[1:]}:collapse">${zip.read(info.filename)}</textarea>
 </div>
 
 <br/>
