@@ -7,20 +7,20 @@
 </head>
 <body>
 
-<h1>Administración de <span py:replace="namepl">Objetos</span></h1>
+<h1><span py:replace="namepl">Objetos</span> del curso <span py:replace="curso.shortrepr()">Objetos</span></h1>
 
 <table class="list">
     <tr>
         <th>Nombre</th>
-        <th>Integrantes</th>
         <th>Responsable</th>
+        <th>Integrantes</th>
         <th>Tutores</th>
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
         <td><span py:replace="record.nombre">nombre</span></td>
+        <td><a py:if="record.responsable is not None" href="${tg.url('/curso/alumno/show/'+str(record.responsable.alumno.id))}" py:content="record.responsable.alumno.shortrepr()"></a></td>
         <td><span py:replace="', '.join((ai.alumno.padron for ai in record.alumnos))">tito, juanca</span></td>
-        <td><a py:if="record.responsable is not None" href="${tg.url('/alumno/show/'+str(record.responsable.alumno.id))}" py:content="record.responsable.alumno.shortrepr()"></a></td>
         <td><span py:replace="', '.join((di.docente.usuario for di in record.docentes))">tito, juanca</span></td>
         <td>
             <a href="${tg.url('/curso/grupo/show/%d' % record.id)}">Ver</a>
@@ -31,8 +31,8 @@
 </table>
 
 <br/>
-<a href="${tg.url('/curso/grupo/new/%d' % cursoID)}">Agregar</a> |
-<a href="${tg.url('/curso/grupo/admin/%d' % cursoID)}">Mezclar, Juntar, Separar</a> |
+<a href="${tg.url('/curso/grupo/new/%d' % curso.id)}">Agregar</a> |
+<a href="${tg.url('/curso/grupo/admin/%d' % curso.id)}">Mezclar, Juntar, Separar</a> |
 <a href="${tg.url('/curso/list')}">Volver a Cursos</a>
 <br/>
 <br/>
