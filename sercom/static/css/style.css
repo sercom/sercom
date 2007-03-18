@@ -251,18 +251,6 @@ form.filter th {
 	background: #ffdddd;
 }
 
-.list .entregaok {
-	background:green;
-}
-
-.list .entregamaso {
-	background:yellow;
-}
-
-.list .entregamal {
-	background:red;
-}
-
 .prueba {
 	border-collapse: collapse;
 }

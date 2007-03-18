@@ -23,38 +23,50 @@
 				<?python
 					def contar_comandos_mal(prueba, publico):
 						total = 0
+						tested = 0
 						for c in prueba.comandos_ejecutados:
-							if not c.exito and c.publico == publico:
-								total += 1
-						return total
+							if c.comando.publico == publico:
+								if not c.exito:
+									total += 1
+								tested += 1
+						return (total, tested)
 
-					if not record.exito:
-						# Reviso que tan mal esta
-						# si no hay pruebas, esta mal porque no anduvieron los comandos
-						if len(record.pruebas) == 0:
-							color = "entregamal"
-						else:
-							# Veo que onda con las pruebas
-							pruebas_pub_mal = 0
-							pruebas_priv_mal = 0
-							for prueba in record.pruebas:
-								if contar_comandos_mal(prueba, True) > 0:
-									pruebas_pub_mal += 1
-								if contar_comandos_mal(prueba, False) > 0:
-									pruebas_priv_mal += 1
-							if pruebas_pub_mal > 0:
-								color = "entregamal"
-							if pruebas_priv_mal > 0:
-								color = "entregamal"
+					# Reviso que tan mal esta
+					# si no hay pruebas, esta mal porque no anduvieron los comandos
+					pruebas_pub_mal = 0
+					pruebas_priv_mal = 0
+					if len(record.pruebas) == 0:
+						color = "#ff0000"
 					else:
-						# Todo Ok! 
-						color = "entregaok"
+						# Veo que onda con las pruebas
+						pri_mal = 0
+						pub_mal = 0
+						pri_total = 0
+						pub_total = 0
+						color = "#000000"
+						for prueba in record.pruebas:
+							(rpub_mal, pub_tested) = contar_comandos_mal(prueba, True)
+							(rpri_mal, pri_tested) = contar_comandos_mal(prueba, False)
+							pri_mal += rpri_mal
+							pub_mal += rpub_mal
+							pri_total += pri_tested
+							pub_total += pub_tested
+						if pri_mal + pub_mal == 0:
+							color = "entregaok"
+						else:
+							(r, g) = ("00", "00")
+							r = hex(int(255 * (pub_mal*1.0 / pub_total)))[2:]
+							g = hex(int(255 * ((pub_total-pub_mal)*1.0 / pub_total)))[2:]
+							if len(r) < 2: r = "0"+r
+							if len(g) < 2: g = "0"+g
+							color = "#" + r + g + "00"
+
 				?>
-				<td class="${color}"><span py:if="record.entregador" py:replace="record.entregador.shortrepr()">usuario</span></td>
-        <td class="${color}"><span py:replace="record.exito">fecha asignado</span></td>
-        <td class="${color}"><span py:replace="record.inicio">fecha corregido</span></td>
-        <td class="${color}"><span py:replace="record.fin">fecha corregido</span></td>
-        <td class="${color}"><span py:replace="record.observaciones">nota</span></td>
+				<td style="background:${color};"><span py:if="record.entregador" py:replace="record.entregador.shortrepr()">usuario</span></td>
+        <td style="background:${color};"><span py:replace="record.exito">fecha asignado</span></td>
+        <td style="background:${color};"><span py:replace="record.inicio">fecha corregido</span></td>
+        <td style="background:${color};"><span py:replace="record.fin">fecha corregido</span></td>
+        <td style="background:${color};"><span py:replace="record.observaciones">nota</span></td>
 				<td>
 					<a href="${tg.url('/mis_entregas/corrida/%d' % record.id)}">Corrida</a>
 					<a href="${tg.url('/mis_entregas/get_archivo/%d' % record.id)}">Bajar Archivo</a>
