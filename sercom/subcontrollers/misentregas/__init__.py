@@ -2,7 +2,7 @@
 
 #{{{ Imports
 import cherrypy
-from turbogears import controllers, expose, redirect
+from turbogears import controllers, expose, redirect, url
 from turbogears import validate, flash, error_handler
 from turbogears import validators as V
 from turbogears import widgets as W
@@ -121,6 +121,11 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
     @paginate('records')
     def list(self):
         """List records in model"""
+        # Un admin no tiene sentido en este area y por las dudas
+        # lo mando al home.
+        if 'admin' in identity.current.permissions:
+            raise redirect(url("/dashboard"))
+
         # Grupos en los que el usuario formo parte
         m = [i.grupo.id for i in Grupo.selectByAlumno(identity.current.user)]
         try:
