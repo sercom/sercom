@@ -14,8 +14,8 @@
         <th>#</th>
         <th>Nro</th>
         <th># Cuat.</th>
-        <th>Anio</th>
-        <th>Descripcion</th>
+        <th>Año</th>
+        <th>Descripción</th>
         <th>Docentes</th>
         <th>Alumnos</th>
         <th>Grupos</th>
