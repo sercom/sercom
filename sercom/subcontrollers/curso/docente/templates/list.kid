@@ -12,25 +12,23 @@
 <table class="list">
     <tr>
         <th>Docente</th>
-        <th>Corrige</th>
+        <th>Corrige?</th>
         <th>Observaciones</th>
 				<th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-        <!--td><input type="checkbox" onclick="var f =
-            document.createElement('form'); this.parentNode.appendChild(f);
-            f.method = 'POST'; f.action = '${tg.url('/alumno/activate/%d/%d' % (record.id, int(not record.activo)))}';
-            f.submit(); return false;"
-            py:attrs="checked=tg.checker(record.activo)" /></td-->
         <td><a href="${tg.url('/docente/show/%d' % record.docente.id)}"><span py:replace="record.docente.shortrepr()">docentes</span></a></td> 
-        <td><span py:if="record.corrige">SI</span><span py:if="not record.corrige">NO</span></td>
+        <td align="center"><span py:replace="tg.strbool(record.corrige)">Si/No</span></td>
         <td><span py:replace="record.observaciones">observaciones</span></td>
-        <td><a href="${tg.url('/curso/docente/edit/%d' % record.id)}">Editar</a>
-            <a href="${tg.url('/curso/docente/delete/%d/%d' % (record.curso.id, record.id))}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
+				<td>
+					<a href="${tg.url('/curso/docente/edit/%d' % record.id)}">Editar</a>
+					<a href="${tg.url('/curso/docente/delete/%d/%d' % (record.curso.id, record.id))}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
+				</td>
     </tr>
 </table>
 
 <br/>
+
 <a href="${tg.url('/curso/docente/new/%d' % curso.id)}">Agregar</a> |
 <a href="${tg.url('/curso/list')}">Volver</a>
 

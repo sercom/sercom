@@ -6,7 +6,7 @@
 <title>notas</title>
 </head>
 <body>
-<h1>Modificacion de <span py:replace="name">Objeto</span></h1>
+<h1>Notas de <span py:replace="record.alumno.shortrepr()">Objeto</span></h1>
 
 <div py:replace="form(value=record, action=tg.url('/curso/alumno/update/%d/%d' % (record.id, cursoid)),
 	submit_text=_(u'Guardar'))">Formulario</div>

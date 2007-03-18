@@ -8,11 +8,11 @@
 </head>
 <body>
 
-	<h1>Administración de <span py:replace="namepl">Objetos</span> Curso <span py:replace="curso.shortrepr()" /></h1>
+<h1><span py:replace="namepl.capitalize()">Objetos</span> del curso <span py:replace="curso.shortrepr()" /></h1>
 
 <table class="list">
     <tr>
-        <th>Numero</th>
+        <th>Número</th>
         <th>Enunciado</th>
         <th>Es Grupal?</th>
         <th>Operaciones</th>

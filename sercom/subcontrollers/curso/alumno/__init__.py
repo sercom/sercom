@@ -35,7 +35,7 @@ def validate_new(data):
 #{{{ Formulario
 class AlumnoInscriptoForm(W.TableForm):
     class Fields(W.WidgetsList):
-        nota_practica = W.TextField(label=_(u'Nota Practica'), validator=V.Number(not_empty=True, strip=True))
+        nota_practica = W.TextField(label=_(u'Nota Práctica'), validator=V.Number(not_empty=True, strip=True))
         nota_final = W.TextField(label=_(u'Nota Final'), validator=V.Number(not_empty=True, strip=True))
         nota_libreta = W.TextField(label=_(u'Nota Libreta'), validator=V.Number(not_empty=True, strip=True))
     fields = Fields()

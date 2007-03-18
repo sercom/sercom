@@ -40,7 +40,7 @@ class DocenteInscriptoForm(W.TableForm):
        docente = W.SingleSelectField(label=_(u'Docente'), options = get_docentes,
        validator = V.Int(not_empty=True))
 
-       corrige = W.CheckBox(label=_(u'Corrige'))
+       corrige = W.CheckBox(label=_(u'Corrige?'))
 
        observaciones = W.TextArea(name='observaciones', label=_(u'Observaciones'),
             validator=V.UnicodeString(not_empty=False, strip=True))
