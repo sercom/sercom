@@ -386,6 +386,8 @@ class CursoController(controllers.Controller, identity.SecureResource):
             miembro = Grupo.selectByAlumno(i.alumno)
             if miembro.count() > 0:
                 col.append(miembro[0].grupo.shortrepr())
+            else:
+                col.append("")
             correctas = 0
             for ej in r.ejercicios:
                 for ins in ej.instancias:
