@@ -67,7 +67,7 @@
 </table>
 
 <br/>
-<a href="${tg.url('/curso/alumno/list/%d' % record.curso.id)}">Volver</a>
+<a href="javascript:window.history.go(-1)">Volver</a>
 
 </body>
 </html>
