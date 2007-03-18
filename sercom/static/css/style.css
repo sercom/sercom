@@ -292,4 +292,14 @@ border-collapse: collapse;
 	background: #ffdddd;
 }
 
+.dp-diff .rojo {
+    color:red;
+}
 
+.dp-diff .chunk {
+    color:blue;
+}
+
+.dp-diff .verde {
+    color:green;
+}

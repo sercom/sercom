@@ -10,7 +10,7 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import ComandoEjecutado, Entrega, Correccion, Curso, Ejercicio, InstanciaDeEntrega, Grupo, Miembro, AlumnoInscripto
+from sercom.model import ComandoEjecutado, ComandoPruebaEjecutado, Entrega, Correccion, Curso, Ejercicio, InstanciaDeEntrega, Grupo, Miembro, AlumnoInscripto
 from sqlobject import *
 from zipfile import ZipFile, BadZipfile
 from cStringIO import StringIO
@@ -98,6 +98,7 @@ class EntregaForm(W.TableForm):
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_ejercicio');"), W.JSSource(ajax)]
 
 form = EntregaForm()
+
 #}}}
 
 #{{{ Controlador
@@ -209,6 +210,12 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
         response.headers["Content-Type"] = "application/zip"
         response.headers["Content-disposition"] = "attachment;filename=diferencias_%d.zip" % (r.id)
         return r.diferencias
+
+    @expose(template='kid:%s.templates.diff' % __name__)
+    def verdiff(self, id):
+        r = ComandoEjecutado.get(id)
+        zip = ZipFile(StringIO(r.diferencias), 'r')
+        return dict(zip=zip)
 
     @expose('json')
     def instancias(self, ejercicio_id):
