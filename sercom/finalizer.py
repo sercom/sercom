@@ -6,7 +6,7 @@ import logging
 
 log = logging.getLogger('sercom.finalizer')
 
-error_interno = _(u'\n**Hubo un error interno al finalizar la instancia.**\n')
+error_interno = u'\n**Hubo un error interno al finalizar la instancia.**\n'
 
 class Finalizer(object): #{{{
 
@@ -61,7 +61,7 @@ def instancia_finalizar(self): #{{{
             e.make_correccion(docentes[curr_docente])
             curr_docente = (curr_docente + 1) % len(docentes)
         except SQLObjectNotFound:
-            log.info(_(u'El alumno inscripto %s no entregó', ai))
+            log.info(_(u'El alumno inscripto %s no entregó'), ai)
 
 InstanciaDeEntrega.finalizar = instancia_finalizar
 #}}}
