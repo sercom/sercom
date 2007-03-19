@@ -50,7 +50,7 @@ class Finalizer(object): #{{{
 def instancia_finalizar(self): #{{{
     log.debug(_(u'InstanciaDeEntrega.finalizar()'))
     curso = self.ejercicio.curso
-    docentes = [di.docente for di in curso.docentes if di.corrige]
+    docentes = [di for di in curso.docentes if di.corrige]
     curr_docente = 0
     for ai in curso.alumnos:
         try:

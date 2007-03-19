@@ -10,7 +10,8 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Correccion, Curso, Ejercicio, InstanciaDeEntrega
+from sercom.model import Correccion, Curso, Ejercicio
+from sercom.model import InstanciaDeEntrega, DocenteInscripto
 from sqlobject import *
 
 #}}}
@@ -44,12 +45,9 @@ class CorreccionForm(W.TableForm):
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_instancia');")]
 
-def get_cursos():
-    return [(0, u'---')] + [(fk1.id, fk1.shortrepr()) for fk1 in Curso.select()]
-
 class CorreccionFiltros(W.TableForm):
     class Fields(W.WidgetsList):
-        cursoID = W.SingleSelectField(label=_(u'Curso'), options = get_cursos, validator = V.Int(not_empty=True))
+        cursoID = W.SingleSelectField(label=_(u'Curso'), validator=V.Int(not_empty=True))
     form_attrs={'class':"filter"}
     fields = Fields()
 
@@ -72,22 +70,26 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
+    @validate(validators=dict(cursoID=V.Int))
     @paginate('records')
-    def list(self, cursoID = 0):
+    def list(self, cursoID=None):
         """List records in model"""
-        vfilter = dict(cursoID = cursoID)
-        if int(cursoID) == 0:
-            r = cls.selectBy(corrector=identity.current.user)
-        else:
+        vfilter = dict(cursoID=cursoID)
+        r = []
+        if cursoID:
             r = cls.select(
                 AND(
-                    cls.q.correctorID == identity.current.user.id,
+                    cls.q.correctorID == DocenteInscripto.pk.get(
+                        cursoID=cursoID, docenteID=identity.current.user.id).id,
                     Ejercicio.q.id == InstanciaDeEntrega.q.ejercicioID,
                     InstanciaDeEntrega.q.id == Correccion.q.instanciaID,
                     Ejercicio.q.cursoID == cursoID
                 )
             )
-        return dict(records=r, name=name, namepl=namepl, form=filtro, vfilter=vfilter)
+        cursos = [(i.curso.id, i.curso.shortrepr())
+            for i in identity.current.user.inscripciones]
+        return dict(records=r, name=name, namepl=namepl, form=filtro,
+            vfilter=vfilter, options=dict(cursoID=cursos))
 
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):

@@ -10,7 +10,7 @@
 
 <h1>Administración de <span py:replace="namepl">Objetos</span></h1>
 
-<div py:replace="form(value=vfilter, action=tg.url('/correccion/list'),	submit_text=_(u'Filtrar'))">Filtros</div>
+<div py:replace="form(value=vfilter, options=options, action=tg.url('/correccion/list'), submit_text=_(u'Filtrar'))">Filtros</div>
 
 <table class="list">
     <tr>
