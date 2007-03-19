@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h1>Entregas para la Instancia de Entrega <span py:replace="instancia.shortrepr()">Objetos</span></h1>
+<h1>Entregas Realizadas</h1>
 
 <table class="list">
     <tr>
@@ -19,7 +19,7 @@
         <th>Observaciones</th>
 				<th>Operaciones</th>
     </tr>
-		<tr py:for="record in instancia.entregas">
+		<tr py:for="record in records">
 				<?python
 					def contar_comandos_mal(prueba, publico):
 						total = 0
@@ -41,26 +41,18 @@
 						# Veo que onda con las pruebas
 						pri_mal = 0
 						pub_mal = 0
-						pri_total = 0
-						pub_total = 0
-						color = "#000000"
 						for prueba in record.pruebas:
 							(rpub_mal, pub_tested) = contar_comandos_mal(prueba, True)
 							(rpri_mal, pri_tested) = contar_comandos_mal(prueba, False)
 							pri_mal += rpri_mal
 							pub_mal += rpub_mal
-							pri_total += pri_tested
-							pub_total += pub_tested
 						if pri_mal + pub_mal == 0:
-							color = "entregaok"
+							color = "#00ff00"
 						else:
-							(r, g) = ("00", "00")
-							r = hex(int(255 * (pub_mal*1.0 / pub_total)))[2:]
-							g = hex(int(255 * ((pub_total-pub_mal)*1.0 / pub_total)))[2:]
-							if len(r) < 2: r = "0"+r
-							if len(g) < 2: g = "0"+g
-							color = "#" + r + g + "00"
-
+							if pub_mal > 0:
+								color = "#ff0000"
+							else:
+								color = "#ffff00"
 				?>
 				<td style="background:${color};"><span py:if="record.entregador" py:replace="record.entregador.shortrepr()">usuario</span></td>
         <td style="background:${color};"><span py:replace="record.exito">fecha asignado</span></td>
@@ -75,7 +67,13 @@
 </table>
 
 <br/>
-<a href="${tg.url('/curso/ejercicio/instancia/list/%s' % instancia.ejercicio.id)}">Volver</a>
+<a href="javascript:window.history.go(-1);">Volver</a>
+
+<div py:for="page in tg.paginate.pages">
+    <a py:if="page != tg.paginate.current_page"
+        href="${tg.paginate.get_href(page)}">${page}</a>
+    <b py:if="page == tg.paginate.current_page">${page}</b>
+</div>
 
 </body>
 </html>

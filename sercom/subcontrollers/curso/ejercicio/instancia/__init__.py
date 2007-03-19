@@ -133,9 +133,10 @@ class InstanciaController(controllers.Controller, identity.SecureResource):
         raise redirect('../list/%s' % ejercicio)
 
     @expose(template='kid:%s.templates.entregas' % __name__)
+    @paginate('records')
     def entregas(self,instanciaid, **kw):
         """Show record in model"""
         r = validate_get(instanciaid)
-        return dict(name=name, namepl=namepl, instancia=r)
+        return dict(name=name, namepl=namepl, records=r.entregas)
 #}}}
 

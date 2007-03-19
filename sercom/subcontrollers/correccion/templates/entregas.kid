@@ -41,26 +41,18 @@
 						# Veo que onda con las pruebas
 						pri_mal = 0
 						pub_mal = 0
-						pri_total = 0
-						pub_total = 0
-						color = "#000000"
 						for prueba in record.pruebas:
 							(rpub_mal, pub_tested) = contar_comandos_mal(prueba, True)
 							(rpri_mal, pri_tested) = contar_comandos_mal(prueba, False)
 							pri_mal += rpri_mal
 							pub_mal += rpub_mal
-							pri_total += pri_tested
-							pub_total += pub_tested
 						if pri_mal + pub_mal == 0:
-							color = "entregaok"
+							color = "#00ff00"
 						else:
-							(r, g) = ("00", "00")
-							r = hex(int(255 * (pub_mal*1.0 / pub_total)))[2:]
-							g = hex(int(255 * ((pub_total-pub_mal)*1.0 / pub_total)))[2:]
-							if len(r) < 2: r = "0"+r
-							if len(g) < 2: g = "0"+g
-							color = "#" + r + g + "00"
-
+							if pub_mal > 0:
+								color = "#ff0000"
+							else:
+								color = "#ffff00"
 				?>
 				<td style="background:${color};"><span py:if="record.entregador" py:replace="record.entregador.shortrepr()">usuario</span></td>
         <td style="background:${color};"><span py:replace="record.exito">fecha asignado</span></td>
