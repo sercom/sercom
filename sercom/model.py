@@ -226,10 +226,10 @@ class Usuario(InheritableSQLObject): #{{{
 class Docente(Usuario): #{{{
     _inheritable = False
     # Campos
-    nombrado    = BoolCol(notNone=True, default=True)
+    nombrado        = BoolCol(notNone=True, default=True)
     # Joins
-    enunciados  = MultipleJoin('Enunciado', joinColumn='autor_id')
-    cursos      = MultipleJoin('DocenteInscripto')
+    enunciados      = MultipleJoin('Enunciado', joinColumn='autor_id')
+    inscripciones   = MultipleJoin('DocenteInscripto')
 
     def add_entrega(self, instancia, **kw):
         return Entrega(instancia=instancia, **kw)
