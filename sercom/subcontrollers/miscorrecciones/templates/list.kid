@@ -24,7 +24,7 @@
         <td><span py:if="record.entregador" py:replace="record.entregador.shortrepr()">usuario</span></td>
         <td><span py:replace="record.instancia.ejercicio.enunciado.nombre">usuario</span></td>
         <td><span py:replace="record.instancia.shortrepr()">usuario</span></td>
-        <td><span py:if="record.corrector" py:replace="record.corrector">fecha asignado</span></td>
+        <td><span py:if="record.corrector" py:replace="record.corrector.shortrepr()">fecha asignado</span></td>
         <td><span py:replace="record.corregido">fecha corregido</span></td>
         <td><span py:replace="record.nota">fecha corregido</span></td>
         <td><span py:replace="record.observaciones">nota</span></td>
