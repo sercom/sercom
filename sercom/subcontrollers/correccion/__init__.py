@@ -124,7 +124,7 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
     @paginate('records')
     def entregas(self, id):
         r = validate_get(id)
-        return dict(records=r.entregas, correccion = id)
+        return dict(records=r.entregas, correccion = r)
         
 #}}}
 
