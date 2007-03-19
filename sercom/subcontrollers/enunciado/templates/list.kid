@@ -8,7 +8,8 @@
 </head>
 <body>
 
-<h1>Administración de <span py:replace="namepl">Objetos</span></h1>
+<h1 py:if="'admin' in identity.current.permissions">Administración de <span py:replace="namepl">Objetos</span></h1>
+<h1 py:if="'admin' not in identity.current.permissions"><span py:replace="namepl.capitalize()">Objetos</span></h1>
 
 <table class="list">
     <tr>
