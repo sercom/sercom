@@ -5,6 +5,15 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
 <title>new</title>
 </head>
+<script type="text/javascript">
+	function init_data () {
+		if (MochiKit.DOM.getElement('form_ejercicio').options.length == 1) {
+			alert('No hay Ejercicios activos en este momento.\nNo es posible realizar una entrega.');
+			window.history.go(-1);
+		}
+	}
+	MochiKit.DOM.addLoadEvent(init_data);
+</script>
 <body>
 
 <h1>Crear Nuevo <span py:replace="name">Objeto</span></h1>
