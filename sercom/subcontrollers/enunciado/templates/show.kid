@@ -22,12 +22,12 @@
         <th>Descripción:</th>
 				<td><span py:replace="record.descripcion">descripcion</span></td>
     </tr>
-    <tr>
+    <tr py:if="'admin' in identity.current.permissions">
         <th>Autor:</th>
-				<td><a py:if="record.autorID is not None"
-					href="${tg.url('/docente/show/%d' % record.autor.id)}"><span py:replace="record.autor.shortrepr()">autor</span></a></td>
+				<td>
+					<a py:if="record.autorID is not None" href="${tg.url('/docente/show/%d' % record.autor.id)}"><span py:replace="record.autor.shortrepr()">autor</span></a></td>
     </tr>
-    <tr>
+    <tr py:if="'admin' in identity.current.permissions">
         <th>Creado el:</th>
 				<td><span py:replace="record.creado">descripcion</span></td>
     </tr>
@@ -52,7 +52,7 @@
         <th>Casos de Prueba:</th>
 				<td>
 					<ul>
-						<li py:for="t in record.casos_de_prueba" py:content="t.shortrepr()" />
+						<li py:for="t in record.casos_de_prueba" py:if="t.publico or 'admin' in identity.current.permissions" py:content="t.shortrepr()" />
 					</ul>
 				</td>
     </tr>
