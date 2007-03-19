@@ -46,6 +46,13 @@ class Queue(object): #{{{
                         InstanciaDeEntrega.q.inicio_proceso == None,
                         InstanciaDeEntrega.q.fin <= datetime.now()))
                     instancia = select.orderBy(InstanciaDeEntrega.q.fin)[0]
+                    n = Entrega.selectBy(instancia=instancia, fin=None).count()
+                    if n:
+                        log.debug(_(u'Esperando para procesar instancia (%s), '
+                            'faltan probar %s entregas'), instancia.shortrepr(),
+                            n)
+                        time.sleep(30)
+                        continue
                     instancia.inicio_proceso = datetime.now()
                 finally:
                     hub.commit()
