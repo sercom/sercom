@@ -69,8 +69,8 @@ class Queue(object): #{{{
 #}}}
 
 #q = Queue()
-#finalizer = Finalizer(name='juanca', queue=q)
-#t = Thread(name='juanca', target=finalizer.run)
+#finalizer = Finalizer(name='finalizer', queue=q)
+#t = Thread(name='finalizer', target=finalizer.run)
 #t.start()
 
 from sercom.controllers import Root
