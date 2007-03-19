@@ -54,7 +54,7 @@
 </table>
 
 <br/>
-<a href="${tg.url('/tarea_fuente/edit/%d' % record.id)}">Editar</a> |
+<a py:if="'admin' in identity.current.permissions" href="${tg.url('/tarea_fuente/edit/%d' % record.id)}">Editar</a> |
 <a href="javascript:window.history.go(-1);">Volver</a>
 
 </body>
