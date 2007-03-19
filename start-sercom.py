@@ -25,7 +25,7 @@ elif exists(join(dirname(__file__), "setup.py")):
 else:
     update_config(configfile="prod.cfg",modulename="sercom.config")
 
-from sercom.model import InstanciaDeEntrega, hub
+from sercom.model import InstanciaDeEntrega, Entrega, AND, hub
 from sercom.finalizer import Finalizer
 from threading import Thread
 from datetime import datetime
@@ -42,7 +42,9 @@ class Queue(object): #{{{
             try:
                 hub.begin()
                 try:
-                    select = InstanciaDeEntrega.selectBy(inicio_proceso=None)
+                    select = InstanciaDeEntrega.select(AND(
+                        InstanciaDeEntrega.q.inicio_proceso == None,
+                        InstanciaDeEntrega.q.fin <= datetime.now()))
                     instancia = select.orderBy(InstanciaDeEntrega.q.fin)[0]
                     instancia.inicio_proceso = datetime.now()
                 finally:
