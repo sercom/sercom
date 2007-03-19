@@ -60,7 +60,7 @@ class InstanciaForm(W.TableForm):
         inicio = W.CalendarDateTimePicker(label=_(u"Inicio"))
         fin = W.CalendarDateTimePicker(label=_(u"Fin"))
         activo = W.CheckBox(label=_(u"Activo?"), attrs=dict(checked='checked'))
-        observaciones = W.TextArea(rows="5", cols="40")
+        observaciones = W.TextArea(rows="5", cols="40", if_empty=u'')
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_numero');")]
 
