@@ -53,16 +53,48 @@
                 </li>
             </ul>
         </div>
-        <h2>Últimas entregas realizadas</h2>
+        <div py:if="not len(instancias_activas)">
+					No hay fechas de entrega a vencer.
+				</div>	
+				<h2>Últimas entregas realizadas</h2>
         <table py:if="len(entregas)">
             <tr>
+                <th>Curso</th>
                 <th>Ejercicio</th>
                 <th>Fecha Entrega</th>
             </tr>
             <tr py:for="e in entregas">
-                <td>${e.instancia.ejercicio.shortrepr()}</td>
+                <td>${e.instancia.ejercicio.curso.shortrepr()}</td>
+                <td>${e.instancia.ejercicio.enunciado.nombre}</td>
                 <td>${e.fecha}</td>
+						</tr>
+						<tr>
+							<td colspan="3" align="right">
+								<a href="${tg.url('/mis_entregas/list')}">Ver todas</a>
+							</td>
+						</tr>
+        </table>
+				<h2 py:if="len(correcciones)">Te han corregido los siguientes ejercicios</h2>
+        <table py:if="len(correcciones)">
+            <tr>
+                <th>Curso</th>
+                <th>Ejercicio</th>
+                <th>Fecha</th>
+                <th>Corrector</th>
+                <th>Nota</th>
             </tr>
+            <tr py:for="e in correcciones">
+                <td>${e.instancia.ejercicio.curso.shortrepr()}</td>
+                <td>${e.instancia.ejercicio.enunciado.nombre}</td>
+                <td>${e.corregido}</td>
+                <td>${e.corrector.shortrepr()}</td>
+								<td>${e.nota}</td>
+						</tr>
+						<tr>
+							<td colspan="5" align="right">
+								<a href="${tg.url('/mis_correcciones/list')}">Ver todas</a>
+							</td>
+						</tr>
         </table>
     </div>
 </body>

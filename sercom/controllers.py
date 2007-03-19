@@ -6,7 +6,7 @@ from turbogears import identity, redirect
 from cherrypy import request, response
 from turbogears.toolbox.catwalk import CatWalk
 import model
-from model import InstanciaDeEntrega, Correccion, AND, DateTimeCol, Entrega, Grupo, AlumnoInscripto
+from model import Visita, VisitaUsuario, InstanciaDeEntrega, Correccion, AND, DateTimeCol, Entrega, Grupo, AlumnoInscripto
 from sqlobject import *
 # from sercom import json
 
@@ -48,6 +48,7 @@ class Root(controllers.RootController):
                 instancias_activas=instancias, now=now)
 
         if 'entregar' in identity.current.permissions:
+            last_login = Visita.select(AND(VisitaUsuario.q.user_id == identity.current.user.id, Visita.q.visit_key == VisitaUsuario.q.visit_key))[-1:][0].created
             # Proximas instancias de entrega
             instancias = list(InstanciaDeEntrega.select(
                 AND(InstanciaDeEntrega.q.inicio <= now,
@@ -61,7 +62,10 @@ class Root(controllers.RootController):
             except:
                 pass
             entregas = list(Entrega.select(IN(Entrega.q.entregadorID, m))[:5])
-            return dict(instancias_activas=instancias, now=now, entregas=entregas)
+            
+            # Ultimas correcciones
+            correcciones = list(Correccion.select(AND(IN(Correccion.q.entregadorID, m), Correccion.q.corregido >= last_login)))
+            return dict(instancias_activas=instancias, now=now, entregas=entregas, correcciones=correcciones)
         return dict()
 
     @expose(template='.templates.login')
