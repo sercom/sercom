@@ -1,5 +1,8 @@
 - Backend (luca)
-  * Ver por qué no anda valgrind en chroot.
+  * Arreglar / pensar problemas de encoding. Lugares donde es necesario
+    codificar los strings unicode:
+    * Guardar/leer nombres de archivos de ZipFile.
+    * Logging.
   * Hacer que se usen los parametros ComandoPrueba como multiplicadores de
     CasoDePrueba.
   * Arreglar bug. Al mezclar los archivos_entrada, archivos_a_comparar y

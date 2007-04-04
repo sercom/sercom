@@ -433,7 +433,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
                 log.debug(_(u'Se esperaba un archivo "%s" para guardar pero '
                     u'no fue encontrado'), f)
             else:
-                zip.write(join(path, f), f)
+                zip.write(str(join(path, f)), str(f)) # FIXME encoding de unicode
         zip.close()
         comando_ejecutado.archivos = buffer.getvalue()
     def diff(new, zip_in, zip_out, name, longname=None, origname='correcto',
@@ -646,7 +646,7 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
                 log.debug(_(u'Se esperaba un archivo "%s" para guardar pero '
                     u'no fue encontrado'), f)
             else:
-                zip.write(join(path, f), f)
+                zip.write(str(join(path, f)), str(f)) # FIXME encoding de unicode
         zip.close()
         comando_ejecutado.archivos = buffer.getvalue()
     def diff(new, zip_in, zip_out, name, longname=None, origname='correcto',
