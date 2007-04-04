@@ -6905,8 +6905,8 @@ INSERT INTO "grupo" VALUES(47, 8, '4', 10);
 INSERT INTO "grupo" VALUES(48, 8, '5', NULL);
 INSERT INTO "grupo" VALUES(49, 8, '6', 17);
 
-INSERT INTO "instancia_de_entrega" VALUES(1, 1, 1, '2007-03-16 00:51:00', '2007-03-18 12:00:00', NULL, NULL, NULL, 1);
-INSERT INTO "instancia_de_entrega" VALUES(2, 1, 2, '2007-03-19 01:01:00', '2007-03-21 20:00:00', NULL, NULL, NULL, 1);
+INSERT INTO "instancia_de_entrega" VALUES(1, 1, 1, '2007-03-16 00:51:00', '2007-03-18 12:00:00', NULL, NULL, '', 1);
+INSERT INTO "instancia_de_entrega" VALUES(2, 1, 2, '2007-03-19 01:01:00', '2007-03-21 20:00:00', NULL, NULL, '', 1);
 
 INSERT INTO "miembro" VALUES(1, 44, 1, NULL, '2007-03-16 17:29:09', NULL);
 INSERT INTO "miembro" VALUES(2, 44, 2, NULL, '2007-03-16 17:29:09', NULL);
