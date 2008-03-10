@@ -952,7 +952,7 @@ class Rol(SQLObject): #{{{
     # Campos
     descripcion = UnicodeCol(length=255, default=None)
     creado      = DateTimeCol(notNone=True, default=datetime.now)
-    permisos    = TupleCol(notNone=True)
+    permisos    = TupleCol(notNone=True, length=2**16)
     # Joins
     usuarios    = RelatedJoin('Usuario', addRemoveName='_usuario')
 
