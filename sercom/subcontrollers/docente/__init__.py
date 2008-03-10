@@ -36,6 +36,14 @@ class DocenteForm(W.TableForm):
         usuario = W.TextField(label=_(u'Usuario'),
             help_text=_(u'Requerido y único.'),
             validator=V.UnicodeString(min=3, max=10, strip=True))
+        password = W.PasswordField(label=_(u'Contraseña'),
+            help_text=_(u'Requerido (mínimo 5 caracteres).'),
+            attrs=dict(maxlength=255),
+            validator=V.UnicodeString(min=5, max=255, not_empty=False))
+        passwordc = W.PasswordField(label=_(u'Confirmar'),
+            help_text=_(u'Requerido.'),
+            attrs=dict(maxlength=255),
+            validator=V.UnicodeString(min=5, max=255, not_empty=False))
         nombre = W.TextField(label=_(u'Nombre'),
             help_text=_(u'Requerido.'),
             validator=V.UnicodeString(min=10, max=255, strip=True))
@@ -60,6 +68,8 @@ class DocenteForm(W.TableForm):
             validator=V.Bool(if_empty=1))
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_usuario');")]
+    validator = V.Schema(chained_validators=[
+                         V.FieldsMatch('password', 'passwordc') ])
 
 form = DocenteForm()
 #}}}
@@ -105,6 +115,8 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
+        if 'passwordc' in kw:
+            del kw['passwordc']
         validate_new(kw)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
@@ -112,7 +124,10 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
-        r = validate_get(id)
+        class POD(dict):
+            def __getattr__(self, attrname):
+                return self[attrname]
+        r = POD(validate_get(id).sqlmeta.asDict())
         return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
@@ -120,6 +135,11 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     @expose()
     def update(self, id, **kw):
         """Save or create record to model"""
+        if 'password' in kw:
+            if not kw['password']:
+                del kw['password']
+        if 'passwordc' in kw:
+            del kw['passwordc']
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')
