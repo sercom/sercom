@@ -23,7 +23,7 @@ class UserInfo(object): #{{{
         try:
             info = pwd.getpwnam(user)
         except:
-            info = pwd.get(int(user))
+            info = pwd.getpwuid(int(user))
         self.user = info[0]
         self.uid = info[2]
         self.gid = info[3]
