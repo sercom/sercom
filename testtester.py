@@ -1,10 +1,16 @@
 #!/usr/bin/python
 # vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker :
 
+import sys
+try:
+    configfile = sys.argv[1]
+except:
+    configfile = 'dev.cfg'
+
 #{{{ TG config/hacks
 import turbogears
 import turbogears.database
-turbogears.update_config(configfile="dev.cfg", modulename="sercom.config")
+turbogears.update_config(configfile=configfile, modulename="sercom.config")
 import turbogears.i18n
 __builtins__._ = turbogears.i18n.plain_gettext # Nada de gettext lazy
 #}}}
