@@ -41,11 +41,15 @@
 
 <br/>
 <a href="${tg.url('/docente/new')}">Agregar</a>
+<br/>
 
-<div py:for="page in tg.paginate.pages">
+<div py:if="len(tg.paginate.pages) > 1">
+  Más:
+  <div py:for="page in tg.paginate.pages" py:strip="True">
     <a py:if="page != tg.paginate.current_page"
         href="${tg.paginate.get_href(page)}">${page}</a>
     <b py:if="page == tg.paginate.current_page">${page}</b>
+  </div>
 </div>
 
 </body>
