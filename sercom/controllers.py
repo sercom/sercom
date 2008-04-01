@@ -153,7 +153,7 @@ def summarize(text, size, concat=True, continuation='...'):
     >>> summarize(text, 68, False, ' [...]')
     'Why is it that nobody remembers the name of Johann\nGambolputty [...]'
     >>> summarize(text, 68, continuation=' >>')
-    'Why is it that nobody remembers the name of Johann Gambolputty de >>'
+    'Why is it that nobody remembers the name of Johann\nGambolputty de >>'
     """
     if text is not None:
         if concat:
