@@ -41,7 +41,7 @@ class TupleValidator(PickleValidator):
 
 class SOTupleCol(SOPickleCol):
     def createValidators(self):
-        return [TupleValidator(name=self.name)]
+        return [TupleValidator(name=self.name, pickleProtocol=self.pickleProtocol)]
 
 class TupleCol(PickleCol):
     baseClass = SOTupleCol
