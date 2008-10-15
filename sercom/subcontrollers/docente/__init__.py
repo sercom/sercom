@@ -36,12 +36,11 @@ class DocenteForm(W.TableForm):
         usuario = W.TextField(label=_(u'Usuario'),
             help_text=_(u'Requerido y único.'),
             validator=V.UnicodeString(min=3, max=10, strip=True))
-        password = W.PasswordField(label=_(u'Contraseña'),
-            help_text=_(u'Requerido (mínimo 5 caracteres).'),
+        pwd_new = W.PasswordField(label=_(u'Contraseña'),
+            help_text=_(u'Mínimo 5 caracteres).'),
             attrs=dict(maxlength=255),
             validator=V.UnicodeString(min=5, max=255, not_empty=False))
-        passwordc = W.PasswordField(label=_(u'Confirmar'),
-            help_text=_(u'Requerido.'),
+        pwd_confirm = W.PasswordField(label=_(u'Confirmar'),
             attrs=dict(maxlength=255),
             validator=V.UnicodeString(min=5, max=255, not_empty=False))
         nombre = W.TextField(label=_(u'Nombre'),
@@ -70,7 +69,7 @@ class DocenteForm(W.TableForm):
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_usuario');")]
     validator = V.Schema(chained_validators=[
-                         V.FieldsMatch('password', 'passwordc') ])
+                         V.FieldsMatch('pwd_new', 'pwd_confirm') ])
 
 form = DocenteForm()
 #}}}
@@ -116,8 +115,12 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
-        if 'passwordc' in kw:
-            del kw['passwordc']
+        if not 'pwd_new' in kw and not kw['pwd_new']:
+            flash(_(u'Debe especificar un password.'))
+            raise redirect('new', **kw)
+        kw['password'] = kw['pwd_new']
+        del kw['pwd_new']
+        del kw['pwd_confirm']
         validate_new(kw)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
@@ -136,11 +139,12 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     @expose()
     def update(self, id, **kw):
         """Save or create record to model"""
-        if 'password' in kw:
-            if not kw['password']:
-                del kw['password']
-        if 'passwordc' in kw:
-            del kw['passwordc']
+        if 'pwd_new' in kw:
+            if kw['pwd_new']:
+                kw['password'] = kw['pwd_new']
+            del kw['pwd_new']
+        if 'pwd_confirm' in kw:
+            del kw['pwd_confirm']
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')
