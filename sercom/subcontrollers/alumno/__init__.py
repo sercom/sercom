@@ -44,7 +44,8 @@ class AlumnoForm(W.TableForm):
             #help_text=_(u'Dirección de e-mail.'),
             validator=V.All(
                 V.Email(not_empty=False, resolve_domain=True),
-                V.UnicodeString(not_empty=False, max=255, strip=True)))
+                V.String(not_empty=False, max=255, strip=True,
+                        encoding='ascii')))
         telefono = W.TextField(label=_(u'Teléfono'),
             #help_text=_(u'Texto libre para teléfono, se puede incluir '
             #    'horarios o varias entradas.'),

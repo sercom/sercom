@@ -160,7 +160,7 @@ class Usuario(InheritableSQLObject): #{{{
     # Campos
     contrasenia     = UnicodeCol(length=255, default=None)
     nombre          = UnicodeCol(length=255, notNone=True)
-    email           = UnicodeCol(length=255, default=None)
+    email           = StringCol(length=255, default=None)
     telefono        = UnicodeCol(length=255, default=None)
     creado          = DateTimeCol(notNone=True, default=DateTimeCol.now)
     observaciones   = UnicodeCol(default=None)
