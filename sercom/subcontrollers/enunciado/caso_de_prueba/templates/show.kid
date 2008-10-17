@@ -21,7 +21,7 @@
     <tr>
         <th>Parámetros:</th>
 	<td>
-            <span py:if="record.comando" py:replace="record.comando">comando --con-parámetros</span>:
+            <span py:if="record.comando" py:replace="record.comando">comando --con-parámetros</span>
 	</td>
     </tr>
     <tr>
