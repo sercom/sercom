@@ -355,29 +355,19 @@ class Comando(InheritableSQLObject): #{{{
     terminar_si_falla   = BoolCol(notNone=True, default=True)
     rechazar_si_falla   = BoolCol(notNone=True, default=True)
     publico             = BoolCol(notNone=True, default=True)
-    archivos_entrada    = BLOBCol(default=None) # ZIP con archivos de entrada
-                                                # __stdin__ es caso especial
-                                                # Si un caso de prueba tiene
-                                                # comandos que tiene algún
-                                                # archivo de entrada (incluyendo
-                                                # stdin) con los propios, se usa
-                                                # el archivo del caso de prueba,
-                                                # no del comando.
-    archivos_a_comparar = BLOBCol(default=None) # ZIP con archivos de salida
-                                                # __stdout__, __stderr__ y
-                                                # __stdouterr__ (ambos juntos)
-                                                # son casos especiales
-                                                # Si un caso de prueba tiene
-                                                # comandos que tiene algún
-                                                # archivo a comparar (incluyendo
-                                                # stdout/err) con los propios,
-                                                # se compara contra el archivo
-                                                # del caso de prueba, no del
-                                                # comando.
-    archivos_a_guardar  = TupleCol(notNone=True, default=()) # TODO FrozenSetCol
-                                                # __stdout__, __stderr__ y
-                                                # __stdouterr__ (ambos juntos)
-                                                # son casos especiales
+    # ZIP con archivos de entrada __stdin__ es caso especial Si un caso de
+    # prueba tiene comandos que tiene algún archivo de entrada (incluyendo
+    # stdin) con los propios, se usa el archivo del caso de prueba, no del
+    # comando.
+    archivos_entrada    = BLOBCol(default=None)
+    # ZIP con archivos de salida __stdout__, __stderr__ y __stdouterr__ (ambos
+    # juntos) son casos especiales Si un caso de prueba tiene comandos que
+    # tiene algún archivo a comparar (incluyendo stdout/err) con los propios,
+    # se compara contra el archivo del caso de prueba, no del comando.
+    archivos_a_comparar = BLOBCol(default=None)
+    # TODO FrozenSetCol __stdout__, __stderr__ y __stdouterr__ (ambos juntos)
+    # son casos especiales
+    archivos_a_guardar  = TupleCol(notNone=True, default=())
     activo              = BoolCol(notNone=True, default=True)
 
     def __repr__(self, clave='', mas=''):
