@@ -25,7 +25,7 @@
 </head>
 
 <body py:match="item.tag=='{http://www.w3.org/1999/xhtml}body'" py:attrs="item.items()">
-		<div id="header"><span style="position:relative; top: 90%;">Administrador y Corrector Automático de Trabajos Prácticos</span></div>
+		<div id="header"><span style="position:relative; top: 90%;">Sistema de Entrega Electrónica de Trabajos Prácticos</span></div>
     <div id="main_content">
     <div py:if="tg.config('identity.on',False) and not 'logging_in' in locals()" id="pageLogin">
         <span py:if="tg.identity.anonymous">
