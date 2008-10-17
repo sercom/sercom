@@ -15,6 +15,8 @@ __connection__ = hub
 
 __all__ = ('Curso', 'Usuario', 'Docente', 'Alumno', 'CasoDePrueba')
 
+BLOB_SIZE = (1 << 24) - 1 # 16MB (MEDIUMBLOB)
+
 #{{{ Custom Columns
 
 # TODO Esto debería implementarse con CSV para mayor legibilidad
@@ -359,15 +361,15 @@ class Comando(InheritableSQLObject): #{{{
     # prueba tiene comandos que tiene algún archivo de entrada (incluyendo
     # stdin) con los propios, se usa el archivo del caso de prueba, no del
     # comando.
-    archivos_entrada    = BLOBCol(default=None)
+    archivos_entrada    = BLOBCol(default=None, length=BLOB_SIZE)
     # ZIP con archivos de salida __stdout__, __stderr__ y __stdouterr__ (ambos
     # juntos) son casos especiales Si un caso de prueba tiene comandos que
     # tiene algún archivo a comparar (incluyendo stdout/err) con los propios,
     # se compara contra el archivo del caso de prueba, no del comando.
-    archivos_a_comparar = BLOBCol(default=None)
+    archivos_a_comparar = BLOBCol(default=None, length=BLOB_SIZE)
     # TODO FrozenSetCol __stdout__, __stderr__ y __stdouterr__ (ambos juntos)
     # son casos especiales
-    archivos_a_guardar  = TupleCol(notNone=True, default=())
+    archivos_a_guardar  = TupleCol(notNone=True, default=(), length=BLOB_SIZE)
     activo              = BoolCol(notNone=True, default=True)
 
     def __repr__(self, clave='', mas=''):
@@ -429,7 +431,7 @@ class Enunciado(SQLObject): #{{{
     descripcion     = UnicodeCol(length=255, default=None)
     autor           = ForeignKey('Docente', cascade='null')
     creado          = DateTimeCol(notNone=True, default=DateTimeCol.now)
-    archivos        = BLOBCol(default=None)
+    archivos        = BLOBCol(default=None, length=BLOB_SIZE)
     # Joins
     ejercicios      = MultipleJoin('Ejercicio')
     casos_de_prueba = MultipleJoin('CasoDePrueba')
@@ -760,7 +762,7 @@ class Ejecucion(InheritableSQLObject): #{{{
     fin             = DateTimeCol(default=None)
     exito           = IntCol(default=None)
     observaciones   = UnicodeCol(notNone=True, default=u'')
-    archivos        = BLOBCol(default=None) # ZIP con archivos
+    archivos        = BLOBCol(default=None, length=BLOB_SIZE) # ZIP con archivos
 
     def __repr__(self, clave='', mas=''):
         return ('%s(%s inicio=%s, fin=%s, exito=%s, observaciones=%s%s)'
@@ -843,7 +845,8 @@ class Correccion(SQLObject): #{{{
 
 class ComandoEjecutado(Ejecucion): #{{{
     # Campos
-    diferencias = BLOBCol(default=None) # ZIP con archivos guardados
+    # ZIP con archivos guardados
+    diferencias = BLOBCol(default=None, length=BLOB_SIZE)
 
     def __repr__(self, clave='', mas=''):
         return super(ComandoEjecutado, self).__repr__(clave, mas)
@@ -942,7 +945,7 @@ class Rol(SQLObject): #{{{
     # Campos
     descripcion = UnicodeCol(length=255, default=None)
     creado      = DateTimeCol(notNone=True, default=datetime.now)
-    permisos    = TupleCol(notNone=True, length=2**16)
+    permisos    = TupleCol(notNone=True, length=BLOB_SIZE)
     # Joins
     usuarios    = RelatedJoin('Usuario', addRemoveName='_usuario')
 
