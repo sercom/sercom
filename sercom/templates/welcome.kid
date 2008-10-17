@@ -19,16 +19,19 @@
         </div>
         <h2>Instancias de Entrega</h2>
         <div py:if="len(instancias_activas)">
-            <ul py:for="instancia in instancias_activas">
+            <ul py:for="i in instancias_activas">
                 <li>
-                <?python delta = instancia.fin - now ?>
-                La entrega ${instancia.numero} del
-                ejercicio ${instancia.ejercicio.numero} vence
-                el ${instancia.fin.strftime(r'%A %d de %B a las %R')}
-                (falta ${delta.days} días,
-                ${delta.seconds//3600} horas y
-                ${delta.seconds//60%60} minutos) y tiene
-                ${len(instancia.entregas)} entregas realizadas.
+                <?python d = i.fin - now ?>
+                La <a href="${tg.url('/curso/ejercicio/instancia/list/%d' % i.id)}">instancia
+                ${i.numero}</a> del
+                <a href="${tg.url('/curso/ejercicio/list/%d' % i.ejercicio.id)}">ejercicio
+                ${i.ejercicio.numero}</a> vence en
+                <span py:if="d.days">${d.days} días,</span>
+                <span py:if="d.days or d.seconds">${d.seconds//3600}
+                horas,</span> ${d.seconds//60%60} minutos
+                (${i.fin.strftime(r'%F %R')}) y tiene
+                <a href="${tg.url('/curso/ejercicio/instancia/entregas/%d' % i.id)}">${len(i.entregas)}
+                entregas realizadas</a>.
                 </li>
             </ul>
         </div>
@@ -42,14 +45,14 @@
         <div py:if="len(instancias_activas)">
             <ul py:for="instancia in instancias_activas">
                 <li>
-                <?python delta = instancia.fin - now ?>
+                <?python d = instancia.fin - now ?>
                 La entrega ${instancia.numero} del
                 ejercicio ${instancia.ejercicio.numero} vence
                 el ${instancia.fin.strftime(r'%A %d de %B a las %R')}
-								<br />
-								(falta ${delta.days} días,
-                ${delta.seconds//3600} horas y
-                ${delta.seconds//60%60} minutos).
+                <br />
+                (falta ${d.days} días,
+                ${d.seconds//3600} horas y
+                ${d.seconds//60%60} minutos).
                 </li>
             </ul>
         </div>
