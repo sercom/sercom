@@ -93,7 +93,7 @@ def unzip(bytes, default_dst='.', specific_dst=dict()): # {{{
         return
     zfile = ZipFile(StringIO(bytes), 'r')
     for f in zfile.namelist():
-        dst = join(specific_dst.get(f, default_dst), f)
+        dst = specific_dst[f] if f in specific_dst else join(default_dst, f)
         if f.endswith(os.sep):
             log.debug(_(u'Creando directorio "%s" en "%s"'), f, dst)
             os.mkdir(dst)
