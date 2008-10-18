@@ -145,13 +145,13 @@ class Curso(SQLObject): #{{{
         Ejercicio.pk.get(self.id, numero).destroySelf()
 
     def __repr__(self):
-        return 'Curso(id=%s, anio=%s, cuatrimestre=%s, numero=%s, ' \
-            'descripcion=%s)' \
+        return 'Curso(id=%r, anio=%r, cuatrimestre=%r, numero=%r, ' \
+            'descripcion=%r)' \
                 % (self.id, self.anio, self.cuatrimestre, self.numero,
                     self.descripcion)
 
     def shortrepr(self):
-        return '%s.%s.%s' \
+        return '%r.%r.%r' \
             % (self.anio, self.cuatrimestre, self.numero)
 #}}}
 
@@ -222,7 +222,7 @@ class Usuario(InheritableSQLObject): #{{{
         raise NotImplementedError(_(u'Clase abstracta!'))
 
     def shortrepr(self):
-        return '%s (%s)' % (self.usuario, self.nombre)
+        return '%r (%r)' % (self.usuario, self.nombre)
 #}}}
 
 class Docente(Usuario): #{{{
@@ -244,8 +244,8 @@ class Docente(Usuario): #{{{
         Enunciado.pk.get(nombre, anio, cuatrimestre).destroySelf()
 
     def __repr__(self):
-        return 'Docente(id=%s, usuario=%s, nombre=%s, password=%s, email=%s, ' \
-            'telefono=%s, activo=%s, creado=%s, observaciones=%s)' \
+        return 'Docente(id=%r, usuario=%r, nombre=%r, password=%r, email=%r, ' \
+            'telefono=%r, activo=%r, creado=%r, observaciones=%r)' \
                 % (self.id, self.usuario, self.nombre, self.password,
                     self.email, self.telefono, self.activo, self.creado,
                     self.observaciones)
@@ -281,8 +281,8 @@ class Alumno(Usuario): #{{{
         return cls.by_usuario(unicode(padron))
 
     def __repr__(self):
-        return 'Alumno(id=%s, padron=%s, nombre=%s, password=%s, email=%s, ' \
-            'telefono=%s, activo=%s, creado=%s, observaciones=%s)' \
+        return 'Alumno(id=%r, padron=%r, nombre=%r, password=%r, email=%r, ' \
+            'telefono=%r, activo=%r, creado=%r, observaciones=%r)' \
                 % (self.id, self.padron, self.nombre, self.password, self.email,
                     self.telefono, self.activo, self.creado, self.observaciones)
 #}}}
@@ -299,7 +299,7 @@ class Tarea(InheritableSQLObject): #{{{
         raise NotImplementedError('Tarea es una clase abstracta')
 
     def shortrepr(self):
-        return self.nombre
+        return repr(self.nombre)
 #}}}
 
 class TareaFuente(Tarea): #{{{
@@ -314,7 +314,7 @@ class TareaFuente(Tarea): #{{{
         ComandoFuente.pk.get(self.id, orden).destroySelf()
 
     def __repr__(self):
-        return 'TareaFuente(id=%s, nombre=%s, descripcion=%s)' \
+        return 'TareaFuente(id=%r, nombre=%r, descripcion=%r)' \
                 % (self.id, self.nombre, self.descripcion)
 #}}}
 
@@ -330,7 +330,7 @@ class TareaPrueba(Tarea): #{{{
         ComandoPrueba.pk.get(self.id, orden).destroySelf()
 
     def __repr__(self):
-        return 'TareaPrueba(id=%s, nombre=%s, descripcion=%s)' \
+        return 'TareaPrueba(id=%r, nombre=%r, descripcion=%r)' \
                 % (self.id, self.nombre, self.descripcion)
 #}}}
 
@@ -373,10 +373,10 @@ class Comando(InheritableSQLObject): #{{{
     activo              = BoolCol(notNone=True, default=True)
 
     def __repr__(self, clave='', mas=''):
-        return ('%s(%s comando=%s, descripcion=%s, retorno=%s, '
-            'max_tiempo_cpu=%s, max_memoria=%s, max_tam_archivo=%s, '
-            'max_cant_archivos=%s, max_cant_procesos=%s, max_locks_memoria=%s, '
-            'terminar_si_falla=%s, rechazar_si_falla=%s%s)'
+        return ('%r(%s comando=%r, descripcion=%r, retorno=%r, '
+            'max_tiempo_cpu=%r, max_memoria=%r, max_tam_archivo=%r, '
+            'max_cant_archivos=%r, max_cant_procesos=%r, max_locks_memoria=%r, '
+            'terminar_si_falla=%r, rechazar_si_falla=%r%s)'
                 % (self.__class__.__name__, clave, self.comando,
                     self.descripcion, self.retorno, self.max_tiempo_cpu,
                     self.max_memoria, self.max_tam_archivo,
@@ -385,7 +385,7 @@ class Comando(InheritableSQLObject): #{{{
                     self.rechazar_si_falla, mas))
 
     def shortrepr(self):
-        return '%s (%s)' % (self.comando, self.descripcion)
+        return '%r (%r)' % (self.comando, self.descripcion)
 #}}}
 
 class ComandoFuente(Comando): #{{{
@@ -396,11 +396,11 @@ class ComandoFuente(Comando): #{{{
     pk          = DatabaseIndex(tarea, orden, unique=True)
 
     def __repr__(self):
-        return super(ComandoFuente, self).__repr__('tarea=%s, orden=%s'
-            % (self.tarea.shortrepr(), self.orden))
+        return super(ComandoFuente, self).__repr__('tarea=%s, orden=%r'
+            % (srepr(self.tarea), self.orden))
 
     def shortrepr(self):
-        return '%s:%s (%s)' % (self.tarea.shortrepr(), self.orden, self.comando)
+        return '%s:%r (%r)' % (srepr(self.tarea), self.orden, self.comando)
 #}}}
 
 class ComandoPrueba(Comando): #{{{
@@ -414,11 +414,11 @@ class ComandoPrueba(Comando): #{{{
     pk                  = DatabaseIndex(tarea, orden, unique=True)
 
     def __repr__(self):
-        return super(ComandoPrueba, self).__repr__('tarea=%s, orden=%s'
-            % (self.tarea.shortrepr(), self.orden))
+        return super(ComandoPrueba, self).__repr__('tarea=%s, orden=%r'
+            % (srepr(self.tarea), self.orden))
 
     def shortrepr(self):
-        return '%s:%s (%s)' % (self.tarea.shortrepr(), self.orden, self.comando)
+        return '%s:%r (%r)' % (srepr(self.tarea), self.orden, self.comando)
 #}}}
 
 class Enunciado(SQLObject): #{{{
@@ -458,13 +458,13 @@ class Enunciado(SQLObject): #{{{
         return CasoDePrueba(enunciado=self, nombre=nombre, **kw)
 
     def __repr__(self):
-        return 'Enunciado(id=%s, autor=%s, nombre=%s, descripcion=%s, ' \
-            'creado=%s)' \
+        return 'Enunciado(id=%r, autor=%s, nombre=%r, descripcion=%r, ' \
+            'creado=%r)' \
                 % (self.id, srepr(self.autor), self.nombre, self.descripcion, \
                     self.creado)
 
     def shortrepr(self):
-        return self.nombre
+        return repr(self.nombre)
 #}}}
 
 class CasoDePrueba(Comando): #{{{
@@ -477,11 +477,11 @@ class CasoDePrueba(Comando): #{{{
     pruebas             = MultipleJoin('Prueba')
 
     def __repr__(self):
-        return super(CasoDePrueba, self).__repr__('enunciado=%s, nombre=%s'
+        return super(CasoDePrueba, self).__repr__('enunciado=%s, nombre=%r'
             % (srepr(self.enunciado), self.nombre))
 
     def shortrepr(self):
-        return '%s:%s' % (self.enunciado.shortrepr(), self.nombre)
+        return '%s:%r' % (srepr(self.enunciado), self.nombre)
 #}}}
 
 class Ejercicio(SQLObject): #{{{
@@ -504,15 +504,14 @@ class Ejercicio(SQLObject): #{{{
         InstanciaDeEntrega.pk.get(self.id, numero).destroySelf()
 
     def __repr__(self):
-        return 'Ejercicio(id=%s, curso=%s, numero=%s, enunciado=%s, ' \
-            'grupal=%s)' \
-                % (self.id, self.curso.shortrepr(), self.numero,
-                    self.enunciado.shortrepr(), self.grupal)
+        return 'Ejercicio(id=%r, curso=%s, numero=%r, enunciado=%s, ' \
+            'grupal=%r)' \
+                % (self.id, srepr(self.curso), self.numero,
+                    srepr(self.enunciado), self.grupal)
 
     def shortrepr(self):
-        return '(%s, %s, %s)' \
-            % (self.curso.shortrepr(), str(self.numero), \
-                self.enunciado.shortrepr())
+        return '(%s, %r, %s)' \
+            % (srepr(self.curso), self.numero, srepr(self.enunciado))
 #}}}
 
 class InstanciaDeEntrega(SQLObject): #{{{
@@ -532,14 +531,14 @@ class InstanciaDeEntrega(SQLObject): #{{{
     correcciones    = MultipleJoin('Correccion', joinColumn='instancia_id')
 
     def __repr__(self):
-        return 'InstanciaDeEntrega(id=%s, numero=%s, inicio=%s, fin=%s, ' \
-            'inicio_proceso=%s, fin_proceso=%s, observaciones=%s, activo=%s)' \
+        return 'InstanciaDeEntrega(id=%r, numero=%r, inicio=%r, fin=%r, ' \
+            'inicio_proceso=%r, fin_proceso=%r, observaciones=%r, activo=%r)' \
                 % (self.id, self.numero, self.inicio, self.fin,
                     self.inicio_proceso, self.fin_proceso, self.observaciones,
                     self.activo)
 
     def shortrepr(self):
-        return self.numero
+        return repr(self.numero)
 #}}}
 
 class DocenteInscripto(SQLObject): #{{{
@@ -564,13 +563,13 @@ class DocenteInscripto(SQLObject): #{{{
         Correccion.pk.get(instancia.id, entregador.id).destroySelf()
 
     def __repr__(self):
-        return 'DocenteInscripto(id=%s, docente=%s, corrige=%s, ' \
-            'observaciones=%s' \
-                % (self.id, self.docente.shortrepr(), self.corrige,
+        return 'DocenteInscripto(id=%r, docente=%s, corrige=%r, ' \
+            'observaciones=%r' \
+                % (self.id, srepr(self.docente), self.corrige,
                     self.observaciones)
 
     def shortrepr(self):
-        return self.docente.shortrepr()
+        return srepr(self.docente)
 #}}}
 
 class Entregador(InheritableSQLObject): #{{{
@@ -667,19 +666,19 @@ class Grupo(Entregador): #{{{
         t = Tutor.selectBy(grupo=self, docenteID=docente, baja=None)
         t.baja = DateTimeCol.now()
 
-    def __repr__(self):
-        return 'Grupo(id=%s, nombre=%s, responsable=%s, nota=%s, ' \
-            'nota_cursada=%s, observaciones=%s, activo=%s)' \
-                % (self.id, self.nombre, srepr(self.responsable), self.nota,
-                    self.nota_cursada, self.observaciones, self.activo)
-
     @classmethod
     def selectByAlumno(self, alumno):
         return Miembro.select(AND(Miembro.q.alumnoID == AlumnoInscripto.q.id,
                 AlumnoInscripto.q.alumnoID == alumno.id, Miembro.q.baja == None))
 
+    def __repr__(self):
+        return 'Grupo(id=%r, nombre=%r, responsable=%s, nota=%r, ' \
+            'nota_cursada=%r, observaciones=%r, activo=%r)' \
+                % (self.id, self.nombre, srepr(self.responsable), self.nota,
+                    self.nota_cursada, self.observaciones, self.activo)
+
     def shortrepr(self):
-        return 'grupo:' + self.nombre
+        return 'grupo:%r' % self.nombre
 #}}}
 
 class AlumnoInscripto(Entregador): #{{{
@@ -690,7 +689,8 @@ class AlumnoInscripto(Entregador): #{{{
     pk                  = DatabaseIndex(curso, alumno, unique=True)
     # Campos
     condicional         = BoolCol(notNone=True, default=False)
-    tutor               = ForeignKey('DocenteInscripto', default=None, cascade='null')
+    tutor               = ForeignKey('DocenteInscripto', default=None,
+                                        cascade='null')
     # Joins
     responsabilidades   = MultipleJoin('Grupo', joinColumn='responsable_id')
     membresias          = MultipleJoin('Miembro', joinColumn='alumno_id')
@@ -706,17 +706,18 @@ class AlumnoInscripto(Entregador): #{{{
 
     @classmethod
     def selectByAlumno(self, alumno):
-        return AlumnoInscripto.select(AlumnoInscripto.q.alumnoID == alumno.id).getOne()
+        return AlumnoInscripto.select(AlumnoInscripto.q.alumnoID
+                                        == alumno.id).getOne()
 
     def __repr__(self):
-        return 'AlumnoInscripto(id=%s, alumno=%s, condicional=%s, nota=%s, ' \
-            'nota_cursada=%s, tutor=%s, observaciones=%s, activo=%s)' \
-                % (self.id, self.alumno.shortrepr(), self.condicional,
+        return 'AlumnoInscripto(id=%r, alumno=%s, condicional=%r, nota=%r, ' \
+            'nota_cursada=%r, tutor=%s, observaciones=%r, activo=%r)' \
+                % (self.id, srepr(self.alumno), self.condicional,
                     self.nota, self.nota_cursada, srepr(self.tutor),
                     self.observaciones, self.activo)
 
     def shortrepr(self):
-        return self.alumno.shortrepr()
+        return srepr(self.alumno)
 #}}}
 
 class Tutor(SQLObject): #{{{
@@ -729,12 +730,11 @@ class Tutor(SQLObject): #{{{
     baja            = DateTimeCol(default=None)
 
     def __repr__(self):
-        return 'Tutor(docente=%s, grupo=%s, alta=%s, baja=%s)' \
-                % (self.docente.shortrepr(), self.grupo.shortrepr(),
-                    self.alta, self.baja)
+        return 'Tutor(docente=%s, grupo=%s, alta=%r, baja=%r)' \
+                % (srepr(self.docente), srepr(self.grupo), self.alta, self.baja)
 
     def shortrepr(self):
-        return '%s-%s' % (self.docente.shortrepr(), self.grupo.shortrepr())
+        return '%s-%s' % (srepr(self.docente), srepr(self.grupo))
 #}}}
 
 class Miembro(SQLObject): #{{{
@@ -748,12 +748,12 @@ class Miembro(SQLObject): #{{{
     baja            = DateTimeCol(default=None)
 
     def __repr__(self):
-        return 'Miembro(alumno=%s, grupo=%s, nota=%s, alta=%s, baja=%s)' \
-                % (self.alumno.shortrepr(), self.grupo.shortrepr(),
-                    self.nota, self.alta, self.baja)
+        return 'Miembro(alumno=%s, grupo=%s, nota=%r, alta=%r, baja=%r)' \
+                % (srepr(self.alumno), srepr(self.grupo), self.nota, self.alta,
+                        self.baja)
 
     def shortrepr(self):
-        return '%s-%s' % (self.alumno.shortrepr(), self.grupo.shortrepr())
+        return '%s-%s' % (srepr(self.alumno), srepr(self.grupo))
 #}}}
 
 class Ejecucion(InheritableSQLObject): #{{{
@@ -765,7 +765,7 @@ class Ejecucion(InheritableSQLObject): #{{{
     archivos        = BLOBCol(default=None, length=BLOB_SIZE) # ZIP con archivos
 
     def __repr__(self, clave='', mas=''):
-        return ('%s(%s inicio=%s, fin=%s, exito=%s, observaciones=%s%s)'
+        return ('%s(%s inicio=%r, fin=%r, exito=%r, observaciones=%r%s)'
             % (self.__class__.__name__, clave, self.inicio, self.fin,
             self.exito, self.observaciones, mas))
 #}}}
@@ -805,12 +805,12 @@ class Entrega(Ejecucion): #{{{
 
     def __repr__(self):
         return super(Entrega, self).__repr__('instancia=%s, entregador=%s, '
-            'fecha=%s' % (self.instancia.shortrepr(), srepr(self.entregador),
+            'fecha=%r' % (srepr(self.instancia), srepr(self.entregador),
                 self.fecha))
 
     def shortrepr(self):
-        return '%s-%s-%s' % (self.instancia.shortrepr(),
-            srepr(self.entregador), self.fecha)
+        return '%s-%s-%r' % (srepr(self.instancia), srepr(self.entregador),
+                self.fecha)
 #}}}
 
 class Correccion(SQLObject): #{{{
@@ -831,16 +831,16 @@ class Correccion(SQLObject): #{{{
 
     def __repr__(self):
         return 'Correccion(instancia=%s, entregador=%s, entrega=%s, ' \
-            'corrector=%s, asignado=%s, corregido=%s, nota=%s, ' \
-            'observaciones=%s)' \
-                % (self.instancia.shortrepr(), self.entregador.shortrepr(),
-                    self.entrega.shortrepr(), self.corrector, self.asignado,
+            'corrector=%r, asignado=%r, corregido=%r, nota=%r, ' \
+            'observaciones=%r)' \
+                % (srepr(self.instancia), srepr(self.entregador),
+                    srepr(self.entrega), self.corrector, self.asignado,
                     self.corregido, self.nota, self.observaciones)
 
     def shortrepr(self):
         if not self.corrector:
-            return '%s' % self.entrega.shortrepr()
-        return '%s,%s' % (self.entrega.shortrepr(), self.corrector.shortrepr())
+            return '%s' % srepr(self.entrega)
+        return '%s,%s' % (srepr(self.entrega), srepr(self.corrector))
 #}}}
 
 class ComandoEjecutado(Ejecucion): #{{{
@@ -861,11 +861,11 @@ class ComandoFuenteEjecutado(ComandoEjecutado): #{{{
 
     def __repr__(self):
         return super(ComandoFuenteEjecutado, self).__repr__(
-            'comando=%s, entrega=%s' % (self.comando.shortrepr(),
-                self.entrega.shortrepr()))
+            'comando=%s, entrega=%s' % (srepr(self.comando),
+                srepr(self.entrega)))
 
     def shortrepr(self):
-        return '%s-%s' % (self.comando.shortrepr(), self.entrega.shortrepr())
+        return '%s-%s' % (srepr(self.comando), srepr(self.entrega))
 #}}}
 
 class ComandoPruebaEjecutado(ComandoEjecutado): #{{{
@@ -877,12 +877,12 @@ class ComandoPruebaEjecutado(ComandoEjecutado): #{{{
 
     def __repr__(self):
         return super(ComandoPruebaEjecutado, self).__repr__(
-            'comando=%s, prueba=%s' % (self.comando.shortrepr(),
-                self.prueba.shortrepr()))
+            'comando=%s, prueba=%s' % (srepr(self.comando),
+                srepr(self.prueba)))
 
     def shortrepr(self):
-        return '%s:%s:%s' % (self.tarea.shortrepr(), self.prueba.shortrepr(),
-            self.caso_de_prueba.shortrepr())
+        return '%s:%s:%s' % (srepr(self.tarea), srepr(self.prueba),
+            srepr(self.caso_de_prueba))
 #}}}
 
 class Prueba(ComandoEjecutado): #{{{
@@ -907,11 +907,10 @@ class Prueba(ComandoEjecutado): #{{{
 
     def __repr__(self):
         return super(Prueba, self).__repr__('entrega=%s, caso_de_prueba=%s'
-            % (self.entrega.shortrepr(), self.caso_de_prueba.shortrepr()))
+            % (srepr(self.entrega), srepr(self.caso_de_prueba)))
 
     def shortrepr(self):
-        return '%s:%s' % (self.entrega.shortrepr(),
-            self.caso_de_prueba.shortrepr())
+        return '%s:%s' % (srepr(self.entrega), srepr(self.caso_de_prueba))
 #}}}
 
 #{{{ Específico de Identity
@@ -978,7 +977,7 @@ class Permiso(object): #{{{
         return self.valor | other.valor
 
     def __repr__(self):
-        return self.nombre
+        return repr(self.nombre)
 #}}}
 
 # TODO ejemplos
