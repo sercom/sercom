@@ -8,7 +8,7 @@
 </head>
 <body>
    
-    <h1>Alumnos del curso <span py:replace="curso.shortrepr()"></span></h1>
+    <h1>Alumnos del curso <span py:replace="curso"></span></h1>
 
 <table class="list">
     <tr>
@@ -18,9 +18,9 @@
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-        <td><a href="${tg.url('/curso/alumno/show/%d' % record.alumno.id)}" py:content="record.alumno.shortrepr()">alumno</a></td>
+        <td><a href="${tg.url('/curso/alumno/show/%d' % record.alumno.id)}" py:content="record.alumno">alumno</a></td>
         <td align="center"><span py:replace="tg.strbool(record.condicional)">fecha corregido</span></td>
-        <td><a py:if="record.tutor" href="${tg.url('/docente/show/%d' % record.tutor.id)}" py:content="record.tutor.shortrepr()">Tutor</a></td>
+        <td><a py:if="record.tutor" href="${tg.url('/docente/show/%d' % record.tutor.id)}" py:content="record.tutor">Tutor</a></td>
         <td>
             <a href="${tg.url('/curso/alumno/notas/%d/%d' % (record.id, curso.id))}">Notas</a>
         </td>

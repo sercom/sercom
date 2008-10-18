@@ -10,11 +10,11 @@
 <table class="show">
     <tr>
         <th>Curso:</th>
-        <td><span py:replace="record.curso.shortrepr()">curso</span></td>
+        <td><span py:replace="record.curso">curso</span></td>
     </tr>
     <tr>
         <th>Docente:</th>
-		<td><span py:replace="record.docente.shortrepr()">docente</span></td>
+		<td><span py:replace="record.docente">docente</span></td>
     </tr>
     <tr>
         <th>Observaciones:</th>

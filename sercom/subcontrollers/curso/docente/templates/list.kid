@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1><span py:replace="namepl">Objetos</span> del Curso <span py:replace="curso.shortrepr()">Curso</span></h1>
+<h1><span py:replace="namepl">Objetos</span> del Curso <span py:replace="curso">Curso</span></h1>
 
 <table class="list">
     <tr>
@@ -17,7 +17,7 @@
 				<th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-        <td><a href="${tg.url('/docente/show/%d' % record.docente.id)}"><span py:replace="record.docente.shortrepr()">docentes</span></a></td> 
+        <td><a href="${tg.url('/docente/show/%d' % record.docente.id)}"><span py:replace="record.docente">docentes</span></a></td> 
         <td align="center"><span py:replace="tg.strbool(record.corrige)">Si/No</span></td>
         <td><span py:replace="record.observaciones">observaciones</span></td>
 				<td>

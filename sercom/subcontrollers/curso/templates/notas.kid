@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>Notas del Curso : <span py:replace="curso.shortrepr()">Objetos</span></h1>
+<h1>Notas del Curso : <span py:replace="curso">Objetos</span></h1>
 
 <div align="right" style="font-size:70%; margin-right:5%; margin-bottom: 5px;">
 	<a href="${tg.url('/curso/notascsv/%d' % curso.id)}" target="_blank">Exportar</a>

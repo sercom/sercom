@@ -14,26 +14,26 @@
     </tr>
     <tr>
         <th>Curso:</th>
-        <td><span py:replace="record.curso.shortrepr()">curso</span></td>
+        <td><span py:replace="record.curso">curso</span></td>
     </tr>
     <tr>
         <th>Tutores:</th>
 				<td>
 					<span py:for="a in record.tutores">
-						<span py:replace="a.docente.shortrepr()" />
+						<span py:replace="a.docente" />
 						<br />
 					</span>		
 				</td>
     </tr>
     <tr>
 			<th>Responsable:</th>
-			<td><span py:if="record.responsable is not None" py:replace="record.responsable.shortrepr()">numero</span></td>
+			<td><span py:if="record.responsable is not None" py:replace="record.responsable">numero</span></td>
     </tr>
     <tr>
         <th>Integrantes:</th>
 				<td>
 					<span py:for="a in record.miembros" py:if="not a.baja">
-						<a href="${tg.url('/curso/alumno/show/%d/%d' % (a.alumno.id, a.alumno.curso.id))}" py:content="a.alumno.shortrepr()" />
+						<a href="${tg.url('/curso/alumno/show/%d/%d' % (a.alumno.id, a.alumno.curso.id))}" py:content="a.alumno" />
 						<br />
 					</span>		
 				</td>

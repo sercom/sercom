@@ -31,19 +31,19 @@ def validate_new(data):
 #}}}
 
 def get_ejercicios():
-    return [(fk1.id, fk1.shortrepr()) for fk1 in Ejercicio.select()]
+    return [(e.id, e) for e in Ejercicio.select()]
 
 def get_docentes():
-    return [(fk1.id, fk1.shortrepr()) for fk1 in Docente.select()]
+    return [(d.id, d) for d in Docente.select()]
 
 def get_alumnos_inscriptos(curso):
-    return [(fk1.id, fk1.shortrepr()) for fk1 in AlumnoInscripto.selectBy(curso)]
+    return [(ai.id, ai) for ai in AlumnoInscripto.selectBy(curso)]
 
 def get_alumnos():
-    return [(fk1.id, fk1.shortrepr()) for fk1 in Alumno.select()]
+    return [(a.id, a) for a in Alumno.select()]
 
 def get_grupos():
-    return [(fk1.id, fk1.shortrepr()) for fk1 in Grupo.select()]
+    return [(g.id, g) for g in Grupo.select()]
 
 ajax = u""" 
 function makeOption(option) {

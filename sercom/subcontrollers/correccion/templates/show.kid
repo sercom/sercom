@@ -10,7 +10,7 @@
 <table class="show">
     <tr>
         <th>Instancia de Entrega:</th>
-        <td><span py:replace="record.instancia.shortrepr()">record.padrón</span></td>
+        <td><span py:replace="record.instancia">record.padrón</span></td>
     </tr>
     <tr>
         <th>Entregador:</th>
@@ -18,7 +18,7 @@
     </tr>
     <tr>
         <th>Entrega:</th>
-	<td><span py:replace="record.entrega.shortrepr()">email</span></td>
+	<td><span py:replace="record.entrega">email</span></td>
     </tr>
     <tr>
         <th>Corrector:</th>

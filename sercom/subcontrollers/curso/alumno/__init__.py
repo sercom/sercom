@@ -42,7 +42,7 @@ class AlumnoInscriptoForm(W.TableForm):
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nota_practica');")]
 
 def get_cursos():
-    return [(0, u'---')] + [(fk1.id, fk1.shortrepr()) for fk1 in Curso.select()]
+    return [(0, u'---')] + [(c.id, c) for c in Curso.select()]
 
 form = AlumnoInscriptoForm()
 #}}}

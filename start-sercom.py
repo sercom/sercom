@@ -49,7 +49,7 @@ class Queue(object): #{{{
                     n = Entrega.selectBy(instancia=instancia, fin=None).count()
                     if n:
                         log.debug(_(u'Esperando para procesar instancia (%s), '
-                            'faltan probar %s entregas'), instancia.shortrepr(),
+                            'faltan probar %s entregas'), instancia,
                             n)
                         time.sleep(30)
                         continue

@@ -186,12 +186,12 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
             alumno = Alumno.byPadron(padron=padron)
             msg = {}
             msg['id'] = alumno.id
-            msg['value'] = alumno.shortrepr()
+            msg['value'] = alumno
         except SQLObjectNotFound:
             msg = 'No existe el alumno con padron: %s.' % padron
             error=True
         except Exception, (inst):
-            msg = u"""Se ha producido un error inesperado al buscar el registro:\n      %s""" % str(inst)
+            msg = u'Se ha producido un error inesperado al buscar el registro:\n      %s' % unicode(inst)
             error = True
         return dict(msg=msg, error=error)
 

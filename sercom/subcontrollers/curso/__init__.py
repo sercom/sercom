@@ -107,7 +107,7 @@ def validate_del(id):
 #}}}
 
 def get_docentes():
-    return [(fk1.id, fk1.shortrepr()) for fk1 in Docente.selectBy(activo=True)]
+    return [(d.id, d) for d in Docente.selectBy(activo=True)]
 
 
 #{{{ Formulario
@@ -224,9 +224,9 @@ class CursoController(controllers.Controller, identity.SecureResource):
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
-        # cargo la lista con los docentes asignados al curso
-        r.docentes_to = [{"id":d.docente.id, "label":d.docente.shortrepr().replace("'", "\\'")} for d in r.docentes]
-        r.alumnos_inscriptos = [{"id":a.alumno.id, "label":a.alumno.shortrepr().replace("'", "\\'")} for a in r.alumnos]
+        # cargo la lista con los docentes asignados al curso (FIXME)
+        r.docentes_to = [{"id":d.docente.id, "label":unicode(d.docente).replace("'", "\\'")} for d in r.docentes]
+        r.alumnos_inscriptos = [{"id":a.alumno.id, "label":unicode(a.alumno).replace("'", "\\'")} for a in r.alumnos]
         return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
@@ -339,7 +339,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
             col["Nombre"] = i.alumno.nombre
             miembro = Grupo.selectByAlumno(i.alumno)
             if miembro.count() > 0:
-                col["Grupo"] = miembro[0].grupo.shortrepr()
+                col["Grupo"] = miembro[0].grupo
             else:
                 col["Grupo"] = ""
             correctas = 0
@@ -387,7 +387,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
             col.append(i.alumno.nombre)
             miembro = Grupo.selectByAlumno(i.alumno)
             if miembro.count() > 0:
-                col.append(miembro[0].grupo.shortrepr())
+                col.append(miembro[0].grupo)
             else:
                 col.append("")
             correctas = 0

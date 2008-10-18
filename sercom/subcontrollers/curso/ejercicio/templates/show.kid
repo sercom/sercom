@@ -16,7 +16,7 @@
         <th>Enunciado:</th>
 	<td>
 		<a href="${tg.url('/enunciado/show/%d' % record.enunciado.id)}">
-			<span py:replace="record.enunciado.shortrepr()">autor</span>
+			<span py:replace="record.enunciado">autor</span>
 		</a>
 	</td>
     </tr>

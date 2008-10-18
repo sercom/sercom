@@ -36,7 +36,7 @@ def validate_new(data):
 
 def get_ejercicios_activos():
     # TODO : Mostrar solo los ejercicios con instancias de entrega activos
-    return [(0, _(u'--'))] + [(a.id, a.shortrepr()) for a in (Ejercicio.select(
+    return [(0, _(u'--'))] + [(a.id, a) for a in (Ejercicio.select(
         AND(Ejercicio.q.id==InstanciaDeEntrega.q.ejercicioID, InstanciaDeEntrega.q.inicio <= DateTimeCol.now(),
             InstanciaDeEntrega.q.fin >= DateTimeCol.now())))]
 

@@ -54,7 +54,7 @@
 							else:
 								color = "#ffff00"
 				?>
-				<td style="background:${color};"><span py:if="record.entregador" py:replace="record.entregador.shortrepr()">usuario</span></td>
+				<td style="background:${color};"><span py:if="record.entregador" py:replace="record.entregador">usuario</span></td>
         <td style="background:${color};"><span py:replace="record.exito">fecha asignado</span></td>
         <td style="background:${color};"><span py:replace="record.inicio">fecha corregido</span></td>
         <td style="background:${color};"><span py:replace="record.fin">fecha corregido</span></td>

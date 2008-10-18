@@ -144,6 +144,9 @@ class Curso(SQLObject): #{{{
         # FIXME esto deberian arreglarlo en SQLObject
         Ejercicio.pk.get(self.id, numero).destroySelf()
 
+    def __unicode__(self):
+        return u'%s.%s.%s' % (self.anio, self.cuatrimestre, self.numero)
+
     def __repr__(self):
         return 'Curso(id=%r, anio=%r, cuatrimestre=%r, numero=%r, ' \
             'descripcion=%r)' \
@@ -151,8 +154,7 @@ class Curso(SQLObject): #{{{
                     self.descripcion)
 
     def shortrepr(self):
-        return '%r.%r.%r' \
-            % (self.anio, self.cuatrimestre, self.numero)
+        return '%r.%r.%r' % (self.anio, self.cuatrimestre, self.numero)
 #}}}
 
 class Usuario(InheritableSQLObject): #{{{
@@ -217,6 +219,9 @@ class Usuario(InheritableSQLObject): #{{{
 
     def _get_password(self): # para identity
         return self.contrasenia
+
+    def __unicode__(self):
+        return u'%s (%s)' % (self.usuario, self.nombre)
 
     def __repr__(self):
         raise NotImplementedError(_(u'Clase abstracta!'))
@@ -295,6 +300,9 @@ class Tarea(InheritableSQLObject): #{{{
     # Joins
     enunciados          = RelatedJoin('Enunciado', addRemoveName='_enunciado')
 
+    def __unicode__(self):
+        return self.nombre
+
     def __repr__(self):
         raise NotImplementedError('Tarea es una clase abstracta')
 
@@ -372,8 +380,11 @@ class Comando(InheritableSQLObject): #{{{
     archivos_a_guardar  = TupleCol(notNone=True, default=(), length=BLOB_SIZE)
     activo              = BoolCol(notNone=True, default=True)
 
+    def __unicode__(self):
+        return u'%s (%s)' % (self.comando, self.descripcion)
+
     def __repr__(self, clave='', mas=''):
-        return ('%r(%s comando=%r, descripcion=%r, retorno=%r, '
+        return ('%s(%s comando=%r, descripcion=%r, retorno=%r, '
             'max_tiempo_cpu=%r, max_memoria=%r, max_tam_archivo=%r, '
             'max_cant_archivos=%r, max_cant_procesos=%r, max_locks_memoria=%r, '
             'terminar_si_falla=%r, rechazar_si_falla=%r%s)'
@@ -395,6 +406,9 @@ class ComandoFuente(Comando): #{{{
     orden       = IntCol(notNone=True)
     pk          = DatabaseIndex(tarea, orden, unique=True)
 
+    def __unicode__(self):
+        return u'%s:%s (%s)' % (self.tarea, self.orden, self.comando)
+
     def __repr__(self):
         return super(ComandoFuente, self).__repr__('tarea=%s, orden=%r'
             % (srepr(self.tarea), self.orden))
@@ -412,6 +426,9 @@ class ComandoPrueba(Comando): #{{{
     tarea               = ForeignKey('TareaPrueba', notNone=True, cascade=True)
     orden               = IntCol(notNone=True)
     pk                  = DatabaseIndex(tarea, orden, unique=True)
+
+    def __unicode__(self):
+        return u'%s:%s (%s)' % (self.tarea, self.orden, self.comando)
 
     def __repr__(self):
         return super(ComandoPrueba, self).__repr__('tarea=%s, orden=%r'
@@ -457,6 +474,9 @@ class Enunciado(SQLObject): #{{{
     def add_caso_de_prueba(self, nombre, **kw):
         return CasoDePrueba(enunciado=self, nombre=nombre, **kw)
 
+    def __unicode__(self):
+        return self.nombre
+
     def __repr__(self):
         return 'Enunciado(id=%r, autor=%s, nombre=%r, descripcion=%r, ' \
             'creado=%r)' \
@@ -475,6 +495,9 @@ class CasoDePrueba(Comando): #{{{
     pk                  = DatabaseIndex(enunciado, nombre, unique=True)
     # Joins
     pruebas             = MultipleJoin('Prueba')
+
+    def __unicode__(self):
+        return u'%s:%s' % (self.enunciado, self.nombre)
 
     def __repr__(self):
         return super(CasoDePrueba, self).__repr__('enunciado=%s, nombre=%r'
@@ -503,6 +526,9 @@ class Ejercicio(SQLObject): #{{{
         # FIXME self.id
         InstanciaDeEntrega.pk.get(self.id, numero).destroySelf()
 
+    def __unicode__(self):
+        return u'(%s, %s, %s)' % (self.curso, self.numero, self.enunciado)
+
     def __repr__(self):
         return 'Ejercicio(id=%r, curso=%s, numero=%r, enunciado=%s, ' \
             'grupal=%r)' \
@@ -529,6 +555,9 @@ class InstanciaDeEntrega(SQLObject): #{{{
     # Joins
     entregas        = MultipleJoin('Entrega', joinColumn='instancia_id')
     correcciones    = MultipleJoin('Correccion', joinColumn='instancia_id')
+
+    def __unicode__(self):
+        return self.nume
 
     def __repr__(self):
         return 'InstanciaDeEntrega(id=%r, numero=%r, inicio=%r, fin=%r, ' \
@@ -561,6 +590,9 @@ class DocenteInscripto(SQLObject): #{{{
     def remove_correccion(self, instancia, entregador):
         # FIXME instancia.id, entregador.id
         Correccion.pk.get(instancia.id, entregador.id).destroySelf()
+
+    def __unicode__(self):
+        return self.docente
 
     def __repr__(self):
         return 'DocenteInscripto(id=%r, docente=%s, corrige=%r, ' \
@@ -671,6 +703,9 @@ class Grupo(Entregador): #{{{
         return Miembro.select(AND(Miembro.q.alumnoID == AlumnoInscripto.q.id,
                 AlumnoInscripto.q.alumnoID == alumno.id, Miembro.q.baja == None))
 
+    def __unicode__(self):
+        return u'grupo:%s' % self.nombre
+
     def __repr__(self):
         return 'Grupo(id=%r, nombre=%r, responsable=%s, nota=%r, ' \
             'nota_cursada=%r, observaciones=%r, activo=%r)' \
@@ -709,6 +744,9 @@ class AlumnoInscripto(Entregador): #{{{
         return AlumnoInscripto.select(AlumnoInscripto.q.alumnoID
                                         == alumno.id).getOne()
 
+    def __unicode__(self):
+        return self.alumno
+
     def __repr__(self):
         return 'AlumnoInscripto(id=%r, alumno=%s, condicional=%r, nota=%r, ' \
             'nota_cursada=%r, tutor=%s, observaciones=%r, activo=%r)' \
@@ -729,6 +767,9 @@ class Tutor(SQLObject): #{{{
     alta            = DateTimeCol(notNone=True, default=DateTimeCol.now)
     baja            = DateTimeCol(default=None)
 
+    def __unicode__(self):
+        return u'%s-%s' % (self.docente, self.grupo)
+
     def __repr__(self):
         return 'Tutor(docente=%s, grupo=%s, alta=%r, baja=%r)' \
                 % (srepr(self.docente), srepr(self.grupo), self.alta, self.baja)
@@ -746,6 +787,9 @@ class Miembro(SQLObject): #{{{
     nota            = DecimalCol(size=3, precision=1, default=None)
     alta            = DateTimeCol(notNone=True, default=DateTimeCol.now)
     baja            = DateTimeCol(default=None)
+
+    def __unicode__(self):
+        return u'%s-%s' % (self.alumno, self.grupo)
 
     def __repr__(self):
         return 'Miembro(alumno=%s, grupo=%s, nota=%r, alta=%r, baja=%r)' \
@@ -803,6 +847,9 @@ class Entrega(Ejecucion): #{{{
         return Correccion(instancia=self.instancia, entregador=self.entregador,
             entrega=self, corrector=corrector, **kw)
 
+    def __unicode__(self):
+        return u'%s-%s-%s' % (self.instancia, self.entregador, self.fecha)
+
     def __repr__(self):
         return super(Entrega, self).__repr__('instancia=%s, entregador=%s, '
             'fecha=%r' % (srepr(self.instancia), srepr(self.entregador),
@@ -828,6 +875,11 @@ class Correccion(SQLObject): #{{{
 
     def _get_entregas(self):
         return list(Entrega.selectBy(instancia=self.instancia, entregador=self.entregador))
+
+    def __unicode__(self):
+        if not self.corrector:
+            return u'%s' % self.entrega
+        return u'%s,%s' % (self.entrega, self.corrector)
 
     def __repr__(self):
         return 'Correccion(instancia=%s, entregador=%s, entrega=%s, ' \
@@ -859,6 +911,9 @@ class ComandoFuenteEjecutado(ComandoEjecutado): #{{{
     entrega = ForeignKey('Entrega', notNone=True, cascade=False)
     pk      = DatabaseIndex(comando, entrega, unique=True)
 
+    def __unicode__(self):
+        return u'%s-%s' % (self.comando, self.entrega)
+
     def __repr__(self):
         return super(ComandoFuenteEjecutado, self).__repr__(
             'comando=%s, entrega=%s' % (srepr(self.comando),
@@ -874,6 +929,9 @@ class ComandoPruebaEjecutado(ComandoEjecutado): #{{{
     comando = ForeignKey('ComandoPrueba', notNone=True, cascade=False)
     prueba  = ForeignKey('Prueba', notNone=True, cascade=False)
     pk      = DatabaseIndex(comando, prueba, unique=True)
+
+    def __unicode__(self):
+        return u'%s:%s:%s' % (self.tarea, self.prueba, self.caso_de_prueba)
 
     def __repr__(self):
         return super(ComandoPruebaEjecutado, self).__repr__(
@@ -904,6 +962,9 @@ class Prueba(ComandoEjecutado): #{{{
             comando = comando.id
         # FIXME self.id, comando.id
         ComandoPruebaEjecutado.pk.get(self.id, comando).destroySelf()
+
+    def __unicode__(self):
+        return u'%s:%s' % (self.entrega, self.caso_de_prueba)
 
     def __repr__(self):
         return super(Prueba, self).__repr__('entrega=%s, caso_de_prueba=%s'

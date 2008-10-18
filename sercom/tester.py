@@ -245,7 +245,7 @@ class Tester(object): #{{{
     #}}}
 
     def setup_chroot(self, entrega): #{{{ y clean_chroot()
-        log.debug(_(u'Tester.setup_chroot(entrega=%s)'), entrega.shortrepr())
+        log.debug(_(u'Tester.setup_chroot(entrega=%s)'), entrega)
         rsync = ('rsync', '--stats', '--itemize-changes', '--human-readable',
             '--archive', '--acls', '--delete-during', '--force',
             '--exclude', '/proc', '--exclude', '/sys', # TODO config
@@ -263,13 +263,13 @@ class Tester(object): #{{{
         unzip(entrega.archivos, self.build_path)
 
     def clean_chroot(self, entrega):
-        log.debug(_(u'Tester.clean_chroot(entrega=%s)'), entrega.shortrepr())
+        log.debug(_(u'Tester.clean_chroot(entrega=%s)'), entrega)
         pass # Se limpia con el próximo rsync
     #}}}
 
     def ejecutar_tareas_fuente(self, entrega): #{{{ y tareas_prueba
         log.debug(_(u'Tester.ejecutar_tareas_fuente(entrega=%s)'),
-            entrega.shortrepr())
+            entrega)
         tareas = [t for t in entrega.instancia.ejercicio.enunciado.tareas
                     if isinstance(t, TareaFuente)]
         for tarea in tareas:
@@ -277,7 +277,7 @@ class Tester(object): #{{{
 
     def ejecutar_tareas_prueba(self, entrega):
         log.debug(_(u'Tester.ejecutar_tareas_prueba(entrega=%s)'),
-            entrega.shortrepr())
+            entrega)
         for caso in entrega.instancia.ejercicio.enunciado.casos_de_prueba:
             caso.ejecutar(self.test_path, entrega)
     #}}}
@@ -286,7 +286,7 @@ class Tester(object): #{{{
 
 def ejecutar_caso_de_prueba(self, path, entrega): #{{{
     log.debug(_(u'CasoDePrueba.ejecutar(caso=%s, path=%s, entrega=%s)'), self,
-        path, entrega.shortrepr())
+        path, entrega)
     tareas = [t for t in entrega.instancia.ejercicio.enunciado.tareas
                 if isinstance(t, TareaPrueba)]
     prueba = entrega.add_prueba(self, inicio=datetime.now())
@@ -309,7 +309,7 @@ CasoDePrueba.ejecutar = ejecutar_caso_de_prueba
 
 def ejecutar_tarea(self, path, ejecucion): #{{{
     log.debug(_(u'Tarea.ejecutar(path=%s, ejecucion=%s)'), path,
-        ejecucion.shortrepr())
+        ejecucion)
     for cmd in self.comandos:
         cmd.ejecutar(path, ejecucion)
 Tarea.ejecutar = ejecutar_tarea
@@ -319,7 +319,7 @@ Tarea.ejecutar = ejecutar_tarea
 
 def ejecutar_comando_fuente(self, path, entrega): #{{{
     log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s)'), path,
-        entrega.shortrepr())
+        entrega)
     comando_ejecutado = entrega.add_comando_ejecutado(self)
     basetmp = '/tmp/sercom.tester.fuente' # FIXME TODO /var/run/sercom?
     unzip(self.archivos_entrada, path, # TODO try/except
@@ -506,7 +506,7 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
     # Diferencia con comando fuente: s/entrega/prueba/ y s/build/test/ en path
     # y setup/clean de test.
     log.debug(_(u'ComandoPrueba.ejecutar(path=%s, prueba=%s)'), path,
-        prueba.shortrepr())
+        prueba)
     caso_de_prueba = prueba.caso_de_prueba
     comando_ejecutado = prueba.add_comando_ejecutado(self)
     basetmp = '/tmp/sercom.tester.prueba' # FIXME TODO /var/run/sercom?

@@ -26,13 +26,13 @@
     </tr>
     <tr py:for="record in records">
         <td><span py:replace="record.instancia.ejercicio.enunciado.nombre">usuario</span></td>
-        <td><span py:replace="record.instancia.shortrepr()">usuario</span></td>
+        <td><span py:replace="record.instancia">usuario</span></td>
 				<td>
-					<a py:if="isinstance(record.entregador, Grupo)" href="${tg.url('/grupo/show/%d' % record.entregador.id)}" py:content="record.entregador.shortrepr()">nombre</a>
-					<a py:if="isinstance(record.entregador, AlumnoInscripto)" href="${tg.url('/alumno/show/%d' % record.entregador.alumno.id)}" py:content="record.entregador.shortrepr()">nombre</a>
+					<a py:if="isinstance(record.entregador, Grupo)" href="${tg.url('/grupo/show/%d' % record.entregador.id)}" py:content="record.entregador">nombre</a>
+					<a py:if="isinstance(record.entregador, AlumnoInscripto)" href="${tg.url('/alumno/show/%d' % record.entregador.alumno.id)}" py:content="record.entregador">nombre</a>
 				</td>
 				<td align="center"><a href="${tg.url('/correccion/entregas/%d' % record.id)}" py:content="len(record.entregas)">entregas realizadas</a></td>
-				<td><a href="${tg.url('/docente/show/%d' % record.corrector.docente.id)}" py:content="record.corrector.shortrepr()">corrector</a></td>
+				<td><a href="${tg.url('/docente/show/%d' % record.corrector.docente.id)}" py:content="record.corrector">corrector</a></td>
         <td><span py:replace="record.asignado">fecha asignado</span></td>
         <td><span py:replace="record.corregido">fecha corregido</span></td>
         <td align="right"><span py:replace="record.nota">nota</span></td>

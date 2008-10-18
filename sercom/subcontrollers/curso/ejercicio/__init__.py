@@ -92,7 +92,7 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
         """Create new records in model"""
         kw['cursoID'] = curso
         curso = Curso.get(curso)
-        options = { fkname+'ID': [(fk.id, fk.shortrepr()) for fk in
+        options = { fkname+'ID': [(e.id, e) for e in
             Enunciado.selectBy(anio=curso.anio,
                 cuatrimestre=curso.cuatrimestre)] }
         return dict(name=name, namepl=namepl, form=form, values=kw, options=options)
@@ -113,7 +113,7 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
         """Edit record in model"""
         r = validate_get(id)
         curso = Curso.get(r.cursoID)
-        options = { fkname+'ID': [(fk.id, fk.shortrepr()) for fk in
+        options = { fkname+'ID': [(e.id, e) for e in
             Enunciado.selectBy(anio=curso.anio,
                 cuatrimestre=curso.cuatrimestre)] }
         return dict(name=name, namepl=namepl, record=r, form=form, options=options)

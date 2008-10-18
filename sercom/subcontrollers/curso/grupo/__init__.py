@@ -44,10 +44,10 @@ def validate_del(id):
 
 #{{{ Formulario
 def get_docentes():
-    return [(fk1.id, fk1.shortrepr()) for fk1 in Docente.select()]
+    return [(d.id, d) for d in Docente.select()]
 
 def get_docentes_inscriptos(id):
-    return [(fk1.id, fk1.shortrepr()) for fk1 in DocenteInscripto.select(DocenteInscripto.q.cursoID==id)]
+    return [(di.id, di) for di in DocenteInscripto.select(DocenteInscripto.q.cursoID==id)]
 
 ajax = u"""
     function alumnos_agregar_a_la_lista(texto, lista)
@@ -138,10 +138,10 @@ class GrupoForm(W.TableForm):
 form = GrupoForm()
 
 def get_gruposA(cursoID):
-    return [(0, u'---')] + [(g.id, g.shortrepr()) for g in Grupo.select(Grupo.q.cursoID==cursoID)]
+    return [(0, u'---')] + [(g.id, g) for g in Grupo.select(Grupo.q.cursoID==cursoID)]
 
 def get_gruposB(cursoID):
-    return [(0, u'Nuevo Grupo')] + [(g.id, g.shortrepr()) for g in Grupo.select(Grupo.q.cursoID==cursoID)]
+    return [(0, u'Nuevo Grupo')] + [(g.id, g) for g in Grupo.select(Grupo.q.cursoID==cursoID)]
 
 ajaxadmin = u"""
     function err (err)
@@ -421,7 +421,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
                 msg = {}
                 alumnoInscripto = AlumnoInscripto.get(m.alumno.id)
                 msg['id'] = alumnoInscripto.id
-                msg['label'] = alumnoInscripto.shortrepr()
+                msg['label'] = alumnoInscripto
                 integrantes.append(msg)
         except Exception, (inst):
             msg = u"""Se ha producido un error inesperado al buscar el registro:\n      %s""" % str(inst)

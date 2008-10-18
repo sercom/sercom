@@ -32,7 +32,7 @@ def validate_new(data):
 
 #{{{ Formulario
 def get_docentes():
-    return [(fk1.id, fk1.shortrepr()) for fk1 in Docente.select()]
+    return [(d.id, d) for d in Docente.select()]
 
 class DocenteInscriptoForm(W.TableForm):
     class Fields(W.WidgetsList):

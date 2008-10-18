@@ -86,7 +86,7 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
                     Ejercicio.q.cursoID == cursoID
                 )
             )
-        cursos = [(i.curso.id, i.curso.shortrepr())
+        cursos = [(i.curso.id, i.curso)
             for i in identity.current.user.inscripciones]
         return dict(records=r, name=name, namepl=namepl, form=filtro,
             vfilter=vfilter, options=dict(cursoID=cursos))
@@ -95,10 +95,10 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
-        r.linstancia = r.instancia.shortrepr()
-        r.lentregador = r.entregador.shortrepr()
-        r.lentrega = r.entrega.shortrepr()
-        r.lcorrector = r.corrector.shortrepr()
+        r.linstancia = r.instancia
+        r.lentregador = r.entregador
+        r.lentrega = r.entrega
+        r.lcorrector = r.corrector
         return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)

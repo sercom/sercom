@@ -16,7 +16,7 @@
         <th>Enunciado:</th>
 	<td><a py:if="record.enunciadoID is not None"
 			href="${tg.url('/enunciado/show/%d' % record.enunciado.id)}"><span
-				py:replace="record.enunciado.shortrepr()">enunciado</span></a></td>
+				py:replace="record.enunciado">enunciado</span></a></td>
     </tr>
     <tr>
         <th>Parámetros:</th>

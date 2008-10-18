@@ -28,7 +28,7 @@
 		<!-- TODO : Solo mostrar con ce.comando.publico == True -->
 		<tr py:for="ce in entrega.comandos_ejecutados" py:if="ce.comando.publico or 'admin' in identity.current.permissions">
         <td py:content="ce.comando.orden" />
-        <td py:content="ce.comando.tarea.shortrepr()" />
+        <td py:content="ce.comando.tarea" />
         <td py:content="ce.comando.comando" />
         <td py:content="ce.inicio" />
         <td py:content="ce.fin" />
@@ -47,7 +47,7 @@
 			color = "pruebafail"
 	?>
 	<div style="background:#ddd; border:1px solid black; margin-bottom:10px;">
-    <h3 py:content="p.caso_de_prueba.shortrepr()" />
+    <h3 py:content="p.caso_de_prueba" />
 			<table class="${color}" border="1" width="100%">
 				<tr>
 					<td width="20%">Descripcion</td>
@@ -92,7 +92,7 @@
 			color = "pruebafail"
 	?>
 				<td class="${color}" py:content="ce.comando.orden" />
-        <td class="${color}"  py:content="ce.comando.tarea.shortrepr()" />
+        <td class="${color}"  py:content="ce.comando.tarea" />
         <td class="${color}" py:content="ce.comando.comando" />
         <td class="${color}" py:content="ce.inicio" />
         <td class="${color}" py:content="ce.fin" />

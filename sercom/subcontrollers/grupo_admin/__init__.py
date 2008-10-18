@@ -59,16 +59,16 @@ def validate_del(id):
 
 #{{{ Formulario
 def get_docentes():
-    return [(fk1.id, fk1.shortrepr()) for fk1 in Docente.select()]
+    return [(d.id, d) for d in Docente.select()]
 
 def get_cursos():
-    return [(0, u'---')] + [(fk1.id, fk1.shortrepr()) for fk1 in Curso.select()]
+    return [(0, u'---')] + [(c.id, c) for c in Curso.select()]
 
 def get_gruposA():
-    return [(0, u'---')] + [(g.id, g.shortrepr()) for g in Grupo.select()]
+    return [(0, u'---')] + [(g.id, g) for g in Grupo.select()]
 
 def get_gruposB():
-    return [(0, u'Nuevo Grupo')] + [(g.id, g.shortrepr()) for g in Grupo.select()]
+    return [(0, u'Nuevo Grupo')] + [(g.id, g) for g in Grupo.select()]
 
 ajax = u"""
     function alumnos_agregar_a_la_lista(texto, lista)
@@ -193,8 +193,6 @@ ajax = u"""
     }
 
 """
-def get_docentes():
-    return [(fk1.id, fk1.shortrepr()) for fk1 in Docente.select()]
 
 class GrupoAdminForm(W.TableForm):
     class Fields(W.WidgetsList):

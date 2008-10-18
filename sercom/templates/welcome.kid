@@ -67,7 +67,7 @@
                 <th>Fecha Entrega</th>
             </tr>
             <tr py:for="e in entregas">
-                <td>${e.instancia.ejercicio.curso.shortrepr()}</td>
+                <td>${e.instancia.ejercicio.curso}</td>
                 <td>${e.instancia.ejercicio.enunciado.nombre}</td>
                 <td>${e.fecha}</td>
 						</tr>
@@ -87,10 +87,10 @@
                 <th>Nota</th>
             </tr>
             <tr py:for="e in correcciones">
-                <td>${e.instancia.ejercicio.curso.shortrepr()}</td>
+                <td>${e.instancia.ejercicio.curso}</td>
                 <td>${e.instancia.ejercicio.enunciado.nombre}</td>
                 <td>${e.corregido}</td>
-                <td>${e.corrector.shortrepr()}</td>
+                <td>${e.corrector}</td>
 								<td>${e.nota}</td>
 						</tr>
 						<tr>

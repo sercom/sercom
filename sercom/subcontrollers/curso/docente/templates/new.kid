@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>Inscribir Docente en curso <span py:replace="curso.shortrepr()">Curso</span></h1>
+<h1>Inscribir Docente en curso <span py:replace="curso">Curso</span></h1>
 
 <p py:replace="form(action=tg.url('/curso/docente/create/'), value=values, submit_text=_('Crear'))">Formulario</p>
 

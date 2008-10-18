@@ -25,7 +25,7 @@
     <tr py:if="'admin' in identity.current.permissions">
         <th>Autor:</th>
 				<td>
-					<a py:if="record.autorID is not None" href="${tg.url('/docente/show/%d' % record.autor.id)}"><span py:replace="record.autor.shortrepr()">autor</span></a></td>
+					<a py:if="record.autorID is not None" href="${tg.url('/docente/show/%d' % record.autor.id)}"><span py:replace="record.autor">autor</span></a></td>
     </tr>
     <tr py:if="'admin' in identity.current.permissions">
         <th>Creado el:</th>
@@ -42,8 +42,8 @@
 				<td>
 					<ul>
 						<li py:for="t in record.tareas">
-							<a py:if="isinstance(t, TareaFuente)" href="${tg.url('/tarea_fuente/show/%d' % t.id)}" py:content="t.shortrepr()"></a>
-							<a py:if="isinstance(t, TareaPrueba)" href="${tg.url('/tarea_prueba/show/%d' % t.id)}" py:content="t.shortrepr()"></a>
+							<a py:if="isinstance(t, TareaFuente)" href="${tg.url('/tarea_fuente/show/%d' % t.id)}" py:content="t"></a>
+							<a py:if="isinstance(t, TareaPrueba)" href="${tg.url('/tarea_prueba/show/%d' % t.id)}" py:content="t"></a>
 						</li>
 					</ul>
 				</td>
@@ -52,7 +52,7 @@
         <th>Casos de Prueba:</th>
 				<td>
 					<ul>
-						<li py:for="t in record.casos_de_prueba" py:if="t.publico or 'admin' in identity.current.permissions" py:content="t.shortrepr()" />
+						<li py:for="t in record.casos_de_prueba" py:if="t.publico or 'admin' in identity.current.permissions" py:content="t" />
 					</ul>
 				</td>
     </tr>
@@ -60,7 +60,7 @@
 				<th>Ejercicios en los<br /> que es Usado:</th>
 				<td>
 					<ul>
-						<li py:for="t in record.ejercicios" py:content="t.shortrepr()" />
+						<li py:for="t in record.ejercicios" py:content="t" />
 					</ul>
 				</td>
     </tr>

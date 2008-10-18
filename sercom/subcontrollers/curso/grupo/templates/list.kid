@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1><span py:replace="namepl">Objetos</span> del curso <span py:replace="curso.shortrepr()">Objetos</span></h1>
+<h1><span py:replace="namepl">Objetos</span> del curso <span py:replace="curso">Objetos</span></h1>
 
 <table class="list">
     <tr>
@@ -19,7 +19,7 @@
     </tr>
     <tr py:for="record in records">
         <td><span py:replace="record.nombre">nombre</span></td>
-        <td><a py:if="record.responsable is not None" href="${tg.url('/curso/alumno/show/'+str(record.responsable.alumno.id))}" py:content="record.responsable.alumno.shortrepr()"></a></td>
+        <td><a py:if="record.responsable is not None" href="${tg.url('/curso/alumno/show/'+str(record.responsable.alumno.id))}" py:content="record.responsable.alumno"></a></td>
         <td><span py:replace="', '.join((ai.alumno.padron for ai in record.alumnos))">tito, juanca</span></td>
         <td><span py:replace="', '.join((di.docente.usuario for di in record.docentes))">tito, juanca</span></td>
         <td>

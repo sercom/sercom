@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h1><span py:replace="namepl.capitalize()">Objetos</span> del curso <span py:replace="curso.shortrepr()" /></h1>
+<h1><span py:replace="namepl.capitalize()">Objetos</span> del curso <span py:replace="curso" /></h1>
 
 <table class="list">
     <tr>
@@ -19,7 +19,7 @@
     </tr>
     <tr py:for="record in records">
         <td><span py:replace="record.numero">numero</span></td>
-        <td><a href="${tg.url('/enunciado/show/%d' % record.enunciado.id)}"><span py:replace="record.enunciado.shortrepr()">enunciado</span></a></td>
+        <td><a href="${tg.url('/enunciado/show/%d' % record.enunciado.id)}"><span py:replace="record.enunciado">enunciado</span></a></td>
         <td><span py:replace="tg.strbool(record.grupal)">grupal</span></td>
         <td>
             <a href="${tg.url('/curso/ejercicio/show/%d' % record.id)}">Ver</a>
