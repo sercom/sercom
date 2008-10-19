@@ -18,14 +18,14 @@
             padding-top: 5%;
             padding-bottom: 5%;
             font-family: verdana;
-            font-size: 10px;
+            font-size: 9pt;
             background-color: #eee;
             border: 2px solid #ccc;
         }
 
         #loginBox h1
         {
-            font-size: 42px;
+            font-size: 28pt;
             font-family: "Trebuchet MS";
             margin: 0;
             color: #ddd;
@@ -36,7 +36,7 @@
             position: relative;
             top: -1.5em;
             padding-left: 4em;
-            font-size: 12px;
+            font-size: 10pt;
             margin: 0;
             color: #666;
         }
