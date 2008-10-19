@@ -477,8 +477,8 @@ class Enunciado(SQLObject): #{{{
                 self.add_tarea(tarea)
 
     @classmethod
-    def selectByCurso(self, curso):
-        return Enunciado.selectBy(cuatrimestre=curso.cuatrimestre, anio=curso.anio)
+    def selectByCurso(cls, curso):
+        return cls.selectBy(cuatrimestre=curso.cuatrimestre, anio=curso.anio)
 
     def add_caso_de_prueba(self, nombre, **kw):
         return CasoDePrueba(enunciado=self, nombre=nombre, **kw)
