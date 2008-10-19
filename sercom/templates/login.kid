@@ -69,14 +69,40 @@
             text-align: right;
         }
 
+        #register
+        {
+            font-family: verdana;
+            font-size: 9pt;
+            text-align: center;
+            margin-top: 1em;
+        }
+
+        #register a.link, a, a.active {
+            color: #369;
+        }
+
+        .flash
+        {
+            padding-left: 4em;
+            font-size: 10pt;
+            margin: 0;
+            color: #666;
+            margin: 0.5em;
+            color: #393;
+        }
+
     </style>
 </head>
 
 <body>
     <div id="loginBox">
         <h1>Identificación</h1>
-        <p py:content="message">Mensaje de error</p>
-	<p py:content="login_form(value=form_data)">Formulario de login</p>
+        <p py:content="message">Mensaje</p>
+        <p py:content="login_form(value=form_data)">Formulario de login</p>
+        <div py:if="tg_flash" class="flash" py:content="tg_flash"></div>
+        <div id="register">
+            <a href="${tg.url('/register')}">Inscribirse</a>
+        </div>
     </div>
 </body>
 </html>

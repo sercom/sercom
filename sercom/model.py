@@ -144,6 +144,15 @@ class Curso(SQLObject): #{{{
         # FIXME esto deberian arreglarlo en SQLObject
         Ejercicio.pk.get(self.id, numero).destroySelf()
 
+    @classmethod
+    def activos(cls):
+        now = datetime.now()
+        if 3 <= now.month <= 6: # marzo a junio inclusive
+            cuatrimetre = 1
+        else: # agosto a febrero inclusive
+            cuatrimestre = 2
+        return cls.selectBy(anio=now.year, cuatrimestre=cuatrimestre)
+
     def __unicode__(self):
         return u'%s.%s.%s' % (self.anio, self.cuatrimestre, self.numero)
 

@@ -3,14 +3,17 @@
 from turbogears import controllers, expose, view, url
 from turbogears import widgets as W, validators as V
 from turbogears import identity, redirect
+from turbogears import validate, flash, error_handler
 from cherrypy import request, response
 from turbogears.toolbox.catwalk import CatWalk
 import model
-from model import Visita, VisitaUsuario, InstanciaDeEntrega, Correccion, AND, DateTimeCol, Entrega, Grupo, AlumnoInscripto
-from sqlobject import *
-# from sercom import json
+from model import Visita, VisitaUsuario, InstanciaDeEntrega, Correccion, \
+        Curso, Alumno, DateTimeCol, Entrega, Grupo, AlumnoInscripto, Rol
+from sqlobject import AND, IN
+from sqlobject.dberrors import DuplicateEntryError
+from formencode import Invalid
 
-from subcontrollers import *
+import subcontrollers as S
 
 import logging
 log = logging.getLogger("sercom.controllers")
@@ -25,6 +28,57 @@ class LoginForm(W.TableForm):
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_login_user');")]
     submit = W.SubmitButton(name='login_submit')
     submit_text = _(u'Ingresar')
+
+#{{{ Formulario de registración de alumnos
+def get_cursos_activos():
+    return [(-1, '--')] + [(c.id, c) for c in Curso.activos()]
+
+class CursoValidator(V.Int):
+    def validate_python(self, value, state):
+        if value < 0:
+            raise Invalid(_(u'Debe seleccionar un curso'), value, state)
+        if value not in [c.id for c in Curso.activos()]:
+            raise Invalid(_(u'ID de curso incorrecto'), value, state)
+
+class RegisterForm(W.TableForm):
+    class Fields(W.WidgetsList):
+        padron = W.TextField(label=_(u'Padrón'),
+            help_text=_(u'Requerido.'),
+            validator=V.UnicodeString(min=3, max=10, strip=True))
+        nombre = W.TextField(label=_(u'Nombre'),
+            help_text=_(u'Requerido.'),
+            validator=V.UnicodeString(min=5, max=255, strip=True))
+        curso = W.SingleSelectField(label=_(u'Curso'),
+            options=get_cursos_activos,
+            validator=CursoValidator)
+        password = W.PasswordField(label=_(u'Contraseña'),
+            help_text=_(u'Mínimo 5 caracteres).'),
+            attrs=dict(maxlength=255),
+            validator=V.UnicodeString(min=5, max=255))
+        password_confirm = W.PasswordField(label=_(u'Confirmar'),
+            attrs=dict(maxlength=255),
+            validator=V.UnicodeString(min=5, max=255))
+        email = W.TextField(label=_(u'E-Mail'),
+            #help_text=_(u'Dirección de e-mail.'),
+            validator=V.All(
+                V.Email(not_empty=False, resolve_domain=True),
+                V.String(not_empty=False, max=255, strip=True,
+                        encoding='ascii')))
+        telefono = W.TextField(label=_(u'Teléfono'),
+            #help_text=_(u'Texto libre para teléfono, se puede incluir '
+            #    'horarios o varias entradas.'),
+            validator=V.UnicodeString(not_empty=False, min=7, max=255,
+                strip=True))
+        observaciones = W.TextArea(label=_(u'Observaciones'),
+            #help_text=_(u'Observaciones.'),
+            validator=V.UnicodeString(not_empty=False, strip=True))
+    fields = Fields()
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_padron');")]
+    validator = V.Schema(chained_validators=[
+                         V.FieldsMatch('password', 'password_confirm') ])
+
+register_form = RegisterForm()
+#}}}
 
 class Root(controllers.RootController):
 
@@ -113,25 +167,79 @@ class Root(controllers.RootController):
         identity.current.logout()
         raise redirect(url('/'))
 
-    docente = DocenteController()
+    @expose(template='.templates.register')
+    def register(self, **form_data):
+        """Registrar un nuevo alumno"""
+        return dict(form=register_form, form_data=form_data)
 
-    alumno = AlumnoController()
+    @validate(form=register_form)
+    @error_handler(register)
+    @expose()
+    def save_registration(self, **form_data):
+        """Save or create record to model"""
+        curso = Curso.get(form_data['curso'])
+        del form_data['curso']
+        del form_data['password_confirm']
+        nuevo = False
+        type_error = False
+        try:
+            alumno = Alumno(**form_data)
+            # TODO: rol debería ser configurable
+            alumno.add_rol(Rol.by_nombre('alumno'))
+            nuevo = True
+        except DuplicateEntryError, e:
+            # Si ya existía, se actualizan los datos (FIXME esto es heavy,
+            # cualquiera puede hijack'ear una cuenta)
+            alumno = Alumno.by_padron(form_data['padron'])
+            try:
+                alumno.set(**form_data)
+            except TypeError, e:
+                type_error = True
+        except TypeError, e:
+            type_error = True
+        # Hubo error al crear actualizar
+        if type_error:
+            flash(_(u'No se pudo completar la registración porque falta un '
+                    u'dato o es inválido (error: %s).') % e)
+            raise redirect(url('/register'), **form_data)
+        if nuevo:
+            curso.add_alumno(alumno)
+        elif not alumno in [ai.alumno for ai in curso.alumnos]:
+            # No está inscripto en el curso que pidió, pero podría estar
+            # en otro
+            for c in Curso.activos():
+                if alumno in [ai.alumno for ai in c.alumnos]:
+                    flash(_(u'Ya estabas registrado e inscripto en otro '
+                            u'curso (%s). Si querés cambiarte de curso, '
+                            u'consultalo en clase con un docente.') % c)
+                    raise redirect(url('/'))
+            # No está en otro, lo inscribimos
+            curso.add_alumno(alumno)
+        if nuevo:
+            flash(_(u'Te registraste exitosamente, ya podés ingresar'))
+        else:
+            flash(_(u'Ya estabas registrado. Se actualizaron tus datos.'))
+        raise redirect(url('/'))
 
-    enunciado = EnunciadoController()
+    docente = S.DocenteController()
 
-    tarea_fuente = TareaFuenteController()
+    alumno = S.AlumnoController()
 
-    tarea_prueba = TareaPruebaController()
+    enunciado = S.EnunciadoController()
 
-    curso = CursoController()
+    tarea_fuente = S.TareaFuenteController()
 
-    correccion = CorreccionController()
+    tarea_prueba = S.TareaPruebaController()
+
+    curso = S.CursoController()
+
+    correccion = S.CorreccionController()
 
     admin = identity.SecureObject(CatWalk(model), identity.has_permission('admin'))
 
-    mis_entregas = MisEntregasController()
+    mis_entregas = S.MisEntregasController()
 
-    mis_correcciones = MisCorreccionesController()
+    mis_correcciones = S.MisCorreccionesController()
 
 #{{{ Agrega summarize a namespace tg de KID
 def summarize(text, size, concat=True, continuation='...'):
