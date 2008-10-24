@@ -194,26 +194,28 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
 
     @expose()
     def get_archivo(self, entregaid):
-        from cherrypy import request, response
         r = validate_get(entregaid)
-        response.headers["Content-Type"] = "application/zip"
-        response.headers["Content-disposition"] = "attachment;filename=Ej_%s-Entrega_%s-%s.zip" % (r.instancia.ejercicio.numero, r.instancia.numero, r.entregador.nombre)
+        cherrypy.response.headers["Content-Type"] = "application/zip"
+        content_disp = "attachment;filename=Ej_%s-Entrega_%s-%s.zip" % (
+                r.instancia.ejercicio.numero, r.instancia.numero,
+                r.entregador.nombre)
+        cherrypy.response.headers["Content-disposition"] = content_disp
         return r.archivos
 
     @expose()
     def file(self, id):
-        from cherrypy import request, response
         r = ComandoEjecutado.get(id)
-        response.headers["Content-Type"] = "application/zip"
-        response.headers["Content-disposition"] = "attachment;filename=comando_ejecutado_%d.zip" % (r.id)
+        cherrypy.response.headers["Content-Type"] = "application/zip"
+        content_disp = "attachment;filename=comando_ejecutado_%d.zip" % (r.id)
+        cherrypy.response.headers["Content-disposition"] = content_disp
         return r.archivos
 
     @expose()
     def diff(self, id):
-        from cherrypy import request, response
         r = ComandoEjecutado.get(id)
-        response.headers["Content-Type"] = "application/zip"
-        response.headers["Content-disposition"] = "attachment;filename=diferencias_%d.zip" % (r.id)
+        cherrypy.response.headers["Content-Type"] = "application/zip"
+        content_disp = "attachment;filename=diferencias_%d.zip" % (r.id)
+        cherrypy.response.headers["Content-disposition"] = content_disp
         return r.diferencias
 
     @expose(template='kid:%s.templates.diff' % __name__)
