@@ -2,8 +2,9 @@
 
 from sercom.model import Entrega, CasoDePrueba, Tarea, TareaFuente, TareaPrueba
 from sercom.model import ComandoFuente, ComandoPrueba
+from sercom.ziputil import unzip
+from zipfile import ZipFile
 from difflib import unified_diff, HtmlDiff
-from zipfile import ZipFile, BadZipfile
 from cStringIO import StringIO
 from shutil import rmtree
 from datetime import datetime
@@ -82,25 +83,6 @@ class ExecutionFailure(Error, RuntimeError): #{{{
 
 #}}}
 
-def unzip(bytes, default_dst='.', specific_dst=dict()): # {{{
-    u"""Descomprime un buffer de datos en formato ZIP.
-    Los archivos se descomprimen en default_dst a menos que exista una entrada
-    en specific_dst cuya clave sea el nombre de archivo a descomprimir, en
-    cuyo caso, se descomprime usando como destino el valor de dicha clave.
-    """
-    log.debug(_(u'Intentando descomprimir'))
-    if bytes is None:
-        return
-    zfile = ZipFile(StringIO(bytes), 'r')
-    for f in zfile.namelist():
-        dst = specific_dst[f] if f in specific_dst else join(default_dst, f)
-        if f.endswith(os.sep):
-            log.debug(_(u'Creando directorio "%s" en "%s"'), f, dst)
-            os.mkdir(dst)
-        else:
-            log.debug(_(u'Descomprimiendo archivo "%s" en "%s"'), f, dst)
-            file(dst, 'w').write(zfile.read(f))
-    zfile.close()
 #}}}
 
 class Multizip(object): #{{{
