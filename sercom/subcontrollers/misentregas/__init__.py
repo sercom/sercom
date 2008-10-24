@@ -11,9 +11,12 @@ from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import ComandoEjecutado, ComandoPruebaEjecutado, Entrega, Correccion, Curso, Ejercicio, InstanciaDeEntrega, Grupo, Miembro, AlumnoInscripto
+from sercom.ziputil import unzip
 from sqlobject import *
 from zipfile import ZipFile, BadZipfile
 from cStringIO import StringIO
+from datetime import datetime
+import os, shutil, subprocess
 
 #}}}
 
@@ -201,6 +204,37 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
                 r.entregador.nombre)
         cherrypy.response.headers["Content-disposition"] = content_disp
         return r.archivos
+
+    @expose()
+    def get_pdf(self, entregaid):
+        r = validate_get(entregaid)
+        # TODO: config de tmp dir y cache de PDFs
+        basename = os.path.join('/tmp', 'pdf-%d-%s'
+                % (r.id, datetime.now().isoformat()))
+        os.mkdir(basename) # TODO: capturar excepciones
+        unzip(r.archivos, basename) # TODO: capturar excepciones
+        # TODO: hacer find con python con patrones configurables
+        cmd = "cd '%s'; find -regextype posix-egrep -type f -regex " \
+                "'.*\.(h|c|cpp)' | sort -r | xargs -- a2ps -q -2 -Av --toc " \
+                "--line-numbers=1 --header='[75.42] Taller de Programacion' " \
+                "--left-footer='%%D{%%c}' --footer='Padron %s (curso %d.%d) " \
+                "   Ejercicio %d.%d (entrega %s)' -g -o '%s'.pdf" \
+                % (basename, r.entregador.nombre, 2008, 1,
+                        r.instancia.ejercicio.numero, r.instancia.numero,
+                        r.fecha.isoformat(), basename)
+        subprocess.check_call(cmd, shell=True) # TODO: capturar excepciones
+        pdffile = file('%s.pdf' % basename)
+        pdf = pdffile.read()
+        pdffile.close()
+        shutil.rmtree(basename) # TODO: capturar excepciones
+        os.unlink('%s.pdf' % basename) # TODO: capturar excepciones
+        cherrypy.response.headers["Content-Type"] = "text/plain"
+        cherrypy.response.headers["Content-Type"] = "application/pdf"
+        content_disp = "attachment;filename=%s-ej%d.%d.%s.pdf" % (
+                r.entregador.nombre, r.instancia.ejercicio.numero,
+                r.instancia.numero, r.fecha.isoformat())
+        cherrypy.response.headers["Content-disposition"] = content_disp
+        return pdf
 
     @expose()
     def file(self, id):
