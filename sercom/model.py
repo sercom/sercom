@@ -566,7 +566,7 @@ class InstanciaDeEntrega(SQLObject): #{{{
     correcciones    = MultipleJoin('Correccion', joinColumn='instancia_id')
 
     def __unicode__(self):
-        return self.nume
+        return unicode(self.numero)
 
     def __repr__(self):
         return 'InstanciaDeEntrega(id=%r, numero=%r, inicio=%r, fin=%r, ' \
@@ -601,7 +601,7 @@ class DocenteInscripto(SQLObject): #{{{
         Correccion.pk.get(instancia.id, entregador.id).destroySelf()
 
     def __unicode__(self):
-        return self.docente
+        return unicode(self.docente)
 
     def __repr__(self):
         return 'DocenteInscripto(id=%r, docente=%s, corrige=%r, ' \
@@ -754,7 +754,7 @@ class AlumnoInscripto(Entregador): #{{{
                                         == alumno.id).getOne()
 
     def __unicode__(self):
-        return self.alumno
+        return unicode(self.alumno)
 
     def __repr__(self):
         return 'AlumnoInscripto(id=%r, alumno=%s, condicional=%r, nota=%r, ' \
