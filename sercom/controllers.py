@@ -276,7 +276,9 @@ def summarize(text, size, concat=True, continuation='...'):
     >>> summarize(text, 68, continuation=' >>')
     'Why is it that nobody remembers the name of Johann\nGambolputty de >>'
     """
-    if text is not None:
+    if not isinstance(text, unicode):
+        text = unicode(text)
+    if text:
         if concat:
             text = text.replace('\n', ' ')
         if len(text) > size:
