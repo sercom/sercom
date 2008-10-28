@@ -172,10 +172,7 @@ class Root(controllers.RootController):
         """Registrar un nuevo alumno"""
         return dict(form=register_form, form_data=form_data)
 
-    @validate(form=register_form)
-    @error_handler(register)
-    @expose()
-    def save_registration(self, **form_data):
+    def _save_registration(self, form_data):
         """Save or create record to model"""
         curso = Curso.get(form_data['curso'])
         del form_data['curso']
@@ -199,9 +196,9 @@ class Root(controllers.RootController):
             type_error = True
         # Hubo error al crear actualizar
         if type_error:
-            flash(_(u'No se pudo completar la registración porque falta un '
-                    u'dato o es inválido (error: %s).') % e)
-            raise redirect(url('/register'), **form_data)
+            return (_(u'No se pudo completar la registración porque falta un '
+                    u'dato o es inválido (error: %s).') % e, '/register',
+                    form_data)
         if nuevo:
             curso.add_alumno(alumno)
         elif not alumno in [ai.alumno for ai in curso.alumnos]:
@@ -209,17 +206,33 @@ class Root(controllers.RootController):
             # en otro
             for c in Curso.activos():
                 if alumno in [ai.alumno for ai in c.alumnos]:
-                    flash(_(u'Ya estabas registrado e inscripto en otro '
+                    return (_(u'Ya estabas registrado e inscripto en otro '
                             u'curso (%s). Si querés cambiarte de curso, '
-                            u'consultalo en clase con un docente.') % c)
-                    raise redirect(url('/'))
+                            u'consultalo en clase con un docente.') % c,
+                            '/', dict())
             # No está en otro, lo inscribimos
             curso.add_alumno(alumno)
         if nuevo:
-            flash(_(u'Te registraste exitosamente, ya podés ingresar'))
+            text = _(u'Te registraste exitosamente, ya podés ingresar')
         else:
-            flash(_(u'Ya estabas registrado. Se actualizaron tus datos.'))
-        raise redirect(url('/'))
+            text = _(u'Ya estabas registrado. Se actualizaron tus datos.')
+        return (text, '/', dict())
+
+    @validate(form=register_form)
+    @error_handler(register)
+    @expose()
+    def save_registration_web(self, **form_data):
+        (msg, redir, data) = self._save_registration(form_data)
+        response.headers["Content-Type"] = "text/plain; charset=utf-8"
+        return msg.encode('utf-8')
+
+    @validate(form=register_form)
+    @error_handler(register)
+    @expose()
+    def save_registration(self, **form_data):
+        (msg, redir, data) = self._save_registration(form_data)
+        flash(msg)
+        raise redirect(url(redir), **data)
 
     docente = S.DocenteController()
 
