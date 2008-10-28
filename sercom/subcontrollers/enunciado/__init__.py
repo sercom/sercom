@@ -229,6 +229,9 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     @expose()
     def files(self, id):
         r = validate_get(id)
+        if r.archivos is None:
+            flash(_(u'El ejercicio %s no tiene archivos asociados' % r))
+            raise redirect('../list')
         response.headers["Content-Type"] = 'application/zip'
         response.headers["Content-disposition"] = 'attachment;filename=enunciado.zip'
         return r.archivos
