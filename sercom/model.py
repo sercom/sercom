@@ -247,6 +247,14 @@ class Docente(Usuario): #{{{
     enunciados      = MultipleJoin('Enunciado', joinColumn='autor_id')
     inscripciones   = MultipleJoin('DocenteInscripto')
 
+    def _get_inscripciones_activas(self):
+        return list(DocenteInscripto.select(
+                AND(
+                    IN(Curso.q.id, [c.id for c in Curso.activos()]),
+                    Curso.q.id == DocenteInscripto.q.cursoID,
+                    self.id == DocenteInscripto.q.docenteID,
+                )))
+
     def add_entrega(self, instancia, **kw):
         return Entrega(instancia=instancia, **kw)
 
@@ -565,6 +573,18 @@ class InstanciaDeEntrega(SQLObject): #{{{
     entregas        = MultipleJoin('Entrega', joinColumn='instancia_id')
     correcciones    = MultipleJoin('Correccion', joinColumn='instancia_id')
 
+    @classmethod
+    def activas(cls, cursos=None):
+        if cursos is None:
+            cursos = Curso.activos()
+        now = DateTimeCol.now()
+        return list(cls.select(
+                AND(
+                    cls.q.ejercicioID == Ejercicio.q.id,
+                    cls.q.fin <= now,
+                    IN(Ejercicio.q.cursoID, [c.id for c in cursos]),
+                )))
+
     def __unicode__(self):
         return unicode(self.numero)
 
@@ -625,7 +645,7 @@ class Entregador(InheritableSQLObject): #{{{
 
     def entregas_de(self, instancia, order_by=None):
         if order_by is None:
-            order_by = Entrega.q.fecha
+            order_by = -Entrega.q.fecha
         return list(Entrega.selectBy(entregador=self, instancia=instancia)
                 .orderBy(order_by))
 
@@ -889,7 +909,8 @@ class Correccion(SQLObject): #{{{
     observaciones   = UnicodeCol(default=None)
 
     def _get_entregas(self):
-        return list(Entrega.selectBy(instancia=self.instancia, entregador=self.entregador))
+        return list(Entrega.selectBy(instancia=self.instancia,
+                entregador=self.entregador).orderBy(-Entrega.q.fecha))
 
     def __unicode__(self):
         if not self.corrector:
@@ -1059,6 +1080,7 @@ class Permiso(object): #{{{
 # TODO ejemplos
 entregar_tp = Permiso(u'entregar', u'Permite entregar trabajos prácticos')
 admin = Permiso(u'admin', u'Permite hacer ABMs arbitrarios')
+corregir = Permiso(u'corregir', u'Permite corregir ejercicios')
 
 #}}} Identity
 
