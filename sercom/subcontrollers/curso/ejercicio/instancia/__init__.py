@@ -9,7 +9,8 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Ejercicio, Curso, Enunciado, InstanciaDeEntrega
+from sercom.model import Ejercicio, Curso, Enunciado, InstanciaDeEntrega, \
+        AlumnoInscripto
 from cherrypy import request, response
 #}}}
 
@@ -134,9 +135,13 @@ class InstanciaController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.entregas' % __name__)
     @paginate('records')
-    def entregas(self,instanciaid, **kw):
+    def entregas(self, instancia_id, alumno_inscripto_id=None, **kw):
         """Show record in model"""
-        r = validate_get(instanciaid)
-        return dict(name=name, namepl=namepl, records=r.entregas)
+        instancia = validate_get(instancia_id)
+        entregas = instancia.entregas
+        if alumno_inscripto_id is not None:
+            ai = AlumnoInscripto.get(int(alumno_inscripto_id))
+            entregas = ai.entregas_de(instancia)
+        return dict(name=name, namepl=namepl, records=entregas)
 #}}}
 

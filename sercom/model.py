@@ -623,6 +623,12 @@ class Entregador(InheritableSQLObject): #{{{
     entregas        = MultipleJoin('Entrega')
     correcciones    = MultipleJoin('Correccion')
 
+    def entregas_de(self, instancia, order_by=None):
+        if order_by is None:
+            order_by = Entrega.q.fecha
+        return list(Entrega.selectBy(entregador=self, instancia=instancia)
+                .orderBy(order_by))
+
     def add_entrega(self, instancia, **kw):
         return Entrega(instancia=instancia, entregador=self, **kw)
 
