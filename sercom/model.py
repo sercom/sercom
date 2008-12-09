@@ -58,6 +58,79 @@ def srepr(obj): #{{{
     return obj
 #}}}
 
+
+#{{{ Modulo Examenes
+class ExamenFinal(SQLObject): #{{{
+    # Clave
+    anio             = IntCol(notNone=True)
+    cuatrimestre     = IntCol(notNone=True)
+    oportunidad      = IntCol(notNone=True)
+    pk               = DatabaseIndex(anio, cuatrimestre, oportunidad, unique=True)
+    # Campos
+    fecha            = DateTimeCol(notNone=True, default=DateTimeCol.now)
+    # Joins
+    preguntas        = MultipleJoin('PreguntaExamen', joinColumn='examen_id', orderBy='numero')
+
+    def periodo(self):
+        return "%d.%d" % (self.anio,self.cuatrimestre)
+
+    def __sort_preguntas(self):
+        def comparar(pregunta1, pregunta2):
+            return pregunta1.numero - pregunta2.numero
+        return self.preguntas
+
+    def set_texto_pregunta(self, numero, texto):
+        for pregunta in self.preguntas:
+            if pregunta.numero == numero:
+                pregunta.texto = texto
+
+#}}}
+
+class PreguntaExamen(SQLObject): #{{{
+    # Clave
+    numero           = IntCol(notNone=True)
+    examen           = ForeignKey('ExamenFinal', cascade='null')
+    pk               = DatabaseIndex(examen, numero, unique=True)
+    # Campos
+    texto            = UnicodeCol(length=500, default=None)
+    # Joins
+    tema             = ForeignKey('TemaPregunta', cascade='null', default = None)
+    tipo             = ForeignKey('TipoPregunta', cascade='null', default = None)
+    solucion         = ForeignKey('Solucion', cascade='null', default=None)
+
+
+    def __str__(self):
+        return '%s)%s' % (self.numero,self.texto)
+
+#}}}
+
+class TemaPregunta(SQLObject): #{{{
+    # Clave
+    descripcion            = UnicodeCol(length=100, default=None)
+    pk              = DatabaseIndex(descripcion, unique=True)
+
+#}}}
+
+class TipoPregunta(SQLObject): #{{{
+    # Clave
+    descripcion            = UnicodeCol(length=100, default=None)
+    pk              = DatabaseIndex(descripcion, unique=True)
+
+#}}}
+
+class Solucion(SQLObject): #{{{
+    # Clave
+    #pk              = DatabaseIndex(anio, cuatrimestre, numero, unique=True)
+    # Campos
+    descripcion     = UnicodeCol(length=1000, default=None)
+    # Joins
+    preguntas       = MultipleJoin('PreguntaExamen')
+
+
+#}}}
+
+#}}}
+
 class Curso(SQLObject): #{{{
     # Clave
     anio            = IntCol(notNone=True)

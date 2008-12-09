@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#"
+    py:extends="'../../../templates/master.kid'">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
+<title>show</title>
+</head>
+<body>
+
+<table class="show">
+    <tr>
+        <th>Fecha:</th>
+        <td><span py:replace="record.fecha">fecha</span></td>
+    </tr>
+    <tr>
+        <th>Periodo:</th>
+        <td><span py:replace="record.periodo()">periodo</span></td>
+    </tr>
+    <tr>
+        <th>Oportunidad:</th>
+        <td><span py:replace="record.oportunidad">oportunidad</span></td>
+    </tr>
+    <tr>
+        <th>Preguntas:</th>
+        <td>
+            <table>
+            <div py:for="pregunta in record.preguntas">
+                <tr>
+                    <td>
+                        <span py:replace="pregunta.numero">Numero</span>)&nbsp;<span py:replace="pregunta.texto">Texto</span>
+                    </td>
+                </tr>
+                <tr style="height:30px;vertical-align:top">
+                    <td>
+                        <a href="${tg.url('/examenes/pregunta/show/%d' % pregunta.id)}">Detalle</a>
+                    </td>
+                </tr>
+            </div>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<br/>
+<a href="${tg.url('/examenes/edit/%d' % record.id)}">Editar</a> |
+<a href="${tg.url('/examenes/list')}">Volver</a>
+
+</body>
+</html>

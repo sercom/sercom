@@ -1,3 +1,40 @@
+CREATE TABLE `examen_final` (
+    `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+    `anio` SMALLINT NOT NULL,
+    `cuatrimestre` TINYINT NOT NULL,
+    `oportunidad` TINYINT NOT NULL,
+    `fecha` TIMESTAMP NOT NULL
+);
+
+CREATE TABLE `tema_pregunta` (
+    `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+    `descripcion` VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE `tipo_pregunta` (
+    `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+    `descripcion` VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE `solucion_pregunta_examen` (
+    `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+    `descripcion` VARCHAR(1000) NOT NULL
+);
+
+CREATE TABLE `pregunta_examen`(
+    `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+    `numero` INT NOT NULL,
+    `texto` VARCHAR(500) NOT NULL,
+    `examen_id` INTEGER NOT NULL,
+    `tema_id` INTEGER NULL,
+    `tipo_id` INTEGER NULL,
+    `solucion_id` INTEGER NULL,
+    CONSTRAINT `examen_id_exists` FOREIGN KEY (`examen_id`) REFERENCES examen_final(id),
+    CONSTRAINT `tema_id_exists` FOREIGN KEY (`tema_id`) REFERENCES tema_pregunta(id),
+    CONSTRAINT `tipo_id_exists` FOREIGN KEY (`tipo_id`) REFERENCES tipo_pregunta(id),
+    CONSTRAINT `solucion_id_exists` FOREIGN KEY (`solucion_id`) REFERENCES solucion_pregunta_examen(id)
+);
+
 
 CREATE TABLE curso (
     id INTEGER PRIMARY KEY,
