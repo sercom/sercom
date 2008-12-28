@@ -4,6 +4,8 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
 <title>new</title>
+<script type="text/javascript" src="../../../static/js/tiny_mce/tiny_mce.js"/>
+<script type="text/javascript" src="../../../static/js/init_tiny_mce.js"/>
 </head>
 <body>
 

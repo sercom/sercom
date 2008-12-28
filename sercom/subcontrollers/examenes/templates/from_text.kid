@@ -4,6 +4,7 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
 <title>new</title>
+
 </head>
 <body>
 
@@ -23,7 +24,7 @@ Se espera que el formato respete la siguiente estructura :
 <br />
 
 <form action="${tg.url('/examenes/from_text_add')}" method="post">
-	<textarea name="final" /><br />
+	<textarea name="final" style="width:90%;height:400px"/><br /><br />
 	<input type="submit" value="Enviar" />
 </form>
 

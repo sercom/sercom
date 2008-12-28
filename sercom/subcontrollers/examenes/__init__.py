@@ -94,8 +94,10 @@ class ExamenFinalController(controllers.Controller):
         for key in kw.keys():
             if regex.match(key):
                 numero = regex.sub(r'\2',key)
-                preguntas[int(numero)] = kw[key]
-                del kw[key]
+		texto = kw[key]
+		if not texto is None and texto != "":
+                	preguntas[int(numero)] = texto 
+               	del kw[key]
         return preguntas
 
     @validate(form=create_form)

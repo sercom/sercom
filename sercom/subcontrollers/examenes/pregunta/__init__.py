@@ -35,7 +35,7 @@ def validate_new(data):
 #{{{ Formulario
 class PreguntaExamenForm(W.TableForm):
     class Fields(W.WidgetsList):
-        texto = W.TextField(label=_(u'Texto'),
+        texto = W.TextArea(label=_(u'Texto'),
             help_text=_(u'Requerido.'),
             validator=V.UnicodeString( max=500, not_empty=True, strip=True))
     fields = Fields()
