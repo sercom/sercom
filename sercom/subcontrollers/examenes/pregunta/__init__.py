@@ -10,7 +10,8 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import PreguntaExamen
+from sercom.model import PreguntaExamen, TemaPregunta, TipoPregunta
+from sercom.subcontrollers.examenes import custom_selects as CS
 from sqlobject import *
 #}}}
 
@@ -35,9 +36,14 @@ def validate_new(data):
 #{{{ Formulario
 class PreguntaExamenForm(W.TableForm):
     class Fields(W.WidgetsList):
+	fecha_examen = W.Label(label=_(u'Examen'))
+	numero = W.Label()
         texto = W.TextArea(label=_(u'Texto'),
             help_text=_(u'Requerido.'),
             validator=V.UnicodeString( max=500, not_empty=True, strip=True))
+	tipoID = CS.TipoSelectField()
+	temaID = CS.TemaSelectField() 
+    
     fields = Fields()
 
 form = PreguntaExamenForm()
@@ -50,15 +56,6 @@ class PreguntaExamenController(controllers.Controller):
     def default(self, tg_errors=None):
         """handle non exist urls"""
         raise redirect('list')
-
-    @expose()
-    def index(self):
-        raise redirect('list')
-
-    @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records')
-    def list(self):
-        return dict(namepl=namepl, records=TemaPregunta.select())
 
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
@@ -80,8 +77,10 @@ class PreguntaExamenController(controllers.Controller):
         class POD(dict):
             def __getattr__(self, attrname):
                 return self[attrname]
-        r = POD(validate_get(id).sqlmeta.asDict())
-        return dict(name=name, namepl=namepl, record=r, form=form)
+        record_object = validate_get(id)
+	r = POD(record_object.sqlmeta.asDict())
+	r['fecha_examen'] = record_object.examen.fecha
+	return dict(name=name, namepl=namepl, record=r, form=form)
 
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self,id, **kw):
@@ -94,9 +93,11 @@ class PreguntaExamenController(controllers.Controller):
     @expose()
     def update(self, id, **kw):
         """Save or create record to model"""
-        r = validate_set(id, kw)
+	del kw['numero']
+	del kw['fecha_examen']
+	r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
-        raise redirect('../list')
+        raise redirect('../show/%d' % r.id)
 
 
 #}}}

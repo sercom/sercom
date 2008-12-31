@@ -12,13 +12,30 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
+from sercom.subcontrollers.examenes import custom_selects as CS
 from sercom.model import ExamenFinal, PreguntaExamen, TemaPregunta, TipoPregunta
+from sercom.model import DTOPregunta
 from sqlobject import *
 from tipo import TipoPreguntaController
 from tema import TemaPreguntaController
 from pregunta import PreguntaExamenController
 
 #}}}
+
+
+class Mascaras: pass
+Mascaras.TEXTO = "pregunta%d"
+Mascaras.TEXTO_REGEX = re.compile(r'(pregunta)(\d+)(.*)')
+Mascaras.TIPO = "tipo%d"
+Mascaras.TIPO_REGEX = re.compile(r'(tipo)(\d+)(.*)')
+Mascaras.TEMA = "tema%d"
+Mascaras.TEMA_REGEX = re.compile(r'(tema)(\d+)(.*)')
+
+class DTOPregunta:
+	def __init__(self,texto,tipo,tema):
+		self.texto = texto
+		self.tipo = tipo
+		self.tema = tema
 
 #{{{ Configuración
 cls = ExamenFinal
@@ -53,15 +70,15 @@ class ExamenFinalForm(W.TableForm):
         anio = W.TextField(label = _(u'Año'), validator = V.Number(min=0, max=32767, strip=True))
         cuatrimestre = W.TextField(label = _('Cuatrimestre'), validator =  V.Number(min=1, max=2, strip=True, not_empty=True))
         oportunidad = W.TextField(label = _('Oportunidad'), validator =  V.Number(min=1, max=6, strip=True))
-        #for numero_pregunta in range(1, cant_preguntas + 1):
-        #        self.append(W.TextArea(name="pregunta%d" % numero_pregunta, label="Pregunta %d" % numero_pregunta))
 
     fields = Fields()
 
 def create_form(examen_controller = None, cant_preguntas = 10):
     fields = list(ExamenFinalForm.fields)
     for numero_pregunta in range(1, cant_preguntas + 1):
-        fields.append(W.TextArea(name="pregunta%d" % numero_pregunta, label="Pregunta %d" % numero_pregunta))
+	fields.append(CS.TemaSelectField(name=Mascaras.TEMA % numero_pregunta))
+	fields.append(CS.TipoSelectField(name=Mascaras.TIPO % numero_pregunta))
+        fields.append(W.TextArea(name=Mascaras.TEXTO % numero_pregunta, label="Pregunta %d" % numero_pregunta))
     return ExamenFinalForm(fields = fields)
 
 #}}}
@@ -90,14 +107,22 @@ class ExamenFinalController(controllers.Controller):
 
     def __extract_preguntas(self, kw):
         preguntas = {}
-        regex = re.compile(r'(pregunta)(\d+)(.*)')
+	for i in range(1,11):
+		preguntas[i] = DTOPregunta("",None,None)
+
         for key in kw.keys():
-            if regex.match(key):
-                numero = regex.sub(r'\2',key)
-		texto = kw[key]
-		if not texto is None and texto != "":
-                	preguntas[int(numero)] = texto 
-               	del kw[key]
+        	if Mascaras.TEXTO_REGEX.match(key):
+                	numero = Mascaras.TEXTO_REGEX.sub(r'\2',key)
+			preguntas[int(numero)].texto = kw[key]
+               		del kw[key]
+		elif Mascaras.TEMA_REGEX.match(key):
+			numero = Mascaras.TEMA_REGEX.sub(r'\2',key)
+			preguntas[int(numero)].tema = kw[key]
+			del kw[key]
+		elif Mascaras.TIPO_REGEX.match(key):
+			numero = Mascaras.TIPO_REGEX.sub(r'\2',key)
+			preguntas[int(numero)].tipo = kw[key]
+			del kw[key]
         return preguntas
 
     @validate(form=create_form)
@@ -108,7 +133,7 @@ class ExamenFinalController(controllers.Controller):
         """Save or create record to model"""
         examen = validate_new(kw)
         for numero in preguntas.keys():
-            u = PreguntaExamen(numero = numero, texto = preguntas[numero], examen = examen)
+            u = PreguntaExamen(numero = numero, dto = preguntas[numero],examen = examen)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
 
@@ -121,7 +146,9 @@ class ExamenFinalController(controllers.Controller):
         examen = validate_get(id)
         r = POD(examen.sqlmeta.asDict())
         for pregunta in examen.preguntas:
-            r["pregunta%d" % pregunta.numero] = pregunta.texto
+        	r[Mascaras.TEXTO % pregunta.numero] = pregunta.texto
+        	r[Mascaras.TIPO % pregunta.numero] = pregunta.tipoID
+        	r[Mascaras.TEMA % pregunta.numero] = pregunta.temaID
         return dict(name=name, namepl=namepl, record=r, form=create_form())
 
     @validate(form=create_form)
@@ -131,7 +158,7 @@ class ExamenFinalController(controllers.Controller):
         preguntas = self.__extract_preguntas(kw)
         r = validate_set(id, kw)
         for numero in preguntas.keys():
-            r.set_texto_pregunta(numero, preguntas[numero])
+            r.update_pregunta(numero, preguntas[numero])
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')
 

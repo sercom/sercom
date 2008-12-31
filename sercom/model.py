@@ -79,12 +79,18 @@ class ExamenFinal(SQLObject): #{{{
             return pregunta1.numero - pregunta2.numero
         return self.preguntas
 
-    def set_texto_pregunta(self, numero, texto):
+    def update_pregunta(self, numero, dto):
         for pregunta in self.preguntas:
             if pregunta.numero == numero:
-                pregunta.texto = texto
+                pregunta.update(dto)
 
 #}}}
+
+class DTOPregunta:
+        def __init__(self,texto,tipo,tema):
+                self.texto = texto
+                self.tipo = tipo
+                self.tema = tema
 
 class PreguntaExamen(SQLObject): #{{{
     # Clave
@@ -97,6 +103,17 @@ class PreguntaExamen(SQLObject): #{{{
     tema             = ForeignKey('TemaPregunta', cascade='null', default = None)
     tipo             = ForeignKey('TipoPregunta', cascade='null', default = None)
     solucion         = ForeignKey('Solucion', cascade='null', default=None)
+
+
+    def update(self, dto):
+        self.texto = dto.texto
+        self.temaID = dto.tema
+        self.tipoID = dto.tipo    
+
+    def __init__(self, dto = None, **kw):
+        super(SQLObject, self).__init__(**kw)
+        if not dto is None:
+            self.update(dto)
 
 
     def __str__(self):
