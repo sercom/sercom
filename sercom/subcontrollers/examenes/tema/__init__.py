@@ -12,6 +12,7 @@ from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import TemaPregunta
 from sqlobject import *
+from sqlobject.main import SQLObjectIntegrityError
 #}}}
 
 #{{{ Configuración
@@ -98,6 +99,16 @@ class TemaPreguntaController(controllers.Controller):
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')
 
+    @expose()
+    def delete(self, id):
+        """Destroy record in model"""
+        r = validate_get(id)
+        try:
+            r.destroySelf()
+            flash(_(u'El %s fue eliminado permanentemente.') % name)
+        except SQLObjectIntegrityError:
+            flash(_(u'El %s elegido no puede ser eliminado por tener preguntas asociadas.') % name)
+        raise redirect('../list')
 
 #}}}
 

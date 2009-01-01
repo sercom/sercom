@@ -22,6 +22,7 @@
         <td><span py:replace="record.oportunidad">oportunidad</span></td>
         <td><a href="${tg.url('/examenes/show/%d' % record.id)}">Ver</a>
             <a href="${tg.url('/examenes/edit/%d' % record.id)}">Editar</a>
+            <a href="${tg.url('/examenes/delete/%d' % record.id)}">Eliminar</a>
 	</td>
     </tr>
 </table>

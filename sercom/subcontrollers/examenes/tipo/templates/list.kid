@@ -18,6 +18,7 @@
         <td><span py:replace="record.descripcion">descripcion</span></td>
         <td><a href="${tg.url('/examenes/tipo/show/%d' % record.id)}">Ver</a>
             <a href="${tg.url('/examenes/tipo/edit/%d' % record.id)}">Editar</a>
+            <a href="${tg.url('/examenes/tipo/delete/%d' % record.id)}">Eliminar</a>
 	</td>
     </tr>
 </table>

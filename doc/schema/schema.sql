@@ -29,10 +29,10 @@ CREATE TABLE `pregunta_examen`(
     `tema_id` INTEGER NULL,
     `tipo_id` INTEGER NULL,
     `solucion_id` INTEGER NULL,
-    CONSTRAINT `examen_id_exists` FOREIGN KEY (`examen_id`) REFERENCES examen_final(id),
-    CONSTRAINT `tema_id_exists` FOREIGN KEY (`tema_id`) REFERENCES tema_pregunta(id),
-    CONSTRAINT `tipo_id_exists` FOREIGN KEY (`tipo_id`) REFERENCES tipo_pregunta(id),
-    CONSTRAINT `solucion_id_exists` FOREIGN KEY (`solucion_id`) REFERENCES solucion_pregunta_examen(id)
+    CONSTRAINT `examen_id_exists` FOREIGN KEY (`examen_id`) REFERENCES examen_final(id) ON DELETE CASCADE,
+    CONSTRAINT `tema_id_exists` FOREIGN KEY (`tema_id`) REFERENCES tema_pregunta(id) ON DELETE RESTRICT,
+    CONSTRAINT `tipo_id_exists` FOREIGN KEY (`tipo_id`) REFERENCES tipo_pregunta(id) ON DELETE RESTRICT,
+    CONSTRAINT `solucion_id_exists` FOREIGN KEY (`solucion_id`) REFERENCES solucion_pregunta_examen(id) ON DELETE SET NULL
 );
 
 

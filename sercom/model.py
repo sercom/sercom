@@ -95,13 +95,13 @@ class DTOPregunta:
 class PreguntaExamen(SQLObject): #{{{
     # Clave
     numero           = IntCol(notNone=True)
-    examen           = ForeignKey('ExamenFinal', cascade='null')
+    examen           = ForeignKey('ExamenFinal', cascade=True)
     pk               = DatabaseIndex(examen, numero, unique=True)
     # Campos
     texto            = UnicodeCol(length=500, default=None)
     # Joins
-    tema             = ForeignKey('TemaPregunta', cascade='null', default = None)
-    tipo             = ForeignKey('TipoPregunta', cascade='null', default = None)
+    tema             = ForeignKey('TemaPregunta', cascade=False, default = None)
+    tipo             = ForeignKey('TipoPregunta', cascade=False, default = None)
     solucion         = ForeignKey('Solucion', cascade='null', default=None)
 
 
@@ -111,10 +111,11 @@ class PreguntaExamen(SQLObject): #{{{
         self.tipoID = dto.tipo    
 
     def __init__(self, dto = None, **kw):
-        super(SQLObject, self).__init__(**kw)
         if not dto is None:
-            self.update(dto)
-
+            kw['texto'] = (dto.texto,'')[dto.texto is None]
+            kw['temaID'] = dto.tema
+            kw['tipoID'] = dto.tipo
+	super(PreguntaExamen, self).__init__(**kw)
 
     def __str__(self):
         return '%s)%s' % (self.numero,self.texto)

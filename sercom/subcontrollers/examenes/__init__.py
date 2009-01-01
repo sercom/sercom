@@ -117,11 +117,11 @@ class ExamenFinalController(controllers.Controller):
                		del kw[key]
 		elif Mascaras.TEMA_REGEX.match(key):
 			numero = Mascaras.TEMA_REGEX.sub(r'\2',key)
-			preguntas[int(numero)].tema = kw[key]
+			preguntas[int(numero)].tema = int(kw[key])
 			del kw[key]
 		elif Mascaras.TIPO_REGEX.match(key):
 			numero = Mascaras.TIPO_REGEX.sub(r'\2',key)
-			preguntas[int(numero)].tipo = kw[key]
+			preguntas[int(numero)].tipo = int(kw[key])
 			del kw[key]
         return preguntas
 
@@ -167,6 +167,14 @@ class ExamenFinalController(controllers.Controller):
         """Show record in model"""
         r = validate_get(id)
         return dict(name=name, namepl=namepl, record=r)
+
+    @expose()
+    def delete(self, id):
+        """Destroy record in model"""
+        r = validate_get(id)
+        r.destroySelf()
+        flash(_(u'El %s fue eliminado permanentemente.') % name)
+        raise redirect('../list')
 
     @expose(template='kid:%s.templates.from_text' % __name__)
     def from_text(self):
