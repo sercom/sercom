@@ -43,10 +43,18 @@ class PreguntaExamenForm(W.TableForm):
         texto = W.TextArea(label=_(u'Texto'),
             help_text=_(u'Requerido.'),
             validator=V.UnicodeString( max=500, not_empty=True, strip=True))
-    
     fields = Fields()
 
+class PreguntaExamenFiltros(W.TableForm):
+    class Fields(W.WidgetsList):
+        tipoID = CS.TipoSelectField()
+        temaID = CS.TemaSelectField()
+    form_attrs={'class':"filter"}
+    fields = Fields()
+
+filtro = PreguntaExamenFiltros()
 form = PreguntaExamenForm()
+
 #}}}
 
 #{{{ Controlador
@@ -55,7 +63,7 @@ class PreguntaExamenController(controllers.Controller):
     @expose()
     def default(self, tg_errors=None):
         """handle non exist urls"""
-        raise redirect('list')
+        raise redirect('find')
 
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
@@ -98,6 +106,17 @@ class PreguntaExamenController(controllers.Controller):
 	r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../show/%d' % r.id)
+
+    @expose(template='kid:%s.templates.find' % __name__)
+    @paginate('records')
+    def find(self, tipoID=None, temaID=None):
+        """Find records in model"""
+        vfilter = dict(tipoID=tipoID, temaID=temaID)
+
+        r = PreguntaExamen.selectBy(tipoID=tipoID,temaID=temaID)
+        
+        return dict(records=r, name=name, namepl=namepl, form=filtro,
+            vfilter=vfilter)
 
 
 #}}}

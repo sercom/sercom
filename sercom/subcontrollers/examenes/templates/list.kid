@@ -8,7 +8,6 @@
 <body>
 
 <h1>Administración de <span py:replace="namepl">Objetos</span></h1>
-
 <table class="list">
     <tr>
         <th>Fecha</th>
@@ -17,7 +16,7 @@
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-        <td><span py:replace="record.fecha">fecha</span></td>
+        <td><span py:replace="record.str_fecha()">fecha</span></td>
         <td><span py:replace="record.periodo()">periodo</span></td>
         <td><span py:replace="record.oportunidad">oportunidad</span></td>
         <td><a href="${tg.url('/examenes/show/%d' % record.id)}">Ver</a>
@@ -29,10 +28,13 @@
 
 <br/>
 
+<a href="${tg.url('/examenes/pregunta/find')}">Buscar Preguntas</a> | 
 <a href="${tg.url('/examenes/tema')}">Editar Temas</a> | 
 <a href="${tg.url('/examenes/tipo')}">Editar Tipos</a> | 
-<a href="${tg.url('/examenes/new')}">Agregar</a> | 
-<a href="${tg.url('/examenes/from_file')}">Agregar desde Archivo</a> | 
+<div style="display:inline" py:if="permitir_agregar">
+	<a py:if="permitir_agregar" href="${tg.url('/examenes/new')}">Agregar</a> | 
+	<a py:if="permitir_agregar" href="${tg.url('/examenes/from_file')}">Agregar desde Archivo</a> |
+</div> 
 <a href="${tg.url('/examenes/from_text')}">Agregar desde Texto</a>
 
 <div py:for="page in tg.paginate.pages">

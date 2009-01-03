@@ -93,7 +93,8 @@ class ExamenFinalController(controllers.Controller):
     @expose(template='kid:%s.templates.list' % __name__)
     @paginate('records')
     def list(self):
-        return dict(namepl='Examenes', records=ExamenFinal.select())
+        permitir_agregar = TemaPregunta.select().count() > 0 and TipoPregunta.select().count() > 0
+        return dict(namepl='Examenes', permitir_agregar=permitir_agregar,  records=ExamenFinal.select())
 
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):

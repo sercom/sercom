@@ -61,6 +61,9 @@ def srepr(obj): #{{{
 
 #{{{ Modulo Examenes
 class ExamenFinal(SQLObject): #{{{
+    class sqlmeta:
+        defaultOrder='-fecha'
+
     # Clave
     anio             = IntCol(notNone=True)
     cuatrimestre     = IntCol(notNone=True)
@@ -74,6 +77,9 @@ class ExamenFinal(SQLObject): #{{{
     def periodo(self):
         return "%d.%d" % (self.anio,self.cuatrimestre)
 
+    def str_fecha(self):
+        return self.fecha.strftime("%d/%m/%Y")
+
     def __sort_preguntas(self):
         def comparar(pregunta1, pregunta2):
             return pregunta1.numero - pregunta2.numero
@@ -83,6 +89,9 @@ class ExamenFinal(SQLObject): #{{{
         for pregunta in self.preguntas:
             if pregunta.numero == numero:
                 pregunta.update(dto)
+
+    def __str__(self):
+        return "%s.%d (%s)" % (self.periodo(),self.oportunidad, self.str_fecha()) 
 
 #}}}
 

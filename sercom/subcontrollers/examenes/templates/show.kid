@@ -10,7 +10,7 @@
 <table class="show">
     <tr>
         <th>Fecha:</th>
-        <td><span py:replace="record.fecha">fecha</span></td>
+        <td><span py:replace="record.str_fecha()">fecha</span></td>
     </tr>
     <tr>
         <th>Periodo:</th>
