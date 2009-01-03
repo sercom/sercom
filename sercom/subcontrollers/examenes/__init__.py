@@ -31,11 +31,6 @@ Mascaras.TIPO_REGEX = re.compile(r'(tipo)(\d+)(.*)')
 Mascaras.TEMA = "tema%d"
 Mascaras.TEMA_REGEX = re.compile(r'(tema)(\d+)(.*)')
 
-class DTOPregunta:
-	def __init__(self,texto,tipo,tema):
-		self.texto = texto
-		self.tipo = tipo
-		self.tema = tema
 
 #{{{ Configuración
 cls = ExamenFinal
@@ -186,21 +181,11 @@ class ExamenFinalController(controllers.Controller):
              1)texto
              2)texto
         """
-        fail = []
-        regex = re.compile('(\d+)(\))(.*)')
-        lines = kw['final'].split('\n')
-        texto_actual = []
-        numero_actual = 0
-        for line in lines:
-            if regex.match(line):
-                if len(texto_actual) > 0:
-                    kw["pregunta%d" % numero_actual]= '\n'.join(texto_actual)
-                texto_actual = [regex.sub(r'\3', line)]
-                numero_actual = int(regex.sub(r'\1', line))
-            else:
-                texto_actual.append(line)
-        if len(texto_actual) > 0:
-             kw["pregunta%d" % numero_actual]= '\n'.join(texto_actual)
+	texto_preguntas = kw['final']
+        separador_preguntas = kw['separador']
+        preguntas = PreguntaExamen.parse_preguntas(texto_preguntas,separador_preguntas)
+        for numero_pregunta in preguntas.keys():
+            kw[Mascaras.TEXTO % numero_pregunta] = preguntas[numero_pregunta]
 
         return dict(name=name, namepl=namepl, form=create_form(), values=kw)
 
@@ -208,58 +193,15 @@ class ExamenFinalController(controllers.Controller):
     def from_file(self):
         return dict()
 
-    def __find_examen(self, fecha, anio, cuatrimestre, oportunidad, examenes):
-        key = (anio, cuatrimestre, oportunidad)
-        examen = examenes.get(key)
-        if examen is None:
-            examen = ExamenFinal(fecha = fecha, anio = anio, cuatrimestre = cuatrimestre, oportunidad = oportunidad)
-            examenes[key] = examen
-        return examen
-
-    def __find_tipo(self,descripcion, tipos):
-        tipo = tipos.get(descripcion)
-        if tipo is None:
-            tipo = TipoPregunta(descripcion=descripcion)
-            tipos[descripcion] = tipo
-        return tipo
-
-    def __find_tema(self,descripcion, temas):
-        tema = temas.get(descripcion)
-        if tema is None:
-            tema = TemaPregunta(descripcion=descripcion)
-            temas[descripcion] = tema
-        return tema
-
     @expose(template='kid:%s.templates.import_results' % __name__)
-    def from_file_add(self, archivo):
+    def from_file_add(self, archivo, encoding):
         """ Se espera :
              fecha(dd/mm/yyy),anio,cuatrimestre,oportunidad,numero_pregunta,texto_pregunta,tipo.tema
         """
-        import csv
-        lines = archivo.file.read().split('\n')
-        ok = []
-        fail = []
-        examenes = dict([((e.anio, e.cuatrimestre, e.oportunidad), e) for e in ExamenFinal.select()])
-        temas = dict([(t.descripcion, t) for t in TemaPregunta.select()])
-        tipos = dict([(t.descripcion, t) for t in TipoPregunta.select()])
-        for line in lines:
-            for row in csv.reader([line]):
-                if row == []:
-                    continue
-                try:
-                    fecha = datetime.strptime(row[0], "%d/%m/%Y")
-                    anio = int(row[1])
-                    cuatrimestre = int(row[2])
-                    oportunidad = int(row[3])
-                    numero = int(row[4])
-                    examen = self.__find_examen(fecha, anio, cuatrimestre, oportunidad, examenes)
-                    tipo = self.__find_tipo(row[6], tipos)
-                    tema = self.__find_tema(row[7], temas)
-                    u = PreguntaExamen(texto=row[5], examen = examen, numero=numero, tipo=tipo, tema=tema)
-                    ok.append(row)
-                except Exception, e:
-                    row.append(str(e))
-                    fail.append(row)
+	#encoding = kw['encoding']
+	#archivo = kw['archivo']
+        (ok, fail) = PreguntaExamen.import_preguntas(archivo.file, encoding, 'utf-8')
+
         return dict(ok=ok, fail=fail)
 
     tema = TemaPreguntaController()

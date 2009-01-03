@@ -38,11 +38,11 @@ class PreguntaExamenForm(W.TableForm):
     class Fields(W.WidgetsList):
 	fecha_examen = W.Label(label=_(u'Examen'))
 	numero = W.Label()
+	tipoID = CS.TipoSelectField()
+	temaID = CS.TemaSelectField() 
         texto = W.TextArea(label=_(u'Texto'),
             help_text=_(u'Requerido.'),
             validator=V.UnicodeString( max=500, not_empty=True, strip=True))
-	tipoID = CS.TipoSelectField()
-	temaID = CS.TemaSelectField() 
     
     fields = Fields()
 

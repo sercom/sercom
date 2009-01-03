@@ -13,19 +13,31 @@
 <div class="help">
 Desde acá podrá hacer una importación masiva de una lista de ejercicios de un examen dado.
 <br /><br />
-Se espera que el formato respete la siguiente estructura :
+Es posible indicar la cadena separadora de preguntas. Se espera que el formato respete la siguiente estructura :
 <blockquote>
-	1)textoplano<br/>
-	2)textoplano<br/>
-	...
+	1{separador}texto HTML de la pregunta<br/>
+	2{separador}texto HTML de la pregunta<br/>
+	...<br/>
+	10{separador}texto HTML de la pregunta<br/>
 </blockquote>
 </div>
 
 <br />
 
 <form action="${tg.url('/examenes/from_text_add')}" method="post">
-	<textarea name="final" style="width:90%;height:400px"/><br /><br />
-	<input type="submit" value="Enviar" />
+	<table border="0" style="width:90%">
+		<tr>
+			<td style="width:0px">Separador:</td>
+			<td><input type="text" name="separador" value=")"/></td>
+		</tr>
+		<tr>
+			<td>Texto:</td>
+			<td><textarea name="final" style="width:90%;height:400px"/></td>
+		</tr>
+		<tr>
+			<td colspan="2"><input type="submit" value="Enviar" /></td>
+		</tr>
+	</table>
 </form>
 
 <br/>

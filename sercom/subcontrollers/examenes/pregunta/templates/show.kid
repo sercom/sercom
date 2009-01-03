@@ -26,7 +26,7 @@
     </tr>
     <tr>
         <th>Texto:</th>
-        <td><span py:replace="record.texto">texto</span></td>
+        <td><span>${XML(record.texto)}</span></td>
     </tr>
 
 </table>

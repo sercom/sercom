@@ -15,21 +15,38 @@ CSV (texto separado por comas).
 <br /><br />
 Se espera que el archivo tenga las siguientes columnas :
 <blockquote>
-	fecha(dd/mm/yyy),anio,cuatrimestre,oportunidad,numero_pregunta,texto_pregunta,tipo.tema
+	fecha(dd/mm/yyy),anio,cuatrimestre,oportunidad,numero_pregunta,texto_pregunta,tipo,tema
 </blockquote>
 Ejemplo:
 <blockquote>
-31/01/2008,2008,01,01,1,"texto Pregunta 1",Teorica,c++
+31/01/2008,2008,01,01,1,"texto Pregunta 1",Teorica,c++<br/>
 31/01/2008,2008,01,01,2,"texto, Pregunta 2",Teorica,gtk
 </blockquote>
-Para cada Pregunta, se crearán tipos y temas y se crearán los que no sean encontrados.
+Para cada Pregunta, se crearán tlos tipos y temas que no sean encontrados.
 </div>
 
 <br />
 
 <form action="${tg.url('/examenes/from_file_add')}" method="post" ENCTYPE="multipart/form-data">
-	<input type="file" name="archivo" /><br />
-	<input type="submit" value="Enviar" />
+	<table border="0">
+		<tr>
+			<td>Encoding:</td>
+			<td>
+				<select name="encoding">
+				<option>utf-8</option>
+				<option>iso-8859-1</option>
+				<option>iso-8859-2</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Archivo:</td>
+			<td><input type="file" name="archivo" /></td>
+		</tr>
+		<tr>
+			<td colspan="2"><input type="submit" value="Enviar" /></td>
+		</tr>
+	</table>
 </form>
 
 <br/>

@@ -105,11 +105,6 @@ class PreguntaExamen(SQLObject): #{{{
     solucion         = ForeignKey('Solucion', cascade='null', default=None)
 
 
-    def update(self, dto):
-        self.texto = dto.texto
-        self.temaID = dto.tema
-        self.tipoID = dto.tipo    
-
     def __init__(self, dto = None, **kw):
         if not dto is None:
             kw['texto'] = (dto.texto,'')[dto.texto is None]
@@ -119,6 +114,108 @@ class PreguntaExamen(SQLObject): #{{{
 
     def __str__(self):
         return '%s)%s' % (self.numero,self.texto)
+
+    def update(self, dto):
+        self.texto = dto.texto
+        self.temaID = dto.tema
+        self.tipoID = dto.tipo    
+
+    def parse_preguntas(texto_preguntas, separador_num_preguntas):
+        """
+        separador_num_preguntas indica el string que viene luego de un numero de pregunta y antes del texto.
+        Por ejemplo: ')', ' - ', '-', etc
+	"""
+
+        import re
+        regex = re.compile('(\d+)' + re.escape(separador_num_preguntas))
+        preguntas = {}
+        indices_numero_texto = []
+        
+        for match in regex.finditer(texto_preguntas):
+            indices_numero_texto.append( (match.start(),match.end()) )
+        
+        cant_preguntas = len(indices_numero_texto)
+        for i in range(0,cant_preguntas):
+            inicio_numero = indices_numero_texto[i][0]
+            inicio_texto = indices_numero_texto[i][1]
+            numero = int(texto_preguntas[inicio_numero:inicio_texto-1])
+            if i+1 == cant_preguntas:
+                fin_texto = len(texto_preguntas)
+            else:
+                fin_texto = indices_numero_texto[i+1][0]
+            preguntas[numero] = texto_preguntas[inicio_texto:fin_texto]
+        return preguntas
+    
+    def import_preguntas(archivo_preguntas,encoding_archivo,encoding_salida):
+        """ 
+        Se espera :
+        fecha(dd/mm/yyy),anio,cuatrimestre,oportunidad,numero_pregunta,texto_pregunta,tipo.tema
+        """
+    
+        import csv
+        lineas = archivo_preguntas.read().split('\n')
+        ok = []
+        fail = []
+        examenes = {}
+        temas = dict([(t.descripcion, t) for t in TemaPregunta.select()])
+        tipos = dict([(t.descripcion, t) for t in TipoPregunta.select()])
+        for linea in lineas:
+            for row in csv.reader([linea]):
+                if row == []:
+                    continue
+                try:
+                    fecha = datetime.strptime(row[0], "%d/%m/%Y")
+                    anio = int(row[1])
+                    cuatrimestre = int(row[2])
+                    oportunidad = int(row[3])
+                    numero = int(row[4])
+                    texto = PreguntaExamen.__normalize_texto(row[5], encoding_archivo, encoding_salida)
+                    descripcion_tipo = PreguntaExamen.__normalize_texto(row[6],encoding_archivo, encoding_salida)
+                    descripcion_tema = PreguntaExamen.__normalize_texto(row[7],encoding_archivo, encoding_salida)
+                    
+                    examen = PreguntaExamen.__find_examen(fecha, anio, cuatrimestre, oportunidad, examenes)
+                    tipo = PreguntaExamen.__find_tipo(descripcion_tipo, tipos)
+                    tema = PreguntaExamen.__find_tema(descripcion_tema, temas)
+                    u = PreguntaExamen(texto=texto, examen = examen, numero=numero, tipo=tipo, tema=tema)
+                    ok.append(row)
+                except Exception, e:
+                    row.append(str(e))
+                    fail.append(row)
+        return (ok, fail)   
+
+    def __normalize_texto(texto, encoding_entrada, encoding_salida):
+        texto_unicode = texto.decode(encoding_entrada)
+	return texto_unicode.encode(encoding_salida,'xmlcharrefreplace')
+ 
+    def __find_examen(fecha, anio, cuatrimestre, oportunidad, examenes):
+        key = (anio, cuatrimestre, oportunidad)
+        examen = examenes.get(key)
+        if examen is None:
+            examen = ExamenFinal(fecha = fecha, anio = anio, cuatrimestre = cuatrimestre, oportunidad = oportunidad)
+            examenes[key] = examen
+        return examen
+
+    def __find_tipo(descripcion, tipos):
+        tipo = tipos.get(descripcion)
+        if tipo is None:
+            tipo = TipoPregunta(descripcion=descripcion)
+            tipos[descripcion] = tipo
+        return tipo
+
+    def __find_tema(descripcion, temas):
+        tema = temas.get(descripcion)
+        if tema is None:
+            tema = TemaPregunta(descripcion=descripcion)
+            temas[descripcion] = tema
+        return tema
+
+    parse_preguntas = staticmethod(parse_preguntas)
+    import_preguntas = staticmethod(import_preguntas)
+    __normalize_texto = staticmethod(__normalize_texto)
+    __find_examen = staticmethod(__find_examen)
+    __find_tipo = staticmethod(__find_tipo)
+    __find_tema = staticmethod(__find_tema)
+
 
 #}}}
 
