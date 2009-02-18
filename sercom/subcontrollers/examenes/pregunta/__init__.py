@@ -49,6 +49,8 @@ class PreguntaExamenFiltros(W.TableForm):
     class Fields(W.WidgetsList):
         tipoID = CS.TipoSelectField()
         temaID = CS.TemaSelectField()
+        tipoID.addDefault(u'Todos')
+        temaID.addDefault(u'Todos')
     form_attrs={'class':"filter"}
     fields = Fields()
 
@@ -113,8 +115,14 @@ class PreguntaExamenController(controllers.Controller):
         """Find records in model"""
         vfilter = dict(tipoID=tipoID, temaID=temaID)
 
-        r = PreguntaExamen.selectBy(tipoID=tipoID,temaID=temaID)
-        
+	expression = '1=1'
+	#flash(str(tipoID))
+	if tipoID and tipoID != '':
+		expression = AND(expression,PreguntaExamen.q.tipoID == tipoID)
+	if temaID and temaID != '':
+		expression = AND(expression,PreguntaExamen.q.temaID == temaID)
+	r = PreguntaExamen.select(expression).orderBy([PreguntaExamen.q.examen,PreguntaExamen.q.numero])
+	        
         return dict(records=r, name=name, namepl=namepl, form=filtro,
             vfilter=vfilter)
 
