@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?python from turbogears import identity?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#"
     py:extends="'../../../../templates/master.kid'">
 <head>
@@ -32,8 +33,9 @@
 </table>
 
 <br/>
-<a href="${tg.url('/examenes/pregunta/edit/%d' % record.id)}">Editar</a> |
+<div style="display:inline" py:if="'admin' in identity.current.permissions">
+    <a href="${tg.url('/examenes/pregunta/edit/%d' % record.id)}">Editar</a> |
+</div>
 <a href="${tg.url('/examenes/show/%d' % record.examen.id)}">Volver</a>
-
 </body>
 </html>

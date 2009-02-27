@@ -29,8 +29,8 @@
 <br/>
 
 <a href="${tg.url('/examenes/list')}">Volver</a>
-
-<div py:for="page in tg.paginate.pages">
+<br/>
+<div py:for="page in tg.paginate.pages" py:strip="True">
     <a py:if="page != tg.paginate.current_page"
         href="${tg.paginate.get_href(page)}">${page}</a>
     <b py:if="page == tg.paginate.current_page">${page}</b>

@@ -77,10 +77,15 @@ def create_form(examen_controller = None, cant_preguntas = 10):
     return ExamenFinalForm(fields = fields)
 
 #}}}
+class anonymous_permission(identity.Predicate, identity.IdentityPredicateHelper):
+	def eval_with_object(self, obj, errors = None):
+		return True
 
 #{{{ Controlador
-class ExamenFinalController(controllers.Controller):
-   
+class ExamenFinalController(controllers.Controller, identity.SecureResource):
+    """Interfaz de administracion de examenes y preguntas"""
+    require = anonymous_permission() 
+
     @expose()
     def default(self, tg_errors=None):
         """handle non exist urls"""
@@ -96,6 +101,7 @@ class ExamenFinalController(controllers.Controller):
         permitir_agregar = TemaPregunta.select().count() > 0 and TipoPregunta.select().count() > 0
         return dict(namepl='Examenes', permitir_agregar=permitir_agregar,  records=ExamenFinal.select())
 
+    @identity.require(identity.has_permission('admin'))
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
         """Create new records in model"""
@@ -121,6 +127,7 @@ class ExamenFinalController(controllers.Controller):
 			del kw[key]
         return preguntas
 
+    @identity.require(identity.has_permission('admin'))
     @validate(form=create_form)
     @error_handler(new)
     @expose()
@@ -133,6 +140,7 @@ class ExamenFinalController(controllers.Controller):
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
 
+    @identity.require(identity.has_permission('admin'))
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
@@ -147,6 +155,7 @@ class ExamenFinalController(controllers.Controller):
         	r[Mascaras.TEMA % pregunta.numero] = pregunta.temaID
         return dict(name=name, namepl=namepl, record=r, form=create_form())
 
+    @identity.require(identity.has_permission('admin'))
     @validate(form=create_form)
     @error_handler(edit)
     @expose()
@@ -164,6 +173,7 @@ class ExamenFinalController(controllers.Controller):
         r = validate_get(id)
         return dict(name=name, namepl=namepl, record=r)
 
+    @identity.require(identity.has_permission('admin'))
     @expose()
     def delete(self, id):
         """Destroy record in model"""
@@ -172,10 +182,12 @@ class ExamenFinalController(controllers.Controller):
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../list')
 
+    @identity.require(identity.has_permission('admin'))
     @expose(template='kid:%s.templates.from_text' % __name__)
     def from_text(self):
         return dict()
 
+    @identity.require(identity.has_permission('admin'))
     @expose(template='kid:%s.templates.new' % __name__)
     def from_text_add(self, **kw):
         """ Se espera :
@@ -190,10 +202,12 @@ class ExamenFinalController(controllers.Controller):
 
         return dict(name=name, namepl=namepl, form=create_form(), values=kw)
 
+    @identity.require(identity.has_permission('admin'))
     @expose(template='kid:%s.templates.from_file' % __name__)
     def from_file(self):
         return dict()
 
+    @identity.require(identity.has_permission('admin'))
     @expose(template='kid:%s.templates.import_results' % __name__)
     def from_file_add(self, archivo, encoding):
         """ Se espera :

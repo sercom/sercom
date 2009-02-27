@@ -45,7 +45,9 @@ form = TemaPreguntaForm()
 #}}}
 
 #{{{ Controlador
-class TemaPreguntaController(controllers.Controller):
+class TemaPreguntaController(controllers.Controller, identity.SecureResource):
+    """Interfaz de administracion de temas"""
+    require = identity.has_permission('admin')
 
     @expose()
     def default(self, tg_errors=None):

@@ -45,7 +45,9 @@ form = TipoPreguntaForm()
 #}}}
 
 #{{{ Controlador
-class TipoPreguntaController(controllers.Controller):
+class TipoPreguntaController(controllers.Controller, identity.SecureResource):
+    """Interfaz de administracion de tipos de pregunta"""
+    require = identity.has_permission('admin')
 
     @expose()
     def default(self, tg_errors=None):
