@@ -148,7 +148,7 @@ class Curso(SQLObject): #{{{
     def activos(cls):
         now = datetime.now()
         if 3 <= now.month <= 6: # marzo a junio inclusive
-            cuatrimetre = 1
+            cuatrimestre = 1
         else: # agosto a febrero inclusive
             cuatrimestre = 2
         return cls.selectBy(anio=now.year, cuatrimestre=cuatrimestre)
