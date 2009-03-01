@@ -218,8 +218,17 @@ class Root(controllers.RootController):
             text = _(u'Ya estabas registrado. Se actualizaron tus datos.')
         return (text, '/', dict())
 
+    @expose()
+    def error_registration_web(self, tg_errors=None):
+        msg = ''
+        if tg_errors:
+            for field, error in tg_errors.items():
+                msg += '%s: %s\n' % (field, error)
+        response.headers["Content-Type"] = "text/plain; charset=utf-8"
+        return msg.encode('utf-8')
+
     @validate(form=register_form)
-    @error_handler(register)
+    @error_handler(error_registration_web)
     @expose()
     def save_registration_web(self, **form_data):
         (msg, redir, data) = self._save_registration(form_data)
