@@ -846,6 +846,13 @@ class Entregador(InheritableSQLObject): #{{{
         return list(Entrega.selectBy(entregador=self, instancia=instancia)
                 .orderBy(order_by))
 
+    def correccion_de(self, instancia):
+        try:
+            return Correccion.selectBy(entregador=self, instancia=instancia) \
+                    .getOne()
+        except SQLObjectNotFound:
+            return None
+
     def add_entrega(self, instancia, **kw):
         return Entrega(instancia=instancia, entregador=self, **kw)
 

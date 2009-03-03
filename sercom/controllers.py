@@ -8,10 +8,12 @@ from cherrypy import request, response
 from turbogears.toolbox.catwalk import CatWalk
 import model
 from model import Visita, VisitaUsuario, InstanciaDeEntrega, Correccion, \
-        Curso, Alumno, DateTimeCol, Entrega, Grupo, AlumnoInscripto, Rol
+        Curso, Alumno, DateTimeCol, Entrega, Grupo, \
+        DocenteInscripto, AlumnoInscripto, Rol
 from sqlobject import AND, IN
 from sqlobject.dberrors import DuplicateEntryError
 from formencode import Invalid
+from datetime import datetime, timedelta
 
 import subcontrollers as S
 
@@ -86,19 +88,27 @@ class Root(controllers.RootController):
     def index(self):
         raise redirect(url('/dashboard'))
 
-    @expose(template='.templates.welcome')
+    @expose(template='sercom.templates.welcome')
     @identity.require(identity.not_anonymous())
     def dashboard(self):
-        now = DateTimeCol.now()
+        now = datetime.now()
+        prev = now - timedelta(10) # TODO: config
         if 'admin' in identity.current.permissions:
             # TODO : Fijar el curso !!
+            docente = identity.current.user
+            cursos = list(Curso.select(
+                    AND(
+                            IN(Curso.q.id, [c.id for c in Curso.activos()]),
+                            Curso.q.id == DocenteInscripto.q.cursoID,
+                            docente.id == DocenteInscripto.q.docenteID,
+                    )))
             correcciones = Correccion.selectBy(corrector=identity.current.user,
                 corregido=None).count()
             instancias = list(InstanciaDeEntrega.select(
                 AND(InstanciaDeEntrega.q.inicio <= now,
                     InstanciaDeEntrega.q.fin > now))
                         .orderBy(InstanciaDeEntrega.q.fin))
-            return dict(a_corregir=correcciones,
+            return dict(a_corregir=correcciones, cursos=cursos,
                 instancias_activas=instancias, now=now)
 
         if 'entregar' in identity.current.permissions:
