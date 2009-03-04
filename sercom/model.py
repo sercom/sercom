@@ -447,7 +447,7 @@ class Docente(Usuario): #{{{
     def _get_inscripciones_activas(self):
         return list(DocenteInscripto.select(
                 AND(
-                    IN(Curso.q.id, [c.id for c in Curso.activos()]),
+                    IN(Curso.q.id, [0]+[c.id for c in Curso.activos()]),
                     Curso.q.id == DocenteInscripto.q.cursoID,
                     self.id == DocenteInscripto.q.docenteID,
                 )))
@@ -779,7 +779,7 @@ class InstanciaDeEntrega(SQLObject): #{{{
                 AND(
                     cls.q.ejercicioID == Ejercicio.q.id,
                     cls.q.fin <= now,
-                    IN(Ejercicio.q.cursoID, [c.id for c in cursos]),
+                    IN(Ejercicio.q.cursoID, [0]+[c.id for c in cursos]),
                 )))
 
     def __unicode__(self):
