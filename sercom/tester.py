@@ -269,6 +269,9 @@ class Tester(object): #{{{
 def ejecutar_caso_de_prueba(self, path, entrega): #{{{
     log.debug(_(u'CasoDePrueba.ejecutar(caso=%s, path=%s, entrega=%s)'), self,
         path, entrega)
+    if not self.activo:
+        log.debug(_(u'Ignorando caso de prueba porque esta inactivo'))
+        return
     tareas = [t for t in entrega.instancia.ejercicio.enunciado.tareas
                 if isinstance(t, TareaPrueba)]
     prueba = entrega.add_prueba(self, inicio=datetime.now())
@@ -302,6 +305,9 @@ Tarea.ejecutar = ejecutar_tarea
 def ejecutar_comando_fuente(self, path, entrega): #{{{
     log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s)'), path,
         entrega)
+    if not self.activo:
+        log.debug(_(u'Ignorando comando fuente porque esta inactivo'))
+        return
     comando_ejecutado = entrega.add_comando_ejecutado(self)
     basetmp = '/tmp/sercom.tester.fuente' # FIXME TODO /var/run/sercom?
     unzip(self.archivos_entrada, path, # TODO try/except
@@ -489,6 +495,9 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
     # y setup/clean de test.
     log.debug(_(u'ComandoPrueba.ejecutar(path=%s, prueba=%s)'), path,
         prueba)
+    if not self.activo:
+        log.debug(_(u'Ignorando comando prueba porque esta inactivo'))
+        return
     caso_de_prueba = prueba.caso_de_prueba
     comando_ejecutado = prueba.add_comando_ejecutado(self)
     basetmp = '/tmp/sercom.tester.prueba' # FIXME TODO /var/run/sercom?
