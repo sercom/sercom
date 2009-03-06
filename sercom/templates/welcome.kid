@@ -12,7 +12,7 @@
 <title>Dashboard - SERCOM</title>
 </head>
 <body>
-    <div py:if="isinstance(usuario, Docente)" py:strip="">
+    <div py:if="'admin' in identity.current.permissions">
         <h1>Dashboard</h1>
         <div py:for="di in usuario.inscripciones_activas" py:strip="">
             <?python curso = di.curso ?>
