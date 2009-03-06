@@ -190,6 +190,7 @@ class Tester(object): #{{{
     def run(self): #{{{
         entrega_id = self.queue.get() # blocking
         while entrega_id is not None:
+            Entrega._connection.expireAll()
             entrega = Entrega.get(entrega_id)
             log.debug(_(u'Nueva entrega para probar en tester %s: %s'),
                 self.name, entrega)
