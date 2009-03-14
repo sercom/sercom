@@ -10,7 +10,7 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import Docente
+from sercom.model import Docente, Rol
 #}}}
 
 #{{{ Configuración
@@ -121,6 +121,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
         kw['password'] = kw['pwd_new']
         del kw['pwd_new']
         del kw['pwd_confirm']
+        kw['roles'] = [Rol.by_nombre('admin')]
         validate_new(kw)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
