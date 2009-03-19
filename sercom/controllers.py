@@ -183,51 +183,25 @@ class Root(controllers.RootController):
         return dict(form=register_form, form_data=form_data)
 
     def _save_registration(self, form_data):
-        """Save or create record to model"""
         curso = Curso.get(form_data['curso'])
         del form_data['curso']
         del form_data['password_confirm']
-        nuevo = False
-        type_error = False
         try:
             alumno = Alumno(**form_data)
             # TODO: rol debería ser configurable
             alumno.add_rol(Rol.by_nombre('alumno'))
-            nuevo = True
+            curso.add_alumno(alumno)
+            text = _(u'Te registraste exitosamente, ya podés ingresar')
         except DuplicateEntryError, e:
-            # Si ya existía, se actualizan los datos (FIXME esto es heavy,
-            # cualquiera puede hijack'ear una cuenta)
-            alumno = Alumno.by_padron(form_data['padron'])
-            try:
-                alumno.set(**form_data)
-            except TypeError, e:
-                type_error = True
+	    text = _(u'Ya estabas registrado. Si querés cambiar algún dato, '
+		   u'hacelo desde la seccion correspondiete en SERCOM. '
+		   u'Si perdiste tu password, contactate con la cátedra') 
         except TypeError, e:
-            type_error = True
-        # Hubo error al crear actualizar
-        if type_error:
             return (_(u'No se pudo completar la registración porque falta un '
                     u'dato o es inválido (error: %s).') % e, '/register',
                     form_data)
-        if nuevo:
-            curso.add_alumno(alumno)
-        elif not alumno in [ai.alumno for ai in curso.alumnos]:
-            # No está inscripto en el curso que pidió, pero podría estar
-            # en otro
-            for c in Curso.activos():
-                if alumno in [ai.alumno for ai in c.alumnos]:
-                    return (_(u'Ya estabas registrado e inscripto en otro '
-                            u'curso (%s). Si querés cambiarte de curso, '
-                            u'consultalo en clase con un docente.') % c,
-                            '/', dict())
-            # No está en otro, lo inscribimos
-            curso.add_alumno(alumno)
-        if nuevo:
-            text = _(u'Te registraste exitosamente, ya podés ingresar')
-        else:
-            text = _(u'Ya estabas registrado. Se actualizaron tus datos.')
-        return (text, '/', dict())
-
+        return (text, '/', dict()) 
+    
     @expose()
     def error_registration_web(self, tg_errors=None):
         msg = ''
