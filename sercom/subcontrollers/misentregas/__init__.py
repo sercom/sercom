@@ -218,8 +218,8 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
                 "'.*\.(h|c|cpp)' | sort -r | xargs -- a2ps -q -2 -Av --toc " \
                 "--line-numbers=1 --header='[75.42] Taller de Programacion' " \
                 "--left-footer='%%D{%%c}' --footer='Padron %s (curso %d.%d) " \
-                "   Ejercicio %d.%d (entrega %s)' -g -o '%s'.pdf" \
-                % (basename, r.entregador.nombre, 2008, 1,
+                "   Ejercicio %d.%d (entrega %s)' -g -o - | ps2pdf - '%s'.pdf" \
+                % (basename, r.entregador.nombre, 2009, 1,
                         r.instancia.ejercicio.numero, r.instancia.numero,
                         r.fecha.isoformat(), basename)
         subprocess.check_call(cmd, shell=True) # TODO: capturar excepciones
