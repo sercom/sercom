@@ -66,11 +66,11 @@
     </tr>
     <tr>
         <th>Archivos de Entrada:</th>
-				<td><a py:if="record.archivos_entrada" href="${tg.url('/enunciado/caso_de_prueba/file/%d/archivos_entrada' % record.id)}">Bajar</a></td>
+				<td><a py:if="record.archivos_entrada" href="${tg.url('/enunciado/caso_de_prueba/file/archivos_entrada/%d' % record.id)}">Bajar</a></td>
     </tr>
     <tr>
         <th>Archivos a Comparar:</th>
-				<td><a py:if="record.archivos_a_comparar" href="${tg.url('/enunciado/caso_de_prueba/file/%d/archivos_a_comparar' % record.id)}">Bajar</a></td>
+				<td><a py:if="record.archivos_a_comparar" href="${tg.url('/enunciado/caso_de_prueba/file/archivos_a_comparar/%d' % record.id)}">Bajar</a></td>
     </tr>
     <tr>
         <th>Archivos a guardar:</th>

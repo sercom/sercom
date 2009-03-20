@@ -52,7 +52,13 @@
         <th>Casos de Prueba:</th>
 				<td>
 					<ul>
-						<li py:for="t in record.casos_de_prueba" py:if="t.publico or 'admin' in identity.current.permissions" py:content="t" />
+					<table border="0" style="width:100%">
+						<tr py:for="t in record.casos_de_prueba" py:if="t.activo and (t.publico or 'admin' in identity.current.permissions)" >
+							<td style="width:50%"><li py:content="t.nombre" /></td>
+							<td><a py:if="t.archivos_entrada" href="${tg.url('/enunciado/caso_de_prueba/file/archivos_entrada/%d' % t.id)}">Bajar Entradas</a></td>
+							<td><a py:if="t.archivos_a_comparar" href="${tg.url('/enunciado/caso_de_prueba/file/archivos_a_comparar/%d' % t.id)}">Bajar Salidas</a></td>
+						</tr>
+					</table>
 					</ul>
 				</td>
     </tr>
