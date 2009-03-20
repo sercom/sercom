@@ -84,9 +84,6 @@ form = CasoDePruebaForm()
 #}}}
 
 #{{{ Controlador
-class anonymous_permission(identity.Predicate, identity.IdentityPredicateHelper):
-	def eval_with_object(self, obj, errors = None):
-		return True
 
 class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
