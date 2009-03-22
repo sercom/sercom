@@ -125,8 +125,10 @@ class Root(controllers.RootController):
                 m.append(entregador.id)
             except:
                 pass
-            entregas = list(Entrega.select(IN(Entrega.q.entregadorID, m))[:5])
-            
+            if not m:
+              entregas = list(Entrega.select(IN(Entrega.q.entregadorID))[:5])
+            else:
+              entregas = list(Entrega.select(IN(Entrega.q.entregadorID, m))[:5])
             # Ultimas correcciones
             correcciones = list(Correccion.select(AND(IN(Correccion.q.entregadorID, m), Correccion.q.corregido >= last_login)))
             return dict(instancias_activas=instancias, now=now, entregas=entregas, correcciones=correcciones)
