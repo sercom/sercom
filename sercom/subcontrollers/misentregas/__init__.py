@@ -136,7 +136,10 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
             m.append(entregador.id)
         except:
             pass
-        r = cls.select(IN(cls.q.entregadorID, m))
+        if not m:
+            r = []
+        else:
+            r = cls.select(IN(cls.q.entregadorID, m))
         return dict(records=r, name=name, namepl=namepl)
 
     @expose(template='kid:%s.templates.new' % __name__)
