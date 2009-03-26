@@ -10,6 +10,7 @@ from turbogears import identity
 from sercom.model import InstanciaDeEntrega, Entrega, Correccion, \
         Alumno, AlumnoInscripto, Curso, DateTimeCol
 from sqlobject import SQLObjectNotFound
+from sercom.domain.exceptions import AlumnoSinEntregas
 #}}}
 
 class InstanciaValidator(V.Int):
@@ -73,9 +74,8 @@ class CorregirController(controllers.Controller, identity.SecureResource):
     def index(self, **form_data):
         # TODO: soportar entregas grupales
         cursos = [di.curso for di in identity.current.user.inscripciones_activas]
-        instancias_opts = [(i.id, u'curso %s (%s), ej%s.%s' % (i.ejercicio.curso.numero,
-                                                i.ejercicio.curso.descripcion,
-                                                i.ejercicio.numero, i.numero))
+        instancias_opts = [(i.id, u'Curso: %s - Ejer: %s.%s (%s)' % (i.ejercicio.curso,
+                                                i.ejercicio.numero, i.numero, i.ejercicio.enunciado))
                     for i in InstanciaDeEntrega.activas(cursos)]
         options = dict(instanciaID=instancias_opts)
         return dict(corregir_form=corregir_form, form_data=form_data,
@@ -86,32 +86,21 @@ class CorregirController(controllers.Controller, identity.SecureResource):
     @expose()
     def new(self, instanciaID, padron):
         instancia = InstanciaDeEntrega.get(instanciaID)
-        inscripto = AlumnoInscripto.pk.get(alumno=Alumno.by_padron(padron),
-                curso=instancia.ejercicio.curso)
-        # Veo si ya existe una Correccion
+        alumno=Alumno.by_padron(padron)
+	docente = identity.current.user
         try:
-            correccion = Correccion.pk.get(instancia=instancia,
-                    entregador=inscripto)
-        except SQLObjectNotFound:
-            # Si no existe, trato de crear una
-            entregas = inscripto.entregas_de(instancia)
-            # TODO: soportar correcciones sin entregas (puede pasar)
-            if not entregas:
-                flash(_(u'El alumno %s no realizó ninguna entrega para la '
-                        u'instancia %s') % (inscripto, instancia))
-                raise redirect('index', instanciaID=instanciaID,
-                        padron=padron)
-            correccion = Correccion(entregador=inscripto,
-                    instancia=instancia, entrega=entregas[0],
-                    corrector=identity.current.user,
-                    asignado=DateTimeCol.now())
-        raise redirect('edit/%d' % correccion.id)
+            correccion = docente.corregir(alumno, instancia)
+            raise redirect('edit/%d' % correccion.id)
+        except AlumnoSinEntregas:
+            flash(_(u'El alumno %s no realizó ninguna entrega para la '
+                u'instancia %s') % (alumno, instancia))
+            raise redirect('index', instanciaID=instanciaID, padron=padron)
 
     @expose(template='%s.templates.edit' % __name__)
     def edit(self, correccionID, **form_data):
         correccion = Correccion.get(correccionID)
         entregas_opts = [(e.id, e.fecha) for e in correccion.entregas]
-        corrector_opts = [(di.docente.id, unicode(di.docente))
+        corrector_opts = [(di.id, unicode(di.docente))
                 for di in correccion.instancia.ejercicio.curso.docentes]
         options = dict(entregaID=entregas_opts, correctorID=corrector_opts)
         return dict(correccion=correccion,

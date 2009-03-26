@@ -9,6 +9,7 @@ from sqlobject.col import PickleValidator, UnicodeStringValidator
 from turbogears import identity
 from turbogears.identity import encrypt_password as encryptpw
 from formencode import Invalid
+from domain.exceptions import AlumnoSinEntregas
 
 hub = PackageHub("sercom")
 __connection__ = hub
@@ -256,6 +257,9 @@ class Solucion(SQLObject): #{{{
 #}}}
 
 class Curso(SQLObject): #{{{
+    class sqlmeta:
+        defaultOrder='-anio,-cuatrimestre,numero'
+
     # Clave
     anio            = IntCol(notNone=True)
     cuatrimestre    = IntCol(notNone=True)
@@ -361,6 +365,13 @@ class Curso(SQLObject): #{{{
 
     def shortrepr(self):
         return '%r.%r.%r' % (self.anio, self.cuatrimestre, self.numero)
+
+    def __cmp__(self,other):
+        cmpAnio = cmp(self.anio, other.anio)
+        if cmpAnio == 0:
+            return cmp(self.cuatrimestre, other.cuatrimestre)
+        else:
+            return cmpAnio
 #}}}
 
 class Usuario(InheritableSQLObject): #{{{
@@ -451,6 +462,29 @@ class Docente(Usuario): #{{{
                     Curso.q.id == DocenteInscripto.q.cursoID,
                     self.id == DocenteInscripto.q.docenteID,
                 )))
+    
+    def get_inscripcion(self, curso):
+        return DocenteInscripto.pk.get(curso,self)
+
+    def corregir(self, alumno, instancia):
+        curso=instancia.ejercicio.curso
+        inscripto = AlumnoInscripto.pk.get(curso,alumno)
+
+        # Veo si ya existe una Correccion
+        try:
+            return Correccion.pk.get(instancia=instancia, entregador=inscripto)
+        except SQLObjectNotFound:
+            # Si no existe, trato de crear una
+            entregas = inscripto.entregas_de(instancia)
+            if not entregas:
+                # TODO: soportar correcciones sin entregas (puede pasar)
+                raise AlumnoSinEntregas(alumno,instancia)
+            corrector = self.get_inscripcion(curso)
+            return Correccion(entregador=inscripto,
+                    instancia=instancia, entrega=entregas[0],
+                    corrector=corrector,
+                    asignado=DateTimeCol.now())
+    
 
     def add_entrega(self, instancia, **kw):
         return Entrega(instancia=instancia, **kw)
@@ -783,7 +817,7 @@ class InstanciaDeEntrega(SQLObject): #{{{
                 )))
 
     def __unicode__(self):
-        return unicode(self.numero)
+        return unicode(self.shortrepr())
 
     def __repr__(self):
         return 'InstanciaDeEntrega(id=%r, numero=%r, inicio=%r, fin=%r, ' \
@@ -793,7 +827,7 @@ class InstanciaDeEntrega(SQLObject): #{{{
                     self.activo)
 
     def shortrepr(self):
-        return repr(self.numero)
+        return "%s.%s (%s)" % (self.ejercicio.numero,self.numero,self.ejercicio.enunciado.nombre)
 #}}}
 
 class DocenteInscripto(SQLObject): #{{{

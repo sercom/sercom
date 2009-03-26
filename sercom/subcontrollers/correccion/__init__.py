@@ -86,10 +86,11 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
                     Ejercicio.q.cursoID == cursoID
                 )
             )
-        cursos = [(i.curso.id, i.curso)
-            for i in identity.current.user.inscripciones]
+        cursos = reversed(sorted([i.curso for i in identity.current.user.inscripciones]))
+        cursos_a_seleccionar = [(c.id, c)
+            for c in cursos]
         return dict(records=r, name=name, namepl=namepl, form=filtro,
-            vfilter=vfilter, options=dict(cursoID=cursos))
+            vfilter=vfilter, options=dict(cursoID=cursos_a_seleccionar))
 
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
