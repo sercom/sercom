@@ -463,6 +463,10 @@ class Docente(Usuario): #{{{
                     self.id == DocenteInscripto.q.docenteID,
                 )))
     
+    def _get_instancias_a_corregir(self):
+        cursos = [di.curso for di in self.inscripciones_activas]
+        return InstanciaDeEntrega.activas(cursos)
+
     def get_inscripcion(self, curso):
         return DocenteInscripto.pk.get(curso,self)
 
@@ -532,6 +536,9 @@ class Alumno(Usuario): #{{{
     @classmethod
     def by_padron(cls, padron):
         return cls.by_usuario(unicode(padron))
+
+    def __cmp__(self,other):
+        return cmp(self.padron,other.padron)
 
     def __repr__(self):
         return 'Alumno(id=%r, padron=%r, nombre=%r, password=%r, email=%r, ' \
@@ -788,6 +795,12 @@ class Ejercicio(SQLObject): #{{{
             % (srepr(self.curso), self.numero, srepr(self.enunciado))
 #}}}
 
+class DTOResumenAlumnoEntrega:
+    def __init__(self, alumno, entregas, correccion):
+        self.alumno = alumno
+        self.cant_entregas = len(entregas)
+        self.correccion = correccion
+
 class InstanciaDeEntrega(SQLObject): #{{{
     # Clave
     ejercicio       = ForeignKey('Ejercicio', notNone=True, cascade=True)
@@ -816,6 +829,17 @@ class InstanciaDeEntrega(SQLObject): #{{{
                     IN(Ejercicio.q.cursoID, [0]+[c.id for c in cursos]),
                 )))
 
+    def get_resumen_alumnos(self):
+        alumnos_por_padron = sorted([(ai.alumno.padron, ai.alumno) for ai in self.ejercicio.curso.alumnos])
+        entregas = dict([(a,[]) for (padron,a) in alumnos_por_padron])
+        correcciones = dict([(a,None) for (padron,a) in alumnos_por_padron])
+        for e in self.entregas:
+            entregas[e.entregador.alumno].append(e)
+        for c in self.correcciones:
+            correcciones[c.entregador.alumno] = c
+        return [DTOResumenAlumnoEntrega(a, entregas[a], correcciones[a]) for (padron,a) in alumnos_por_padron]
+        
+
     def __unicode__(self):
         return unicode(self.shortrepr())
 
@@ -825,6 +849,9 @@ class InstanciaDeEntrega(SQLObject): #{{{
                 % (self.id, self.numero, self.inicio, self.fin,
                     self.inicio_proceso, self.fin_proceso, self.observaciones,
                     self.activo)
+
+    def longrepr(self):
+        return u'Curso: %s - Ejer: %s' % (self.ejercicio.curso,self.shortrepr()) 
 
     def shortrepr(self):
         return "%s.%s (%s)" % (self.ejercicio.numero,self.numero,self.ejercicio.enunciado.nombre)
@@ -1088,10 +1115,13 @@ class Ejecucion(InheritableSQLObject): #{{{
 #}}}
 
 class Entrega(Ejecucion): #{{{
+    class sqlmeta:
+        defaultOrder = '-fecha'
+
     _inheritable = False
     # Clave
     instancia           = ForeignKey('InstanciaDeEntrega', notNone=True, cascade=False)
-    entregador          = ForeignKey('Entregador', default=None, cascade=False) # Si es None era un Docente
+    entregador          = ForeignKey('Entregador', default=None, cascade=False)
     fecha               = DateTimeCol(notNone=True, default=DateTimeCol.now)
     pk                  = DatabaseIndex(instancia, entregador, fecha, unique=True)
     # Joins
@@ -1136,7 +1166,7 @@ class Entrega(Ejecucion): #{{{
 class Correccion(SQLObject): #{{{
     # Clave
     instancia       = ForeignKey('InstanciaDeEntrega', notNone=True, cascade=False)
-    entregador      = ForeignKey('Entregador', notNone=True, cascade=False) # Docente no tiene
+    entregador      = ForeignKey('Entregador', notNone=True, cascade=False) 
     pk              = DatabaseIndex(instancia, entregador, unique=True)
     # Campos
     entrega         = ForeignKey('Entrega', notNone=True, cascade=False)

@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h1>Administración de <span py:replace="namepl">Objetos</span></h1>
+<h1>Administración de  Mis <span py:replace="namepl">Objetos</span></h1>
 
 <div py:replace="form(value=vfilter, options=options, action=tg.url('/correccion/list'), submit_text=_(u'Filtrar'))">Filtros</div>
 
@@ -42,7 +42,11 @@
     </tr>
 </table>
 
-<div py:for="page in tg.paginate.pages">
+<br/>
+<a href="${tg.url('/correccion/resumen_alumnos')}">Ver Resumen por Alumno</a>
+<br/>
+
+<div py:for="page in tg.paginate.pages" py:strip="True">
     <a py:if="page != tg.paginate.current_page"
         href="${tg.paginate.get_href(page)}">${page}</a>
     <b py:if="page == tg.paginate.current_page">${page}</b>

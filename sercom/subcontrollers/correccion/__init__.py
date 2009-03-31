@@ -51,7 +51,14 @@ class CorreccionFiltros(W.TableForm):
     form_attrs={'class':"filter"}
     fields = Fields()
 
+class ResumenAlumnosFiltros(W.TableForm):
+    class Fields(W.WidgetsList):
+        instanciaID = W.SingleSelectField(label=_(u'Ejercicio'), validator=V.Int(not_empty=True))
+    form_attrs={'class':"filter"}
+    fields = Fields()
+
 filtro = CorreccionFiltros()
+filtro_resumen_alumnos = ResumenAlumnosFiltros()
 form = CorreccionForm()
 #}}}
 
@@ -126,6 +133,21 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
     def entregas(self, id):
         r = validate_get(id)
         return dict(records=r.entregas, correccion = r)
-        
+
+    @expose(template='kid:%s.templates.resumen_alumnos' % __name__)
+    @paginate('records')
+    def resumen_alumnos(self,instanciaID=None):
+        """Lista un resumen de los alumnos, sus entregas y correcciones para una instancia dada"""
+        if instanciaID:
+            instancia = InstanciaDeEntrega.get(instanciaID)
+            r = instancia.get_resumen_alumnos()
+        else:
+            r = []
+
+        instancias_opts = [(i.id,i.longrepr()) for i in identity.current.user.instancias_a_corregir]
+        options = dict(instanciaID=instancias_opts)
+        vfilter = dict(instanciaID=instanciaID)
+        return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_alumnos,
+            vfilter=vfilter, options=options, instanciaID=instanciaID)
 #}}}
 

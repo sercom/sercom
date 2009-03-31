@@ -7,6 +7,7 @@ from turbogears import validate, flash, error_handler, url
 from turbogears import validators as V
 from turbogears import widgets as W
 from turbogears import identity
+from turbogears import *
 from sercom.model import InstanciaDeEntrega, Entrega, Correccion, \
         Alumno, AlumnoInscripto, Curso, DateTimeCol
 from sqlobject import SQLObjectNotFound
@@ -73,10 +74,7 @@ class CorregirController(controllers.Controller, identity.SecureResource):
     @expose(template='%s.templates.index' % __name__)
     def index(self, **form_data):
         # TODO: soportar entregas grupales
-        cursos = [di.curso for di in identity.current.user.inscripciones_activas]
-        instancias_opts = [(i.id, u'Curso: %s - Ejer: %s.%s (%s)' % (i.ejercicio.curso,
-                                                i.ejercicio.numero, i.numero, i.ejercicio.enunciado))
-                    for i in InstanciaDeEntrega.activas(cursos)]
+        instancias_opts = [(i.id,i.longrepr()) for i in identity.current.user.instancias_a_corregir]
         options = dict(instanciaID=instancias_opts)
         return dict(corregir_form=corregir_form, form_data=form_data,
                 options=options, action='new')
@@ -90,7 +88,7 @@ class CorregirController(controllers.Controller, identity.SecureResource):
 	docente = identity.current.user
         try:
             correccion = docente.corregir(alumno, instancia)
-            raise redirect('edit/%d' % correccion.id)
+            raise redirect('edit', correccionID = correccion.id)
         except AlumnoSinEntregas:
             flash(_(u'El alumno %s no realizó ninguna entrega para la '
                 u'instancia %s') % (alumno, instancia))
@@ -105,7 +103,7 @@ class CorregirController(controllers.Controller, identity.SecureResource):
         options = dict(entregaID=entregas_opts, correctorID=corrector_opts)
         return dict(correccion=correccion,
                 correccion_form=correccion_form, options=options,
-                action='../save/%d' % correccion.id)
+                action=url('save', correccionID = correccion.id))
 
     @validate(form=correccion_form)
     @error_handler(edit)
@@ -113,7 +111,7 @@ class CorregirController(controllers.Controller, identity.SecureResource):
     def save(self, correccionID, **form_data):
         correccion = Correccion.get(correccionID)
         correccion.set(**form_data)
-        raise redirect('../')
+        raise redirect('index')
 
 #}}}
 
