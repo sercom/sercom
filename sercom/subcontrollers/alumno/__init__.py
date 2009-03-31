@@ -85,7 +85,7 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
     @paginate('records')
     def list(self):
         """List records in model"""
-        r = cls.select()
+        r = cls.select(orderBy=Alumno.q.usuario)
         return dict(records=r, name=name, namepl=namepl)
 
     @expose()
