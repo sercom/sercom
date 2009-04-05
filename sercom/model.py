@@ -1039,6 +1039,9 @@ class AlumnoInscripto(Entregador): #{{{
     def _get_nombre(self):
         return self.alumno.padron
 
+    def _get_padron(self):
+        return self.alumno.padron
+
     @classmethod
     def selectByAlumno(self, alumno):
         return AlumnoInscripto.select(AlumnoInscripto.q.alumnoID

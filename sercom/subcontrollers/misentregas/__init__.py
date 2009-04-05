@@ -196,6 +196,8 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
     @expose(template='kid:%s.templates.corrida' % __name__)
     def corrida(self, entregaid):
         e = validate_get(entregaid)
+        if (e.entregador.padron != identity.current.user.padron):
+            raise redirect('/dashboard')
         return dict(entrega=e)
 
     @expose()
