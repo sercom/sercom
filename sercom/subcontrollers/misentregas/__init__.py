@@ -139,7 +139,7 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
         if not m:
             r = []
         else:
-            r = cls.select(IN(cls.q.entregadorID, m))
+            r = cls.select(IN(cls.q.entregadorID, m), orderBy=-Entrega.q.fecha)
         return dict(records=r, name=name, namepl=namepl)
 
     @expose(template='kid:%s.templates.new' % __name__)

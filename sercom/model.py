@@ -1131,6 +1131,15 @@ class Entrega(Ejecucion): #{{{
     comandos_ejecutados = MultipleJoin('ComandoFuenteEjecutado')
     pruebas             = MultipleJoin('Prueba')
 
+    def _get_pruebas_publicas(self):
+        return Prueba.select(AND(Prueba.q.entregaID == self.id, Prueba.q.caso_de_pruebaID == CasoDePrueba.q.id, CasoDePrueba.q.publico == True))
+
+    def get_pruebas_visibles(self,usuario):
+        if 'admin' in usuario.roles:
+            return self.pruebas
+        else:
+            return self.pruebas_publicas
+
     def add_comando_ejecutado(self, comando, **kw):
         return ComandoFuenteEjecutado(entrega=self, comando=comando, **kw)
 

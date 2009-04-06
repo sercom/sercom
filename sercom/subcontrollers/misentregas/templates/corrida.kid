@@ -39,7 +39,7 @@
     </tr>
 	</table>
 <h2>Pruebas Realizadas</h2>
-<div py:for="p in entrega.pruebas" py:strip="True">
+<div py:for="p in entrega.get_pruebas_visibles(identity.current.user)" py:strip="True">
 	<?python
 		if p.exito:
 			color = "pruebaok"
@@ -83,7 +83,6 @@
         <th>Diferencias</th>
         <th>Archivos Guardados</th>
     </tr>
-		<!-- TODO : Solo mostrar con ce.comando.publico == True -->
 		<tr py:for="ce in p.comandos_ejecutados" py:if="ce.comando.publico or 'admin' in identity.current.permissions">
 	<?python
 		if ce.exito:
