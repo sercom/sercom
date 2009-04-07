@@ -10,14 +10,13 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
-from sercom.model import ComandoEjecutado, ComandoPruebaEjecutado, Entrega, Correccion, Curso, Ejercicio, InstanciaDeEntrega, Grupo, Miembro, AlumnoInscripto
+from sercom.model import ComandoEjecutado, ComandoPruebaEjecutado, Entrega, Correccion, Curso, Ejercicio, InstanciaDeEntrega, Grupo, Miembro, AlumnoInscripto, Alumno
 from sercom.ziputil import unzip
 from sqlobject import *
 from zipfile import ZipFile, BadZipfile
 from cStringIO import StringIO
 from datetime import datetime
 import os, shutil, subprocess
-
 #}}}
 
 #{{{ Configuración
@@ -196,8 +195,9 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
     @expose(template='kid:%s.templates.corrida' % __name__)
     def corrida(self, entregaid):
         e = validate_get(entregaid)
-        if (e.entregador.padron != identity.current.user.padron):
-            raise redirect('/dashboard')
+        if (isinstance(identity.current.user, Alumno)):
+	    if (e.entregador.padron != identity.current.user.padron):
+                raise redirect('/dashboard')
         return dict(entrega=e)
 
     @expose()
