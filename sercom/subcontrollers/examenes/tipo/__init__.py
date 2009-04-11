@@ -59,7 +59,7 @@ class TipoPreguntaController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records')
+    @paginate('records', limit=20)
     def list(self):
         return dict(namepl=namepl, records=TipoPregunta.select())
 

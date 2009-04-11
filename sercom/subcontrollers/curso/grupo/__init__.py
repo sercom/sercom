@@ -303,7 +303,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.list' % __name__)
     @validate(validators=dict(curso=V.Int))
-    @paginate('records')
+    @paginate('records', limit=20)
     def list(self, curso):
         """List records in model"""
         r = cls.selectBy(cursoID=curso)

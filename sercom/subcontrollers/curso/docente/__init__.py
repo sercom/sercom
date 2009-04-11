@@ -66,7 +66,7 @@ class DocenteInscriptoController(controllers.Controller, identity.SecureResource
 
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records')
+    @paginate('records', limit=20)
     def list(self, cursoID):
         """List records in model"""
         r = cls.select(cls.q.cursoID==cursoID)

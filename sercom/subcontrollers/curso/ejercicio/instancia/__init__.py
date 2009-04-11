@@ -75,7 +75,7 @@ class InstanciaController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.list' % __name__)
     @validate(validators=dict(ejercicio=V.Int))
-    @paginate('records')
+    @paginate('records', limit=20)
     def list(self, ejercicio):
         ejercicio = Ejercicio.get(ejercicio)
         r = cls.selectBy(ejercicio=ejercicio).orderBy(cls.q.numero)
@@ -134,7 +134,7 @@ class InstanciaController(controllers.Controller, identity.SecureResource):
         raise redirect('../list/%s' % ejercicio)
 
     @expose(template='kid:%s.templates.entregas' % __name__)
-    @paginate('records')
+    @paginate('records', limit=20)
     def entregas(self, instancia_id, alumno_inscripto_id=None, **kw):
         """Show record in model"""
         instancia = validate_get(instancia_id)

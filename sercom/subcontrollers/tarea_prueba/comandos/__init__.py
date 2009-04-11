@@ -64,7 +64,7 @@ class ComandoPruebaController(controllers.Controller, identity.SecureResource):
     require = identity.has_permission('admin')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records')
+    @paginate('records', limit=20)
     def list(self, tareaID):
         """List records in model"""
         r = cls.select(cls.q.tareaID == tareaID)

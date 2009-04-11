@@ -114,7 +114,7 @@ class PreguntaExamenController(controllers.Controller):
         raise redirect('../show/%d' % r.id)
 
     @expose(template='kid:%s.templates.find' % __name__)
-    @paginate('records')
+    @paginate('records', limit=20)
     def find(self, tipoID=None, temaID=None):
         """Find records in model"""
         vfilter = dict(tipoID=tipoID, temaID=temaID)

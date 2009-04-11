@@ -40,7 +40,7 @@ class MisCorreccionesController(controllers.Controller, identity.SecureResource)
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records')
+    @paginate('records', limit=20)
     def list(self):
         """List records in model"""
         # Grupos en los que el usuario formo parte

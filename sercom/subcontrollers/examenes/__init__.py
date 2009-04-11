@@ -96,7 +96,7 @@ class ExamenFinalController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records')
+    @paginate('records', limit=20)
     def list(self):
         permitir_agregar = TemaPregunta.select().count() > 0 and TipoPregunta.select().count() > 0
         return dict(namepl='Examenes', permitir_agregar=permitir_agregar,  records=ExamenFinal.select())

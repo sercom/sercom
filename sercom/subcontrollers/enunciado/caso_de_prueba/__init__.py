@@ -92,7 +92,7 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     @identity.require(identity.has_permission('admin'))
     @expose(template='kid:%s.templates.list' % __name__)
     @validate(validators=dict(enunciado=V.Int))
-    @paginate('records')
+    @paginate('records', limit=20)
     def list(self, enunciado):
         """List records in model"""
         r = cls.selectBy(enunciadoID=enunciado)

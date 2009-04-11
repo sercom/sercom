@@ -131,7 +131,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.list' % __name__)
     @validate(validators=dict(autor=V.Int))
-    @paginate('records')
+    @paginate('records', limit=20)
     def list(self, autor=None):
         """List records in model"""
         if autor is None:
