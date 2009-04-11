@@ -9,6 +9,7 @@
 <body>
 
 <h1>Entregas Realizadas</h1>
+<h2>Enunciado: <span py:replace="ejercicio.enunciado">Nombre Enunciado</span> (instancia: <span py:replace="instancia.numero">Nombre Enunciado</span>)</h2>
 
 <table class="list">
     <tr>
@@ -67,12 +68,14 @@
 </table>
 
 <br/>
-<a href="javascript:window.history.go(-1);">Volver</a>
 
-<div py:for="page in tg.paginate.pages">
+<div>
+<a href="javascript:window.history.go(-1);">Volver</a>
+<span py:for="page in tg.paginate.pages">
     <a py:if="page != tg.paginate.current_page"
         href="${tg.paginate.get_href(page)}">${page}</a>
     <b py:if="page == tg.paginate.current_page">${page}</b>
+</span>
 </div>
 
 </body>

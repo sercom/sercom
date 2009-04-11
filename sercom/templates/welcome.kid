@@ -29,12 +29,12 @@
                                         or ai.correccion_de(i).nota is None]
                     ?>
                     <li>
-                        <a href="${tg.url('/curso/ejercicio/list/%d' % i.id)}">Ejercicio
+                        <a href="${tg.url('/curso/ejercicio/show/%d' % i.ejercicio.id)}">Ejercicio
                             ${ej.numero}</a>,
-                        <a href="${tg.url('/curso/ejercicio/instancia/list/%d' % i.id)}">entrega
+                        <a href="${tg.url('/curso/ejercicio/instancia/entregas/%d' % i.id)}">entrega
                             ${i.numero}</a>:
                         ${len(entregaron)} entrega(s), ${len(por_corregir)} sin
-                        <a py:if="por_corregir" href="${tg.url('/corregir/%d' % i.id)}">corregir</a>
+                        <a py:if="por_corregir" href="${tg.url('/corregir/')}">corregir</a>
                     </li>
                 </ul>
             </div>
@@ -48,9 +48,9 @@
             <ul py:for="i in instancias_activas" py:strip="not instancias_activas">
                 <li>
                 <?python d = i.fin - now ?>
-                La <a href="${tg.url('/curso/ejercicio/instancia/list/%d' % i.id)}">instancia
+                La <a href="${tg.url('/curso/ejercicio/instancia/show/%d' % i.id)}">instancia
                 ${i.numero}</a> del
-                <a href="${tg.url('/curso/ejercicio/list/%d' % i.ejercicio.id)}">ejercicio
+                <a href="${tg.url('/curso/ejercicio/show/%d' % i.ejercicio.id)}">ejercicio
                 ${i.ejercicio.numero}</a> vence en
                 <span py:if="d.days">${d.days} días,</span>
                 <span py:if="d.days or d.seconds">${d.seconds//3600}

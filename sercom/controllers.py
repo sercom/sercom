@@ -96,12 +96,14 @@ class Root(controllers.RootController):
         if 'admin' in identity.current.permissions:
             # TODO : Fijar el curso !!
             docente = identity.current.user
+            # busca los cursos activos segun el docente logueado y el perdiodo del año
             cursos = list(Curso.select(
                     AND(
                             IN(Curso.q.id, [c.id for c in Curso.activos()]),
                             Curso.q.id == DocenteInscripto.q.cursoID,
                             docente.id == DocenteInscripto.q.docenteID,
                     )))
+            # busca las correcciones asignadas al docente
             correcciones = Correccion.selectBy(corrector=identity.current.user,
                 corregido=None).count()
             instancias = list(InstanciaDeEntrega.select(

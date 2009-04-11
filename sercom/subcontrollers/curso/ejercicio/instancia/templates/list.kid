@@ -9,6 +9,7 @@
 <body>
 
 <h1>Administración de <span py:replace="namepl">Objetos</span></h1>
+<h2>Enunciado: <span py:replace="ejercicio.enunciado">Nombre Enunciado</span></h2>
 
 <table class="list">
     <tr>
