@@ -46,6 +46,15 @@ class AlumnoForm(W.TableForm):
                 V.Email(not_empty=False, resolve_domain=True),
                 V.String(not_empty=False, max=255, strip=True,
                         encoding='ascii')))
+
+        new_pwd = W.PasswordField(label=_(u'Password'),
+            help_text=_(u'Requerido Mínimo 5 máximo 20.'),
+            validator=V.UnicodeString(min=5, max=20, strip=False,not_empty=False))                        
+            
+        new_pwd_copy = W.PasswordField(label=_(u'Repetir Password'),
+            help_text=_(u'Requerido Mínimo 5 máximo 20.'),
+            validator=V.UnicodeString(min=5, max=20, strip=False,not_empty=False))                                                
+
         telefono = W.TextField(label=_(u'Teléfono'),
             #help_text=_(u'Texto libre para teléfono, se puede incluir '
             #    'horarios o varias entradas.'),
@@ -107,6 +116,18 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
     @error_handler(new)
     @expose()
     def create(self, **kw):
+
+        # verifica que los pwd coincidan
+        if kw['new_pwd'] != kw['new_pwd_copy'] or kw['new_pwd']=="":
+        	flash(_(u'Los passwords no coinciden'))
+        	del kw['new_pwd']
+        	del kw['new_pwd_copy']
+        	raise redirect("new", **kw)
+        else:
+        	kw['password'] = kw['new_pwd']
+        	del kw['new_pwd']
+        	del kw['new_pwd_copy']
+        	
         """Save or create record to model"""
         kw['roles'] = [Rol.by_nombre('alumno')]
         validate_new(kw)
@@ -124,6 +145,21 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
     @expose()
     def update(self, id, **kw):
         """Save or create record to model"""
+        
+        if kw['new_pwd']!="" or kw['new_pwd_copy']!="":        
+        	if kw['new_pwd'] != kw['new_pwd_copy']:
+        		flash(_(u'Los passwords no coinciden'))
+        		del kw['new_pwd']
+        		del kw['new_pwd_copy']
+        		raise redirect('../edit/%d' % int(id), **kw)
+        	else:
+        		kw['password'] = kw['new_pwd']
+        		del kw['new_pwd']
+        		del kw['new_pwd_copy']
+        else:
+        	del kw['new_pwd']
+        	del kw['new_pwd_copy']
+        
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')
