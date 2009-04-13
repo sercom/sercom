@@ -1139,7 +1139,7 @@ class Entrega(Ejecucion): #{{{
         return Prueba.select(AND(Prueba.q.entregaID == self.id, Prueba.q.caso_de_pruebaID == CasoDePrueba.q.id, CasoDePrueba.q.publico == True))
 
     def get_pruebas_visibles(self,usuario):
-        if 'admin' in usuario.roles:
+        if Permiso.admin in usuario.permisos:
             return self.pruebas
         else:
             return self.pruebas_publicas
@@ -1357,14 +1357,23 @@ class Permiso(object): #{{{
     def __or__(self, other):
         return self.valor | other.valor
 
+    def __eq__(self, other):
+        return self.valor == other.valor
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __hash__(self):
+        return hash(self.valor)
+
     def __repr__(self):
         return repr(self.nombre)
-#}}}
 
-# TODO ejemplos
-entregar_tp = Permiso(u'entregar', u'Permite entregar trabajos prácticos')
-admin = Permiso(u'admin', u'Permite hacer ABMs arbitrarios')
-corregir = Permiso(u'corregir', u'Permite corregir ejercicios')
+Permiso.entregar_tp = Permiso(u'entregar', u'Permite entregar trabajos prácticos')
+Permiso.admin = Permiso(u'admin', u'Permite hacer ABMs arbitrarios')
+Permiso.corregir = Permiso(u'corregir', u'Permite corregir ejercicios')
+
+#}}}
 
 #}}} Identity
 
