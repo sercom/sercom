@@ -1118,7 +1118,10 @@ class Ejecucion(InheritableSQLObject): #{{{
 
     def _get_duracion(self):
         """retorna un timedelta con la duracion de la tarea"""
-        return self.fin - self.inicio;
+        if self.fin:
+            return self.fin - self.inicio;
+        else:
+            return None #timedelta()
 
     def get_archivos_nombres(self):
        return unzip_filenames(self.archivos)
