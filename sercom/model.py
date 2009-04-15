@@ -10,6 +10,7 @@ from turbogears import identity
 from turbogears.identity import encrypt_password as encryptpw
 from formencode import Invalid
 from domain.exceptions import AlumnoSinEntregas
+from ziputil import *
 
 hub = PackageHub("sercom")
 __connection__ = hub
@@ -1114,6 +1115,13 @@ class Ejecucion(InheritableSQLObject): #{{{
     exito           = IntCol(default=None)
     observaciones   = UnicodeCol(notNone=True, default=u'')
     archivos        = BLOBCol(default=None, length=BLOB_SIZE) # ZIP con archivos
+
+    def _get_duracion(self):
+        """retorna un timedelta con la duracion de la tarea"""
+        return self.fin - self.inicio;
+
+    def get_archivos_nombres(self):
+       return unzip_filenames(self.archivos)
 
     def __repr__(self, clave='', mas=''):
         return ('%s(%s inicio=%r, fin=%r, exito=%r, observaciones=%r%s)'

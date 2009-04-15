@@ -16,6 +16,7 @@ from sqlobject import *
 from zipfile import ZipFile, BadZipfile
 from cStringIO import StringIO
 from datetime import datetime
+from sercom.subcontrollers.utils.downloader import *
 import os, shutil, subprocess
 #}}}
 
@@ -203,12 +204,9 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
     @expose()
     def get_archivo(self, entregaid):
         r = validate_get(entregaid)
-        cherrypy.response.headers["Content-Type"] = "application/zip"
-        content_disp = "attachment;filename=Ej_%s-Entrega_%s-%s.zip" % (
-                r.instancia.ejercicio.numero, r.instancia.numero,
-                r.entregador.nombre)
-        cherrypy.response.headers["Content-disposition"] = content_disp
-        return r.archivos
+        download = Downloader(cherrypy.response)
+        nombre = "Ej_%s-Entrega_%s-%s.zip" % (r.instancia.ejercicio.numero, r.instancia.numero, r.entregador.nombre)
+        return download.download_zip(r.archivos, nombre)
 
     @expose()
     def get_pdf(self, entregaid):
@@ -242,12 +240,15 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
         return pdf
 
     @expose()
-    def file(self, id):
+    def file(self, id, nombre_arch_interno=None):
         r = ComandoEjecutado.get(id)
-        cherrypy.response.headers["Content-Type"] = "application/zip"
-        content_disp = "attachment;filename=comando_ejecutado_%d.zip" % (r.id)
-        cherrypy.response.headers["Content-disposition"] = content_disp
-        return r.archivos
+        download = Downloader(cherrypy.response)
+
+        if nombre_arch_interno:
+            return download.download_zip_content(r.archivos,nombre_arch_interno)
+        else:
+            nombre_arch = "comando_ejecutado_%d.zip" % r.id
+            return download.download_zip(r.archivos, nombre_arch) 
 
     @expose()
     def diff(self, id):

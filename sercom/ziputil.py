@@ -8,6 +8,16 @@ from os import path
 
 log = logging.getLogger('sercom.ziputil')
 
+def unzip_filenames(bytes):
+    if bytes:
+        zip = ZipFile(StringIO(bytes), 'r')
+        return zip.namelist()
+    else:
+        return []
+
+def unzip_arch_interno(bytes, nombre_arch_interno):
+    return ZipFile(StringIO(bytes), 'r').read(nombre_arch_interno)
+ 
 def unzip(bytes, default_dst='.', specific_dst=dict()): # {{{
     u"""Descomprime un buffer de datos en formato ZIP.
     Los archivos se descomprimen en default_dst a menos que exista una entrada
