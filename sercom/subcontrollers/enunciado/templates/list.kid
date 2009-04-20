@@ -13,8 +13,8 @@
 
 <table class="list">
     <tr>
-        <th>Cuat.</th>
         <th>Año</th>
+        <th>Cuat.</th>
         <th>Nombre</th>
         <th>Descripción</th>
         <th py:if="'admin' in identity.current.permissions">Autor</th>
@@ -23,8 +23,8 @@
         <th>Operaciones</th>
     </tr>
 		<tr py:for="record in records">
-        <td align="center"><span py:replace="record.cuatrimestre">descripción</span></td>
         <td align="center"><span py:replace="record.anio">descripción</span></td>
+        <td align="center"><span py:replace="record.cuatrimestre">descripción</span></td>
         <td><a href="${tg.url('/enunciado/show/%d' % record.id)}"><span py:replace="record.nombre">nombre</span></a></td>
         <td><span py:replace="tg.summarize(record.descripcion, 30)">descripción</span></td>
 				<td py:if="'admin' in identity.current.permissions">

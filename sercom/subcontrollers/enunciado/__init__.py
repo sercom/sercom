@@ -135,9 +135,9 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     def list(self, autor=None):
         """List records in model"""
         if autor is None:
-            r = cls.select()
+            r = cls.select(orderBy='anio desc, cuatrimestre desc')
         else:
-            r = cls.selectBy(autorID=autor)
+            r = cls.selectBy(autorID=autor, orderBy='anio desc, cuatrimestre desc')
         return dict(records=r, name=name, namepl=namepl, parcial=autor)
 
     @expose(template='kid:%s.templates.new' % __name__)
