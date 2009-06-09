@@ -45,16 +45,6 @@
         </td>
     </tr>
     <tr>
-        <th>Entregas realizadas:</th>
-	      <td>
-            <ul>
-                <li py:for="i in record.entregas">
-                    ${i}
-                </li>
-            </ul>
-        </td>
-    </tr>
-    <tr>
         <th>Correcciones :</th>
 	      <td>
             <ul>

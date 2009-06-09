@@ -1,5 +1,6 @@
 # vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker :
 
+from turbojson import jsonify
 from datetime import datetime
 from turbogears.database import PackageHub
 from sqlobject import *
@@ -20,6 +21,7 @@ __all__ = ('Curso', 'Usuario', 'Docente', 'Alumno', 'CasoDePrueba')
 BLOB_SIZE = (1 << 24) - 1 # 16MB (MEDIUMBLOB)
 
 #{{{ Custom Columns
+
 
 # TODO Esto debería implementarse con CSV para mayor legibilidad
 class TupleValidator(PickleValidator):
@@ -53,6 +55,14 @@ class TupleCol(PickleCol):
 #}}}
 
 #{{{ Clases
+
+def validate_in(values): #{{{
+    if values:
+        return [-1] + values
+    else:
+        return [-1]
+#}}}
+
 
 def srepr(obj): #{{{
     if obj is not None:
@@ -346,6 +356,15 @@ class Curso(SQLObject): #{{{
         # FIXME esto deberian arreglarlo en SQLObject
         Ejercicio.pk.get(self.id, numero).destroySelf()
 
+    def get_grupos_con_alumno(self, alumno):
+        #workaround para evitar problemas con relacion Miembro-AlumnoInscripto durante armado de query.
+        inscriptos = AlumnoInscripto.select(AND(AlumnoInscripto.q.cursoID == self.id, AlumnoInscripto.q.alumnoID == alumno.id))
+        return Grupo.select(AND(Grupo.q.cursoID == self.id,
+            Miembro.q.grupoID == Grupo.q.id, 
+            IN(Miembro.q.alumnoID, validate_in([i.id for i in inscriptos]) ),
+            Miembro.q.baja == None
+            ))
+
     @classmethod
     def activos(cls):
         now = datetime.now()
@@ -463,7 +482,7 @@ class Docente(Usuario): #{{{
                     Curso.q.id == DocenteInscripto.q.cursoID,
                     self.id == DocenteInscripto.q.docenteID,
                 )))
-    
+   #TODO ver si se utiliza, borrar si no es asi. Chequear InstanciaDeEntrega.activas tmb 
     def _get_instancias_a_corregir(self):
         cursos = [di.curso for di in self.inscripciones_activas]
         return InstanciaDeEntrega.activas(cursos)
@@ -782,6 +801,14 @@ class Ejercicio(SQLObject): #{{{
         # FIXME self.id
         InstanciaDeEntrega.pk.get(self.id, numero).destroySelf()
 
+    def _get_instancias_a_entregar(self):
+        now = DateTimeCol.now()
+        return InstanciaDeEntrega.select(AND(
+                InstanciaDeEntrega.q.ejercicioID == self.id,
+                InstanciaDeEntrega.q.activo == True,
+                InstanciaDeEntrega.q.inicio <= now,
+                InstanciaDeEntrega.q.fin >= now))
+
     def __unicode__(self):
         return u'(%s, %s, %s)' % (self.curso, self.numero, self.enunciado)
 
@@ -945,6 +972,7 @@ class Grupo(Entregador): #{{{
         for d in tutores:
             self.add_tutor(d)
 
+
     def set(self, miembros=None, tutores=None, **kw):
         super(Grupo, self).set(**kw)
         if miembros is not None:
@@ -1005,6 +1033,7 @@ class Grupo(Entregador): #{{{
 
     @classmethod
     def selectByAlumno(self, alumno):
+        #TODO falta filtrar por grupo
         return Miembro.select(AND(Miembro.q.alumnoID == AlumnoInscripto.q.id,
                 AlumnoInscripto.q.alumnoID == alumno.id, Miembro.q.baja == None))
 

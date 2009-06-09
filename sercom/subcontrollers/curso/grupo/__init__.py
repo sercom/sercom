@@ -35,11 +35,11 @@ def validate_get(id):
 def validate_set(id, data):
     return val.validate_set(cls, name, id, data)
 
-def validate_new(data):
-    return val.validate_new(cls, name, data)
+def create_record(cursoId, data):
+    val.create_record(cls, name, data, 'list/%s' % cursoId,'new/%s' % cursoId)
 
-def validate_del(id):
-    return val.validate_del(cls, name, id)
+def delete_record(cursoId, id):
+    val.delete_record(cls, name, id, '../../list/%s' % cursoId)
 #}}}
 
 #{{{ Formulario
@@ -191,6 +191,7 @@ ajaxadmin = u"""
             initWidgets(true);
             return;
         }
+
         // carga el grupo en el multiple select
         grupoA = MochiKit.DOM.getElement('form_grupos_from');
         id = lista.options[lista.selectedIndex].value
@@ -322,18 +323,18 @@ class GrupoController(controllers.Controller, identity.SecureResource):
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
-        resp = kw['responsable']
+        cursoId = kw['cursoID']
+        padron_responsable = kw['responsable']
         try:
             # Busco el alumno inscripto
-            resp = AlumnoInscripto.selectBy(cursoID=kw['cursoID'],
-                alumno=Alumno.byPadron(kw['responsable'])).getOne()
+            resp = AlumnoInscripto.selectBy(cursoID=cursoId,
+                alumno=Alumno.byPadron(padron_responsable)).getOne()
         except SQLObjectNotFound:
             resp = None
         kw['responsable'] = resp
 
-        r = validate_new(kw)
-        flash(_(u'Se creó un nuevo %s.') % name)
-        raise redirect('list/%d' % int(kw['cursoID']))
+        create_record(cursoId, kw)
+
 
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
@@ -385,9 +386,7 @@ class GrupoController(controllers.Controller, identity.SecureResource):
     @expose()
     def delete(self, cursoID, id):
         """Destroy record in model"""
-        validate_del(id)
-        flash(_(u'El %s fue eliminado permanentemente.') % name)
-        raise redirect('../../list/%d' % int(cursoID))
+        delete_record(cursoID,id)
 
     @expose('json')
     def get_inscripto(self, cursoid, padron):
@@ -409,26 +408,23 @@ class GrupoController(controllers.Controller, identity.SecureResource):
 
     @expose('json')
     def get_alumnos(self, grupoid):
-        msg = u''
-        error=False
         try:
             # Busco los alumnos del grupo
             grupo = Grupo.get(int(grupoid))
             miembros = Miembro.selectBy(baja=None, grupo=grupo)
-            print miembros
             integrantes = []
             for m in miembros:
                 msg = {}
                 alumnoInscripto = AlumnoInscripto.get(m.alumno.id)
                 msg['id'] = alumnoInscripto.id
-                msg['label'] = alumnoInscripto
+                msg['label'] = alumnoInscripto.alumno.usuario
                 integrantes.append(msg)
+            return dict(msg=integrantes, error=False)
+
         except Exception, (inst):
             msg = u"""Se ha producido un error inesperado al buscar el registro:\n      %s""" % str(inst)
-            error = True
-            integrantes = []
-            integrantes.append(msg)
-        return dict(msg=integrantes, error=error)
+            integrantes = [msg]
+            return dict(msg=integrantes, error=True)
 
     @expose(template='kid:%s.templates.admin' % __name__)
     def admin(self, cursoID, **kw):

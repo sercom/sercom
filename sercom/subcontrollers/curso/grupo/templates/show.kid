@@ -33,7 +33,7 @@
         <th>Integrantes:</th>
 				<td>
 					<span py:for="a in record.miembros" py:if="not a.baja">
-						<a href="${tg.url('/curso/alumno/show/%d/%d' % (a.alumno.id, a.alumno.curso.id))}" py:content="a.alumno" />
+						<a href="${tg.url('/curso/alumno/show/%d' % a.alumno.id)}" py:content="a.alumno" />
 						<br />
 					</span>		
 				</td>

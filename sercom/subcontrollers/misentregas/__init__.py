@@ -44,23 +44,41 @@ def get_ejercicios_activos():
             InstanciaDeEntrega.q.fin >= DateTimeCol.now())))]
 
 ajax = """
-    function clearInstancias ()
+    function clearCombo(cmbId)
     {
-        l = MochiKit.DOM.getElement('form_instancia');
+        l = MochiKit.DOM.getElement(cmbId);
         l.options.length = 0;
         l.disabled = true;
     }
 
-    function mostrarInstancias(res)
+    function checkEnableStatus(cmbId)
     {
-        clearInstancias();
+        l = MochiKit.DOM.getElement(cmbId);
+        if (l.options.length > 0)
+            l.disabled = false;
+    }
+
+
+    function clearInstanciasYGrupos ()
+    {
+        clearCombo('form_instancia');
+        clearCombo('form_grupo');
+    } 
+
+    function mostrarInstanciasYGrupos(res)
+    {
         for(i=0; i < res.instancias.length; i++) {
             id = res.instancias[i].id;
             label = res.instancias[i].numero;
-            MochiKit.DOM.appendChildNodes("form_instancia", OPTION({"value":id}, label))
+            MochiKit.DOM.appendChildNodes('form_instancia', OPTION({'value':id}, label))
         }
-        if (l.options.length > 0)
-            l.disabled = false;
+        for(i=0; i < res.grupos.length; i++) {
+            id = res.grupos[i].id;
+            label = res.grupos[i].nombre;
+            MochiKit.DOM.appendChildNodes('form_grupo', OPTION({'value':id}, label))
+        }
+        checkEnableStatus('form_instancia');
+        checkEnableStatus('form_grupo');
     }
 
     function err (err)
@@ -70,25 +88,24 @@ ajax = """
 
     function actualizar_instancias ()
     {
+        clearInstanciasYGrupos();
         l = MochiKit.DOM.getElement('form_ejercicio');
         id = l.options[l.selectedIndex].value;
-        if (id == 0) {
-            clearInstancias();
-            return;
+        if (id != 0) {
+            url = "/mis_entregas/get_instancias_y_grupos?ejercicio_id="+id;
+            var d = loadJSONDoc(url);
+            d.addCallbacks(mostrarInstanciasYGrupos, err);
         }
-
-        url = "/mis_entregas/instancias?ejercicio_id="+id;
-        var d = loadJSONDoc(url);
-        d.addCallbacks(mostrarInstancias, err);
     }
 
     function prepare()
     {
         connect('form_ejercicio', 'onchange', actualizar_instancias);
-        clearInstancias();
+        clearInstanciasYGrupos();
     }
 
-    MochiKit.DOM.addLoadEvent(prepare)
+    MochiKit.DOM.addLoadEvent(prepare);
+    MochiKit.DOM.focusOnLoad('form_ejercicio');
 """
 #{{{ Formulario
 class EntregaForm(W.TableForm):
@@ -96,9 +113,10 @@ class EntregaForm(W.TableForm):
         ejercicio = W.SingleSelectField(label=_(u'Ejercicio'),
             options=get_ejercicios_activos, validator=V.Int(not_empty=True))
         instancia = W.SingleSelectField(label=_(u'Instancia de Entrega'), validator=V.Int(not_empty=True))
+        grupo = W.SingleSelectField(label=_(u'Grupo'), validator=V.Int())
         archivo = W.FileField(label=_(u'Archivo'), help_text=_(u'Archivo en formaro ZIP con tu entrega'))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_ejercicio');"), W.JSSource(ajax)]
+    javascript = [W.JSSource(ajax)]
 
 form = EntregaForm()
 
@@ -165,28 +183,17 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
         # por defecto el entregador es el user loggeado
         entregador = AlumnoInscripto.selectByAlumno(identity.current.user)
 
+        grupo_id = kw['grupo']
+        del kw['grupo']
         ejercicio = Ejercicio.get(int(ejercicio))
         if ejercicio.grupal:
-            # Como es grupal, tengo que hacer que la entrega la haga
-            # mi grupo y no yo personalmente. Busco el grupo
-            # activo.
-
-            # Con esto obtengo todos los grupos a los que pertenece el Alumno
-            # y que estan activos
-            try:
-                # TODO : Falta filtrar por curso!!
-                m = Miembro.select(
-                    AND(
-                        Miembro.q.alumnoID == AlumnoInscripto.q.id,
-                        AlumnoInscripto.q.alumnoID == identity.current.user.id,
-                        Miembro.q.baja == None
-                    )
-                ).getOne()
-            except:
-                flash(_(u'No puedes realizar la entrega ya que el ejercicio es Grupal y no perteneces a ningún grupo.'))
+            # Como es grupal, tengo que hacer que la entrega la haga el grupo
+            if not grupo_id:
+                flash(_(u'No se puede realizar una entrega de un ejercicio grupal sin elegir el grupo.'))
                 raise redirect('list')
+            else:
+                entregador = Grupo.get(int(grupo_id))
 
-            entregador = m.grupo
         kw['archivos'] = archivo
         kw['entregador'] = entregador
         validate_new(kw)
@@ -265,12 +272,13 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
         return dict(zip=zip)
 
     @expose('json')
-    def instancias(self, ejercicio_id):
-        instancias = InstanciaDeEntrega.select(AND(
-                InstanciaDeEntrega.q.ejercicioID == ejercicio_id,
-                InstanciaDeEntrega.q.activo == True,
-                InstanciaDeEntrega.q.inicio <= DateTimeCol.now(),
-                InstanciaDeEntrega.q.fin >= DateTimeCol.now()))
-        return dict(instancias=instancias)
+    def get_instancias_y_grupos(self, ejercicio_id):
+        ejercicio = Ejercicio.get(ejercicio_id)
+        instancias = ejercicio.instancias_a_entregar
+        if ejercicio.grupal:
+            grupos = ejercicio.curso.get_grupos_con_alumno(identity.current.user)
+        else:
+            grupos = []
+        return dict(instancias=instancias, grupos=grupos)
 #}}}
 
