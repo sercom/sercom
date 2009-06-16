@@ -27,11 +27,15 @@ namepl = name + 's'
 #}}}
 
 #{{{ Validación
-def validate_get(id):
-    return val.validate_get(cls, name, id)
+def validate_get_entrega(id):
+    e = val.validate_get(cls, name, id)
+    e.validar_acceso(identity.current.user)
+    return e
 
-def validate_set(id, data):
-    return val.validate_set(cls, name, id, data)
+def validate_get_comando_ejecutado(id):
+    c = ComandoEjecutado.get(id)
+    c.validar_acceso(identity.current.user)
+    return c
 
 def validate_new(data):
     return val.validate_new(cls, name, data)
@@ -142,11 +146,6 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
     @paginate('records')
     def list(self):
         """List records in model"""
-        # Un admin no tiene sentido en este area y por las dudas
-        # lo mando al home.
-        if 'admin' in identity.current.permissions:
-            raise redirect(url("/dashboard"))
-
         # Grupos en los que el usuario formo parte
         m = [i.grupo.id for i in Grupo.selectByAlumno(identity.current.user)]
         try:
@@ -202,22 +201,19 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.corrida' % __name__)
     def corrida(self, entregaid):
-        e = validate_get(entregaid)
-        if (isinstance(identity.current.user, Alumno)):
-	    if (e.entregador.padron != identity.current.user.padron):
-                raise redirect('/dashboard')
+        e = validate_get_entrega(entregaid)
         return dict(entrega=e)
 
     @expose()
     def get_archivo(self, entregaid):
-        r = validate_get(entregaid)
+        r = validate_get_entrega(entregaid)
         download = Downloader(cherrypy.response)
         nombre = "Ej_%s-Entrega_%s-%s.zip" % (r.instancia.ejercicio.numero, r.instancia.numero, r.entregador.nombre)
         return download.download_zip(r.archivos, nombre)
 
     @expose()
     def get_pdf(self, entregaid):
-        r = validate_get(entregaid)
+        r = validate_get_entrega(entregaid)
         # TODO: config de tmp dir y cache de PDFs
         basename = os.path.join('/tmp', 'pdf-%d-%s'
                 % (r.id, datetime.now().isoformat()))
@@ -248,7 +244,7 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
 
     @expose()
     def file(self, id, nombre_arch_interno=None):
-        r = ComandoEjecutado.get(id)
+        r = validate_get_comando_ejecutado(id)
         download = Downloader(cherrypy.response)
 
         if nombre_arch_interno:
@@ -259,7 +255,7 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
 
     @expose()
     def diff(self, id):
-        r = ComandoEjecutado.get(id)
+        r = validate_get_comando_ejecutado(id)
         cherrypy.response.headers["Content-Type"] = "application/zip"
         content_disp = "attachment;filename=diferencias_%d.zip" % (r.id)
         cherrypy.response.headers["Content-disposition"] = content_disp
@@ -267,7 +263,7 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.diff' % __name__)
     def verdiff(self, id):
-        r = ComandoEjecutado.get(id)
+        r = validate_get_comando_ejecutado(id)
         zip = ZipFile(StringIO(r.diferencias), 'r')
         return dict(zip=zip)
 

@@ -10,8 +10,9 @@ from sqlobject.col import PickleValidator, UnicodeStringValidator
 from turbogears import identity
 from turbogears.identity import encrypt_password as encryptpw
 from formencode import Invalid
-from domain.exceptions import AlumnoSinEntregas
+#from domain.exceptions import AlumnoSinEntregas,UsuarioSinPermisos
 from ziputil import *
+from domain import *
 
 hub = PackageHub("sercom")
 __connection__ = hub
@@ -994,6 +995,10 @@ class Grupo(Entregador): #{{{
     def _get_docentes(self):
         return list([t.docente for t in Tutor.selectBy(grupo=self, baja=None)])
 
+    def tiene_acceso(self, usuario):
+        #chequamos si el usuario es alguno de los alumnos en la lista de alumnoincriptos
+        return usuario in [a.alumno for a in self.alumnos]
+
     def add_miembro(self, alumno, **kw):
         if isinstance(alumno, AlumnoInscripto):
             alumno = alumno.id
@@ -1075,6 +1080,9 @@ class AlumnoInscripto(Entregador): #{{{
 
     def _get_padron(self):
         return self.alumno.padron
+
+    def tiene_acceso(self, usuario):
+        return self.alumno == usuario
 
     @classmethod
     def selectByAlumno(self, alumno):
@@ -1184,6 +1192,12 @@ class Entrega(Ejecucion): #{{{
         else:
             return self.pruebas_publicas
 
+    def validar_acceso(self, usuario):
+        if Permiso.admin not in usuario.permisos:
+            if not self.entregador.tiene_acceso(usuario):
+                raise UsuarioSinPermisos(usuario)
+ 
+
     def add_comando_ejecutado(self, comando, **kw):
         return ComandoFuenteEjecutado(entrega=self, comando=comando, **kw)
 
@@ -1271,6 +1285,9 @@ class ComandoFuenteEjecutado(ComandoEjecutado): #{{{
     entrega = ForeignKey('Entrega', notNone=True, cascade=False)
     pk      = DatabaseIndex(comando, entrega, unique=True)
 
+    def validar_acceso(self, usuario):
+        self.entrega.validar_acceso(usuario)
+
     def __unicode__(self):
         return u'%s-%s' % (self.comando, self.entrega)
 
@@ -1289,6 +1306,9 @@ class ComandoPruebaEjecutado(ComandoEjecutado): #{{{
     comando = ForeignKey('ComandoPrueba', notNone=True, cascade=False)
     prueba  = ForeignKey('Prueba', notNone=True, cascade=False)
     pk      = DatabaseIndex(comando, prueba, unique=True)
+
+    def validar_acceso(self, usuario):
+        self.prueba.validar_acceso(usuario)
 
     def __unicode__(self):
         return u'%s:%s:%s' % (self.tarea, self.prueba, self.caso_de_prueba)
@@ -1311,6 +1331,9 @@ class Prueba(ComandoEjecutado): #{{{
     pk                  = DatabaseIndex(entrega, caso_de_prueba, unique=True)
     # Joins
     comandos_ejecutados = MultipleJoin('ComandoPruebaEjecutado')
+
+    def validar_acceso(self, usuario):
+        self.entrega.validar_acceso(usuario)
 
     def add_comando_ejecutado(self, comando, **kw):
         if isinstance(comando, ComandoPrueba):
