@@ -10,6 +10,7 @@ from turbogears import validators as V
 from turbogears import widgets as W
 from turbogears import identity
 from turbogears import paginate
+from turbogears import config
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.subcontrollers.examenes import custom_selects as CS
@@ -96,7 +97,7 @@ class ExamenFinalController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records', limit=20)
+    @paginate('records', limit=config.get('items_por_pagina'))
     def list(self):
         permitir_agregar = TemaPregunta.select().count() > 0 and TipoPregunta.select().count() > 0
         return dict(namepl='Examenes', permitir_agregar=permitir_agregar,  records=ExamenFinal.select())

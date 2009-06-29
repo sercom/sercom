@@ -8,6 +8,7 @@ from turbogears import validators as V
 from turbogears import widgets as W
 from turbogears import identity
 from turbogears import paginate
+from turbogears import config
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Docente, Rol
@@ -33,6 +34,10 @@ def validate_new(data):
 #{{{ Formulario
 class DocenteForm(W.TableForm):
     class Fields(W.WidgetsList):
+        """ Campos del formulario. 
+            No cambiar los nombres de los campos ya que estan vinculados \
+            a la creacion dinamica de permisos.
+        """
         usuario = W.TextField(label=_(u'Usuario'),
             help_text=_(u'Requerido y único.'),
             validator=V.UnicodeString(min=3, max=10, strip=True))
@@ -66,6 +71,18 @@ class DocenteForm(W.TableForm):
         activo = W.CheckBox(label=_(u'Activo'), default=1,
             #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
             validator=V.Bool(if_empty=1))
+        admin = W.CheckBox(label=_(u'Administrador'),
+            #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
+            validator=V.Bool(if_empty=1))
+        JTP = W.CheckBox(label=_(u'JTP'), 
+            #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
+            validator=V.Bool(if_empty=1))
+        docente = W.CheckBox(label=_(u'Docente'), 
+            #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
+            validator=V.Bool(if_empty=1))
+        redactor = W.CheckBox(label=_(u'Redactor de tps'), 
+            #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
+            validator=V.Bool(if_empty=1))
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_usuario');")]
     validator = V.Schema(chained_validators=[
@@ -77,7 +94,8 @@ form = DocenteForm()
 #{{{ Controlador
 class DocenteController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
-    require = identity.has_permission('admin')
+    
+    require = identity.in_any_group('JTP', 'admin')
 
     @expose()
     def default(self, tg_errors=None):
@@ -89,7 +107,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records', limit=20)
+    @paginate('records', limit=config.get('items_por_pagina'))
     def list(self):
         """List records in model"""
         r = cls.select()
@@ -108,6 +126,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
         """Create new records in model"""
+        self.checkRoles()
         return dict(name=name, namepl=namepl, form=form, values=kw)
 
     @validate(form=form)
@@ -118,22 +137,61 @@ class DocenteController(controllers.Controller, identity.SecureResource):
         if not 'pwd_new' in kw and not kw['pwd_new']:
             flash(_(u'Debe especificar un password.'))
             raise redirect('new', **kw)
-        kw['password'] = kw['pwd_new']
+        kw['contrasenia'] = kw['pwd_new']
         del kw['pwd_new']
         del kw['pwd_confirm']
-        kw['roles'] = [Rol.by_nombre('admin')]
+        kw['roles'] = []
+        if(kw['admin']): kw['roles'].append(Rol.by_nombre('admin'))
+        if(kw['JTP']): kw['roles'].append(Rol.by_nombre('JTP'))
+        if(kw['docente']): kw['roles'].append(Rol.by_nombre('docente'))
+        if(kw['redactor']): kw['roles'].append(Rol.by_nombre('redactor'))
+        del kw['admin']
+        del kw['JTP']
+        del kw['docente']
+        del kw['redactor']
         validate_new(kw)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
 
+    def checkRoles(self, record=None):
+        """ Selecciona los checkboxes de  los roles del usuario 
+            que se recibe por parametro.
+            Si no se recibe ninguno, se desactivan por defecto.
+        """
+        roles = list()
+        roles_activos = list() 
+        for rol in Rol.select(): roles.append(rol.nombre)
+        if record:
+            for rol in record.roles: roles_activos.append(rol.nombre)
+        
+        for widget in list(DocenteForm.fields): 
+            if type(widget) is W.CheckBox:
+                if widget.name in roles:
+                    if widget.name in roles_activos: 
+                        widget.attrs['checked']=True
+                    else:
+                        if widget.attrs.has_key('checked'): 
+                            del widget.attrs['checked']
+
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
-        class POD(dict):
-            def __getattr__(self, attrname):
-                return self[attrname]
-        r = POD(validate_get(id).sqlmeta.asDict())
-        return dict(name=name, namepl=namepl, record=r, form=form)
+        record = Docente.get(int(id))
+
+        self.checkRoles(record) 
+        
+        for attr in kw:
+            setattr(record, attr, kw[attr])
+        return dict(name=name, namepl=namepl, record=record, form=form)
+
+
+#        class POD(dict):
+#            def __getattr__(self, attrname):
+#                return self[attrname]
+#        r = POD(validate_get(id).sqlmeta.asDict())
+#        print r # DEBUG
+#        print type(r) # DEBUG
+#        return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
     @error_handler(edit)
@@ -146,6 +204,16 @@ class DocenteController(controllers.Controller, identity.SecureResource):
             del kw['pwd_new']
         if 'pwd_confirm' in kw:
             del kw['pwd_confirm']
+    
+        kw['roles'] = []
+        if(kw['admin']): kw['roles'].append(Rol.by_nombre('admin'))
+        if(kw['JTP']): kw['roles'].append(Rol.by_nombre('JTP'))
+        if(kw['docente']): kw['roles'].append(Rol.by_nombre('docente'))
+        if(kw['redactor']): kw['roles'].append(Rol.by_nombre('redactor'))
+        del kw['admin']
+        del kw['JTP']
+        del kw['docente']
+        del kw['redactor']
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')

@@ -8,6 +8,7 @@ from turbogears import validators as V
 from turbogears import widgets as W
 from turbogears import identity
 from turbogears import paginate
+from turbogears import config
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Curso, Correccion, Ejercicio, Alumno, Docente, Grupo, DocenteInscripto, Rol
@@ -161,7 +162,8 @@ form = CursoForm()
 #{{{ Controlador
 class CursoController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
-    require = identity.has_permission('admin')
+    
+    require = identity.in_any_group('JTP', 'admin')
     curso_alumno = CursoAlumnoController()
     alumno = AlumnoInscriptoController()
     grupo = GrupoController()
@@ -178,7 +180,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records', limit=20)
+    @paginate('records', limit=config.get('items_por_pagina'))
     def list(self):
         """List records in model"""
         r = cls.select().orderBy((-cls.q.anio, -cls.q.cuatrimestre, cls.q.numero))

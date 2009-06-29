@@ -7,6 +7,7 @@ from turbogears import validators as V
 from turbogears import widgets as W
 from turbogears import identity
 from turbogears import paginate
+from turbogears import config
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Ejercicio, Curso, Enunciado, InstanciaDeEntrega, Entregador
@@ -74,7 +75,7 @@ class InstanciaController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.list' % __name__)
     @validate(validators=dict(ejercicio=V.Int))
-    @paginate('records', limit=20)
+    @paginate('records', limit=config.get('items_por_pagina'))
     def list(self, ejercicio):
         ejercicio = Ejercicio.get(ejercicio)
         r = cls.selectBy(ejercicio=ejercicio).orderBy(cls.q.numero)
@@ -133,8 +134,8 @@ class InstanciaController(controllers.Controller, identity.SecureResource):
         raise redirect('../list/%s' % ejercicio)
 
     @expose(template='kid:%s.templates.entregas' % __name__)
-    @paginate('records', limit=20)
-    def entregas(self, instanciaID, entregadorID=None, **kw):
+    @paginate('records', limit=config.get('items_por_pagina'))
+    def entregas(self, instancia_id, alumno_inscripto_id=None, **kw):
         """Show record in model"""
         instancia = validate_get(instanciaID)
         entregas = instancia.entregas

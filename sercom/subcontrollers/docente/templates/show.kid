@@ -33,6 +33,15 @@
 	<td><span py:replace="record.activo">activo</span></td>
     </tr>
     <tr>
+        <th>Roles:</th>
+	<td>
+            <p py:for="rol in record.roles">
+                <span py:content="rol.nombre">nombre del rol</span>
+                (<span py:content="rol.descripcion">descripcion del rol</span>)
+            </p>
+        </td>
+    </tr>
+    <tr>
         <th>Observaciones:</th>
 	<td><span py:replace="XML(record.obs)">observaciones</span></td>
     </tr>

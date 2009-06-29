@@ -8,6 +8,7 @@ from turbogears import validators as V
 from turbogears import widgets as W
 from turbogears import identity
 from turbogears import paginate
+from turbogears import config
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import PreguntaExamen, TemaPregunta, TipoPregunta
@@ -114,7 +115,7 @@ class PreguntaExamenController(controllers.Controller):
         raise redirect('../show/%d' % r.id)
 
     @expose(template='kid:%s.templates.find' % __name__)
-    @paginate('records', limit=20)
+    @paginate('records', limit=config.get('items_por_pagina'))
     def find(self, tipoID=None, temaID=None):
         """Find records in model"""
         vfilter = dict(tipoID=tipoID, temaID=temaID)

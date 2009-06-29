@@ -1,4 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?python
+    from sercom.model import Permiso
+?>
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#"
     py:extends="'../../../templates/master.kid'">
 <head>
@@ -39,7 +43,8 @@
 </table>
 
 <br/>
-<a href="${tg.url('/alumno/edit/%d' % record.id)}">Editar</a> |
+<span py:if="Permiso.alumno_editar.nombre in tg.identity.permissions">
+<a href="${tg.url('/alumno/edit/%d' % record.id)}">Editar</a> |</span>
 <a href="${tg.url('/alumno/list')}">Volver</a>
 
 </body>

@@ -8,6 +8,7 @@ from turbogears import validators as V
 from turbogears import widgets as W
 from turbogears import identity
 from turbogears import paginate
+from turbogears import config 
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import DocenteInscripto, Curso, Docente
@@ -66,7 +67,7 @@ class DocenteInscriptoController(controllers.Controller, identity.SecureResource
 
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records', limit=20)
+    @paginate('records', limit=config.get('items_por_pagina'))
     def list(self, cursoID):
         """List records in model"""
         r = cls.select(cls.q.cursoID==cursoID)

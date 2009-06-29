@@ -8,6 +8,7 @@ from turbogears import validators as V
 from turbogears import widgets as W
 from turbogears import identity
 from turbogears import paginate
+from turbogears import config
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Alumno, Rol
@@ -79,7 +80,7 @@ form = AlumnoForm()
 #{{{ Controlador
 class AlumnoController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
-    require = identity.has_permission('admin')
+    require = identity.in_any_group('admin','JTP','docente', 'redactor')
 
     @expose()
     def default(self, tg_errors=None):
@@ -91,13 +92,14 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records', limit=20)
+    @paginate('records', limit=config.get('items_por_pagina'))
     def list(self):
         """List records in model"""
         r = cls.select(orderBy=Alumno.q.usuario)
         return dict(records=r, name=name, namepl=namepl)
 
     @expose()
+    @identity.require(identity.in_any_group("JTP", "admin"))
     def activate(self, id, activo):
         """Save or create record to model"""
         r = validate_get(id)
@@ -108,6 +110,7 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
         raise redirect('../../list')
 
     @expose(template='kid:%s.templates.new' % __name__)
+    @identity.require(identity.in_any_group("JTP", "admin"))
     def new(self, **kw):
         """Create new records in model"""
         return dict(name=name, namepl=namepl, form=form, values=kw)
@@ -115,6 +118,7 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
     @validate(form=form)
     @error_handler(new)
     @expose()
+    @identity.require(identity.in_any_group("JTP", "admin"))
     def create(self, **kw):
 
         # verifica que los pwd coincidan
@@ -131,10 +135,12 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
         """Save or create record to model"""
         kw['roles'] = [Rol.by_nombre('alumno')]
         validate_new(kw)
+        print 'todo ok'
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
 
     @expose(template='kid:%s.templates.edit' % __name__)
+    @identity.require(identity.in_any_group("JTP", "admin"))
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
@@ -143,6 +149,7 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
     @validate(form=form)
     @error_handler(edit)
     @expose()
+    @identity.require(identity.in_any_group("JTP", "admin"))
     def update(self, id, **kw):
         """Save or create record to model"""
         
@@ -175,6 +182,7 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
         return dict(name=name, namepl=namepl, record=r)
 
     @expose()
+    @identity.require(identity.in_any_group("JTP", "admin"))
     def delete(self, id):
         """Destroy record in model"""
         r = validate_get(id)
@@ -183,10 +191,12 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
         raise redirect('../list')
 
     @expose(template='kid:%s.templates.from_file' % __name__)
+    @identity.require(identity.in_any_group("JTP", "admin"))
     def from_file(self):
         return dict()
 
     @expose(template='kid:%s.templates.import_results' % __name__)
+    @identity.require(identity.in_any_group("JTP", "admin"))
     def from_file_add(self, archivo):
         """ Se espera :
              padron,nombre,email,telefono

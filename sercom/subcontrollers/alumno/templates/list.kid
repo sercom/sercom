@@ -1,4 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?python
+    from sercom.model import Permiso
+?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#"
     py:extends="'../../../templates/master.kid'">
 <head>
@@ -30,8 +33,8 @@
         <td><span py:replace="tg.summarize(record.telefono, 12)">telefono</span></td>
         <td><span py:replace="record.nota">nota</span></td>
         <td><a href="${tg.url('/alumno/show/%d' % record.id)}">Ver</a>
-            <a href="${tg.url('/alumno/edit/%d' % record.id)}">Editar</a>
-            <a href="${tg.url('/alumno/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
+            <a py:if="Permiso.alumno_editar.nombre in tg.identity.permissions"  href="${tg.url('/alumno/edit/%d' % record.id)}">Editar</a>
+            <a py:if="Permiso.alumno_eliminar.nombre in tg.identity.permissions" href="${tg.url('/alumno/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>
 </table>
 

@@ -8,6 +8,7 @@ from turbogears import validators as V
 from turbogears import widgets as W
 from turbogears import identity
 from turbogears import paginate
+from turbogears import config
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import Correccion, Curso, Ejercicio
@@ -65,7 +66,7 @@ form = CorreccionForm()
 #{{{ Controlador
 class CorreccionController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
-    require = identity.has_permission('admin')
+    require = identity.in_any_group('admin','JTP','docente','redactor')
 
     @expose()
     def default(self, tg_errors=None):
@@ -78,8 +79,8 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.mis_correcciones' % __name__)
     @validate(validators=dict(cursoID=V.Int))
-    @paginate('records', limit=20)
-    def mis_correcciones(self, cursoID=None):
+    @paginate('records', limit=config.get('items_por_pagina'))
+    def list(self, cursoID=None):
         """List records in model"""
         vfilter = dict(cursoID=cursoID)
         r = []
@@ -129,15 +130,15 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
         return dict(name=name, namepl=namepl, record=r)
 
     @expose(template='kid:%s.templates.entregas' % __name__)
-    @paginate('records', limit=20)
+    @paginate('records', limit=config.get('items_por_pagina'))
     def entregas(self, id):
         r = validate_get(id)
         return dict(records=r.entregas, correccion = r)
 
-    @expose(template='kid:%s.templates.resumen_entregas' % __name__)
-    @paginate('records', limit=20)
-    def resumen_entregas(self,instanciaID=None):
-        """Lista un resumen de los alumnos o grupos, sus entregas y correcciones para una instancia dada"""
+    @expose(template='kid:%s.templates.resumen_alumnos' % __name__)
+    @paginate('records', limit=config.get('items_por_pagina'))
+    def resumen_alumnos(self,instanciaID=None):
+        """Lista un resumen de los alumnos, sus entregas y correcciones para una instancia dada"""
         if instanciaID:
             instancia = InstanciaDeEntrega.get(instanciaID)
             r = instancia.get_resumen_entregas()

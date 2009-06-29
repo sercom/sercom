@@ -1321,8 +1321,8 @@ class ComandoFuenteEjecutado(ComandoEjecutado): #{{{
 class ComandoPruebaEjecutado(ComandoEjecutado): #{{{
     _inheritable = False
     # Clave
-    comando = ForeignKey('ComandoPrueba', notNone=True, cascade=False)
-    prueba  = ForeignKey('Prueba', notNone=True, cascade=False)
+    comando = ForeignKey('ComandoPrueba', notNone=True, cascade=True)
+    prueba  = ForeignKey('Prueba', notNone=True, cascade=True)
     pk      = DatabaseIndex(comando, prueba, unique=True)
 
     def validar_acceso(self, usuario):
@@ -1345,7 +1345,7 @@ class Prueba(ComandoEjecutado): #{{{
     _inheritable = False
     # Clave
     entrega             = ForeignKey('Entrega', notNone=True, cascade=False)
-    caso_de_prueba      = ForeignKey('CasoDePrueba', notNone=True, cascade=False)
+    caso_de_prueba      = ForeignKey('CasoDePrueba', notNone=True, cascade=True)
     pk                  = DatabaseIndex(entrega, caso_de_prueba, unique=True)
     # Joins
     comandos_ejecutados = MultipleJoin('ComandoPruebaEjecutado')
@@ -1412,6 +1412,10 @@ class Rol(SQLObject): #{{{
 
     def by_group_name(self, name): # para identity
         return self.by_nombre(name)
+    
+    def _get_group_name(self): # alias para identity
+        return self.nombre
+
 #}}}
 
 # No es un SQLObject porque no tiene sentido agregar/sacar permisos, están
@@ -1453,6 +1457,10 @@ class Permiso(object): #{{{
 Permiso.entregar_tp = Permiso(u'entregar', u'Permite entregar trabajos prácticos')
 Permiso.admin = Permiso(u'admin', u'Permite hacer ABMs arbitrarios')
 Permiso.corregir = Permiso(u'corregir', u'Permite corregir ejercicios')
+Permiso.alumno_editar = Permiso(u'alumno_editar', u'Permite editar datos de alumnos')
+Permiso.alumno_eliminar = Permiso(u'alumno_eliminar', u'Permite eliminar alumnos')
+Permiso.enunciado_editar = Permiso(u'enunciado_editar', u'Permite editar datos de enunciados')
+Permiso.enunciado_eliminar = Permiso(u'enunciado_eliminar', u'Permite eliminar enunciados')
 
 #}}}
 

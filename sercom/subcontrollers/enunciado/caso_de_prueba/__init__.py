@@ -7,6 +7,7 @@ from turbogears import validators as V
 from turbogears import widgets as W
 from turbogears import identity
 from turbogears import paginate
+from turbogears import config
 from docutils.core import publish_parts
 from sercom.subcontrollers import validate as val
 from sercom.model import CasoDePrueba, Enunciado
@@ -60,8 +61,8 @@ def validate_del(id):
 class CasoDePruebaForm(W.TableForm):
     class Fields(W.WidgetsList):
         enunciadoID = W.HiddenField()
-        nombre = W.TextField(label=_(u'Nombre'), validator=V.UnicodeString(min=3, max=255, strip=True))
-        comando = W.TextField(label=_(u'Comando'), validator=V.UnicodeString(min=3, max=255, strip=True))
+        nombre = W.TextField(label=_(u'Nombre'), help_text=u'(Requerido)', validator=V.UnicodeString(min=3, max=255, strip=True))
+        comando = W.TextField(label=_(u'Comando'), help_text=u'(Requerido)', validator=V.UnicodeString(min=3, max=255, strip=True))
         descripcion = W.TextField(label=_(u'Descripcion'), validator=V.UnicodeString(max=255, strip=True))
         retorno = W.TextField(label=_(u'Retorno'), help_text=u"Codigo de retorno esperado",validator=V.Int)
         max_tiempo_cpu = W.TextField(label=_(u'CPU'), help_text=u"Maximo tiempo de CPU que puede utilizar [seg]",validator=V.Int)
@@ -92,7 +93,7 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     @identity.require(identity.has_permission('admin'))
     @expose(template='kid:%s.templates.list' % __name__)
     @validate(validators=dict(enunciado=V.Int))
-    @paginate('records', limit=20)
+    @paginate('records', limit=config.get('items_por_pagina'))
     def list(self, enunciado):
         """List records in model"""
         r = cls.selectBy(enunciadoID=enunciado)
