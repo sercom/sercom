@@ -10,7 +10,6 @@ from sqlobject.col import PickleValidator, UnicodeStringValidator
 from turbogears import identity
 from turbogears.identity import encrypt_password as encryptpw
 from formencode import Invalid
-#from domain.exceptions import AlumnoSinEntregas,UsuarioSinPermisos
 from ziputil import *
 from domain import *
 
@@ -269,6 +268,7 @@ class Solucion(SQLObject): #{{{
 #}}}
 
 class Curso(SQLObject): #{{{
+    orderByClause = '-anio'
     class sqlmeta:
         defaultOrder='-anio,-cuatrimestre,numero'
 
@@ -417,6 +417,13 @@ class Usuario(InheritableSQLObject): #{{{
         for r in roles:
             self.add_rol(r)
 
+    def get_curso_default(self):
+        cursos = self.cursos
+        if len(cursos) == 0:
+            return None
+        else:
+            return cursos[0]
+
     def set(self, password=None, roles=None, **kw):
         if password is not None:
             kw['contrasenia'] = encryptpw(password)
@@ -475,6 +482,12 @@ class Docente(Usuario): #{{{
     # Joins
     enunciados      = MultipleJoin('Enunciado', joinColumn='autor_id')
     inscripciones   = MultipleJoin('DocenteInscripto')
+
+    def _get_cursos(self):
+        return list(Curso.select(
+                AND(Curso.q.id == DocenteInscripto.q.cursoID,
+                    self.id == DocenteInscripto.q.docenteID
+                )).orderBy(Curso.orderByClause))
 
     def _get_inscripciones_activas(self):
         return list(DocenteInscripto.select(
@@ -543,6 +556,12 @@ class Alumno(Usuario): #{{{
     def set(self, padron=None, **kw):
         if padron: kw['usuario'] = padron
         super(Alumno, self).set(**kw)
+
+    def _get_cursos(self):
+        return list(Curso.select(
+                AND(Curso.q.id == AlumnoInscripto.q.cursoID,
+                    self.id == AlumnoInscripto.q.alumnoID
+                )).orderBy(Curso.orderByClause))
 
     def _get_padron(self): # alias para poder referirse al alumno por padron
         return self.usuario

@@ -14,11 +14,33 @@ from sqlobject import AND, IN
 from sqlobject.dberrors import DuplicateEntryError
 from formencode import Invalid
 from datetime import datetime, timedelta
+from sercom.subcontrollers.utils.sessionhelper import SessionHelper
 
 import subcontrollers as S
 
 import logging
 log = logging.getLogger("sercom.controllers")
+
+def get_cursos_de_usuario():
+    return [(-1, '--')] + [(c.id,c) for c in identity.current.user.cursos]
+
+def get_cursos_activos():
+    return [(-1, '--')] + [(c.id,c) for c in Curso.activos()]
+
+class CursoValidator(V.Int):
+    def validate_python(self, value, state):
+        if value < 0:
+            raise Invalid(_(u'Debe seleccionar un curso'), value, state)
+        if value not in [c.id for c in self.get_cursos()]:
+            raise Invalid(_(u'ID de curso incorrecto'), value, state)
+
+class SeleccionCursoValidator(CursoValidator):
+    def get_cursos(self):
+        return identity.current.user.cursos
+
+class RegisterCursoValidator(CursoValidator):
+    def get_cursos(self):
+        return Curso.activos()
 
 class LoginForm(W.TableForm):
     class Fields(W.WidgetsList):
@@ -31,17 +53,19 @@ class LoginForm(W.TableForm):
     submit = W.SubmitButton(name='login_submit')
     submit_text = _(u'Ingresar')
 
+class SeleccionCursoForm(W.TableForm):
+    class Fields(W.WidgetsList):
+        curso = W.SingleSelectField(label=_(u'Curso'),
+            options=get_cursos_de_usuario,
+            validator=SeleccionCursoValidator)
+    fields = Fields()
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_curso');")]
+
+seleccion_curso_form = SeleccionCursoForm()
+#}}}
+
+
 #{{{ Formulario de registración de alumnos
-def get_cursos_activos():
-    return [(-1, '--')] + [(c.id, c) for c in Curso.activos()]
-
-class CursoValidator(V.Int):
-    def validate_python(self, value, state):
-        if value < 0:
-            raise Invalid(_(u'Debe seleccionar un curso'), value, state)
-        if value not in [c.id for c in Curso.activos()]:
-            raise Invalid(_(u'ID de curso incorrecto'), value, state)
-
 class RegisterForm(W.TableForm):
     class Fields(W.WidgetsList):
         padron = W.TextField(label=_(u'Padrón'),
@@ -52,7 +76,7 @@ class RegisterForm(W.TableForm):
             validator=V.UnicodeString(min=5, max=255, strip=True))
         curso = W.SingleSelectField(label=_(u'Curso'),
             options=get_cursos_activos,
-            validator=CursoValidator)
+            validator=RegisterCursoValidator)
         password = W.PasswordField(label=_(u'Contraseña'),
             help_text=_(u'Mínimo 5 caracteres).'),
             attrs=dict(maxlength=255),
@@ -101,7 +125,7 @@ class Root(controllers.RootController):
                     AND(
                             IN(Curso.q.id, [c.id for c in Curso.activos()]),
                             Curso.q.id == DocenteInscripto.q.cursoID,
-                            docente.id == DocenteInscripto.q.docenteID,
+                            #docente.id == DocenteInscripto.q.docenteID,
                     )))
             # busca las correcciones asignadas al docente
             correcciones = Correccion.selectBy(corrector=identity.current.user,
@@ -180,6 +204,23 @@ class Root(controllers.RootController):
     def logout(self):
         identity.current.logout()
         raise redirect(url('/'))
+
+    @expose(template='.templates.seleccion_curso')
+    def seleccion_curso(self, **form_data):
+        """Permite seleccionar el curso actual"""
+        curso = SessionHelper().get_contexto_usuario().get_curso()
+        if curso:
+            form_data['curso'] = curso.id
+        return dict(form=seleccion_curso_form, form_data=form_data)
+
+    @validate(form=seleccion_curso_form)
+    @error_handler(seleccion_curso)
+    @expose()
+    @identity.require(identity.not_anonymous())
+    def seleccionar_curso(self, **form_data):
+        curso = Curso.get(int(form_data['curso']))
+        SessionHelper().get_contexto_usuario().set_curso(curso)
+        raise redirect(url('/curso'))
 
     @expose(template='.templates.register')
     def register(self, **form_data):
