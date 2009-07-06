@@ -8,7 +8,7 @@ from turbogears import validators as V
 from turbogears import widgets as W
 from turbogears import identity
 from turbogears import *
-from sercom.model import InstanciaDeEntrega, Entrega, Correccion, \
+from sercom.model import InstanciaDeEntrega, Entrega, Correccion, Entregador, \
         Alumno, AlumnoInscripto, Curso, DateTimeCol
 from sqlobject import SQLObjectNotFound
 from sercom.domain.exceptions import AlumnoSinEntregas
@@ -28,20 +28,12 @@ class EntregadorValidator(V.Int):
             raise V.Invalid(_(u'ID de entregador incorrecto'),
                     value, state)
 
-class PadronValidator(V.UnicodeString):
-    def validate_python(self, value, state):
-        for c in Curso.activos():
-            if value not in [ai.alumno.padron for ai in c.alumnos]:
-                raise V.Invalid(_(u'No existe un alumno con padrón %s '
-                        u'inscripto en el curso %s') % (value, c),
-                        value, state)
-
 class CorregirForm(W.TableForm):
     class Fields(W.WidgetsList):
         instanciaID = W.SingleSelectField(label=_(u'Ejercicio'),
                 validator=InstanciaValidator)
-        padron = W.TextField(label=_(u'Padrón'),
-                validator=PadronValidator)
+        entregadorID = W.TextField(label=_(u'Entregador'),
+                validator=EntregadorValidator)
     fields = Fields()
     submit_text = _(u'Corregir')
     # TODO: crear chained validator para verificar que el alumno este inscripto
@@ -82,17 +74,17 @@ class CorregirController(controllers.Controller, identity.SecureResource):
     @validate(form=corregir_form)
     @error_handler(index)
     @expose()
-    def new(self, instanciaID, padron):
+    def new(self, instanciaID, entregadorID):
         instancia = InstanciaDeEntrega.get(instanciaID)
-        alumno=Alumno.by_padron(padron)
+        entregador = Entregador.get(entregadorID)
 	docente = identity.current.user
         try:
-            correccion = docente.corregir(alumno, instancia)
+            correccion = docente.corregir(entregador, instancia)
             raise redirect('edit', correccionID = correccion.id)
         except AlumnoSinEntregas:
             flash(_(u'El alumno %s no realizó ninguna entrega para la '
                 u'instancia %s') % (alumno, instancia))
-            raise redirect('index', instanciaID=instanciaID, padron=padron)
+            raise redirect('index', instanciaID=instanciaID)
 
     @expose(template='%s.templates.edit' % __name__)
     def edit(self, correccionID, **form_data):
@@ -111,7 +103,7 @@ class CorregirController(controllers.Controller, identity.SecureResource):
     def save(self, correccionID, **form_data):
         correccion = Correccion.get(correccionID)
         correccion.set(**form_data)
-        raise redirect('index')
+        raise redirect('../correccion/resumen_entregas?instanciaID=%s' % correccion.instanciaID)
 
 #}}}
 

@@ -504,26 +504,24 @@ class Docente(Usuario): #{{{
     def get_inscripcion(self, curso):
         return DocenteInscripto.pk.get(curso,self)
 
-    def corregir(self, alumno, instancia):
-        curso=instancia.ejercicio.curso
-        inscripto = AlumnoInscripto.pk.get(curso,alumno)
+    def corregir(self, entregador, instancia):
+        curso = instancia.ejercicio.curso
 
         # Veo si ya existe una Correccion
         try:
-            return Correccion.pk.get(instancia=instancia, entregador=inscripto)
+            return Correccion.pk.get(instancia=instancia, entregador=entregador)
         except SQLObjectNotFound:
             # Si no existe, trato de crear una
-            entregas = inscripto.entregas_de(instancia)
+            entregas = entregador.entregas_de(instancia)
             if not entregas:
                 # TODO: soportar correcciones sin entregas (puede pasar)
-                raise AlumnoSinEntregas(alumno,instancia)
+                raise AlumnoSinEntregas(entregador,instancia)
             corrector = self.get_inscripcion(curso)
-            return Correccion(entregador=inscripto,
+            return Correccion(entregador=entregador,
                     instancia=instancia, entrega=entregas[0],
                     corrector=corrector,
                     asignado=DateTimeCol.now())
     
-
     def add_entrega(self, instancia, **kw):
         return Entrega(instancia=instancia, **kw)
 
@@ -829,6 +827,15 @@ class Ejercicio(SQLObject): #{{{
                 InstanciaDeEntrega.q.inicio <= now,
                 InstanciaDeEntrega.q.fin >= now))
 
+    def get_posibles_entregadores(self):
+        if self.grupal:
+            entregadores = list(self.curso.grupos)
+            entregadores.sort(lambda x,y:cmp(x.nombre,y.nombre))
+        else:
+            entregadores = list(self.curso.alumnos)
+            entregadores.sort(lambda x,y:cmp(x.alumno.padron, y.alumno.padron))
+        return entregadores
+
     def __unicode__(self):
         return u'(%s, %s, %s)' % (self.curso, self.numero, self.enunciado)
 
@@ -842,16 +849,6 @@ class Ejercicio(SQLObject): #{{{
         return '(%s, %r, %s)' \
             % (srepr(self.curso), self.numero, srepr(self.enunciado))
 #}}}
-
-class DTOResumenAlumnoEntrega:
-    def __init__(self, alumno, entregas, correccion):
-        self.alumno = alumno
-        cant_entregas = len(entregas)
-        self.entregas_exitosas = len([e for e in entregas if e.exito])
-        self.entregas_fallidas = cant_entregas-self.entregas_exitosas
-        self.correccion = correccion
-        self.editar_correccion = not (correccion is None)
-        self.agregar_correccion = (not self.editar_correccion) and cant_entregas > 0
 
 class InstanciaDeEntrega(SQLObject): #{{{
     # Clave
@@ -881,16 +878,15 @@ class InstanciaDeEntrega(SQLObject): #{{{
                     IN(Ejercicio.q.cursoID, [0]+[c.id for c in cursos]),
                 )))
 
-    def get_resumen_alumnos(self):
-        alumnos_por_padron = sorted([(ai.alumno.padron, ai.alumno) for ai in self.ejercicio.curso.alumnos])
-        entregas = dict([(a,[]) for (padron,a) in alumnos_por_padron])
-        correcciones = dict([(a,None) for (padron,a) in alumnos_por_padron])
+    def get_resumen_entregas(self):
+        entregadores = self.ejercicio.get_posibles_entregadores()
+        entregas = dict([(e,[]) for e in entregadores])
+        correcciones = dict([(e,None) for e in entregadores])
         for e in self.entregas:
-            entregas[e.entregador.alumno].append(e)
+            entregas[e.entregador].append(e)
         for c in self.correcciones:
-            correcciones[c.entregador.alumno] = c
-        return [DTOResumenAlumnoEntrega(a, entregas[a], correcciones[a]) for (padron,a) in alumnos_por_padron]
-        
+            correcciones[c.entregador] = c
+        return [DTOResumenEntrega(e, entregas[e], correcciones[e]) for e in entregadores]
 
     def __unicode__(self):
         return unicode(self.shortrepr())
@@ -905,8 +901,11 @@ class InstanciaDeEntrega(SQLObject): #{{{
     def longrepr(self):
         return u'Curso: %s - Ejer: %s' % (self.ejercicio.curso,self.shortrepr()) 
 
+    def numerorepr(self):
+        return "%s.%s" % (self.ejercicio.numero, self.numero)
+
     def shortrepr(self):
-        return "%s.%s (%s)" % (self.ejercicio.numero,self.numero,self.ejercicio.enunciado.nombre)
+        return "%s (%s)" % (self.numerorepr(),self.ejercicio.enunciado.nombre)
 #}}}
 
 class DocenteInscripto(SQLObject): #{{{
@@ -1062,7 +1061,7 @@ class Grupo(Entregador): #{{{
                 AlumnoInscripto.q.alumnoID == alumno.id, Miembro.q.baja == None))
 
     def __unicode__(self):
-        return u'grupo:%s' % self.nombre
+        return unicode(self.shortrepr())
 
     def __repr__(self):
         return 'Grupo(id=%r, nombre=%r, responsable=%s, nota=%r, ' \
@@ -1071,7 +1070,7 @@ class Grupo(Entregador): #{{{
                     self.nota_cursada, self.observaciones, self.activo)
 
     def shortrepr(self):
-        return 'grupo:%r' % self.nombre
+        return '%s (grupo)' % self.nombre
 #}}}
 
 class AlumnoInscripto(Entregador): #{{{

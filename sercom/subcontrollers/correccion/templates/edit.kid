@@ -13,7 +13,7 @@
 	submit_text=_(u'Guardar'))">Formulario</div>
 
 <br/>
-<a href="${tg.url('/correccion/list')}">Volver (cancela)</a>
+<a href="javascript:window.history.go(-1)">Volver (cancela)</a>
 
 </body>
 </html>

@@ -39,7 +39,7 @@
 </table>
 
 <br/>
-<a href="${tg.url('/correccion/list')}">Volver</a>
+<a href="javascript:window.history.go(-1)">Volver</a>
 
 </body>
 </html>

@@ -51,14 +51,14 @@ class CorreccionFiltros(W.TableForm):
     form_attrs={'class':"filter"}
     fields = Fields()
 
-class ResumenAlumnosFiltros(W.TableForm):
+class ResumenEntregasFiltros(W.TableForm):
     class Fields(W.WidgetsList):
         instanciaID = W.SingleSelectField(label=_(u'Ejercicio'), validator=V.Int(not_empty=True))
     form_attrs={'class':"filter"}
     fields = Fields()
 
 filtro = CorreccionFiltros()
-filtro_resumen_alumnos = ResumenAlumnosFiltros()
+filtro_resumen_entregas = ResumenEntregasFiltros()
 form = CorreccionForm()
 #}}}
 
@@ -70,16 +70,16 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
     @expose()
     def default(self, tg_errors=None):
         """handle non exist urls"""
-        raise redirect('list')
+        raise redirect('mis_correcciones')
 
     @expose()
     def index(self):
-        raise redirect('list')
+        raise redirect('mis_correcciones')
 
-    @expose(template='kid:%s.templates.list' % __name__)
+    @expose(template='kid:%s.templates.mis_correcciones' % __name__)
     @validate(validators=dict(cursoID=V.Int))
     @paginate('records', limit=20)
-    def list(self, cursoID=None):
+    def mis_correcciones(self, cursoID=None):
         """List records in model"""
         vfilter = dict(cursoID=cursoID)
         r = []
@@ -120,7 +120,7 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
         r.observaciones = kw['observaciones']
         r.corregido = DateTimeCol.now()
         flash(_(u'El %s fue actualizado.') % name)
-        raise redirect('../list')
+        raise redirect('../mis_correcciones')
 
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self,id, **kw):
@@ -134,20 +134,20 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
         r = validate_get(id)
         return dict(records=r.entregas, correccion = r)
 
-    @expose(template='kid:%s.templates.resumen_alumnos' % __name__)
+    @expose(template='kid:%s.templates.resumen_entregas' % __name__)
     @paginate('records', limit=20)
-    def resumen_alumnos(self,instanciaID=None):
-        """Lista un resumen de los alumnos, sus entregas y correcciones para una instancia dada"""
+    def resumen_entregas(self,instanciaID=None):
+        """Lista un resumen de los alumnos o grupos, sus entregas y correcciones para una instancia dada"""
         if instanciaID:
             instancia = InstanciaDeEntrega.get(instanciaID)
-            r = instancia.get_resumen_alumnos()
+            r = instancia.get_resumen_entregas()
         else:
             r = []
 
         instancias_opts = [(i.id,i.longrepr()) for i in identity.current.user.instancias_a_corregir]
         options = dict(instanciaID=instancias_opts)
         vfilter = dict(instanciaID=instanciaID)
-        return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_alumnos,
+        return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_entregas,
             vfilter=vfilter, options=options, instanciaID=instanciaID)
 #}}}
 

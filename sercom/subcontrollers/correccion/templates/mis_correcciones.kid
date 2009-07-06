@@ -4,13 +4,13 @@
     py:extends="'../../../templates/master.kid'">
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
-<title>list</title>
+<title>Mis Correcciones</title>
 </head>
 <body>
 
-<h1>Administración de  Mis <span py:replace="namepl">Objetos</span></h1>
+<h1>Mis Correcciones</h1>
 
-<div py:replace="form(value=vfilter, options=options, action=tg.url('/correccion/list'), submit_text=_(u'Filtrar'))">Filtros</div>
+<div py:replace="form(value=vfilter, options=options, action=tg.url('/correccion/mis_correcciones'), submit_text=_(u'Filtrar'))">Filtros</div>
 
 <table class="list">
     <tr>
@@ -36,21 +36,21 @@
         <td align="right"><span py:replace="record.nota">nota</span></td>
 				<td>
 					<a href="${tg.url('/correccion/show/%d' % record.id)}">Ver</a>
-					<a py:if="not record.corregido and not record.nota" href="${tg.url('/correccion/edit/%d' % record.id)}">Corregir</a>
-					<a py:if="record.corregido or record.nota" href="${tg.url('/correccion/edit/%d' % record.id)}">Editar</a>
+					<a href="${tg.url('/correccion/edit/%d' % record.id)}">Editar</a>
 				</td>
     </tr>
 </table>
-
-<br/>
-<a href="${tg.url('/correccion/resumen_alumnos')}">Ver Resumen por Alumno</a>
-<br/>
 
 <div py:for="page in tg.paginate.pages" py:strip="True">
     <a py:if="page != tg.paginate.current_page"
         href="${tg.paginate.get_href(page)}">${page}</a>
     <b py:if="page == tg.paginate.current_page">${page}</b>
 </div>
+
+<br/>
+<br/>
+<a href="${tg.url('/correccion/resumen_entregas')}">Resumen de entregas</a>
+<br/>
 
 </body>
 </html>

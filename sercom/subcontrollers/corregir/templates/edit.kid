@@ -9,19 +9,23 @@
     ins = correccion.instancia
     ent = correccion.entrega
     eje = ins.ejercicio
-    ali = correccion.entregador
-    alu = ali.alumno
+    entregador = correccion.entregador
 ?>
 <body>
-    <h1>Ejercicio ${eje.numero}.${eje.numero}
-            de ${alu.nombre} (${alu.padron})</h1>
+    <h1>Ejercicio ${ins.numerorepr()}
+            de ${entregador}</h1>
     <div>
         <a href="${tg.url('/mis_entregas/corrida/%d' % ent.id)}"
                 >Ver entrega a corregir</a> |
-        <a href="${tg.url('/curso/ejercicio/instancia/entregas/%d/%d' % (ins.id, ali.id))}"
-                >Ver todas las entregas del alumno para esta instancia</a>
+        <a href="${tg.url('/curso/ejercicio/instancia/entregas/%d/%d' % (ins.id, entregador.id))}"
+                >Ver todas las entregas realizadas para esta instancia</a>
     </div>
     <br />
     ${correccion_form(value=correccion, options=options, action=action)}
+
+<br/>
+<a href="javascript:window.history.go(-1)">Volver (cancela)</a>
+
+
 </body>
 </html>
