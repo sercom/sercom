@@ -103,7 +103,7 @@ class ExamenFinal(SQLObject): #{{{
                 pregunta.update(dto)
 
     def __str__(self):
-        return "%s.%d (%s)" % (self.periodo(),self.oportunidad, self.str_fecha()) 
+        return "%s.%d (%s)" % (self.periodo(),self.oportunidad, self.str_fecha())
 
 #}}}
 
@@ -139,7 +139,7 @@ class PreguntaExamen(SQLObject): #{{{
     def update(self, dto):
         self.texto = dto.texto
         self.temaID = dto.tema
-        self.tipoID = dto.tipo    
+        self.tipoID = dto.tipo
 
     def parse_preguntas(texto_preguntas, separador_num_preguntas):
         """
@@ -151,10 +151,10 @@ class PreguntaExamen(SQLObject): #{{{
         regex = re.compile('(\d+)' + re.escape(separador_num_preguntas))
         preguntas = {}
         indices_numero_texto = []
-        
+
         for match in regex.finditer(texto_preguntas):
             indices_numero_texto.append( (match.start(),match.end()) )
-        
+
         cant_preguntas = len(indices_numero_texto)
         for i in range(0,cant_preguntas):
             inicio_numero = indices_numero_texto[i][0]
@@ -166,13 +166,13 @@ class PreguntaExamen(SQLObject): #{{{
                 fin_texto = indices_numero_texto[i+1][0]
             preguntas[numero] = texto_preguntas[inicio_texto:fin_texto]
         return preguntas
-    
+
     def import_preguntas(archivo_preguntas,encoding_archivo,encoding_salida):
-        """ 
+        """
         Se espera :
         fecha(dd/mm/yyy),anio,cuatrimestre,oportunidad,numero_pregunta,texto_pregunta,tipo.tema
         """
-    
+
         import csv
         lineas = archivo_preguntas.read().split('\n')
         ok = []
@@ -193,7 +193,7 @@ class PreguntaExamen(SQLObject): #{{{
                     texto = PreguntaExamen.__normalize_texto(row[5], encoding_archivo, encoding_salida)
                     descripcion_tipo = PreguntaExamen.__normalize_texto(row[6],encoding_archivo, encoding_salida)
                     descripcion_tema = PreguntaExamen.__normalize_texto(row[7],encoding_archivo, encoding_salida)
-                    
+
                     examen = PreguntaExamen.__find_examen(fecha, anio, cuatrimestre, oportunidad, examenes)
                     tipo = PreguntaExamen.__find_tipo(descripcion_tipo, tipos)
                     tema = PreguntaExamen.__find_tema(descripcion_tema, temas)
@@ -202,12 +202,12 @@ class PreguntaExamen(SQLObject): #{{{
                 except Exception, e:
                     row.append(str(e))
                     fail.append(row)
-        return (ok, fail)   
+        return (ok, fail)
 
     def __normalize_texto(texto, encoding_entrada, encoding_salida):
         texto_unicode = texto.decode(encoding_entrada)
 	return texto_unicode.encode(encoding_salida,'xmlcharrefreplace')
- 
+
     def __find_examen(fecha, anio, cuatrimestre, oportunidad, examenes):
         key = (anio, cuatrimestre, oportunidad)
         examen = examenes.get(key)
@@ -361,7 +361,7 @@ class Curso(SQLObject): #{{{
         #workaround para evitar problemas con relacion Miembro-AlumnoInscripto durante armado de query.
         inscriptos = AlumnoInscripto.select(AND(AlumnoInscripto.q.cursoID == self.id, AlumnoInscripto.q.alumnoID == alumno.id))
         return Grupo.select(AND(Grupo.q.cursoID == self.id,
-            Miembro.q.grupoID == Grupo.q.id, 
+            Miembro.q.grupoID == Grupo.q.id,
             IN(Miembro.q.alumnoID, validate_in([i.id for i in inscriptos]) ),
             Miembro.q.baja == None
             ))
@@ -496,7 +496,7 @@ class Docente(Usuario): #{{{
                     Curso.q.id == DocenteInscripto.q.cursoID,
                     self.id == DocenteInscripto.q.docenteID,
                 )))
-   #TODO ver si se utiliza, borrar si no es asi. Chequear InstanciaDeEntrega.activas tmb 
+   #TODO ver si se utiliza, borrar si no es asi. Chequear InstanciaDeEntrega.activas tmb
     def _get_instancias_a_corregir(self):
         cursos = [di.curso for di in self.inscripciones_activas]
         return InstanciaDeEntrega.activas(cursos)
@@ -521,7 +521,7 @@ class Docente(Usuario): #{{{
                     instancia=instancia, entrega=entregas[0],
                     corrector=corrector,
                     asignado=DateTimeCol.now())
-    
+
     def add_entrega(self, instancia, **kw):
         return Entrega(instancia=instancia, **kw)
 
@@ -899,7 +899,7 @@ class InstanciaDeEntrega(SQLObject): #{{{
                     self.activo)
 
     def longrepr(self):
-        return u'Curso: %s - Ejer: %s' % (self.ejercicio.curso,self.shortrepr()) 
+        return u'Curso: %s - Ejer: %s' % (self.ejercicio.curso,self.shortrepr())
 
     def numerorepr(self):
         return "%s.%s" % (self.ejercicio.numero, self.numero)
@@ -1214,7 +1214,7 @@ class Entrega(Ejecucion): #{{{
         if Permiso.admin not in usuario.permisos:
             if not self.entregador.tiene_acceso(usuario):
                 raise UsuarioSinPermisos(usuario)
- 
+
 
     def add_comando_ejecutado(self, comando, **kw):
         return ComandoFuenteEjecutado(entrega=self, comando=comando, **kw)
@@ -1254,7 +1254,7 @@ class Entrega(Ejecucion): #{{{
 class Correccion(SQLObject): #{{{
     # Clave
     instancia       = ForeignKey('InstanciaDeEntrega', notNone=True, cascade=False)
-    entregador      = ForeignKey('Entregador', notNone=True, cascade=False) 
+    entregador      = ForeignKey('Entregador', notNone=True, cascade=False)
     pk              = DatabaseIndex(instancia, entregador, unique=True)
     # Campos
     entrega         = ForeignKey('Entrega', notNone=True, cascade=False)
@@ -1412,7 +1412,7 @@ class Rol(SQLObject): #{{{
 
     def by_group_name(self, name): # para identity
         return self.by_nombre(name)
-    
+
     def _get_group_name(self): # alias para identity
         return self.nombre
 
