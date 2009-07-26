@@ -106,7 +106,7 @@ class Multizip(object): #{{{
 class SecureProcess(object): #{{{
     default = dict(
         max_tiempo_cpu      = 120,
-        max_memoria         = 16,
+        max_memoria         = 128,
         max_tam_archivo     = 5,
         max_cant_archivos   = 5,
         max_cant_procesos   = 0,
@@ -146,9 +146,9 @@ class SecureProcess(object): #{{{
         os.setgid(uinfo.gid)
         os.setuid(uinfo.uid) # Somos mortales irreversiblemente
         rsrc.setrlimit(rsrc.RLIMIT_CPU, x2(self.max_tiempo_cpu))
-        rsrc.setrlimit(rsrc.RLIMIT_AS, x2(self.max_memoria*self.MB))
+#        rsrc.setrlimit(rsrc.RLIMIT_AS, x2(self.max_memoria*self.MB))
         rsrc.setrlimit(rsrc.RLIMIT_FSIZE, x2(self.max_tam_archivo*self.MB)) # XXX calcular en base a archivos esperados?
-        rsrc.setrlimit(rsrc.RLIMIT_NOFILE, x2(self.max_cant_archivos)) #XXX Obtener de archivos esperados?
+#        rsrc.setrlimit(rsrc.RLIMIT_NOFILE, x2(self.max_cant_archivos)) #XXX Obtener de archivos esperados?
         rsrc.setrlimit(rsrc.RLIMIT_NPROC, x2(self.max_cant_procesos))
         rsrc.setrlimit(rsrc.RLIMIT_MEMLOCK, x2(self.max_locks_memoria))
         rsrc.setrlimit(rsrc.RLIMIT_CORE, x2(0))
