@@ -5,7 +5,7 @@ from turbogears import widgets as W, validators as V
 from turbogears import identity, redirect
 from turbogears import validate, flash, error_handler
 from cherrypy import request, response
-from turbogears.toolbox.catwalk import CatWalk
+#from turbogears.toolbox.catwalk import CatWalk
 import model
 from model import Visita, VisitaUsuario, InstanciaDeEntrega, Correccion, \
         Curso, Alumno, DateTimeCol, Entrega, Grupo, \
@@ -280,7 +280,7 @@ class Root(controllers.RootController):
 
     correccion = S.CorreccionController()
 
-    admin = identity.SecureObject(CatWalk(model), identity.has_permission('admin'))
+    #admin = identity.SecureObject(CatWalk(model), identity.has_permission('admin'))
 
     mis_entregas = S.MisEntregasController()
 
