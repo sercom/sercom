@@ -4,7 +4,6 @@
 	from sercom.controllers import Root
 	from sercom.subcontrollers.utils.sessionhelper import SessionHelper
 	menu = Menu(Root)
-	curso = unicode(SessionHelper().get_contexto_usuario().get_curso())
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#" py:extends="sitetemplate">
 
@@ -34,7 +33,7 @@
         <table style="width:100%">
             <tr>
                 <td class="contexto" py:if="not tg.identity.anonymous">
-                  Curso:&nbsp;<span py:replace="curso">curso</span>&nbsp;&nbsp;
+                  Curso:&nbsp;<span py:replace="SessionHelper().get_contexto_usuario().get_curso()">curso</span>&nbsp;&nbsp;
                   <a href="/seleccion_curso">Cambiar</a>
                 </td>
                 <td class="credenciales">

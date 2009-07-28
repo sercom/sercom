@@ -117,16 +117,9 @@ class Root(controllers.RootController):
     def dashboard(self):
         now = datetime.now()
         prev = now - timedelta(10) # TODO: config
+        curso = SessionHelper().get_contexto_usuario().get_curso()
         if 'admin' in identity.current.permissions:
-            # TODO : Fijar el curso !!
             docente = identity.current.user
-            # busca los cursos activos segun el docente logueado y el perdiodo del año
-            cursos = list(Curso.select(
-                    AND(
-                            IN(Curso.q.id, [c.id for c in Curso.activos()]),
-                            Curso.q.id == DocenteInscripto.q.cursoID,
-                            #docente.id == DocenteInscripto.q.docenteID,
-                    )))
             # busca las correcciones asignadas al docente
             correcciones = Correccion.selectBy(corrector=identity.current.user,
                 corregido=None).count()
@@ -134,7 +127,7 @@ class Root(controllers.RootController):
                 AND(InstanciaDeEntrega.q.inicio <= now,
                     InstanciaDeEntrega.q.fin > now))
                         .orderBy(InstanciaDeEntrega.q.fin))
-            return dict(a_corregir=correcciones, cursos=cursos,
+            return dict(a_corregir=correcciones, curso=curso,
                 instancias_activas=instancias, now=now)
 
         if 'entregar' in identity.current.permissions:
@@ -206,6 +199,7 @@ class Root(controllers.RootController):
         raise redirect(url('/'))
 
     @expose(template='.templates.seleccion_curso')
+    @identity.require(identity.not_anonymous())
     def seleccion_curso(self, **form_data):
         """Permite seleccionar el curso actual"""
         curso = SessionHelper().get_contexto_usuario().get_curso()
@@ -220,7 +214,7 @@ class Root(controllers.RootController):
     def seleccionar_curso(self, **form_data):
         curso = Curso.get(int(form_data['curso']))
         SessionHelper().get_contexto_usuario().set_curso(curso)
-        raise redirect(url('/curso'))
+        raise redirect(url('/'))
 
     @expose(template='.templates.register')
     def register(self, **form_data):

@@ -14,12 +14,14 @@
 <body>
     <div py:if="'admin' in identity.current.permissions and isinstance(usuario, Docente)">
         <h1>Dashboard</h1>
-        <div py:for="di in usuario.inscripciones_activas" py:strip="">
-            <?python curso = di.curso ?>
+          <div py:if="not curso">
+            Ningún curso fue seleccionado.
+          </div>
+          <div py:if="curso">
             <h2>Curso ${curso}</h2>
             Este curso tiene ${len(curso.alumnos)} inscriptos.
             <h3>Entregas</h3>
-            <div py:for="ej in di.curso.ejercicios" py:strip="">
+            <div py:for="ej in curso.ejercicios" py:strip="">
                 <?python inst_con_entregas = [i for i in ej.instancias if i.entregas] ?>
                 <ul py:for="i in inst_con_entregas" py:strip="not inst_con_entregas">
                     <?python
@@ -63,7 +65,6 @@
             <div py:if="not instancias_activas">
                 No hay Ejercicios con entregas en curso en este momento.
             </div>
-        
         </div>
     </div>
 
