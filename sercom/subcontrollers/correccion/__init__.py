@@ -80,7 +80,7 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
     @expose(template='kid:%s.templates.mis_correcciones' % __name__)
     @validate(validators=dict(cursoID=V.Int))
     @paginate('records', limit=config.get('items_por_pagina'))
-    def list(self, cursoID=None):
+    def mis_correcciones(self, cursoID=None):
         """List records in model"""
         vfilter = dict(cursoID=cursoID)
         r = []
@@ -135,9 +135,9 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
         r = validate_get(id)
         return dict(records=r.entregas, correccion = r)
 
-    @expose(template='kid:%s.templates.resumen_alumnos' % __name__)
+    @expose(template='kid:%s.templates.resumen_entregas' % __name__)
     @paginate('records', limit=config.get('items_por_pagina'))
-    def resumen_alumnos(self,instanciaID=None):
+    def resumen_entregas(self,instanciaID=None):
         """Lista un resumen de los alumnos, sus entregas y correcciones para una instancia dada"""
         if instanciaID:
             instancia = InstanciaDeEntrega.get(instanciaID)
