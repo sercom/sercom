@@ -340,6 +340,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
             col["Padron"] = i.alumno.padron
             col["Nombre"] = i.alumno.nombre
             miembro = Grupo.selectByAlumno(i.alumno)
+#TODO refactorizar, pasar a modelo y usar DTOs
             if miembro.count() > 0:
                 col["Grupo"] = miembro[0].grupo
             else:
@@ -347,10 +348,10 @@ class CursoController(controllers.Controller, identity.SecureResource):
             correctas = 0
             for ej in r.ejercicios:
                 for ins in ej.instancias:
-                    if ej.grupal:
+                    if ej.grupal and miembro.count() > 0:
                         # Busco la correccion del grupo
-                        g = Grupo.selectByAlumno(i.alumno).getOne()
-                        c = Correccion.selectBy(instancia=ins, entregador=g.grupo)
+                        g = miembro[0].grupo
+                        c = Correccion.selectBy(instancia=ins, entregador=g)
                     else:
                         # Busco la correccion del alumno
                         c = Correccion.selectBy(instancia=ins, entregador=i)
