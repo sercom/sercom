@@ -29,8 +29,6 @@ def validate_get(id):
 def validate_set(id, data):
     return val.validate_set(cls, name, id, data)
 
-def validate_new(data):
-    return val.validate_new(cls, name, data)
 #}}}
 
 #{{{ Formulario
@@ -89,7 +87,7 @@ class AlumnoInscriptoController(controllers.Controller, identity.SecureResource)
         cursoID = int(cursoID)
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
-        raise redirect('../list/%d' % cursoID)
+        raise redirect('../../list/%d' % cursoID)
 
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self,id, **kw):
