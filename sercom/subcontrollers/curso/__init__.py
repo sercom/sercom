@@ -162,7 +162,7 @@ form = CursoForm()
 #{{{ Controlador
 class CursoController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
-    
+
     require = identity.in_any_group('JTP', 'admin')
     curso_alumno = CursoAlumnoController()
     alumno = AlumnoInscriptoController()
@@ -212,13 +212,15 @@ class CursoController(controllers.Controller, identity.SecureResource):
         alumnos = kw.get('alumnos', [])
         del(kw['docentes_to'])
         del(kw['alumnos'])
-        r = validate_new(kw)
+        kw['docentes'] = list();
+        kw['alumnos'] = list();
         """ Agrego la nueva seleccion de docentes """
         for d in docentes:
-            r.add_docente(d)
+            kw['docentes'].append(d)
         """ El curso es nuevo, por ende no hay alumnos inscriptos """
         for a in alumnos:
-            r.add_alumno(a)
+            kw['alumnos'].append(a)
+        validate_new(kw)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
 
