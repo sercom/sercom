@@ -366,6 +366,13 @@ class Curso(SQLObject): #{{{
             Miembro.q.baja == None
             ))
 
+    def _get_instancias_a_corregir(self):
+        return list(InstanciaDeEntrega.select(
+                AND(
+                    InstanciaDeEntrega.q.ejercicioID == Ejercicio.q.id,
+                    Ejercicio.q.cursoID == self.id
+                )))
+
     @classmethod
     def activos(cls):
         now = datetime.now()
@@ -496,10 +503,6 @@ class Docente(Usuario): #{{{
                     Curso.q.id == DocenteInscripto.q.cursoID,
                     self.id == DocenteInscripto.q.docenteID,
                 )))
-   #TODO ver si se utiliza, borrar si no es asi. Chequear InstanciaDeEntrega.activas tmb
-    def _get_instancias_a_corregir(self):
-        cursos = [di.curso for di in self.inscripciones_activas]
-        return InstanciaDeEntrega.activas(cursos)
 
     def get_inscripcion(self, curso):
         return DocenteInscripto.pk.get(curso,self)
@@ -865,18 +868,6 @@ class InstanciaDeEntrega(SQLObject): #{{{
     # Joins
     entregas        = MultipleJoin('Entrega', joinColumn='instancia_id')
     correcciones    = MultipleJoin('Correccion', joinColumn='instancia_id')
-
-    @classmethod
-    def activas(cls, cursos=None):
-        if cursos is None:
-            cursos = Curso.activos()
-        now = DateTimeCol.now()
-        return list(cls.select(
-                AND(
-                    cls.q.ejercicioID == Ejercicio.q.id,
-                    cls.q.fin <= now,
-                    IN(Ejercicio.q.cursoID, [0]+[c.id for c in cursos]),
-                )))
 
     def get_resumen_entregas(self):
         entregadores = self.ejercicio.get_posibles_entregadores()

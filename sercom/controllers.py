@@ -106,7 +106,16 @@ class RegisterForm(W.TableForm):
 register_form = RegisterForm()
 #}}}
 
-class Root(controllers.RootController):
+class BaseController(controllers.Controller):
+    def get_curso_actual(self):
+        contexto = SessionHelper().get_contexto_usuario()
+        return contexto.get_curso()
+
+    def set_curso_actual(self,curso):
+        contexto = SessionHelper().get_contexto_usuario()
+        contexto.set_curso(curso)
+
+class Root(controllers.RootController, BaseController):
 
     @expose()
     def index(self):
@@ -117,7 +126,7 @@ class Root(controllers.RootController):
     def dashboard(self):
         now = datetime.now()
         prev = now - timedelta(10) # TODO: config
-        curso = SessionHelper().get_contexto_usuario().get_curso()
+        curso = self.get_curso_actual()
         if 'admin' in identity.current.permissions:
             docente = identity.current.user
             # busca las correcciones asignadas al docente
@@ -202,7 +211,7 @@ class Root(controllers.RootController):
     @identity.require(identity.not_anonymous())
     def seleccion_curso(self, **form_data):
         """Permite seleccionar el curso actual"""
-        curso = SessionHelper().get_contexto_usuario().get_curso()
+        curso = self.get_curso_actual()
         if curso:
             form_data['curso'] = curso.id
         return dict(form=seleccion_curso_form, form_data=form_data)
@@ -213,7 +222,7 @@ class Root(controllers.RootController):
     @identity.require(identity.not_anonymous())
     def seleccionar_curso(self, **form_data):
         curso = Curso.get(int(form_data['curso']))
-        SessionHelper().get_contexto_usuario().set_curso(curso)
+        self.set_curso_actual(curso)
         raise redirect(url('/'))
 
     @expose(template='.templates.register')

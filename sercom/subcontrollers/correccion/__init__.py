@@ -14,6 +14,8 @@ from sercom.subcontrollers import validate as val
 from sercom.model import Correccion, Curso, Ejercicio
 from sercom.model import InstanciaDeEntrega, DocenteInscripto
 from sqlobject import *
+from sercom.subcontrollers.utils.sessionhelper import SessionHelper
+
 
 #}}}
 
@@ -63,8 +65,20 @@ filtro_resumen_entregas = ResumenEntregasFiltros()
 form = CorreccionForm()
 #}}}
 
+class BaseController(controllers.Controller):
+    def get_curso_actual(self):
+        contexto = SessionHelper().get_contexto_usuario()
+        return contexto.get_curso()
+
+    def set_curso_actual(self,curso):
+        contexto = SessionHelper().get_contexto_usuario()
+        contexto.set_curso(curso)
+
+
+
+
 #{{{ Controlador
-class CorreccionController(controllers.Controller, identity.SecureResource):
+class CorreccionController(BaseController, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.in_any_group('admin','JTP','docente','redactor')
 
@@ -145,7 +159,7 @@ class CorreccionController(controllers.Controller, identity.SecureResource):
         else:
             r = []
 
-        instancias_opts = [(i.id,i.longrepr()) for i in identity.current.user.instancias_a_corregir]
+        instancias_opts = [(i.id,i.shortrepr()) for i in self.get_curso_actual().instancias_a_corregir]
         options = dict(instanciaID=instancias_opts)
         vfilter = dict(instanciaID=instanciaID)
         return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_entregas,

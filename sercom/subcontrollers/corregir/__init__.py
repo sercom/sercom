@@ -16,7 +16,7 @@ from sercom.domain.exceptions import AlumnoSinEntregas
 
 class InstanciaValidator(V.Int):
     def validate_python(self, value, state):
-        if value not in [i.id for i in InstanciaDeEntrega.activas()]:
+        if value not in [i.id for i in InstanciaDeEntrega.select()]:
             raise V.Invalid(_(u'ID de instancia de entrega incorrecto'),
                     value, state)
 
