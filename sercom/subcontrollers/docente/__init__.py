@@ -114,6 +114,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
         return dict(records=r, name=name, namepl=namepl)
 
     @expose()
+    @identity.require(identity.in_any_group("admin", "JTP"))
     def activate(self, id, activo):
         """Save or create record to model"""
         r = validate_get(id)
@@ -124,6 +125,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
         raise redirect('../../list')
 
     @expose(template='kid:%s.templates.new' % __name__)
+    @identity.require(identity.in_any_group("admin", "JTP"))
     def new(self, **kw):
         """Create new records in model"""
         self.checkRoles()
@@ -132,6 +134,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     @validate(form=form)
     @error_handler(new)
     @expose()
+    @identity.require(identity.in_any_group("admin", "JTP"))
     def create(self, **kw):
         """Save or create record to model"""
         if not 'pwd_new' in kw and not kw['pwd_new']:

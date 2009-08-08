@@ -41,7 +41,7 @@
 </table>
 
 <br/>
-<a href="${tg.url('/docente/new')}">Agregar</a>
+<a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups" href="${tg.url('/docente/new')}">Agregar</a>
 <br/>
 
 <div py:if="len(tg.paginate.pages) > 1">

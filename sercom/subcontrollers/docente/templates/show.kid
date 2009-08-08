@@ -48,7 +48,7 @@
 </table>
 
 <br/>
-<a href="${tg.url('/docente/edit/%d' % record.id)}">Editar</a> |
+<span py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or tg.identity.user.id == record.id"> <a href="${tg.url('/docente/edit/%d' % record.id)}">Editar</a> |</span>
 <a href="${tg.url('/docente/list')}">Volver</a>
 
 </body>
