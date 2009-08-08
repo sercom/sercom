@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?python from turbogears import identity ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#"
     py:extends="'../../../templates/master.kid'">
 <head>
@@ -34,8 +35,8 @@
         <td><span py:replace="tg.summarize(record.observaciones, 20)">observaciones</span></td>
         <td><a py:if="len(record.enunciados)" href="${tg.url('/enunciado/list', autor=record.id)}"><span
                     py:replace="len(record.enunciados)">cant</span></a></td>
-        <td><a href="${tg.url('/docente/edit/%d' % record.id)}">Editar</a>
-            <a href="${tg.url('/docente/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
+        <td><a py:if="tg.identity.user.id == record.id" href="${tg.url('/docente/edit/%d' % record.id)}">Editar</a>
+            <a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups" href="${tg.url('/docente/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>
 </table>
 

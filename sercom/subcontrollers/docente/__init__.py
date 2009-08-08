@@ -34,7 +34,7 @@ def validate_new(data):
 #{{{ Formulario
 class DocenteForm(W.TableForm):
     class Fields(W.WidgetsList):
-        """ Campos del formulario. 
+        """ Campos del formulario.
             No cambiar los nombres de los campos ya que estan vinculados \
             a la creacion dinamica de permisos.
         """
@@ -74,13 +74,13 @@ class DocenteForm(W.TableForm):
         admin = W.CheckBox(label=_(u'Administrador'),
             #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
             validator=V.Bool(if_empty=1))
-        JTP = W.CheckBox(label=_(u'JTP'), 
+        JTP = W.CheckBox(label=_(u'JTP'),
             #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
             validator=V.Bool(if_empty=1))
-        docente = W.CheckBox(label=_(u'Docente'), 
+        docente = W.CheckBox(label=_(u'Docente'),
             #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
             validator=V.Bool(if_empty=1))
-        redactor = W.CheckBox(label=_(u'Redactor de tps'), 
+        redactor = W.CheckBox(label=_(u'Redactor de tps'),
             #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
             validator=V.Bool(if_empty=1))
     fields = Fields()
@@ -94,8 +94,8 @@ form = DocenteForm()
 #{{{ Controlador
 class DocenteController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
-    
-    require = identity.in_any_group('JTP', 'admin')
+
+    require = identity.in_any_group('JTP', 'admin', 'docente')
 
     @expose()
     def default(self, tg_errors=None):
@@ -154,23 +154,23 @@ class DocenteController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     def checkRoles(self, record=None):
-        """ Selecciona los checkboxes de  los roles del usuario 
+        """ Selecciona los checkboxes de  los roles del usuario
             que se recibe por parametro.
             Si no se recibe ninguno, se desactivan por defecto.
         """
         roles = list()
-        roles_activos = list() 
+        roles_activos = list()
         for rol in Rol.select(): roles.append(rol.nombre)
         if record:
             for rol in record.roles: roles_activos.append(rol.nombre)
-        
-        for widget in list(DocenteForm.fields): 
+
+        for widget in list(DocenteForm.fields):
             if type(widget) is W.CheckBox:
                 if widget.name in roles:
-                    if widget.name in roles_activos: 
+                    if widget.name in roles_activos:
                         widget.attrs['checked']=True
                     else:
-                        if widget.attrs.has_key('checked'): 
+                        if widget.attrs.has_key('checked'):
                             del widget.attrs['checked']
 
     @expose(template='kid:%s.templates.edit' % __name__)
@@ -178,12 +178,17 @@ class DocenteController(controllers.Controller, identity.SecureResource):
         """Edit record in model"""
         record = Docente.get(int(id))
 
-        self.checkRoles(record) 
-        
-        for attr in kw:
-            setattr(record, attr, kw[attr])
-        return dict(name=name, namepl=namepl, record=record, form=form)
+        if (identity.current.user_id == int(id) \
+            or "admin" in identity.current.groups \
+            or "JTP" in identity.current.groups):
+            self.checkRoles(record)
 
+            for attr in kw:
+                setattr(record, attr, kw[attr])
+            return dict(name=name, namepl=namepl, record=record, form=form)
+        else:
+            flash(_(u'Solo podes editar tus propios datos.'))
+            raise redirect('../list')
 
 #        class POD(dict):
 #            def __getattr__(self, attrname):
@@ -204,7 +209,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
             del kw['pwd_new']
         if 'pwd_confirm' in kw:
             del kw['pwd_confirm']
-    
+
         kw['roles'] = []
         if(kw['admin']): kw['roles'].append(Rol.by_nombre('admin'))
         if(kw['JTP']): kw['roles'].append(Rol.by_nombre('JTP'))
@@ -229,6 +234,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
         return dict(name=name, namepl=namepl, record=r)
 
     @expose()
+    @identity.require(identity.in_any_group("admin", "JTP"))
     def delete(self, id):
         """Destroy record in model"""
         r = validate_get(id)
