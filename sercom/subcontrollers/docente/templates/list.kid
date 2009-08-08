@@ -35,7 +35,7 @@
         <td><span py:replace="tg.summarize(record.observaciones, 20)">observaciones</span></td>
         <td><a py:if="len(record.enunciados)" href="${tg.url('/enunciado/list', autor=record.id)}"><span
                     py:replace="len(record.enunciados)">cant</span></a></td>
-        <td><a py:if="tg.identity.user.id == record.id" href="${tg.url('/docente/edit/%d' % record.id)}">Editar</a>
+        <td><a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or tg.identity.user.id == record.id" href="${tg.url('/docente/edit/%d' % record.id)}">Editar</a>
             <a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups" href="${tg.url('/docente/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
     </tr>
 </table>
