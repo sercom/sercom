@@ -142,6 +142,6 @@ class InstanciaController(controllers.Controller, identity.SecureResource):
         if alumno_inscripto_id is not None:
             entregador = Entregador.get(int(alumno_inscripto_id))
             entregas = entregador.entregas_de(instancia)
-        return dict(name=name, namepl=namepl, records=entregas, ejercicio=instancia.ejercicio, instancia=instancia)
+        return dict(name=name, namepl=namepl, records=entregas, ejercicio=instancia.ejercicio, instancia=instancia, alumno=alumno_inscripto_id)
 #}}}
 
