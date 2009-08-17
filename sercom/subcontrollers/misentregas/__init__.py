@@ -16,7 +16,7 @@ from sqlobject import *
 from zipfile import ZipFile, BadZipfile
 from cStringIO import StringIO
 from datetime import datetime
-from sercom.subcontrollers.utils.downloader import *
+from sercom.presentation.utils.downloader import *
 import os, shutil, subprocess
 #}}}
 

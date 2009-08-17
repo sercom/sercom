@@ -2,7 +2,7 @@
 <?python import sitetemplate
 	from sercom.menu import Menu
 	from sercom.controllers import Root
-	from sercom.subcontrollers.utils.sessionhelper import SessionHelper
+	from sercom.presentation.utils.sessionhelper import SessionHelper
 	menu = Menu(Root)
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#" py:extends="sitetemplate">

@@ -14,7 +14,7 @@ from sercom.subcontrollers import validate as val
 from sercom.model import Correccion, Curso, Ejercicio
 from sercom.model import InstanciaDeEntrega, DocenteInscripto
 from sqlobject import *
-from sercom.subcontrollers.utils.sessionhelper import SessionHelper
+from sercom.presentation.controllers import BaseController
 
 
 #}}}
@@ -64,17 +64,6 @@ filtro = CorreccionFiltros()
 filtro_resumen_entregas = ResumenEntregasFiltros()
 form = CorreccionForm()
 #}}}
-
-class BaseController(controllers.Controller):
-    def get_curso_actual(self):
-        contexto = SessionHelper().get_contexto_usuario()
-        return contexto.get_curso()
-
-    def set_curso_actual(self,curso):
-        contexto = SessionHelper().get_contexto_usuario()
-        contexto.set_curso(curso)
-
-
 
 
 #{{{ Controlador

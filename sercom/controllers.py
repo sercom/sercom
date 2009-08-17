@@ -14,7 +14,7 @@ from sqlobject import AND, IN
 from sqlobject.dberrors import DuplicateEntryError
 from formencode import Invalid
 from datetime import datetime, timedelta
-from sercom.subcontrollers.utils.sessionhelper import SessionHelper
+from sercom.presentation.controllers import BaseController
 
 import subcontrollers as S
 
@@ -105,15 +105,6 @@ class RegisterForm(W.TableForm):
 
 register_form = RegisterForm()
 #}}}
-
-class BaseController(controllers.Controller):
-    def get_curso_actual(self):
-        contexto = SessionHelper().get_contexto_usuario()
-        return contexto.get_curso()
-
-    def set_curso_actual(self,curso):
-        contexto = SessionHelper().get_contexto_usuario()
-        contexto.set_curso(curso)
 
 class Root(controllers.RootController, BaseController):
 
