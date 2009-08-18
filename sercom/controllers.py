@@ -16,7 +16,7 @@ from formencode import Invalid
 from datetime import datetime, timedelta
 from sercom.presentation.controllers import BaseController
 
-import subcontrollers as S
+import sercom.presentation.subcontrollers as S
 
 import logging
 log = logging.getLogger("sercom.controllers")
@@ -112,7 +112,7 @@ class Root(controllers.RootController, BaseController):
     def index(self):
         raise redirect(url('/dashboard'))
 
-    @expose(template='sercom.templates.welcome')
+    @expose(template='.presentation.templates.welcome')
     @identity.require(identity.not_anonymous())
     def dashboard(self):
         now = datetime.now()
@@ -153,7 +153,7 @@ class Root(controllers.RootController, BaseController):
             return dict(instancias_activas=instancias, now=now, entregas=entregas, correcciones=correcciones)
         return dict()
 
-    @expose(template='.templates.login')
+    @expose(template='.presentation.templates.login')
     def login(self, forward_url=None, previous_url=None, tg_errors=None, *args,
             **kw):
 
@@ -198,7 +198,7 @@ class Root(controllers.RootController, BaseController):
         identity.current.logout()
         raise redirect(url('/'))
 
-    @expose(template='.templates.seleccion_curso')
+    @expose(template='.presentation.templates.seleccion_curso')
     @identity.require(identity.not_anonymous())
     def seleccion_curso(self, **form_data):
         """Permite seleccionar el curso actual"""
@@ -216,7 +216,7 @@ class Root(controllers.RootController, BaseController):
         self.set_curso_actual(curso)
         raise redirect(url('/'))
 
-    @expose(template='.templates.register')
+    @expose(template='.presentation.templates.register')
     def register(self, **form_data):
         """Registrar un nuevo alumno"""
         return dict(form=register_form, form_data=form_data)
