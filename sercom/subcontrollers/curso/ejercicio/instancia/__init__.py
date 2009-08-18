@@ -135,13 +135,13 @@ class InstanciaController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.entregas' % __name__)
     @paginate('records', limit=config.get('items_por_pagina'))
-    def entregas(self, instancia_id, alumno_inscripto_id=None, **kw):
+    def entregas(self, instancia_id, entregador_id=None, **kw):
         """Show record in model"""
         instancia = validate_get(instancia_id)
         entregas = instancia.entregas
-        if alumno_inscripto_id is not None:
-            entregador = Entregador.get(int(alumno_inscripto_id))
+        if entregador_id is not None:
+            entregador = Entregador.get(int(entregador_id))
             entregas = entregador.entregas_de(instancia)
-        return dict(name=name, namepl=namepl, records=entregas, ejercicio=instancia.ejercicio, instancia=instancia, alumno=alumno_inscripto_id)
+        return dict(name=name, namepl=namepl, records=entregas, ejercicio=instancia.ejercicio, instancia=instancia)
 #}}}
 
