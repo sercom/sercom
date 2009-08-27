@@ -296,7 +296,7 @@ class Root(controllers.RootController, BaseController):
     @error_handler(upgrade_registration)
     @expose()
     def save_upgrade_registration(self, **form_data):
-        ERROR_CRED_INVALIDAS =_(u'No fue posible completar la operación. Chequear que el padron y el password sean correctos.')
+        ERROR_CRED_INVALIDAS =_(u'No fue posible completar la operación. Chequear que el padrón y el password sean correctos.')
         curso = Curso.get(form_data['curso'])
         try:
             alumno = Alumno.by_padron(int(form_data['padron']))
