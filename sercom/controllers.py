@@ -12,6 +12,7 @@ from model import Visita, VisitaUsuario, InstanciaDeEntrega, Correccion, \
         DocenteInscripto, AlumnoInscripto, Rol
 from sqlobject import AND, IN
 from sqlobject.dberrors import DuplicateEntryError
+from sqlobject import SQLObjectNotFound
 from formencode import Invalid
 from datetime import datetime, timedelta
 from sercom.presentation.controllers import BaseController
@@ -106,6 +107,25 @@ class RegisterForm(W.TableForm):
 register_form = RegisterForm()
 #}}}
 
+#{{{ Formulario de inscripción de alumnos recursantes
+class UpgradeRegistrationForm(W.TableForm):
+    class Fields(W.WidgetsList):
+        padron = W.TextField(label=_(u'Padrón'),
+            help_text=_(u'Requerido.'),
+            validator=V.UnicodeString(min=3, max=10, strip=True))
+        curso = W.SingleSelectField(label=_(u'Curso'),
+            options=get_cursos_activos,
+            validator=RegisterCursoValidator)
+        password = W.PasswordField(label=_(u'Contraseña'),
+            help_text=_(u'Mínimo 5 caracteres).'),
+            attrs=dict(maxlength=255),
+            validator=V.UnicodeString(min=5, max=255))
+    fields = Fields()
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_padron');")]
+
+upgrade_registration_form = UpgradeRegistrationForm()
+#}}}
+
 class Root(controllers.RootController, BaseController):
 
     @expose()
@@ -175,7 +195,7 @@ class Root(controllers.RootController, BaseController):
             msg = _(u'Debe proveer sus credenciales antes de acceder a este '
                     'recurso.')
         else:
-            msg = _(u'Por favor ingrese.')
+            msg = _(u'Por favor ingrese sus credenciales.')
             forward_url = request.headers.get('Referer', '/')
 
         fields = list(LoginForm.fields)
@@ -221,6 +241,12 @@ class Root(controllers.RootController, BaseController):
         """Registrar un nuevo alumno"""
         return dict(form=register_form, form_data=form_data)
 
+    @expose(template='.presentation.templates.upgrade_registration')
+    def upgrade_registration(self, **form_data):
+        """Registrar un alumno existente en un nuevo curso"""
+        return dict(form=upgrade_registration_form, form_data=form_data)
+
+
     def _save_registration(self, form_data):
         curso = Curso.get(form_data['curso'])
         del form_data['curso']
@@ -265,6 +291,27 @@ class Root(controllers.RootController, BaseController):
         (msg, redir, data) = self._save_registration(form_data)
         flash(msg)
         raise redirect(url(redir), **data)
+
+    @validate(form=upgrade_registration_form)
+    @error_handler(upgrade_registration)
+    @expose()
+    def save_upgrade_registration(self, **form_data):
+        ERROR_CRED_INVALIDAS =_(u'No fue posible completar la operación. Chequear que el padron y el password sean correctos.')
+        curso = Curso.get(form_data['curso'])
+        try:
+            alumno = Alumno.by_padron(int(form_data['padron']))
+            if alumno.equals_password(form_data['password']):
+                curso.add_alumno(alumno)
+                flash(_(u'La inscripción ha sido exitosa.'))
+                raise redirect(url('/'))
+            else:
+                error_msg = ERROR_CRED_INVALIDAS
+        except SQLObjectNotFound:
+            error_msg = ERROR_CRED_INVALIDAS
+        except DuplicateEntryError, e:
+	    error_msg = _(u'Ya estás registrado en el curso %s.' % curso)
+        flash(error_msg)
+        raise redirect(url('/upgrade_registration'), **form_data)
 
     docente = S.DocenteController()
 

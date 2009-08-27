@@ -471,6 +471,9 @@ class Usuario(InheritableSQLObject): #{{{
 
     def _get_password(self): # para identity
         return self.contrasenia
+    
+    def equals_password(self, cleartext_password):
+        return self.contrasenia == encryptpw(cleartext_password)
 
     def __unicode__(self):
         return u'%s (%s)' % (self.usuario, self.nombre)

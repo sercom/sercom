@@ -101,7 +101,9 @@
         <p py:content="login_form(value=form_data)">Formulario de login</p>
         <div py:if="tg_flash" class="flash" py:content="tg_flash"></div>
         <div id="register">
-            <a href="${tg.url('/register')}">Inscribirse</a>
+            <a href="${tg.url('/register')}">Inscripción</a>
+            &nbsp;&nbsp;
+            <a href="${tg.url('/upgrade_registration')}">Modificar Inscripción</a>
         </div>
     </div>
 </body>
