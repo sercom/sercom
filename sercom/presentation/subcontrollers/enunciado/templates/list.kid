@@ -11,8 +11,8 @@
 </head>
 <body>
 
-<h1 py:if="'admin' in identity.current.permissions">Administración de <span py:replace="namepl">Objetos</span></h1>
-<h1 py:if="'admin' not in identity.current.permissions"><span py:replace="namepl.capitalize()">Objetos</span></h1>
+<h1 py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or 'redactor' in tg.identity.groups">Administración de <span py:replace="namepl">Objetos</span></h1>
+<h1 py:if="'admin' not in tg.identity.groups or 'JTP' not in tg.identity.groups or 'redactor' not in tg.identity.groups"><span py:replace="namepl.capitalize()">Objetos</span></h1>
 
 <table class="list">
     <tr>

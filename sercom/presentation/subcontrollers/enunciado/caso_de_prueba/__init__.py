@@ -88,9 +88,9 @@ form = CasoDePruebaForm()
 
 class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
-    require = identity.has_permission('entregar')
+    require = identity.in_any_group('JTP', 'admin','docente','alumno','redactor')
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','jtp','redactor'))
     @expose(template='kid:%s.templates.list' % __name__)
     @validate(validators=dict(enunciado=V.Int))
     @paginate('records', limit=config.get('items_por_pagina'))
@@ -99,14 +99,14 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
         r = cls.selectBy(enunciadoID=enunciado)
         return dict(records=r, name=name, namepl=namepl, enunciado=enunciado)
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','jtp','redactor'))
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, enunciadoID=0, **kw):
         """Create new records in model"""
         form.fields[0].attrs['value'] = enunciadoID or kw['enunciadoID']
         return dict(name=name, namepl=namepl, form=form, values=kw, enunciado=int(enunciadoID))
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','jtp','redactor'))
     @validate(form=form)
     @error_handler(new)
     @expose()
@@ -132,7 +132,7 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list/%d' % t.id)
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','jtp','redactor'))
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
@@ -141,7 +141,7 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
         form.fields[0].attrs['value'] = r.enunciado.id
         return dict(name=name, namepl=namepl, record=r, form=form)
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','jtp','redactor'))
     @validate(form=form)
     @error_handler(edit)
     @expose()
@@ -163,14 +163,14 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list/%d' % r.enunciado.id)
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','jtp','redactor'))
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self, id, **kw):
         """Show record in model"""
         r = validate_get(id)
         return dict(name=name, namepl=namepl, record=r)
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','jtp','redactor'))
     @expose()
     def delete(self, enunciado, id):
         """Destroy record in model"""

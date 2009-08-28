@@ -142,7 +142,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         return dict(records=r, name=name, namepl=namepl, parcial=autor)
 
     @expose(template='kid:%s.templates.new' % __name__)
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','jtp','redactor'))
     def new(self, **kw):
         """Create new records in model"""
         return dict(name=name, namepl=namepl, form=form, values=kw)
@@ -150,7 +150,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     @validate(form=form)
     @error_handler(new)
     @expose()
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','jtp','redactor'))
     def create(self, el_archivo, **kw):
         """Save or create record to model"""
         if el_archivo.filename:
@@ -174,7 +174,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.edit' % __name__)
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','jtp','redactor'))
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
@@ -185,7 +185,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     @validate(form=form)
     @error_handler(edit)
     @expose()
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','jtp','redactor'))
     def update(self, id, el_archivo, **kw):
         """Save or create record to model"""
         if el_archivo.filename:
@@ -219,7 +219,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         return dict(name=name, namepl=namepl, record=r)
 
     @expose()
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','jtp','redactor'))
     def delete(self, id):
         """Destroy record in model"""
         r = validate_get(id)
@@ -238,7 +238,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         return r.archivos
 
     @expose('json')
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','jtp','redactor'))
     def de_curso(self, curso_id):
         c = Curso.get(curso_id)
         e = Enunciado.selectByCurso(c)

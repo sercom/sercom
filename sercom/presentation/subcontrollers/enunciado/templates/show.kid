@@ -22,12 +22,12 @@
         <th>Descripción:</th>
 				<td><span py:replace="record.descripcion">descripcion</span></td>
     </tr>
-    <tr py:if="'admin' in identity.current.permissions">
+    <tr py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or 'redactor' in tg.identity.groups">
         <th>Autor:</th>
 				<td>
 					<a py:if="record.autorID is not None" href="${tg.url('/docente/show/%d' % record.autor.id)}"><span py:replace="record.autor">autor</span></a></td>
     </tr>
-    <tr py:if="'admin' in identity.current.permissions">
+    <tr py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or 'redactor' in tg.identity.groups">
         <th>Creado el:</th>
 				<td><span py:replace="record.creado">descripcion</span></td>
     </tr>
@@ -53,7 +53,7 @@
 				<td>
 					<ul>
 					<table border="0" style="width:100%">
-						<tr py:for="t in record.casos_de_prueba" py:if="t.activo and (t.publico or 'admin' in identity.current.permissions)" >
+						<tr py:for="t in record.casos_de_prueba" py:if="t.activo and (t.publico or 'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or 'redactor' in tg.identity.groups)" >
 							<td style="width:50%"><li py:content="t.nombre" /></td>
 							<td><a py:if="t.archivos_entrada" href="${tg.url('/enunciado/caso_de_prueba/file/archivos_entrada/%d' % t.id)}">Bajar Entradas</a></td>
 							<td><a py:if="t.archivos_a_comparar" href="${tg.url('/enunciado/caso_de_prueba/file/archivos_a_comparar/%d' % t.id)}">Bajar Salidas</a></td>
@@ -62,7 +62,7 @@
 					</ul>
 				</td>
     </tr>
-    <tr py:if="'admin' in identity.current.permissions">
+    <tr py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or 'redactor' in tg.identity.groups">
 				<th>Ejercicios en los<br /> que es Usado:</th>
 				<td>
 					<ul>
@@ -73,7 +73,7 @@
 </table>
 
 <br/>
-<a py:if="'admin' in identity.current.permissions" href="${tg.url('/enunciado/edit/%d' % record.id)}">Editar</a> |
+<a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or 'redactor' in tg.identity.groups" href="${tg.url('/enunciado/edit/%d' % record.id)}">Editar</a> |
 <a href="javascript:window.history.go(-1);">Volver</a>
 
 </body>
