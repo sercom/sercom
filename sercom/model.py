@@ -268,7 +268,6 @@ class Solucion(SQLObject): #{{{
 #}}}
 
 class Curso(SQLObject): #{{{
-    orderByClause = '-anio'
     class sqlmeta:
         defaultOrder='-anio,-cuatrimestre,numero'
 
@@ -395,9 +394,10 @@ class Curso(SQLObject): #{{{
         return '%r.%r.%r' % (self.anio, self.cuatrimestre, self.numero)
 
     def __cmp__(self,other):
-        cmpAnio = cmp(self.anio, other.anio)
+        """ ordena los cursos por fecha de aparicion descendiente """
+        cmpAnio = cmp(other.anio, self.anio)
         if cmpAnio == 0:
-            return cmp(self.cuatrimestre, other.cuatrimestre)
+            return cmp(other.cuatrimestre, self.cuatrimestre)
         else:
             return cmpAnio
 #}}}
@@ -494,10 +494,10 @@ class Docente(Usuario): #{{{
     inscripciones   = MultipleJoin('DocenteInscripto')
 
     def _get_cursos(self):
-        return list(Curso.select(
+        return sorted(list(Curso.select(
                 AND(Curso.q.id == DocenteInscripto.q.cursoID,
                     self.id == DocenteInscripto.q.docenteID
-                )).orderBy(Curso.orderByClause))
+                ))))
 
     def _get_inscripciones_activas(self):
         return list(DocenteInscripto.select(
@@ -562,10 +562,10 @@ class Alumno(Usuario): #{{{
         super(Alumno, self).set(**kw)
 
     def _get_cursos(self):
-        return list(Curso.select(
+        return sorted(list(Curso.select(
                 AND(Curso.q.id == AlumnoInscripto.q.cursoID,
                     self.id == AlumnoInscripto.q.alumnoID
-                )).orderBy(Curso.orderByClause))
+                ))))
 
     def _get_padron(self): # alias para poder referirse al alumno por padron
         return self.usuario
