@@ -7,10 +7,10 @@
 </head>
 <body>
 
-<h1>Registrarse</h1>
+<h1>Inscribirse</h1>
 
 <div py:replace="form(value=form_data, action=tg.url('/save_registration'),
-	submit_text=_(u'Registrarse'))">Formulario</div>
+	submit_text=_(u'Inscribirse'))">Formulario</div>
 
 <br/>
 

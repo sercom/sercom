@@ -103,7 +103,7 @@
         <div id="register">
             <a href="${tg.url('/register')}">Inscripción</a>
             &nbsp;&nbsp;
-            <a href="${tg.url('/upgrade_registration')}">Modificar Inscripción</a>
+            <a href="${tg.url('/upgrade_registration')}">Inscripción recursantes</a>
         </div>
     </div>
 </body>
