@@ -25,15 +25,16 @@
             <a href="${tg.url('/curso/ejercicio/show/%d' % record.id)}">Ver</a>
             <a href="${tg.url('/curso/ejercicio/instancia/list/%d' % record.id)}">Instancias</a>
             <a py:if="record.enunciado.archivos" href="${tg.url('/enunciado/files/%d' % record.enunciadoID)}">Bajar archivos</a>
-            <a py:if="'admin' in identity.current.permissions" href="${tg.url('/curso/ejercicio/edit/%d' % record.id)}">Editar</a>
-            <a py:if="'admin' in identity.current.permissions" href="${tg.url('/curso/ejercicio/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
+            <a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or 'redactor' in tg.identity.groups" href="${tg.url('/curso/ejercicio/edit/%d' % record.id)}">Editar</a>
+            <a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or 'redactor' in tg.identity.groups" href="${tg.url('/curso/ejercicio/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
         </td>
     </tr>
 </table>
 
 <br/>
-<a py:if="'admin' in identity.current.permissions" href="${tg.url('/curso/ejercicio/new/%s' % curso.id)}">Agregar</a>
-| <a href="${tg.url('/curso')}">Volver a Cursos</a>
+<a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or 'redactor' in tg.identity.groups" href="${tg.url('/curso/ejercicio/new/%s' % curso.id)}">Agregar</a>
+| <a py:if="'admin in tg.identity.groups or 'JTP' in tg.identity.groups" href="${tg.url('/curso')}">Volver a Cursos</a><a py:if="'redactor in tg.identity.groups" href="${tg.url('/enunciado')}">Volver a Enunciados</a>
+
 
 <div py:for="page in tg.paginate.pages">
     <a py:if="page != tg.paginate.current_page"

@@ -33,16 +33,18 @@
 				<td align="center"><a href="${tg.url('/curso/ejercicio/instancia/entregas/%d' % record.id)}" py:content="len(record.entregas)">activa</a></td>
         <td><span py:replace="record.observaciones">obs</span></td>
         <td>
-            <a py:if="'admin' in identity.current.permissions" href="${tg.url('/curso/ejercicio/instancia/show/%d' % record.id)}">Ver</a>
-            <a py:if="'admin' in identity.current.permissions" href="${tg.url('/curso/ejercicio/instancia/edit/%d' % record.id)}">Editar</a>
-            <a py:if="'admin' in identity.current.permissions" href="${tg.url('/curso/ejercicio/instancia/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
+            <a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or 'redactor' in tg.identity.groups" href="${tg.url('/curso/ejercicio/instancia/show/%d' % record.id)}">Ver</a>
+            <a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or 'redactor' in tg.identity.groups" href="${tg.url('/curso/ejercicio/instancia/edit/%d' % record.id)}">Editar</a>
+            <a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or 'redactor' in tg.identity.groups" href="${tg.url('/curso/ejercicio/instancia/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Yo creo que no...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
         </td>
     </tr>
 </table>
 
 <br/>
-<a py:if="'admin' in identity.current.permissions" href="${tg.url('/curso/ejercicio/instancia/new/%s' % ejercicio.id)}">Agregar</a> |
-<a href="${tg.url('/curso/ejercicio/list/%s' % ejercicio.curso.id)}">Volver a Ejericicios</a>
+<a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or 'redactor' in tg.identity.groups" href="${tg.url('/curso/ejercicio/instancia/new/%s' % ejercicio.id)}">Agregar</a> |
+<a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups" href="${tg.url('/curso/ejercicio/list/%s' % ejercicio.curso.id)}">Volver a Ejericicios</a>
+
+<a py:if="'redactor' in tg.identity.groups" href="${tg.url('/enunciado/list/')}">Volver a Enunciados</a>
 
 <div py:for="page in tg.paginate.pages">
     <a py:if="page != tg.paginate.current_page"

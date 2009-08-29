@@ -74,7 +74,7 @@ form = EjercicioForm()
 #{{{ Controlador
 class EjercicioController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
-    require = identity.has_permission('entregar')
+    require = identity.has_any_permission('entregar','enunciado_editar','enunciado_eliminar')
 
     instancia = InstanciaController()
 
@@ -88,7 +88,7 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.new' % __name__)
     @validate(validators=dict(curso=V.Int))
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','JTP','redactor'))
     def new(self, curso, **kw):
         """Create new records in model"""
         kw['cursoID'] = curso
@@ -100,7 +100,7 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
 
     @validate(form=form)
     @error_handler(new)
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','JTP','redactor'))
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
@@ -109,7 +109,7 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
         raise redirect('list/%s' % kw['cursoID'])
 
     @expose(template='kid:%s.templates.edit' % __name__)
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','JTP','redactor'))
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
@@ -122,7 +122,7 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
     @validate(form=form)
     @error_handler(edit)
     @expose()
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','JTP','redactor'))
     def update(self, id, **kw):
         """Save or create record to model"""
         r = validate_set(id, kw)
@@ -136,7 +136,7 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
         return dict(name=name, namepl=namepl, record=r)
 
     @expose()
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.in_any_group('admin','JTP','redactor'))
     def delete(self, id):
         """Destroy record in model"""
         validate_del(id)
