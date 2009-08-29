@@ -22,6 +22,7 @@ import sercom.presentation.subcontrollers as S
 import logging
 log = logging.getLogger("sercom.controllers")
 
+
 def get_cursos_de_usuario():
     return [(-1, '--')] + [(c.id,c) for c in identity.current.user.cursos]
 
@@ -260,13 +261,13 @@ class Root(controllers.RootController, BaseController):
         except DuplicateEntryError, e:
 	    text = _(u'Ya estabas registrado. Si querés cambiar algún dato, '
 		   u'hacelo desde la seccion correspondiete en SERCOM. '
-		   u'Si perdiste tu password, contactate con la cátedra') 
+		   u'Si perdiste tu password, contactate con la cátedra')
         except TypeError, e:
             return (_(u'No se pudo completar la registración porque falta un '
                     u'dato o es inválido (error: %s).') % e, '/register',
                     form_data)
-        return (text, '/', dict()) 
-    
+        return (text, '/', dict())
+
     @expose()
     def error_registration_web(self, tg_errors=None):
         msg = ''
@@ -296,16 +297,26 @@ class Root(controllers.RootController, BaseController):
     @error_handler(upgrade_registration)
     @expose()
     def save_upgrade_registration(self, **form_data):
-        ERROR_CRED_INVALIDAS =_(u'No fue posible completar la operación. Chequear que el padrón y el password sean correctos.')
+        ERROR_CRED_INVALIDAS =_(u'No fue posible completar la operación. Revisar que el padrón y el password sean correctos.')
+        ERROR_FORMAT =_(u'No fue posible completar la operación. El padrón se compone solamente de números.')
         curso = Curso.get(form_data['curso'])
         try:
-            alumno = Alumno.by_padron(int(form_data['padron']))
-            if alumno.equals_password(form_data['password']):
-                curso.add_alumno(alumno)
-                flash(_(u'La inscripción ha sido exitosa.'))
-                raise redirect(url('/'))
+            if not form_data['padron'].isdigit():
+                error_msg = ERROR_FORMAT
             else:
-                error_msg = ERROR_CRED_INVALIDAS
+                alumno = Alumno.by_padron(form_data['padron'])
+                if alumno.equals_password(form_data['password']):
+                    print curso
+                    print alumno.cursos
+                    if not curso in alumno.cursos:
+                        curso.add_alumno(alumno)
+                        flash(_(u'La inscripción ha sido exitosa.'))
+                    else:
+                        flash(_(u'¡Ya estabas inscripto a este curso!'))
+                    raise redirect(url('/'))
+
+                else:
+                    error_msg = ERROR_CRED_INVALIDAS
         except SQLObjectNotFound:
             error_msg = ERROR_CRED_INVALIDAS
         except DuplicateEntryError, e:
