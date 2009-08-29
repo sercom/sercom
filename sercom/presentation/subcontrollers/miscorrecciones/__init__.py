@@ -2,7 +2,7 @@
 
 #{{{ Imports
 import cherrypy
-from turbogears import controllers, expose, redirect
+from turbogears import expose, redirect
 from turbogears import validate, flash, error_handler
 from turbogears import validators as V
 from turbogears import widgets as W
@@ -15,6 +15,8 @@ from sercom.model import Entrega, Correccion, Grupo, AlumnoInscripto
 from sqlobject import *
 from zipfile import ZipFile, BadZipfile
 from cStringIO import StringIO
+from sercom.presentation.controllers import BaseController
+
 
 #}}}
 
@@ -25,7 +27,7 @@ namepl = name + 'es'
 #}}}
 
 #{{{ Controlador
-class MisCorreccionesController(controllers.Controller, identity.SecureResource):
+class MisCorreccionesController(BaseController, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_permission('entregar')
 
@@ -47,7 +49,7 @@ class MisCorreccionesController(controllers.Controller, identity.SecureResource)
         # Grupos en los que el usuario formo parte
         m = [i.grupo.id for i in Grupo.selectByAlumno(identity.current.user)]
         try:
-            entregador = AlumnoInscripto.selectByAlumno(identity.current.user)
+            entregador = identity.current.user.get_inscripcion(self.get_curso_actual())
             m.append(entregador.id)
         except:
             pass

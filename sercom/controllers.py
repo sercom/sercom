@@ -161,7 +161,7 @@ class Root(controllers.RootController, BaseController):
             # Grupos en los que el usuario formo parte
             m = [i.grupo.id for i in Grupo.selectByAlumno(identity.current.user)]
             try:
-                entregador = AlumnoInscripto.selectByAlumno(identity.current.user)
+                entregador = identity.current.user.get_inscripcion(curso)
                 m.append(entregador.id)
             except:
                 pass

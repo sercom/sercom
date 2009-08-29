@@ -577,6 +577,9 @@ class Alumno(Usuario): #{{{
     def byPadron(cls, padron): # TODO eliminar, backward compat
         return cls.byUsuario(unicode(padron))
 
+    def get_inscripcion(self, curso):
+        return AlumnoInscripto.pk.get(curso, self)
+
     @classmethod
     def by_padron(cls, padron):
         return cls.by_usuario(unicode(padron))
@@ -1095,11 +1098,6 @@ class AlumnoInscripto(Entregador): #{{{
 
     def tiene_acceso(self, usuario):
         return self.alumno == usuario
-
-    @classmethod
-    def selectByAlumno(self, alumno):
-        return AlumnoInscripto.select(AlumnoInscripto.q.alumnoID
-                                        == alumno.id).getOne()
 
     def __unicode__(self):
         return unicode(self.alumno)

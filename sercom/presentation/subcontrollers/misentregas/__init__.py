@@ -2,7 +2,7 @@
 
 #{{{ Imports
 import cherrypy
-from turbogears import controllers, expose, redirect, url
+from turbogears import expose, redirect, url
 from turbogears import validate, flash, error_handler
 from turbogears import validators as V
 from turbogears import widgets as W
@@ -17,6 +17,7 @@ from zipfile import ZipFile, BadZipfile
 from cStringIO import StringIO
 from datetime import datetime
 from sercom.presentation.utils.downloader import *
+from sercom.presentation.controllers import BaseController
 import os, shutil, subprocess
 #}}}
 
@@ -127,7 +128,7 @@ form = EntregaForm()
 #}}}
 
 #{{{ Controlador
-class MisEntregasController(controllers.Controller, identity.SecureResource):
+class MisEntregasController(BaseController, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_permission('entregar')
 
@@ -149,7 +150,8 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
         # Grupos en los que el usuario formo parte
         m = [i.grupo.id for i in Grupo.selectByAlumno(identity.current.user)]
         try:
-            entregador = AlumnoInscripto.selectByAlumno(identity.current.user)
+            curso = self.get_curso_actual()
+            entregador = identity.current.user.get_inscripcion(curso)
             m.append(entregador.id)
         except:
             pass
@@ -180,7 +182,8 @@ class MisEntregasController(controllers.Controller, identity.SecureResource):
             raise redirect('list')
 
         # por defecto el entregador es el user loggeado
-        entregador = AlumnoInscripto.selectByAlumno(identity.current.user)
+        curso = self.get_curso_actual()
+        entregador = identity.current.user.get_inscripcion(curso)
 
         grupo_id = kw['grupo']
         del kw['grupo']
