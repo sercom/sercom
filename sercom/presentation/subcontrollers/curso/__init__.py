@@ -163,7 +163,7 @@ form = CursoForm()
 class CursoController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
 
-    require = identity.in_any_group('JTP', 'admin')
+    require = identity.in_any_group('JTP', 'admin', 'redactor')
     curso_alumno = CursoAlumnoController()
     alumno = AlumnoInscriptoController()
     grupo = GrupoController()
