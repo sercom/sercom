@@ -33,7 +33,7 @@
 
 <br/>
 <a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or 'redactor' in tg.identity.groups" href="${tg.url('/curso/ejercicio/new/%s' % curso.id)}">Agregar</a>
-| <a py:if="'admin in tg.identity.groups or 'JTP' in tg.identity.groups" href="${tg.url('/curso')}">Volver a Cursos</a><a py:if="'redactor in tg.identity.groups" href="${tg.url('/enunciado')}">Volver a Enunciados</a>
+| <a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups" href="${tg.url('/curso')}">Volver a Cursos</a><a py:if="'redactor' in tg.identity.groups" href="${tg.url('/enunciado')}">Volver a Enunciados</a>
 
 
 <div py:for="page in tg.paginate.pages">
