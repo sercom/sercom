@@ -1226,10 +1226,6 @@ class Entrega(Ejecucion): #{{{
         # FIXME self.id, caso_de_prueba
         Prueba.pk.get(self.id, caso_de_prueba).destroySelf()
 
-    def make_correccion(self, corrector, **kw):
-        return Correccion(instancia=self.instancia, entregador=self.entregador,
-            entrega=self, corrector=corrector, **kw)
-
     def __unicode__(self):
         return u'%s-%s-%s' % (self.instancia, self.entregador, self.fecha)
 

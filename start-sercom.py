@@ -25,54 +25,6 @@ elif exists(join(dirname(__file__), "setup.py")):
 else:
     update_config(configfile="prod.cfg",modulename="sercom.config")
 
-from sercom.model import InstanciaDeEntrega, Entrega, AND, hub
-from sercom.finalizer import Finalizer
-from threading import Thread
-from datetime import datetime
-import time
-import logging
-
-log = logging.getLogger('sercom.tester')
-
-class Queue(object): #{{{
-    def __init__(self):
-        self.go_on = True
-    def get(self):
-        while self.go_on:
-            try:
-                hub.begin()
-                try:
-                    select = InstanciaDeEntrega.select(AND(
-                        InstanciaDeEntrega.q.inicio_proceso == None,
-                        InstanciaDeEntrega.q.fin <= datetime.now()))
-                    instancia = select.orderBy(InstanciaDeEntrega.q.fin)[0]
-                    n = Entrega.selectBy(instancia=instancia, fin=None).count()
-                    if n:
-                        log.debug(_(u'Esperando para procesar instancia (%s), '
-                            'faltan probar %s entregas'), instancia,
-                            n)
-                        time.sleep(30)
-                        continue
-                    instancia.inicio_proceso = datetime.now()
-                finally:
-                    hub.commit()
-                return instancia.id
-            except IndexError:
-                log.debug(_(u'No hay instancias de entrega sin finalizar'))
-                time.sleep(30) # TODO config?
-            except Exception, e:
-                if isinstance(e, SystemExit):
-                    raise
-                log.exception('Queue: ')
-                time.sleep(30) # TODO config?
-        return None
-#}}}
-
-#q = Queue()
-#finalizer = Finalizer(name='finalizer', queue=q)
-#t = Thread(name='finalizer', target=finalizer.run)
-#t.start()
-
 from sercom.controllers import Root
 
 start_server(Root())
