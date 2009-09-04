@@ -130,7 +130,7 @@ form = EntregaForm()
 #{{{ Controlador
 class MisEntregasController(BaseController, identity.SecureResource):
     """Basic model admin interface"""
-    require = identity.has_permission('entregar')
+    require = identity.has_any_permission('entregar', 'corregir')
 
     hide_to_admin = 1
 
@@ -145,6 +145,7 @@ class MisEntregasController(BaseController, identity.SecureResource):
 
     @expose(template='kid:%s.templates.list' % __name__)
     @paginate('records')
+    @identity.require(identity.has_permission('entregar'))
     def list(self):
         """List records in model"""
         # Grupos en los que el usuario formo parte
@@ -162,6 +163,7 @@ class MisEntregasController(BaseController, identity.SecureResource):
         return dict(records=r, name=name, namepl=namepl)
 
     @expose(template='kid:%s.templates.new' % __name__)
+    @identity.require(identity.has_permission('entregar'))
     def new(self, **kw):
         """Create new records in model"""
         return dict(name=name, namepl=namepl, form=form, values=kw)
@@ -169,6 +171,7 @@ class MisEntregasController(BaseController, identity.SecureResource):
     @validate(form=form)
     @error_handler(new)
     @expose()
+    @identity.require(identity.has_permission('entregar'))
     def create(self, archivo, ejercicio, **kw):
         """Save or create record to model"""
         archivo = archivo.file.read()

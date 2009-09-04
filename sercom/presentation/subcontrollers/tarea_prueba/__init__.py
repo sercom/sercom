@@ -48,7 +48,7 @@ form = TareaPruebaForm()
 #{{{ Controlador
 class TareaPruebaController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
-    require = identity.in_any_group('admin','JTP','redactor')
+    require = identity.in_any_group('admin','JTP','redactor','alumno')
 
     comandos = ComandoPruebaController()
 
