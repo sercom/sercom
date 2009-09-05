@@ -48,19 +48,12 @@ class CorreccionForm(W.TableForm):
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_instancia');")]
 
-class CorreccionFiltros(W.TableForm):
-    class Fields(W.WidgetsList):
-        cursoID = W.SingleSelectField(label=_(u'Curso'), validator=V.Int(not_empty=True))
-    form_attrs={'class':"filter"}
-    fields = Fields()
-
 class ResumenEntregasFiltros(W.TableForm):
     class Fields(W.WidgetsList):
         instanciaID = W.SingleSelectField(label=_(u'Ejercicio'), validator=V.Int(not_empty=True))
     form_attrs={'class':"filter"}
     fields = Fields()
 
-filtro = CorreccionFiltros()
 filtro_resumen_entregas = ResumenEntregasFiltros()
 form = CorreccionForm()
 #}}}
@@ -81,27 +74,17 @@ class CorreccionController(BaseController, identity.SecureResource):
         raise redirect('mis_correcciones')
 
     @expose(template='kid:%s.templates.mis_correcciones' % __name__)
-    @validate(validators=dict(cursoID=V.Int))
     @paginate('records', limit=config.get('items_por_pagina'))
-    def mis_correcciones(self, cursoID=None):
+    def mis_correcciones(self):
         """List records in model"""
-        vfilter = dict(cursoID=cursoID)
-        r = []
-        if cursoID:
-            r = cls.select(
-                AND(
-                    cls.q.correctorID == DocenteInscripto.pk.get(
-                        cursoID=cursoID, docenteID=identity.current.user.id).id,
-                    Ejercicio.q.id == InstanciaDeEntrega.q.ejercicioID,
-                    InstanciaDeEntrega.q.id == Correccion.q.instanciaID,
-                    Ejercicio.q.cursoID == cursoID
-                )
-            )
-        cursos = reversed(sorted([i.curso for i in identity.current.user.inscripciones]))
-        cursos_a_seleccionar = [(c.id, c)
-            for c in cursos]
-        return dict(records=r, name=name, namepl=namepl, form=filtro,
-            vfilter=vfilter, options=dict(cursoID=cursos_a_seleccionar))
+        curso = self.get_curso_actual()
+        r = cls.select(
+                  AND(cls.q.correctorID == identity.current.user.get_inscripcion(curso).id,
+                      cls.q.instanciaID == InstanciaDeEntrega.q.id,
+                      InstanciaDeEntrega.q.ejercicioID == Ejercicio.q.id
+                     )
+                  ).orderBy(Ejercicio.q.numero)
+        return dict(records=r, name=name, namepl=namepl)
 
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):

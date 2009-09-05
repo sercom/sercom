@@ -10,8 +10,6 @@
 
 <h1>Mis Correcciones</h1>
 
-<div py:replace="form(value=vfilter, options=options, action=tg.url('/correccion/mis_correcciones'), submit_text=_(u'Filtrar'))">Filtros</div>
-
 <table class="list">
     <tr>
 				<th>Ejercicio</th>
@@ -35,8 +33,7 @@
         <td><span py:replace="record.corregido">fecha corregido</span></td>
         <td align="right"><span py:replace="record.nota">nota</span></td>
 				<td>
-					<a href="${tg.url('/correccion/show/%d' % record.id)}">Ver</a>
-					<a href="${tg.url('/correccion/edit/%d' % record.id)}">Editar</a>
+					<a href="${tg.url('/corregir/edit', correccionID=record.id)}">Editar</a>
 				</td>
     </tr>
 </table>
