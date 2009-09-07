@@ -46,14 +46,9 @@ class MisCorreccionesController(BaseController, identity.SecureResource):
     @paginate('records', limit=config.get('items_por_pagina'))
     def list(self):
         """List records in model"""
-        # Grupos en los que el usuario formo parte
-        m = [i.grupo.id for i in Grupo.selectByAlumno(identity.current.user)]
-        try:
-            entregador = identity.current.user.get_inscripcion(self.get_curso_actual())
-            m.append(entregador.id)
-        except:
-            pass
-        r = cls.select(IN(cls.q.entregadorID, m))
+        curso = self.get_curso_actual()
+        entregadores = identity.current.user.get_entregadores(curso)
+        r = cls.select(IN(cls.q.entregador, entregadores))
         return dict(records=r, name=name, namepl=namepl)
 
 #}}}

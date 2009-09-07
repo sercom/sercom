@@ -56,7 +56,7 @@
 								color = "#ffff00"
 				?>
 	<td style="background:${color};">
-	    <a href="${tg.url('/alumno/show/%d' % record.entregador.alumno.id)}"><span py:if="record.entregador" py:replace="record.entregador"></span></a>
+	    <span py:if="record.entregador" py:replace="record.entregador"></span>
         </td>
         <td style="background:${color};"><span py:replace="record.exito">fecha asignado</span></td>
         <td style="background:${color};"><span py:replace="record.inicio">fecha corregido</span></td>

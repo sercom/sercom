@@ -1,6 +1,7 @@
 # vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker :
 
 #{{{ Imports
+import string
 import cherrypy
 from turbogears import controllers, expose, redirect
 from turbogears import validate, flash, error_handler
@@ -338,25 +339,19 @@ class CursoController(controllers.Controller, identity.SecureResource):
 
         rows = []
         for i in r.alumnos:
+            grupos = i.alumno.get_grupos(r)
+            entregadores = list(grupos)
+            entregadores.append(i)
             col = {}
             col["Padron"] = i.alumno.padron
             col["Nombre"] = i.alumno.nombre
-            miembro = Grupo.selectByAlumno(i.alumno)
-#TODO refactorizar, pasar a modelo y usar DTOs
-            if miembro.count() > 0:
-                col["Grupo"] = miembro[0].grupo
-            else:
-                col["Grupo"] = ""
+            col["Grupo"] = string.join((g.nombre for g in grupos), ' ')
             correctas = 0
             for ej in r.ejercicios:
                 for ins in ej.instancias:
-                    if ej.grupal and miembro.count() > 0:
-                        # Busco la correccion del grupo
-                        g = miembro[0].grupo
-                        c = Correccion.selectBy(instancia=ins, entregador=g)
-                    else:
-                        # Busco la correccion del alumno
-                        c = Correccion.selectBy(instancia=ins, entregador=i)
+                    c = Correccion.select(AND(Correccion.q.instanciaID == ins.id,
+                                              IN(Correccion.q.entregador,entregadores)
+                                            ))
                     if c.count() > 0:
                         col["E"+str(ej.numero)+str(ins.numero)] = c[0].nota
                         if c[0].nota >= 4:
@@ -387,24 +382,19 @@ class CursoController(controllers.Controller, identity.SecureResource):
 
         rows = []
         for i in r.alumnos:
+            grupos = i.alumno.get_grupos(r)
+            entregadores = list(grupos)
+            entregadores.append(i)
             col = []
             col.append(i.alumno.padron)
             col.append(i.alumno.nombre)
-            miembro = Grupo.selectByAlumno(i.alumno)
-            if miembro.count() > 0:
-                col.append(miembro[0].grupo)
-            else:
-                col.append("")
+            col.append(string.join((g.nombre for g in grupos), ' '))
             correctas = 0
             for ej in r.ejercicios:
                 for ins in ej.instancias:
-                    if ej.grupal:
-                        # Busco la correccion del grupo
-                        g = Grupo.selectByAlumno(i.alumno).getOne()
-                        c = Correccion.selectBy(instancia=ins, entregador=g.grupo)
-                    else:
-                        # Busco la correccion del alumno
-                        c = Correccion.selectBy(instancia=ins, entregador=i)
+                    c = Correccion.select(AND(Correccion.q.instanciaID == ins.id,
+                                              IN(Correccion.q.entregador,entregadores)
+                                            ))
                     if c.count() > 0:
                         col.append(str(c[0].nota))
                         if c[0].nota > 4:

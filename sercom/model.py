@@ -356,15 +356,6 @@ class Curso(SQLObject): #{{{
         # FIXME esto deberian arreglarlo en SQLObject
         Ejercicio.pk.get(self.id, numero).destroySelf()
 
-    def get_grupos_con_alumno(self, alumno):
-        #workaround para evitar problemas con relacion Miembro-AlumnoInscripto durante armado de query.
-        inscriptos = AlumnoInscripto.select(AND(AlumnoInscripto.q.cursoID == self.id, AlumnoInscripto.q.alumnoID == alumno.id))
-        return Grupo.select(AND(Grupo.q.cursoID == self.id,
-            Miembro.q.grupoID == Grupo.q.id,
-            IN(Miembro.q.alumnoID, validate_in([i.id for i in inscriptos]) ),
-            Miembro.q.baja == None
-            ))
-
     def _get_instancias_a_corregir(self):
         return list(InstanciaDeEntrega.select(
                 AND(
@@ -579,6 +570,25 @@ class Alumno(Usuario): #{{{
 
     def get_inscripcion(self, curso):
         return AlumnoInscripto.pk.get(curso, self)
+
+    def get_entregadores(self, curso):
+        entregadores = self.get_grupos(curso)
+        inscripcion = self.get_inscripcion(curso)
+        if inscripcion:
+            entregadores.append(inscripcion)
+        return entregadores
+
+    def get_membresias_a_grupos(self,curso):
+        return Miembro.select(AND(
+                Miembro.q.alumnoID == AlumnoInscripto.q.id,
+                AlumnoInscripto.q.alumnoID == self.id,
+                AlumnoInscripto.q.cursoID == curso.id))
+
+    def get_grupos(self, curso):
+        return list(m.grupo for m in self.get_membresias_a_grupos(curso)) 
+
+    def get_grupos_activos(self, curso):
+        return list(m.grupo for m in self.get_membresias_a_grupos(curso) if not m.baja) 
 
     @classmethod
     def by_padron(cls, padron):
@@ -1050,12 +1060,6 @@ class Grupo(Entregador): #{{{
             docente = docente.id
         t = Tutor.selectBy(grupo=self, docenteID=docente, baja=None)
         t.baja = DateTimeCol.now()
-
-    @classmethod
-    def selectByAlumno(self, alumno):
-        #TODO falta filtrar por grupo
-        return Miembro.select(AND(Miembro.q.alumnoID == AlumnoInscripto.q.id,
-                AlumnoInscripto.q.alumnoID == alumno.id, Miembro.q.baja == None))
 
     def __unicode__(self):
         return unicode(self.shortrepr())

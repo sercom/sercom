@@ -9,7 +9,7 @@ from cherrypy import request, response
 import model
 from model import Visita, VisitaUsuario, InstanciaDeEntrega, Correccion, \
         Curso, Alumno, DateTimeCol, Entrega, Grupo, \
-        DocenteInscripto, AlumnoInscripto, Rol
+        DocenteInscripto, AlumnoInscripto, Rol, Ejercicio
 from sqlobject import AND, IN
 from sqlobject.dberrors import DuplicateEntryError
 from sqlobject import SQLObjectNotFound
@@ -156,21 +156,14 @@ class Root(controllers.RootController, BaseController):
             # Proximas instancias de entrega
             instancias = list(InstanciaDeEntrega.select(
                 AND(InstanciaDeEntrega.q.inicio <= now,
-                    InstanciaDeEntrega.q.fin > now)).orderBy(InstanciaDeEntrega.q.fin))
+                    InstanciaDeEntrega.q.fin > now,
+                    InstanciaDeEntrega.q.ejercicioID == Ejercicio.q.id,
+                    Ejercicio.q.cursoID == curso.id)).orderBy(InstanciaDeEntrega.q.fin))
             # Ultimas N entregas realizadas
-            # Grupos en los que el usuario formo parte
-            m = [i.grupo.id for i in Grupo.selectByAlumno(identity.current.user)]
-            try:
-                entregador = identity.current.user.get_inscripcion(curso)
-                m.append(entregador.id)
-            except:
-                pass
-            if not m:
-                entregas = list(Entrega.select(Entrega.q.entregadorID)[:5])
-                correcciones = list(Correccion.select(AND(Correccion.q.entregadorID, Correccion.q.corregido >= last_login)))
-            else:
-                entregas = list(Entrega.select(IN(Entrega.q.entregadorID, m))[:5])
-                correcciones = list(Correccion.select(AND(IN(Correccion.q.entregadorID, m), Correccion.q.corregido >= last_login)))
+            entregadores = identity.current.user.get_entregadores(curso)
+            entregas = list(Entrega.select(IN(Entrega.q.entregador, entregadores))[:5])
+            correcciones = list(Correccion.select(AND(IN(Correccion.q.entregador, entregadores), 
+                                                      Correccion.q.corregido >= last_login)))
             return dict(instancias_activas=instancias, now=now, entregas=entregas, correcciones=correcciones)
         return dict()
 

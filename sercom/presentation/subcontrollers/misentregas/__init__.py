@@ -149,17 +149,9 @@ class MisEntregasController(BaseController, identity.SecureResource):
     def list(self):
         """List records in model"""
         # Grupos en los que el usuario formo parte
-        m = [i.grupo.id for i in Grupo.selectByAlumno(identity.current.user)]
-        try:
-            curso = self.get_curso_actual()
-            entregador = identity.current.user.get_inscripcion(curso)
-            m.append(entregador.id)
-        except:
-            pass
-        if not m:
-            r = []
-        else:
-            r = cls.select(IN(cls.q.entregadorID, m), orderBy=-Entrega.q.fecha)
+        curso = self.get_curso_actual()
+        entregadores = identity.current.user.get_entregadores(curso)
+        r = cls.select(IN(cls.q.entregador, entregadores), orderBy=-Entrega.q.fecha)
         return dict(records=r, name=name, namepl=namepl)
 
     @expose(template='kid:%s.templates.new' % __name__)
@@ -278,7 +270,7 @@ class MisEntregasController(BaseController, identity.SecureResource):
         ejercicio = Ejercicio.get(ejercicio_id)
         instancias = ejercicio.instancias_a_entregar
         if ejercicio.grupal:
-            grupos = ejercicio.curso.get_grupos_con_alumno(identity.current.user)
+            grupos = identity.current.user.get_grupos_activos(ejercicio.curso)
         else:
             grupos = []
         return dict(instancias=instancias, grupos=grupos)
