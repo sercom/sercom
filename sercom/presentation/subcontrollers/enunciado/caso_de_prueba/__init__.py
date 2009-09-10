@@ -182,6 +182,7 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     def file(self, name, id):
         from cherrypy import request, response
         r = validate_get(id)
+        r.validar_acceso(identity.current.user)
         response.headers["Content-Type"] = "application/zip"
         response.headers["Content-disposition"] = "attachment;filename=%s_%d.zip" % (name, r.id)
         if name == "archivos_entrada":

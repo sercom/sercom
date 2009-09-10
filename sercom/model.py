@@ -462,6 +462,12 @@ class Usuario(InheritableSQLObject): #{{{
 
     def _get_password(self): # para identity
         return self.contrasenia
+
+    def has_any_permission(self, permissions):
+        for p in self.permisos:
+            if p in permissions:
+                return True
+        return False
     
     def equals_password(self, cleartext_password):
         return self.contrasenia == encryptpw(cleartext_password)
@@ -814,6 +820,11 @@ class CasoDePrueba(Comando): #{{{
     def __repr__(self):
         return super(CasoDePrueba, self).__repr__('enunciado=%s, nombre=%r'
             % (srepr(self.enunciado), self.nombre))
+
+    def validar_acceso(self, usuario):
+        if not self.publico and not usuario.has_any_permission([Permiso.corregir, Permiso.enunciado_editar]):
+            raise UsuarioSinPermisos(usuario)
+
 
     def shortrepr(self):
         return '%s:%r' % (srepr(self.enunciado), self.nombre)
@@ -1201,13 +1212,13 @@ class Entrega(Ejecucion): #{{{
         return Prueba.select(AND(Prueba.q.entregaID == self.id, Prueba.q.caso_de_pruebaID == CasoDePrueba.q.id, CasoDePrueba.q.publico == True))
 
     def get_pruebas_visibles(self,usuario):
-        if Permiso.admin in usuario.permisos:
+        if Permiso.corregir in usuario.permisos:
             return self.pruebas
         else:
             return self.pruebas_publicas
 
     def validar_acceso(self, usuario):
-        if Permiso.admin not in usuario.permisos:
+        if Permiso.corregir not in usuario.permisos:
             if not self.entregador.tiene_acceso(usuario):
                 raise UsuarioSinPermisos(usuario)
 
@@ -1344,6 +1355,8 @@ class Prueba(ComandoEjecutado): #{{{
 
     def validar_acceso(self, usuario):
         self.entrega.validar_acceso(usuario)
+        if not self.caso_de_prueba.publico and Permiso.corregir not in usuario.permisos:
+            raise UsuarioSinPermisos(usuario)
 
     def add_comando_ejecutado(self, comando, **kw):
         if isinstance(comando, ComandoPrueba):

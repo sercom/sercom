@@ -26,7 +26,7 @@
         <th>Archivos Guardados</th>
     </tr>
 		<!-- TODO : Solo mostrar con ce.comando.publico == True -->
-		<tr py:for="ce in entrega.comandos_ejecutados" py:if="ce.comando.publico or 'admin' in identity.current.permissions">
+		<tr py:for="ce in entrega.comandos_ejecutados" py:if="ce.comando.publico or 'corregir' in identity.current.permissions">
         <td py:content="ce.comando.orden" />
         <td py:content="ce.comando.tarea" />
         <td py:content="ce.comando.comando" />
@@ -75,7 +75,7 @@
         <th>Diferencias</th>
         <th>Archivos Guardados</th>
     </tr>
-		<tr py:for="ce in p.comandos_ejecutados" py:if="ce.comando.publico or 'admin' in identity.current.permissions" class="${ce.exito and 'pruebaok' or 'pruebafail'}">
+		<tr py:for="ce in p.comandos_ejecutados" py:if="ce.comando.publico or 'corregir' in identity.current.permissions" class="${ce.exito and 'pruebaok' or 'pruebafail'}">
 	<td py:content="ce.comando.orden" />
         <td py:content="ce.comando.tarea" />
         <td py:content="ce.duracion" />
