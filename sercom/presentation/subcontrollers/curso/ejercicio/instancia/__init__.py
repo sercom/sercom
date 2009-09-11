@@ -71,7 +71,7 @@ form = InstanciaForm()
 #{{{ Controlador
 class InstanciaController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
-    require = identity.has_any_permission('entregar','enunciado_editar','enunciado_eliminar')
+    require = identity.has_any_permission('entregar','enunciado_editar','enunciado_eliminar', 'corregir')
 
     @expose(template='kid:%s.templates.list' % __name__)
     @validate(validators=dict(ejercicio=V.Int))
@@ -135,11 +135,13 @@ class InstanciaController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.entregas' % __name__)
     @paginate('records', limit=config.get('items_por_pagina'))
+    @identity.require(identity.has_permission('corregir'))
     def entregas(self, instancia_id, entregador_id=None, **kw):
         """Show record in model"""
         instancia = validate_get(instancia_id)
-        entregas = instancia.entregas
-        if entregador_id is not None:
+        if entregador_id is None:
+            entregas = instancia.entregas
+        else:
             entregador = Entregador.get(int(entregador_id))
             entregas = entregador.entregas_de(instancia)
         return dict(name=name, namepl=namepl, records=entregas, ejercicio=instancia.ejercicio, instancia=instancia)
