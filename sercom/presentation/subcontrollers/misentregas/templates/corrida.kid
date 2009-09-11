@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<h1>Corrida</h1>
+<h1><span py:content="entrega.entregador"/> - <span py:content="entrega.instancia"/></h1>
 
 <h2>Comandos Ejecutados</h2>
 <table>
@@ -25,8 +25,7 @@
         <th>Diferencias</th>
         <th>Archivos Guardados</th>
     </tr>
-		<!-- TODO : Solo mostrar con ce.comando.publico == True -->
-		<tr py:for="ce in entrega.comandos_ejecutados" py:if="ce.comando.publico or 'corregir' in identity.current.permissions">
+    <tr py:for="ce in entrega.comandos_ejecutados" py:if="ce.comando.publico or 'corregir' in identity.current.permissions">
         <td py:content="ce.comando.orden" />
         <td py:content="ce.comando.tarea" />
         <td py:content="ce.comando.comando" />
@@ -34,14 +33,17 @@
         <td py:content="ce.fin" />
         <td py:content="tg.strbool(ce.exito)" align="center" />
         <td py:content="ce.observaciones" />
-				<td align="center"><a href="${tg.url('/mis_entregas/diff/%d' % ce.id)}" py:if="ce.diferencias">Bajar</a></td>
-        <td align="center"><a href="${tg.url('/mis_entregas/file/%d' % ce.id)}" py:if="ce.archivos">Bajar</a></td>
+        <td align="center"><a href="${tg.url('/mis_entregas/diff/%d' % ce.id)}" py:if="ce.diferencias">Bajar</a></td>
+        <td align="center"><a href="${tg.url('/mis_entregas/file/%d' % ce.id)}" py:if="ce.archivos">Bajar Todo</a>
+                           <span py:for="nombre in ce.get_archivos_nombres()">&nbsp;<a href="${tg.url('/mis_entregas/file/%d/%s' % (ce.id,nombre))}" target="_blank" >${nombre}</a>
+                           </span>
+       </td>
     </tr>
 	</table>
 <h2>Pruebas Realizadas</h2>
 <div py:for="p in entrega.get_pruebas_visibles(identity.current.user)" py:strip="True">
 	<div style="background:#ddd; border:1px solid black; margin-bottom:10px;">
-    <h3 py:content="p.caso_de_prueba" />
+    <h3 py:content="p.caso_de_prueba.nombre" />
 			<table class="${p.exito and 'pruebaok' or 'pruebafail'}" border="1" width="100%">
 				<tr>
 					<td width="20%">Descripcion</td>
@@ -64,7 +66,6 @@
 					<td py:content="p.observaciones"></td>
 				</tr>
 			</table>
-  <h4>Comandos Ejecutados para la Prueba</h4>	
   <table border="1" class="prueba" width="100%">
     <tr>
         <th>#</th>

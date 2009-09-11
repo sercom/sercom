@@ -17,8 +17,10 @@
     <div>
         <a href="${tg.url('/mis_entregas/corrida/%d' % ent.id)}"
                 >Ver entrega a corregir</a> |
+        <a href="${tg.url('/mis_entregas/get_archivo/%d' % ent.id)}"
+                >Bajar entrega a corregir</a> |
         <a href="${tg.url('/curso/ejercicio/instancia/entregas/%d/%d' % (ins.id, entregador.id))}"
-                >Ver todas las entregas realizadas para esta instancia</a>
+                >Ver todas las entregas</a>
     </div>
     <br />
     ${correccion_form(value=correccion, options=options, action=action)}
