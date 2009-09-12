@@ -1,8 +1,11 @@
 # vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker:
 
+from context import *
+from tester import *
 from sercom.model import Entrega, CasoDePrueba, Tarea, TareaFuente, TareaPrueba
 from sercom.model import ComandoFuente, ComandoPrueba
-from sercom.ziputil import unzip
+from sercom.domain.exceptions import *
+from sercom.ziputil import *
 from zipfile import ZipFile
 from difflib import unified_diff, HtmlDiff
 from cStringIO import StringIO
@@ -17,259 +20,10 @@ import logging
 
 log = logging.getLogger('sercom.tester')
 
-error_interno = _(u'\n**Error interno al preparar la entrega.**')
 
-class UserInfo(object): #{{{
-    def __init__(self, user):
-        try:
-            info = pwd.getpwnam(user)
-        except:
-            info = pwd.getpwuid(int(user))
-        self.user = info[0]
-        self.uid = info[2]
-        self.gid = info[3]
-        self.name = info[4]
-        self.home = info[5]
-        self.shell = info[6]
-        self.group = grp.getgrgid(self.gid)[0]
-#}}}
-
-user_info = UserInfo(config.get('sercom.tester.user', 65534))
-
-def check_call(*popenargs, **kwargs): #{{{ XXX Python 2.5 forward-compatibility
-    """Run command with arguments.  Wait for command to complete.  If
-    the exit code was zero then return, otherwise raise
-    CalledProcessError.  The CalledProcessError object will have the
-    return code in the returncode attribute.
-    ret = call(*popenargs, **kwargs)
-
-    The arguments are the same as for the Popen constructor.  Example:
-
-    check_call(["ls", "-l"])
-    """
-    retcode = sp.call(*popenargs, **kwargs)
-    cmd = kwargs.get("args")
-    if cmd is None:
-        cmd = popenargs[0]
-    if retcode:
-        raise sp.CalledProcessError(retcode, cmd)
-    return retcode
-sp.check_call = check_call
-#}}}
-
-#{{{ Excepciones
-
-class CalledProcessError(Exception): #{{{ XXX Python 2.5 forward-compatibility
-    """This exception is raised when a process run by check_call() returns
-    a non-zero exit status.  The exit status will be stored in the
-    returncode attribute."""
-    def __init__(self, returncode, cmd):
-        self.returncode = returncode
-        self.cmd = cmd
-    def __str__(self):
-        return ("Command '%s' returned non-zero exit status %d"
-            % (self.cmd, self.returncode))
-sp.CalledProcessError = CalledProcessError
-#}}}
-
-class Error(StandardError): pass
-
-class ExecutionFailure(Error, RuntimeError): #{{{
-    def __init__(self, comando, tarea=None, caso_de_prueba=None):
-        self.comando = comando
-        self.tarea = tarea
-        self.caso_de_prueba = caso_de_prueba
-#}}}
-
-#}}}
-
-#}}}
-
-class Multizip(object): #{{{
-    def __init__(self, *zip_streams):
-        self.zips = [ZipFile(StringIO(z), 'r') for z in zip_streams
-            if z is not None]
-        self.names = set()
-        for z in self.zips:
-            self.names |= set(z.namelist())
-    def read(self, name):
-        for z in self.zips:
-            try:
-                return z.read(name)
-            except KeyError:
-                pass
-        raise KeyError(name)
-    def namelist(self):
-        return self.names
-#}}}
-
-class SecureProcess(object): #{{{
-    default = dict(
-        max_tiempo_cpu      = 120,
-        max_memoria         = 128,
-        max_tam_archivo     = 5,
-        max_cant_archivos   = 5,
-        max_cant_procesos   = 0,
-        max_locks_memoria   = 0,
-    )
-    uid = config.get('sercom.tester.chroot.user', 65534)
-    MB = 1048576
-    # XXX probar! make de un solo archivo lleva nproc=100 y nofile=15
-    def __init__(self, comando, chroot, cwd, close_stdin=False,
-                 close_stdout=False, close_stderr=False):
-        self.comando = comando
-        self.chroot = chroot
-        self.cwd = cwd
-        self.close_stdin = close_stdin
-        self.close_stdout = close_stdout
-        self.close_stderr = close_stderr
-        log.debug(_(u'Proceso segurizado: chroot=%s, cwd=%s, user=%s, cpu=%s, '
-            u'as=%sMiB, fsize=%sMiB, nofile=%s, nproc=%s, memlock=%s'),
-            self.chroot, self.cwd, self.uid, self.max_tiempo_cpu,
-            self.max_memoria, self.max_tam_archivo, self.max_cant_archivos,
-            self.max_cant_procesos, self.max_locks_memoria)
-    def __getattr__(self, name):
-        if getattr(self.comando, name) is not None:
-            return getattr(self.comando, name)
-        return config.get('sercom.tester.limits.' + name, self.default[name])
-    def __call__(self):
-        x2 = lambda x: (x, x)
-        if self.close_stdin:
-            os.close(0)
-        if self.close_stdout:
-            os.close(1)
-        if self.close_stderr:
-            os.close(2)
-        os.chroot(self.chroot)
-        os.chdir(self.cwd)
-        uinfo = UserInfo(self.uid)
-        os.setgid(uinfo.gid)
-        os.setuid(uinfo.uid) # Somos mortales irreversiblemente
-        rsrc.setrlimit(rsrc.RLIMIT_CPU, x2(self.max_tiempo_cpu))
-#        rsrc.setrlimit(rsrc.RLIMIT_AS, x2(self.max_memoria*self.MB))
-        rsrc.setrlimit(rsrc.RLIMIT_FSIZE, x2(self.max_tam_archivo*self.MB)) # XXX calcular en base a archivos esperados?
-#        rsrc.setrlimit(rsrc.RLIMIT_NOFILE, x2(self.max_cant_archivos)) #XXX Obtener de archivos esperados?
-        rsrc.setrlimit(rsrc.RLIMIT_NPROC, x2(self.max_cant_procesos))
-        rsrc.setrlimit(rsrc.RLIMIT_MEMLOCK, x2(self.max_locks_memoria))
-        rsrc.setrlimit(rsrc.RLIMIT_CORE, x2(0))
-        # Tratamos de forzar un sync para que entre al sleep del padre FIXME
-        import time
-        time.sleep(0)
-#}}}
-
-class Tester(object): #{{{
-
-    def __init__(self, name, path, home, queue): #{{{ y properties
-        self.name = name
-        self.path = path
-        self.home = home
-        self.queue = queue
-        # Ahora somos mortales (oid mortales)
-        os.setegid(user_info.gid)
-        os.seteuid(user_info.uid)
-        log.debug(_(u'usuario y grupo efectivos cambiados a %s:%s (%s:%s)'),
-            user_info.user, user_info.group, user_info.uid, user_info.gid)
-
-    @property
-    def build_path(self):
-        return join(self.chroot, self.home, 'build')
-
-    @property
-    def test_path(self):
-        return join(self.chroot, self.home, 'test')
-
-    @property
-    def chroot(self):
-        return join(self.path, 'chroot_' + self.name)
-
-    @property
-    def orig_chroot(self):
-        return join(self.path, 'chroot')
-    #}}}
-
-    def run(self): #{{{
-        entrega_id = self.queue.get() # blocking
-        while entrega_id is not None:
-            Entrega._connection.expireAll()
-            entrega = Entrega.get(entrega_id)
-            log.debug(_(u'Nueva entrega para probar en tester %s: %s'),
-                self.name, entrega)
-            self.test(entrega)
-            log.debug(_(u'Fin de pruebas de: %s'), entrega)
-            entrega_id = self.queue.get() # blocking
-    #}}}
-
-    def test(self, entrega): #{{{
-        log.debug(_(u'Tester.test(entrega=%s)'), entrega)
-        entrega.inicio = datetime.now()
-        try:
-            try:
-                self.setup_chroot(entrega)
-                self.ejecutar_tareas_fuente(entrega)
-                self.ejecutar_tareas_prueba(entrega)
-                self.clean_chroot(entrega)
-            except ExecutionFailure, e:
-                pass
-            except Exception, e:
-                if isinstance(e, SystemExit): raise
-                entrega.observaciones += error_interno
-                log.exception(_('Hubo una excepcion inesperada')) # FIXME encoding
-            except:
-                entrega.observaciones += error_interno
-                log.exception(_('Hubo una excepcion inesperada desconocida')) # FIXME encoding
-        finally:
-            entrega.fin = datetime.now()
-            if entrega.exito is None:
-                entrega.exito = True
-            if entrega.exito:
-                log.info(_(u'Entrega correcta: %s'), entrega)
-            else:
-                log.info(_(u'Entrega incorrecta: %s'), entrega)
-    #}}}
-
-    def setup_chroot(self, entrega): #{{{ y clean_chroot()
-        log.debug(_(u'Tester.setup_chroot(entrega=%s)'), entrega)
-        rsync = ('rsync', '--stats', '--itemize-changes', '--human-readable',
-            '--archive', '--acls', '--delete-during', '--force',
-            '--exclude', '/proc', '--exclude', '/sys', # TODO config
-            join(self.orig_chroot, ''), self.chroot)
-        log.debug(_(u'Ejecutando como root: %s'), ' '.join(rsync))
-        os.seteuid(0) # Dios! (para chroot)
-        os.setegid(0)
-        try:
-            sp.check_call(rsync)
-        finally:
-            os.setegid(user_info.gid) # Mortal de nuevo
-            os.seteuid(user_info.uid)
-            log.debug(_(u'Usuario y grupo efectivos cambiados a %s:%s (%s:%s)'),
-                user_info.user, user_info.group, user_info.uid, user_info.gid)
-        unzip(entrega.archivos, self.build_path)
-
-    def clean_chroot(self, entrega):
-        log.debug(_(u'Tester.clean_chroot(entrega=%s)'), entrega)
-        pass # Se limpia con el próximo rsync
-    #}}}
-
-    def ejecutar_tareas_fuente(self, entrega): #{{{ y tareas_prueba
-        log.debug(_(u'Tester.ejecutar_tareas_fuente(entrega=%s)'),
-            entrega)
-        tareas = [t for t in entrega.instancia.ejercicio.enunciado.tareas
-                    if isinstance(t, TareaFuente)]
-        for tarea in tareas:
-            tarea.ejecutar(self.build_path, entrega)
-
-    def ejecutar_tareas_prueba(self, entrega):
-        log.debug(_(u'Tester.ejecutar_tareas_prueba(entrega=%s)'),
-            entrega)
-        for caso in entrega.instancia.ejercicio.enunciado.casos_de_prueba:
-            caso.ejecutar(self.test_path, entrega)
-    #}}}
-
-#}}}
-
-def ejecutar_caso_de_prueba(self, path, entrega): #{{{
-    log.debug(_(u'CasoDePrueba.ejecutar(caso=%s, path=%s, entrega=%s)'), self,
-        path, entrega)
+def ejecutar_caso_de_prueba(self, entrega, contexto_ejecucion): #{{{
+    log.debug(_(u'CasoDePrueba.ejecutar(caso=%s, entrega=%s)'), self,
+        entrega)
     if not self.activo:
         log.debug(_(u'Ignorando caso de prueba porque esta inactivo'))
         return
@@ -279,7 +33,7 @@ def ejecutar_caso_de_prueba(self, path, entrega): #{{{
     try:
         try:
             for tarea in tareas:
-                tarea.ejecutar(path, prueba)
+                tarea.ejecutar(prueba, contexto_ejecucion)
         except ExecutionFailure, e:
             pass
     finally:
@@ -293,30 +47,30 @@ def ejecutar_caso_de_prueba(self, path, entrega): #{{{
 CasoDePrueba.ejecutar = ejecutar_caso_de_prueba
 #}}}
 
-def ejecutar_tarea(self, path, ejecucion): #{{{
-    log.debug(_(u'Tarea.ejecutar(path=%s, ejecucion=%s)'), path,
-        ejecucion)
+def ejecutar_tarea(self, ejecucion, contexto_ejecucion): #{{{
+    log.debug(_(u'Tarea.ejecutar(ejecucion=%s)'), ejecucion)
     for cmd in self.comandos:
-        cmd.ejecutar(path, ejecucion)
+        cmd.ejecutar(ejecucion, contexto_ejecucion)
 Tarea.ejecutar = ejecutar_tarea
 #}}}
 
 # TODO generalizar ejecutar_comando_xxxx!!!
 
-def ejecutar_comando_fuente(self, path, entrega): #{{{
+def ejecutar_comando_fuente(self, entrega, contexto_ejecucion): #{{{
+    path = contexto_ejecucion.build_path
     log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s)'), path,
         entrega)
     if not self.activo:
         log.debug(_(u'Ignorando comando fuente porque esta inactivo'))
         return
     comando_ejecutado = entrega.add_comando_ejecutado(self)
-    basetmp = '/tmp/sercom.tester.fuente' # FIXME TODO /var/run/sercom?
+    basetmp = contexto_ejecucion.build_temp_base_path
     unzip(self.archivos_entrada, path, # TODO try/except
         {self.STDIN: '%s.%s.stdin' % (basetmp, comando_ejecutado.id)})
     options = dict(
         close_fds=True,
         shell=True,
-        preexec_fn=SecureProcess(self, 'var/chroot_pepe', '/home/sercom/build') #FIXME!!! path
+        preexec_fn=contexto_ejecucion.ejecutar_fuente(self)
     )
     if os.path.exists('%s.%s.stdin' % (basetmp, comando_ejecutado.id)):
         options['stdin'] = file('%s.%s.stdin' % (basetmp, comando_ejecutado.id),
@@ -342,7 +96,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
                 comando_ejecutado.id), 'w')
         else:
             options['preexec_fn'].close_stderr = True
-    comando = self.comando # FIXME Acá tiene que diferenciarse de ComandoPrueba
+    comando = self.comando # FIXME tiene que diferenciarse de ComandoPrueba
     comando_ejecutado.inicio = datetime.now()
     log.debug(_(u'Ejecutando como root: %s'), comando)
     os.seteuid(0) # Dios! (para chroot)
@@ -351,10 +105,7 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
         try:
             proc = sp.Popen(comando, **options)
         finally:
-            os.setegid(user_info.gid) # Mortal de nuevo
-            os.seteuid(user_info.uid)
-            log.debug(_(u'Usuario y grupo efectivos cambiados a %s:%s (%s:%s)'),
-                user_info.user, user_info.group, user_info.uid, user_info.gid)
+            contexto_ejecucion.user_info.reset_permisos() # Mortal de nuevo
     except Exception, e:
         if hasattr(e, 'child_traceback'):
             log.error(_(u'Error en el hijo: %s'), e.child_traceback)
@@ -491,9 +242,11 @@ def ejecutar_comando_fuente(self, path, entrega): #{{{
 ComandoFuente.ejecutar = ejecutar_comando_fuente
 #}}}
 
-def ejecutar_comando_prueba(self, path, prueba): #{{{
+def ejecutar_comando_prueba(self, prueba, contexto_ejecucion): #{{{
     # Diferencia con comando fuente: s/entrega/prueba/ y s/build/test/ en path
     # y setup/clean de test.
+    path = contexto_ejecucion.test_path
+    path_origen = join(contexto_ejecucion.build_path, '') #agregamos un slash para incluir todos los archivos del dir indicado
     log.debug(_(u'ComandoPrueba.ejecutar(path=%s, prueba=%s)'), path,
         prueba)
     if not self.activo:
@@ -501,21 +254,18 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
         return
     caso_de_prueba = prueba.caso_de_prueba
     comando_ejecutado = prueba.add_comando_ejecutado(self)
-    basetmp = '/tmp/sercom.tester.prueba' # FIXME TODO /var/run/sercom?
+    basetmp = contexto_ejecucion.test_temp_base_path
     #{{{ Código que solo va en ComandoPrueba (setup de directorio)
     rsync = ('rsync', '--stats', '--itemize-changes', '--human-readable',
         '--archive', '--acls', '--delete-during', '--force', # TODO config
-        'var/chroot_pepe/home/sercom/build/', path) # FIXME!!!! path
+        path_origen, path)
     log.debug(_(u'Ejecutando como root: %s'), ' '.join(rsync))
     os.seteuid(0) # Dios! (para chroot)
     os.setegid(0)
     try:
         sp.check_call(rsync)
     finally:
-        os.setegid(user_info.gid) # Mortal de nuevo
-        os.seteuid(user_info.uid)
-        log.debug(_(u'Usuario y grupo efectivos cambiados a %s:%s (%s:%s)'),
-            user_info.user, user_info.group, user_info.uid, user_info.gid)
+        contexto_ejecucion.user_info.reset_permisos() # Mortal de nuevo
     #}}}
     unzip(self.archivos_entrada, path, # TODO try/except
         {self.STDIN: '%s.%s.stdin' % (basetmp, comando_ejecutado.id)})
@@ -524,7 +274,7 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
     options = dict(
         close_fds=True,
         shell=True,
-        preexec_fn=SecureProcess(self, 'var/chroot_pepe', '/home/sercom/test') # FIXME!!!! path
+        preexec_fn=contexto_ejecucion.ejecutar_test(self)
     )
     if os.path.exists('%s.%s.stdin' % (basetmp, comando_ejecutado.id)):
         options['stdin'] = file('%s.%s.stdin' % (basetmp, comando_ejecutado.id),
@@ -565,10 +315,7 @@ def ejecutar_comando_prueba(self, path, prueba): #{{{
         try:
             proc = sp.Popen(comando, **options)
         finally:
-            os.setegid(user_info.gid) # Mortal de nuevo
-            os.seteuid(user_info.uid)
-            log.debug(_(u'Usuario y grupo efectivos cambiados a %s:%s (%s:%s)'),
-                user_info.user, user_info.group, user_info.uid, user_info.gid)
+            contexto_ejecucion.user_info.reset_permisos() # Mortal de nuevo
     except Exception, e:
         if hasattr(e, 'child_traceback'):
             log.error(_(u'Error en el hijo: %s'), e.child_traceback)

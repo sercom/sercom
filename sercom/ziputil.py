@@ -38,3 +38,23 @@ def unzip(bytes, default_dst='.', specific_dst=dict()): # {{{
             file(dst, 'w').write(zfile.read(f))
     zfile.close()
 
+
+class Multizip(object): #{{{
+    def __init__(self, *zip_streams):
+        self.zips = [ZipFile(StringIO(z), 'r') for z in zip_streams
+            if z is not None]
+        self.names = set()
+        for z in self.zips:
+            self.names |= set(z.namelist())
+    def read(self, name):
+        for z in self.zips:
+            try:
+                return z.read(name)
+            except KeyError:
+                pass
+        raise KeyError(name)
+    def namelist(self):
+        return self.names
+#}}}
+
+

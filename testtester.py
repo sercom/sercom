@@ -14,42 +14,25 @@ turbogears.update_config(configfile=configfile, modulename="sercom.config")
 import turbogears.i18n
 __builtins__._ = turbogears.i18n.plain_gettext # Nada de gettext lazy
 #}}}
-
-from sercom.tester import Tester
-from sercom.model import Entrega, hub
+from sercom.backend.incomming_queue import ColaDeEntregas
+from sercom.backend.context import ContextoEjecucion
+from sercom.backend.tester import Tester
+from sercom.backend.processing import UserInfo
+from turbogears import config
 from os.path import join
-from datetime import datetime
-import time
-import logging
 
-log = logging.getLogger('sercom.tester')
 
-class Queue(object):
-    def __init__(self):
-        self.go_on = True
-    def get(self):
-        while self.go_on:
-            try:
-                hub.begin()
-                try:
-                    e = Entrega.selectBy(inicio=None).orderBy(Entrega.q.fecha)[0]
-                    e.inicio = datetime.now()
-                finally:
-                    hub.commit()
-                return e.id
-            except IndexError:
-                log.debug(_(u'No hay entregas pendientes'))
-                time.sleep(10) # TODO config?
-            except Exception, e:
-                if isinstance(e, SystemExit):
-                    raise
-                log.exception('Queue: ')
-                time.sleep(10) # TODO config?
-        return None
 
-q = Queue()
+user_info = UserInfo(config.get('sercom.tester.user', 65534))
+chroot_uid = config.get('sercom.tester.chroot.user', 65534)
+obj = ColaDeEntregas()
+cola = ColaDeEntregas()
 
-tester = Tester(name='pepe', path='var', home=join('home', 'sercom'), queue=q)
-
+chroot_origen = join('var','chroot')
+chroot_destino = join('var','chroot_pepe')
+home_en_chroot = join('home', 'sercom')
+temp_folder = join('/tmp','sercom_pepe')
+contexto = ContextoEjecucion(user_info, chroot_origen, chroot_destino, home_en_chroot, temp_folder, chroot_uid)
+tester = Tester(contexto_ejecucion = contexto, queue=cola)
 tester.run()
 
