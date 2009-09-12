@@ -51,6 +51,7 @@ class CorreccionForm(W.TableForm):
 class ResumenEntregasFiltros(W.TableForm):
     class Fields(W.WidgetsList):
         instanciaID = W.SingleSelectField(label=_(u'Ejercicio'), validator=V.Int(not_empty=True))
+        desertoresFLAG = W.CheckBox(label=_(u"Mostrar Alumnos sin entrega?") )
     form_attrs={'class':"filter"}
     fields = Fields()
 
@@ -123,11 +124,14 @@ class CorreccionController(BaseController, identity.SecureResource):
 
     @expose(template='kid:%s.templates.resumen_entregas' % __name__)
     @paginate('records', limit=config.get('items_por_pagina'))
-    def resumen_entregas(self,instanciaID=None):
+    def resumen_entregas(self,instanciaID=None, desertoresFLAG=None):
         """Lista un resumen de los alumnos, sus entregas y correcciones para una instancia dada"""
         if instanciaID:
             instancia = InstanciaDeEntrega.get(instanciaID)
-            r = instancia.get_resumen_entregas()
+            if not desertoresFLAG:
+              r = [x for x in instancia.get_resumen_entregas() if x.tiene_entregas]
+            else:
+              r = instancia.get_resumen_entregas()
         else:
             r = []
 
@@ -135,6 +139,6 @@ class CorreccionController(BaseController, identity.SecureResource):
         options = dict(instanciaID=instancias_opts)
         vfilter = dict(instanciaID=instanciaID)
         return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_entregas,
-            vfilter=vfilter, options=options, instanciaID=instanciaID)
+            vfilter=vfilter, options=options, instanciaID=instanciaID, desertoresFLAG=desertoresFLAG)
 #}}}
 
