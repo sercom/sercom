@@ -16,6 +16,7 @@ from sqlobject import SQLObjectNotFound
 from formencode import Invalid
 from datetime import datetime, timedelta
 from sercom.presentation.controllers import BaseController
+from turbogears import config
 
 import sercom.presentation.subcontrollers as S
 
@@ -245,6 +246,8 @@ class Root(controllers.RootController, BaseController):
         curso = Curso.get(form_data['curso'])
         del form_data['curso']
         del form_data['password_confirm']
+	if(not config.get('inscripcion_abierta')):
+          return (u'La inscripcion esta cerrada', '/', dict())
         try:
             alumno = Alumno(**form_data)
             # TODO: rol debería ser configurable
@@ -292,6 +295,9 @@ class Root(controllers.RootController, BaseController):
     def save_upgrade_registration(self, **form_data):
         ERROR_CRED_INVALIDAS =_(u'No fue posible completar la operación. Revisar que el padrón y el password sean correctos.')
         ERROR_FORMAT =_(u'No fue posible completar la operación. El padrón se compone solamente de números.')
+        if(not config.get('inscripcion_abierta')):
+          flash(u'la inscripcion esta cerrada')
+          raise redirect(url('/'))
         curso = Curso.get(form_data['curso'])
         try:
             if not form_data['padron'].isdigit():
