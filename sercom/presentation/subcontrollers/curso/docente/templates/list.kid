@@ -22,7 +22,7 @@
         <td><span py:replace="record.observaciones">observaciones</span></td>
 				<td>
 					<a href="${tg.url('/curso/docente/edit/%d' % record.id)}">Editar</a>
-					<a href="${tg.url('/curso/docente/delete/%d/%d' % (record.curso.id, record.id))}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a>
+					<a href="${tg.url('/curso/docente/delete/%d/%d' % (record.curso.id, record.id))}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Desasociar del curso</a>
 				</td>
     </tr>
 </table>

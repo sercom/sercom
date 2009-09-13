@@ -1,5 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<?python from turbogears import identity ?>
+<?python
+from turbogears import identity
+from datetime import datetime
+?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#"
     py:extends="'../../../../templates/master.kid'">
 <head>
@@ -15,12 +18,16 @@
         <th>Número</th>
         <th>Enunciado</th>
         <th>Es Grupal?</th>
+        <th># Instancias</th>
+        <th>Instancias abiertas</th>
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
         <td><span py:replace="record.numero">numero</span></td>
         <td><a href="${tg.url('/enunciado/show/%d' % record.enunciado.id)}"><span py:replace="record.enunciado">enunciado</span></a></td>
         <td><span py:replace="tg.strbool(record.grupal)">grupal</span></td>
+        <td><span py:replace="str(len(record.instancias))"></span></td>
+        <td><span py:replace="','.join([str(x.numero) for x in record.instancias if datetime.now() >= x.inicio and x.fin >=datetime.now()])">ninguna</span></td>
         <td>
             <a href="${tg.url('/curso/ejercicio/show/%d' % record.id)}">Ver</a>
             <a href="${tg.url('/curso/ejercicio/instancia/list/%d' % record.id)}">Instancias</a>
