@@ -33,8 +33,15 @@
         <table style="width:100%">
             <tr>
                 <td class="contexto" py:if="not tg.identity.anonymous">
-                  Curso:&nbsp;<span py:replace="SessionHelper().get_contexto_usuario().get_curso()">curso</span>&nbsp;&nbsp;
-                  <a href="/seleccion_curso">Cambiar</a>
+                  Curso:&nbsp;
+                  <a href="/seleccion_curso"><span py:replace="SessionHelper().get_contexto_usuario().get_curso()">curso</span></a>&nbsp;&nbsp;
+                  <a py:if="'docente' in tg.identity.groups" href="${tg.url('/curso/docente/list/%d' % SessionHelper().get_contexto_usuario().get_curso().id)}">Docentes</a>
+                  <a py:if="'docente' in tg.identity.groups" href="${tg.url('/curso/alumno/list/%d' % SessionHelper().get_contexto_usuario().get_curso().id)}">Alumnos</a>
+                  <a py:if="'docente' in tg.identity.groups" href="${tg.url('/curso/grupo/list/%d' % SessionHelper().get_contexto_usuario().get_curso().id)}">Grupos</a>
+                  <a py:if="'docente' in tg.identity.groups" href="${tg.url('/curso/ejercicio/list/%d' % SessionHelper().get_contexto_usuario().get_curso().id)}">Ejercicios</a>
+                  <span py:for="i in [x for x in SessionHelper().get_contexto_usuario().get_curso().instancias_a_corregir if x.numero>0]" py:if="'docente' in tg.identity.groups">
+                  <a href="${tg.url('/correccion/resumen_entregas?instanciaID=%d' % i.id)}"><span py:replace="str(i.ejercicio.numero)+'.'+str(i.numero)">i</span></a>
+                  </span>
                 </td>
                 <td class="credenciales">
                   <span py:if="tg.identity.anonymous"><a href="/login">Login</a></span>

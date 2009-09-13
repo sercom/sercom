@@ -22,6 +22,7 @@ from sercom.domain.correcciones import DTOResumenEntrega
         <th>Entregas Exitosas</th>
         <th>Entregas Fallidas</th>
         <th>Corrector</th>
+        <th>Nota</th>
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
@@ -32,6 +33,7 @@ from sercom.domain.correcciones import DTOResumenEntrega
         <td><span py:replace="record.entregas_exitosas == 0 and '-' or str(record.entregas_exitosas)">entregas exitosas</span></td>
         <td><span py:replace="record.entregas_fallidas == 0 and '-' or str(record.entregas_fallidas)">entregas fallidas</span></td>
         <td><span py:if="record.correccion" py:replace="record.correccion.corrector">corrector</span></td>
+        <td><span py:if="record.correccion" py:replace="record.correccion.nota">corrector</span></td>
         <td>
             <a py:if="record.tiene_entregas" href="${tg.url('/curso/ejercicio/instancia/entregas/%s/%d' % (instanciaID, entregador.id))}">Ver Entregas</a>&nbsp;&nbsp;
             <a py:if="record.editar_correccion" href="${tg.url('/corregir/edit', correccionID=record.correccion.id)}">Corregir</a>
