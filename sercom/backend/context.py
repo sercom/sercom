@@ -32,11 +32,11 @@ class ContextoEjecucion:
 
     @property
     def build_temp_base_path(self):
-        return self.temp_folder + '.fuente'
+        return join(self.temp_folder, 'fuente')
 
     @property
     def test_temp_base_path(self):
-        return self.temp_folder + '.prueba'
+        return join(self.temp_folder, 'prueba')
 
     @property
     def build_path_en_chroot(self):

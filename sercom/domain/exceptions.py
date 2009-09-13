@@ -22,3 +22,11 @@ class AlumnoSinEntregas(Exception):
 
     def __str__(self):
         return "El alumno '%s' no posee entregas para la instancia '%s'" % (self.alumno, self.instancia)
+
+class ValorConfiguracionInvalido(Exception):
+    def __init__(self,clave):
+        self.clave = clave
+
+    def __str__(self):
+        return "No se encuentra la configuracion para la clave '%s'." % self.clave
+
