@@ -100,7 +100,7 @@
         <p py:content="message">Mensaje</p>
         <p py:content="login_form(value=form_data)">Formulario de login</p>
         <div py:if="tg_flash" class="flash" py:content="tg_flash"></div>
-        <div id="register">
+        <div id="register" py:if="tg.config('incripcion_abierta')">
             <a href="${tg.url('/register')}">Inscripción</a>
             &nbsp;&nbsp;
             <a href="${tg.url('/upgrade_registration')}">Inscripción recursantes</a>
