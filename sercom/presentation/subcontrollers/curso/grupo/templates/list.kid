@@ -7,6 +7,14 @@
 </head>
 <body>
 
+<a href="${tg.url('/curso/ejercicio/list/%d' % curso.id)}">Ejercicio</a>
+| <a href="${tg.url('/curso/docente/list/%d' % curso.id)}">Docentes</a>
+| <a href="${tg.url('/curso/alumno/list/%d' % curso.id)}">Alumnos</a>
+| Grupos
+| <a href="${tg.url('/curso/notas/%d' % curso.id)}">Notas</a>
+<span py:if="'admin' in tg.identity.permissions">| <a href="${tg.url('/curso/list')}">Administrar</a></span>
+| <a href="#" onclick="history.back(-1)">Volver</a>
+
 <h1><span py:replace="namepl">Objetos</span> del curso <span py:replace="curso">Objetos</span></h1>
 
 <table class="list">

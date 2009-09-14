@@ -11,7 +11,16 @@ from datetime import datetime
 </head>
 <body>
 
+Ejercicio
+| <a href="${tg.url('/curso/docente/list/%d' % curso.id)}">Docentes</a>
+| <a href="${tg.url('/curso/alumno/list/%d' % curso.id)}">Alumnos</a>
+| <a href="${tg.url('/curso/grupo/list/%d' % curso.id)}">Grupos</a>
+| <a href="${tg.url('/curso/notas/%d' % curso.id)}">Notas</a>
+<span py:if="'admin' in tg.identity.permissions">| <a href="${tg.url('/curso/list')}">Administrar</a></span>
+| <a href="#" onclick="history.back(-1)">Volver</a>
+
 <h1><span py:replace="namepl.capitalize()">Objetos</span> del curso <span py:replace="curso" /></h1>
+
 
 <table class="list">
     <tr>
@@ -37,11 +46,8 @@ from datetime import datetime
         </td>
     </tr>
 </table>
-
 <br/>
 <a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups or 'redactor' in tg.identity.groups" href="${tg.url('/curso/ejercicio/new/%s' % curso.id)}">Agregar</a>
-| <a py:if="'admin' in tg.identity.groups or 'JTP' in tg.identity.groups" href="${tg.url('/curso')}">Volver a Cursos</a><a py:if="'redactor' in tg.identity.groups" href="${tg.url('/enunciado')}">Volver a Enunciados</a>
-
 
 <div py:for="page in tg.paginate.pages">
     <a py:if="page != tg.paginate.current_page"

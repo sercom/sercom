@@ -8,7 +8,15 @@
 </head>
 <body>
    
-    <h1>Alumnos del curso <span py:replace="curso"></span></h1>
+<a href="${tg.url('/curso/ejercicio/list/%d' % curso.id)}">Ejercicio</a>
+| <a href="${tg.url('/curso/docente/list/%d' % curso.id)}">Docentes</a>
+| Alumnos
+| <a href="${tg.url('/curso/grupo/list/%d' % curso.id)}">Grupos</a>
+| <a href="${tg.url('/curso/notas/%d' % curso.id)}">Notas</a>
+<span py:if="'admin' in tg.identity.permissions">| <a href="${tg.url('/curso/list')}">Administrar</a></span>
+| <a href="#" onclick="history.back(-1)">Volver</a>
+
+<h1>Alumnos del curso <span py:replace="curso"></span></h1>
 
 <table class="list">
     <tr>
