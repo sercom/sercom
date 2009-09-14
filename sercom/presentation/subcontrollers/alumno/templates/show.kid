@@ -29,16 +29,31 @@
 	<td><span py:replace="record.telefono">telefono</span></td>
     </tr>
     <tr>
-        <th>Nota:</th>
-	<td><span py:replace="record.nota">nota</span></td>
-    </tr>
-    <tr>
         <th>Activo:</th>
 	<td><span py:replace="record.activo">activo</span></td>
     </tr>
     <tr>
         <th>Observaciones:</th>
 	<td><span py:replace="XML(record.obs)">observaciones</span></td>
+    </tr>
+    <tr>
+        <th>Cursos en que esta<br/>o estuvo Inscripto:</th>
+	<td><ul><li py:for="i in record.inscripciones" ><span>${str(i.curso.descripcion)}</span>
+		<table>
+			<tr>
+			<th>Ejercicio</th>
+			<th>Instancia</th>
+			<th>Nota</th>
+			<th>Corrector</th>
+			</tr>
+			<tr py:for="c in i.correcciones">
+			<td>${c.entrega.instancia.ejercicio.numero}</td>
+			<td>${c.entrega.instancia.numero}</td>
+			<td>${c.nota}</td>
+			<td>${c.corrector.docente.nombre}</td>
+			</tr>
+		</table>
+        </li></ul></td>
     </tr>
 </table>
 

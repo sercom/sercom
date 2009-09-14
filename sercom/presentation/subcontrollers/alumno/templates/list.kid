@@ -19,7 +19,6 @@
         <th>Nombre</th>
         <th>E-Mail</th>
         <th>Teléfono</th>
-        <th>Nota</th>
         <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
@@ -31,7 +30,6 @@
         <td><span py:replace="record.nombre">nombre</span></td>
         <td><a py:if="record.email" href="mailto:${record.email}"><span py:replace="tg.summarize(record.email, 30)">email</span></a></td>
         <td><span py:replace="tg.summarize(record.telefono, 12)">telefono</span></td>
-        <td><span py:replace="record.nota">nota</span></td>
         <td><a href="${tg.url('/alumno/show/%d' % record.id)}">Ver</a>
             <a py:if="Permiso.alumno_editar.nombre in tg.identity.permissions"  href="${tg.url('/alumno/edit/%d' % record.id)}">Editar</a>
             <a py:if="Permiso.alumno_eliminar.nombre in tg.identity.permissions" href="${tg.url('/alumno/delete/%d' % record.id)}" onclick="if (confirm('${_(u'Estás seguro? Tal vez sólo quieras desactivarlo mejor...')}')) { var f = document.createElement('form'); this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href; f.submit(); };return false;">Eliminar</a></td>
