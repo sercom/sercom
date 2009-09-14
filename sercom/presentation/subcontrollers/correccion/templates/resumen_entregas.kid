@@ -12,6 +12,10 @@ from sercom.domain.correcciones import DTOResumenEntrega
 </head>
 <body>
 
+
+<a href="${tg.url('/correccion/mis_correcciones')}">Mis correcciones</a>
+|Resumen de Entregas
+
 <h1>Resumen de Entregas</h1>
 
 <div py:replace="form(value=vfilter, options=options, action=tg.url('/correccion/resumen_entregas'), submit_text=_(u'Filtrar'))">Filtros</div>
@@ -48,10 +52,6 @@ from sercom.domain.correcciones import DTOResumenEntrega
     <b py:if="page == tg.paginate.current_page">${page}</b>
 </div>
 
-<br/>
-<br/>
-<a href="${tg.url('/correccion/mis_correcciones')}">Mis correcciones</a>
-<br/>
 
 </body>
 </html>
