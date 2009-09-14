@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <?python import sitetemplate
 	from sercom.menu import Menu
+	from datetime import datetime
 	from sercom.controllers import Root
 	from sercom.presentation.utils.sessionhelper import SessionHelper
 	menu = Menu(Root)
@@ -40,7 +41,7 @@
                   <a py:if="'JTP' in tg.identity.groups" href="${tg.url('/curso/grupo/list/%d' % SessionHelper().get_contexto_usuario().get_curso().id)}">Grupos</a>
                   <a py:if="'JTP' in tg.identity.groups" href="${tg.url('/curso/ejercicio/list/%d' % SessionHelper().get_contexto_usuario().get_curso().id)}">Ejercicios</a>
                   <a py:if="'JTP' in tg.identity.groups" href="${tg.url('/curso/notas/%d' % SessionHelper().get_contexto_usuario().get_curso().id)}">Notas</a>
-                  <span py:for="i in [x for x in SessionHelper().get_contexto_usuario().get_curso().instancias_a_corregir if x.numero>0]" py:if="'docente' in tg.identity.groups">
+                  <span py:for="i in [x for x in SessionHelper().get_contexto_usuario().get_curso().instancias_a_corregir if x.numero>0 and datetime.now()>=x.inicio]" py:if="'docente' in tg.identity.groups">
                   <a href="${tg.url('/correccion/resumen_entregas?instanciaID=%d' % i.id)}">${str(i.ejercicio.numero)+'.'+str(i.numero)}</a>
                   </span>
                 </td>
