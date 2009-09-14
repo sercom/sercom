@@ -36,8 +36,8 @@ from sercom.domain.correcciones import DTOResumenEntrega
         <td><span py:if="record.correccion" py:replace="record.correccion.nota">corrector</span></td>
         <td>
             <a py:if="record.tiene_entregas" href="${tg.url('/curso/ejercicio/instancia/entregas/%s/%d' % (instanciaID, entregador.id))}">Ver Entregas</a>&nbsp;&nbsp;
-            <a py:if="record.editar_correccion" href="${tg.url('/corregir/edit', correccionID=record.correccion.id)}">Corregir</a>
-            <a py:if="record.agregar_correccion" href="${tg.url('/corregir/new', instanciaID = instanciaID, entregadorID = entregador.id)}">Corregir</a>
+            <a py:if="record.editar_correccion" href="${tg.url('/correccion/edit', correccionID=record.correccion.id)}">Corregir</a>
+            <a py:if="record.agregar_correccion" href="${tg.url('/correccion/new', instanciaID = instanciaID, entregadorID = entregador.id)}">Corregir</a>
        </td>
     </tr>
 </table>

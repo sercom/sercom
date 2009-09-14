@@ -33,7 +33,7 @@
         <td><span py:replace="record.corregido">fecha corregido</span></td>
         <td align="right"><span py:replace="record.nota">nota</span></td>
 				<td>
-					<a href="${tg.url('/corregir/edit', correccionID=record.id)}">Editar</a>
+					<a href="${tg.url('/correccion/edit', correccionID=record.id)}">Editar</a>
 				</td>
     </tr>
 </table>
