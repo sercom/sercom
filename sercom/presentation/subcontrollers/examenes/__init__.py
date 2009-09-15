@@ -46,16 +46,9 @@ def validate_get(id):
 def validate_set(id, data):
     return val.validate_set(cls, name, id, data)
 
-def validate_new(data):
-    return val.validate_new(cls, name, data)
 #}}}
 
 #{{{ Formulario
-class ExamenFinalFormSchema(V.Schema):
-    fecha =  V.DateTimeConverter(format="%d/%m/%Y")
-    anio = V.Number(min=0, max=32767, strip=True)
-    cuatrimestre = V.Number(min=1, max=2, strip=True)
-    oportunidad = V.Number(min=1, max=6, strip=True)
 
 class ExamenFinalForm(W.TableForm):
     class Fields(W.WidgetsList):
@@ -63,19 +56,21 @@ class ExamenFinalForm(W.TableForm):
         	calendar_lang = 'es',
                 validator = V.DateTimeConverter(format="%d/%m/%Y"),
         	format = '%d/%m/%Y')
-        anio = W.TextField(label = _(u'Año'), validator = V.Number(min=0, max=32767, strip=True))
+        anio = W.TextField(label = _(u'Año'), validator = V.Number(min=0, max=32767, strip=True,not_empty=True))
         cuatrimestre = W.TextField(label = _('Cuatrimestre'), validator =  V.Number(min=1, max=2, strip=True, not_empty=True))
-        oportunidad = W.TextField(label = _('Oportunidad'), validator =  V.Number(min=1, max=6, strip=True))
+        oportunidad = W.TextField(label = _('Oportunidad'), validator =  V.Number(min=1, max=6, strip=True, not_empty=True))
 
     fields = Fields()
 
-def create_form(examen_controller = None, cant_preguntas = 10):
+def create_form(cant_preguntas = 10):
     fields = list(ExamenFinalForm.fields)
     for numero_pregunta in range(1, cant_preguntas + 1):
 	fields.append(CS.TemaSelectField(name=Mascaras.TEMA % numero_pregunta))
 	fields.append(CS.TipoSelectField(name=Mascaras.TIPO % numero_pregunta))
         fields.append(W.TextArea(name=Mascaras.TEXTO % numero_pregunta, label="Pregunta %d" % numero_pregunta))
     return ExamenFinalForm(fields = fields)
+
+examen_form = create_form()
 
 #}}}
 class anonymous_permission(identity.Predicate, identity.IdentityPredicateHelper):
@@ -106,7 +101,7 @@ class ExamenFinalController(controllers.Controller, identity.SecureResource):
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
         """Create new records in model"""
-        return dict(name=name, namepl=namepl, form=create_form(), values=kw)
+        return dict(name=name, namepl=namepl, form=examen_form, values=kw)
 
     def __extract_preguntas(self, kw):
         preguntas = {}
@@ -129,13 +124,14 @@ class ExamenFinalController(controllers.Controller, identity.SecureResource):
         return preguntas
 
     @identity.require(identity.has_permission('admin'))
-    @validate(form=create_form)
+    @validate(form=examen_form)
     @error_handler(new)
     @expose()
     def create(self,  **kw):
         preguntas = self.__extract_preguntas(kw)
         """Save or create record to model"""
-        examen = validate_new(kw)
+        kw['anio'] = int(kw['anio'])
+        examen = ExamenFinal(**kw)
         for numero in preguntas.keys():
             u = PreguntaExamen(numero = numero, dto = preguntas[numero],examen = examen)
         flash(_(u'Se creó un nuevo %s.') % name)
@@ -154,10 +150,10 @@ class ExamenFinalController(controllers.Controller, identity.SecureResource):
         	r[Mascaras.TEXTO % pregunta.numero] = pregunta.texto
         	r[Mascaras.TIPO % pregunta.numero] = pregunta.tipoID
         	r[Mascaras.TEMA % pregunta.numero] = pregunta.temaID
-        return dict(name=name, namepl=namepl, record=r, form=create_form())
+        return dict(name=name, namepl=namepl, record=r, form=examen_form)
 
     @identity.require(identity.has_permission('admin'))
-    @validate(form=create_form)
+    @validate(form=examen_form)
     @error_handler(edit)
     @expose()
     def update(self, id, **kw):
@@ -201,7 +197,7 @@ class ExamenFinalController(controllers.Controller, identity.SecureResource):
         for numero_pregunta in preguntas.keys():
             kw[Mascaras.TEXTO % numero_pregunta] = preguntas[numero_pregunta]
 
-        return dict(name=name, namepl=namepl, form=create_form(), values=kw)
+        return dict(name=name, namepl=namepl, form=examen_form, values=kw)
 
     @identity.require(identity.has_permission('admin'))
     @expose(template='kid:%s.templates.from_file' % __name__)
