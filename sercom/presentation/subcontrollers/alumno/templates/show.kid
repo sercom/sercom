@@ -39,7 +39,7 @@
     <tr>
         <th>Cursos en que esta<br/>o estuvo Inscripto:</th>
 	<td><ul><li py:for="i in record.inscripciones" ><span>${str(i.curso.descripcion)}</span>
-		<table>
+		<table border="1">
 			<tr>
 			<th>Ejercicio</th>
 			<th>Instancia</th>
