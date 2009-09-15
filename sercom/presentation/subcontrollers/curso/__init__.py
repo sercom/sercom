@@ -330,8 +330,9 @@ class CursoController(controllers.Controller, identity.SecureResource):
         # Ejercicios
         for ej in r.ejercicios:
             for ins in ej.instancias:
-                print "E"+str(ej.numero)+str(ins.numero)
-                cols.append("E"+str(ej.numero)+str(ins.numero))
+                #print "E"+str(ej.numero)+str(ins.numero)
+		if int(ins.numero) > 0:
+                    cols.append("E"+str(ej.numero)+str(ins.numero))
         cols.append("EA")
         cols.append("NP")
         cols.append("NF")
