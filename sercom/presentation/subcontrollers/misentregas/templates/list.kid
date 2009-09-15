@@ -12,9 +12,9 @@
 
 <table class="list">
     <tr>
-				<th>Entregador</th>
 				<th>Ejercicio</th>
-				<th><span title="Instancia de Entrega">IE</span></th>
+				<th>Numero Ejercicio</th>
+				<th>Intento</th>
         <th>OK?</th>
         <th>Fecha</th>
         <th>InicioTareas</th>
@@ -23,9 +23,9 @@
 				<th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-        <td><span py:if="record.entregador" py:replace="record.entregador">usuario</span></td>
         <td><span py:replace="record.instancia.ejercicio.enunciado.nombre">usuario</span></td>
-        <td><span py:replace="record.instancia">usuario</span></td>
+        <td><span py:replace="record.instancia.ejercicio.numero">usuario</span></td>
+        <td><span py:replace="record.instancia.numero">usuario</span></td>
         <td><span py:replace="record.exito">fecha asignado</span></td>
         <td><span py:replace="record.fecha">fecha corregido</span></td>
         <td><span py:replace="record.inicio">fecha corregido</span></td>
