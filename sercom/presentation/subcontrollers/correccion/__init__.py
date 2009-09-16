@@ -3,7 +3,7 @@
 #{{{ Imports
 import cherrypy
 from turbogears import controllers, expose, redirect
-from turbogears import validate, flash, error_handler
+from turbogears import validate, flash, error_handler, url
 from turbogears import validators as V
 from turbogears import widgets as W
 from turbogears import identity
@@ -12,7 +12,8 @@ from turbogears import config
 from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import Correccion, Curso, Ejercicio
-from sercom.model import InstanciaDeEntrega, DocenteInscripto
+from sercom.model import InstanciaDeEntrega, DocenteInscripto, Entregador
+from sercom.domain.exceptions import AlumnoSinEntregas
 from sqlobject import *
 from sercom.presentation.controllers import BaseController
 
@@ -37,16 +38,25 @@ def validate_new(data):
 #}}}
 
 #{{{ Formulario
+
 class CorreccionForm(W.TableForm):
     class Fields(W.WidgetsList):
-        linstancia = W.Label(label=_(u'Instancia de Entrega'))
-        lentregador = W.Label(label=_(u'Entregador'))
-        lentrega = W.Label(label=_(u'Entrega'))
-        lcorrector = W.Label(label=_(u'Corrector'))
-        nota = W.TextField(label=_(u'Nota'), validator=V.Number(not_empty=True, strip=True))
-        observaciones = W.TextArea(label=_(u'Observaciones'), validator=V.UnicodeString(not_empty=False, strip=True))
+        entregaID = W.SingleSelectField(label=_(u'Entrega'),
+                validator=V.Int) # TODO
+        correctorID = W.SingleSelectField(label=_(u'Corrige'),
+                validator=V.Int) # TODO
+        asignado = W.CalendarDateTimePicker(label=_(u'Fecha de asignación'))
+        corregido = W.CalendarDateTimePicker(label=_(u'Fecha de corrección'))
+        nota = W.TextField(label=_(u'Nota'),
+                validator=V.Number(not_empty=True, strip=True))
+        observaciones = W.TextArea(label=_(u'Observaciones'),
+                validator=V.UnicodeString(not_empty=False, strip=True))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_instancia');")]
+    submit_text = _(u'Corregir')
+    # TODO: crear chained validator para verificar que exista una correccion
+    # con esa instanciaID y entregadorID
+correccion_form = CorreccionForm()
+
 
 class ResumenEntregasFiltros(W.TableForm):
     class Fields(W.WidgetsList):
@@ -56,7 +66,6 @@ class ResumenEntregasFiltros(W.TableForm):
     fields = Fields()
 
 filtro_resumen_entregas = ResumenEntregasFiltros()
-form = CorreccionForm()
 #}}}
 
 
@@ -86,29 +95,6 @@ class CorreccionController(BaseController, identity.SecureResource):
                      )
                   ).orderBy(Ejercicio.q.numero)
         return dict(records=r, name=name, namepl=namepl)
-
-    @expose(template='kid:%s.templates.edit' % __name__)
-    def edit(self, id, **kw):
-        """Edit record in model"""
-        r = validate_get(id)
-        r.linstancia = r.instancia
-        r.lentregador = r.entregador
-        r.lentrega = r.entrega
-        r.lcorrector = r.corrector
-        return dict(name=name, namepl=namepl, record=r, form=form)
-
-    @validate(form=form)
-    @error_handler(edit)
-    @expose()
-    def update(self, id, **kw):
-        """Save or create record to model"""
-        from sqlobject import DateTimeCol
-        r = Correccion.get(id)
-        r.nota = kw['nota']
-        r.observaciones = kw['observaciones']
-        r.corregido = DateTimeCol.now()
-        flash(_(u'El %s fue actualizado.') % name)
-        raise redirect('../mis_correcciones')
 
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self,id, **kw):
@@ -140,5 +126,40 @@ class CorreccionController(BaseController, identity.SecureResource):
         vfilter = dict(instanciaID=instanciaID)
         return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_entregas,
             vfilter=vfilter, options=options, instanciaID=instanciaID, desertoresFLAG=desertoresFLAG)
+
+    @error_handler(index)
+    @expose()
+    def new(self, instanciaID, entregadorID):
+        instancia = InstanciaDeEntrega.get(instanciaID)
+        entregador = Entregador.get(entregadorID)
+	docente = identity.current.user
+        try:
+            correccion = docente.corregir(entregador, instancia)
+            raise redirect('edit', correccionID = correccion.id)
+        except AlumnoSinEntregas:
+            flash(_(u'El alumno %s no realizó ninguna entrega para la '
+                u'instancia %s') % (alumno, instancia))
+            raise redirect('index', instanciaID=instanciaID)
+
+    @expose(template='%s.templates.edit' % __name__)
+    def edit(self, correccionID, **form_data):
+        correccion = Correccion.get(correccionID)
+        entregas_opts = [(e.id, e.fecha) for e in correccion.entregas]
+        corrector_opts = [(di.id, unicode(di.docente))
+                for di in correccion.instancia.ejercicio.curso.docentes]
+        options = dict(entregaID=entregas_opts, correctorID=corrector_opts)
+        return dict(correccion=correccion,
+                correccion_form=correccion_form, options=options,
+                action=url('save', correccionID = correccion.id))
+
+    @validate(form=correccion_form)
+    @error_handler(edit)
+    @expose()
+    def save(self, correccionID, **form_data):
+        correccion = Correccion.get(correccionID)
+        correccion.set(**form_data)
+        flash('La corrección fue grabada correctamente.')
+        raise redirect('edit',dict(correccionID=correccionID, form_data=form_data))
+
 #}}}
 

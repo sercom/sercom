@@ -36,7 +36,7 @@
                         <a href="${tg.url('/curso/ejercicio/instancia/entregas/%d' % i.id)}">entrega
                             ${i.numero}</a>:
                         ${len(entregaron)} entrega(s), ${len(por_corregir)} sin
-                        <a py:if="por_corregir" href="${tg.url('/corregir/')}">corregir</a>
+                        <a py:if="por_corregir" href="${tg.url('/correccion/resumen_entregas/%d' % i.id)}">corregir</a>
                     </li>
                 </ul>
             </div>

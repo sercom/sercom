@@ -178,7 +178,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
 
     @expose()
     def index(self):
-        raise redirect('ejercicio/list')
+        raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
     @paginate('records', limit=config.get('items_por_pagina'))

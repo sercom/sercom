@@ -15,9 +15,9 @@ class TemaSelectField(CustomSelectField):
         	return [(t.id, t.descripcion) for t in TemaPregunta.select()]   
 
 	def __init__(self,**kw):
-		kw['options'] = self.__get_temas()
+		kw['options'] = self.__get_temas
 		kw['label']=_(u'Tema')
-		kw['validator'] = V.Int()
+		kw['validator'] = V.Int(not_empty=True)
 		super(CustomSelectField, self).__init__(**kw)
 
 
@@ -26,8 +26,8 @@ class TipoSelectField(CustomSelectField):
 		return [(t.id, t.descripcion) for t in TipoPregunta.select()]   
         
 	def __init__(self,**kw):
-		kw['options'] = self.__get_tipos()
+		kw['options'] = self.__get_tipos
 		kw['label']=_(u'Tipo')
-		kw['validator'] = V.Int()
+		kw['validator'] = V.Int(not_empty=True)
 		super(CustomSelectField, self).__init__(**kw)
 

@@ -9,7 +9,6 @@ from turbogears import identity
 from turbogears import paginate
 from turbogears import config
 from docutils.core import publish_parts
-from sercom.presentation.controllers import BaseController
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import Ejercicio, Curso, Enunciado
 from cherrypy import request, response
@@ -73,24 +72,19 @@ form = EjercicioForm()
 #}}}
 
 #{{{ Controlador
-class EjercicioController(BaseController, identity.SecureResource):
+class EjercicioController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_any_permission('entregar','enunciado_editar','enunciado_eliminar')
 
     instancia = InstanciaController()
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @validate(validators=dict(curso_id=V.Int))
+    @validate(validators=dict(curso=V.Int))
     @paginate('records', limit=config.get('items_por_pagina'))
-    def list(self, curso_id=None):
+    def list(self, curso):
         """List records in model"""
-        if curso_id:
-            curso = Curso.get(curso_id)
-        else:
-            curso = self.get_curso_actual()
-
-        r = cls.selectBy(cursoID=curso.id).orderBy(cls.q.numero)
-        return dict(records=r, name=name, namepl=namepl, curso=curso)
+        r = cls.selectBy(cursoID=curso).orderBy(cls.q.numero)
+        return dict(records=r, name=name, namepl=namepl, curso=Curso.get(curso))
 
     @expose(template='kid:%s.templates.new' % __name__)
     @validate(validators=dict(curso=V.Int))

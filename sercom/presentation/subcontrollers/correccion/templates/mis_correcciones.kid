@@ -8,6 +8,9 @@
 </head>
 <body>
 
+Mis Correcciones
+| <a href="${tg.url('/correccion/resumen_entregas')}">Resumen de entregas</a>
+
 <h1>Mis Correcciones</h1>
 
 <table class="list">
@@ -33,7 +36,7 @@
         <td><span py:replace="record.corregido">fecha corregido</span></td>
         <td align="right"><span py:replace="record.nota">nota</span></td>
 				<td>
-					<a href="${tg.url('/corregir/edit', correccionID=record.id)}">Editar</a>
+					<a href="${tg.url('/correccion/edit', correccionID=record.id)}">Editar</a>
 				</td>
     </tr>
 </table>
@@ -43,11 +46,6 @@
         href="${tg.paginate.get_href(page)}">${page}</a>
     <b py:if="page == tg.paginate.current_page">${page}</b>
 </div>
-
-<br/>
-<br/>
-<a href="${tg.url('/correccion/resumen_entregas')}">Resumen de entregas</a>
-<br/>
 
 </body>
 </html>

@@ -33,13 +33,13 @@
 
 <a href="${tg.url('/examenes/pregunta/find')}">Buscar Preguntas</a>
 <div style="display:inline" py:if="'admin' in identity.current.permissions"> | 
-<a href="${tg.url('/examenes/tema')}">Editar Temas</a> | 
-<a href="${tg.url('/examenes/tipo')}">Editar Tipos</a> | 
-<div style="display:inline" py:if="permitir_agregar">
-	<a py:if="permitir_agregar" href="${tg.url('/examenes/new')}">Agregar</a> | 
-	<a py:if="permitir_agregar" href="${tg.url('/examenes/from_file')}">Agregar desde Archivo</a> |
-</div> 
-<a href="${tg.url('/examenes/from_text')}">Agregar desde Texto</a>
+  <a href="${tg.url('/examenes/tema')}">Editar Temas</a> | 
+  <a href="${tg.url('/examenes/tipo')}">Editar Tipos</a> 
+  <div style="display:inline" py:if="permitir_agregar"> |
+    <a py:if="permitir_agregar" href="${tg.url('/examenes/new')}">Agregar</a> | 
+    <a py:if="permitir_agregar" href="${tg.url('/examenes/from_file')}">Agregar desde Archivo</a> |
+    <a href="${tg.url('/examenes/from_text')}">Agregar desde Texto</a>
+  </div> 
 </div>
 <br/>
 <div py:for="page in tg.paginate.pages" py:strip="True">

@@ -12,6 +12,10 @@ from sercom.domain.correcciones import DTOResumenEntrega
 </head>
 <body>
 
+
+<a href="${tg.url('/correccion/mis_correcciones')}">Mis correcciones</a>
+|Resumen de Entregas
+
 <h1>Resumen de Entregas</h1>
 
 <div py:replace="form(value=vfilter, options=options, action=tg.url('/correccion/resumen_entregas'), submit_text=_(u'Filtrar'))">Filtros</div>
@@ -36,8 +40,8 @@ from sercom.domain.correcciones import DTOResumenEntrega
         <td><span py:if="record.correccion" py:replace="record.correccion.nota">corrector</span></td>
         <td>
             <a py:if="record.tiene_entregas" href="${tg.url('/curso/ejercicio/instancia/entregas/%s/%d' % (instanciaID, entregador.id))}">Ver Entregas</a>&nbsp;&nbsp;
-            <a py:if="record.editar_correccion" href="${tg.url('/corregir/edit', correccionID=record.correccion.id)}">Corregir</a>
-            <a py:if="record.agregar_correccion" href="${tg.url('/corregir/new', instanciaID = instanciaID, entregadorID = entregador.id)}">Corregir</a>
+            <a py:if="record.editar_correccion" href="${tg.url('/correccion/edit', correccionID=record.correccion.id)}">Corregir</a>
+            <a py:if="record.agregar_correccion" href="${tg.url('/correccion/new', instanciaID = instanciaID, entregadorID = entregador.id)}">Corregir</a>
        </td>
     </tr>
 </table>
@@ -48,10 +52,6 @@ from sercom.domain.correcciones import DTOResumenEntrega
     <b py:if="page == tg.paginate.current_page">${page}</b>
 </div>
 
-<br/>
-<br/>
-<a href="${tg.url('/correccion/mis_correcciones')}">Mis correcciones</a>
-<br/>
 
 </body>
 </html>
