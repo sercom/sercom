@@ -12,63 +12,39 @@
 <title>Dashboard - SERCOM</title>
 </head>
 <body>
-    <div py:if="'admin' in identity.current.permissions and isinstance(usuario, Docente)">
-        <h1>Dashboard</h1>
-          <div py:if="not curso">
-            Ningún curso fue seleccionado.
-          </div>
-          <div py:if="curso">
-            <h2>Curso ${curso}</h2>
-            Este curso tiene ${len(curso.alumnos)} inscriptos.
-            <h3>Entregas</h3>
-            <div py:for="ej in curso.ejercicios" py:strip="">
-                <?python inst_con_entregas = [i for i in ej.instancias if i.entregas] ?>
-                <ul py:for="i in inst_con_entregas" py:strip="not inst_con_entregas">
-                    <?python
-                        entregaron = [ai for ai in curso.alumnos if ai.entregas_de(i)]
-                        por_corregir = [ai for ai in entregaron
-                                if ai.correccion_de(i) is None
-                                        or ai.correccion_de(i).nota is None]
-                    ?>
-                    <li>
-                        <a href="${tg.url('/curso/ejercicio/show/%d' % i.ejercicio.id)}">Ejercicio
-                            ${ej.numero}</a>,
-                        <a href="${tg.url('/curso/ejercicio/instancia/entregas/%d' % i.id)}">entrega
-                            ${i.numero}</a>:
-                        ${len(entregaron)} entrega(s), ${len(por_corregir)} sin
-                        <a py:if="por_corregir" href="${tg.url('/correccion/resumen_entregas/%d' % i.id)}">corregir</a>
-                    </li>
-                </ul>
-            </div>
-            <div py:if="a_corregir">
-                En este momento tenes <a href="${tg.url('/correccion/')}">${a_corregir}</a> entregas para corregir.
-            </div>
-            <div py:if="not a_corregir">
-                En este momento no tenés entregas para corregir.
-            </div>
-            <h3>Instancias de Entrega</h3>
-            <ul py:for="i in instancias_activas" py:strip="not instancias_activas">
-                <li>
-                <?python d = i.fin - now ?>
-                La <a href="${tg.url('/curso/ejercicio/instancia/show/%d' % i.id)}">instancia
-                ${i.numero}</a> del
-                <a href="${tg.url('/curso/ejercicio/show/%d' % i.ejercicio.id)}">ejercicio
-                ${i.ejercicio.numero}</a> vence en
-                <span py:if="d.days">${d.days} días,</span>
-                <span py:if="d.days or d.seconds">${d.seconds//3600}
-                horas,</span> ${d.seconds//60%60} minutos
-                (${i.fin.strftime(r'%F %R')}) y tiene
-                <a href="${tg.url('/curso/ejercicio/instancia/entregas/%d' % i.id)}">${len(i.entregas)}
-                entregas realizadas</a>.
-                </li>
-            </ul>
-            <div py:if="not instancias_activas">
-                No hay Ejercicios con entregas en curso en este momento.
-            </div>
-        </div>
+    <h1>Dashboard</h1>
+    <div py:if="not curso">
+       Ningún curso fue seleccionado.
     </div>
 
-    <div py:if="'entregar' in identity.current.permissions and 'admin' not in identity.current.permissions">
+    <div py:if="curso and 'corregir' in identity.current.permissions">
+        <table>
+            <tr>
+                <th>Entrega Ejercicio</th>
+                <th>Alumnos con Entregas</th>
+                <th>Aceptadas</th>
+                <th>Corregidas</th>
+                <th>&nbsp;</th>
+            </tr>
+            <tr py:for="inst in curso.instancias_a_corregir">
+                <?python
+                   if inst.id in [ 22 ]:
+                     resumenes = []
+                   else:
+                     resumenes = inst.get_resumen_entregas()
+                   entregados = len([r for r in resumenes if r.tiene_entregas])
+                   aceptados = len([r for r in resumenes if r.entregas_exitosas > 0])
+                ?>
+                <td>${inst.numerorepr()}</td>
+                <td>${entregados}</td>
+                <td>${aceptados}</td>
+                <td><a href="${tg.url('/correccion/resumen_entregas/%d' % inst.id)}">Ver Entregas</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div py:if="curso and 'corregir' not in identity.current.permissions">
         <h2>Instancias de Entrega</h2>
         <ul py:for="instancia in instancias_activas" py:strip="not instancias_activas">
             <li>
@@ -83,50 +59,8 @@
             </li>
         </ul>
         <div py:if="not instancias_activas">
-					No hay fechas de entrega a vencer.
-				</div>	
-				<h2>Últimas entregas realizadas</h2>
-        <table py:if="entregas">
-            <tr>
-                <th>Curso</th>
-                <th>Ejercicio</th>
-                <th>Fecha Entrega</th>
-            </tr>
-            <tr py:for="e in entregas">
-                <td>${e.instancia.ejercicio.curso}</td>
-                <td>${e.instancia.ejercicio.enunciado.nombre}</td>
-                <td>${e.fecha}</td>
-						</tr>
-						<tr>
-							<td colspan="3" align="right">
-								<a href="${tg.url('/mis_entregas/list')}">Ver todas</a>
-							</td>
-						</tr>
-        </table>
-				<div py:if="correcciones" py:strip="">
-				<h2>Te han corregido los siguientes ejercicios</h2>
-        <table>
-            <tr>
-                <th>Curso</th>
-                <th>Ejercicio</th>
-                <th>Fecha</th>
-                <th>Corrector</th>
-                <th>Nota</th>
-            </tr>
-            <tr py:for="e in correcciones">
-                <td>${e.instancia.ejercicio.curso}</td>
-                <td>${e.instancia.ejercicio.enunciado.nombre}</td>
-                <td>${e.corregido}</td>
-                <td>${e.corrector}</td>
-								<td>${e.nota}</td>
-						</tr>
-						<tr>
-							<td colspan="5" align="right">
-								<a href="${tg.url('/mis_correcciones/list')}">Ver todas</a>
-							</td>
-						</tr>
-        </table>
-        </div>
+          No hay fechas de entrega a vencer.
+        </div>	
     </div>
 </body>
 </html>

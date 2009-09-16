@@ -138,35 +138,13 @@ class Root(controllers.RootController, BaseController):
     @identity.require(identity.not_anonymous())
     def dashboard(self):
         now = datetime.now()
-        prev = now - timedelta(10) # TODO: config
         curso = self.get_curso_actual()
-        if 'admin' in identity.current.permissions:
-            docente = identity.current.user
-            # busca las correcciones asignadas al docente
-            correcciones = Correccion.selectBy(corrector=identity.current.user,
-                corregido=None).count()
-            instancias = list(InstanciaDeEntrega.select(
-                AND(InstanciaDeEntrega.q.inicio <= now,
-                    InstanciaDeEntrega.q.fin > now))
-                        .orderBy(InstanciaDeEntrega.q.fin))
-            return dict(a_corregir=correcciones, curso=curso,
-                instancias_activas=instancias, now=now)
-
-        if 'entregar' in identity.current.permissions:
-            last_login = Visita.select(AND(VisitaUsuario.q.user_id == identity.current.user.id, Visita.q.visit_key == VisitaUsuario.q.visit_key))[-1:][0].created
-            # Proximas instancias de entrega
-            instancias = list(InstanciaDeEntrega.select(
-                AND(InstanciaDeEntrega.q.inicio <= now,
-                    InstanciaDeEntrega.q.fin > now,
-                    InstanciaDeEntrega.q.ejercicioID == Ejercicio.q.id,
-                    Ejercicio.q.cursoID == curso.id)).orderBy(InstanciaDeEntrega.q.fin))
-            # Ultimas N entregas realizadas
-            entregadores = identity.current.user.get_entregadores(curso)
-            entregas = list(Entrega.select(IN(Entrega.q.entregador, entregadores))[:5])
-            correcciones = list(Correccion.select(AND(IN(Correccion.q.entregador, entregadores), 
-                                                      Correccion.q.corregido >= last_login)))
-            return dict(instancias_activas=instancias, now=now, entregas=entregas, correcciones=correcciones)
-        return dict()
+        instancias = list()
+        if curso:
+            for ej in curso.ejercicios:
+                for inst in ej.instancias_a_entregar:
+                    instancias.append(inst)
+        return dict(curso=curso, now=now, instancias_activas = instancias) 
 
     @expose(template='.presentation.templates.login')
     def login(self, forward_url=None, previous_url=None, tg_errors=None, *args,
