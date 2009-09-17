@@ -6,7 +6,7 @@
 <head>
     <meta content="text/html; charset=UTF-8"
         http-equiv="content-type" py:replace="''"/>
-    <title>Login</title>
+    <title>Recuperar contraseña</title>
     <style type="text/css">
         #loginBox
         {
@@ -96,17 +96,10 @@
 
 <body>
     <div id="loginBox">
-        <h1>Identificación</h1>
-        <p py:content="message">Mensaje</p>
-        <p py:content="login_form(value=form_data)">Formulario de login</p>
+        <h1>Contraseña</h1>
+        <p>Si ha perdido su contraseña, puede reestablecerla con este mecanismo. Ingrese la dirección de correo electrónico que utilizó para registrarse.</p>
+        <p py:content="recover_form(value=form_data)">Formulario de recupero de contraseña</p>
         <div py:if="tg_flash" class="flash" py:content="tg_flash"></div>
-        <a href="${tg.url('/recover')}">Recuperar contraseña</a>
-        &nbsp;&nbsp;
-        <div id="register" py:if="tg.config('incripcion_abierta')">
-            <a href="${tg.url('/register')}">Inscripción</a>
-            &nbsp;&nbsp;
-            <a href="${tg.url('/upgrade_registration')}">Inscripción recursantes</a>
-        </div>
     </div>
 </body>
 </html>

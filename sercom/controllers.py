@@ -4,12 +4,12 @@ from turbogears import controllers, expose, view, url
 from turbogears import widgets as W, validators as V
 from turbogears import identity, redirect
 from turbogears import validate, flash, error_handler
-from cherrypy import request, response
+from cherrypy import request, response, config
 #from turbogears.toolbox.catwalk import CatWalk
 import model
 from model import Visita, VisitaUsuario, InstanciaDeEntrega, Correccion, \
         Curso, Alumno, DateTimeCol, Entrega, Grupo, \
-        DocenteInscripto, AlumnoInscripto, Rol, Ejercicio
+        DocenteInscripto, AlumnoInscripto, Rol, Ejercicio, Usuario
 from sqlobject import AND, IN
 from sqlobject.dberrors import DuplicateEntryError
 from sqlobject import SQLObjectNotFound
@@ -19,6 +19,11 @@ from sercom.presentation.controllers import BaseController
 from turbogears import config
 
 import sercom.presentation.subcontrollers as S
+import smtplib
+from email.mime.text import MIMEText
+import os
+import inspect 
+import cherrypy
 
 import logging
 log = logging.getLogger("sercom.controllers")
@@ -55,6 +60,21 @@ class LoginForm(W.TableForm):
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_login_user');")]
     submit = W.SubmitButton(name='login_submit')
     submit_text = _(u'Ingresar')
+
+class RecoverForm(W.TableForm):
+    class Fields(W.WidgetsList):
+        rec_address = W.TextField(label=_(u'Dirección'),
+            validator=V.Email(not_empty=True))
+        rec_address_v = W.TextField(label=_(u'La dirección nuevamente para verificar'),
+            validator=V.Email(not_empty=True))
+        chained_validators = [V.FieldsMatch('rec_address','rec_address_v')]
+
+    fields = Fields()
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_recover');")]
+    submit = W.SubmitButton(name='recover_submit')
+    submit_text = _(u'Recuperar')
+
+recover_form = RecoverForm()
 
 class SeleccionCursoForm(W.TableForm):
     class Fields(W.WidgetsList):
@@ -145,6 +165,83 @@ class Root(controllers.RootController, BaseController):
                 for inst in ej.instancias_a_entregar:
                     instancias.append(inst)
         return dict(curso=curso, now=now, instancias_activas = instancias) 
+
+    @expose(template='.presentation.templates.recover')
+    def recover(self, tg_errors=None, **formdata):
+
+        if tg_errors:
+            flash(_(u'Debe ingresar su dirección de mail dos veces, para asegurarse que está correctamente escrita.'))
+
+        now = datetime.now()
+        previous_url = request.path
+        
+        fields = list(RecoverForm.fields)
+
+        values = dict()
+        values.update(request.params)
+
+        recover_form = RecoverForm(fields=fields, action='/recover_password')
+        return dict(now=now, recover_form=recover_form, form_data=values)
+
+    @validate(form=recover_form)
+    @error_handler(recover)
+    @expose(template='.presentation.templates.recover')
+    def recover_password(self, **form_data):
+        (msg, redir, data) = self._recover_password(form_data)
+        flash(msg)
+        raise redirect(url(redir), **data)
+
+    @validate(form=recover_form)
+    @error_handler(recover)
+    def _recover_password(self, form_data):
+        try:
+            usuario = Usuario.by_email(form_data['rec_address'])
+            if usuario:
+                hash = usuario.set_hash(cherrypy.request.headers.get('Remote-Addr'))
+                text = 'Este mensaje ha sido enviado para el recupero de contraseña de SERCOM [Taller de programación]\n\n'
+                text += 'Para recuperar su contraseña siga el enlace: https://sercom.clasdix.dyndns.org/recover_hash/?h=%s\n\n' % hash
+                text += 'En caso de no haber solicitado este mensaje, simplemente ignórelo.'
+                self._sendmail(usuario.email, text, '7542@7542.fi.uba.ar', 'Recupero de contraseña')
+        finally:
+            return ( _(u'Se le ha enviado un mensaje a su dirección de correo.'), '/', dict())
+
+    @expose()
+    def recover_hash(self, **form_data):
+        usuario = Usuario.by_hash(form_data['h'])
+        if usuario:
+            newpass = usuario.reset_password()
+            text = 'Nueva contraseña de SERCOM [Taller de programación]\n\n'
+            text += 'Su nueva clave de acceso es: %s\n\n' % newpass
+            self._sendmail(usuario.email, text, '7542@7542.fi.uba.ar', 'Nueva contraseña')
+            flash('Su contraseña fue reestablecida y enviada a su correo electrónico.')
+        raise redirect(url('/'))
+
+    def _sendmail(self, to_addr, text, from_addr=None, subject=None):
+        # set defaults
+        smtp_server = cherrypy.config.get('email.smtp_server', 'sauron')
+        smtp_user = cherrypy.config.get('email.smtp_user')
+        smtp_password = cherrypy.config.get('email.smtp_password')
+
+        if from_addr == None:
+            from_addr = cherrypy.config.get('email.from_addr')
+
+        if subject == None:
+            subject = 'Mail desde SERCOM'
+
+        s = smtplib.SMTP(smtp_server)
+        # Remove to get more debug messages
+        #s.set_debuglevel(1)
+
+        msg = MIMEText(text)
+
+        msg['Subject'] = subject
+        msg['From'] = from_addr
+        msg['To'] = to_addr
+
+        s.sendmail( from_addr, to_addr, msg.as_string())
+        s.close()
+
+
 
     @expose(template='.presentation.templates.login')
     def login(self, forward_url=None, previous_url=None, tg_errors=None, *args,

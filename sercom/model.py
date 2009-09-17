@@ -12,6 +12,7 @@ from turbogears.identity import encrypt_password as encryptpw
 from formencode import Invalid
 from ziputil import *
 from domain import *
+import hashlib
 
 hub = PackageHub("sercom")
 __connection__ = hub
@@ -400,11 +401,16 @@ class Usuario(InheritableSQLObject): #{{{
     # Campos
     contrasenia     = UnicodeCol(length=255, default=None)
     nombre          = UnicodeCol(length=255, notNone=True)
-    email           = StringCol(length=255, default=None)
+    email           = StringCol(length=255, default=None, 
+                        alternateMethodName='by_email')
     telefono        = UnicodeCol(length=255, default=None)
     creado          = DateTimeCol(notNone=True, default=DateTimeCol.now)
     observaciones   = UnicodeCol(default=None)
     activo          = BoolCol(notNone=True, default=True)
+    hash            = StringCol(length=255, default=None, 
+                        alternateMethodName='by_hash')
+    hash_ip         = StringCol(length=32, default=None)
+
     # Joins
     roles           = RelatedJoin('Rol', addRemoveName='_rol')
 
@@ -431,6 +437,20 @@ class Usuario(InheritableSQLObject): #{{{
                 self.remove_rol(r)
             for r in roles:
                 self.add_rol(r)
+
+    def set_hash(self, ip):
+        m = hashlib.sha1()
+        m.update('SER%sCOM:%s' % (self.email, datetime.now()))
+        self.hash = m.hexdigest()
+        self.hash_ip = ip
+        return self.hash
+    def reset_password(self):
+        m = hashlib.md5()
+        m.update('SER%sCOM' % datetime.now())
+        newpass = m.hexdigest()[:8]
+        self.hash = None
+        self.set(newpass)
+        return newpass
 
     def _get_user_name(self): # para identity
         return self.usuario
