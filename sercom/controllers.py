@@ -195,19 +195,26 @@ class Root(controllers.RootController, BaseController):
     @error_handler(recover)
     def _recover_password(self, form_data):
         msg = _(u'Se le ha enviado un mensaje a su dirección de correo.')
+        delay =  config.get('sercom.passrecovery.between_mails_delay', 15)
         try:
             usuario = Usuario.by_email(form_data['rec_address'])
-            if (usuario.hash_ts == None or (datetime.now() - usuario.hash_ts) > timedelta(minutes=15) ):
+            if (usuario.hash_ts == None or (datetime.now() - usuario.hash_ts) > timedelta(minutes=delay) ):
                 # Sólo si no se envió un mail en los últimos 15 minutos a esta cuenta...
                 hash = usuario.set_hash(cherrypy.request.headers.get('Remote-Addr'))
                 text = 'Este mensaje ha sido enviado para el recupero de contraseña de SERCOM [Taller de programación]\n\n'
-                text += 'Para recuperar su contraseña siga el enlace: http://entregas.7542.fi.uba.ar/recover_hash/?h=%s\n\n' % hash
+                if config.get('sercom.passrecovery.send_username', False):
+                    text += 'Su usuario es: %s\n\n' % usuario.usuario.encode('ascii')
+                text += 'Para recuperar su contraseña siga el enlace: %s/recover_hash/?h=%s\n\n' % (request.base, hash)
                 text += 'En caso de no haber solicitado este mensaje, simplemente ignórelo.'
-                self._sendmail(usuario.email, text, '7542@7542.fi.uba.ar', 'Recupero de contraseña')
+                self._sendmail(usuario.email, text, config.get('sercom.passrecovery.mail_from', 'sercom@7542.fi.uba.ar'), 'Recupero de contraseña')
             else:
                 msg = _(u'El uso reinterado de este mecanismo contituye un abuso del sistema')
-        finally:
-            return (msg, '/', dict())
+        except SQLObjectNotFound, e:
+            pass
+        except:
+            raise
+
+        return (msg, '/', dict())
 
     @expose()
     def recover_hash(self, **form_data):
@@ -216,8 +223,8 @@ class Root(controllers.RootController, BaseController):
             newpass = usuario.reset_password()
             text = 'Nueva contraseña de SERCOM [Taller de programación]\n\n'
             text += 'Su nueva clave de acceso es: %s\n\n' % newpass
-            self._sendmail(usuario.email, text, '7542@7542.fi.uba.ar', 'Nueva contraseña')
-            flash('Su contraseña fue reestablecida y enviada a su correo electrónico.')
+            self._sendmail(usuario.email, text, config.get('sercom.passrecovery.mail_from', 'sercom@7542.fi.uba.ar'), 'Nueva contraseña')
+            flash(_(u'Su contraseña fue reestablecida y enviada a su correo electrónico.'))
         raise redirect(url('/'))
 
     def _sendmail(self, to_addr, text, from_addr=None, subject=None):
