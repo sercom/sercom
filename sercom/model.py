@@ -410,6 +410,7 @@ class Usuario(InheritableSQLObject): #{{{
     hash            = StringCol(length=255, default=None, 
                         alternateMethodName='by_hash')
     hash_ip         = StringCol(length=32, default=None)
+    hash_ts         = DateTimeCol(default=None)
 
     # Joins
     roles           = RelatedJoin('Rol', addRemoveName='_rol')
@@ -443,6 +444,7 @@ class Usuario(InheritableSQLObject): #{{{
         m.update('SER%sCOM:%s' % (self.email, datetime.now()))
         self.hash = m.hexdigest()
         self.hash_ip = ip
+        self.hash_ts = datetime.now()
         return self.hash
     def reset_password(self):
         m = hashlib.md5()

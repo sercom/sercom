@@ -194,16 +194,20 @@ class Root(controllers.RootController, BaseController):
     @validate(form=recover_form)
     @error_handler(recover)
     def _recover_password(self, form_data):
+        msg = _(u'Se le ha enviado un mensaje a su dirección de correo.')
         try:
             usuario = Usuario.by_email(form_data['rec_address'])
-            if usuario:
+            if ( (datetime.now() - usuario.hash_ts) > timedelta(minutes=15) ):
+                # Sólo si no se envió un mail en los últimos 15 minutos a esta cuenta...
                 hash = usuario.set_hash(cherrypy.request.headers.get('Remote-Addr'))
                 text = 'Este mensaje ha sido enviado para el recupero de contraseña de SERCOM [Taller de programación]\n\n'
                 text += 'Para recuperar su contraseña siga el enlace: https://sercom.clasdix.dyndns.org/recover_hash/?h=%s\n\n' % hash
                 text += 'En caso de no haber solicitado este mensaje, simplemente ignórelo.'
                 self._sendmail(usuario.email, text, '7542@7542.fi.uba.ar', 'Recupero de contraseña')
+            else:
+                msg = _(u'El uso reinterado de este mecanismo contituye un abuso del sistema')
         finally:
-            return ( _(u'Se le ha enviado un mensaje a su dirección de correo.'), '/', dict())
+            return (msg, '/', dict())
 
     @expose()
     def recover_hash(self, **form_data):
