@@ -197,7 +197,7 @@ class Root(controllers.RootController, BaseController):
         msg = _(u'Se le ha enviado un mensaje a su dirección de correo.')
         try:
             usuario = Usuario.by_email(form_data['rec_address'])
-            if ( (datetime.now() - usuario.hash_ts) > timedelta(minutes=15) ):
+            if (usuario.hash_ts == None or (datetime.now() - usuario.hash_ts) > timedelta(minutes=15) ):
                 # Sólo si no se envió un mail en los últimos 15 minutos a esta cuenta...
                 hash = usuario.set_hash(cherrypy.request.headers.get('Remote-Addr'))
                 text = 'Este mensaje ha sido enviado para el recupero de contraseña de SERCOM [Taller de programación]\n\n'
@@ -222,7 +222,7 @@ class Root(controllers.RootController, BaseController):
 
     def _sendmail(self, to_addr, text, from_addr=None, subject=None):
         # set defaults
-        smtp_server = cherrypy.config.get('email.smtp_server', 'sauron')
+        smtp_server = cherrypy.config.get('email.smtp_server', 'localhost')
         smtp_user = cherrypy.config.get('email.smtp_user')
         smtp_password = cherrypy.config.get('email.smtp_password')
 
