@@ -201,7 +201,7 @@ class Root(controllers.RootController, BaseController):
                 # Sólo si no se envió un mail en los últimos 15 minutos a esta cuenta...
                 hash = usuario.set_hash(cherrypy.request.headers.get('Remote-Addr'))
                 text = 'Este mensaje ha sido enviado para el recupero de contraseña de SERCOM [Taller de programación]\n\n'
-                text += 'Para recuperar su contraseña siga el enlace: https://sercom.clasdix.dyndns.org/recover_hash/?h=%s\n\n' % hash
+                text += 'Para recuperar su contraseña siga el enlace: http://entregas.7542.fi.uba.ar/recover_hash/?h=%s\n\n' % hash
                 text += 'En caso de no haber solicitado este mensaje, simplemente ignórelo.'
                 self._sendmail(usuario.email, text, '7542@7542.fi.uba.ar', 'Recupero de contraseña')
             else:
