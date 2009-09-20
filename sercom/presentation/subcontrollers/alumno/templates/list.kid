@@ -12,6 +12,14 @@
 
 <h1>Administración de <span py:replace="namepl">Objetos</span></h1>
 
+<a href="${tg.url('/alumno/new')}">Agregar</a>
+<a href="${tg.url('/alumno/from_file')}">Agregar desde Archivo</a>
+<div py:for="page in tg.paginate.pages" py:strip="True">
+    <a py:if="page != tg.paginate.current_page" 
+        href="${tg.paginate.get_href(page)}">${page}</a>
+    <b py:if="page == tg.paginate.current_page">${page}</b>
+</div>
+
 <table class="list">
     <tr>
         <th>Padrón</th>
@@ -34,7 +42,6 @@
 <br/>
 <a href="${tg.url('/alumno/new')}">Agregar</a>
 <a href="${tg.url('/alumno/from_file')}">Agregar desde Archivo</a>
-
 <div py:for="page in tg.paginate.pages" py:strip="True">
     <a py:if="page != tg.paginate.current_page" 
         href="${tg.paginate.get_href(page)}">${page}</a>

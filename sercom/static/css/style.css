@@ -296,3 +296,11 @@ form.filter th {
 .dp-diff .verde {
     color:green;
 }
+.flash {
+    display: block;
+    border: thin solid black;
+    background-color: lightgray;
+    margin: 2px;
+    padding: 4px;
+    color: red;
+}

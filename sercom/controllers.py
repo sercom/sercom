@@ -17,6 +17,7 @@ from formencode import Invalid
 from datetime import datetime, timedelta
 from sercom.presentation.controllers import BaseController
 from turbogears import config
+from sercom.presentation.subcontrollers import validate as val
 
 import sercom.presentation.subcontrollers as S
 import smtplib
@@ -56,6 +57,7 @@ class LoginForm(W.TableForm):
             validator=V.NotEmpty())
         login_password = W.PasswordField(label=_(u'Contraseña'),
             validator=V.NotEmpty())
+        forward_url = W.HiddenField()
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_login_user');")]
     submit = W.SubmitButton(name='login_submit')
@@ -75,6 +77,36 @@ class RecoverForm(W.TableForm):
     submit_text = _(u'Recuperar')
 
 recover_form = RecoverForm()
+
+class UserPanelForm(W.TableForm):
+    class Fields(W.WidgetsList):
+        pwd_old = W.PasswordField(label=_(u'Contraseña anterior:'),
+            help_text=_(u'Requerida para establecer una nueva contraseña.'),
+            attrs=dict(maxlength=255),
+            validator=V.UnicodeString(min=5, max=255, not_empty=False))
+        pwd_new = W.PasswordField(label=_(u'Nueva contraseña'),
+            help_text=_(u'Mínimo 5 caracteres.'),
+            attrs=dict(maxlength=255),
+            validator=V.UnicodeString(min=5, max=255, not_empty=False))
+        pwd_confirm = W.PasswordField(label=_(u'Confirmar'),
+            attrs=dict(maxlength=255),
+            validator=V.UnicodeString(min=5, max=255, not_empty=False))
+        nombre = W.TextField(label=_(u'Nombre'),
+            help_text=_(u'Sólo lectura.') if config.get('sercom.user_panel.name_readonly', True) else _(u'Obligatorio.'),
+            validator=V.UnicodeString(min=10, max=255, strip=True),
+            attrs=dict(readonly='readonly') if config.get('sercom.user_panel.name_readonly', True) else dict())
+        telefono = W.TextField(label=_(u'Teléfono'),
+            validator=V.UnicodeString(not_empty=False, min=7, max=255,
+                strip=True))
+        paginador = W.TextField(label=_(u'Ítems por página'),
+            help_text=_(u'Cantidad de ítems por página de listado. (10..250)'),
+            validator=V.Int(min=10, max=250))
+    fields = Fields()
+    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_usuario');")]
+    validator = V.Schema(chained_validators=[
+                            V.FieldsMatch('pwd_new', 'pwd_confirm') ])
+
+user_panel_form = UserPanelForm()
 
 class SeleccionCursoForm(W.TableForm):
     class Fields(W.WidgetsList):
@@ -165,6 +197,57 @@ class Root(controllers.RootController, BaseController):
                 for inst in ej.instancias_a_entregar:
                     instancias.append(inst)
         return dict(curso=curso, now=now, instancias_activas = instancias) 
+
+    @expose(template='.presentation.templates.user_panel')
+    def user_panel(self, id=None, tg_errors=None, **formdata):
+
+        if not id:
+            flash(_(u'Error accediendo al panel de control de usuario.'))
+            raise redirect('/dashboard')
+
+        if (identity.current.user_id == int(id)): 
+
+            if tg_errors:
+                msg = 'Hay uno o más errores:\n'
+                for field, error in tg_errors.items():
+                    msg += '%s: %s\n' % (field, error)
+                flash(msg)
+
+            fields = list(UserPanelForm.fields)
+            usuario = val.validate_get(Usuario, 'usuario', id)
+
+            user_form = RecoverForm(fields=fields, action=('/user_update/%i' % int(id)))
+            return dict(user_form=user_form, record=usuario)
+        else:
+            flash(_(u'Solo podés editar tus propios datos.'))
+            raise redirect('/dashboard')
+
+    @validate(form=user_panel_form)
+    @error_handler(user_panel)
+    @expose(template='.presentation.templates.user_panel')
+    def user_update(self, id=None, **form_data):
+
+        if not id:
+            flash(_(u'Error accediendo al panel de control de usuario.'))
+            raise redirect('/dashboard')
+
+        if (identity.current.user_id == int(id)):
+
+            usuario = val.validate_get(Usuario, 'usuario', id)
+
+            if form_data['pwd_new'] and usuario.equals_password(form_data['pwd_old']):
+                usuario.set(form_data['pwd_new']) 
+            usuario.nombre = form_data['nombre']
+            usuario.telefono = form_data['telefono']
+            usuario.paginador = form_data['paginador']
+            cherrypy.session['paginador'] = usuario.paginador
+
+            flash(u'Datos actualizados correctamente.')
+            raise redirect('/dashboard')
+        else:
+            flash(_(u'Solo podés editar tus propios datos.'))
+            raise redirect('/dashboard')
+
 
     @expose(template='.presentation.templates.recover')
     def recover(self, tg_errors=None, **formdata):
@@ -264,7 +347,15 @@ class Root(controllers.RootController, BaseController):
         if not identity.current.anonymous \
                 and identity.was_login_attempted() \
                 and not identity.get_identity_errors():
-            raise redirect(forward_url)
+            # Login exitoso, cargo preferencias y redirijo...
+            usr = Usuario.get(identity.current.user_id)
+            if usr:
+                cherrypy.session['paginador'] = usr.paginador
+            if forward_url:
+                raise redirect(forward_url)
+            if previous_url:
+                raise redirect(previous_url)
+            raise redirect('/dashboard')
 
         forward_url = None
         previous_url = request.path
@@ -285,9 +376,10 @@ class Root(controllers.RootController, BaseController):
         fields.extend([W.HiddenField(name=name) for name in request.params
                 if name not in ('login_user', 'login_password', 'login_submit',
                                 'forward_url')])
-        login_form = LoginForm(fields=fields, action=previous_url)
+        login_form = LoginForm(fields=fields, action='/login')#previous_url)
 
         values = dict(forward_url=forward_url)
+        values = dict(forward_url=previous_url)
         values.update(request.params)
 
         response.status=403

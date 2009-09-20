@@ -92,11 +92,11 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records', limit=config.get('items_por_pagina'))
+    @paginate('records', limit=config.get('items_por_pagina'), dynamic_limit='limit_to')
     def list(self):
         """List records in model"""
         r = cls.select(orderBy=Alumno.q.usuario)
-        return dict(records=r, name=name, namepl=namepl)
+        return dict(records=r, name=name, namepl=namepl, limit_to=config.get('items_por_pagina') if not 'paginador' in cherrypy.session else cherrypy.session['paginador'])
 
     @expose()
     @identity.require(identity.in_any_group("JTP", "admin"))

@@ -411,6 +411,7 @@ class Usuario(InheritableSQLObject): #{{{
                         alternateMethodName='by_hash')
     hash_ip         = StringCol(length=32, default=None)
     hash_ts         = DateTimeCol(default=None)
+    paginador       = IntCol(default=50)
 
     # Joins
     roles           = RelatedJoin('Rol', addRemoveName='_rol')

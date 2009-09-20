@@ -86,7 +86,7 @@ class DocenteForm(W.TableForm):
     fields = Fields()
     javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_usuario');")]
     validator = V.Schema(chained_validators=[
-                         V.FieldsMatch('pwd_new', 'pwd_confirm') ])
+                            V.FieldsMatch('pwd_new', 'pwd_confirm') ])
 
 form = DocenteForm()
 #}}}
@@ -177,7 +177,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
                             del widget.attrs['checked']
 
     @expose(template='kid:%s.templates.edit' % __name__)
-    def edit(self, id, **kw):
+    def edit(self, id, tg_errors=None, **kw):
         """Edit record in model"""
         record = Docente.get(int(id))
 
@@ -185,6 +185,12 @@ class DocenteController(controllers.Controller, identity.SecureResource):
             or "admin" in identity.current.groups \
             or "JTP" in identity.current.groups):
             self.checkRoles(record)
+
+            if tg_errors:
+                msg = 'Hay uno o más errores:\n'
+                for field, error in tg_errors.items():
+                    msg += '%s: %s\n' % (field, error)
+                flash(msg)
 
             for attr in kw:
                 setattr(record, attr, kw[attr])
