@@ -447,12 +447,13 @@ class Usuario(InheritableSQLObject): #{{{
         self.hash_ip = ip
         self.hash_ts = datetime.now()
         return self.hash
-    def reset_password(self):
-        m = hashlib.md5()
-        m.update('SER%sCOM' % datetime.now())
-        newpass = m.hexdigest()[:8]
+    def reset_password(self, newpass=None):
+        if newpass == None:
+            m = hashlib.md5()
+            m.update('SER%sCOM' % datetime.now())
+            newpass = m.hexdigest()[:8]
         self.hash = None
-        self.set(newpass)
+        self._set_password(newpass)
         return newpass
 
     def _get_user_name(self): # para identity

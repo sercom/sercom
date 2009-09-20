@@ -48,7 +48,7 @@
                 <td class="credenciales">
                   <span py:if="tg.identity.anonymous"><a href="/login">Login</a></span>
                   <span style="text-align: right;" py:if="not tg.identity.anonymous">
-                    Bienvenido  <a href="/user_panel/${tg.identity.user.id}">${tg.identity.user.nombre}.</a>
+                    Bienvenido  <a href="/user_panel/${tg.identity.user.id}" title="Panel de control de usuario">${tg.identity.user.nombre}.</a>
                     <a py:if="'docente' in tg.identity.groups" href="${tg.url('/docente/edit/%d' % tg.identity.user.id)}">Editar</a>
                     <a href="/logout">Logout</a>
                   </span>

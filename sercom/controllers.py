@@ -236,13 +236,16 @@ class Root(controllers.RootController, BaseController):
             usuario = val.validate_get(Usuario, 'usuario', id)
 
             if form_data['pwd_new'] and usuario.equals_password(form_data['pwd_old']):
-                usuario.set(form_data['pwd_new']) 
+                usuario.reset_password(form_data['pwd_new']) 
+                msg = u'Contraseña modificada correctamente.'
+            else:
+                msg = u'No se modificó la contraseña'
             usuario.nombre = form_data['nombre']
             usuario.telefono = form_data['telefono']
             usuario.paginador = form_data['paginador']
             cherrypy.session['paginador'] = usuario.paginador
 
-            flash(u'Datos actualizados correctamente.')
+            flash(u'Datos actualizados correctamente.\n'+msg)
             raise redirect('/dashboard')
         else:
             flash(_(u'Solo podés editar tus propios datos.'))
