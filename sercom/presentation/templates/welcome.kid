@@ -28,10 +28,7 @@
             </tr>
             <tr py:for="inst in curso.instancias_a_corregir">
                 <?python
-                   if inst.id in [ 22 ]:
-                     resumenes = []
-                   else:
-                     resumenes = inst.get_resumen_entregas()
+                   resumenes = inst.get_resumen_entregas()
                    entregados = len([r for r in resumenes if r.tiene_entregas])
                    aceptados = len([r for r in resumenes if r.entregas_exitosas > 0])
                 ?>
