@@ -14,7 +14,7 @@
 <table class="list">
     <tr>
 				<th>Entregador</th>
-        <th>Correcta</th>
+        <th>Aceptada</th>
         <th>InicioTareas</th>
         <th>FinTareas</th>
         <th>Observaciones</th>
@@ -22,38 +22,12 @@
     </tr>
 		<tr py:for="record in records">
 				<?python
-					def contar_comandos_mal(prueba, publico):
-						total = 0
-						tested = 0
-						for c in prueba.comandos_ejecutados:
-							if c.comando.publico == publico:
-								if not c.exito:
-									total += 1
-								tested += 1
-						return (total, tested)
-
-					# Reviso que tan mal esta
-					# si no hay pruebas, esta mal porque no anduvieron los comandos
-					pruebas_pub_mal = 0
-					pruebas_priv_mal = 0
-					if len(record.pruebas) == 0:
-						color = "#ff0000"
-					else:
-						# Veo que onda con las pruebas
-						pri_mal = 0
-						pub_mal = 0
-						for prueba in record.pruebas:
-							(rpub_mal, pub_tested) = contar_comandos_mal(prueba, True)
-							(rpri_mal, pri_tested) = contar_comandos_mal(prueba, False)
-							pri_mal += rpri_mal
-							pub_mal += rpub_mal
-						if pri_mal + pub_mal == 0:
-							color = "#00ff00"
-						else:
-							if pub_mal > 0:
-								color = "#ff0000"
-							else:
-								color = "#ffff00"
+					if not record.exito:
+                                            color = "red"
+                                        elif not record.comandos_exitosos or not record.pruebas_exitosas:
+                                            color = "yellow"
+                                        else:
+                                            color = "green"
 				?>
 	<td style="background:${color};">
 	    <span py:if="record.entregador" py:replace="record.entregador"></span>

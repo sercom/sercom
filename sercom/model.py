@@ -1234,6 +1234,19 @@ class Entrega(Ejecucion): #{{{
     def _get_pruebas_publicas(self):
         return Prueba.select(AND(Prueba.q.entregaID == self.id, Prueba.q.caso_de_pruebaID == CasoDePrueba.q.id, CasoDePrueba.q.publico == True))
 
+    def _get_comandos_exitosos(self):
+        for c in self.comandos_ejecutados:
+            if not c.exito:
+                return False
+        return True
+
+    def _get_pruebas_exitosas(self):
+        for p in self.pruebas:
+            for c in p.comandos_ejecutados:
+                if not c.exito:
+                    return False
+        return True
+
     def get_pruebas_visibles(self,usuario):
         if Permiso.corregir in usuario.permisos:
             return self.pruebas
