@@ -943,7 +943,8 @@ class InstanciaDeEntrega(SQLObject): #{{{
         entregas = dict([(e,[]) for e in entregadores])
         correcciones = dict([(e,None) for e in entregadores])
         for e in self.entregas:
-            entregas[e.entregador].append(e)
+            if e.entregador.id != 128:
+                entregas[e.entregador].append(e)
         for c in self.correcciones:
             correcciones[c.entregador] = c
         return [DTOResumenEntrega(e, entregas[e], correcciones[e]) for e in entregadores]
