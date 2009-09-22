@@ -21,16 +21,15 @@
         <table>
             <tr>
                 <th>Entrega Ejercicio</th>
-                <th>Alumnos con Entregas</th>
-                <th>Aceptadas</th>
-                <th>Corregidas</th>
+                <th>Total alumnos con entregas</th>
+                <th>Con entregas aceptadas</th>
                 <th>&nbsp;</th>
             </tr>
             <tr py:for="inst in curso.instancias_a_corregir">
                 <?python
                    resumenes = inst.get_resumen_entregas()
                    entregados = len([r for r in resumenes if r.tiene_entregas])
-                   aceptados = len([r for r in resumenes if r.entregas_exitosas > 0])
+                   aceptados = len([r for r in resumenes if r.entregas_aceptadas > 0])
                 ?>
                 <td>${inst.numerorepr()}</td>
                 <td>${entregados}</td>
