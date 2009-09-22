@@ -598,6 +598,24 @@ class Alumno(Usuario): #{{{
     def byPadron(cls, padron): # TODO eliminar, backward compat
         return cls.byUsuario(unicode(padron))
 
+    def get_resumen_entregas(self, curso):
+        entregadores_del_alumno = self.get_entregadores(curso)
+        instancias = curso.instancias_a_corregir
+
+        entregas = dict([ (i,[]) for i in instancias ])
+        entregadores = dict([ (i,None) for i in instancias ])
+        correcciones = dict([ (i,None) for i in instancias ])
+
+        for e in Entrega.select(IN(Entrega.q.entregador, entregadores_del_alumno)):
+            inst = e.instancia
+            entregas[inst].append(e)
+            entregadores[inst] = e.entregador
+
+        for c in Correccion.select(IN(Correccion.q.entregador, entregadores_del_alumno)):
+            correcciones[c.instancia] = c
+
+        return [DTOResumenEntregaAlumno(i, entregas[i], entregadores[i], correcciones[i]) for i in instancias]
+
     def get_inscripcion(self, curso):
         return AlumnoInscripto.pk.get(curso, self)
 
@@ -1150,6 +1168,10 @@ class AlumnoInscripto(Entregador): #{{{
 
     def shortrepr(self):
         return srepr(self.alumno)
+
+    def __cmp__(self,other):
+        """ ordena los alumnos inscriptos por nombre de usuario """
+        return cmp(self.alumno.usuario,other.alumno.usuario)
 #}}}
 
 class Tutor(SQLObject): #{{{

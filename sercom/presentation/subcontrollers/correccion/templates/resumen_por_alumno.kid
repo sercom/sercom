@@ -14,16 +14,17 @@ from sercom.domain.correcciones import DTOResumenEntrega
 
 
 <a href="${tg.url('/correccion/mis_correcciones')}">Mis correcciones</a>
-| Resumen de Entregas
-| <a href="${tg.url('/correccion/resumen_por_alumno')}">Resumen por Alumno</a>
+| <a href="${tg.url('/correccion/resumen_entregas')}">Resumen por Instancia</a>
+| Resumen por Alumno
 
-<h1>Resumen de Entregas</h1>
 
-<div py:replace="form(value=vfilter, options=options, action=tg.url('/correccion/resumen_entregas'), submit_text=_(u'Filtrar'))">Filtros</div>
+<h1>Resumen por Alumno</h1>
+
+<div py:replace="form(value=vfilter, options=options, action=tg.url('/correccion/resumen_por_alumno'), submit_text=_(u'Filtrar'))">Filtros</div>
 
 <table class="list">
     <tr>
-        <th>Entregador</th>
+        <th>Instancia</th>
         <th>Entregas Aceptadas</th>
         <th>Entregas Rechazadas</th>
         <th>Corrector</th>
@@ -32,17 +33,18 @@ from sercom.domain.correcciones import DTOResumenEntrega
     </tr>
     <tr py:for="record in records">
         <?python
+          instancia = record.instancia
           entregador = record.entregador
         ?>
-        <td><span py:replace="record.entregador">entregador</span></td>
+        <td><span py:replace="record.instancia">instancia</span></td>
         <td><span py:replace="record.entregas_aceptadas == 0 and '-' or str(record.entregas_aceptadas)">entregas aceptadas</span></td>
         <td><span py:replace="record.entregas_rechazadas == 0 and '-' or str(record.entregas_rechazadas)">entregas rechazadas</span></td>
         <td><span py:if="record.correccion" py:replace="record.correccion.corrector">corrector</span></td>
         <td><span py:if="record.correccion" py:replace="record.correccion.nota">corrector</span></td>
         <td>
-            <a py:if="record.tiene_entregas" href="${tg.url('/curso/ejercicio/instancia/entregas/%s/%d' % (instanciaID, entregador.id))}">Ver Entregas</a>&nbsp;&nbsp;
+            <a py:if="record.tiene_entregas" href="${tg.url('/curso/ejercicio/instancia/entregas/%s/%d' % (instancia.id, entregador.id))}">Ver Entregas</a>&nbsp;&nbsp;
             <a py:if="record.editar_correccion" href="${tg.url('/correccion/edit', correccionID=record.correccion.id)}">Corregir</a>
-            <a py:if="record.agregar_correccion" href="${tg.url('/correccion/new', instanciaID = instanciaID, entregadorID = entregador.id)}">Corregir</a>
+            <a py:if="record.agregar_correccion" href="${tg.url('/correccion/new', instanciaID = instancia.id, entregadorID = entregador.id)}">Corregir</a>
        </td>
     </tr>
 </table>

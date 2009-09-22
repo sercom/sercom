@@ -12,7 +12,7 @@ from turbogears import config
 from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import Correccion, Curso, Ejercicio
-from sercom.model import InstanciaDeEntrega, DocenteInscripto, Entregador
+from sercom.model import InstanciaDeEntrega, DocenteInscripto, Entregador, Alumno
 from sercom.domain.exceptions import AlumnoSinEntregas
 from sqlobject import *
 from sercom.presentation.controllers import BaseController
@@ -57,15 +57,22 @@ class CorreccionForm(W.TableForm):
     # con esa instanciaID y entregadorID
 correccion_form = CorreccionForm()
 
+class ResumenPorAlumnoFiltro(W.TableForm):
+    class Fields(W.WidgetsList):
+        alumno_id = W.SingleSelectField(label=_(u'Alumno'), validator=V.Int(not_empty=True))
+    form_attrs={'class':"filter"}
+    fields = Fields()
 
-class ResumenEntregasFiltros(W.TableForm):
+filtro_resumen_por_alumno = ResumenPorAlumnoFiltro()
+#
+class ResumenEntregasFiltro(W.TableForm):
     class Fields(W.WidgetsList):
         instanciaID = W.SingleSelectField(label=_(u'Ejercicio'), validator=V.Int(not_empty=True))
         desertoresFLAG = W.CheckBox(label=_(u"Mostrar Alumnos sin entrega?") )
     form_attrs={'class':"filter"}
     fields = Fields()
 
-filtro_resumen_entregas = ResumenEntregasFiltros()
+filtro_resumen_entregas = ResumenEntregasFiltro()
 #}}}
 
 
@@ -108,6 +115,23 @@ class CorreccionController(BaseController, identity.SecureResource):
         r = validate_get(id)
         return dict(records=r.entregas, correccion = r)
 
+    @expose(template='kid:%s.templates.resumen_por_alumno' % __name__)
+    @paginate('records', limit=config.get('items_por_pagina'))
+    def resumen_por_alumno(self,alumno_id=None):
+        """Lista un resumen de entregas y correcciones para una alumno dado"""
+        curso = self.get_curso_actual()
+        if alumno_id:
+            alumno = Alumno.get(alumno_id)
+            r = alumno.get_resumen_entregas(curso)
+        else:
+            r = []
+
+        alumnos = [(ai.alumno.id, ai.alumno) for ai in sorted(curso.alumnos)]
+        options = dict(alumno_id=alumnos)
+        vfilter = dict(alumno_id=alumno_id)
+        return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_por_alumno,
+            vfilter=vfilter, options=options)
+
     @expose(template='kid:%s.templates.resumen_entregas' % __name__)
     @paginate('records', limit=config.get('items_por_pagina'))
     def resumen_entregas(self,instanciaID=None, desertoresFLAG=None):
@@ -123,7 +147,7 @@ class CorreccionController(BaseController, identity.SecureResource):
 
         instancias_opts = [(i.id,i.shortrepr()) for i in self.get_curso_actual().instancias_a_corregir]
         options = dict(instanciaID=instancias_opts)
-        vfilter = dict(instanciaID=instanciaID)
+        vfilter = dict(instanciaID=instanciaID, desertoresFLAG = desertoresFLAG)
         return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_entregas,
             vfilter=vfilter, options=options, instanciaID=instanciaID, desertoresFLAG=desertoresFLAG)
 
