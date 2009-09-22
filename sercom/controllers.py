@@ -243,7 +243,7 @@ class Root(controllers.RootController, BaseController):
             usuario.nombre = form_data['nombre']
             usuario.telefono = form_data['telefono']
             usuario.paginador = form_data['paginador']
-            cherrypy.session['paginador'] = usuario.paginador
+            identity.current.user.paginador = usuario.paginador
 
             flash(u'Datos actualizados correctamente.\n'+msg)
             raise redirect('/dashboard')
@@ -350,10 +350,6 @@ class Root(controllers.RootController, BaseController):
         if not identity.current.anonymous \
                 and identity.was_login_attempted() \
                 and not identity.get_identity_errors():
-            # Login exitoso, cargo preferencias y redirijo...
-            usr = Usuario.get(identity.current.user_id)
-            if usr:
-                cherrypy.session['paginador'] = usr.paginador
             if forward_url:
                 raise redirect(forward_url)
             if previous_url:

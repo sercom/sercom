@@ -96,7 +96,7 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
     def list(self):
         """List records in model"""
         r = cls.select(orderBy=Alumno.q.usuario)
-        return dict(records=r, name=name, namepl=namepl, limit_to=config.get('items_por_pagina') if not 'paginador' in cherrypy.session else cherrypy.session['paginador'])
+        return dict(records=r, name=name, namepl=namepl, limit_to=identity.current.user.paginador)
 
     @expose()
     @identity.require(identity.in_any_group("JTP", "admin"))
