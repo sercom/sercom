@@ -42,12 +42,6 @@ def validate_new(data):
     return val.validate_new(cls, name, data)
 #}}}
 
-def get_ejercicios_activos():
-    # TODO : Mostrar solo los ejercicios con instancias de entrega activos
-    return [(0, _(u'--'))] + [(a.id, a) for a in (Ejercicio.select(
-        AND(Ejercicio.q.id==InstanciaDeEntrega.q.ejercicioID, InstanciaDeEntrega.q.inicio <= DateTimeCol.now(),
-            InstanciaDeEntrega.q.fin >= DateTimeCol.now())))]
-
 ajax = """
     function clearCombo(cmbId)
     {
@@ -70,6 +64,16 @@ ajax = """
         clearCombo('form_grupo');
     } 
 
+    function mostrarEjercicios(res) {
+        for(i=0; i< res.ejercicios.length; i++) {
+            id=res.ejercicios[i].id;
+            label = res.ejercicios[i].val;
+            label = label.replace(/u/, "");
+            MochiKit.DOM.appendChildNodes('form_ejercicio', OPTION({'value':id}, label))
+        }
+        checkEnableStatus('form_ejercicio');
+    }
+
     function mostrarInstanciasYGrupos(res)
     {
         for(i=0; i < res.instancias.length; i++) {
@@ -91,6 +95,15 @@ ajax = """
         alert("The metadata for MochiKit.Async could not be fetched :(");
     }
 
+    function actualizar_ejercicios()
+    {
+        clearCombo('form_ejercicio');
+        l = MochiKit.DOM.getElement('form_ejercicio');
+        url = "/mis_entregas/get_ejercicios";
+        var d = loadJSONDoc(url);
+        d.addCallbacks(mostrarEjercicios, err);
+    }
+
     function actualizar_instancias ()
     {
         clearInstanciasYGrupos();
@@ -106,6 +119,7 @@ ajax = """
     function prepare()
     {
         connect('form_ejercicio', 'onchange', actualizar_instancias);
+        actualizar_ejercicios();
         clearInstanciasYGrupos();
     }
 
@@ -115,8 +129,8 @@ ajax = """
 #{{{ Formulario
 class EntregaForm(W.TableForm):
     class Fields(W.WidgetsList):
-        ejercicio = W.SingleSelectField(label=_(u'Ejercicio'),
-            options=get_ejercicios_activos, validator=V.Int(not_empty=True))
+        ejercicio = W.SingleSelectField(name='ejercicio',label=_(u'Ejercicio'),
+             validator=V.Int(not_empty=True))
         instancia = W.SingleSelectField(label=_(u'Instancia de Entrega'), validator=V.Int(not_empty=True))
         grupo = W.SingleSelectField(label=_(u'Grupo'), validator=V.Int())
         archivo = W.FileField(label=_(u'Archivo'), help_text=_(u'Archivo en formaro ZIP con tu entrega'))
@@ -264,6 +278,12 @@ class MisEntregasController(BaseController, identity.SecureResource):
         r = validate_get_comando_ejecutado(id)
         zip = ZipFile(StringIO(r.diferencias), 'r')
         return dict(zip=zip)
+
+    @expose('json')
+    def get_ejercicios(self):
+        curso = self.get_curso_actual()
+        ejercicios = [{'id':0, 'val':'--'}] + [{'id':e.id, 'val':e.shortrepr()} for e in curso.ejercicios_activos]
+        return dict(ejercicios=ejercicios)
 
     @expose('json')
     def get_instancias_y_grupos(self, ejercicio_id):

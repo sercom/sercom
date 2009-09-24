@@ -357,6 +357,14 @@ class Curso(SQLObject): #{{{
         # FIXME esto deberian arreglarlo en SQLObject
         Ejercicio.pk.get(self.id, numero).destroySelf()
 
+    def _get_ejercicios_activos(self):
+        now = DateTimeCol.now()
+        return list(Ejercicio.select(AND(
+                                        Ejercicio.q.cursoID == self.id,
+                                        Ejercicio.q.id == InstanciaDeEntrega.q.ejercicioID,
+                                        InstanciaDeEntrega.q.inicio <= now,
+                                        InstanciaDeEntrega.q.fin >= now)))
+
     def _get_instancias_a_corregir(self):
         return list(InstanciaDeEntrega.select(
                 AND(
@@ -918,8 +926,8 @@ class Ejercicio(SQLObject): #{{{
                     srepr(self.enunciado), self.grupal)
 
     def shortrepr(self):
-        return '(%s, %r, %s)' \
-            % (srepr(self.curso), self.numero, srepr(self.enunciado))
+        return u'(%d, %s)' \
+            % (self.numero, srepr(self.enunciado))
 #}}}
 
 class InstanciaDeEntrega(SQLObject): #{{{
