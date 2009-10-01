@@ -20,7 +20,7 @@
 		continue
 	?>
 	<h3>${info.filename}</h3>
-	<textarea name="code" class="${ext[1:]}:collapse">${zip.read(info.filename)}</textarea>
+	<textarea name="code" class="${ext[1:]}:collapse">${zip.read(info.filename).decode('utf8','replace')}</textarea>
 </div>
 
 <br/>
