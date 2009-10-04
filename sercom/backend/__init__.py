@@ -56,6 +56,17 @@ Tarea.ejecutar = ejecutar_tarea
 
 # TODO generalizar ejecutar_comando_xxxx!!!
 
+def generar_diff_html(udiff_lines, orig, new, fromdesc, todesc):
+    max_permitido = int(config.get('sercom.tester.max_cant_lineas_para_htmldiff','800'))
+    if len(udiff_lines) > max_permitido:
+        new = ['La cantidad de diferencias excede el máximo permitido para el formato HTML. Por favor, controle la versión plana.']
+        orig = []
+    htmldiff = HtmlDiff().make_file(orig, new,
+                fromdesc=fromdesc, todesc=todesc,
+                context=True, numlines=3)
+    return htmldiff
+ 
+
 def ejecutar_comando_fuente(self, entrega, contexto_ejecucion): #{{{
     path = contexto_ejecucion.build_path
     log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s)'), path,
@@ -182,8 +193,10 @@ def ejecutar_comando_fuente(self, entrega, contexto_ejecucion): #{{{
             longname = name
         new = file(new, 'r').readlines()
         orig = zip_in.read(name).splitlines(True)
-        udiff = ''.join(list(unified_diff(orig, new, fromfile=name+'.'+origname,
-            tofile=name+'.'+newname)))
+
+        udiff_lines = list(unified_diff(orig, new, fromfile=name+'.'+origname,
+            tofile=name+'.'+newname))
+        udiff = ''.join(udiff_lines)
         if udiff:
             if self.rechazar_si_falla:
                 entrega.exito = False
@@ -192,11 +205,10 @@ def ejecutar_comando_fuente(self, entrega, contexto_ejecucion): #{{{
                 u'esperado (archivo "%s.diff").\n') % (longname, name)
             log.debug(_(u'%s no coincide con lo esperado (archivo "%s.diff")'),
                 longname, name)
-            htmldiff = HtmlDiff().make_file(orig, new,
-                fromdesc=name+'.'+origname, todesc=name+'.'+newname,
-                context=True, numlines=3)
+            htmldiff = generar_diff_html(udiff_lines, orig, new, name+'.'+origname, name+'.'+newname)
+
             zip_out.writestr(name + '.diff', udiff)
-            zip_out.writestr(name + '.diff', htmldiff)
+            zip_out.writestr(name + '.html', htmldiff)
             return True
         else:
             return False
@@ -394,8 +406,9 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion): #{{{
             longname = name
         new = file(new, 'r').readlines()
         orig = zip_in.read(name).splitlines(True)
-        udiff = ''.join(list(unified_diff(orig, new, fromfile=name+'.'+origname,
-            tofile=name+'.'+newname)))
+        udiff_lines = list(unified_diff(orig, new, fromfile=name+'.'+origname,
+            tofile=name+'.'+newname))
+        udiff = ''.join(udiff_lines)
         if udiff:
             if self.rechazar_si_falla:
                 prueba.exito = False
@@ -404,9 +417,7 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion): #{{{
                 u'esperado (archivo "%s.diff").\n') % (longname, name)
             log.debug(_(u'%s no coincide con lo esperado (archivo "%s.diff")'),
                 longname, name)
-            htmldiff = HtmlDiff().make_file(orig, new,
-                fromdesc=name+'.'+origname, todesc=name+'.'+newname,
-                context=True, numlines=3)
+            htmldiff = generar_diff_html(udiff_lines, orig, new, name+'.'+origname, name+'.'+newname)
             zip_out.writestr(name + '.diff', udiff)
             zip_out.writestr(name + '.html', htmldiff)
             return True
