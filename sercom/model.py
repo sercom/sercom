@@ -547,15 +547,24 @@ class Docente(Usuario): #{{{
             return Correccion.pk.get(instancia=instancia, entregador=entregador)
         except SQLObjectNotFound:
             # Si no existe, trato de crear una
-            entregas = entregador.entregas_de(instancia)
-            if not entregas:
-                # TODO: soportar correcciones sin entregas (puede pasar)
-                raise AlumnoSinEntregas(entregador,instancia)
+            entrega = self._find_entrega_a_corregir(entregador, instancia)
             corrector = self.get_inscripcion(curso)
             return Correccion(entregador=entregador,
-                    instancia=instancia, entrega=entregas[0],
+                    instancia=instancia, entrega=entrega,
                     corrector=corrector,
                     asignado=DateTimeCol.now())
+
+    def _find_entrega_a_corregir(self, entregador, instancia):
+        entregas = entregador.entregas_de(instancia)
+        if not entregas:
+            # TODO: soportar correcciones sin entregas (puede pasar)
+            raise AlumnoSinEntregas(entregador,instancia)
+        else:
+            for e in entregas:
+                if e.aceptada:
+                    return e
+            #else
+            return entregas[0]
 
     def add_entrega(self, instancia, **kw):
         return Entrega(instancia=instancia, **kw)
@@ -946,6 +955,10 @@ class InstanciaDeEntrega(SQLObject): #{{{
     entregas        = MultipleJoin('Entrega', joinColumn='instancia_id')
     correcciones    = MultipleJoin('Correccion', joinColumn='instancia_id')
 
+    def _get_abierta(self):
+        now = DateTimeCol.now()
+        return self.activo and self.inicio <= now and self.fin >= now
+
     def get_resumen_entregas(self):
         entregadores = self.ejercicio.get_posibles_entregadores()
         entregas = dict([(e,[]) for e in entregadores])
@@ -1262,6 +1275,12 @@ class Entrega(Ejecucion): #{{{
     comandos_ejecutados = MultipleJoin('ComandoFuenteEjecutado')
     pruebas             = MultipleJoin('Prueba')
 
+    def _get_aceptada(self):
+        return self.exito
+
+    def _get_correcta(self):
+        return self.aceptada and self.comandos_exitosos and self.pruebas_exitosas
+
     def _get_pruebas_publicas(self):
         return Prueba.select(AND(Prueba.q.entregaID == self.id, Prueba.q.caso_de_pruebaID == CasoDePrueba.q.id, CasoDePrueba.q.publico == True))
 
@@ -1273,9 +1292,8 @@ class Entrega(Ejecucion): #{{{
 
     def _get_pruebas_exitosas(self):
         for p in self.pruebas:
-            for c in p.comandos_ejecutados:
-                if not c.exito:
-                    return False
+            if not p.comandos_exitosos:
+                return False
         return True
 
     def get_pruebas_visibles(self,usuario):
@@ -1315,6 +1333,18 @@ class Entrega(Ejecucion): #{{{
         return super(Entrega, self).__repr__('instancia=%s, entregador=%s, '
             'fecha=%r' % (srepr(self.instancia), srepr(self.entregador),
                 self.fecha))
+
+    def estadorepr(self):
+        if not self.aceptada:
+            return 'Rechazada'
+        elif not self.correcta:
+            c_totales = len(self.comandos_ejecutados)
+            c_pasados = len([c for c in self.comandos_ejecutados if c.exito])
+            p_totales = len(self.pruebas)
+            p_pasadas = len([p for p in self.pruebas if p.comandos_exitosos])
+            return 'Con errores. Pruebas pasadas %d/%d. Fuentes: %d/%d' % (p_pasadas, p_totales, c_pasados, c_totales)
+        else:
+            return 'Correcta'
 
     def shortrepr(self):
         return '%s-%s-%r' % (srepr(self.instancia), srepr(self.entregador),
@@ -1419,6 +1449,12 @@ class Prueba(ComandoEjecutado): #{{{
     pk                  = DatabaseIndex(entrega, caso_de_prueba, unique=True)
     # Joins
     comandos_ejecutados = MultipleJoin('ComandoPruebaEjecutado')
+
+    def _get_comandos_exitosos(self):
+        for c in self.comandos_ejecutados:
+            if not c.exito:
+                return False
+        return True
 
     def validar_acceso(self, usuario):
         self.entrega.validar_acceso(usuario)

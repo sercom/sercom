@@ -14,7 +14,7 @@
 <table class="list">
     <tr>
 				<th>Entregador</th>
-        <th>Aceptada</th>
+        <th>Estado</th>
         <th>InicioTareas</th>
         <th>FinTareas</th>
         <th>Observaciones</th>
@@ -22,9 +22,9 @@
     </tr>
 		<tr py:for="record in records">
 				<?python
-					if not record.exito:
+					if not record.aceptada:
                                             color = "red"
-                                        elif not record.comandos_exitosos or not record.pruebas_exitosas:
+                                        elif not record.correcta:
                                             color = "yellow"
                                         else:
                                             color = "green"
@@ -32,10 +32,10 @@
 	<td style="background:${color};">
 	    <span py:if="record.entregador" py:replace="record.entregador"></span>
         </td>
-        <td style="background:${color};"><span py:replace="record.exito">fecha asignado</span></td>
-        <td style="background:${color};"><span py:replace="record.inicio">fecha corregido</span></td>
-        <td style="background:${color};"><span py:replace="record.fin">fecha corregido</span></td>
-        <td style="background:${color};"><span py:replace="record.observaciones">nota</span></td>
+        <td style="background:${color};"><span py:replace="record.estadorepr()">estado</span></td>
+        <td style="background:${color};"><span py:replace="record.inicio">inicio</span></td>
+        <td style="background:${color};"><span py:replace="record.fin">fin</span></td>
+        <td style="background:${color};"><span py:replace="record.observaciones">observaciones</span></td>
 				<td>
 					<a href="${tg.url('/mis_entregas/corrida/%d' % record.id)}">Corrida</a>
 					<a href="${tg.url('/mis_entregas/get_archivo/%d' % record.id)}">Bajar Archivo</a>

@@ -31,7 +31,7 @@
                    entregados = len([r for r in resumenes if r.tiene_entregas])
                    aceptados = len([r for r in resumenes if r.entregas_aceptadas > 0])
                 ?>
-                <td>${inst.numerorepr()}</td>
+                <td>${inst.numerorepr()+ (inst.abierta and ' (abierta)' or '') }</td>
                 <td>${entregados}</td>
                 <td>${aceptados}</td>
                 <td><a href="${tg.url('/correccion/resumen_entregas/%d' % inst.id)}">Ver Entregas</a>

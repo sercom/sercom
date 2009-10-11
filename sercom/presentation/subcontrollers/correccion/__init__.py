@@ -168,7 +168,7 @@ class CorreccionController(BaseController, identity.SecureResource):
     @expose(template='%s.templates.edit' % __name__)
     def edit(self, correccionID, **form_data):
         correccion = Correccion.get(correccionID)
-        entregas_opts = [(e.id, e.fecha) for e in correccion.entregas]
+        entregas_opts = [(e.id, '%s - %s' % (e.fecha, e.estadorepr())) for e in correccion.entregas]
         corrector_opts = [(di.id, unicode(di.docente))
                 for di in correccion.instancia.ejercicio.curso.docentes]
         options = dict(entregaID=entregas_opts, correctorID=corrector_opts)
