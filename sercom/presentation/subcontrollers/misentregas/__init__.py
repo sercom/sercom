@@ -145,8 +145,7 @@ form = EntregaForm()
 class MisEntregasController(BaseController, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.has_any_permission('entregar', 'corregir')
-
-    hide_to_admin = 1
+    menu_require = identity.has_permission('entregar')
 
     @expose()
     def default(self, tg_errors=None):
@@ -222,37 +221,6 @@ class MisEntregasController(BaseController, identity.SecureResource):
         download = Downloader(cherrypy.response)
         nombre = "Ej_%s-Entrega_%s-%s.zip" % (r.instancia.ejercicio.numero, r.instancia.numero, r.entregador.nombre)
         return download.download_zip(r.archivos, nombre)
-
-    @expose()
-    def get_pdf(self, entregaid):
-        r = validate_get_entrega(entregaid)
-        # TODO: config de tmp dir y cache de PDFs
-        basename = os.path.join('/tmp', 'pdf-%d-%s'
-                % (r.id, datetime.now().isoformat()))
-        os.mkdir(basename) # TODO: capturar excepciones
-        unzip(r.archivos, basename) # TODO: capturar excepciones
-        # TODO: hacer find con python con patrones configurables
-        cmd = "cd '%s'; find -regextype posix-egrep -type f -regex " \
-                "'.*\.(h|c|cpp)' | sort -r | xargs -- a2ps -q -2 -Av --toc " \
-                "--line-numbers=1 --header='[75.42] Taller de Programacion' " \
-                "--left-footer='%%D{%%c}' --footer='Padron %s (curso %d.%d) " \
-                "   Ejercicio %d.%d (entrega %s)' -g -o - | ps2pdf - '%s'.pdf" \
-                % (basename, r.entregador.nombre, 2009, 1,
-                        r.instancia.ejercicio.numero, r.instancia.numero,
-                        r.fecha.isoformat(), basename)
-        subprocess.check_call(cmd, shell=True) # TODO: capturar excepciones
-        pdffile = file('%s.pdf' % basename)
-        pdf = pdffile.read()
-        pdffile.close()
-        shutil.rmtree(basename) # TODO: capturar excepciones
-        os.unlink('%s.pdf' % basename) # TODO: capturar excepciones
-        cherrypy.response.headers["Content-Type"] = "text/plain"
-        cherrypy.response.headers["Content-Type"] = "application/pdf"
-        content_disp = "attachment;filename=%s-ej%d.%d.%s.pdf" % (
-                r.entregador.nombre, r.instancia.ejercicio.numero,
-                r.instancia.numero, r.fecha.isoformat())
-        cherrypy.response.headers["Content-disposition"] = content_disp
-        return pdf
 
     @expose()
     def file(self, id, nombre_arch_interno=None):

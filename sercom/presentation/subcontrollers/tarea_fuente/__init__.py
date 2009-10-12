@@ -49,10 +49,9 @@ form = TareaFuenteForm()
 class TareaFuenteController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
     require = identity.in_any_group('admin','JTP','redactor', 'alumno')
+    menu_require = identity.has_any_permission('admin', 'enunciado_editar')
 
     comandos = ComandoFuenteController()
-
-    hide_to_entregar = 1
 
     @expose()
     def default(self, tg_errors=None):

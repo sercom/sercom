@@ -16,3 +16,11 @@ class Downloader:
         self.response.headers["Content-disposition"] = content_disp
         return unzip_arch_interno(zip,nombre_arch_interno)
 
+    def download_pdf(self, pdf, nombre_arch):
+        #self.response.headers["Content-Type"] = "text/plain"
+        self.response.headers["Content-Type"] = "application/pdf"
+        content_disp = "attachment;filename=%s" % nombre_arch
+        self.response.headers["Content-disposition"] = content_disp
+        return pdf
+        #return nombre_arch
+

@@ -8,4 +8,5 @@ from miscorrecciones import MisCorreccionesController
 from tarea_fuente import TareaFuenteController
 from tarea_prueba import TareaPruebaController
 from examenes import ExamenFinalController
+from entregas import EntregasController
 

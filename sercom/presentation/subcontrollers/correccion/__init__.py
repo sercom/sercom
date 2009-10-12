@@ -48,7 +48,7 @@ class CorreccionForm(W.TableForm):
         asignado = W.CalendarDateTimePicker(label=_(u'Fecha de asignación'))
         corregido = W.CalendarDateTimePicker(label=_(u'Fecha de corrección'))
         nota = W.TextField(label=_(u'Nota'),
-                validator=V.Number(not_empty=True, strip=True))
+                validator=V.Number(strip=True))
         observaciones = W.TextArea(label=_(u'Observaciones'),
                 validator=V.UnicodeString(not_empty=False, strip=True))
     fields = Fields()

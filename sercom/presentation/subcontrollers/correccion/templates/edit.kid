@@ -19,6 +19,8 @@
                 >Ver entrega a corregir</a> |
         <a href="${tg.url('/mis_entregas/get_archivo/%d' % ent.id)}"
                 >Bajar entrega a corregir</a> |
+         <a href="${tg.url('/entregas/get_pdf/%d' % ent.id)}"
+                >Bajar PDF</a> |
         <a href="${tg.url('/curso/ejercicio/instancia/entregas/%d/%d' % (ins.id, entregador.id))}"
                 >Ver todas las entregas</a>
     </div>

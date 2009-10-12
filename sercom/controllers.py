@@ -514,7 +514,7 @@ class Root(controllers.RootController, BaseController):
 
     correccion = S.CorreccionController()
 
-    #admin = identity.SecureObject(CatWalk(model), identity.has_permission('admin'))
+    entregas = S.EntregasController()
 
     mis_entregas = S.MisEntregasController()
 
