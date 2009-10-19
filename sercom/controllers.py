@@ -518,8 +518,6 @@ class Root(controllers.RootController, BaseController):
 
     mis_entregas = S.MisEntregasController()
 
-    mis_correcciones = S.MisCorreccionesController()
-
     examenes = S.ExamenFinalController()
 
 #{{{ Agrega summarize a namespace tg de KID
