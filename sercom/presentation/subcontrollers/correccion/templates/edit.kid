@@ -21,6 +21,8 @@
                 >Bajar entrega a corregir</a> |
          <a href="${tg.url('/entregas/get_pdf/%d' % ent.id)}"
                 >Bajar PDF</a> |
+          <a href="${tg.url('/entregas/browse_files/%d' % ent.id)}"
+                >Navegar Archivos</a> |
         <a href="${tg.url('/curso/ejercicio/instancia/entregas/%d/%d' % (ins.id, entregador.id))}"
                 >Ver todas las entregas</a>
     </div>

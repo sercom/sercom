@@ -42,35 +42,6 @@ def validate_new(data):
     return val.validate_new(cls, name, data)
 #}}}
 
-ajax = """
-    function mostrarArchivo(res) {
-        var lbl = MochiKit.DOM.getElement('lblArchivo');
-        lbl.innerText = res.toString();
-    }
-
-    function err (err)
-    {
-        alert("The metadata for MochiKit.Async could not be fetched :(");
-    }
-
-    function actualizar_ejercicios()
-    {
-        clearCombo('form_ejercicio');
-        l = MochiKit.DOM.getElement('form_ejercicio');
-        url = "/mis_entregas/get_ejercicios";
-        var d = loadJSONDoc(url);
-        d.addCallbacks(mostrarEjercicios, err);
-    }
-
-    function cambiarArchivo(entrega_id, nombre)
-    {
-        url = "/entregas/get_archivo?entrega_id="+entrega_id+"&nombre="+nombre;
-        var d = loadJSONDoc(url);
-        d.addCallbacks(mostrarArchivo, err);
-    }
-
-"""
-
 #{{{ Controlador
 class EntregasController(BaseController, identity.SecureResource):
     """Basic model admin interface"""
@@ -91,11 +62,17 @@ class EntregasController(BaseController, identity.SecureResource):
     def index(self):
         raise redirect('list')
 
+
+    @expose(template='kid:%s.templates.browse_files' % __name__)
+    def browse_files(self, entrega_id):
+        e = validate_get_entrega(entrega_id)
+        return dict(entrega=e)
+
     @expose('json')
     def get_archivo(self, entrega_id, nombre):
         r = validate_get_entrega(entrega_id)
         download = Downloader(cherrypy.response)
-        return download.download_zip_content(r.archivos, nombre)
+        return dict(file_text= download.download_zip_content(r.archivos, nombre))
 
     @expose()
     def get_pdf(self, entregaid):
