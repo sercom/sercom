@@ -9,7 +9,7 @@
 <body>
 
 Mis Correcciones
-| <a href="${tg.url('/correccion/resumen_entregas')}">Resumen por Instancia</a>
+| <a href="${tg.url('/correccion/resumen_entregas')}">Resumen entregas</a>
 | <a href="${tg.url('/correccion/resumen_por_alumno')}">Resumen por Alumno</a>
 
 

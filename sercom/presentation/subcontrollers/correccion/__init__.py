@@ -16,7 +16,9 @@ from sercom.model import InstanciaDeEntrega, DocenteInscripto, Entregador, Alumn
 from sercom.domain.exceptions import AlumnoSinEntregas
 from sqlobject import *
 from sercom.presentation.controllers import BaseController
-
+from zipfile import ZipFile, BadZipfile
+from sercom.presentation.utils.downloader import *
+from cStringIO import StringIO
 
 #}}}
 
@@ -150,6 +152,46 @@ class CorreccionController(BaseController, identity.SecureResource):
         vfilter = dict(instanciaID=instanciaID, desertoresFLAG = desertoresFLAG)
         return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_entregas,
             vfilter=vfilter, options=options, instanciaID=instanciaID, desertoresFLAG=desertoresFLAG)
+
+    @expose()
+    def get_fuentes_instancia(self, instanciaid):
+        instancia = InstanciaDeEntrega.get(instanciaid)
+        r = [(identity.current.user.find_entrega_a_corregir(x.entregador, instancia)) for x in instancia.get_resumen_entregas() if x.tiene_entregas]
+        return self.enviar_zip(r, "entregas_instancia_%u.%u.zip" % (instancia.ejercicio.numero, instancia.numero))
+
+    @expose()
+    def get_mis_fuentes_instancia(self, instanciaID):
+        instancia = InstanciaDeEntrega.get(instanciaID)
+        docenteInscripto = DocenteInscripto.pk.get(instancia.ejercicio.curso.id, identity.current.user.id)
+        if docenteInscripto is not None:
+            r = [e for e in instancia.entregas if Correccion.selectBy(entrega=e, corrector=docenteInscripto).count() == 1]
+            return self.enviar_zip(r, "mis_entregas_instancia_%u.%u.zip" % (instancia.ejercicio.numero, instancia.numero))
+        else:
+            flash(_(u'Docente no inscripto.'))
+            raise redirect('/')
+
+    @expose()
+    def get_fuentes_ejercicio(self, ejercicioid):
+        ejercicio = Ejercicio.get(ejercicioid)
+        r = dict()
+        for instancia in ejercicio.instancias: 
+            if instancia.activo:
+                eeii = [(identity.current.user.find_entrega_a_corregir(x.entregador, instancia)) for x in instancia.get_resumen_entregas() if x.tiene_entregas]
+                for entrega in eeii:
+                    r[entrega.entregador.alumno.padron] = entrega
+        return self.enviar_zip(r.values(), "ultimas_entregas_ej%u.zip" % instancia.ejercicio.numero)
+
+    def enviar_zip(self, entregas, nombre):
+        buffer = StringIO()
+        zip = ZipFile(buffer, 'w')
+        for e in entregas:
+            szip = ZipFile(StringIO(e.archivos), 'r')
+            for file in szip.namelist():
+                zip.writestr('%s_%u/%s' % (e.entregador.alumno.padron.encode('ascii'), e.instancia.numero, file), szip.read(file))
+            szip.close()
+        zip.close()
+        download = Downloader(cherrypy.response)
+        return download.download_zip(buffer.getvalue(), nombre)
 
     @error_handler(index)
     @expose()

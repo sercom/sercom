@@ -11,6 +11,8 @@
 <h1>Administración de <span py:replace="namepl">Objetos</span></h1>
 <h2>Enunciado: <span py:replace="ejercicio.enunciado">Nombre Enunciado</span></h2>
 
+<div><a href="${tg.url('/correccion/get_fuentes_ejercicio/%s' % ejercicio.id)}" title="Fuentes, de las entregas a corregir, correspondientes a instancias activas del ejericio. Sólo la última entrega de cada alumno.">Bajar los fuentes</a></div>
+
 <table class="list">
     <tr>
         <th>Nro</th>

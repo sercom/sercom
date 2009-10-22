@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <?python
 from sercom.model import Grupo, AlumnoInscripto
@@ -14,7 +13,7 @@ from sercom.domain.correcciones import DTOResumenEntrega
 
 
 <a href="${tg.url('/correccion/mis_correcciones')}">Mis correcciones</a>
-| <a href="${tg.url('/correccion/resumen_entregas')}">Resumen por Instancia</a>
+| <a href="${tg.url('/correccion/resumen_entregas')}">Resumen entregas</a>
 | Resumen por Alumno
 
 

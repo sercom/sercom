@@ -547,14 +547,14 @@ class Docente(Usuario): #{{{
             return Correccion.pk.get(instancia=instancia, entregador=entregador)
         except SQLObjectNotFound:
             # Si no existe, trato de crear una
-            entrega = self._find_entrega_a_corregir(entregador, instancia)
+            entrega = self.find_entrega_a_corregir(entregador, instancia)
             corrector = self.get_inscripcion(curso)
             return Correccion(entregador=entregador,
                     instancia=instancia, entrega=entrega,
                     corrector=corrector,
                     asignado=DateTimeCol.now())
 
-    def _find_entrega_a_corregir(self, entregador, instancia):
+    def find_entrega_a_corregir(self, entregador, instancia):
         entregas = entregador.entregas_de(instancia)
         if not entregas:
             # TODO: soportar correcciones sin entregas (puede pasar)
