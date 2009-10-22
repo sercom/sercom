@@ -21,7 +21,7 @@ from sercom.domain.correcciones import DTOResumenEntrega
 <div py:replace="form(value=vfilter, options=options, action=tg.url('/correccion/resumen_entregas'), submit_text=_(u'Filtrar'))">Filtros</div>
 
 <div>
-    <a href="${tg.url('/correccion/get_mis_fuentes_instancia/%s' % instanciaID)}" title="Fuentes, de las entregas a corregir, asignadas al docente actual.">Bajar mis los fuentes</a><br />
+    <a href="${tg.url('/correccion/get_mis_fuentes_instancia/%s' % instanciaID)}" title="Fuentes, de las entregas a corregir, asignadas al docente actual.">Bajar mis fuentes</a><br />
     <a href="${tg.url('/correccion/get_fuentes_instancia/%s' % instanciaID)}" title="Fuentes, de las entregas a corregir, correspondientes a esta instancia.">Bajar todos los fuentes</a>
 </div>
 
