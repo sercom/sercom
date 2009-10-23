@@ -154,32 +154,45 @@ class CorreccionController(BaseController, identity.SecureResource):
             vfilter=vfilter, options=options, instanciaID=instanciaID, desertoresFLAG=desertoresFLAG)
 
     @expose()
-    def get_fuentes_instancia(self, instanciaid):
-        instancia = InstanciaDeEntrega.get(instanciaid)
-        r = [(identity.current.user.find_entrega_a_corregir(x.entregador, instancia)) for x in instancia.get_resumen_entregas() if x.tiene_entregas]
-        return self.enviar_zip(r, "entregas_instancia_%u.%u.zip" % (instancia.ejercicio.numero, instancia.numero))
-
-    @expose()
-    def get_mis_fuentes_instancia(self, instanciaID):
-        instancia = InstanciaDeEntrega.get(instanciaID)
-        docenteInscripto = DocenteInscripto.pk.get(instancia.ejercicio.curso.id, identity.current.user.id)
-        if docenteInscripto is not None:
-            r = [e for e in instancia.entregas if Correccion.selectBy(entrega=e, corrector=docenteInscripto).count() == 1]
-            return self.enviar_zip(r, "mis_entregas_instancia_%u.%u.zip" % (instancia.ejercicio.numero, instancia.numero))
-        else:
-            flash(_(u'Docente no inscripto.'))
+    def get_fuentes_instancia(self, instanciaID):
+        try:
+            instancia = InstanciaDeEntrega.get(instanciaID)
+            r = [(identity.current.user.find_entrega_a_corregir(x.entregador, instancia)) for x in instancia.get_resumen_entregas() if x.tiene_entregas]
+            return self.enviar_zip(r, "entregas_instancia_%u.%u.zip" % (instancia.ejercicio.numero, instancia.numero))
+        except:
+            flash(_(u'Instancia incorrecta.'))
             raise redirect('/')
 
     @expose()
+    def get_mis_fuentes_instancia(self, instanciaID):
+        try:
+            instancia = InstanciaDeEntrega.get(instanciaID)
+            docenteInscripto = DocenteInscripto.pk.get(instancia.ejercicio.curso.id, identity.current.user.id)
+            if docenteInscripto is not None:
+                r = [e for e in instancia.entregas if Correccion.selectBy(entrega=e, corrector=docenteInscripto).count() == 1]
+                return self.enviar_zip(r, "mis_entregas_instancia_%u.%u.zip" % (instancia.ejercicio.numero, instancia.numero))
+            else:
+                flash(_(u'Docente no inscripto.'))
+                raise redirect('/')
+        except:
+            flash(_(u'Instancia incorrecta.'))
+            raise redirect('/')
+
+
+    @expose()
     def get_fuentes_ejercicio(self, ejercicioid):
-        ejercicio = Ejercicio.get(ejercicioid)
-        r = dict()
-        for instancia in ejercicio.instancias: 
-            if instancia.activo:
-                eeii = [(identity.current.user.find_entrega_a_corregir(x.entregador, instancia)) for x in instancia.get_resumen_entregas() if x.tiene_entregas]
-                for entrega in eeii:
-                    r[entrega.entregador.alumno.padron] = entrega
-        return self.enviar_zip(r.values(), "ultimas_entregas_ej%u.zip" % instancia.ejercicio.numero)
+        try:
+            ejercicio = Ejercicio.get(ejercicioid)
+            r = dict()
+            for instancia in ejercicio.instancias: 
+                if instancia.activo:
+                    eeii = [(identity.current.user.find_entrega_a_corregir(x.entregador, instancia)) for x in instancia.get_resumen_entregas() if x.tiene_entregas]
+                    for entrega in eeii:
+                        r[entrega.entregador.alumno.padron] = entrega
+            return self.enviar_zip(r.values(), "ultimas_entregas_ej%u.zip" % instancia.ejercicio.numero)
+        except:
+            flash(_(u'Ejercicio inválido o inexistente.'))
+            raise redirect('/')
 
     def enviar_zip(self, entregas, nombre):
         buffer = StringIO()
