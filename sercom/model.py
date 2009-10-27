@@ -554,6 +554,13 @@ class Docente(Usuario): #{{{
                     corrector=corrector,
                     asignado=DateTimeCol.now())
 
+    def eliminar_correccion(self, entregador, instancia):
+        curso = instancia.ejercicio.curso
+
+        # Veo si ya existe una Correccion, y la borro
+        c = Correccion.pk.get(instancia=instancia, entregador=entregador)
+        c.destroySelf()
+
     def find_entrega_a_corregir(self, entregador, instancia):
         entregas = entregador.entregas_de(instancia)
         if not entregas:

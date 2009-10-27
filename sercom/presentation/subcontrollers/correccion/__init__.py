@@ -132,7 +132,7 @@ class CorreccionController(BaseController, identity.SecureResource):
         options = dict(alumno_id=alumnos)
         vfilter = dict(alumno_id=alumno_id)
         return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_por_alumno,
-            vfilter=vfilter, options=options)
+            vfilter=vfilter, options=options, docenteActual=identity.current.user.id)
 
     @expose(template='kid:%s.templates.resumen_entregas' % __name__)
     @paginate('records', limit=config.get('items_por_pagina'))
@@ -150,8 +150,10 @@ class CorreccionController(BaseController, identity.SecureResource):
         instancias_opts = [(i.id,i.shortrepr()) for i in self.get_curso_actual().instancias_a_corregir]
         options = dict(instanciaID=instancias_opts)
         vfilter = dict(instanciaID=instanciaID, desertoresFLAG = desertoresFLAG)
+        print identity.in_any_group('admin','JTP')
         return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_entregas,
-            vfilter=vfilter, options=options, instanciaID=instanciaID, desertoresFLAG=desertoresFLAG)
+            vfilter=vfilter, options=options, instanciaID=instanciaID, desertoresFLAG=desertoresFLAG,
+            docenteActual=identity.current.user.id)
 
     @expose()
     def get_fuentes_instancia(self, instanciaID):
@@ -208,13 +210,30 @@ class CorreccionController(BaseController, identity.SecureResource):
 
     @error_handler(index)
     @expose()
-    def new(self, instanciaID, entregadorID):
+    def new(self, instanciaID, entregadorID, justAssign=False):
         instancia = InstanciaDeEntrega.get(instanciaID)
         entregador = Entregador.get(entregadorID)
 	docente = identity.current.user
         try:
             correccion = docente.corregir(entregador, instancia)
-            raise redirect('edit', correccionID = correccion.id)
+            if justAssign:
+                raise redirect('resumen_entregas', instanciaID=instanciaID)
+            else:
+                raise redirect('edit', correccionID = correccion.id)
+        except AlumnoSinEntregas:
+            flash(_(u'El alumno %s no realizó ninguna entrega para la '
+                u'instancia %s') % (alumno, instancia))
+            raise redirect('index', instanciaID=instanciaID)
+
+    @error_handler(index)
+    @expose()
+    def delete(self, instanciaID, entregadorID, justAssign=False):
+        instancia = InstanciaDeEntrega.get(instanciaID)
+        entregador = Entregador.get(entregadorID)
+	docente = identity.current.user
+        try:
+            docente.eliminar_correccion(entregador, instancia)
+            raise redirect('resumen_entregas', instanciaID=instanciaID)
         except AlumnoSinEntregas:
             flash(_(u'El alumno %s no realizó ninguna entrega para la '
                 u'instancia %s') % (alumno, instancia))

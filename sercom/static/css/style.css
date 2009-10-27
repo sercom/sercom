@@ -28,7 +28,10 @@ body {
 a.link, a, a.active {
   color: #369;
 }
-
+a:hover {
+  text-decoration: none;
+  color: blue;
+}
 
 #main_content {
   color: black;

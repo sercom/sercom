@@ -24,8 +24,8 @@ from sercom.domain.correcciones import DTOResumenEntrega
 <table class="list">
     <tr>
         <th>Instancia</th>
-        <th>Entregas Aceptadas</th>
-        <th>Entregas Rechazadas</th>
+        <th>Aceptadas</th>
+        <th>Rechazadas</th>
         <th>Corrector</th>
         <th>Nota</th>
         <th>Operaciones</th>
@@ -41,9 +41,10 @@ from sercom.domain.correcciones import DTOResumenEntrega
         <td><span py:if="record.correccion" py:replace="record.correccion.corrector">corrector</span></td>
         <td><span py:if="record.correccion" py:replace="record.correccion.nota">corrector</span></td>
         <td>
-            <a py:if="record.tiene_entregas" href="${tg.url('/curso/ejercicio/instancia/entregas/%s/%d' % (instancia.id, entregador.id))}">Ver Entregas</a>&nbsp;&nbsp;
-            <a py:if="record.editar_correccion" href="${tg.url('/correccion/edit', correccionID=record.correccion.id)}">Corregir</a>
-            <a py:if="record.agregar_correccion" href="${tg.url('/correccion/new', instanciaID = instancia.id, entregadorID = entregador.id)}">Corregir</a>
+            <a py:if="record.tiene_entregas" href="${tg.url('/curso/ejercicio/instancia/entregas/%s/%d' % (instancia.id, entregador.id))}">Ver Entregas</a>
+            <a py:if="record.agregar_correccion" href="${tg.url('/correccion/new', instanciaID = instancia.id, entregadorID = entregador.id, justAssign=True)}" title="Asigna esta entrega al docente actual.">Asignar</a>
+            <a py:if="record.editar_correccion and record.correccion.nota == None" href="${tg.url('/correccion/delete', instanciaID = instancia.id, entregadorID = entregador.id, justAssign=True)}" title="Libera esta entrega.">Desasignar</a>
+            <a py:if="record.editar_correccion and ('admin' in tg.identity.groups or 'JTP' in tg.identity.groups or record.correccion.corrector.docente.id == docenteActual)" href="${tg.url('/correccion/edit', correccionID=record.correccion.id)}">Corregir</a>
        </td>
     </tr>
 </table>
