@@ -120,7 +120,7 @@ class PreguntaExamen(SQLObject): #{{{
     examen           = ForeignKey('ExamenFinal', cascade=True)
     pk               = DatabaseIndex(examen, numero, unique=True)
     # Campos
-    texto            = UnicodeCol(length=500, default=None)
+    texto            = UnicodeCol(length=5000, default=None)
     # Joins
     tema             = ForeignKey('TemaPregunta', cascade=False, default = None)
     tipo             = ForeignKey('TipoPregunta', cascade=False, default = None)
