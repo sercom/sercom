@@ -28,7 +28,7 @@
             <div py:for="pregunta in record.preguntas">
                 <tr>
                     <td>
-                        <span py:replace="pregunta.numero">Numero</span>)&nbsp;<span>${XML(pregunta.texto)}</span>
+                        <span py:replace="pregunta.numero">Numero</span>)&nbsp;<span py:if="pregunta.texto">${XML(pregunta.texto)}</span>
                     </td>
                 </tr>
                 <tr style="height:30px;vertical-align:top">

@@ -27,7 +27,7 @@
     </tr>
     <tr>
         <th>Texto:</th>
-        <td><span>${XML(record.texto)}</span></td>
+        <td><span py:if="record.texto">${XML(record.texto)}</span></td>
     </tr>
 
 </table>

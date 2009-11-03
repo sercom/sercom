@@ -114,6 +114,19 @@ class DTOPregunta:
                 self.tipo = tipo
                 self.tema = tema
 
+class Imagen(SQLObject): #{{{
+    #Clave
+    nombre           = UnicodeCol(length=200, unique=True, notNone=True)
+    pk               = DatabaseIndex(nombre, unique=True)
+
+    #Campos
+    tamanio          = IntCol(notNone=True)
+    fecha            = DateTimeCol(notNone=True, default=DateTimeCol.now)
+    nombre_archivo   = UnicodeCol(length=255, notNone=True)
+    tipo_de_contenido= UnicodeCol(length=255, notNone=True)
+    contenido        = BLOBCol(notNone=True, length=BLOB_SIZE)
+ #}}}
+
 class PreguntaExamen(SQLObject): #{{{
     # Clave
     numero           = IntCol(notNone=True)

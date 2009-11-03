@@ -33,6 +33,7 @@
 
 <a href="${tg.url('/examenes/pregunta/find')}">Buscar Preguntas</a>
 <div style="display:inline" py:if="'admin' in identity.current.permissions"> | 
+  <a href="${tg.url('/examenes/pregunta/imagen/list')}">Imagenes</a> | 
   <a href="${tg.url('/examenes/tema')}">Editar Temas</a> | 
   <a href="${tg.url('/examenes/tipo')}">Editar Tipos</a> 
   <div style="display:inline" py:if="permitir_agregar"> |

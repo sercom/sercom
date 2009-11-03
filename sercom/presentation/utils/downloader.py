@@ -1,4 +1,5 @@
 from sercom.ziputil import *
+from os import path
 
 class Downloader:
     def __init__(self, response):
@@ -17,10 +18,14 @@ class Downloader:
         return unzip_arch_interno(zip,nombre_arch_interno)
 
     def download_pdf(self, pdf, nombre_arch):
-        #self.response.headers["Content-Type"] = "text/plain"
         self.response.headers["Content-Type"] = "application/pdf"
         content_disp = "attachment;filename=%s" % nombre_arch
         self.response.headers["Content-disposition"] = content_disp
         return pdf
-        #return nombre_arch
+
+    def download_image(self, imagen, tipo_de_contenido, nombre_arch):
+        self.response.headers["Content-Type"] = tipo_de_contenido  
+        content_disp = "filename=%s" % nombre_arch
+        self.response.headers["Content-disposition"] = content_disp
+        return imagen
 

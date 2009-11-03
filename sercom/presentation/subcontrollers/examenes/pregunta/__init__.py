@@ -14,6 +14,7 @@ from sercom.presentation.subcontrollers import validate as val
 from sercom.model import PreguntaExamen, TemaPregunta, TipoPregunta
 from sercom.presentation.subcontrollers.examenes import custom_selects as CS
 from sqlobject import *
+from imagen import ImagenController
 #}}}
 
 #{{{ Configuración
@@ -131,6 +132,6 @@ class PreguntaExamenController(controllers.Controller):
         return dict(records=r, name=name, namepl=namepl, form=filtro,
             vfilter=vfilter)
 
-
+    imagen = ImagenController()
 #}}}
 

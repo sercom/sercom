@@ -15,6 +15,7 @@
 	submit_text=_(u'Guardar'))">Formulario</div>
 
 <br/>
+<a href="${tg.url('/examenes/pregunta/imagen/list')}">Imagenes</a> |
 <a href="${tg.url('/examenes/pregunta/show/%d' % record.id)}">Ver (cancela)</a> |
 <a href="${tg.url('/examenes/show/%d' % record.examenID)}">Volver (cancela)</a>
 
