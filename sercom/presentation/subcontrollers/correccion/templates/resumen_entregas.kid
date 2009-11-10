@@ -42,7 +42,8 @@ from sercom.domain.correcciones import DTOResumenEntrega
         <td><span py:replace="record.entregas_aceptadas == 0 and '-' or str(record.entregas_aceptadas)">entregas aceptadas</span></td>
         <td><span py:replace="record.entregas_rechazadas == 0 and '-' or str(record.entregas_rechazadas)">entregas rechazadas</span></td>
         <td><span py:if="record.correccion" py:replace="record.correccion.corrector">corrector</span></td>
-        <td><span py:if="record.correccion" py:replace="record.correccion.nota">corrector</span></td>
+        <td align="center"><span py:if="record.correccion and (record.correccion.corrector.docente.id != docenteActual or record.correccion.nota != None)" py:replace="record.correccion.nota">corrector</span>
+        <span class="error" py:if="record.correccion and record.correccion.corrector.docente.id == docenteActual and record.correccion.nota == None">X</span></td>
         <td nowrap="true">
             <a py:if="record.tiene_entregas" href="${tg.url('/curso/ejercicio/instancia/entregas/%s/%d' % (instanciaID, entregador.id))}">Ver Entregas</a>
             <a py:if="record.agregar_correccion" href="${tg.url('/correccion/new', instanciaID = instanciaID, entregadorID = entregador.id, justAssign=True)}" title="Asigna esta entrega al docente actual.">Asignar</a>

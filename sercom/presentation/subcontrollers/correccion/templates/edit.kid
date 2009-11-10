@@ -30,7 +30,7 @@
     ${correccion_form(value=correccion, options=options, action=action)}
 
 <br/>
-<a href="javascript:window.history.go(-1)">Volver (cancela)</a>
+<a href="${tg.url('/correccion/resumen_entregas/%d' % ins.id )}" title="Si no los guardó, sus datos serán descartados.">Volver</a>
 
 
 </body>
