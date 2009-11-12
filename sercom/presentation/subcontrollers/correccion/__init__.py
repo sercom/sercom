@@ -162,7 +162,7 @@ class CorreccionController(BaseController, identity.SecureResource):
         print identity.in_any_group('admin','JTP')
         return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_entregas,
             vfilter=vfilter, options=options, instanciaID=instanciaID, desertoresFLAG=desertoresFLAG,
-            docenteActual=identity.current.user.id)
+            docenteActual=identity.current.user.id, hayAnterior=instancia_anterior is not None)
 
     @expose()
     def get_fuentes_instancia(self, instanciaID):
