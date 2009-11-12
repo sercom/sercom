@@ -146,7 +146,16 @@ class CorreccionController(BaseController, identity.SecureResource):
               r = instancia.get_resumen_entregas()
         else:
             r = []
-
+        instancia_anterior = instancia.get_instancia_anterior()
+        if instancia_anterior is not None:
+            resumen = dict([(c.entregador, c) for c in instancia_anterior.correcciones])
+            for i in r:
+                if i.entregador in resumen:
+                    i.corrector_anterior = resumen[i.entregador].corrector.docente.usuario
+                    i.nota_anterior = resumen[i.entregador].nota
+                else:
+                    i.corrector_anterior = None
+                    i.nota_anterior = None
         instancias_opts = [(i.id,i.shortrepr()) for i in self.get_curso_actual().instancias_a_corregir]
         options = dict(instanciaID=instancias_opts)
         vfilter = dict(instanciaID=instanciaID, desertoresFLAG = desertoresFLAG)

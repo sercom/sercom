@@ -979,6 +979,11 @@ class InstanciaDeEntrega(SQLObject): #{{{
         now = DateTimeCol.now()
         return self.activo and self.inicio <= now and self.fin >= now
 
+    def get_instancia_anterior(self):
+        if (self.numero <= 1):
+            return None
+        return InstanciaDeEntrega.selectBy(ejercicio=self.ejercicio, numero=self.numero-1).getOne()
+
     def get_resumen_entregas(self):
         entregadores = self.ejercicio.get_posibles_entregadores()
         entregas = dict([(e,[]) for e in entregadores])
