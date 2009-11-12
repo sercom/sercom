@@ -16,7 +16,7 @@
 				<th>Entregador</th>
         <th>Estado</th>
         <th>InicioTareas</th>
-        <th>FinTareas</th>
+        <th>Duración</th>
         <th>Observaciones</th>
 				<th>Operaciones</th>
     </tr>
@@ -34,7 +34,7 @@
         </td>
         <td style="background:${color};"><span py:replace="record.estadorepr()">estado</span></td>
         <td style="background:${color};"><span py:replace="record.inicio">inicio</span></td>
-        <td style="background:${color};"><span py:replace="record.fin">fin</span></td>
+        <td style="background:${color};" title="Finalizó ${record.fin}"><span py:replace="record.runtime">rt</span></td>
         <td style="background:${color};"><span py:replace="record.observaciones">observaciones</span></td>
 				<td>
 					<a href="${tg.url('/mis_entregas/corrida/%d' % record.id)}">Corrida</a>

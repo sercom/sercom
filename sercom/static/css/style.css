@@ -155,6 +155,7 @@ table.list {
 table.list td {
     padding-top: 2px;
     padding-bottom: 2px;
+    padding-left: 2px;
     border: none;
 }
 
