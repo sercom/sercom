@@ -206,20 +206,21 @@ class CorreccionController(BaseController, identity.SecureResource):
             extras = dict()
             if ejercicio.enunciado.lenguaje is not None and ejercicio.enunciado.lenguaje.mossnet_id is not None:
                 extras['mossnet.sh'] = ('#!/bin/sh\nmossnet.pl -l %s -d %s' % (ejercicio.enunciado.lenguaje.mossnet_id, ''.join(files)))
-            return self.enviar_zip(r.values(), ("ultimas_entregas_ej%u.zip" % instancia.ejercicio.numero), extras)
+            return self.enviar_zip(r.values(), ("ultimas_entregas_ej%u.zip" % instancia.ejercicio.numero), extras, ['Makefile', 'Makefile-cliente-servidor'])
         except SQLObjectNotFound:
             flash(_(u'Ejercicio inválido o inexistente.'))
             raise redirect('/')
 
-    def enviar_zip(self, entregas, nombre, extras = None):
+    def enviar_zip(self, entregas, nombre, extras = None, ignoreFileNames = []):
         buffer = StringIO()
         zip = ZipFile(buffer, 'w')
         for e in entregas:
             szip = ZipFile(StringIO(e.archivos), 'r')
             for file in szip.namelist():
-                zipinfo = ZipInfo('%s_%u/%s' % (e.entregador.alumno.padron.encode('ascii'), e.instancia.numero, file))
-                zipinfo.external_attr = 0664 << 16L
-                zip.writestr(zipinfo, szip.read(file))
+                if file not in ignoreFileNames:
+                    zipinfo = ZipInfo('%s_%u/%s' % (e.entregador.alumno.padron.encode('ascii'), e.instancia.numero, file))
+                    zipinfo.external_attr = 0664 << 16L
+                    zip.writestr(zipinfo, szip.read(file))
             szip.close()
         if extras is not None:
             for exk in extras.keys():
