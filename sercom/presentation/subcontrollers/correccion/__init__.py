@@ -16,7 +16,7 @@ from sercom.model import InstanciaDeEntrega, DocenteInscripto, Entregador, Alumn
 from sercom.domain.exceptions import AlumnoSinEntregas
 from sqlobject import *
 from sercom.presentation.controllers import BaseController
-from zipfile import ZipFile, BadZipfile
+from zipfile import ZipFile, ZipInfo, BadZipfile
 from sercom.presentation.utils.downloader import *
 from cStringIO import StringIO
 
@@ -195,24 +195,33 @@ class CorreccionController(BaseController, identity.SecureResource):
         try:
             ejercicio = Ejercicio.get(ejercicioid)
             r = dict()
+            files = []
             for instancia in ejercicio.instancias: 
                 if instancia.activo:
                     eeii = [(identity.current.user.find_entrega_a_corregir(x.entregador, instancia)) for x in instancia.get_resumen_entregas() if x.tiene_entregas]
                     for entrega in eeii:
                         r[entrega.entregador.alumno.padron] = entrega
-            return self.enviar_zip(r.values(), "ultimas_entregas_ej%u.zip" % instancia.ejercicio.numero)
-        except:
+                        files.append('%s_%u/* ' % (entrega.entregador.alumno.padron.encode('ascii'), entrega.instancia.numero))
+            return self.enviar_zip(r.values(), ("ultimas_entregas_ej%u.zip" % instancia.ejercicio.numero), dict({'mossnet.sh': ('#!/bin/sh\nmossnet.pl -l cc -d %s' % ''.join(files))}))
+        except SQLObjectNotFound:
             flash(_(u'Ejercicio inválido o inexistente.'))
             raise redirect('/')
 
-    def enviar_zip(self, entregas, nombre):
+    def enviar_zip(self, entregas, nombre, extras = None):
         buffer = StringIO()
         zip = ZipFile(buffer, 'w')
         for e in entregas:
             szip = ZipFile(StringIO(e.archivos), 'r')
             for file in szip.namelist():
-                zip.writestr('%s_%u/%s' % (e.entregador.alumno.padron.encode('ascii'), e.instancia.numero, file), szip.read(file))
+                zipinfo = ZipInfo('%s_%u/%s' % (e.entregador.alumno.padron.encode('ascii'), e.instancia.numero, file))
+                zipinfo.external_attr = 0664 << 16L
+                zip.writestr(zipinfo, szip.read(file))
             szip.close()
+        if extras is not None:
+            for exk in extras.keys():
+                zipinfo = ZipInfo('%s' % exk)
+                zipinfo.external_attr = 0774 << 16L
+                zip.writestr(zipinfo, extras[exk])
         zip.close()
         download = Downloader(cherrypy.response)
         return download.download_zip(buffer.getvalue(), nombre)
