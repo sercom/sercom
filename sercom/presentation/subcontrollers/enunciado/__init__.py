@@ -10,7 +10,7 @@ from turbogears import paginate
 from turbogears import config
 from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
-from sercom.model import Enunciado, Docente, Curso, Tarea, TareaFuente, TareaPrueba
+from sercom.model import Enunciado, Docente, Curso, Tarea, TareaFuente, TareaPrueba, Lenguaje
 from cherrypy import request, response
 from sercom.widgets import *
 from caso_de_prueba import CasoDePruebaController
@@ -24,6 +24,10 @@ namepl = name + 's'
 fkcls = Docente
 fkname = 'autor'
 fknamepl = fkname + 'es'
+
+lgcls = Lenguaje
+lgname = 'lenguaje'
+lgnamepl = fkname + 's'
 #}}}
 
 ajax = u"""
@@ -75,6 +79,9 @@ def validate_new(data):
 def get_options():
     return [(0, _(u'--'))] + [(fk.id, fk) for fk in fkcls.select()]
 
+def get_lang_options():
+    return [(fk.id, fk) for fk in lgcls.select()]
+
 def get_tareas_fuente():
     return [(tf.id, tf) for tf in TareaFuente.select()]
 
@@ -97,6 +104,8 @@ class EnunciadoForm(W.TableForm):
         descripcion = W.TextField(label=_(u'Descripción'),
             validator=V.UnicodeString(not_empty=False, max=255, strip=True))
         el_archivo = W.FileField(label=_(u'Archivo'))
+        lenguaje = W.SingleSelectField(name=lgname+'ID', label=_(lgname.capitalize()),
+            options=get_lang_options, validator=V.Int(not_empty=False))
         tareas_fuente = AjaxDosListasSelect(label=_(u'Tareas Fuente'),
             title_from=u'Disponibles',
             title_to=u'Asignadas',

@@ -203,7 +203,10 @@ class CorreccionController(BaseController, identity.SecureResource):
                         r[entrega.entregador.alumno.padron] = entrega
             for entrega in r.values():
                 files.append('%s_%u/* ' % (entrega.entregador.alumno.padron.encode('ascii'), entrega.instancia.numero))
-            return self.enviar_zip(r.values(), ("ultimas_entregas_ej%u.zip" % instancia.ejercicio.numero), dict({'mossnet.sh': ('#!/bin/sh\nmossnet.pl -l cc -d %s' % ''.join(files))}))
+            extras = dict()
+            if ejercicio.enunciado.lenguaje is not None and ejercicio.enunciado.lenguaje.mossnet_id is not None:
+                extras['mossnet.sh'] = ('#!/bin/sh\nmossnet.pl -l %s -d %s' % (ejercicio.enunciado.lenguaje.mossnet_id, ''.join(files)))
+            return self.enviar_zip(r.values(), ("ultimas_entregas_ej%u.zip" % instancia.ejercicio.numero), extras)
         except SQLObjectNotFound:
             flash(_(u'Ejercicio inválido o inexistente.'))
             raise redirect('/')

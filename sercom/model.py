@@ -415,6 +415,23 @@ class Curso(SQLObject): #{{{
             return cmpAnio
 #}}}
 
+class Lenguaje(SQLObject): #{{{
+    # Clave
+    nombre          = UnicodeCol(length=50, notNone=True)
+    pk              = DatabaseIndex(nombre, unique=True)
+    # Campos
+    mossnet_id      = UnicodeCol(length=30, default=None)
+
+    def __unicode__(self):
+        return unicode(self.nombre)
+
+    def __repr__(self):
+        return 'Lenguaje(id=%r, nombre=%s)' % (self.id, nombre)
+
+    def shortrepr(self):
+        return nombre
+#}}}
+
 class Usuario(InheritableSQLObject): #{{{
     # Clave (para docentes puede ser un nombre de usuario arbitrario)
     usuario         = UnicodeCol(length=10, alternateID=True,
@@ -844,6 +861,7 @@ class Enunciado(SQLObject): #{{{
     # Campos
     descripcion     = UnicodeCol(length=255, default=None)
     autor           = ForeignKey('Docente', cascade='null')
+    lenguaje        = ForeignKey('Lenguaje', default=None, cascade=False)
     creado          = DateTimeCol(notNone=True, default=DateTimeCol.now)
     archivos        = BLOBCol(default=None, length=BLOB_SIZE)
     # Joins
