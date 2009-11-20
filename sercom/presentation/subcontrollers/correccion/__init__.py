@@ -201,7 +201,8 @@ class CorreccionController(BaseController, identity.SecureResource):
                     eeii = [(identity.current.user.find_entrega_a_corregir(x.entregador, instancia)) for x in instancia.get_resumen_entregas() if x.tiene_entregas]
                     for entrega in eeii:
                         r[entrega.entregador.alumno.padron] = entrega
-                        files.append('%s_%u/* ' % (entrega.entregador.alumno.padron.encode('ascii'), entrega.instancia.numero))
+            for entrega in r.values():
+                files.append('%s_%u/* ' % (entrega.entregador.alumno.padron.encode('ascii'), entrega.instancia.numero))
             return self.enviar_zip(r.values(), ("ultimas_entregas_ej%u.zip" % instancia.ejercicio.numero), dict({'mossnet.sh': ('#!/bin/sh\nmossnet.pl -l cc -d %s' % ''.join(files))}))
         except SQLObjectNotFound:
             flash(_(u'Ejercicio inválido o inexistente.'))
