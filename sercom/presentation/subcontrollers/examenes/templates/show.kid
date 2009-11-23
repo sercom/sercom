@@ -24,17 +24,24 @@
     <tr>
         <th>Preguntas:</th>
         <td>
-            <table>
+            <table style="width:100%">
             <div py:for="pregunta in record.preguntas">
-                <tr>
+               <tr>
                     <td>
-                        <span py:replace="pregunta.numero">Numero</span>)&nbsp;<span py:if="pregunta.texto">${XML(pregunta.texto)}</span>
+                        <div><span py:replace="pregunta.numero">Numero</span>)</div>
+                       <span py:if="pregunta.texto">${XML(pregunta.texto)}</span>
                     </td>
                 </tr>
                 <tr style="height:30px;vertical-align:top">
                     <td>
-                        <a href="${tg.url('/examenes/pregunta/show/%d' % pregunta.id)}">Detalle</a>
+                        <a href="${tg.url('/examenes/pregunta/show/%d' % pregunta.id)}">
+                            <span py:if="pregunta.tiene_respuestas" >Detalle (incluye respuestas)</span>
+                            <span py:if="not pregunta.tiene_respuestas">Detalle</span>
+                       </a>
                     </td>
+                </tr>
+                <tr>
+                   <td><hr/></td>
                 </tr>
             </div>
             </table>

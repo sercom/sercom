@@ -29,6 +29,11 @@
         <th>Texto:</th>
         <td><span py:if="record.texto">${XML(record.texto)}</span></td>
     </tr>
+    <tr>
+        <th>Respuesta:</th>
+        <td><span>${XML(record.get_respuesta_unica())}</span></td>
+    </tr>
+
 
 </table>
 

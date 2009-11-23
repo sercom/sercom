@@ -137,7 +137,7 @@ class PreguntaExamen(SQLObject): #{{{
     # Joins
     tema             = ForeignKey('TemaPregunta', cascade=False, default = None)
     tipo             = ForeignKey('TipoPregunta', cascade=False, default = None)
-    solucion         = ForeignKey('Solucion', cascade='null', default=None)
+    respuestas       = MultipleJoin('Respuesta', joinColumn='pregunta_id')
 
 
     def __init__(self, dto = None, **kw):
@@ -251,7 +251,24 @@ class PreguntaExamen(SQLObject): #{{{
     __find_tipo = staticmethod(__find_tipo)
     __find_tema = staticmethod(__find_tema)
 
+    def _get_tiene_respuestas(self):
+        return len(self.respuestas) > 0
 
+    def add_respuesta(self, texto, usuario):
+        autor = usuario.nombre
+        respuesta = Respuesta(texto=texto, pregunta=self, revisada=False, autor=autor)
+        self.respuestas.append(respuesta)
+
+    def set_respuesta_unica(self, texto, usuario):
+        for respuesta in self.respuestas:
+            respuesta.destroySelf()
+        self.add_respuesta(texto, usuario)
+
+    def get_respuesta_unica(self):
+        if len(self.respuestas) == 0:
+            return ''
+        else:
+            return self.respuestas[0].texto
 #}}}
 
 class TemaPregunta(SQLObject): #{{{
@@ -268,15 +285,13 @@ class TipoPregunta(SQLObject): #{{{
 
 #}}}
 
-class Solucion(SQLObject): #{{{
-    # Clave
-    #pk              = DatabaseIndex(anio, cuatrimestre, numero, unique=True)
+class Respuesta(SQLObject): #{{{
     # Campos
-    descripcion     = UnicodeCol(length=1000, default=None)
+    texto           = UnicodeCol(length=5000, notNone=True)
     # Joins
-    preguntas       = MultipleJoin('PreguntaExamen')
-
-
+    pregunta        = ForeignKey('PreguntaExamen', cascade=True, notNone=True)
+    revisada        = BoolCol(notNone=True)
+    autor           = UnicodeCol(length=255, notNone=True)
 #}}}
 
 #}}}
