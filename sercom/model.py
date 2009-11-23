@@ -556,7 +556,7 @@ class Usuario(InheritableSQLObject): #{{{
         raise NotImplementedError(_(u'Clase abstracta!'))
 
     def shortrepr(self):
-        return '%r (%r)' % (self.usuario, self.nombre)
+        return u'%s (%s)' % (self.usuario, self.nombre)
 #}}}
 
 class Docente(Usuario): #{{{
