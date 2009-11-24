@@ -41,7 +41,7 @@
   <div style="width:25%;float:left;height:100%">
     <p>Archivos:</p>
     <div py:for="archivo in entrega.get_archivos_nombres()" >
-      <a href="#" onclick="cambiar('${archivo}')">${archivo}</a>
+      <a href="#" onclick="cambiar('${archivo}');return false;">${archivo}</a>
     </div>
   </div>
   <div style="width:100%;">

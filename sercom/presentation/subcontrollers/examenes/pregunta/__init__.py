@@ -11,7 +11,8 @@ from turbogears import paginate
 from turbogears import config
 from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
-from sercom.model import PreguntaExamen, TemaPregunta, TipoPregunta
+from sercom.widgets import SeparatorField
+from sercom.model import PreguntaExamen, TemaPregunta, TipoPregunta, Respuesta
 from sercom.presentation.subcontrollers.examenes import custom_selects as CS
 from sqlobject import *
 from imagen import ImagenController
@@ -44,7 +45,11 @@ class PreguntaExamenForm(W.TableForm):
 	temaID = CS.TemaSelectField() 
         texto = W.TextArea(label=_(u'Texto'),
             help_text=_(u'Requerido.'),
-            validator=V.UnicodeString( max=500, not_empty=True, strip=True))
+            validator=V.UnicodeString( max=5000, not_empty=True, strip=True))
+        separator = SeparatorField()
+        respuesta = W.TextArea(label=_(u'Respuesta'),
+            validator=V.UnicodeString( max=5000, strip=True))
+         
     fields = Fields()
 
 class PreguntaExamenFiltros(W.TableForm):
@@ -81,7 +86,11 @@ class PreguntaExamenController(controllers.Controller):
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
-        validate_new(kw)
+        respuesta = kw['respuesta']
+        del kw['respuesta']
+        del kw['separator']
+        r = validate_new(kw)
+        r.set_respuesta_unica(respuesta, identity.current.user)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
 
@@ -94,6 +103,7 @@ class PreguntaExamenController(controllers.Controller):
                 return self[attrname]
         record_object = validate_get(id)
 	r = POD(record_object.sqlmeta.asDict())
+        r['respuesta'] = record_object.get_respuesta_unica()
 	r['fecha_examen'] = record_object.examen.fecha
 	return dict(name=name, namepl=namepl, record=r, form=form)
 
@@ -109,9 +119,13 @@ class PreguntaExamenController(controllers.Controller):
     @expose()
     def update(self, id, **kw):
         """Save or create record to model"""
-	del kw['numero']
+        respuesta = kw['respuesta']
+        del kw['respuesta']
+        del kw['separator']
+ 	del kw['numero']
 	del kw['fecha_examen']
 	r = validate_set(id, kw)
+        r.set_respuesta_unica(respuesta, identity.current.user)
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../show/%d' % r.id)
 

@@ -2,6 +2,9 @@
 #
 
 from turbogears import widgets
+class SeparatorField(widgets.Label):
+    label =''
+    template = '<hr/>' 
 
 class CustomTextField(widgets.TextField):
     """Un input con un div al lado para ponerle info"""
