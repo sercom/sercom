@@ -138,24 +138,25 @@ class CorreccionController(BaseController, identity.SecureResource):
     @paginate('records', limit=config.get('items_por_pagina'))
     def resumen_entregas(self,instanciaID=None, desertoresFLAG=None):
         """Lista un resumen de los alumnos, sus entregas y correcciones para una instancia dada"""
+        instancia_anterior = None
         if instanciaID:
             instancia = InstanciaDeEntrega.get(instanciaID)
             if not desertoresFLAG:
               r = [x for x in instancia.get_resumen_entregas() if x.tiene_entregas]
             else:
               r = instancia.get_resumen_entregas()
+            instancia_anterior = instancia.get_instancia_anterior()
+            if instancia_anterior is not None:
+                resumen = dict([(c.entregador, c) for c in instancia_anterior.correcciones])
+                for i in r:
+                    if i.entregador in resumen:
+                        i.corrector_anterior = resumen[i.entregador].corrector.docente.usuario
+                        i.nota_anterior = resumen[i.entregador].nota
+                    else:
+                        i.corrector_anterior = None
+                        i.nota_anterior = None
         else:
             r = []
-        instancia_anterior = instancia.get_instancia_anterior()
-        if instancia_anterior is not None:
-            resumen = dict([(c.entregador, c) for c in instancia_anterior.correcciones])
-            for i in r:
-                if i.entregador in resumen:
-                    i.corrector_anterior = resumen[i.entregador].corrector.docente.usuario
-                    i.nota_anterior = resumen[i.entregador].nota
-                else:
-                    i.corrector_anterior = None
-                    i.nota_anterior = None
         instancias_opts = [(i.id,i.shortrepr()) for i in self.get_curso_actual().instancias_a_corregir]
         options = dict(instanciaID=instancias_opts)
         vfilter = dict(instanciaID=instanciaID, desertoresFLAG = desertoresFLAG)
