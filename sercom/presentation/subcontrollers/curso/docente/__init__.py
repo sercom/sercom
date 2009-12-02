@@ -25,10 +25,14 @@ def validate_get(id):
     return val.validate_get(cls, name, id)
 
 def validate_set(id, data):
-    return val.validate_set(cls, name, id, data)
+    cursoId = data['cursoID']
+    url = '../list/%s' % cursoId
+    val.update_record(cls, name, id, data, url, url)
 
 def validate_new(data):
-    return val.validate_new(cls, name, data)
+    cursoId = data['cursoID']
+    url = '../list/%s' % cursoId
+    val.create_record(cls, name, data, url, url )
 #}}}
 
 #{{{ Formulario
@@ -84,9 +88,7 @@ class DocenteInscriptoController(controllers.Controller, identity.SecureResource
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
-        r = validate_new(kw)
-        flash(_(u'Se creó un nuevo %s.') % name)
-        raise redirect(url('/curso/docente/list/%d' % r.curso.id))
+        validate_new(kw)
 
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
@@ -108,9 +110,7 @@ class DocenteInscriptoController(controllers.Controller, identity.SecureResource
     @expose()
     def update(self, id, **kw):
         """Save or create record to model"""
-        r = validate_set(id, kw)
-        flash(_(u'El %s fue actualizado.') % name)
-        raise redirect(url('/curso/docente/list/%d' % r.curso.id))
+        validate_set(id, kw)
 
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self,id, **kw):
