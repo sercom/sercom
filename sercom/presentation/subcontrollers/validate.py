@@ -45,20 +45,35 @@ def validate_del(cls, name, id):
         flash(_(u'No se pudo eliminar el %s: %s' % (name, e)))
         raise redirect('../list')
 
+def update_record(cls, name, id, data, redirect_url, error_url):
+    r = validate_get(cls, name, id)
+    try:
+        r.set(**data)
+        flash(_(u'El %s fue actualizado.') % name)
+        raise redirect(redirect_url)
+    except DuplicateEntryError, e:
+        flash(_(u'No se pudo modificar el %s porque no es único (error: %s).')
+            % (name, e))
+        raise redirect(error_url, **data)
+    except TypeError, e:
+        flash(_(u'No se pudo modificar el %s porque falta un dato o es '
+            u'inválido (error: %s).') % (name, e))
+        raise redirect(error_url, **data)
+
 def create_record(cls, name, data, redirect_url, error_url):
     try:
         r = cls(**data)
     except DuplicateEntryError, e:
         flash(_(u'No se pudo crear el %s porque no es único (error: %s).')
             % (name, e))
-        raise redirect(error_url)
+        raise redirect(error_url, **data)
     except TypeError, e:
         flash(_(u'No se pudo crear el %s porque falta un dato o es '
             u'inválido (error: %s).') % (name, e))
-        raise redirect(error_url)
+        raise redirect(error_url, **data)
     except Exception, e:
         flash(_(u'No se pudo crear el %s: %s' % (name, e)))
-        raise redirect(error_url)
+        raise redirect(error_url, **data)
     # si no ocurrieron errores redirijo, no es necesario usar la variable r.
     if redirect_url:
         flash(_(u'Se creó un nuevo %s.' % name))

@@ -1,3 +1,13 @@
+class DTOResumenEvaluacionAlumno:
+    def __init__(self, entregador, correccion):
+        self.entregador = entregador
+        self.entregas_aceptadas = 0
+        self.entregas_rechazadas = 0
+        self.correccion = correccion
+        self.tiene_entregas = False
+        self.editar_correccion = not (correccion is None)
+        self.agregar_correccion = (not self.editar_correccion)
+
 class DTOResumenEntrega:
     def __init__(self, entregador, entregas, correccion):
         self.entregador = entregador

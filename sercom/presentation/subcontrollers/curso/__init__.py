@@ -21,6 +21,7 @@ from alumno import AlumnoInscriptoController
 from grupo import GrupoController
 from ejercicio import EjercicioController
 from docente import DocenteInscriptoController
+from instancia_evaluacion_alumno import InstanciaEvaluacionAlumnoController
 #}}}
 
 #{{{ Configuración
@@ -170,6 +171,7 @@ class CursoController(controllers.Controller, identity.SecureResource):
     grupo = GrupoController()
     ejercicio = EjercicioController()
     docente = DocenteInscriptoController()
+    instancia_evaluacion_alumno = InstanciaEvaluacionAlumnoController()
 
     @expose()
     def default(self, tg_errors=None):

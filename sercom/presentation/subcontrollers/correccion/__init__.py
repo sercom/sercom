@@ -12,7 +12,7 @@ from turbogears import config
 from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import Correccion, Curso, Ejercicio
-from sercom.model import InstanciaDeEntrega, DocenteInscripto, Entregador, Alumno
+from sercom.model import InstanciaExaminacion,InstanciaDeEntrega, DocenteInscripto, Entregador, Alumno
 from sercom.domain.exceptions import AlumnoSinEntregas
 from sqlobject import *
 from sercom.presentation.controllers import BaseController
@@ -140,7 +140,7 @@ class CorreccionController(BaseController, identity.SecureResource):
         """Lista un resumen de los alumnos, sus entregas y correcciones para una instancia dada"""
         instancia_anterior = None
         if instanciaID:
-            instancia = InstanciaDeEntrega.get(instanciaID)
+            instancia = InstanciaExaminacion.get(instanciaID)
             if not desertoresFLAG:
               r = [x for x in instancia.get_resumen_entregas() if x.tiene_entregas]
             else:
@@ -157,7 +157,7 @@ class CorreccionController(BaseController, identity.SecureResource):
                         i.nota_anterior = None
         else:
             r = []
-        instancias_opts = [(i.id,i.shortrepr()) for i in self.get_curso_actual().instancias_a_corregir]
+        instancias_opts = [(i.id,i.shortrepr()) for i in self.get_curso_actual().todas_instancias_a_corregir]
         options = dict(instanciaID=instancias_opts)
         vfilter = dict(instanciaID=instanciaID, desertoresFLAG = desertoresFLAG)
         print identity.in_any_group('admin','JTP')
@@ -169,7 +169,7 @@ class CorreccionController(BaseController, identity.SecureResource):
     def get_fuentes_instancia(self, instanciaID):
         try:
             instancia = InstanciaDeEntrega.get(instanciaID)
-            r = [(identity.current.user.find_entrega_a_corregir(x.entregador, instancia)) for x in instancia.get_resumen_entregas() if x.tiene_entregas]
+            r = [(instancia.find_entrega_a_corregir(x.entregador)) for x in instancia.get_resumen_entregas() if x.tiene_entregas]
             return self.enviar_zip(r, "entregas_instancia_%u.%u.zip" % (instancia.ejercicio.numero, instancia.numero))
         except:
             flash(_(u'Instancia incorrecta.'))
@@ -235,7 +235,7 @@ class CorreccionController(BaseController, identity.SecureResource):
     @error_handler(index)
     @expose()
     def new(self, instanciaID, entregadorID, justAssign=False):
-        instancia = InstanciaDeEntrega.get(instanciaID)
+        instancia = InstanciaExaminacion.get(instanciaID)
         entregador = Entregador.get(entregadorID)
 	docente = identity.current.user
         try:
@@ -245,14 +245,14 @@ class CorreccionController(BaseController, identity.SecureResource):
             else:
                 raise redirect('edit', correccionID = correccion.id)
         except AlumnoSinEntregas:
-            flash(_(u'El alumno %s no realizó ninguna entrega para la '
-                u'instancia %s') % (alumno, instancia))
-            raise redirect('index', instanciaID=instanciaID)
+            flash(_(u'El entregador %s no realizó ninguna entrega para la '
+                u'instancia %s') % (entregador, instancia))
+            raise redirect('resumen_entregas', instanciaID=instanciaID)
 
     @error_handler(index)
     @expose()
     def delete(self, instanciaID, entregadorID, justAssign=False):
-        instancia = InstanciaDeEntrega.get(instanciaID)
+        instancia = InstanciaExaminacion.get(instanciaID)
         entregador = Entregador.get(entregadorID)
 	docente = identity.current.user
         try:
@@ -261,14 +261,14 @@ class CorreccionController(BaseController, identity.SecureResource):
         except AlumnoSinEntregas:
             flash(_(u'El alumno %s no realizó ninguna entrega para la '
                 u'instancia %s') % (alumno, instancia))
-            raise redirect('index', instanciaID=instanciaID)
+            raise redirect('resumen_entregas', instanciaID=instanciaID)
 
     @expose(template='%s.templates.edit' % __name__)
     def edit(self, correccionID, **form_data):
         correccion = Correccion.get(correccionID)
         entregas_opts = [(e.id, '%s - %s' % (e.fecha, e.estadorepr())) for e in correccion.entregas]
         corrector_opts = [(di.id, unicode(di.docente))
-                for di in correccion.instancia.ejercicio.curso.docentes]
+                for di in correccion.instancia.get_posibles_correctores()]
         options = dict(entregaID=entregas_opts, correctorID=corrector_opts)
         return dict(correccion=correccion,
                 correccion_form=correccion_form, options=options,

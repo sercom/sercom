@@ -8,13 +8,12 @@
 <?python
     ins = correccion.instancia
     ent = correccion.entrega
-    eje = ins.ejercicio
     entregador = correccion.entregador
 ?>
 <body>
-    <h1>Ejercicio ${ins.numerorepr()}
+    <h1>${ins}
             de ${entregador}</h1>
-    <div>
+    <div py:if="ent">
         <a href="${tg.url('/mis_entregas/corrida/%d' % ent.id)}"
                 >Ver entrega a corregir</a> |
         <a href="${tg.url('/mis_entregas/get_archivo/%d' % ent.id)}"

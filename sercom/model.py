@@ -312,6 +312,7 @@ class Curso(SQLObject): #{{{
     alumnos         = MultipleJoin('AlumnoInscripto')
     grupos          = MultipleJoin('Grupo')
     ejercicios      = MultipleJoin('Ejercicio', orderBy='numero')
+    instancias_evaluacion_alumno = MultipleJoin('InstanciaDeEvaluacionAlumno')
 
     def __init__(self, docentes=[], ejercicios=[], alumnos=[], **kw):
         super(Curso, self).__init__(**kw)
@@ -393,12 +394,15 @@ class Curso(SQLObject): #{{{
                                         InstanciaDeEntrega.q.inicio <= now,
                                         InstanciaDeEntrega.q.fin >= now)))
 
+    def _get_todas_instancias_a_corregir(self):
+        return self.instancias_evaluacion_alumno + self.instancias_a_corregir
+
     def _get_instancias_a_corregir(self):
-        return list(InstanciaDeEntrega.select(
-                AND(
-                    InstanciaDeEntrega.q.ejercicioID == Ejercicio.q.id,
-                    Ejercicio.q.cursoID == self.id
-                )))
+        return list(InstanciaExaminacion.select(
+                        AND(
+                            InstanciaDeEntrega.q.ejercicioID == Ejercicio.q.id,
+                            Ejercicio.q.cursoID == self.id
+                        )))
 
     @classmethod
     def activos(cls):
@@ -585,38 +589,22 @@ class Docente(Usuario): #{{{
         return DocenteInscripto.pk.get(curso,self)
 
     def corregir(self, entregador, instancia):
-        curso = instancia.ejercicio.curso
-
-        # Veo si ya existe una Correccion
+                # Veo si ya existe una Correccion
         try:
             return Correccion.pk.get(instancia=instancia, entregador=entregador)
         except SQLObjectNotFound:
             # Si no existe, trato de crear una
-            entrega = self.find_entrega_a_corregir(entregador, instancia)
-            corrector = self.get_inscripcion(curso)
+            entrega = instancia.find_entrega_a_corregir(entregador)
+            corrector = self.get_inscripcion(instancia.curso)
             return Correccion(entregador=entregador,
                     instancia=instancia, entrega=entrega,
                     corrector=corrector,
                     asignado=DateTimeCol.now())
 
     def eliminar_correccion(self, entregador, instancia):
-        curso = instancia.ejercicio.curso
-
         # Veo si ya existe una Correccion, y la borro
         c = Correccion.pk.get(instancia=instancia, entregador=entregador)
         c.destroySelf()
-
-    def find_entrega_a_corregir(self, entregador, instancia):
-        entregas = entregador.entregas_de(instancia)
-        if not entregas:
-            # TODO: soportar correcciones sin entregas (puede pasar)
-            raise AlumnoSinEntregas(entregador,instancia)
-        else:
-            for e in entregas:
-                if e.aceptada:
-                    return e
-            #else
-            return entregas[0]
 
     def add_entrega(self, instancia, **kw):
         return Entrega(instancia=instancia, **kw)
@@ -669,7 +657,7 @@ class Alumno(Usuario): #{{{
 
     def get_resumen_entregas(self, curso):
         entregadores_del_alumno = self.get_entregadores(curso)
-        instancias = curso.instancias_a_corregir
+        instancias = curso.todas_instancias_a_corregir
 
         entregas = dict([ (i,[]) for i in instancias ])
         entregadores = dict([ (i,None) for i in instancias ])
@@ -992,30 +980,81 @@ class Ejercicio(SQLObject): #{{{
             % (self.numero, srepr(self.enunciado))
 #}}}
 
-class InstanciaDeEntrega(SQLObject): #{{{
-    # Clave
-    ejercicio       = ForeignKey('Ejercicio', notNone=True, cascade=True)
-    numero          = IntCol(notNone=True)
-    pk              = DatabaseIndex(ejercicio, numero, unique=True)
+class InstanciaExaminacion(InheritableSQLObject): #{{{
     # Campos
     inicio          = DateTimeCol(notNone=True)
     fin             = DateTimeCol(notNone=True)
-    inicio_proceso  = DateTimeCol(default=None)
-    fin_proceso     = DateTimeCol(default=None)
     observaciones   = UnicodeCol(notNone=True, default=u'')
     activo          = BoolCol(notNone=True, default=True)
     # Joins
-    entregas        = MultipleJoin('Entrega', joinColumn='instancia_id')
     correcciones    = MultipleJoin('Correccion', joinColumn='instancia_id')
 
     def _get_abierta(self):
         now = DateTimeCol.now()
         return self.activo and self.inicio <= now and self.fin >= now
 
+    def get_posibles_correctores(self):
+        return self.curso.docentes
+
+ #}}}
+
+class InstanciaDeEvaluacionAlumno(InstanciaExaminacion): #{{{
+    # Clave
+    curso           = ForeignKey('Curso', notNone=True)
+    tipo            = UnicodeCol(length=255, notNone=True)
+    pk              = DatabaseIndex(curso, tipo, unique=True)
+
+    def get_instancia_anterior(self):
+        return None
+ 
+    def find_entrega_a_corregir(self, entregador):
+        return None
+ 
+    def get_resumen_entregas(self):
+        entregadores = self.curso.alumnos
+        correcciones = dict([(e,None) for e in entregadores])
+        for c in self.correcciones:
+            correcciones[c.entregador] = c
+        return [DTOResumenEvaluacionAlumno(e, correcciones[e]) for e in entregadores]
+
+    def longrepr(self):
+        return u'Curso: %s - Tipo: %s' % (self.curso,self.tipo)
+
+    def shortrepr(self):
+        return self.tipo
+
+    def __unicode__(self):
+        return unicode(self.shortrepr())
+#}}}
+ 
+class InstanciaDeEntrega(InstanciaExaminacion): #{{{
+    _inheritable    = False
+    # Clave
+    ejercicio       = ForeignKey('Ejercicio', notNone=True, cascade=True)
+    numero          = IntCol(notNone=True)
+    pk              = DatabaseIndex(ejercicio, numero, unique=True)
+    # Joins
+    entregas        = MultipleJoin('Entrega', joinColumn='instancia_id')
+
+    def _get_curso(self):
+        return self.ejercicio.curso
+
     def get_instancia_anterior(self):
         if (self.numero <= 1):
             return None
         return InstanciaDeEntrega.selectBy(ejercicio=self.ejercicio, numero=self.numero-1).getOne()
+
+    def find_entrega_a_corregir(self, entregador):
+        entregas = entregador.entregas_de(self)
+        if not entregas:
+            # TODO: soportar correcciones sin entregas (puede pasar)
+            raise AlumnoSinEntregas(entregador,self)
+        else:
+            for e in entregas:
+                if e.aceptada:
+                    return e
+            #else
+            return entregas[0]
 
     def get_resumen_entregas(self):
         entregadores = self.ejercicio.get_posibles_entregadores()
@@ -1411,11 +1450,11 @@ class Entrega(Ejecucion): #{{{
 
 class Correccion(SQLObject): #{{{
     # Clave
-    instancia       = ForeignKey('InstanciaDeEntrega', notNone=True, cascade=False)
+    instancia       = ForeignKey('InstanciaExaminacion', notNone=True, cascade=False)
     entregador      = ForeignKey('Entregador', notNone=True, cascade=False)
     pk              = DatabaseIndex(instancia, entregador, unique=True)
     # Campos
-    entrega         = ForeignKey('Entrega', notNone=True, cascade=False)
+    entrega         = ForeignKey('Entrega', notNone=False, cascade=False)
     corrector       = ForeignKey('DocenteInscripto', notNone=True, cascade=False)
     asignado        = DateTimeCol(notNone=True, default=DateTimeCol.now)
     corregido       = DateTimeCol(default=None)
