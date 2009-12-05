@@ -93,7 +93,7 @@ class CorreccionController(BaseController, identity.SecureResource):
         raise redirect('mis_correcciones')
 
     @expose(template='kid:%s.templates.mis_correcciones' % __name__)
-    @paginate('records', limit=config.get('items_por_pagina'))
+    @paginate('records', limit=config.get('items_por_pagina'), dynamic_limit='limit_to')
     def mis_correcciones(self):
         """List records in model"""
         curso = self.get_curso_actual()
@@ -103,22 +103,22 @@ class CorreccionController(BaseController, identity.SecureResource):
                       InstanciaDeEntrega.q.ejercicioID == Ejercicio.q.id
                      )
                   ).orderBy(Ejercicio.q.numero)
-        return dict(records=r, name=name, namepl=namepl)
+        return dict(records=r, name=name, namepl=namepl, limit_to=identity.current.user.paginador)
 
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self,id, **kw):
         """Show record in model"""
         r = validate_get(id)
-        return dict(name=name, namepl=namepl, record=r)
+        return dict(name=name, namepl=namepl, record=r, limit_to=identity.current.user.paginador)
 
     @expose(template='kid:%s.templates.entregas' % __name__)
-    @paginate('records', limit=config.get('items_por_pagina'))
+    @paginate('records', limit=config.get('items_por_pagina'), dynamic_limit='limit_to')
     def entregas(self, id):
         r = validate_get(id)
-        return dict(records=r.entregas, correccion = r)
+        return dict(records=r.entregas, correccion = r, limit_to=identity.current.user.paginador)
 
     @expose(template='kid:%s.templates.resumen_por_alumno' % __name__)
-    @paginate('records', limit=config.get('items_por_pagina'))
+    @paginate('records', limit=config.get('items_por_pagina'), dynamic_limit='limit_to')
     def resumen_por_alumno(self,alumno_id=None):
         """Lista un resumen de entregas y correcciones para una alumno dado"""
         curso = self.get_curso_actual()
@@ -132,10 +132,10 @@ class CorreccionController(BaseController, identity.SecureResource):
         options = dict(alumno_id=alumnos)
         vfilter = dict(alumno_id=alumno_id)
         return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_por_alumno,
-            vfilter=vfilter, options=options, docenteActual=identity.current.user.id)
+            vfilter=vfilter, options=options, docenteActual=identity.current.user.id, limit_to=identity.current.user.paginador)
 
     @expose(template='kid:%s.templates.resumen_entregas' % __name__)
-    @paginate('records', limit=config.get('items_por_pagina'))
+    @paginate('records', limit=config.get('items_por_pagina'), dynamic_limit='limit_to')
     def resumen_entregas(self,instanciaID=None, desertoresFLAG=None):
         """Lista un resumen de los alumnos, sus entregas y correcciones para una instancia dada"""
         instancia_anterior = None
@@ -163,7 +163,7 @@ class CorreccionController(BaseController, identity.SecureResource):
         print identity.in_any_group('admin','JTP')
         return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_entregas,
             vfilter=vfilter, options=options, instanciaID=instanciaID, desertoresFLAG=desertoresFLAG,
-            docenteActual=identity.current.user.id, hayAnterior=instancia_anterior is not None)
+            docenteActual=identity.current.user.id, hayAnterior=instancia_anterior is not None, limit_to=identity.current.user.paginador)
 
     @expose()
     def get_fuentes_instancia(self, instanciaID):

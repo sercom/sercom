@@ -40,6 +40,7 @@
 					<a href="${tg.url('/mis_entregas/corrida/%d' % record.id)}">Corrida</a>
 	        			<a href="${tg.url('/entregas/browse_files/%d' % record.id)}">Navegar</a>
 					<a href="${tg.url('/mis_entregas/get_archivo/%d' % record.id)}">Bajar</a>
+					<a href="${tg.url('/entregas/get_pdf/%d' % record.id)}">PDF</a>
 				</td>
     </tr>
 </table>

@@ -61,7 +61,7 @@ class AlumnoInscriptoController(controllers.Controller, identity.SecureResource)
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records', limit=config.get('items_por_pagina'))
+    @paginate('records', limit=config.get('items_por_pagina'), dynamic_limit='limit_to')
     def list(self, cursoID = 0):
         """List records in model"""
         cursoID = int(cursoID)
@@ -70,7 +70,7 @@ class AlumnoInscriptoController(controllers.Controller, identity.SecureResource)
         else:
             r = cls.select(cls.q.cursoID == cursoID)
         curso = Curso.get(cursoID)
-        return dict(records=r, name=name, namepl=namepl, curso=curso)
+        return dict(records=r, name=name, namepl=namepl, curso=curso, limit_to=identity.current.user.paginador)
 
     @expose(template='kid:%s.templates.notas' % __name__)
     def notas(self, id, cursoID, **kw):
