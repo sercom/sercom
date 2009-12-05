@@ -36,7 +36,7 @@ def validate_set(id, data):
 
 def validate_new(data):
     c = check_curso(data)
-    val.create_record(cls, name, data, '../list/%s' % c.id, '../edit/%s' % id)
+    val.create_record(cls, name, data, 'list/%s' % c.id, '../edit/%s' % id)
 #}}}
 
 #{{{ Formulario
