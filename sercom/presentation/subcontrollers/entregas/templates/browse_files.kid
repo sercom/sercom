@@ -10,9 +10,16 @@
         cambiarArchivo(${entrega.id}, filename);
      }
 
+     function ocultarArchivo(){
+       var lbl = MochiKit.DOM.getElement('lblArchivo');
+	lbl.style.display='none';
+     }
+
     function mostrarArchivo(res) {
         var lbl = MochiKit.DOM.getElement('lblArchivo');
-        lbl.value = res.file_text.toString();
+        lbl.innerHTML = '<a onclick="ocultarArchivo()">ocultar</a>'+res.file_html.toString();
+	lbl.style.display='block';
+        //lbl.document.body.innerHTML = res.file_html;
     }
 
     function err (err)
@@ -23,13 +30,34 @@
     function cambiarArchivo(entrega_id, filename)
     {
         encodedFilename = filename.replace(/\./,"%2E").replace(/\//g,"%2F");
-        url = "/entregas/get_archivo/" + entrega_id + "/" + encodedFilename;
+        url = "/entregas/get_fuente_c_formato/" + entrega_id + "/" + encodedFilename;
+        var lbl = MochiKit.DOM.getElement('lblArchivo');
         var d = loadJSONDoc(url);
         d.addCallbacks(mostrarArchivo, err);
     }
 
 
 </script>
+<style type="text/css">
+<!--
+body.hl	{ background-color:#ffffff; }
+pre.hl	{ color:#000000; background-color:#ffffff; font-size:10pt; font-family:Courier New;}
+.num	{ color:#2928ff; }
+.esc	{ color:#ff00ff; }
+.str	{ color:#ff0000; }
+.dstr	{ color:#818100; }
+.slc	{ color:#838183; font-style:italic; }
+.com	{ color:#838183; font-style:italic; }
+.dir	{ color:#008200; }
+.sym	{ color:#000000; }
+.line	{ color:#555555; }
+.kwa	{ color:#000000; font-weight:bold; }
+.kwb	{ color:#830000; }
+.kwc	{ color:#000000; font-weight:bold; }
+.kwd	{ color:#010181; }
+//-->
+</style>
+
 </head>
 
 <body>
@@ -37,15 +65,14 @@
 <h2><span py:replace="'%s - %s' % (entrega.instancia.numerorepr(), entrega.entregador.shortrepr())"/></h2>
 
 
-<div style="display:block">
-  <div style="width:25%;float:left;height:100%">
+<div style="width:100%;display:none;" id="lblArchivo">
+</div>
+<div style="display:block;height:100%">
+  <div>
     <p>Archivos:</p>
     <div py:for="archivo in entrega.get_archivos_nombres()" py:if="archivo[-1]!='/'" >
       <a href="#" onclick="cambiar('${archivo}');return false;">${archivo}</a>
     </div>
-  </div>
-  <div style="width:100%;">
-    <textarea rows="40" style="width:70%" id="lblArchivo" readonly="true"/>
   </div>
 </div>
 

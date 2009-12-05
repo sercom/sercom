@@ -19,6 +19,8 @@ from datetime import datetime
 from sercom.presentation.utils.downloader import *
 from sercom.presentation.controllers import BaseController
 import os, shutil, subprocess
+from subprocess import Popen
+from subprocess import PIPE
 #}}}
 
 #{{{ Configuración
@@ -73,6 +75,18 @@ class EntregasController(BaseController, identity.SecureResource):
         r = validate_get_entrega(entrega_id)
         download = Downloader(cherrypy.response)
         return dict(file_text= download.download_zip_content(r.archivos, nombre))
+
+    @expose()
+    def get_fuente_c_formato(self, entrega_id, nombre):
+        r = validate_get_entrega(entrega_id)
+        download = Downloader(cherrypy.response)
+        cpp = download.download_zip_content(r.archivos, nombre)
+	p = Popen(["highlight", "-S", "cpp"], stdin=PIPE, stdout=PIPE)
+	p.stdin.write(cpp)
+	p.stdin.close()
+	html = p.stdout.read()
+        #return dict(file_html=html)
+        return dict(file_html=html)
 
     @expose()
     def get_pdf(self, entregaid):
