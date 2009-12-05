@@ -22,7 +22,7 @@
 
     function cambiarArchivo(entrega_id, filename)
     {
-        encodedFilename = filename.replace(/\./,"%2E");
+        encodedFilename = filename.replace(/\./,"%2E").replace(/\//g,"%2F");
         url = "/entregas/get_archivo/" + entrega_id + "/" + encodedFilename;
         var d = loadJSONDoc(url);
         d.addCallbacks(mostrarArchivo, err);
@@ -40,12 +40,12 @@
 <div style="display:block">
   <div style="width:25%;float:left;height:100%">
     <p>Archivos:</p>
-    <div py:for="archivo in entrega.get_archivos_nombres()" >
+    <div py:for="archivo in entrega.get_archivos_nombres()" py:if="archivo[-1]!='/'" >
       <a href="#" onclick="cambiar('${archivo}');return false;">${archivo}</a>
     </div>
   </div>
   <div style="width:100%;">
-    <textarea rows="40" style="width:70%" id="lblArchivo" />
+    <textarea rows="40" style="width:70%" id="lblArchivo" readonly="true"/>
   </div>
 </div>
 
