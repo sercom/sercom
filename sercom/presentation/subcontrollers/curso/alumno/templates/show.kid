@@ -16,6 +16,10 @@
         <th>Alumno:</th>
 	<td><span py:replace="record.alumno">nombre</span></td>
     </tr>
+     <tr>
+        <th>Correo Electrónico:</th>
+	<td><a href="${'mailto:'+record.alumno.email}">"<span py:replace="record.alumno">nombre</span>" &lt;<span py:replace="record.alumno.email">mail</span>&gt;,</a></td>
+    </tr>
     <tr>
         <th>Condicional:</th>
 	<td><span py:replace="record.condicional">condicional</span></td>

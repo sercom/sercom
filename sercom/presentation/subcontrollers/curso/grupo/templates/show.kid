@@ -16,6 +16,15 @@
         <th>Curso:</th>
         <td><span py:replace="record.curso">curso</span></td>
     </tr>
+<tr>
+        <th>Correo Electrónico:</th>
+        <td>
+	<span py:for="a in record.miembros" py:if="not a.baja">
+        <a href="${'mailto:'+a.alumno.alumno.email}">"<span py:replace="a.alumno">nombre</span>" &lt;<span py:replace="a.alumno.alumno.email">mail</span>&gt;,</a>
+	</span><br/><br/>
+	<a href="${'mailto:'+','.join([a.alumno.alumno.email for a in record.miembros])}">Escribir a todos los miembros</a>
+        </td>
+    </tr>
     <tr>
         <th>Tutores:</th>
 				<td>
@@ -36,7 +45,7 @@
 						<a href="${tg.url('/curso/alumno/show/%d' % a.alumno.id)}" py:content="a.alumno" />
 						<br />
 					</span>		
-				</td>
+"			</td>
     </tr>
 </table>
 
