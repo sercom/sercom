@@ -9,6 +9,10 @@
 
     <table>
         <tr>
+            <th>Ejercicio:</th>
+            <td><span py:replace="record.ejercicio.shortrepr()">ejercicio</span></td>
+        </tr>
+        <tr>
             <th>Número:</th>
             <td><span py:replace="record.numero">descripcion</span></td>
         </tr>
@@ -20,15 +24,7 @@
             <th>Fin:</th>
             <td><span py:replace="record.fin">2007/02/21 12:34:21</span></td>
         </tr>
-        <tr>
-            <th>Inicio de procesamiento:</th>
-            <td><span py:replace="record.inicio_proceso">2007/02/21 12:34:21</span></td>
-        </tr>
-        <tr>
-            <th>Fin de procesamiento:</th>
-            <td><span py:replace="record.inicio_proceso">2007/02/21 12:34:21</span></td>
-        </tr>
-        <tr>
+       <tr>
             <th>Activo:</th>
             <td>
                 <span py:replace="tg.strbool(record.activo)">No</span>

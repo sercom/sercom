@@ -977,7 +977,7 @@ class Ejercicio(SQLObject): #{{{
 
     def shortrepr(self):
         return u'(%d, %s)' \
-            % (self.numero, srepr(self.enunciado))
+            % (self.numero, self.enunciado)
 #}}}
 
 class InstanciaExaminacion(InheritableSQLObject): #{{{
@@ -1070,11 +1070,9 @@ class InstanciaDeEntrega(InstanciaExaminacion): #{{{
         return unicode(self.shortrepr())
 
     def __repr__(self):
-        return 'InstanciaDeEntrega(id=%r, numero=%r, inicio=%r, fin=%r, ' \
-            'inicio_proceso=%r, fin_proceso=%r, observaciones=%r, activo=%r)' \
+        return 'InstanciaDeEntrega(id=%r, numero=%r, inicio=%r, fin=%r, observaciones=%r, activo=%r)' \
                 % (self.id, self.numero, self.inicio, self.fin,
-                    self.inicio_proceso, self.fin_proceso, self.observaciones,
-                    self.activo)
+                   self.observaciones, self.activo)
 
     def longrepr(self):
         return u'Curso: %s - Ejer: %s' % (self.ejercicio.curso,self.shortrepr())
