@@ -62,7 +62,7 @@ pre.hl	{ color:#000000; background-color:#ffffff; font-size:10pt; font-family:Co
 
 <body>
 <h1>Archivos de Entrega</h1>
-<h2><span py:replace="'%s - %s' % (entrega.instancia.numerorepr(), entrega.entregador.shortrepr())"/></h2>
+<h2><span py:replace="'%s - %s' % (entrega.instancia.shortrepr(), entrega.entregador.shortrepr())"/></h2>
 
 
 <div style="width:100%;display:none;" id="lblArchivo">

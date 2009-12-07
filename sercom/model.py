@@ -312,7 +312,7 @@ class Curso(SQLObject): #{{{
     alumnos         = MultipleJoin('AlumnoInscripto')
     grupos          = MultipleJoin('Grupo')
     ejercicios      = MultipleJoin('Ejercicio', orderBy='numero')
-    instancias_evaluacion_alumno = MultipleJoin('InstanciaDeEvaluacionAlumno')
+    instancias_de_evaluacion_alumno = MultipleJoin('InstanciaDeEvaluacionAlumno')
 
     def __init__(self, docentes=[], ejercicios=[], alumnos=[], **kw):
         super(Curso, self).__init__(**kw)
@@ -394,10 +394,10 @@ class Curso(SQLObject): #{{{
                                         InstanciaDeEntrega.q.inicio <= now,
                                         InstanciaDeEntrega.q.fin >= now)))
 
-    def _get_todas_instancias_a_corregir(self):
-        return self.instancias_evaluacion_alumno + self.instancias_a_corregir
+    def _get_instancias_examinacion_a_corregir(self):
+        return self.instancias_de_evaluacion_alumno + self.instancias_de_entrega
 
-    def _get_instancias_a_corregir(self):
+    def _get_instancias_de_entrega(self):
         return list(InstanciaExaminacion.select(
                         AND(
                             InstanciaDeEntrega.q.ejercicioID == Ejercicio.q.id,
@@ -657,7 +657,7 @@ class Alumno(Usuario): #{{{
 
     def get_resumen_entregas(self, curso):
         entregadores_del_alumno = self.get_entregadores(curso)
-        instancias = curso.todas_instancias_a_corregir
+        instancias = curso.instancias_examinacion_a_corregir
 
         entregas = dict([ (i,[]) for i in instancias ])
         entregadores = dict([ (i,None) for i in instancias ])
@@ -1018,7 +1018,7 @@ class InstanciaDeEvaluacionAlumno(InstanciaExaminacion): #{{{
         return [DTOResumenEvaluacionAlumno(e, correcciones[e]) for e in entregadores]
 
     def longrepr(self):
-        return u'Curso: %s - Tipo: %s' % (self.curso,self.tipo)
+        return self.tipo
 
     def shortrepr(self):
         return self.tipo
@@ -1075,13 +1075,10 @@ class InstanciaDeEntrega(InstanciaExaminacion): #{{{
                    self.observaciones, self.activo)
 
     def longrepr(self):
-        return u'Curso: %s - Ejer: %s' % (self.ejercicio.curso,self.shortrepr())
-
-    def numerorepr(self):
-        return "%s.%s" % (self.ejercicio.numero, self.numero)
+        return "%s (%s)" % (self.shortrepr(),self.ejercicio.enunciado.nombre)
 
     def shortrepr(self):
-        return "%s (%s)" % (self.numerorepr(),self.ejercicio.enunciado.nombre)
+        return "%s.%s" % (self.ejercicio.numero, self.numero)
 #}}}
 
 class DocenteInscripto(SQLObject): #{{{

@@ -25,13 +25,13 @@
                 <th>Con entregas aceptadas</th>
                 <th>&nbsp;</th>
             </tr>
-            <tr py:for="inst in curso.instancias_a_corregir">
+            <tr py:for="inst in curso.instancias_de_entrega">
                 <?python
                    resumenes = inst.get_resumen_entregas()
                    entregados = len([r for r in resumenes if r.tiene_entregas])
                    aceptados = len([r for r in resumenes if r.entregas_aceptadas > 0])
                 ?>
-                <td>${inst.numerorepr()+ (inst.abierta and ' (abierta)' or '') }</td>
+                <td>${inst.shortrepr()+ (inst.abierta and ' (abierta)' or '') }</td>
                 <td>${entregados}</td>
                 <td>${aceptados}</td>
                 <td><a href="${tg.url('/correccion/resumen_entregas/%d' % inst.id)}">Ver Entregas</a>

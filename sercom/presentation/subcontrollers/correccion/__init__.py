@@ -157,10 +157,9 @@ class CorreccionController(BaseController, identity.SecureResource):
                         i.nota_anterior = None
         else:
             r = []
-        instancias_opts = [(i.id,i.shortrepr()) for i in self.get_curso_actual().todas_instancias_a_corregir]
+        instancias_opts = [(i.id,i.longrepr()) for i in self.get_curso_actual().instancias_examinacion_a_corregir]
         options = dict(instanciaID=instancias_opts)
         vfilter = dict(instanciaID=instanciaID, desertoresFLAG = desertoresFLAG)
-        print identity.in_any_group('admin','JTP')
         return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_entregas,
             vfilter=vfilter, options=options, instanciaID=instanciaID, desertoresFLAG=desertoresFLAG,
             docenteActual=identity.current.user.id, hayAnterior=instancia_anterior is not None, limit_to=identity.current.user.paginador)
@@ -199,7 +198,7 @@ class CorreccionController(BaseController, identity.SecureResource):
             files = []
             for instancia in ejercicio.instancias: 
                 if instancia.activo:
-                    eeii = [(identity.current.user.find_entrega_a_corregir(x.entregador, instancia)) for x in instancia.get_resumen_entregas() if x.tiene_entregas]
+                    eeii = [(instancia.find_entrega_a_corregir(x.entregador)) for x in instancia.get_resumen_entregas() if x.tiene_entregas]
                     for entrega in eeii:
                         r[entrega.entregador.alumno.padron] = entrega
             for entrega in r.values():
