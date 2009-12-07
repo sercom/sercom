@@ -33,7 +33,7 @@
         <td align="center"><a href="${tg.url('/curso/alumno/list/%d' % record.id)}"><span py:replace="len(record.alumnos)">Alumnos</span></a></td>
         <td align="center"><a href="${tg.url('/curso/grupo/list/%d' % record.id)}"><span py:replace="len(record.grupos)">Grupos</span></a></td>
         <td align="center"><a href="${tg.url('/curso/ejercicio/list/%s' % record.id)}"><span py:replace="len(record.ejercicios)">Ejercicio</span></a></td>
-        <td align="center"><a href="${tg.url('/curso/instancia_evaluacion_alumno/list/%s' % record.id)}"><span py:replace="len(record.instancias_evaluacion_alumno)">Evaluación Alumno</span></a></td>
+        <td align="center"><a href="${tg.url('/curso/instancia_evaluacion_alumno/list/%s' % record.id)}"><span py:replace="len(record.instancias_de_evaluacion_alumno)">Evaluación Alumno</span></a></td>
         <td><a href="${tg.url('/curso/show/%d' % record.id)}">Ver</a>
             <a href="${tg.url('/curso/edit/%d' % record.id)}">Editar</a>
             <a href="${tg.url('/curso/notas/%d' % record.id)}">Notas</a>

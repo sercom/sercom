@@ -11,7 +11,9 @@ from turbogears import identity
 from turbogears import paginate
 from turbogears import config
 from docutils.core import publish_parts
+from sercom.domain.notas import ResumenNotas
 from sercom.presentation.subcontrollers import validate as val
+from sercom.presentation.utils.downloader import *
 from sercom.model import Curso, Correccion, Ejercicio, Alumno, Docente, Grupo, DocenteInscripto, Rol
 from curso_alumno import *
 from sqlobject import *
@@ -326,92 +328,25 @@ class CursoController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.notas' % __name__)
     def notas(self, cursoid):
-        r = validate_get(cursoid)
-        # Armo las columnas del listado
-        cols = ["Padron", "Nombre", "Grupo"]
-        # Ejercicios
-        for ej in r.ejercicios:
-            for ins in ej.instancias:
-                #print "E"+str(ej.numero)+str(ins.numero)
-		if int(ins.numero) > 0:
-                    cols.append("E"+str(ej.numero)+str(ins.numero))
-        cols.append("EA")
-        cols.append("NP")
-        cols.append("NF")
-        cols.append("NL")
-
-        rows = []
-        for i in r.alumnos:
-            grupos = i.alumno.get_grupos(r)
-            entregadores = list(grupos)
-            entregadores.append(i)
-            col = {}
-            col["Padron"] = i.alumno.padron
-            col["Nombre"] = i.alumno.nombre
-            col["Grupo"] = string.join((g.nombre for g in grupos), ' ')
-            correctas = 0
-            for ej in r.ejercicios:
-                for ins in ej.instancias:
-                    c = Correccion.select(AND(Correccion.q.instanciaID == ins.id,
-                                              IN(Correccion.q.entregador,entregadores)
-                                            ))
-                    if c.count() > 0:
-                        col["E"+str(ej.numero)+str(ins.numero)] = c[0].nota
-                        if c[0].nota >= 4:
-                            correctas += 1
-                    else:
-                        col["E"+str(ej.numero)+str(ins.numero)] = ""
-            col["EA"] = correctas
-            col["NP"] = i.nota_practica
-            col["NF"] = i.nota_final
-            col["NL"] = i.nota_libreta
-            rows.append(col)
-        return dict(curso=r, rows=rows, cols=cols)
+        curso = validate_get(cursoid)
+        resumen = ResumenNotas()
+        resumen.calcular(curso)
+        return dict(curso=curso, resumen=resumen)
 
     @expose()
     def notascsv(self, cursoid):
-        r = validate_get(cursoid)
-        # Armo las columnas del listado
-        cols = ["Padron", "Nombre", "Grupo"]
-        # Ejercicios
-        for ej in r.ejercicios:
-            for ins in ej.instancias:
-                print "E"+str(ej.numero)+str(ins.numero)
-                cols.append("E"+str(ej.numero)+str(ins.numero))
-        cols.append("EA")
-        cols.append("NP")
-        cols.append("NF")
-        cols.append("NL")
-
-        rows = []
-        for i in r.alumnos:
-            grupos = i.alumno.get_grupos(r)
-            entregadores = list(grupos)
-            entregadores.append(i)
-            col = []
-            col.append(i.alumno.padron)
-            col.append(i.alumno.nombre)
-            col.append(string.join((g.nombre for g in grupos), ' '))
-            correctas = 0
-            for ej in r.ejercicios:
-                for ins in ej.instancias:
-                    c = Correccion.select(AND(Correccion.q.instanciaID == ins.id,
-                                              IN(Correccion.q.entregador,entregadores)
-                                            ))
-                    if c.count() > 0:
-                        col.append(str(c[0].nota))
-                        if c[0].nota > 4:
-                            correctas += 1
-                    else:
-                        col.append("")
-            col.append(str(correctas))
-            col.append(str(i.nota_practica))
-            col.append(str(i.nota_final))
-            col.append(str(i.nota_libreta))
-            rows.append(col)
-        s = ",".join(cols) + "\n"
-        for i in rows:
-            s = s + ",".join(i) + "\n"
-        return s
+        curso = validate_get(cursoid)
+        resumen = ResumenNotas()
+        resumen.calcular(curso)
+ 
+        notas = ",".join(resumen.cols) + "\n"
+        for row in resumen.rows:
+            valores = []
+            for col in resumen.cols:
+                valores.append(row[col])
+            notas = notas + ",".join(valores) + "\n"
+        downloader = Downloader(cherrypy.response)
+        return downloader.download_csv(notas, "notas.csv")
+        
 #}}}
 

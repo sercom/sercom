@@ -14,25 +14,12 @@
 </div>
 <table class="list">
     <tr>
-        <th py:for="i in cols" py:content="i" />
+        <th py:for="i in resumen.cols" py:content="i" />
     </tr>
-    <tr py:for="j in range(len(rows))">
-        <td py:for="i in cols" py:content="rows[j][i]" />
+    <tr py:for="row in resumen.rows">
+        <td py:for="col in resumen.cols" py:content="row[col]" />
     </tr>
 </table>
-<br />
-<div>
-    <strong>Referencias</strong>
-    <ul>
-        <li>EXY = Ejercicio X, Entrega Y</li>
-        <li>EA = Ejercicios Aprobados</li>
-        <li>NP = Nota Practica</li>
-        <li>NF = Nota del Final</li>
-        <li>NL = Nota Firma Libreta</li>
-    </ul>
-</div>
-<br/>
-<a href="${tg.url('/curso/list')}">Volver</a>
 
 </body>
 </html>

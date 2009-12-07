@@ -23,6 +23,12 @@ class Downloader:
         self.response.headers["Content-disposition"] = content_disp
         return pdf
 
+    def download_csv(self, csv, nombre_arch):
+        self.response.headers["Content-Type"] = "text/csv"
+        content_disp = "attachment;filename=%s" % nombre_arch
+        self.response.headers["Content-disposition"] = content_disp
+        return csv
+ 
     def download_image(self, imagen, tipo_de_contenido, nombre_arch):
         self.response.headers["Content-Type"] = tipo_de_contenido  
         content_disp = "filename=%s" % nombre_arch
