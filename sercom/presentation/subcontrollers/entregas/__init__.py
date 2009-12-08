@@ -76,16 +76,15 @@ class EntregasController(BaseController, identity.SecureResource):
         download = Downloader(cherrypy.response)
         return dict(file_text= download.download_zip_content(r.archivos, nombre))
 
-    @expose()
+    @expose('json')
     def get_fuente_c_formato(self, entrega_id, nombre):
+        from sercom.ziputil import *
         r = validate_get_entrega(entrega_id)
-        download = Downloader(cherrypy.response)
-        cpp = download.download_zip_content(r.archivos, nombre)
-	p = Popen(["highlight", "-S", "cpp"], stdin=PIPE, stdout=PIPE)
+        cpp = unzip_arch_interno(r.archivos, nombre)
+	p = Popen(["highlight", "-S", "cpp", "-X", "--fragment"], stdin=PIPE, stdout=PIPE)
 	p.stdin.write(cpp)
 	p.stdin.close()
 	html = p.stdout.read()
-        #return dict(file_html=html)
         return dict(file_html=html)
 
     @expose()

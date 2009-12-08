@@ -6,6 +6,7 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
 <title>list</title>
  <script type="text/javascript">
+//<!--
      function cambiar(filename){
         cambiarArchivo(${entrega.id}, filename);
      }
@@ -17,9 +18,8 @@
 
     function mostrarArchivo(res) {
         var lbl = MochiKit.DOM.getElement('lblArchivo');
-        lbl.innerHTML = '<a onclick="ocultarArchivo()">ocultar</a>'+res.file_html.toString();
+        lbl.innerHTML = res.file_html.toString();
 	lbl.style.display='block';
-        //lbl.document.body.innerHTML = res.file_html;
     }
 
     function err (err)
@@ -29,19 +29,17 @@
 
     function cambiarArchivo(entrega_id, filename)
     {
-        encodedFilename = filename.replace(/\./,"%2E").replace(/\//g,"%2F");
-        url = "/entregas/get_fuente_c_formato/" + entrega_id + "/" + encodedFilename;
-        var lbl = MochiKit.DOM.getElement('lblArchivo');
+        var encodedFilename = filename.replace(/\./,"%2E").replace(/\//g,"%2F");
+        var url = '/entregas/get_fuente_c_formato?entrega_id=' + entrega_id + '&nombre=' + encodedFilename;
         var d = loadJSONDoc(url);
         d.addCallbacks(mostrarArchivo, err);
     }
-
-
+//-->
 </script>
 <style type="text/css">
 <!--
 body.hl	{ background-color:#ffffff; }
-pre.hl	{ color:#000000; background-color:#ffffff; font-size:10pt; font-family:Courier New;}
+pre.hl	{ color:#000000; background-color:#ffffff; font-family:Courier New;}
 .num	{ color:#2928ff; }
 .esc	{ color:#ff00ff; }
 .str	{ color:#ff0000; }
@@ -55,7 +53,24 @@ pre.hl	{ color:#000000; background-color:#ffffff; font-size:10pt; font-family:Co
 .kwb	{ color:#830000; }
 .kwc	{ color:#000000; font-weight:bold; }
 .kwd	{ color:#010181; }
-//-->
+.marco  {
+  height:100%; 
+  vertical-align:top; 
+  border:1pt dashed;
+  display:table-cell;
+}
+.lista-archivos {
+  font-size:8pt; 
+  width:150px; overflow:auto; 
+  padding:5px; margin:2px;
+}
+.contenido-archivo {
+  font-size:8pt; 
+  width:570px; 
+  display:block;overflow:auto;
+  padding:5px; margin:2px;
+}
+-->
 </style>
 
 </head>
@@ -64,16 +79,21 @@ pre.hl	{ color:#000000; background-color:#ffffff; font-size:10pt; font-family:Co
 <h1>Archivos de Entrega</h1>
 <h2><span py:replace="'%s - %s' % (entrega.instancia.shortrepr(), entrega.entregador.shortrepr())"/></h2>
 
-
-<div style="width:100%;display:none;" id="lblArchivo">
-</div>
-<div style="display:block;height:100%">
-  <div>
-    <p>Archivos:</p>
-    <div py:for="archivo in entrega.get_archivos_nombres()" py:if="archivo[-1]!='/'" >
-      <a href="#" onclick="cambiar('${archivo}');return false;">${archivo}</a>
+<div style="display:table;vertical-align:top;vertical-align:top;">
+  <div class="marco"> 
+    <div class="lista-archivos" > 
+      Archivos:
+      <div title="${archivo}" py:for="archivo in entrega.get_archivos_nombres()" py:if="archivo[-1]!='/'" >
+        <a href="#" onclick="cambiar('${archivo}');return false;">${archivo}</a>
+      </div>
     </div>
-  </div>
+  </div>&nbsp;
+  <div class="marco"> 
+    <div class="contenido-archivo">
+      <a onclick="ocultarArchivo()">Ocultar</a>
+      <pre class="h1" id="lblArchivo" style="display:none"/>
+    </div>
+  </div>    
 </div>
 
 </body>
