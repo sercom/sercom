@@ -54,10 +54,11 @@ pre.hl	{ color:#000000; background-color:#ffffff; font-family:Courier New;}
 .kwc	{ color:#000000; font-weight:bold; }
 .kwd	{ color:#010181; }
 .marco  {
+  background-color:white;
   height:100%; 
   vertical-align:top; 
   border:1pt dashed;
-  display:table-cell;
+  overflow:auto;
 }
 .lista-archivos {
   font-size:8pt; 
@@ -79,22 +80,24 @@ pre.hl	{ color:#000000; background-color:#ffffff; font-family:Courier New;}
 <h1>Archivos de Entrega</h1>
 <h2><span py:replace="'%s - %s' % (entrega.instancia.shortrepr(), entrega.entregador.shortrepr())"/></h2>
 
-<div style="display:table;vertical-align:top;vertical-align:top;">
-  <div class="marco"> 
+<table style="display:block;vertical-align:top;vertical-align:top;">
+ <tr>
+  <td class="marco"> 
     <div class="lista-archivos" > 
       Archivos:
       <div title="${archivo}" py:for="archivo in entrega.get_archivos_nombres()" py:if="archivo[-1]!='/'" >
         <a href="#" onclick="cambiar('${archivo}');return false;">${archivo}</a>
       </div>
     </div>
-  </div>&nbsp;
-  <div class="marco"> 
+  </td>&nbsp;
+  <td class="marco"> 
     <div class="contenido-archivo">
       <a onclick="ocultarArchivo()">Ocultar</a>
       <pre class="h1" id="lblArchivo" style="display:none"/>
     </div>
-  </div>    
-</div>
+  </td>    
+ </tr>
+</table>
 
 </body>
 </html>
