@@ -12,30 +12,25 @@
 
 <table class="list">
     <tr>
-				<th>Ejercicio</th>
-				<th>Numero Ejercicio</th>
-				<th>Intento</th>
+        <th>Ejercicio</th>
         <th>OK?</th>
         <th>Fecha</th>
-        <th>InicioTareas</th>
-        <th>FinTareas</th>
+        <th>Duración</th>
         <th>Observaciones</th>
-				<th>Operaciones</th>
+        <th>Operaciones</th>
     </tr>
     <tr py:for="record in records">
-        <td><span py:replace="record.instancia.ejercicio.enunciado.nombre">usuario</span></td>
-        <td><span py:replace="record.instancia.ejercicio.numero">usuario</span></td>
-        <td><span py:replace="record.instancia.numero">usuario</span></td>
-        <td><span py:replace="record.exito">fecha asignado</span></td>
-        <td><span py:replace="record.fecha">fecha corregido</span></td>
-        <td><span py:replace="record.inicio">fecha corregido</span></td>
-        <td><span py:replace="record.fin">fecha corregido</span></td>
-        <td><span py:replace="record.observaciones">nota</span></td>
-				<td>
-					<a href="${tg.url('/mis_entregas/corrida/%d' % record.id)}">Corrida</a>
-					<a href="${tg.url('/mis_entregas/get_archivo/%d' % record.id)}">Bajar Archivo</a>
-					<a href="${tg.url('/entregas/get_pdf/%d' % record.id)}">Bajar PDF</a>
-				</td>
+        <td><span py:replace="record.instancia.longrepr()">ejercicio</span></td>
+        <td><span py:replace="record.exito">exito</span></td>
+        <td><span py:replace="record.fecha">fecha</span></td>
+        <td><span py:replace="record.duracion">duracion</span></td>
+        <td><span py:replace="record.observaciones">observaciones</span></td>
+        <td>
+         <a href="${tg.url('/mis_entregas/corrida/%d' % record.id)}">Corrida</a>
+         <a href="${tg.url('/mis_entregas/get_archivo/%d' % record.id)}">Bajar</a>
+         <a href="${tg.url('/entregas/browse_files/%d' % record.id)}">Navegar</a>
+         <a href="${tg.url('/entregas/get_pdf/%d' % record.id)}">PDF</a>
+        </td>
     </tr>
 </table>
 

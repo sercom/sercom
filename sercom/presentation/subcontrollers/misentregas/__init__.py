@@ -157,7 +157,7 @@ class MisEntregasController(BaseController, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records')
+    @paginate('records', dynamic_limit='limit_to')
     @identity.require(identity.has_permission('entregar'))
     def list(self):
         """List records in model"""
@@ -165,7 +165,7 @@ class MisEntregasController(BaseController, identity.SecureResource):
         curso = self.get_curso_actual()
         entregadores = identity.current.user.get_entregadores(curso)
         r = cls.select(IN(cls.q.entregador, entregadores), orderBy=-Entrega.q.fecha)
-        return dict(records=r, name=name, namepl=namepl)
+        return dict(records=r, name=name, namepl=namepl, limit_to=identity.current.user.paginador)
 
     @expose(template='kid:%s.templates.new' % __name__)
     @identity.require(identity.has_permission('entregar'))
