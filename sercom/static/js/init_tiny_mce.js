@@ -8,6 +8,7 @@
 		theme_advanced_buttons3 : "",
                 valid_elements : "a[href|id|target],img[src|alt|id|title],p[id],strong/b,em/i,iframe[*]," +
                         "ul,ol,li[type|value], dl,dt,dd" +
+                        "blockquote,q,pre,code" +
                         "tbody,thead,tfoot," +
                         "-table[border|cellspacing|cellpadding|width|frame|rules|height|align|summary|bgcolor|background|bordercolor]," +
                         "-tr[rowspan|width|height|align|valign|bgcolor|background|bordercolor]," +
