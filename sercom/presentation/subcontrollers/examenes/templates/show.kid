@@ -1,5 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<?python from turbogears import identity?>
+<?python 
+from turbogears import identity
+from sercom.model import Permiso
+?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#"
     py:extends="'../../../templates/master.kid'">
 <head>
@@ -35,8 +38,11 @@
                 <tr style="height:30px;vertical-align:top">
                     <td>
                         <a href="${tg.url('/examenes/pregunta/show/%d' % pregunta.id)}">
-                            <span py:if="pregunta.tiene_respuestas" >Detalle (incluye respuestas)</span>
-                            <span py:if="not pregunta.tiene_respuestas">Detalle</span>
+                          <?python
+                            tiene_respuestas=pregunta.tiene_respuestas_por_usuario(identity.current.user)
+                          ?>
+                            <span py:if="tiene_respuestas" >Detalle (incluye respuestas)</span>
+                            <span py:if="not tiene_respuestas">Detalle</span>
                        </a>
                     </td>
                 </tr>
@@ -50,7 +56,7 @@
 </table>
 
 <br/>
-<div style="display:inline" py:if="'admin' in identity.current.permissions">
+<div style="display:inline" py:if="Permiso.examen.editar in identity.current.permissions">
     <a href="${tg.url('/examenes/edit/%d' % record.id)}">Editar</a> |
 </div>
 <a href="${tg.url('/examenes/list')}">Volver</a>

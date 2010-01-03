@@ -1,5 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<?python from turbogears import identity?>
+<?python 
+from turbogears import identity
+from sercom.model import Permiso?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#"
     py:extends="'../../../../templates/master.kid'">
 <head>
@@ -30,15 +32,17 @@
         <td><span py:if="record.texto">${XML(record.texto)}</span></td>
     </tr>
     <tr>
-        <th>Respuesta:</th>
-        <td><span>${XML(record.get_respuesta_unica())}</span></td>
+        <th>Respuestas:</th>
+        <td><p py:for="r in record.get_respuestas_por_usuario(identity.current.user)"><b py:if="not r.revisada">(No Revisada)</b>
+            ${XML(r.texto)}</p>
+        </td>
     </tr>
 
 
 </table>
 
 <br/>
-<div style="display:inline" py:if="'admin' in identity.current.permissions">
+<div style="display:inline" py:if="Permiso.examen.editar in identity.current.permissions">
     <a href="${tg.url('/examenes/pregunta/edit/%d' % record.id)}">Editar</a> |
 </div>
 <a href="${tg.url('/examenes/show/%d' % record.examen.id)}">Volver</a>

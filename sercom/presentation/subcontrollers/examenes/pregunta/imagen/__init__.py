@@ -12,7 +12,7 @@ from turbogears import config
 from docutils.core import publish_parts
 from sercom.presentation.utils.downloader import *
 from sercom.presentation.subcontrollers import validate as val
-from sercom.model import PreguntaExamen, TemaPregunta, TipoPregunta, Imagen
+from sercom.model import PreguntaExamen, TemaPregunta, TipoPregunta, Imagen, Permiso
 from sqlobject import *
 from datetime import datetime
 #}}}
@@ -54,7 +54,7 @@ class ImagenController(controllers.Controller):
         """handle non exist urls"""
         raise redirect('list')
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.has_permission(Permiso.examen.editar))
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
         """Create new records in model"""
@@ -67,7 +67,7 @@ class ImagenController(controllers.Controller):
         r = cls.select()
         return dict(records=r, name=name, namepl=namepl)
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.has_permission(Permiso.examen.editar))
     @validate(form=form)
     @error_handler(new)
     @expose()

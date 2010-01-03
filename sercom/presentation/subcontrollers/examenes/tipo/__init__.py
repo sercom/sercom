@@ -11,7 +11,7 @@ from turbogears import paginate
 from turbogears import config
 from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
-from sercom.model import TipoPregunta
+from sercom.model import TipoPregunta, Permiso
 from sqlobject import *
 from sqlobject.main import SQLObjectIntegrityError
 #}}}
@@ -48,7 +48,7 @@ form = TipoPreguntaForm()
 #{{{ Controlador
 class TipoPreguntaController(controllers.Controller, identity.SecureResource):
     """Interfaz de administracion de tipos de pregunta"""
-    require = identity.has_permission('admin')
+    require = identity.has_any_permission(Permiso.examen.tipo.editar.nombre, Permiso.examen.tipo.eliminar.nombre)
 
     @expose()
     def default(self, tg_errors=None):
@@ -64,11 +64,13 @@ class TipoPreguntaController(controllers.Controller, identity.SecureResource):
     def list(self):
         return dict(namepl=namepl, records=TipoPregunta.select())
 
+    @identity.require(identity.has_permission(Permiso.examen.tipo.editar))
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
         """Create new records in model"""
         return dict(name=name, namepl=namepl, form=form, values=kw)
 
+    @identity.require(identity.has_permission(Permiso.examen.tipo.editar))
     @validate(form=form)
     @error_handler(new)
     @expose()
@@ -78,6 +80,7 @@ class TipoPreguntaController(controllers.Controller, identity.SecureResource):
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
 
+    @identity.require(identity.has_permission(Permiso.examen.tipo.editar))
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
@@ -93,6 +96,7 @@ class TipoPreguntaController(controllers.Controller, identity.SecureResource):
         r = validate_get(id)
         return dict(name=name, namepl=namepl, record=r)
 
+    @identity.require(identity.has_permission(Permiso.examen.tipo.editar))
     @validate(form=form)
     @error_handler(edit)
     @expose()
@@ -102,6 +106,7 @@ class TipoPreguntaController(controllers.Controller, identity.SecureResource):
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')
 
+    @identity.require(identity.has_permission(Permiso.examen.tipo.eliminar))
     @expose()
     def delete(self, id):
         """Destroy record in model"""

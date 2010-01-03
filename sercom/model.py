@@ -251,8 +251,14 @@ class PreguntaExamen(SQLObject): #{{{
     __find_tipo = staticmethod(__find_tipo)
     __find_tema = staticmethod(__find_tema)
 
-    def _get_tiene_respuestas(self):
-        return len(self.respuestas) > 0
+    def tiene_respuestas_por_usuario(self, usuario):
+        return (len(self.get_respuestas_por_usuario(usuario)) > 0)
+ 
+    def get_respuestas_por_usuario(self, usuario):
+        if usuario.has_any_permission([Permiso.examen.respuesta.revisar,Permiso.examen.editar]):
+            return list(self.respuestas)
+        else:
+            return list(r for r in self.respuestas if r.revisada)
 
     def add_respuesta(self, texto, usuario):
         autor = usuario.nombre
@@ -1643,16 +1649,25 @@ class Permiso(object): #{{{
         return self.valor | other.valor
 
     def __eq__(self, other):
-        return self.valor == other.valor
+        if other.__class__ == Permiso:
+            return self.valor == other.valor
+        else:
+            return self.nombre == other
 
     def __ne__(self, other):
         return not self.__eq__(other)
 
     def __hash__(self):
-        return hash(self.valor)
+        return hash(self.nombre)
 
     def __repr__(self):
         return repr(self.nombre)
+
+    def __str__(self):
+        return self.nombre
+
+class PermisoModulo:
+    pass;
 
 Permiso.entregar_tp = Permiso(u'entregar', u'Permite entregar trabajos prácticos')
 Permiso.admin = Permiso(u'admin', u'Permite hacer ABMs arbitrarios')
@@ -1662,6 +1677,20 @@ Permiso.alumno_eliminar = Permiso(u'alumno_eliminar', u'Permite eliminar alumnos
 Permiso.enunciado_editar = Permiso(u'enunciado_editar', u'Permite editar datos de enunciados')
 Permiso.enunciado_eliminar = Permiso(u'enunciado_eliminar', u'Permite eliminar enunciados')
 
+Permiso.examen = PermisoModulo()
+Permiso.examen.editar = Permiso(u'examen_editar', u'Creación y edición examenes')
+Permiso.examen.eliminar = Permiso(u'examen_eliminar', u'Eliminación de examenes')
+
+Permiso.examen.tema = PermisoModulo()
+Permiso.examen.tema.editar = Permiso(u'examen_tema_editar', u'Creación y edición de temas de preguntas en examenes')
+Permiso.examen.tema.eliminar = Permiso(u'examen_tema_eliminar', u'Eliminación de temas de preguntas en examenes')
+
+Permiso.examen.tipo = PermisoModulo()
+Permiso.examen.tipo.editar = Permiso(u'examen_tipo_editar', u'Creación y edición de tipos de preguntas en examenes')
+Permiso.examen.tipo.eliminar = Permiso(u'examen_tipo_eliminar', u'Eliminación de tipos de preguntas en examenes')
+
+Permiso.examen.respuesta = PermisoModulo()
+Permiso.examen.respuesta.revisar = Permiso(u'examen_respuesta_revisar', u'Revisión de respuestas a preguntas de examen')
 #}}}
 
 #}}} Identity

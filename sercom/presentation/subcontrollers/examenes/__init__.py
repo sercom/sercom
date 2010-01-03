@@ -14,8 +14,8 @@ from turbogears import config
 from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.presentation.subcontrollers.examenes import custom_selects as CS
-from sercom.model import ExamenFinal, PreguntaExamen, TemaPregunta, TipoPregunta
-from sercom.model import DTOPregunta
+from sercom.model import DTOPregunta, ExamenFinal, PreguntaExamen, TemaPregunta, TipoPregunta
+from sercom.model import Permiso
 from sqlobject import *
 from tipo import TipoPreguntaController
 from tema import TemaPreguntaController
@@ -94,10 +94,11 @@ class ExamenFinalController(controllers.Controller, identity.SecureResource):
     @expose(template='kid:%s.templates.list' % __name__)
     @paginate('records', limit=config.get('items_por_pagina'))
     def list(self):
+        print identity.current.permissions
         permitir_agregar = TemaPregunta.select().count() > 0 and TipoPregunta.select().count() > 0
         return dict(namepl='Examenes', permitir_agregar=permitir_agregar,  records=ExamenFinal.select())
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.has_permission(Permiso.examen.editar))
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
         """Create new records in model"""
@@ -123,7 +124,7 @@ class ExamenFinalController(controllers.Controller, identity.SecureResource):
 			del kw[key]
         return preguntas
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.has_permission(Permiso.examen.editar))
     @validate(form=examen_form)
     @error_handler(new)
     @expose()
@@ -137,7 +138,7 @@ class ExamenFinalController(controllers.Controller, identity.SecureResource):
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.has_permission(Permiso.examen.editar))
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
@@ -152,7 +153,7 @@ class ExamenFinalController(controllers.Controller, identity.SecureResource):
         	r[Mascaras.TEMA % pregunta.numero] = pregunta.temaID
         return dict(name=name, namepl=namepl, record=r, form=examen_form)
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.has_permission(Permiso.examen.editar))
     @validate(form=examen_form)
     @error_handler(edit)
     @expose()
@@ -170,7 +171,7 @@ class ExamenFinalController(controllers.Controller, identity.SecureResource):
         r = validate_get(id)
         return dict(name=name, namepl=namepl, record=r)
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.has_permission(Permiso.examen.eliminar))
     @expose()
     def delete(self, id):
         """Destroy record in model"""
@@ -179,12 +180,12 @@ class ExamenFinalController(controllers.Controller, identity.SecureResource):
         flash(_(u'El %s fue eliminado permanentemente.') % name)
         raise redirect('../list')
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.has_permission(Permiso.examen.editar))
     @expose(template='kid:%s.templates.from_text' % __name__)
     def from_text(self):
         return dict()
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.has_permission(Permiso.examen.editar))
     @expose(template='kid:%s.templates.new' % __name__)
     def from_text_add(self, **kw):
         """ Se espera :
@@ -199,12 +200,12 @@ class ExamenFinalController(controllers.Controller, identity.SecureResource):
 
         return dict(name=name, namepl=namepl, form=examen_form, values=kw)
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.has_permission(Permiso.examen.editar))
     @expose(template='kid:%s.templates.from_file' % __name__)
     def from_file(self):
         return dict()
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.has_permission(Permiso.examen.editar))
     @expose(template='kid:%s.templates.import_results' % __name__)
     def from_file_add(self, archivo, encoding):
         """ Se espera :

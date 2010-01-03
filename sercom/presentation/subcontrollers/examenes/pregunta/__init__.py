@@ -13,6 +13,7 @@ from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.widgets import SeparatorField
 from sercom.model import PreguntaExamen, TemaPregunta, TipoPregunta, Respuesta
+from sercom.model import Permiso
 from sercom.presentation.subcontrollers.examenes import custom_selects as CS
 from sqlobject import *
 from imagen import ImagenController
@@ -74,13 +75,13 @@ class PreguntaExamenController(controllers.Controller):
         """handle non exist urls"""
         raise redirect('find')
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.has_permission(Permiso.examen.editar))
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, **kw):
         """Create new records in model"""
         return dict(name=name, namepl=namepl, form=form, values=kw)
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.has_permission(Permiso.examen.editar))
     @validate(form=form)
     @error_handler(new)
     @expose()
@@ -94,7 +95,7 @@ class PreguntaExamenController(controllers.Controller):
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.has_permission(Permiso.examen.editar))
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
@@ -113,7 +114,7 @@ class PreguntaExamenController(controllers.Controller):
         r = validate_get(id)
         return dict(name=name, namepl=namepl, record=r)
 
-    @identity.require(identity.has_permission('admin'))
+    @identity.require(identity.has_permission(Permiso.examen.editar))
     @validate(form=form)
     @error_handler(edit)
     @expose()
