@@ -10,6 +10,7 @@ from turbogears import identity
 from turbogears import paginate
 from turbogears import config
 from docutils.core import publish_parts
+from sercom.presentation.identityrequire import *
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import TipoPregunta, Permiso
 from sqlobject import *
@@ -48,7 +49,7 @@ form = TipoPreguntaForm()
 #{{{ Controlador
 class TipoPreguntaController(controllers.Controller, identity.SecureResource):
     """Interfaz de administracion de tipos de pregunta"""
-    require = identity.has_any_permission(Permiso.examen.tipo.editar.nombre, Permiso.examen.tipo.eliminar.nombre)
+    require = IdentityRequireHasAny(Permiso.examen.tipo.editar, Permiso.examen.tipo.eliminar)
 
     @expose()
     def default(self, tg_errors=None):

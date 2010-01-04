@@ -12,6 +12,7 @@ from turbogears import identity
 from turbogears import paginate
 from turbogears import config
 from docutils.core import publish_parts
+from sercom.presentation.identityrequire import IdentityRequireAnonymous
 from sercom.presentation.subcontrollers import validate as val
 from sercom.presentation.subcontrollers.examenes import custom_selects as CS
 from sercom.model import DTOPregunta, ExamenFinal, PreguntaExamen, TemaPregunta, TipoPregunta
@@ -73,14 +74,11 @@ def create_form(cant_preguntas = 10):
 examen_form = create_form()
 
 #}}}
-class anonymous_permission(identity.Predicate, identity.IdentityPredicateHelper):
-	def eval_with_object(self, obj, errors = None):
-		return True
 
 #{{{ Controlador
 class ExamenFinalController(controllers.Controller, identity.SecureResource):
     """Interfaz de administracion de examenes y preguntas"""
-    require = anonymous_permission() 
+    require = IdentityRequireAnonymous() 
 
     @expose()
     def default(self, tg_errors=None):

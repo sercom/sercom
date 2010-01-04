@@ -15,3 +15,8 @@ class IdentityRequireHasAny(identity.Predicate, identity.IdentityPredicateHelper
         self.append_error_message(errors)
         return False
 
+class IdentityRequireAnonymous(identity.Predicate, identity.IdentityPredicateHelper):
+	def eval_with_object(self, identity, errors = None):
+		return True
+
+

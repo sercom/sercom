@@ -255,7 +255,7 @@ class PreguntaExamen(SQLObject): #{{{
         return (len(self.get_respuestas_por_usuario(usuario)) > 0)
  
     def get_respuestas_por_usuario(self, usuario):
-        if usuario.has_any_permission([Permiso.examen.respuesta.revisar,Permiso.examen.editar]):
+        if usuario and usuario.has_any_permiso(Permiso.examen.respuesta.revisar,Permiso.examen.editar):
             return list(self.respuestas)
         else:
             return list(r for r in self.respuestas if r.revisada)
@@ -550,9 +550,9 @@ class Usuario(InheritableSQLObject): #{{{
     def _get_password(self): # para identity
         return self.contrasenia
 
-    def has_any_permission(self, permissions):
+    def has_any_permiso(self, *permisos):
         for p in self.permisos:
-            if p in permissions:
+            if p in permisos:
                 return True
         return False
     
@@ -928,7 +928,7 @@ class CasoDePrueba(Comando): #{{{
             % (srepr(self.enunciado), self.nombre))
 
     def validar_acceso(self, usuario):
-        if not self.publico and not usuario.has_any_permission([Permiso.corregir, Permiso.enunciado_editar]):
+        if not self.publico and not usuario.has_any_permiso(Permiso.corregir, Permiso.enunciado_editar):
             raise UsuarioSinPermisos(usuario)
 
 
