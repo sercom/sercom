@@ -31,9 +31,10 @@ from sercom.model import Permiso?>
         <th>Texto:</th>
         <td><span py:if="record.texto">${XML(record.texto)}</span></td>
     </tr>
-    <tr>
+    <?python respuestas = record.get_respuestas_por_usuario(identity.current.user) ?>
+    <tr py:if="len(respuestas) > 0">
         <th>Respuestas:</th>
-        <td><p py:for="r in record.get_respuestas_por_usuario(identity.current.user)"><b py:if="not r.revisada">(No Revisada)</b>
+        <td><p py:for="r in respuestas"><b py:if="not r.revisada">(No Revisada)</b>
             ${XML(r.texto)}</p>
         </td>
     </tr>

@@ -22,7 +22,7 @@
         <td><span py:replace="record.examen">examen</span></td>
         <td><span py:replace="record.numero">oportunidad</span></td>
         <td><span py:if="record.texto">${XML(record.texto)}</span></td>
-        <td><a href="${tg.url('/examenes/show/%d' % record.examenID)}">Ver Examen</a></td>
+        <td><a href="${tg.url('/examenes/pregunta/show/%d' % record.id)}" >Detalle</a>&nbsp;<a href="${tg.url('/examenes/show/%d' % record.examenID)}">Examen</a></td>
     </tr>
 </table>
 
