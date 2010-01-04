@@ -12,6 +12,7 @@ from turbogears import identity
 from turbogears import paginate
 from turbogears import config
 from docutils.core import publish_parts
+from sercom.presentation.controllers import BaseController
 from sercom.presentation.identityrequire import IdentityRequireAnonymous
 from sercom.presentation.subcontrollers import validate as val
 from sercom.presentation.subcontrollers.examenes import custom_selects as CS
@@ -76,7 +77,7 @@ examen_form = create_form()
 #}}}
 
 #{{{ Controlador
-class ExamenFinalController(controllers.Controller, identity.SecureResource):
+class ExamenFinalController(BaseController, identity.SecureResource):
     """Interfaz de administracion de examenes y preguntas"""
     require = IdentityRequireAnonymous() 
 
@@ -90,11 +91,11 @@ class ExamenFinalController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records', limit=config.get('items_por_pagina'))
+    @paginate('records', dynamic_limit='limit_to')
     def list(self):
         print identity.current.permissions
         permitir_agregar = TemaPregunta.select().count() > 0 and TipoPregunta.select().count() > 0
-        return dict(namepl='Examenes', permitir_agregar=permitir_agregar,  records=ExamenFinal.select())
+        return dict(namepl='Examenes', permitir_agregar=permitir_agregar,  records=ExamenFinal.select(), limit_to=self.get_limite_paginado())
 
     @identity.require(identity.has_permission(Permiso.examen.editar))
     @expose(template='kid:%s.templates.new' % __name__)

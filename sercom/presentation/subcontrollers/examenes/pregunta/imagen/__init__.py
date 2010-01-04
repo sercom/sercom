@@ -10,6 +10,7 @@ from turbogears import identity
 from turbogears import paginate
 from turbogears import config
 from docutils.core import publish_parts
+from sercom.presentation.controllers import BaseController
 from sercom.presentation.utils.downloader import *
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import PreguntaExamen, TemaPregunta, TipoPregunta, Imagen, Permiso
@@ -47,7 +48,7 @@ form = ImagenForm()
 #}}}
 
 #{{{ Controlador
-class ImagenController(controllers.Controller):
+class ImagenController(BaseController):
 
     @expose()
     def default(self, tg_errors=None):
@@ -61,11 +62,11 @@ class ImagenController(controllers.Controller):
         return dict(name=name, namepl=namepl, form=form, values=kw)
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records', limit=config.get('items_por_pagina'))
+    @paginate('records', dynamic_limit='limit_to')
     def list(self):
         """List records in model"""
         r = cls.select()
-        return dict(records=r, name=name, namepl=namepl)
+        return dict(records=r, name=name, namepl=namepl, limit_to=self.get_limite_paginado())
 
     @identity.require(identity.has_permission(Permiso.examen.editar))
     @validate(form=form)

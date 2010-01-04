@@ -10,6 +10,7 @@ from turbogears import identity
 from turbogears import paginate
 from turbogears import config
 from docutils.core import publish_parts
+from sercom.presentation.controllers import BaseController
 from sercom.presentation.subcontrollers import validate as val
 from sercom.presentation.identityrequire import *
 from sercom.model import TemaPregunta, Permiso
@@ -47,7 +48,7 @@ form = TemaPreguntaForm()
 #}}}
 
 #{{{ Controlador
-class TemaPreguntaController(controllers.Controller, identity.SecureResource):
+class TemaPreguntaController(BaseController, identity.SecureResource):
     """Interfaz de administracion de temas"""
     require = IdentityRequireHasAny(Permiso.examen.tema.editar, Permiso.examen.tema.eliminar)
 
@@ -61,9 +62,9 @@ class TemaPreguntaController(controllers.Controller, identity.SecureResource):
         raise redirect('list')
 
     @expose(template='kid:%s.templates.list' % __name__)
-    @paginate('records', limit=config.get('items_por_pagina'))
+    @paginate('records', dynamic_limit='limit_to')
     def list(self):
-        return dict(namepl=namepl, records=TemaPregunta.select())
+        return dict(namepl=namepl, records=TemaPregunta.select(), limit_to=self.get_limite_paginado())
 
     @identity.require(identity.has_permission(Permiso.examen.tema.editar))
     @expose(template='kid:%s.templates.new' % __name__)

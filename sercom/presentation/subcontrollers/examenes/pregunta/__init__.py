@@ -10,6 +10,7 @@ from turbogears import identity
 from turbogears import paginate
 from turbogears import config
 from docutils.core import publish_parts
+from sercom.presentation.controllers import BaseController
 from sercom.presentation.subcontrollers import validate as val
 from sercom.widgets import SeparatorField
 from sercom.model import PreguntaExamen, TemaPregunta, TipoPregunta, Respuesta
@@ -57,8 +58,8 @@ class PreguntaExamenFiltros(W.TableForm):
     class Fields(W.WidgetsList):
         tipoID = CS.TipoSelectField()
         temaID = CS.TemaSelectField()
-        tipoID.addDefault(u'Todos')
-        temaID.addDefault(u'Todos')
+        tipoID.add_default(u'Todos')
+        temaID.add_default(u'Todos')
     form_attrs={'class':"filter"}
     fields = Fields()
 
@@ -68,7 +69,7 @@ form = PreguntaExamenForm()
 #}}}
 
 #{{{ Controlador
-class PreguntaExamenController(controllers.Controller):
+class PreguntaExamenController(BaseController):
 
     @expose()
     def default(self, tg_errors=None):
@@ -131,7 +132,7 @@ class PreguntaExamenController(controllers.Controller):
         raise redirect('../show/%d' % r.id)
 
     @expose(template='kid:%s.templates.find' % __name__)
-    @paginate('records', limit=config.get('items_por_pagina'))
+    @paginate('records', dynamic_limit='limit_to')
     def find(self, tipoID=None, temaID=None):
         """Find records in model"""
         vfilter = dict(tipoID=tipoID, temaID=temaID)
@@ -145,7 +146,7 @@ class PreguntaExamenController(controllers.Controller):
 	r = PreguntaExamen.select(expression).orderBy([PreguntaExamen.q.examen,PreguntaExamen.q.numero])
 	        
         return dict(records=r, name=name, namepl=namepl, form=filtro,
-            vfilter=vfilter)
+            vfilter=vfilter, limit_to=self.get_limite_paginado())
 
     imagen = ImagenController()
 #}}}
