@@ -80,7 +80,7 @@ class EntregasController(BaseController, identity.SecureResource):
     def get_fuente_c_formato(self, entrega_id, nombre):
         from sercom.ziputil import *
         r = validate_get_entrega(entrega_id)
-        cpp = unzip_arch_interno(r.archivos, nombre)
+        cpp = unzip_arch_interno(r.archivos, nombre).encode('ascii', 'replace')
 	p = Popen(["highlight", "-S", "cpp", "-X", "--fragment"], stdin=PIPE, stdout=PIPE)
 	p.stdin.write(cpp)
 	p.stdin.close()

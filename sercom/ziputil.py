@@ -16,7 +16,7 @@ def unzip_filenames(bytes):
         return []
 
 def unzip_arch_interno(bytes, nombre_arch_interno):
-    return ZipFile(StringIO(bytes), 'r').read(nombre_arch_interno)
+    return ZipFile(StringIO(bytes), 'r').read(nombre_arch_interno).decode('utf8', 'replace')
  
 def unzip(bytes, default_dst='.', specific_dst=dict()): # {{{
     u"""Descomprime un buffer de datos en formato ZIP.

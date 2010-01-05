@@ -228,7 +228,7 @@ class MisEntregasController(BaseController, identity.SecureResource):
         download = Downloader(cherrypy.response)
 
         if nombre_arch_interno:
-            return download.download_zip_content(r.archivos,nombre_arch_interno)
+            return download.download_zip_content(r.archivos,nombre_arch_interno).encode('ascii', 'replace')
         else:
             nombre_arch = "comando_ejecutado_%d.zip" % r.id
             return download.download_zip(r.archivos, nombre_arch) 
