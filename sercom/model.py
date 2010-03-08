@@ -398,7 +398,9 @@ class Curso(SQLObject): #{{{
                                         Ejercicio.q.cursoID == self.id,
                                         Ejercicio.q.id == InstanciaDeEntrega.q.ejercicioID,
                                         InstanciaDeEntrega.q.inicio <= now,
-                                        InstanciaDeEntrega.q.fin >= now)))
+                                        InstanciaDeEntrega.q.fin >= now,
+                                        InstanciaDeEntrega.q.activo == True
+                                        ), distinct=True))
 
     def _get_instancias_examinacion_a_corregir(self):
         return self.instancias_de_evaluacion_alumno + self.instancias_de_entrega
