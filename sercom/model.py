@@ -7,7 +7,7 @@ from sqlobject import *
 from sqlobject.sqlbuilder import *
 from sqlobject.inheritance import InheritableSQLObject
 from sqlobject.col import PickleValidator, UnicodeStringValidator
-from turbogears import identity
+from turbogears import identity, config
 from turbogears.identity import encrypt_password as encryptpw
 from formencode import Invalid
 from ziputil import *
@@ -346,6 +346,9 @@ class Curso(SQLObject): #{{{
                 a.destroySelf()
             for a in alumnos:
                 self.add_alumno(a)
+
+    def _get_inscripcion_abierta(self):
+        return bool(config.get('inscripcion_abierta'))
 
     def add_docente(self, docente, **kw):
         if isinstance(docente, Docente):

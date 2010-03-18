@@ -102,7 +102,7 @@
         <div py:if="tg_flash" class="flash" py:content="tg_flash"></div>
         <a href="${tg.url('/recover')}">Recuperar contraseña</a>
         &nbsp;&nbsp;
-        <div id="register" py:if="tg.config('incripcion_abierta')">
+        <div id="register" py:if="tg.config('inscripcion_abierta')">
             <a href="${tg.url('/register')}">Inscripción</a>
             &nbsp;&nbsp;
             <a href="${tg.url('/upgrade_registration')}">Inscripción recursantes</a>

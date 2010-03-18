@@ -4,7 +4,7 @@ from turbogears import controllers, expose, view, url
 from turbogears import widgets as W, validators as V
 from turbogears import identity, redirect
 from turbogears import validate, flash, error_handler
-from cherrypy import request, response, config
+from cherrypy import request, response
 #from turbogears.toolbox.catwalk import CatWalk
 import model
 from model import Visita, VisitaUsuario, InstanciaDeEntrega, Correccion, \
@@ -341,8 +341,13 @@ class Root(controllers.RootController, BaseController):
 
 
     @expose(template='.presentation.templates.login')
-    def login(self, forward_url=None, previous_url=None, tg_errors=None, *args,
+    def login(self, redirect_to=None, tg_errors=None, *args,
             **kw):
+        if not redirect_to:
+            if request.path != '/login':
+                redirect_to = request.path
+            else:
+                redirect_to = '/dashboard'
 
         if tg_errors:
             flash(_(u'Hubo un error en el formulario!'))
@@ -350,14 +355,7 @@ class Root(controllers.RootController, BaseController):
         if not identity.current.anonymous \
                 and identity.was_login_attempted() \
                 and not identity.get_identity_errors():
-            if forward_url:
-                raise redirect(forward_url)
-            if previous_url:
-                raise redirect(previous_url)
-            raise redirect('/dashboard')
-
-        forward_url = None
-        previous_url = request.path
+            raise redirect(redirect_to)
 
         if identity.was_login_attempted():
             msg = _(u'Las credenciales proporcionadas no son correctas o no '
@@ -367,19 +365,17 @@ class Root(controllers.RootController, BaseController):
                     'recurso.')
         else:
             msg = _(u'Por favor ingrese sus credenciales.')
-            forward_url = request.headers.get('Referer', '/')
 
         fields = list(LoginForm.fields)
-        if forward_url:
-            fields.append(W.HiddenField(name='forward_url'))
+        fields.append(W.HiddenField(name='redirect_to'))
         fields.extend([W.HiddenField(name=name) for name in request.params
                 if name not in ('login_user', 'login_password', 'login_submit',
-                                'forward_url')])
-        login_form = LoginForm(fields=fields, action='/login')#previous_url)
+                                'redirect_to')])
+        login_form = LoginForm(fields=fields, action='/login')
 
-        values = dict(forward_url=forward_url)
-        values = dict(forward_url=previous_url)
-        values.update(request.params)
+     
+        values = dict(request.params)
+        values['redirect_to'] = redirect_to
 
         response.status=403
         return dict(login_form=login_form, form_data=values, message=msg,
@@ -423,7 +419,7 @@ class Root(controllers.RootController, BaseController):
         curso = Curso.get(form_data['curso'])
         del form_data['curso']
         del form_data['password_confirm']
-	if(not config.get('inscripcion_abierta')):
+	if not curso.inscripcion_abierta:
           return (u'La inscripcion esta cerrada', '/', dict())
         try:
             alumno = Alumno(**form_data)
@@ -472,18 +468,18 @@ class Root(controllers.RootController, BaseController):
     def save_upgrade_registration(self, **form_data):
         ERROR_CRED_INVALIDAS =_(u'No fue posible completar la operación. Revisar que el padrón y el password sean correctos.')
         ERROR_FORMAT =_(u'No fue posible completar la operación. El padrón se compone solamente de números.')
-        if(not config.get('inscripcion_abierta')):
-          flash(u'la inscripcion esta cerrada')
-          raise redirect(url('/'))
+
         curso = Curso.get(form_data['curso'])
+        if not curso.inscripcion_abierta:
+            flash('La inscripción al curso elegido se encuentra cerrada.')
+            raise redirect(url('/'))
+
         try:
             if not form_data['padron'].isdigit():
                 error_msg = ERROR_FORMAT
             else:
                 alumno = Alumno.by_padron(form_data['padron'])
                 if alumno.equals_password(form_data['password']):
-                    print curso
-                    print alumno.cursos
                     if not curso in alumno.cursos:
                         curso.add_alumno(alumno)
                         flash(_(u'La inscripción ha sido exitosa.'))
