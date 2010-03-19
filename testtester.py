@@ -22,6 +22,9 @@ from sercom.backend.processing import UserInfo
 from turbogears import config
 from os.path import join
 
+import logging
+log = logging.getLogger('sercom.tester')
+
 
 
 def get_config(clave):
@@ -30,6 +33,8 @@ def get_config(clave):
         raise ValorConfiguracionInvalido(clave)
     else:
         return valor
+
+log.info('Inicializando Tester')
 
 cola = ColaDeEntregas()
 
