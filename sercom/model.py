@@ -1348,6 +1348,9 @@ class Ejecucion(InheritableSQLObject): #{{{
         else:
             return None #timedelta()
 
+    def _get_concluida(self):
+        return self.fin is not None
+
     def get_archivos_nombres(self):
        return unzip_filenames(self.archivos)
 

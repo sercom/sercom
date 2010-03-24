@@ -11,9 +11,13 @@
 <body>
 
 <h1><span py:content="entrega.entregador"/> - <span py:content="entrega.instancia"/></h1>
-
-<h2>Comandos Ejecutados</h2>
-<table>
+<div py:if="not entrega.concluida">
+    <h3>La entrega aún no ha sido procesada. Aguarde unos instantes por favor.</h3>
+    <script type="text/javascript">setTimeout('document.location.href=document.location.href',3000);</script>
+</div>
+<div py:if="entrega.concluida">
+ <h2>Comandos Ejecutados</h2>
+ <table>
     <tr>
         <th>#</th>
         <th>Tarea</th>
@@ -39,31 +43,31 @@
                            </span>
        </td>
     </tr>
-	</table>
-<h2>Pruebas Realizadas</h2>
-<div py:for="p in entrega.get_pruebas_visibles(identity.current.user)" py:strip="True">
+ </table>
+ <h2>Pruebas Realizadas</h2>
+ <div py:for="p in entrega.get_pruebas_visibles(identity.current.user)" py:strip="True">
 	<div style="background:#ddd; border:1px solid black; margin-bottom:10px;">
-    <h3 py:content="p.caso_de_prueba.nombre" />
+    <h3 py:content="p.caso_de_prueba.nombre + (p.caso_de_prueba.publico and ' ' or ' (privado)')" />
 			<table class="${p.exito and 'pruebaok' or 'pruebafail'}" border="1" width="100%">
 				<tr>
 					<td width="20%">Descripcion</td>
-					<td width="80%" py:content="p.caso_de_prueba.descripcion"></td>
+					<td colspan="3" width="80%" py:content="p.caso_de_prueba.descripcion"></td>
 				</tr>
 				<tr>
 					<td>Comando</td>
-					<td py:content="p.caso_de_prueba.comando"></td>
+					<td colspan="3" py:content="p.caso_de_prueba.comando"></td>
 				</tr>
 				<tr>
 					<td>Inicio</td>
 					<td py:content="p.inicio"></td>
-				</tr>
-				<tr>
-					<td>Fin</td>
+                                </tr>
+                                <tr>
+                                        <td>Fin</td>
 					<td py:content="p.fin"></td>
 				</tr>
 				<tr>
 					<td>Observaciones</td>
-					<td py:content="p.observaciones"></td>
+					<td colspan="3" py:content="p.observaciones"></td>
 				</tr>
 			</table>
   <table border="1" class="prueba" width="100%">
@@ -94,6 +98,7 @@
      </tr>
   </table>
   </div>
+ </div>
 </div>
 
 <a href="javascript:window.history.go(-1);">Volver</a>
