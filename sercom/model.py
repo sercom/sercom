@@ -396,14 +396,7 @@ class Curso(SQLObject): #{{{
         Ejercicio.pk.get(self.id, numero).destroySelf()
 
     def _get_ejercicios_activos(self):
-        now = DateTimeCol.now()
-        return list(Ejercicio.select(AND(
-                                        Ejercicio.q.cursoID == self.id,
-                                        Ejercicio.q.id == InstanciaDeEntrega.q.ejercicioID,
-                                        InstanciaDeEntrega.q.inicio <= now,
-                                        InstanciaDeEntrega.q.fin >= now,
-                                        InstanciaDeEntrega.q.activo == True
-                                        ), distinct=True))
+        return [e for e in self.ejercicios if e.instancias_a_entregar.count() > 0]
 
     def _get_instancias_examinacion_a_corregir(self):
         return self.instancias_de_evaluacion_alumno + self.instancias_de_entrega

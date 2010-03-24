@@ -23,7 +23,7 @@ import os, shutil, subprocess
 
 #{{{ Configuración
 cls = Entrega
-name = 'entrega'
+name = 'Entrega'
 namepl = name + 's'
 #}}}
 
@@ -64,16 +64,6 @@ ajax = """
         clearCombo('form_grupo');
     } 
 
-    function mostrarEjercicios(res) {
-        for(i=0; i< res.ejercicios.length; i++) {
-            id=res.ejercicios[i].id;
-            label = res.ejercicios[i].val;
-            label = label.replace(/u/, "");
-            MochiKit.DOM.appendChildNodes('form_ejercicio', OPTION({'value':id}, label))
-        }
-        checkEnableStatus('form_ejercicio');
-    }
-
     function mostrarInstanciasYGrupos(res)
     {
         for(i=0; i < res.instancias.length; i++) {
@@ -95,15 +85,6 @@ ajax = """
         alert("The metadata for MochiKit.Async could not be fetched :(");
     }
 
-    function actualizar_ejercicios()
-    {
-        clearCombo('form_ejercicio');
-        l = MochiKit.DOM.getElement('form_ejercicio');
-        url = "/mis_entregas/get_ejercicios";
-        var d = loadJSONDoc(url);
-        d.addCallbacks(mostrarEjercicios, err);
-    }
-
     function actualizar_instancias ()
     {
         clearInstanciasYGrupos();
@@ -115,21 +96,13 @@ ajax = """
             d.addCallbacks(mostrarInstanciasYGrupos, err);
         }
     }
-
-    function prepare()
-    {
-        connect('form_ejercicio', 'onchange', actualizar_instancias);
-        actualizar_ejercicios();
-        clearInstanciasYGrupos();
-    }
-
-    MochiKit.DOM.addLoadEvent(prepare);
+    MochiKit.DOM.addLoadEvent(clearInstanciasYGrupos);
     MochiKit.DOM.focusOnLoad('form_ejercicio');
 """
 #{{{ Formulario
 class EntregaForm(W.TableForm):
     class Fields(W.WidgetsList):
-        ejercicio = W.SingleSelectField(name='ejercicio',label=_(u'Ejercicio'),
+        ejercicio = W.SingleSelectField(name='ejercicio',label=_(u'Ejercicio'),attrs=dict(onchange='actualizar_instancias()'),
              validator=V.Int(not_empty=True))
         instancia = W.SingleSelectField(label=_(u'Instancia de Entrega'), validator=V.Int(not_empty=True))
         grupo = W.SingleSelectField(label=_(u'Grupo'), validator=V.Int())
@@ -171,7 +144,12 @@ class MisEntregasController(BaseController, identity.SecureResource):
     @identity.require(identity.has_permission('entregar'))
     def new(self, **kw):
         """Create new records in model"""
-        return dict(name=name, namepl=namepl, form=form, values=kw)
+        curso = self.get_curso_actual()
+        ejercicios = curso.ejercicios_activos
+        if len(ejercicios) == 0:
+            flash(_(u'Al momento, no hay ningún ejercicio con instancias de entrega abiertas.'))
+        ejercicio_options = [(0, 'Seleccionar')] + [(e.id, e.shortrepr()) for e in ejercicios]
+        return dict(name=name, namepl=namepl, form=form, values=kw, options=dict(ejercicio=ejercicio_options))
 
     @validate(form=form)
     @error_handler(new)
@@ -246,12 +224,6 @@ class MisEntregasController(BaseController, identity.SecureResource):
         r = validate_get_comando_ejecutado(id)
         zip = ZipFile(StringIO(r.diferencias), 'r')
         return dict(zip=zip)
-
-    @expose('json')
-    def get_ejercicios(self):
-        curso = self.get_curso_actual()
-        ejercicios = [{'id':0, 'val':'--'}] + [{'id':e.id, 'val':e.shortrepr()} for e in curso.ejercicios_activos]
-        return dict(ejercicios=ejercicios)
 
     @expose('json')
     def get_instancias_y_grupos(self, ejercicio_id):
