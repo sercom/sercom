@@ -10,7 +10,15 @@
 <h1>Crear Nueva <span py:replace="name">Objeto</span></h1>
 
 <p py:replace="form(action=tg.url('/mis_entregas/create'), options=options, value=values, submit_text=_('Entregar!'))">Formulario</p>
-
+<p>Acerca del archivo entregable:
+  <ul>
+    <li>El formato debe ser ZIP, sin excepción, e incluir solamente los elementos requeridos por la entrega.</li>
+    <li>Debe incluir el código fuente (.C, .CPP, .H dependiendo del caso).</li>
+    <li>No debe incluir código objeto (.O, .OBJ, etc.) o archivos de formato binario salvo expresa indicación en el enunciado.</li>
+    <li>No debe incluir Makefile, script de compilación o similar salvo indicación en el enunciado.</li>
+    <li>No debe incluir estructura de carpetas. Los archivos fuente deben encontrarse en la raíz del comprimido.</li>
+  </ul>
+</p>
 <br/>
 <a href="${tg.url('/mis_entregas/list')}">Cancelar</a>
 

@@ -106,7 +106,7 @@ class EntregaForm(W.TableForm):
              validator=V.Int(not_empty=True))
         instancia = W.SingleSelectField(label=_(u'Instancia de Entrega'), validator=V.Int(not_empty=True))
         grupo = W.SingleSelectField(label=_(u'Grupo'), validator=V.Int())
-        archivo = W.FileField(label=_(u'Archivo'), help_text=_(u'Archivo en formaro ZIP con tu entrega'))
+        archivo = W.FileField(label=_(u'Archivo'), help_text=_(u'Archivo en formato ZIP con tu entrega'))
     fields = Fields()
     javascript = [W.JSSource(ajax)]
 
