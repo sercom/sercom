@@ -2,6 +2,7 @@
 
 #{{{ Imports
 import cherrypy
+from turbogears import config
 from turbogears import expose, redirect, url
 from turbogears import validate, flash, error_handler
 from turbogears import validators as V
@@ -13,6 +14,7 @@ from sercom.presentation.subcontrollers import validate as val
 from sercom.model import Entrega, Correccion
 from sercom.ziputil import unzip
 from sqlobject import *
+from string import Template
 from zipfile import ZipFile, BadZipfile
 from cStringIO import StringIO
 from datetime import datetime
@@ -95,17 +97,16 @@ class EntregasController(BaseController, identity.SecureResource):
                 % (r.id, datetime.now().isoformat()))
         os.mkdir(basename) # TODO: capturar excepciones
         unzip(r.archivos, basename) # TODO: capturar excepciones
-        # TODO: hacer find con python con patrones configurables
-        cmd = "cd '%s'; find -regextype posix-egrep -type f -regex " \
-                "'.*\.(h|c|cpp)' | sort -r | xargs -- a2ps -q -2 -Av --toc " \
-                "--line-numbers=1 --header='[75.42] Taller de Programacion' " \
-                "--left-footer='%%D{%%c}' --footer='Padron %s (curso %d.%d) " \
-                "   Ejercicio %d.%d (entrega %s)' -g -o - | ps2pdf - '%s'.pdf" \
-                % (basename, r.entregador.nombre, 2009, 1,
-                        r.instancia.ejercicio.numero, r.instancia.numero,
-                        r.fecha.isoformat(), basename)
+        pdf_filepath = '%s.pdf' % basename
+        pdf_cmd_template = config.get('template_comando_creacion_pdf')
+        pdf_cmd = Template(pdf_cmd_template).substitute(alumno=r.entregador.nombre, cuatrimestre = unicode(r.instancia.ejercicio.curso), ejercicio = r.instancia.ejercicio.numero, instancia = r.instancia.numero, fecha = r.fecha.isoformat(), pdf_filepath=pdf_filepath)
+        cmd = "cd '%s'; %s" % (basename, pdf_cmd)
+
+
+
+
         subprocess.check_call(cmd, shell=True) # TODO: capturar excepciones
-        pdffile = file('%s.pdf' % basename)
+        pdffile = file(pdf_filepath)
         pdf = pdffile.read()
         pdffile.close()
         shutil.rmtree(basename) # TODO: capturar excepciones
