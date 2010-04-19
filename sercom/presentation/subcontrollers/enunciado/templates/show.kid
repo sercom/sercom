@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<table>
+<table style="width:90%">
     <tr>
         <th>Año-Cuatrimestre:</th>
         <td><span py:replace="str(record.anio)+'-'+str(record.cuatrimestre)">nombre</span></td>
@@ -53,10 +53,17 @@
 				<td>
 					<ul>
 					<table border="0" style="width:100%">
+						<tr>
+							<th>Nombre</th>
+							<th>Línea de Comando</th>
+							<th>Retorno Esperado</th>
+							<th>Archivos</th>
+						</tr>
 						<tr py:for="t in record.casos_de_prueba" py:if="t.activo and (t.publico or 'corregir' in tg.identity.permissions or 'enunciado_editar' in tg.identity.permissions)" >
-							<td style="width:50%"><li py:content="t.nombre" /></td>
-							<td><a py:if="t.archivos_entrada" href="${tg.url('/enunciado/caso_de_prueba/file/archivos_entrada/%d' % t.id)}">Bajar Entradas</a></td>
-							<td><a py:if="t.archivos_a_comparar" href="${tg.url('/enunciado/caso_de_prueba/file/archivos_a_comparar/%d' % t.id)}">Bajar Salidas</a></td>
+							<td py:content="t.nombre" />
+							<td py:content="t.comando" />
+							<td py:content="t.retorno" />
+							<td><a py:if="t.archivos_entrada" href="${tg.url('/enunciado/caso_de_prueba/file/archivos_entrada/%d' % t.id)}">Entradas</a> &nbsp;&nbsp;&nbsp;<a py:if="t.archivos_a_comparar" href="${tg.url('/enunciado/caso_de_prueba/file/archivos_a_comparar/%d' % t.id)}">Salidas</a></td>
 						</tr>
 					</table>
 					</ul>
