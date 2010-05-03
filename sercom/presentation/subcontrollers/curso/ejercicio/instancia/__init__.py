@@ -145,7 +145,7 @@ class InstanciaController(controllers.Controller, identity.SecureResource):
             entregador = Entregador.get(int(entregador_id))
             entregas = entregador.entregas_de(instancia)
         for e in entregas:
-            e.runtime = e.fin - e.inicio
+            e.runtime = e.duracion
         return dict(name=name, namepl=namepl, records=entregas, ejercicio=instancia.ejercicio, instancia=instancia)
 #}}}
 
