@@ -117,10 +117,20 @@ class EntregasController(BaseController, identity.SecureResource):
     def statistics(self, **kw):
         """Crea el formulario de estadisticas sobre entregas"""
         curso = self.get_curso_actual()
-        cant_entregas = []
+        cant_por_instancia = []
+        cant_por_horas_anticip = {}
         for e in curso.ejercicios:
-            cant_entregas += [(i.shortrepr(), len(i.entregas)) for i in e.instancias]
-        return dict(cant_entregas=cant_entregas)
+            cant_por_instancia += [(i.shortrepr(), len(i.entregas)) for i in e.instancias]
+            for entrega in i.entregas:
+                 anticip = (i.fin - entrega.fecha)
+                 horas_anticipacion = anticip.days*24 + anticip.seconds/3600
+                 if horas_anticipacion in cant_por_horas_anticip:
+                     cant_por_horas_anticip[horas_anticipacion] += 1
+                 else:
+                     cant_por_horas_anticip[horas_anticipacion] = 1
+        items = cant_por_horas_anticip.items()
+        items.sort()
+        return dict(cant_por_instancia=cant_por_instancia, cant_por_horas_anticip = [(horas, cant) for horas, cant in items])
 
     @expose(template='kid:%s.templates.force_new' % __name__)
     @identity.require(identity.has_permission('corregir'))

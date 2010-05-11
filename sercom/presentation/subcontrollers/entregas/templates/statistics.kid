@@ -24,14 +24,26 @@ Estadisticas
         data.addColumn('string', 'Instancia');  // Column 0 is type string and has label "Task".
         data.addColumn('number', 'Cant. Entregas'); // Column 1 is type number and has label "Hours per Day".
         data.addRows([
-                       ${','.join(["['%s',%s]" % c for c in cant_entregas])}
+                       ${','.join(["['%s',%s]" % c for c in cant_por_instancia])}
           ]);
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.BarChart(document.getElementById('chart_por_instancia_div'));
         chart.draw(data, {width: 400, height: 240, is3D: true, title: 'Entregas por Instancia'});
-  }
+
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Horas Anticip.');  // Column 0 is type string and has label "Task".
+        data.addColumn('number', 'Cant. Entregas'); // Column 1 is type number and has label "Hours per Day".
+        data.addRows([
+                       ${','.join(["['%s',%s]" % c for c in cant_por_horas_anticip])}
+          ]);
+        var chart = new google.visualization.BarChart(document.getElementById('chart_por_horas_anticip_div'));
+        chart.draw(data, {width: 400, height: 240, is3D: true, title: 'Entregas por Horas Anticip.'});
+   }
 </script>
 
-    <div id="chart_div"></div>
+    <div id="chart_por_instancia_div"></div>
+    <div id="chart_por_horas_anticip_div"></div>
+
 
 </body>
 </html>
