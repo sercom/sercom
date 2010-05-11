@@ -120,8 +120,10 @@ class EntregasController(BaseController, identity.SecureResource):
         cant_por_instancia = []
         cant_por_dias_anticip = {}
         for e in curso.ejercicios:
-            cant_por_instancia += [(i.shortrepr(), len(i.entregas)) for i in e.instancias]
-            for entrega in i.entregas:
+            for i in e.instancias:
+              cant_por_instancia += [(i.shortrepr(), len(i.entregas))]
+
+              for entrega in i.entregas:
                  anticip = (i.fin - entrega.fecha)
                  dias_anticipacion = anticip.days
                  if dias_anticipacion in cant_por_dias_anticip:
@@ -130,6 +132,7 @@ class EntregasController(BaseController, identity.SecureResource):
                      cant_por_dias_anticip[dias_anticipacion] = 1
         items = cant_por_dias_anticip.items()
         items.sort()
+        items.reverse()
         return dict(cant_por_instancia=cant_por_instancia, cant_por_dias_anticip = [('%s dias' % dias, cant) for dias, cant in items])
 
     @expose(template='kid:%s.templates.force_new' % __name__)
