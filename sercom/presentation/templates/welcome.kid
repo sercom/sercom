@@ -41,6 +41,29 @@
     </div>
 
     <div py:if="curso and 'corregir' not in identity.current.permissions">
+        <h2>Correcciones</h2>
+        <div py:if="correcciones">
+            <table width="60%">
+                <tr>
+                    <th>Ejercicio</th>
+                    <th>Corrector</th>
+                    <th>Nota</th>
+                    <th>Observaciones</th>
+                </tr>
+                <tr py:for="c in correcciones">
+                    <td>${c.instancia}</td>
+                    <td>${c.corrector}</td>
+                    <td>${c.nota}</td>
+                    <td>${c.observaciones}</td>
+                </tr>
+            </table>
+        </div>
+        <div py:if="not correcciones">
+            No hay correcciones a la fecha.
+        </div>
+    </div> 
+
+    <div py:if="curso and 'corregir' not in identity.current.permissions">
         <h2>Instancias de Entrega</h2>
         <ul py:for="instancia in instancias_activas" py:strip="not instancias_activas">
             <li>

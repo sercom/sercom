@@ -1029,6 +1029,13 @@ class InstanciaDeEvaluacionAlumno(InstanciaExaminacion): #{{{
 
     def __unicode__(self):
         return unicode(self.shortrepr())
+
+    def __cmp__(self, other):
+        if isinstance(other, self.__class__):
+            return cmp(self.tipo, other.tipo)
+        else:
+            return 1
+
 #}}}
  
 class InstanciaDeEntrega(InstanciaExaminacion): #{{{
@@ -1069,6 +1076,14 @@ class InstanciaDeEntrega(InstanciaExaminacion): #{{{
         for c in self.correcciones:
             correcciones[c.entregador] = c
         return [DTOResumenEntrega(e, entregas[e], correcciones[e]) for e in entregadores]
+
+    def __cmp__(self, other):
+        if isinstance(other, self.__class__):
+            self_key = (self.ejercicio.numero, self.numero)
+            other_key = (other.ejercicio.numero, other.numero)
+            return cmp(self_key, other_key)
+        else:
+            return -1
 
     def __unicode__(self):
         return unicode(self.shortrepr())
