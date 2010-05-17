@@ -268,7 +268,8 @@ class PreguntaExamen(SQLObject): #{{{
     def set_respuesta_unica(self, texto, usuario):
         for respuesta in self.respuestas:
             respuesta.destroySelf()
-        self.add_respuesta(texto, usuario)
+        if texto:
+            self.add_respuesta(texto, usuario)
 
     def get_respuesta_unica(self):
         if len(self.respuestas) == 0:
