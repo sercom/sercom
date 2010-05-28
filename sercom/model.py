@@ -261,7 +261,7 @@ class PreguntaExamen(SQLObject): #{{{
             return list(r for r in self.respuestas if r.revisada)
 
     def add_respuesta(self, texto, usuario):
-        autor = usuario.nombre
+        autor = usuario
         respuesta = Respuesta(texto=texto, pregunta=self, revisada=False, autor=autor)
         self.respuestas.append(respuesta)
 
@@ -298,7 +298,7 @@ class Respuesta(SQLObject): #{{{
     # Joins
     pregunta        = ForeignKey('PreguntaExamen', cascade=True, notNone=True)
     revisada        = BoolCol(notNone=True)
-    autor           = UnicodeCol(length=255, notNone=True)
+    autor           = ForeignKey('Usuario', cascade=False, notNone=True)
 #}}}
 
 #}}}
