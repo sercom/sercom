@@ -93,10 +93,23 @@ class AlumnoController(controllers.Controller, identity.SecureResource):
 
     @expose(template='kid:%s.templates.list' % __name__)
     @paginate('records', limit=config.get('items_por_pagina'), dynamic_limit='limit_to')
-    def list(self):
+    def list(self, **kw):
         """List records in model"""
-        r = cls.select(orderBy=Alumno.q.usuario)
-        return dict(records=r, name=name, namepl=namepl, limit_to=identity.current.user.paginador)
+        f = True 
+        if 'padron' in kw and kw['padron'] != '':
+            f = AND(f, Alumno.q.usuario==kw['padron'])
+        else:
+            kw['padron'] = None
+        if 'nombre' in kw and kw['nombre'] != '':
+            f = AND(f, LIKE(Alumno.q.nombre, '%'+kw['nombre']+'%'))
+        else:
+            kw['nombre'] = None
+        if 'mail' in kw and kw['mail'] != '':
+            f = AND(f, LIKE(Alumno.q.email, '%'+kw['mail']+'%'))
+        else:
+            kw['mail'] = None
+        r = cls.select(f, orderBy=Alumno.q.usuario)
+        return dict(records=r, name=name, namepl=namepl, filter=kw, limit_to=identity.current.user.paginador)
 
     @expose()
     @identity.require(identity.in_any_group("JTP", "admin"))
