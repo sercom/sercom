@@ -47,8 +47,8 @@
 			<th>Corrector</th>
 			</tr>
 			<tr py:for="c in i.correcciones">
-			<td>${c.entrega.instancia.ejercicio.numero}</td>
-			<td>${c.entrega.instancia.numero}</td>
+			<td><span py:if="c.entrega is not None">${c.entrega.instancia.ejercicio.numero}</span></td>
+			<td><span py:if="c.entrega is not None">${c.entrega.instancia.numero}</span></td>
 			<td>${c.nota}</td>
 			<td>${c.corrector.docente.nombre}</td>
 			</tr>
