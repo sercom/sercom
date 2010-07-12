@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <?python
-    from sercom.model import Docente, Alumno, Correccion
+    from sercom.model import Docente, Alumno, Correccion, Permiso
     from turbogears import identity
     usuario = identity.current.user
 ?>
@@ -18,6 +18,7 @@
     </div>
 
     <div py:if="curso and 'corregir' in identity.current.permissions">
+        <h3>Detalles de Ejercicios</h3>
         <table>
             <tr>
                 <th>Entrega Ejercicio</th>
@@ -40,8 +41,31 @@
         </table>
     </div>
 
+    <div py:if="Permiso.examen.respuesta.revisar in identity.current.permissions">
+        <h3>Respuestas pendientes de revisión</h3>
+        <div py:if="respuestas_pendientes">
+            <table width="60%">
+                <tr>
+                    <th>Autor</th>
+                    <th>Examen</th>
+                    <th>Núm. Pregunta</th>
+                    <th></th>
+                </tr>
+                <tr py:for="r in respuestas_pendientes">
+                    <td>${r.autor}</td>
+                    <td>${r.pregunta.examen}</td>
+                    <td>${r.pregunta.numero}</td>
+                    <td><a href="${tg.url('/examenes/respuesta/edit/%d/%d' % (r.preguntaID,r.id))}">Revisar</a></td>
+                </tr>
+            </table>
+        </div>
+        <div py:if="not respuestas_pendientes">
+            No hay respuestas pendientes a la fecha.
+        </div>
+    </div>
+
     <div py:if="curso and 'corregir' not in identity.current.permissions">
-        <h2>Correcciones</h2>
+        <h3>Correcciones</h3>
         <div py:if="correcciones">
             <table width="60%">
                 <tr>
@@ -64,7 +88,7 @@
     </div> 
 
     <div py:if="curso and 'corregir' not in identity.current.permissions">
-        <h2>Instancias de Entrega</h2>
+        <h3>Instancias de Entrega</h3>
         <ul py:for="instancia in instancias_activas" py:strip="not instancias_activas">
             <li>
             <?python d = instancia.fin - now ?>

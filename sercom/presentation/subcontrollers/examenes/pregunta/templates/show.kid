@@ -34,15 +34,20 @@ from sercom.model import Permiso?>
     <?python respuestas = record.get_respuestas_por_usuario(identity.current.user) ?>
     <tr py:if="len(respuestas) > 0">
         <th>Respuestas:</th>
-        <td><p py:for="r in respuestas"><b py:if="not r.revisada">(No Revisada)</b>
-            ${XML(r.texto)}</p>
+        <td><div py:for="r in respuestas">
+                 Autor: <span py:replace="r.autor.nombre"/>&nbsp;<b py:if="not r.revisada">(No Revisada)</b>
+                 <p>${XML(r.texto)}</p>
+                 <a py:if="r.puede_ser_editado_por_usuario(identity.current.user)" href="${tg.url('/examenes/respuesta/edit/%d/%d' % (record.id, r.id))}">Editar</a>
+                 <hr/>
+            </div>
         </td>
     </tr>
-
-
 </table>
 
 <br/>
+<div style="display:inline" py:if="Permiso.examen.respuesta.proponer in identity.current.permissions">
+    <a href="${tg.url('/examenes/respuesta/new/%d' % record.id)}">Proponer Respuesta</a> |
+</div>
 <div style="display:inline" py:if="Permiso.examen.editar in identity.current.permissions">
     <a href="${tg.url('/examenes/pregunta/edit/%d' % record.id)}">Editar</a> |
 </div>

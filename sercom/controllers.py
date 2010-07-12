@@ -9,7 +9,8 @@ from cherrypy import request, response
 import model
 from model import Visita, VisitaUsuario, InstanciaDeEntrega, Correccion, \
         Curso, Alumno, DateTimeCol, Entrega, Grupo, \
-        DocenteInscripto, AlumnoInscripto, Rol, Ejercicio, Usuario, Permiso
+        DocenteInscripto, AlumnoInscripto, Rol, Ejercicio, Usuario, Permiso, \
+        Respuesta
 from sqlobject import AND, IN
 from sqlobject.dberrors import DuplicateEntryError
 from sqlobject import SQLObjectNotFound
@@ -193,6 +194,7 @@ class Root(controllers.RootController, BaseController):
         curso = self.get_curso_actual()
         instancias = list()
         correcciones = list()
+        respuestas_pendientes = list()
         if curso and identity.has_permission(Permiso.entregar_tp):
             for ej in curso.ejercicios:
                 for inst in ej.instancias_a_entregar:
@@ -200,7 +202,9 @@ class Root(controllers.RootController, BaseController):
             alumno_inscripto = identity.current.user.get_inscripcion(curso)
             correcciones = alumno_inscripto.correcciones
             correcciones.sort(lambda x,y: cmp(x.instancia, y.instancia))
-        return dict(curso=curso, now=now, instancias_activas = instancias, correcciones = correcciones) 
+        if identity.has_permission(Permiso.examen.respuesta.revisar):
+            respuestas_pendientes = Respuesta.get_pendientes_de_revision()
+        return dict(curso=curso, now=now, instancias_activas = instancias, correcciones = correcciones, respuestas_pendientes = respuestas_pendientes) 
 
     @expose(template='.presentation.templates.user_panel')
     def user_panel(self, id=None, tg_errors=None, **formdata):

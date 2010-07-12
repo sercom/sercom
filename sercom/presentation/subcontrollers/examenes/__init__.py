@@ -22,7 +22,7 @@ from sqlobject import *
 from tipo import TipoPreguntaController
 from tema import TemaPreguntaController
 from pregunta import PreguntaExamenController
-
+from respuesta import RespuestaController
 #}}}
 
 
@@ -219,6 +219,7 @@ class ExamenFinalController(BaseController, identity.SecureResource):
     tema = TemaPreguntaController()
     tipo = TipoPreguntaController()
     pregunta = PreguntaExamenController()
+    respuesta = RespuestaController()
 
 #}}}
 

@@ -255,27 +255,16 @@ class PreguntaExamen(SQLObject): #{{{
         return (len(self.get_respuestas_por_usuario(usuario)) > 0)
  
     def get_respuestas_por_usuario(self, usuario):
-        if usuario and usuario.has_any_permiso(Permiso.examen.respuesta.revisar,Permiso.examen.editar):
+        if usuario and usuario.has_any_permiso(Permiso.examen.respuesta.revisar):
             return list(self.respuestas)
         else:
-            return list(r for r in self.respuestas if r.revisada)
+            return list(r for r in self.respuestas if r.revisada or r.autor == usuario)
 
     def add_respuesta(self, texto, usuario):
         autor = usuario
         respuesta = Respuesta(texto=texto, pregunta=self, revisada=False, autor=autor)
         self.respuestas.append(respuesta)
 
-    def set_respuesta_unica(self, texto, usuario):
-        for respuesta in self.respuestas:
-            respuesta.destroySelf()
-        if texto:
-            self.add_respuesta(texto, usuario)
-
-    def get_respuesta_unica(self):
-        if len(self.respuestas) == 0:
-            return ''
-        else:
-            return self.respuestas[0].texto
 #}}}
 
 class TemaPregunta(SQLObject): #{{{
@@ -299,6 +288,26 @@ class Respuesta(SQLObject): #{{{
     pregunta        = ForeignKey('PreguntaExamen', cascade=True, notNone=True)
     revisada        = BoolCol(notNone=True)
     autor           = ForeignKey('Usuario', cascade=False, notNone=True)
+
+    @classmethod
+    def get_pendientes_de_revision(cls):
+        return cls.selectBy(revisada = False)
+
+    def puede_ser_editado_por_usuario(self, usuario):
+        return usuario and (self.autor == usuario or usuario.has_any_permiso(Permiso.examen.respuesta.revisar))
+
+    def validar_acceso(self, usuario):
+        if not self.puede_ser_editado_por_usuario(usuario):
+            raise UsuarioSinPermisos(usuario)
+
+    def revisar(self, revisada):
+        self.revisada = revisada
+
+    def change_texto(self, texto, usuario):
+        self.texto = texto
+        if not usuario.has_any_permiso(Permiso.examen.respuesta.revisar):
+            self.revisada = False
+
 #}}}
 
 #}}}
@@ -1667,7 +1676,7 @@ class Permiso(object): #{{{
 
     def __eq__(self, other):
         if other.__class__ == Permiso:
-            return self.valor == other.valor
+            return self.nombre == other.nombre
         else:
             return self.nombre == other
 
@@ -1684,6 +1693,7 @@ class Permiso(object): #{{{
         return self.nombre
 
 class PermisoModulo:
+
     pass;
 
 Permiso.entregar_tp = Permiso(u'entregar', u'Permite entregar trabajos prácticos')
@@ -1707,6 +1717,7 @@ Permiso.examen.tipo.editar = Permiso(u'examen_tipo_editar', u'Creación y edici�
 Permiso.examen.tipo.eliminar = Permiso(u'examen_tipo_eliminar', u'Eliminación de tipos de preguntas en examenes')
 
 Permiso.examen.respuesta = PermisoModulo()
+Permiso.examen.respuesta.proponer = Permiso(u'examen_respuesta_proponer', u'Agregado de nuevas propuestas a preguntas de examen')
 Permiso.examen.respuesta.revisar = Permiso(u'examen_respuesta_revisar', u'Revisión de respuestas a preguntas de examen')
 #}}}
 
