@@ -199,8 +199,9 @@ class Root(controllers.RootController, BaseController):
             for ej in curso.ejercicios:
                 for inst in ej.instancias_a_entregar:
                     instancias.append(inst)
-            alumno_inscripto = identity.current.user.get_inscripcion(curso)
-            correcciones = alumno_inscripto.correcciones
+            alumno = identity.current.user
+            alumno_inscripto = alumno.get_inscripcion(curso)
+            correcciones = alumno.get_correcciones(curso)
             correcciones.sort(lambda x,y: cmp(x.instancia, y.instancia))
         if identity.has_permission(Permiso.examen.respuesta.revisar):
             respuestas_pendientes = Respuesta.get_pendientes_de_revision()

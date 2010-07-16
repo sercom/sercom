@@ -709,6 +709,13 @@ class Alumno(Usuario): #{{{
     def get_grupos_activos(self, curso):
         return list(m.grupo for m in self.get_membresias_a_grupos(curso) if not m.baja) 
 
+    def get_correcciones(self, curso):
+        correcciones = []
+        for e in self.get_entregadores(curso):
+            correcciones += [c for c in e.correcciones if c.instancia.activo]
+
+        return correcciones
+
     @classmethod
     def by_padron(cls, padron):
         return cls.by_usuario(unicode(padron))
