@@ -28,7 +28,7 @@
 </head>
 
 <body py:match="item.tag=='{http://www.w3.org/1999/xhtml}body'" py:attrs="item.items()">
-		<div id="header"><span style="position:relative; top: 90%;">Sistema de Entrega Electrónica de Trabajos Prácticos</span></div>
+		<div id="header"><span style="position:relative; top: 100%;"></span></div>
     <div id="main_content">
     <div py:if="tg.config('identity.on',False) and not 'logging_in' in locals()" id="pageLogin">
         <table style="width:100%">
@@ -70,7 +70,7 @@
 		<a href="http://www.turbogears.org/"><img src="/static/images/under_the_hood_blue.png" alt="TurboGears under the hood" /></a>
 		<br />
 		<br />
-  	<p>Copyleft &copy; 2007 Dimov, Lucarella, Markiewicz</p>
+  	<p>Sistema de seguimiento de cursada - Copyleft &copy; 2007 Dimov, Lucarella, Markiewicz</p>
 	</div>
 </body>
 

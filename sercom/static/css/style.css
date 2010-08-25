@@ -21,7 +21,7 @@ body {
 #header {
   height: 80px;
   width: 777px;
-  background: blue URL('../images/header_inner.png') no-repeat;
+  background: white URL('../images/header_inner.jpg') center no-repeat;
   border-left: 1px solid #aaa;
   border-right: 1px solid #aaa;
   margin: 0 auto 0 auto;
