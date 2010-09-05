@@ -74,7 +74,7 @@ class SecureProcess(object): #{{{
         os.setgid(user_info.gid)
         os.setuid(user_info.uid) # Somos mortales irreversiblemente
         rsrc.setrlimit(rsrc.RLIMIT_CPU, x2(self.max_tiempo_cpu))
-#        rsrc.setrlimit(rsrc.RLIMIT_AS, x2(self.max_memoria*self.MB))
+        rsrc.setrlimit(rsrc.RLIMIT_AS, x2(self.max_memoria*self.MB))
         rsrc.setrlimit(rsrc.RLIMIT_FSIZE, x2(self.max_tam_archivo*self.MB)) # XXX calcular en base a archivos esperados?
 #        rsrc.setrlimit(rsrc.RLIMIT_NOFILE, x2(self.max_cant_archivos)) #XXX Obtener de archivos esperados?
         rsrc.setrlimit(rsrc.RLIMIT_NPROC, x2(self.max_cant_procesos))

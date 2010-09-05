@@ -34,7 +34,7 @@ def get_config(clave):
     else:
         return valor
 
-log.info('Inicializando Tester')
+log.info('Inicializando Tester v1.1')
 
 cola = ColaDeEntregas()
 
