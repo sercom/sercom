@@ -24,6 +24,7 @@ import sercom.presentation.subcontrollers as S
 import smtplib
 from email.mime.text import MIMEText
 import os
+import re
 import inspect 
 import cherrypy
 
@@ -190,6 +191,8 @@ class Root(controllers.RootController, BaseController):
     @expose(template='.presentation.templates.welcome')
     @identity.require(identity.not_anonymous())
     def dashboard(self):
+        q_score = None
+        usage = dict()
         now = datetime.now()
         curso = self.get_curso_actual()
         instancias = list()
@@ -205,7 +208,20 @@ class Root(controllers.RootController, BaseController):
             correcciones.sort(lambda x,y: cmp(x.instancia, y.instancia))
         if identity.has_permission(Permiso.examen.respuesta.revisar):
             respuestas_pendientes = Respuesta.get_pendientes_de_revision()
-        return dict(curso=curso, now=now, instancias_activas = instancias, correcciones = correcciones, respuestas_pendientes = respuestas_pendientes) 
+        if identity.has_permission(Permiso.admin):
+            q_score = Entrega.selectBy(inicio=None).count()
+            f = open('/proc/meminfo', 'r')
+            cont = f.readlines()
+            data = dict()
+            for line in cont:
+                scan = re.findall('([^\:]+)[\:\s]+([0-9]+)', line)
+                if scan[0][0] in ['MemTotal', 'MemFree', 'Cached']:
+                    data[scan[0][0]] = scan[0][1]
+            f.close()
+            usage['Used memory'] = 1-((float(data['MemFree'])+float(data['Cached']))/float(data['MemTotal']))
+            #cherrypy.log(repr(usage))
+
+        return dict(curso=curso, now=now, instancias_activas = instancias, correcciones = correcciones, respuestas_pendientes = respuestas_pendientes, q_score = q_score, usage=usage) 
 
     @expose(template='.presentation.templates.user_panel')
     def user_panel(self, id=None, tg_errors=None, **formdata):

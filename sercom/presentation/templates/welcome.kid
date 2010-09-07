@@ -17,6 +17,16 @@
        Ningún curso fue seleccionado.
     </div>
 
+    <div py:if="q_score is not None">
+    <h3>Backend</h3>
+    Entregas pendientes: ${q_score}
+    <table>
+    <tr py:for="k, val in usage.iteritems()">
+    <td>$k</td><td>$val</td>
+    </tr>
+    </table>
+    </div>
+
     <div py:if="curso and 'corregir' in identity.current.permissions">
         <h3>Detalles de Ejercicios</h3>
         <table>
