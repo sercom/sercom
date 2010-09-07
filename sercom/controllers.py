@@ -192,6 +192,7 @@ class Root(controllers.RootController, BaseController):
     @identity.require(identity.not_anonymous())
     def dashboard(self):
         q_score = None
+        q_age = None
         usage = dict()
         now = datetime.now()
         curso = self.get_curso_actual()
