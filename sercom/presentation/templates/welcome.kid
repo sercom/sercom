@@ -19,11 +19,14 @@
 
     <div py:if="q_score is not None">
     <h3>Backend</h3>
-    Entregas pendientes: ${q_score}
-    <table>
-    <tr py:for="k, val in usage.iteritems()">
-    <td>$k</td><td>$val</td>
-    </tr>
+    <p py:if="q_age is not None">Tiene ${q_score} entrega<span py:if="q_score != 1">s</span> pendiente<span py:if="q_score != 1">s</span> desde ${q_age.strftime(r'%d/%m/%Y a las %R')}</p>
+    <p py:if="q_age is None">No hay entregas pendientes</p>
+    <table width="20%">
+    <tr><th>Parámetro</th><th>Valor</th></tr>
+    <tr><td align="right">CPU</td><td align="right" py:content="usage['CPU']"></td></tr>
+    <tr><td align="right">CPU  5 min</td><td align="right" py:content="usage['CPU5']"></td></tr>
+    <tr><td align="right">CPU 15 min</td><td align="right" py:content="usage['CPU15']"></td></tr>
+    <tr><td align="right">Memoria utilizada</td><td align="right" py:content="usage['MEM']"></td></tr>
     </table>
     </div>
 
