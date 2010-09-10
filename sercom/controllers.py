@@ -24,7 +24,7 @@ import sercom.presentation.subcontrollers as S
 import smtplib
 from email.mime.text import MIMEText
 import os
-import re
+import sercom.serverinfo
 import inspect 
 import cherrypy
 
@@ -216,23 +216,7 @@ class Root(controllers.RootController, BaseController):
                 q_age = head.fecha
             else:
                 q_age = None 
-            f = open('/proc/meminfo', 'r')
-            cont = f.readlines()
-            data = dict()
-            for line in cont:
-                scan = re.findall('([^\:]+)[\:\s]+([0-9]+)', line)
-                if scan[0][0] in ['MemTotal', 'MemFree', 'Cached']:
-                    data[scan[0][0]] = scan[0][1]
-            f.close()
-            cpu = os.popen('w')
-            line = cpu.readline()
-            cpu.close()
-            scan = re.findall('average\:[\s]+([0-9\.]+)\,[\s]+([0-9\.]+)\,[\s]+([0-9\.]+)', line)
-            usage['MEM'] = '%3.0f %%' % (100*(1-((float(data['MemFree'])+float(data['Cached']))/float(data['MemTotal']))))
-            usage['CPU'] = '%3.0f %%' % (float(scan[0][0])*100)
-            usage['CPU5'] = '%3.0f %%' % (float(scan[0][1])*100)
-            usage['CPU15'] = '%3.0f %%' % (float(scan[0][2])*100)
-            #cherrypy.log(repr(usage))
+            usage = sercom.serverinfo.getinfo()
 
         return dict(curso=curso, now=now, instancias_activas = instancias, correcciones = correcciones, respuestas_pendientes = respuestas_pendientes, q_score = q_score, usage=usage, q_age=q_age) 
 
