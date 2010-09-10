@@ -13,13 +13,18 @@
 <p>Acerca del archivo entregable:
   <ul>
     <li>El formato debe ser ZIP, sin excepción, e incluir solamente los elementos requeridos por la entrega.</li>
-    <li>Debe incluir el código fuente (.C, .CPP, .H dependiendo del caso).</li>
+    <li>Debe incluir el código fuente (.C, .CPP, .H)</li>
+    <ol>
+        <li>Utilizando el caracter TAB o hasta cuatro espacios para el <a href="http://7542.fi.uba.ar/administracion/entrega/#CF" title="Sangría en el fuente que mejora la legibilidad.">sangrado</a> (indent).</li>
+        <li>Usando el set de caracteres <a href="http://es.wikipedia.org/wiki/ISO_8859-1" title="ISO-8859-1 también llamado Latin1">ISO-8859-1</a> (sobre todo si hay letars acentuadas).</li>
+    </ol>
     <li>No debe incluir código objeto (.O, .OBJ, etc.) o archivos de formato binario salvo expresa indicación en el enunciado.</li>
     <li>No debe incluir Makefile, script de compilación o similar salvo indicación en el enunciado.</li>
     <li>No debe incluir estructura de carpetas. Los archivos fuente deben encontrarse en la raíz del comprimido.</li>
   </ul>
+    Nota: Si aún no lo hizo le recomendamos leer detenidamente la <a href="http://7542.fi.uba.ar/administracion/entrega/">guía de entrega de trabajos</a> de la cátedra.
 </p>
-<br/>
+<br/><br/>
 <a href="${tg.url('/mis_entregas/list')}">Cancelar</a>
 
 </body>
