@@ -16,7 +16,7 @@
     <li>Debe incluir el código fuente (.C, .CPP, .H)</li>
     <ol>
         <li>Utilizando el caracter TAB o hasta cuatro espacios para el <a href="http://7542.fi.uba.ar/administracion/entrega/#CF" title="Sangría en el fuente que mejora la legibilidad.">sangrado</a> (indent).</li>
-        <li>Usando el set de caracteres <a href="http://es.wikipedia.org/wiki/ISO_8859-1" title="ISO-8859-1 también llamado Latin1">ISO-8859-1</a> (sobre todo si hay letars acentuadas).</li>
+        <li>Usando el conjunto de caracteres <a href="http://es.wikipedia.org/wiki/UTF8" title="8-bit Unicode Transformation Format">UTF-8</a> (sobre todo si hay letars acentuadas).</li>
     </ol>
     <li>No debe incluir código objeto (.O, .OBJ, etc.) o archivos de formato binario salvo expresa indicación en el enunciado.</li>
     <li>No debe incluir Makefile, script de compilación o similar salvo indicación en el enunciado.</li>
