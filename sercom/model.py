@@ -630,6 +630,12 @@ class Docente(Usuario): #{{{
     def remove_enunciado(self, nombre, anio, cuatrimestre):
         Enunciado.pk.get(nombre, anio, cuatrimestre).destroySelf()
 
+    def __unicode__(self):
+        return u'%s' % (self.nombre)
+
+    def shortrepr(self):
+        return u'%s' % (self.nombre)
+
     def __repr__(self):
         return 'Docente(id=%r, usuario=%r, nombre=%r, password=%r, email=%r, ' \
             'telefono=%r, activo=%r, creado=%r, observaciones=%r)' \
