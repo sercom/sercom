@@ -404,11 +404,16 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion): #{{{
              newname='entregado'):
         if longname is None:
             longname = name
-        new = file(new, 'r').readlines()
-        orig = zip_in.read(name).splitlines(True)
-        udiff_lines = list(unified_diff(orig, new, fromfile=name+'.'+origname,
-            tofile=name+'.'+newname))
-        udiff = ''.join(udiff_lines)
+        try:
+            new = file(new, 'r').readlines()
+            orig = zip_in.read(name).splitlines(True)
+            udiff_lines = list(unified_diff(orig, new, fromfile=name+'.'+origname,
+                tofile=name+'.'+newname))
+            udiff = ''.join(udiff_lines)
+        except MemoryError:
+            udiff = u'No se pudo procesar la salida por ser demasiado extensa.'
+        except:
+            udiff = u'Hubo un error inesperado procesando la salida.'
         if udiff:
             if self.rechazar_si_falla:
                 prueba.exito = False
