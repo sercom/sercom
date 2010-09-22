@@ -429,7 +429,7 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion): #{{{
             # Bueno, no sé por dónde empezar. Digamos que esta excepción
             # particularmente me permite cortar el flujo y que pase a la
             # próxima entrega. Buena suerte.
-            raise ExecutionFatalError(self)
+            raise ExecutionFatalError(self, fatal)
 
         if udiff:
             if self.rechazar_si_falla:
