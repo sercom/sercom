@@ -400,6 +400,7 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion): #{{{
                 zip.write(str(join(path, f)), str(f)) # FIXME encoding de unicode
         zip.close()
         comando_ejecutado.archivos = buffer.getvalue()
+
     def diff(new, zip_in, zip_out, name, longname=None, origname='correcto',
              newname='entregado'):
         fatal = None
@@ -422,8 +423,7 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion): #{{{
             comando_ejecutado.exito = False
             comando_ejecutado.observaciones += fatal
             log.debug(_(u'Error fatal: %s'), fatal)
-            self.terminar_si_falla = True # Mejor que no siga probando...
-            return True
+            raise ExecutionFailure(self)
 
         if udiff:
             if self.rechazar_si_falla:
