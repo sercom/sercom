@@ -422,6 +422,7 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion): #{{{
             comando_ejecutado.exito = False
             comando_ejecutado.observaciones += fatal
             log.debug(_(u'Error fatal: %s'), fatal)
+            self.terminar_si_falla = True # Mejor que no siga probando...
             return True
 
         if udiff:
