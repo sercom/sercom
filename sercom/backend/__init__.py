@@ -413,7 +413,7 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion): #{{{
                 tofile=name+'.'+newname))
             udiff = ''.join(udiff_lines)
         except MemoryError:
-            fatal = u'No se pudo procesar la salida por ser demasiado extensa.'
+            fatal = u'No se pudo procesar la salida por ser demasiado extensa. Posiblemente el programa entró en un lazo infinito.'
         except:
             fatal = u'Hubo un error inesperado procesando la salida.'
 
@@ -423,7 +423,10 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion): #{{{
             comando_ejecutado.exito = False
             comando_ejecutado.observaciones += fatal
             log.debug(_(u'Error fatal: %s'), fatal)
-            raise ExecutionFailure(self)
+            # Bueno, no sé por dónde empezar. Digamos que esta excepción
+            # particularmente me permite cortar el flujo y que pase a la
+            # próxima entrega. Buena suerte.
+            raise ExecutionFatalError(self)
 
         if udiff:
             if self.rechazar_si_falla:

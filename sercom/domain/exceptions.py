@@ -8,6 +8,12 @@ class ExecutionFailure(Error, RuntimeError): #{{{
         self.caso_de_prueba = caso_de_prueba
 #}}}
 
+class ExecutionFatalError(Error, RuntimeError): #{{{
+    def __init__(self, comando, tarea=None, caso_de_prueba=None):
+        self.comando = comando
+        self.tarea = tarea
+        self.caso_de_prueba = caso_de_prueba
+#}}}
 
 class UsuarioSinPermisos(Exception):
     def __init__(self, usuario):
