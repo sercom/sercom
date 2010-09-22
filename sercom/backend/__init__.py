@@ -402,6 +402,7 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion): #{{{
         comando_ejecutado.archivos = buffer.getvalue()
     def diff(new, zip_in, zip_out, name, longname=None, origname='correcto',
              newname='entregado'):
+        fatal = None
         if longname is None:
             longname = name
         try:
@@ -411,9 +412,18 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion): #{{{
                 tofile=name+'.'+newname))
             udiff = ''.join(udiff_lines)
         except MemoryError:
-            udiff = u'No se pudo procesar la salida por ser demasiado extensa.'
+            fatal = u'No se pudo procesar la salida por ser demasiado extensa.'
         except:
-            udiff = u'Hubo un error inesperado procesando la salida.'
+            fatal = u'Hubo un error inesperado procesando la salida.'
+
+        # Si hay un error fatal cortamos tratando de notificarlo
+        if fatal:
+            prueba.exito = False
+            comando_ejecutado.exito = False
+            comando_ejecutado.observaciones += fatal
+            log.debug(_(u'Error fatal: %s'), fatal)
+            return True
+
         if udiff:
             if self.rechazar_si_falla:
                 prueba.exito = False
