@@ -36,6 +36,9 @@ def ejecutar_caso_de_prueba(self, entrega, contexto_ejecucion): #{{{
                 tarea.ejecutar(prueba, contexto_ejecucion)
         except ExecutionFailure, e:
             pass
+        except ExecutionFatalError, e:
+            e.entrega = entrega
+            raise e # Al pasar...
     finally:
         prueba.fin = datetime.now()
         if prueba.exito is None:
