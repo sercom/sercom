@@ -95,7 +95,7 @@ class Tester(object): #{{{
             except ExecutionFatalError, e:
                 # Si llegó esta excepción las cosas se pusieron difíciles.
                 # Pasamos a la próxima entrega para que no nos consuma el tiempo.
-                log.exception(_('Se activó el sistema de protección de SERCOM backend. [%s]' % e.entrega))
+                log.exception(_('Se activó el sistema de protección de SERCOM backend. [%s]'), e)
             except Exception, e:
                 if isinstance(e, SystemExit): raise
                 entrega.observaciones += error_interno

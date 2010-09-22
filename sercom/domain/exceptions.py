@@ -9,10 +9,11 @@ class ExecutionFailure(Error, RuntimeError): #{{{
 #}}}
 
 class ExecutionFatalError(Error, RuntimeError): #{{{
-    def __init__(self, comando, tarea=None, caso_de_prueba=None):
+    def __init__(self, comando, descripcion):
         self.comando = comando
-        self.tarea = tarea
-        self.caso_de_prueba = caso_de_prueba
+        self.descripcion = descripcion
+    def __str__(self):
+        return "Error fatal: %s" % self.descripcion
 #}}}
 
 class UsuarioSinPermisos(Exception):
