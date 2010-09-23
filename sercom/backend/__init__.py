@@ -22,8 +22,8 @@ log = logging.getLogger('sercom.tester')
 
 
 def ejecutar_caso_de_prueba(self, entrega, contexto_ejecucion): #{{{
-    log.debug(_(u'CasoDePrueba.ejecutar(caso=%s, entrega=%s)'), self,
-        entrega)
+    log.debug(_(u'CasoDePrueba.ejecutar(caso=%s, entrega=%s, cpu=%s)'), self,
+        entrega, self.max_tiempo_cpu)
     if not self.activo:
         log.debug(_(u'Ignorando caso de prueba porque esta inactivo'))
         return
