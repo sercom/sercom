@@ -72,8 +72,8 @@ def generar_diff_html(udiff_lines, orig, new, fromdesc, todesc):
 
 def ejecutar_comando_fuente(self, entrega, contexto_ejecucion): #{{{
     path = contexto_ejecucion.build_path
-    log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s, self=%s)'), path,
-        entrega, self)
+    log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s)'), path,
+        entrega)
     if not self.activo:
         log.debug(_(u'Ignorando comando fuente porque esta inactivo'))
         return
@@ -262,8 +262,8 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion): #{{{
     # y setup/clean de test.
     path = contexto_ejecucion.test_path
     path_origen = join(contexto_ejecucion.build_path, '') #agregamos un slash para incluir todos los archivos del dir indicado
-    log.debug(_(u'ComandoPrueba.ejecutar(path=%s, prueba=%s)'), path,
-        prueba)
+    log.debug(_(u'ComandoPrueba.ejecutar(path=%s, prueba=%s, cpu=%s)'), path,
+        prueba, self.max_tiempo_cpu)
     if not self.activo:
         log.debug(_(u'Ignorando comando prueba porque esta inactivo'))
         return
