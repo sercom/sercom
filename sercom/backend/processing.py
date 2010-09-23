@@ -51,10 +51,10 @@ class SecureProcess(object): #{{{
         self.close_stdout = close_stdout
         self.close_stderr = close_stderr
         log.debug(_(u'Proceso segurizado: cmd=%s, chroot=%s, working_dir=%s, user=%s, cpu=%s, '
-            u'as=%sMiB, fsize=%sMiB, nofile=%s, nproc=%s, memlock=%s'),
+            u'as=%sMiB, fsize=%sMiB, nofile=%s, nproc=%s, memlock=%s <<[%s]>>'),
             self.comando, self.chroot, self.working_dir, self.uid_ejecucion, self.max_tiempo_cpu,
             self.max_memoria, self.max_tam_archivo, self.max_cant_archivos,
-            self.max_cant_procesos, self.max_locks_memoria)
+            self.max_cant_procesos, self.max_locks_memoria, comando.max_tiempo_cpu)
     def __getattr__(self, name):
         if getattr(self.comando, name) is not None:
             return getattr(self.comando, name)
