@@ -50,7 +50,6 @@ class SecureProcess(object): #{{{
         self.close_stdin = close_stdin
         self.close_stdout = close_stdout
         self.close_stderr = close_stderr
-        raise 1
         log.debug(_(u'Proceso segurizado: cmd=%s, chroot=%s, working_dir=%s, user=%s, cpu=%s, '
             u'as=%sMiB, fsize=%sMiB, nofile=%s, nproc=%s, memlock=%s <<[%s]>>'),
             self.comando, self.chroot, self.working_dir, self.uid_ejecucion, self.max_tiempo_cpu,

@@ -72,8 +72,8 @@ def generar_diff_html(udiff_lines, orig, new, fromdesc, todesc):
 
 def ejecutar_comando_fuente(self, entrega, contexto_ejecucion): #{{{
     path = contexto_ejecucion.build_path
-    log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s)'), path,
-        entrega)
+    log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s, self=%s)'), path,
+        entrega, self)
     if not self.activo:
         log.debug(_(u'Ignorando comando fuente porque esta inactivo'))
         return
