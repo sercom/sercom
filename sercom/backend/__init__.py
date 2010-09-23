@@ -50,10 +50,10 @@ def ejecutar_caso_de_prueba(self, entrega, contexto_ejecucion): #{{{
 CasoDePrueba.ejecutar = ejecutar_caso_de_prueba
 #}}}
 
-def ejecutar_tarea(self, ejecucion, contexto_ejecucion): #{{{
+def ejecutar_tarea(self, ejecucion, contexto_ejecucion, caso_de_prueba=None): #{{{
     log.debug(_(u'Tarea.ejecutar(ejecucion=%s)'), ejecucion)
     for cmd in self.comandos:
-        cmd.ejecutar(ejecucion, contexto_ejecucion)
+        cmd.ejecutar(ejecucion, contexto_ejecucion, caso_de_prueba)
 Tarea.ejecutar = ejecutar_tarea
 #}}}
 
