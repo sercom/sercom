@@ -70,7 +70,7 @@ def generar_diff_html(udiff_lines, orig, new, fromdesc, todesc):
     return htmldiff
  
 
-def ejecutar_comando_fuente(self, entrega, contexto_ejecucion): #{{{
+def ejecutar_comando_fuente(self, entrega, contexto_ejecucion, caso_de_prueba): #{{{
     path = contexto_ejecucion.build_path
     log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s)'), path,
         entrega)
