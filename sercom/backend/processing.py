@@ -57,7 +57,7 @@ class SecureProcess(object): #{{{
             self.max_memoria, self.max_tam_archivo, self.max_cant_archivos,
             self.max_cant_procesos, self.max_locks_memoria)
     def __getattr__(self, name):
-        if getattr(self.caso_de_prueba, name) is not None:
+        if self.caso_de_prueba is not None and getattr(self.caso_de_prueba, name) is not None:
             return getattr(self.caso_de_prueba, name)
         return config.get('sercom.tester.limits.' + name, self.default[name])
     def __call__(self):
