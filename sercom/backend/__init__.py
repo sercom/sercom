@@ -22,8 +22,8 @@ log = logging.getLogger('sercom.tester')
 
 
 def ejecutar_caso_de_prueba(self, entrega, contexto_ejecucion): #{{{
-    log.debug(_(u'CasoDePrueba.ejecutar(caso=%s, entrega=%s, cpu=%s)'), self,
-        entrega, self.max_tiempo_cpu)
+    log.debug(_(u'CasoDePrueba.ejecutar(caso=%s, entrega=%s)'), self,
+        entrega)
     if not self.activo:
         log.debug(_(u'Ignorando caso de prueba porque esta inactivo'))
         return
@@ -33,7 +33,7 @@ def ejecutar_caso_de_prueba(self, entrega, contexto_ejecucion): #{{{
     try:
         try:
             for tarea in tareas:
-                tarea.ejecutar(prueba, contexto_ejecucion)
+                tarea.ejecutar(prueba, contexto_ejecucion, self) # Viaja el caso para limits
         except ExecutionFailure, e:
             pass
         except ExecutionFatalError, e:
@@ -257,13 +257,13 @@ def ejecutar_comando_fuente(self, entrega, contexto_ejecucion): #{{{
 ComandoFuente.ejecutar = ejecutar_comando_fuente
 #}}}
 
-def ejecutar_comando_prueba(self, prueba, contexto_ejecucion): #{{{
+def ejecutar_comando_prueba(self, prueba, contexto_ejecucion, caso_de_prueba): #{{{
     # Diferencia con comando fuente: s/entrega/prueba/ y s/build/test/ en path
     # y setup/clean de test.
     path = contexto_ejecucion.test_path
     path_origen = join(contexto_ejecucion.build_path, '') #agregamos un slash para incluir todos los archivos del dir indicado
-    log.debug(_(u'ComandoPrueba.ejecutar(path=%s, prueba=%s, cpu=%s)'), path,
-        prueba, self.max_tiempo_cpu)
+    log.debug(_(u'ComandoPrueba.ejecutar(path=%s, prueba=%s)'), path,
+        prueba)
     if not self.activo:
         log.debug(_(u'Ignorando comando prueba porque esta inactivo'))
         return
@@ -289,7 +289,7 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion): #{{{
     options = dict(
         close_fds=True,
         shell=True,
-        preexec_fn=contexto_ejecucion.ejecutar_test(self)
+        preexec_fn=contexto_ejecucion.ejecutar_test(self, caso_de_prueba)
     )
     if os.path.exists('%s.%s.stdin' % (basetmp, comando_ejecutado.id)):
         options['stdin'] = file('%s.%s.stdin' % (basetmp, comando_ejecutado.id),

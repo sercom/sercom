@@ -42,7 +42,7 @@ class SecureProcess(object): #{{{
     MB = 1048576
     # XXX probar! make de un solo archivo lleva nproc=100 y nofile=15
     def __init__(self, comando, chroot, working_dir, uid_ejecucion, close_stdin=False,
-                 close_stdout=False, close_stderr=False):
+                 close_stdout=False, close_stderr=False, caso_de_prueba=None):
         self.comando = comando
         self.chroot = chroot
         self.working_dir = working_dir
@@ -50,14 +50,15 @@ class SecureProcess(object): #{{{
         self.close_stdin = close_stdin
         self.close_stdout = close_stdout
         self.close_stderr = close_stderr
+        self.caso_de_prueba = caso_de_prueba
         log.debug(_(u'Proceso segurizado: cmd=%s, chroot=%s, working_dir=%s, user=%s, cpu=%s, '
-            u'as=%sMiB, fsize=%sMiB, nofile=%s, nproc=%s, memlock=%s <<[%s]>>'),
+            u'as=%sMiB, fsize=%sMiB, nofile=%s, nproc=%s, memlock=%s'),
             self.comando, self.chroot, self.working_dir, self.uid_ejecucion, self.max_tiempo_cpu,
             self.max_memoria, self.max_tam_archivo, self.max_cant_archivos,
-            self.max_cant_procesos, self.max_locks_memoria, comando.max_tiempo_cpu)
+            self.max_cant_procesos, self.max_locks_memoria)
     def __getattr__(self, name):
-        if getattr(self.comando, name) is not None:
-            return getattr(self.comando, name)
+        if getattr(self.caso_de_prueba, name) is not None:
+            return getattr(self.caso_de_prueba, name)
         return config.get('sercom.tester.limits.' + name, self.default[name])
     def __call__(self):
         x2 = lambda x: (x, x)

@@ -68,11 +68,11 @@ class ContextoEjecucion:
     def ejecutar_test(self,comando):
         return self.ejecutar(comando,self.test_path_en_chroot)
 
-    def ejecutar_fuente(self,comando):
-        return self.ejecutar(comando, self.build_path_en_chroot)
+    def ejecutar_fuente(self, comando, caso):
+        return self.ejecutar(comando, self.build_path_en_chroot, caso)
 
-    def ejecutar(self,comando, working_dir):
-        return SecureProcess(comando, self.chroot_destino, working_dir, self.uid_comandos)
+    def ejecutar(self,comando, working_dir, caso=None):
+        return SecureProcess(comando, self.chroot_destino, working_dir, self.uid_comandos, False, False, False, caso)
 
     def __str__(self):
         return 'Contexto (Chroot:\'%s\' - Usr:%s)' % (self.chroot_destino, self.user_info)
