@@ -17,7 +17,7 @@ import hashlib
 hub = PackageHub("sercom")
 __connection__ = hub
 
-__all__ = ('Curso', 'Usuario', 'Docente', 'Alumno', 'CasoDePrueba')
+__all__ = ('Curso', 'Usuario', 'Docente', 'Alumno', 'CasoDePrueba', 'Grupo')
 
 BLOB_SIZE = (1 << 24) - 1 # 16MB (MEDIUMBLOB)
 
