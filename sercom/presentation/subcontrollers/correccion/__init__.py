@@ -70,7 +70,8 @@ filtro_resumen_por_alumno = ResumenPorAlumnoFiltro()
 class ResumenEntregasFiltro(W.TableForm):
     class Fields(W.WidgetsList):
         instanciaID = W.SingleSelectField(label=_(u'Ejercicio'), validator=V.Int(not_empty=True))
-        desertoresFLAG = W.CheckBox(label=_(u"Mostrar Alumnos sin entrega?") )
+        desertoresFLAG = W.CheckBox(label=_(u"Mostrar Alumnos sin entrega") )
+        soloMiasFLAG = W.CheckBox(label=_(u"Mostrar sólo mis asignados") )
     form_attrs={'class':"filter"}
     fields = Fields()
 
@@ -136,7 +137,7 @@ class CorreccionController(BaseController, identity.SecureResource):
 
     @expose(template='kid:%s.templates.resumen_entregas' % __name__)
     @paginate('records', limit=config.get('items_por_pagina'), dynamic_limit='limit_to')
-    def resumen_entregas(self,instanciaID=None, desertoresFLAG=None):
+    def resumen_entregas(self,instanciaID=None, desertoresFLAG=None, soloMiasFLAG=None, csv=None):
         """Lista un resumen de los alumnos, sus entregas y correcciones para una instancia dada"""
         instancia_anterior = None
         if instanciaID:
@@ -145,6 +146,8 @@ class CorreccionController(BaseController, identity.SecureResource):
               r = [x for x in instancia.get_resumen_entregas() if x.tiene_entregas]
             else:
               r = instancia.get_resumen_entregas()
+            if soloMiasFLAG is not None:
+                r = [x for x in r if x.correccion is not None and x.correccion.corrector.docente.id == identity.current.user.id]
             instancia_anterior = instancia.get_instancia_anterior()
             if instancia_anterior is not None:
                 resumen = dict([(c.entregador, c) for c in instancia_anterior.correcciones])
@@ -159,10 +162,23 @@ class CorreccionController(BaseController, identity.SecureResource):
             r = []
         instancias_opts = [(i.id,i.longrepr()) for i in self.get_curso_actual().instancias_examinacion_a_corregir]
         options = dict(instanciaID=instancias_opts)
-        vfilter = dict(instanciaID=instanciaID, desertoresFLAG = desertoresFLAG)
-        return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_entregas,
-            vfilter=vfilter, options=options, instanciaID=instanciaID, desertoresFLAG=desertoresFLAG,
+        vfilter = dict(instanciaID=instanciaID, desertoresFLAG = desertoresFLAG, soloMiasFLAG=soloMiasFLAG)
+        # Este método puede retornar un archivo csv
+        if csv is not None:
+            header = u'Padrón, Alumno, Corrector, Nota, Observaciones\n'
+            lines = [('%s,"%s","%s",%f,"%s"' % (  i.entregador.alumno.padron, i.entregador.alumno.nombre, i.correccion.corrector,
+                                                        i.correccion.nota, i.correccion.observaciones.replace('\r\n', ' // ')))
+                                                                     for i in r if i.correccion is not None]
+            data = '\n'.join(lines)
+            return self.enviar_csv(header+data, 'planilla.csv')
+        else:
+            return dict(records=r, name=name, namepl=namepl, form=filtro_resumen_entregas,
+            vfilter=vfilter, options=options, instanciaID=instanciaID, desertoresFLAG=desertoresFLAG, soloMiasFLAG=soloMiasFLAG,
             docenteActual=identity.current.user.id, hayAnterior=instancia_anterior is not None, limit_to=identity.current.user.paginador)
+
+    def enviar_csv(self, data, filename):
+        download = Downloader(cherrypy.response)
+        return download.download_csv(data, filename)
 
     @expose()
     def get_fuentes_instancia(self, instanciaID):

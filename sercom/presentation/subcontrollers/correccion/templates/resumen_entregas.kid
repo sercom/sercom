@@ -20,9 +20,13 @@ from sercom.domain.correcciones import DTOResumenEntrega
 
 <div py:replace="form(value=vfilter, options=options, action=tg.url('/correccion/resumen_entregas'), submit_text=_(u'Filtrar'))">Filtros</div>
 
+<?python 
+getstr = [k+'='+vfilter[k] for k in vfilter.keys() if vfilter[k] is not None]
+?>
 <div>
-    <a href="${tg.url('/correccion/get_mis_fuentes_instancia/%s' % instanciaID)}" title="Fuentes, de las entregas a corregir, asignadas al docente actual.">Bajar mis fuentes</a><br />
-    <a href="${tg.url('/correccion/get_fuentes_instancia/%s' % instanciaID)}" title="Fuentes, de las entregas a corregir, correspondientes a esta instancia.">Bajar todos los fuentes</a>
+    <a href="${tg.url('/correccion/get_mis_fuentes_instancia/%s' % instanciaID)}" title="Fuentes, de las entregas a corregir, asignadas al docente actual.">Bajar mis fuentes</a> - 
+    <a href="${tg.url('/correccion/get_fuentes_instancia/%s' % instanciaID)}" title="Fuentes, de las entregas a corregir, correspondientes a esta instancia.">Bajar todos los fuentes</a> - 
+    <a href="${tg.url('/correccion/resumen_entregas/?csv=1&amp;%s' % ('&amp;'.join(getstr)))}" title="CSV">Bajar planilla</a>
 </div>
 
 <table class="list">
