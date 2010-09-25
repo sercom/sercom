@@ -167,7 +167,7 @@ class CorreccionController(BaseController, identity.SecureResource):
         if csv is not None:
             header = u'Padrón,Alumno,Corrector,Nota,Observaciones\n'
             lines = [('%s,"%s","%s",%f,"%s"' % (  i.entregador.alumno.padron, i.entregador.alumno.nombre, i.correccion.corrector,
-                                                        i.correccion.nota, i.correccion.observaciones))
+                                                        i.correccion.nota if i.correccion.nota is not None else -1.0, i.correccion.observaciones))
                                                                      for i in r if i.correccion is not None]
             data = '\n'.join(lines)
             return self.enviar_csv(header+data, 'planilla.csv')
