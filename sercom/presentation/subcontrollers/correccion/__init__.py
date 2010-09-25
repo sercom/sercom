@@ -165,9 +165,9 @@ class CorreccionController(BaseController, identity.SecureResource):
         vfilter = dict(instanciaID=instanciaID, desertoresFLAG = desertoresFLAG, soloMiasFLAG=soloMiasFLAG)
         # Este método puede retornar un archivo csv
         if csv is not None:
-            header = u'Padrón, Alumno, Corrector, Nota, Observaciones\n'
+            header = u'Padrón,Alumno,Corrector,Nota,Observaciones\n'
             lines = [('%s,"%s","%s",%f,"%s"' % (  i.entregador.alumno.padron, i.entregador.alumno.nombre, i.correccion.corrector,
-                                                        i.correccion.nota, i.correccion.observaciones.replace('\r\n', ' // ')))
+                                                        i.correccion.nota, i.correccion.observaciones))
                                                                      for i in r if i.correccion is not None]
             data = '\n'.join(lines)
             return self.enviar_csv(header+data, 'planilla.csv')
