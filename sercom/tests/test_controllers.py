@@ -46,3 +46,53 @@ class TestDashboardController(BaseTestController):
         assert 'cpu' not in response 
         assert '<h1>dashboard</h1>' in response
 
+    def test_admin_alumnos(self):
+        response = self.goto('/alumno/list')
+        assert 'Editar' not in response 
+        assert 'credenciales' in response
+    
+    def test_admin_correcciones(self):
+        response = self.goto('/correccion/mis_correcciones')
+        assert 'Editar' not in response 
+        assert 'credenciales' in response
+
+    def test_admin_cursos(self):
+        response = self.goto('/curso/list')
+        assert 'Editar' not in response 
+        assert 'credenciales' in response
+
+    def test_admin_docentes(self):
+        response = self.goto('/docente/list')
+        assert 'Editar' not in response 
+        assert 'credenciales' in response
+
+    def test_admin_entregas(self):
+        response = self.goto('/entregas/statistics')
+        assert 'Forzar' not in response 
+        assert 'credenciales' in response
+
+    def test_admin_enunciados(self):
+        response = self.goto('/enunciado/list')
+        assert 'Editar' not in response 
+        assert 'credenciales' in response
+
+    def test_admin_examenes(self):
+        response = self.goto('/examenes/list')
+        assert 'Editar' not in response 
+        assert 'credenciales' in response
+
+    def test_admin_tareafuente(self):
+        response = self.goto('/tarea_fuente/list')
+        assert 'Editar' not in response 
+        assert 'credenciales' in response
+
+    def test_admin_tareaprueba(self):
+        response = self.goto('/tarea_prueba/list')
+        assert 'Editar' not in response 
+        assert 'credenciales' in response
+
+    def test_forzar_entrega(self):
+        response = self.goto('/entregas/force_new')
+        assert 'Forzar' not in response 
+        assert 'credenciales' in response
+
