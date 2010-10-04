@@ -27,6 +27,8 @@ import os
 import sercom.serverinfo
 import inspect 
 import cherrypy
+import time
+import feedparser
 
 import logging
 log = logging.getLogger("sercom.controllers")
@@ -193,6 +195,7 @@ class Root(controllers.RootController, BaseController):
     def dashboard(self):
         q_score = None
         q_age = None
+        feed_entries = None
         usage = dict()
         now = datetime.now()
         curso = self.get_curso_actual()
@@ -210,6 +213,7 @@ class Root(controllers.RootController, BaseController):
         if identity.has_permission(Permiso.examen.respuesta.revisar):
             respuestas_pendientes = Respuesta.get_pendientes_de_revision()
         if identity.has_permission(Permiso.admin):
+            # A los admins les muestro info del server
             q_score = Entrega.selectBy(inicio=None).count()
             if q_score > 0:
                 head = Entrega.selectBy(inicio=None).orderBy(Entrega.q.fecha)[0]
@@ -217,8 +221,24 @@ class Root(controllers.RootController, BaseController):
             else:
                 q_age = None 
             usage = sercom.serverinfo.getinfo()
+        else:
+            # Al resto el feed de noticias, hasta cuatro
+            count = 0
+            feed = feedparser.parse('http://7542.fi.uba.ar/feed/')
+            if feed is not None:
+                feed_entries = list()
+                for e in feed.entries:
+                    if e.category == 'Noticias' and count < 4:
+                        # No logré que el parser deje de escapear el HTML y lo necesito
+                        e.html_content = e.summary.replace('&gt;', '>')
+                        e.html_content = e.html_content.replace('&lt;', '<')
+                        e.presented_date = time.strftime('%d/%m/%Y %H:%M', e.updated_parsed)
+                        feed_entries.append(e)
+                        count = count + 1
 
-        return dict(curso=curso, now=now, instancias_activas = instancias, correcciones = correcciones, respuestas_pendientes = respuestas_pendientes, q_score = q_score, usage=usage, q_age=q_age) 
+        return dict(curso=curso, now=now, instancias_activas = instancias, correcciones = correcciones, 
+                    respuestas_pendientes = respuestas_pendientes, q_score = q_score, usage=usage, q_age=q_age,
+                    feed_entries = feed_entries) 
 
     @expose(template='.presentation.templates.user_panel')
     def user_panel(self, id=None, tg_errors=None, **formdata):

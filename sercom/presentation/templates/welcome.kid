@@ -118,5 +118,15 @@
           No hay fechas de entrega a vencer.
         </div>	
     </div>
+
+    <div py:if="feed_entries is not None">
+        <h3>Últimas noticias</h3>
+        <ul py:for="entry in feed_entries">
+            <li><a href="${entry.link}">${entry.title}</a> - ${entry.presented_date}<br />
+            ${XML(entry.html_content)}
+            </li>
+        </ul>
+    </div>
+    
 </body>
 </html>
