@@ -148,16 +148,19 @@ class CorreccionController(BaseController, identity.SecureResource):
               r = instancia.get_resumen_entregas()
             if soloMiasFLAG is not None:
                 r = [x for x in r if x.correccion is not None and x.correccion.corrector.docente.id == identity.current.user.id]
-            instancia_anterior = instancia.get_instancia_anterior()
-            if instancia_anterior is not None:
+            for i in r:
+                i.corrector_anterior = None
+                i.nota_anterior = None
+                i.instancia_anterior = None 
+            instancia_anterior = instancia
+            while instancia_anterior.get_instancia_anterior() is not None:
+                instancia_anterior = instancia_anterior.get_instancia_anterior()
                 resumen = dict([(c.entregador, c) for c in instancia_anterior.correcciones])
                 for i in r:
-                    if i.entregador in resumen:
+                    if i.entregador in resumen and i.corrector_anterior is None:
                         i.corrector_anterior = resumen[i.entregador].corrector.docente.usuario
                         i.nota_anterior = resumen[i.entregador].nota
-                    else:
-                        i.corrector_anterior = None
-                        i.nota_anterior = None
+                        i.instancia_anterior = instancia_anterior
         else:
             r = []
         instancias_opts = [(i.id,i.longrepr()) for i in self.get_curso_actual().instancias_examinacion_a_corregir]

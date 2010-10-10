@@ -8,7 +8,6 @@
 <body>
 
 <h1>Crear Nueva <span py:replace="name">Objeto</span></h1>
-
 <p py:replace="form(action=tg.url('/mis_entregas/create'), options=options, value=values, submit_text=_('¡Entregar!'))">Formulario</p>
 <p>Acerca del archivo entregable:
   <ul>

@@ -46,7 +46,7 @@ getstr = [k+'='+vfilter[k] for k in vfilter.keys() if vfilter[k] is not None]
         <td><span py:replace="record.entregador">entregador</span></td>
         <td><span py:replace="record.entregas_aceptadas == 0 and '-' or str(record.entregas_aceptadas)">entregas aceptadas</span></td>
         <td><span py:replace="record.entregas_rechazadas == 0 and '-' or str(record.entregas_rechazadas)">entregas rechazadas</span></td>
-        <td py:if="hayAnterior"><span py:if="record.corrector_anterior != None">${record.corrector_anterior}</span><span py:if="record.nota_anterior != None"> -&gt; ${record.nota_anterior}</span></td>
+        <td py:if="hayAnterior"><span py:if="record.corrector_anterior != None">(${record.instancia_anterior}) ${record.corrector_anterior}</span><span py:if="record.nota_anterior != None"> -&gt; ${record.nota_anterior}</span></td>
         <td><span py:if="record.correccion" py:replace="record.correccion.corrector">corrector</span></td>
         <td align="center"><span py:if="record.correccion and (record.correccion.corrector.docente.id != docenteActual or record.correccion.nota != None)" py:replace="record.correccion.nota">corrector</span>
         <span class="error" py:if="record.correccion and record.correccion.corrector.docente.id == docenteActual and record.correccion.nota == None">X</span></td>

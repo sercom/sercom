@@ -41,10 +41,28 @@ Estadisticas
    }
 </script>
 
+    <div py:if="q_data is not None">
+    <h3>Entregas pendientes</h3>
+    <table class="list">
+    <tr>
+        <td>Entrega</td>
+        <td>Antigüedad</td>
+        <td>Acciones</td>
+    </tr>
+    <tr py:for="e in q_data">
+        <td>${e}</td>
+        <td>${e.edad}</td>
+        <td>
+        <a href="${tg.url('/mis_entregas/corrida/%d' %e.id)}">Ver</a>
+        <a py:if="e.suficientemente_viejo" href="${tg.url('/mis_entregas/anular/%d' %e.id)}" onclick="javascript: return confirm('¿Está seguro de cancelar la entrega?');">Anular</a>
+        </td>
+    </tr>
+    </table>
+    </div>
+
     <div id="chart_por_instancia_div"></div>
     <br/>
     <div id="chart_por_dias_anticip_div"></div>
-
 
 </body>
 </html>

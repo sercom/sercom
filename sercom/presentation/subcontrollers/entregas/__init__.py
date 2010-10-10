@@ -11,13 +11,13 @@ from turbogears import identity
 from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
-from sercom.model import Entrega, Correccion, InstanciaDeEntrega, AlumnoInscripto, Grupo
+from sercom.model import Entrega, Correccion, InstanciaDeEntrega, AlumnoInscripto, Grupo, Permiso
 from sercom.ziputil import unzip
 from sqlobject import *
 from string import Template
 from zipfile import ZipFile, BadZipfile
 from cStringIO import StringIO
-from datetime import datetime
+from datetime import datetime, timedelta
 from sercom.presentation.utils.downloader import *
 from sercom.presentation.controllers import BaseController
 import os, shutil, subprocess
@@ -133,7 +133,16 @@ class EntregasController(BaseController, identity.SecureResource):
         items = cant_por_dias_anticip.items()
         items.sort()
         items.reverse()
-        return dict(cant_por_instancia=cant_por_instancia, cant_por_dias_anticip = [('%s dias' % dias, cant) for dias, cant in items])
+        # Entregas colgadas, sólo admins
+        q_data = None
+        if identity.has_permission(Permiso.admin):
+            q_data = Entrega.selectBy(inicio=None, fin=None).orderBy('fecha')
+            for e in q_data:
+                e.edad = (datetime.now() - e.fecha)
+                e.suficientemente_viejo = e.edad > timedelta(hours=8)
+        return dict(cant_por_instancia=cant_por_instancia, 
+                    q_data = q_data,
+                    cant_por_dias_anticip = [('%s dias' % dias, cant) for dias, cant in items])
 
     @expose(template='kid:%s.templates.force_new' % __name__)
     @identity.require(identity.has_permission('corregir'))

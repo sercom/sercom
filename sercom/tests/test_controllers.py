@@ -96,3 +96,7 @@ class TestDashboardController(BaseTestController):
         assert 'Forzar' not in response 
         assert 'credenciales' in response
 
+    def test_misentregas_anular(self):
+        response = self.goto('mis_entregas/anular/1')
+        assert 'Forzar' not in response 
+        assert 'credenciales' in response

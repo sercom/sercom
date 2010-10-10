@@ -146,8 +146,11 @@ class MisEntregasController(BaseController, identity.SecureResource):
         """Create new records in model"""
         curso = self.get_curso_actual()
         ejercicios = curso.ejercicios_activos
+        q_score = Entrega.selectBy(inicio=None, fin=None, entregador=identity.current.user.get_inscripcion(curso)).count()
         if len(ejercicios) == 0:
             flash(_(u'Al momento, no hay ningún ejercicio con instancias de entrega abiertas.'))
+        if q_score > 0:
+            flash(_(u'Usted tiene un ejercicio en espera de ser aceptado. No envíe otro hasta tener la respuesta del primero.'))
         ejercicio_options = [(0, 'Seleccionar')] + [(e.id, e.shortrepr()) for e in ejercicios]
         return dict(name=name, namepl=namepl, form=form, values=kw, options=dict(ejercicio=ejercicio_options))
 
@@ -157,6 +160,11 @@ class MisEntregasController(BaseController, identity.SecureResource):
     @identity.require(identity.has_permission('entregar'))
     def create(self, archivo, ejercicio, **kw):
         """Save or create record to model"""
+        curso = self.get_curso_actual()
+        q_score = Entrega.selectBy(inicio=None, fin=None, entregador=identity.current.user.get_inscripcion(curso)).count()
+        if q_score > 0:
+            flash(_(u'No se acepta una nueva entrega si la anterior no fue procesada.'))
+            raise redirect('list')
         archivo = archivo.file.read()
         try:
             zfile = ZipFile(StringIO(archivo), 'r')
@@ -192,6 +200,16 @@ class MisEntregasController(BaseController, identity.SecureResource):
     def corrida(self, entregaid):
         e = validate_get_entrega(entregaid)
         return dict(entrega=e)
+
+    @expose()
+    @identity.require(identity.has_permission('admin'))
+    def anular(self, entregaid):
+        e = validate_get_entrega(entregaid)
+        e.inicio = e.fin = datetime.now()
+        e.exito = 0
+        e.observaciones = u'La entrega fue anulada por %s' % identity.current.user.shortrepr()
+        flash(_(u'Se anuló la entrega %s' % e.shortrepr()))
+        raise redirect('/entregas/statistics')
 
     @expose()
     def get_archivo(self, entregaid):
