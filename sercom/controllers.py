@@ -194,7 +194,8 @@ class Root(controllers.RootController, BaseController):
     @identity.require(identity.not_anonymous())
     def dashboard(self):
         q_score = None
-        q_age = None
+        current = None
+        age = None
         feed_entries = None
         usage = dict()
         now = datetime.now()
@@ -215,11 +216,12 @@ class Root(controllers.RootController, BaseController):
         if identity.has_permission(Permiso.admin):
             # A los admins les muestro info del server
             q_score = Entrega.selectBy(inicio=None).count()
-            if q_score > 0:
-                head = Entrega.selectBy(inicio=None).orderBy(Entrega.q.fecha)[0]
-                q_age = head.fecha
-            else:
-                q_age = None 
+            current = None
+            try:
+                current = Entrega.select(AND(Entrega.q.inicio!=None, Entrega.q.fin==None)).orderBy(Entrega.q.fecha).reversed()[0]
+                age = current.fecha
+            except:
+                pass
             usage = sercom.serverinfo.getinfo()
         else:
             # Al resto el feed de noticias, hasta cuatro
@@ -237,7 +239,7 @@ class Root(controllers.RootController, BaseController):
                         count = count + 1
 
         return dict(curso=curso, now=now, instancias_activas = instancias, correcciones = correcciones, 
-                    respuestas_pendientes = respuestas_pendientes, q_score = q_score, usage=usage, q_age=q_age,
+                    respuestas_pendientes = respuestas_pendientes, q_score = q_score, usage=usage, age=age, q_current=current,
                     feed_entries = feed_entries) 
 
     @expose(template='.presentation.templates.user_panel')

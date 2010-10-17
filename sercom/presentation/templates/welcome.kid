@@ -19,8 +19,11 @@
 
     <div py:if="q_score is not None">
     <h3>Backend</h3>
-    <p py:if="q_age is not None">Tiene ${q_score} entrega<span py:if="q_score != 1">s</span> pendiente<span py:if="q_score != 1">s</span> desde ${q_age.strftime(r'%d/%m/%Y a las %R')}</p>
-    <p py:if="q_age is None">No hay entregas pendientes</p>
+    <p py:if="q_score > 0">Tiene ${q_score} entrega<span py:if="q_score != 1">s</span> pendiente<span py:if="q_score != 1">s</span>. (<a href="/entregas/statistics/">Ver...</a>)</p>
+    <p py:if="q_score &lt;= 0">No hay entregas pendientes</p>
+    <p py:if="age is not None">La <a href="${tg.url('/mis_entregas/corrida/%d' % q_current.id)}" title="${q_current}">corrección actual</a> comenzó el ${age.strftime(r'%d/%m/%Y a las %R')} y aún no terminó.</p>
+    <p py:if="q_score > 0 and age is None">¡No hay corrección en proceso!</p>
+    
     <table width="20%">
     <tr><th>Parámetro</th><th>Valor</th></tr>
     <tr><td align="right">CPU</td><td align="right" py:content="usage['CPU']"></td></tr>

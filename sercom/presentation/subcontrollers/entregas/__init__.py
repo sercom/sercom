@@ -139,7 +139,7 @@ class EntregasController(BaseController, identity.SecureResource):
             q_data = Entrega.selectBy(inicio=None, fin=None).orderBy('fecha')
             for e in q_data:
                 e.edad = (datetime.now() - e.fecha)
-                e.suficientemente_viejo = e.edad > timedelta(hours=8)
+                e.suficientemente_viejo = e.edad > timedelta(minutes=5)
         return dict(cant_por_instancia=cant_por_instancia, 
                     q_data = q_data,
                     cant_por_dias_anticip = [('%s dias' % dias, cant) for dias, cant in items])
