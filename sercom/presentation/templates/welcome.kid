@@ -27,8 +27,6 @@
     <table width="20%">
     <tr><th>Parámetro</th><th>Valor</th></tr>
     <tr><td align="right">CPU</td><td align="right" py:content="usage['CPU']"></td></tr>
-    <tr><td align="right">CPU  5 min</td><td align="right" py:content="usage['CPU5']"></td></tr>
-    <tr><td align="right">CPU 15 min</td><td align="right" py:content="usage['CPU15']"></td></tr>
     <tr><td align="right">Memoria utilizada</td><td align="right" py:content="usage['MEM']"></td></tr>
     </table>
     </div>
