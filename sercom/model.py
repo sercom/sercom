@@ -409,7 +409,7 @@ class Curso(SQLObject): #{{{
         return [e for e in self.ejercicios if e.instancias_a_entregar.count() > 0]
 
     def _get_instancias_examinacion_a_corregir(self):
-        return self.instancias_de_evaluacion_alumno + self.instancias_de_entrega
+        return [i for i in self.instancias_de_evaluacion_alumno + self.instancias_de_entrega if i.activo]
 
     def _get_instancias_de_entrega(self):
         return list(InstanciaExaminacion.select(
@@ -1036,6 +1036,9 @@ class InstanciaDeEvaluacionAlumno(InstanciaExaminacion): #{{{
  
     def find_entrega_a_corregir(self, entregador):
         return None
+
+    def get_posibles_entregadores(self):
+        return self.curso.alumnos
  
     def get_resumen_entregas(self):
         entregadores = self.curso.alumnos
@@ -1089,6 +1092,9 @@ class InstanciaDeEntrega(InstanciaExaminacion): #{{{
                     return e
             #else
             return entregas[0]
+
+    def get_posibles_entregadores(self):
+        return self.ejercicio.get_posibles_entregadores()
 
     def get_resumen_entregas(self):
         entregadores = self.ejercicio.get_posibles_entregadores()

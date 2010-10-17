@@ -339,14 +339,14 @@ class CursoController(controllers.Controller, identity.SecureResource):
         resumen = ResumenNotas()
         resumen.calcular(curso)
  
-        notas = ",".join(resumen.cols) + "\n"
-        for row in resumen.rows:
-            valores = []
-            for col in resumen.cols:
-                valores.append(row[col])
-            notas = notas + ",".join(valores) + "\n"
+        str_notas = u','.join([u'Padrón', u'Nombre', u'Grupos'] + [inst_nota.shortrepr() for inst_nota in resumen.instancias_nota]) + u'\n'
+        for notas in resumen.notas_alumnos:
+            valores = [notas.padron, notas.nombre, notas.grupos]
+            for inst_nota in resumen.instancias_nota:
+                valores.append(notas[inst_nota])
+            str_notas  += u','.join(valores) + u'\n'
         downloader = Downloader(cherrypy.response)
-        return downloader.download_csv(notas, "notas.csv")
+        return downloader.download_csv(str_notas, "notas.csv")
         
 #}}}
 

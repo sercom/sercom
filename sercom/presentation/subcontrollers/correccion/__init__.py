@@ -13,6 +13,7 @@ from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import Correccion, Curso, Ejercicio
 from sercom.model import InstanciaExaminacion,InstanciaDeEntrega, DocenteInscripto, Entregador, Alumno
+from sercom.domain.notas import CalculadorNotasPromedioConConcepto
 from sercom.domain.exceptions import AlumnoSinEntregas
 from sqlobject import *
 from sercom.presentation.controllers import BaseController
@@ -66,16 +67,24 @@ class ResumenPorAlumnoFiltro(W.TableForm):
     fields = Fields()
 
 filtro_resumen_por_alumno = ResumenPorAlumnoFiltro()
-#
+
 class ResumenEntregasFiltro(W.TableForm):
     class Fields(W.WidgetsList):
-        instanciaID = W.SingleSelectField(label=_(u'Ejercicio'), validator=V.Int(not_empty=True))
+        instanciaID = W.SingleSelectField(label=_(u'Instancia Examinación'), validator=V.Int(not_empty=True))
         desertoresFLAG = W.CheckBox(label=_(u"Mostrar Alumnos sin entrega") )
         soloMiasFLAG = W.CheckBox(label=_(u"Mostrar sólo mis asignados") )
     form_attrs={'class':"filter"}
     fields = Fields()
 
 filtro_resumen_entregas = ResumenEntregasFiltro()
+
+class CalculoCorreccionesForm(W.TableForm):
+    class Fields(W.WidgetsList):
+        instancia_destino_id = W.SingleSelectField(label=_(u'Destino de Nota'), help_text=_(u'Las notas calculadas se grabarán para esta instancia.'), validator=V.Int(not_empty=True))
+        instancia_concepto_id = W.SingleSelectField(label=_(u'Nota de Concepto'), help_text=_(u'Será tomada como nota de concepto para modificar el promedio calculado.'), validator=V.Int(not_empty=True))
+    fields = Fields()
+
+calculo_correcciones_form = CalculoCorreccionesForm()
 #}}}
 
 
@@ -182,6 +191,25 @@ class CorreccionController(BaseController, identity.SecureResource):
     def enviar_csv(self, data, filename):
         download = Downloader(cherrypy.response)
         return download.download_csv(data, filename)
+
+    @expose(template='kid:%s.templates.calculo_correcciones' % __name__)
+    @paginate('records', dynamic_limit='limit_to')
+    @identity.require(identity.in_any_group("JTP", "admin"))
+    def calculo_correcciones(self,instancia_destino_id=None, instancia_concepto_id=None):
+        """Simula y muestra los cálculos de correcciones para una instancia destino dada"""
+        curso = self.get_curso_actual()
+        if instancia_destino_id and instancia_concepto_id:
+            instancia_destino = InstanciaExaminacion.get(instancia_destino_id)
+            instancia_concepto = InstanciaExaminacion.get(instancia_concepto_id)
+            calculador = CalculadorNotasPromedioConConcepto(curso, instancia_destino, instancia_concepto)
+            resultados = calculador.simular()
+        else:
+            resultados = []
+        instancias_opts = [(i.id,i.longrepr()) for i in curso.instancias_examinacion_a_corregir]
+        options = dict(instancia_destino_id=instancias_opts, instancia_concepto_id=instancias_opts)
+        vfilter = dict(instancia_destino_id=instancia_destino_id, instancia_concepto_id=instancia_concepto_id)
+        return dict(records=resultados, name=name, namepl=namepl, form=calculo_correcciones_form,
+            vfilter=vfilter, options=options, limit_to=identity.current.user.paginador)
 
     @expose()
     def get_fuentes_instancia(self, instanciaID):
