@@ -107,12 +107,8 @@ class CorreccionController(BaseController, identity.SecureResource):
     def mis_correcciones(self):
         """List records in model"""
         curso = self.get_curso_actual()
-        r = cls.select(
-                  AND(cls.q.correctorID == identity.current.user.get_inscripcion(curso).id,
-                      cls.q.instanciaID == InstanciaDeEntrega.q.id,
-                      InstanciaDeEntrega.q.ejercicioID == Ejercicio.q.id
-                     )
-                  ).orderBy(Ejercicio.q.numero)
+        r = list(cls.select(cls.q.correctorID == identity.current.user.get_inscripcion(curso).id))
+        r.sort(lambda c1,c2:cmp(c1.instancia,c2.instancia), reverse=True)
         return dict(records=r, name=name, namepl=namepl, limit_to=identity.current.user.paginador)
 
     @expose(template='kid:%s.templates.show' % __name__)
