@@ -29,6 +29,6 @@ class DTOResumenEntregaAlumno:
         self.correccion = correccion
         self.tiene_entregas = (cant_entregas > 0)
         self.editar_correccion = not (correccion is None)
-        self.agregar_correccion = (not self.editar_correccion) and cant_entregas > 0
+        self.agregar_correccion = (not self.editar_correccion) and (not instancia.requiere_entregas or cant_entregas > 0)
 
 

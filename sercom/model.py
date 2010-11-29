@@ -680,7 +680,7 @@ class Alumno(Usuario): #{{{
         instancias = curso.instancias_examinacion_a_corregir
 
         entregas = dict([ (i,[]) for i in instancias ])
-        entregadores = dict([ (i,None) for i in instancias ])
+        entregadores = dict([ (i,i.get_entregador_default(self)) for i in instancias ])
         correcciones = dict([ (i,None) for i in instancias ])
 
         for e in Entrega.select(IN(Entrega.q.entregador, entregadores_del_alumno)):
@@ -690,6 +690,7 @@ class Alumno(Usuario): #{{{
 
         for c in Correccion.select(IN(Correccion.q.entregador, entregadores_del_alumno)):
             correcciones[c.instancia] = c
+            entregadores[c.instancia] = c.entregador
 
         return [DTOResumenEntregaAlumno(i, entregas[i], entregadores[i], correcciones[i]) for i in instancias]
 
@@ -1031,6 +1032,9 @@ class InstanciaDeEvaluacionAlumno(InstanciaExaminacion): #{{{
     tipo            = UnicodeCol(length=255, notNone=True)
     pk              = DatabaseIndex(curso, tipo, unique=True)
 
+    def _get_requiere_entregas(self):
+        return False
+
     def get_instancia_anterior(self):
         return None
  
@@ -1039,6 +1043,9 @@ class InstanciaDeEvaluacionAlumno(InstanciaExaminacion): #{{{
 
     def get_posibles_entregadores(self):
         return self.curso.alumnos
+
+    def get_entregador_default(self, alumno):
+        return alumno.get_inscripcion(self.curso)
  
     def get_resumen_entregas(self):
         entregadores = self.curso.alumnos
@@ -1073,6 +1080,9 @@ class InstanciaDeEntrega(InstanciaExaminacion): #{{{
     # Joins
     entregas        = MultipleJoin('Entrega', joinColumn='instancia_id')
 
+    def _get_requiere_entregas(self):
+        return True
+
     def _get_curso(self):
         return self.ejercicio.curso
 
@@ -1095,6 +1105,14 @@ class InstanciaDeEntrega(InstanciaExaminacion): #{{{
 
     def get_posibles_entregadores(self):
         return self.ejercicio.get_posibles_entregadores()
+
+    def get_entregador_default(self, alumno):
+        curso = self.ejercicio.curso
+        if self.ejercicio.grupal:
+            grupos = alumno.get_grupos(curso)
+            return len(grupos)>0 and grupos[0] or None
+        else:
+            return alumno.get_inscripcion(curso)
 
     def get_resumen_entregas(self):
         entregadores = self.ejercicio.get_posibles_entregadores()
