@@ -7,6 +7,7 @@ class ResultadoCalculoNota:
         self.entregador = entregador
         self.nota_calculada = nota_calculada
         self.observaciones = observaciones
+        self.puede_ser_aplicada = (nota_calculada and not observaciones)
 
 class NotasAlumno:
     def __init__(self, alumno, grupos):
@@ -87,10 +88,31 @@ class CalculadorNotasPromedio (CalculadorNotas):
             raise CalculoNotaException('No hay correcciones para aplicar un promedio')
         sin_nota = [c.instancia for c in correcciones if not c.nota]
         if sin_nota:
-            raise CalculoNotaException('No se encuentran notas para las siguientes instancias: ' + ','.join([i.shortrepr() for i in sin_nota]))
+            raise CalculoNotaException('Las correcciones de las siguientes instancias aun no poseen nota: ' + ','.join([i.shortrepr() for i in sin_nota]))
 
-        suma = sum([c.nota for c in correcciones])
-        return suma / len(correcciones)
+        no_aprobadas = self.__instancias_no_aprobadas(correcciones)
+        if no_aprobadas:
+            raise CalculoNotaException('Las siguientes instancias no fueron aprobadas con las correcciones encontradas: ' + ','.join([i.shortrepr() for i in no_aprobadas]))
+
+        correcciones_a_promediar = self.__get_correcciones_a_promediar(correcciones)
+        suma = sum([c.nota for c in correcciones_a_promediar])
+        return suma / len(correcciones_a_promediar)
+
+    def __instancias_no_aprobadas(self, correcciones):
+        no_aprobadas = []
+        for i in self.get_instancias_a_promediar():
+            if not i.fue_aprobada(correcciones):
+                no_aprobadas.append(i)
+        return no_aprobadas
+
+    def __get_correcciones_a_promediar(self, correcciones):
+        a_promediar = self.get_instancias_a_promediar()
+        return [c for c in correcciones if c.instancia in a_promediar]
+
+    def get_instancias_a_promediar(self):
+        a_promediar = list(self.curso.instancias_examinacion_a_corregir)
+        a_promediar.remove(self.instancia_destino)
+        return a_promediar
 
 class CalculadorNotasPromedioConConcepto (CalculadorNotasPromedio):
     def __init__(self, curso, instancia_destino, instancia_concepto):
@@ -109,6 +131,11 @@ class CalculadorNotasPromedioConConcepto (CalculadorNotasPromedio):
                 return item
         return None
 
+    def get_instancias_a_promediar(self):
+        a_promediar = CalculadorNotasPromedio.get_instancias_a_promediar(self)
+        a_promediar.remove(self.instancia_concepto)
+        return a_promediar
+
     def calcular_nota_entregador(self, correcciones):
         correccion_concepto = self.find(lambda c: c.instancia == self.instancia_concepto, correcciones)
         if not correccion_concepto:
@@ -116,13 +143,12 @@ class CalculadorNotasPromedioConConcepto (CalculadorNotasPromedio):
         else:
             nota_concepto = correccion_concepto.nota
 
-        correcciones_a_promediar = [c for c in correcciones if c != correccion_concepto]
-        promedio = CalculadorNotasPromedio.calcular_nota_entregador(self, correcciones_a_promediar)
+        promedio = CalculadorNotasPromedio.calcular_nota_entregador(self, correcciones)
 
         try:
             return self.modificadores_promedio[nota_concepto](promedio)
         except KeyError:
             mapeos_disponibles = ','.join([str(m) for m in self.modificadores_promedio.keys()])
-            raise CalculoNotaException('La nota de concepto "%d" no fue encontrada entre los mapeos disponibles: %s' % (nota_concepto,mapeos_disponibles))
+            raise CalculoNotaException('La nota de concepto "%s" no fue encontrada entre los mapeos disponibles: %s' % (nota_concepto,mapeos_disponibles))
 
 

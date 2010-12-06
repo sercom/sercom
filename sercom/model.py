@@ -1035,6 +1035,13 @@ class InstanciaDeEvaluacionAlumno(InstanciaExaminacion): #{{{
     def _get_requiere_entregas(self):
         return False
 
+    def de_ejercicio(self, ejercicio):
+        return False
+
+    def fue_aprobada(self, correcciones):
+        de_instancia_actual = filter(lambda c: c.nota >= 4 and c.instancia == self, correcciones)
+        return len(de_instancia_actual) > 0
+
     def get_instancia_anterior(self):
         return None
  
@@ -1085,6 +1092,13 @@ class InstanciaDeEntrega(InstanciaExaminacion): #{{{
 
     def _get_curso(self):
         return self.ejercicio.curso
+
+    def de_ejercicio(self, ejercicio):
+        return self.ejercicio == ejercicio
+
+    def fue_aprobada(self, correcciones):
+        de_ejercicio_actual = filter(lambda c: c.nota >= 4 and c.instancia.de_ejercicio(self.ejercicio), correcciones)
+        return len(de_ejercicio_actual) > 0
 
     def get_instancia_anterior(self):
         if (self.numero <= 1):

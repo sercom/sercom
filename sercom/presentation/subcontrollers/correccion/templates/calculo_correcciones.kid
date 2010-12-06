@@ -37,7 +37,7 @@ from sercom.domain.correcciones import DTOResumenEntrega
         <td><span py:replace="record.nota_calculada">nota simulada</span></td>
         <td><span py:replace="record.observaciones">observaciones</span></td>
         <td nowrap="true">
-            <a href="${tg.url('/correccion/aplicar_calculo_correcciones?entregadorId=%d' % record.entregador.id)}">Aplicar Alumno</a>
+            <a py:if="record.puede_ser_aplicada" href="${tg.url('/correccion/aplicar_calculo_correcciones?entregadorId=%d' % record.entregador.id)}">Aplicar Alumno</a>
        </td>
     </tr>
 </table>
