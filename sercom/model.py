@@ -994,6 +994,38 @@ class Ejercicio(SQLObject): #{{{
             entregadores.sort(lambda x,y:cmp(x.alumno.padron, y.alumno.padron))
         return entregadores
 
+    def fue_aprobado(self, correcciones):
+        de_ejercicio_actual = filter(lambda c: c.nota >= 4 and c.instancia.de_ejercicio(self), correcciones)
+        return len(de_ejercicio_actual) > 0
+
+    def notas_a_promediar(self, correcciones):
+        de_ejercicio_actual = filter(lambda c: c.instancia.de_ejercicio(self), correcciones)
+        instancias_a_promediar = sorted([i for i in self.instancias if i.activo])
+
+        index = 0
+        aprobado_encontrado = False
+        notas = []
+        while not aprobado_encontrado and index < len(instancias_a_promediar):
+            correccion = self.__get_correccion_para(instancias_a_promediar[index], de_ejercicio_actual)
+            if not correccion:
+                notas.append(3)
+            else:
+                notas.append(correccion.nota)
+                if correccion.nota > 4:
+                    aprobado_encontrado = True
+            index = index + 1
+        return notas
+
+    def __get_correccion_para(self, instancia, correcciones):
+        para_instancia = filter(lambda c: c.instancia == instancia, correcciones)
+        if len(para_instancia) == 0:
+            return None
+        elif len(para_instancia) == 1:
+            return para_instancia[0]
+        else:
+            raise Exception('No se acepta mas de una correccion para la instancia dada')
+            
+
     def __unicode__(self):
         return u'(%s, %s, %s)' % (self.curso, self.numero, self.enunciado)
 
@@ -1037,10 +1069,6 @@ class InstanciaDeEvaluacionAlumno(InstanciaExaminacion): #{{{
 
     def de_ejercicio(self, ejercicio):
         return False
-
-    def fue_aprobada(self, correcciones):
-        de_instancia_actual = filter(lambda c: c.nota >= 4 and c.instancia == self, correcciones)
-        return len(de_instancia_actual) > 0
 
     def get_instancia_anterior(self):
         return None
@@ -1095,10 +1123,6 @@ class InstanciaDeEntrega(InstanciaExaminacion): #{{{
 
     def de_ejercicio(self, ejercicio):
         return self.ejercicio == ejercicio
-
-    def fue_aprobada(self, correcciones):
-        de_ejercicio_actual = filter(lambda c: c.nota >= 4 and c.instancia.de_ejercicio(self.ejercicio), correcciones)
-        return len(de_ejercicio_actual) > 0
 
     def get_instancia_anterior(self):
         if (self.numero <= 1):

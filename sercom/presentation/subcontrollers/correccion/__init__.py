@@ -13,7 +13,7 @@ from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import Correccion, Curso, Ejercicio
 from sercom.model import InstanciaExaminacion,InstanciaDeEntrega, DocenteInscripto, Entregador, Alumno
-from sercom.domain.notas import CalculadorNotasPromedioConConcepto
+from sercom.domain.notas import CalculadorPromedioEjerciciosConConcepto
 from sercom.domain.exceptions import AlumnoSinEntregas
 from sqlobject import *
 from sercom.presentation.controllers import BaseController
@@ -197,7 +197,7 @@ class CorreccionController(BaseController, identity.SecureResource):
         if instancia_destino_id and instancia_concepto_id:
             instancia_destino = InstanciaExaminacion.get(instancia_destino_id)
             instancia_concepto = InstanciaExaminacion.get(instancia_concepto_id)
-            calculador = CalculadorNotasPromedioConConcepto(curso, instancia_destino, instancia_concepto)
+            calculador = CalculadorPromedioEjerciciosConConcepto(curso, instancia_destino, instancia_concepto)
             resultados = calculador.simular()
         else:
             resultados = []

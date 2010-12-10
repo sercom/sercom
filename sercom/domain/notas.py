@@ -1,4 +1,5 @@
 import string
+from decimal import *
 import math
 
 class ResultadoCalculoNota:
@@ -52,6 +53,11 @@ class CalculoNotaException (Exception):
     def __init__(self, observaciones):
         self.observaciones = observaciones
 
+class TerminoPromedio:
+    def __init__(self, factor, promedio_calculado):
+        self.factor = factor
+        self.promedio_calculado = promedio_calculado
+
 class CalculadorNotas:
     def __init__(self, curso, instancia_examinacion_destino):
         self.curso = curso
@@ -79,7 +85,7 @@ class CalculadorNotas:
             resultados.append(ResultadoCalculoNota(ai, correccion_actual, nota, observaciones))
         return resultados
 
-class CalculadorNotasPromedio (CalculadorNotas):
+class CalculadorPromedioEjercicios (CalculadorNotas):
     def __init__(self, curso, instancia_examinacion_destino):
         CalculadorNotas.__init__(self, curso, instancia_examinacion_destino)
 
@@ -90,60 +96,84 @@ class CalculadorNotasPromedio (CalculadorNotas):
         if sin_nota:
             raise CalculoNotaException('Las correcciones de las siguientes instancias aun no poseen nota: ' + ','.join([i.shortrepr() for i in sin_nota]))
 
-        no_aprobadas = self.__instancias_no_aprobadas(correcciones)
-        if no_aprobadas:
-            raise CalculoNotaException('Las siguientes instancias no fueron aprobadas con las correcciones encontradas: ' + ','.join([i.shortrepr() for i in no_aprobadas]))
+        no_aprobados = self.__ejercicios_no_aprobados(correcciones)
+        if no_aprobados:
+            raise CalculoNotaException('Los siguientes ejercicios no fueron aprobados con las correcciones encontradas: ' + ','.join([str(e.numero) for e in no_aprobados]))
 
-        correcciones_a_promediar = self.__get_correcciones_a_promediar(correcciones)
-        suma = sum([c.nota for c in correcciones_a_promediar])
-        return suma / len(correcciones_a_promediar)
+        terminos_prom_para_nota = self.__get_terminos_prom_para_nota(correcciones)
+        return sum([t.factor*t.promedio_calculado for t in terminos_prom_para_nota])
 
-    def __instancias_no_aprobadas(self, correcciones):
-        no_aprobadas = []
-        for i in self.get_instancias_a_promediar():
-            if not i.fue_aprobada(correcciones):
-                no_aprobadas.append(i)
-        return no_aprobadas
+    def __get_terminos_prom_para_nota(self, correcciones):
+        ejercicios_individuales = [e for e in self.__get_ejercicios_a_aprobar() if not e.grupal]
 
-    def __get_correcciones_a_promediar(self, correcciones):
-        a_promediar = self.get_instancias_a_promediar()
-        return [c for c in correcciones if c.instancia in a_promediar]
+        notas_indiv_a_promediar = []
+        for e in ejercicios_individuales:
+            for c in e.notas_a_promediar(correcciones):
+                notas_indiv_a_promediar.append(c)
 
-    def get_instancias_a_promediar(self):
-        a_promediar = list(self.curso.instancias_examinacion_a_corregir)
-        a_promediar.remove(self.instancia_destino)
-        return a_promediar
 
-class CalculadorNotasPromedioConConcepto (CalculadorNotasPromedio):
+        suma_individual = sum([n for n in notas_indiv_a_promediar])
+        cant_individual = len(notas_indiv_a_promediar)
+        term_individual = TerminoPromedio(Decimal('0.4'), suma_individual / cant_individual)
+        term_grupal = TerminoPromedio(Decimal('0.6'), self.__get_nota_ejercicio_grupal(correcciones))
+        return [term_individual, term_grupal]
+
+    def __ejercicios_no_aprobados(self, correcciones):
+        no_aprobados = []
+        for e in self.__get_ejercicios_a_aprobar():
+            if not e.fue_aprobado(correcciones):
+                no_aprobados.append(e)
+        return no_aprobados
+
+    def __get_nota_ejercicio_grupal(self, correcciones):
+        ejercicios_grupales = [e for e in self.__get_ejercicios_a_aprobar() if e.grupal]
+        if len(ejercicios_grupales) != 1:
+            raise CalculoNotaException('El calculador requiere un ejercicio grupal unico en el curso.')
+
+        notas_grupales = ejercicios_grupales[0].notas_a_promediar(correcciones)
+        if len(notas_grupales) != 1:
+            raise CalculoNotaException('El calculador requiere nota unica para el ejercicio grupal del curso.')
+
+        return notas_grupales[0]
+
+    def __get_ejercicios_a_aprobar(self):
+        return [e for e in self.curso.ejercicios if 
+                                             len([i for i in e.instancias if i.activo]) > 0
+               ]
+
+class CalculadorPromedioEjerciciosConConcepto (CalculadorPromedioEjercicios):
     def __init__(self, curso, instancia_destino, instancia_concepto):
-        CalculadorNotasPromedio.__init__(self, curso, instancia_destino)
+        CalculadorPromedioEjercicios.__init__(self, curso, instancia_destino)
 
         self.instancia_concepto = instancia_concepto
-        self.modificadores_promedio = dict([(41,lambda prom: math.ceil(prom) + 1),
-                                           (42,lambda prom: math.ceil(prom)),
-                                           (43,lambda prom: math.floor(prom)),
+        self.modificadores_promedio = dict([(41,lambda prom: self.__nota_aprobada(math.ceil(prom) + 1)),
+                                           (42,lambda prom: self.__nota_aprobada(math.ceil(prom))),
+                                           (43,lambda prom: self.__nota_aprobada(math.floor(prom))),
                                            (44,lambda prom: 2)
                                            ])
 
-    def find(self, f, seq):
+    def __nota_aprobada(self, nota):
+        if nota > 10:
+            return 10
+        elif nota < 4:
+            return 4
+        else:
+            return nota
+
+    def __find(self, f, seq):
         for item in seq:
             if f(item):
                 return item
         return None
 
-    def get_instancias_a_promediar(self):
-        a_promediar = CalculadorNotasPromedio.get_instancias_a_promediar(self)
-        a_promediar.remove(self.instancia_concepto)
-        return a_promediar
-
     def calcular_nota_entregador(self, correcciones):
-        correccion_concepto = self.find(lambda c: c.instancia == self.instancia_concepto, correcciones)
+        correccion_concepto = self.__find(lambda c: c.instancia == self.instancia_concepto, correcciones)
         if not correccion_concepto:
             raise CalculoNotaException('No se encuentra la nota de concepto esperada.')
         else:
             nota_concepto = correccion_concepto.nota
 
-        promedio = CalculadorNotasPromedio.calcular_nota_entregador(self, correcciones)
+        promedio = CalculadorPromedioEjercicios.calcular_nota_entregador(self, correcciones)
 
         try:
             return self.modificadores_promedio[nota_concepto](promedio)
