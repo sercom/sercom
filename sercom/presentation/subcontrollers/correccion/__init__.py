@@ -12,7 +12,7 @@ from turbogears import config
 from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import Correccion, Curso, Ejercicio
-from sercom.model import InstanciaExaminacion,InstanciaDeEntrega, DocenteInscripto, Entregador, Alumno
+from sercom.model import InstanciaExaminacion,InstanciaDeEntrega, AlumnoInscripto, DocenteInscripto, Entregador, Alumno
 from sercom.domain.notas import CalculadorPromedioEjerciciosConConcepto
 from sercom.domain.exceptions import AlumnoSinEntregas
 from sqlobject import *
@@ -80,8 +80,8 @@ filtro_resumen_entregas = ResumenEntregasFiltro()
 
 class CalculoCorreccionesForm(W.TableForm):
     class Fields(W.WidgetsList):
-        instancia_destino_id = W.SingleSelectField(label=_(u'Destino de Nota'), help_text=_(u'Las notas calculadas se grabarán para esta instancia.'), validator=V.Int(not_empty=True))
-        instancia_concepto_id = W.SingleSelectField(label=_(u'Nota de Concepto'), help_text=_(u'Será tomada como nota de concepto para modificar el promedio calculado.'), validator=V.Int(not_empty=True))
+        inst_destino_id = W.SingleSelectField(label=_(u'Destino de Nota'), help_text=_(u'Las notas calculadas se grabarán para esta instancia.'), validator=V.Int(not_empty=True))
+        inst_concepto_id = W.SingleSelectField(label=_(u'Nota de Concepto'), help_text=_(u'Será tomada como nota de concepto para modificar el promedio calculado.'), validator=V.Int(not_empty=True))
     fields = Fields()
 
 calculo_correcciones_form = CalculoCorreccionesForm()
@@ -191,21 +191,39 @@ class CorreccionController(BaseController, identity.SecureResource):
     @expose(template='kid:%s.templates.calculo_correcciones' % __name__)
     @paginate('records', dynamic_limit='limit_to')
     @identity.require(identity.in_any_group("JTP", "admin"))
-    def calculo_correcciones(self,instancia_destino_id=None, instancia_concepto_id=None):
+    def calculo_correcciones(self,inst_destino_id=None, inst_concepto_id=None):
         """Simula y muestra los cálculos de correcciones para una instancia destino dada"""
         curso = self.get_curso_actual()
-        if instancia_destino_id and instancia_concepto_id:
-            instancia_destino = InstanciaExaminacion.get(instancia_destino_id)
-            instancia_concepto = InstanciaExaminacion.get(instancia_concepto_id)
-            calculador = CalculadorPromedioEjerciciosConConcepto(curso, instancia_destino, instancia_concepto)
+        if inst_destino_id and inst_concepto_id:
+            inst_destino = InstanciaExaminacion.get(inst_destino_id)
+            inst_concepto = InstanciaExaminacion.get(inst_concepto_id)
+            calculador = CalculadorPromedioEjerciciosConConcepto(curso, inst_destino, inst_concepto)
             resultados = calculador.simular()
         else:
             resultados = []
         instancias_opts = [(i.id,i.longrepr()) for i in curso.instancias_examinacion_a_corregir]
-        options = dict(instancia_destino_id=instancias_opts, instancia_concepto_id=instancias_opts)
-        vfilter = dict(instancia_destino_id=instancia_destino_id, instancia_concepto_id=instancia_concepto_id)
+        options = dict(inst_destino_id=instancias_opts, inst_concepto_id=instancias_opts)
+        value = dict(inst_destino_id=inst_destino_id, inst_concepto_id=inst_concepto_id)
         return dict(records=resultados, name=name, namepl=namepl, form=calculo_correcciones_form,
-            vfilter=vfilter, options=options, limit_to=identity.current.user.paginador)
+            value=value, options=options, limit_to=identity.current.user.paginador)
+
+    @expose()
+    @identity.require(identity.in_any_group("JTP", "admin"))
+    def aplicar_calculo_correcciones(self,inst_destino_id, inst_concepto_id, entregador_id = None):
+        """Aplica el cálculo de correccion para una instancia destino dada"""
+        curso = self.get_curso_actual()
+        inst_destino = InstanciaExaminacion.get(inst_destino_id)
+        inst_concepto = InstanciaExaminacion.get(inst_concepto_id)
+        calculador = CalculadorPromedioEjerciciosConConcepto(curso, inst_destino, inst_concepto)
+        docente = identity.current.user
+
+        if entregador_id:
+            alumno_inscripto = AlumnoInscripto.get(entregador_id)
+            calculador.aplicar(docente, alumno_inscripto)
+        else:
+            calculador.aplicar_todas(docente)
+
+        raise redirect('calculo_correcciones', inst_destino_id=inst_destino_id, inst_concepto_id=inst_concepto_id)
 
     @expose()
     def get_fuentes_instancia(self, instanciaID):

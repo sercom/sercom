@@ -53,6 +53,9 @@ class CalculoNotaException (Exception):
     def __init__(self, observaciones):
         self.observaciones = observaciones
 
+class AplicacionCalculoNotaException (Exception):
+    pass
+
 class TerminoPromedio:
     def __init__(self, factor, promedio_calculado):
         self.factor = factor
@@ -63,14 +66,18 @@ class CalculadorNotas:
         self.curso = curso
         self.instancia_destino = instancia_examinacion_destino
 
-    def simular(self):
+    def simular(self, alumno_inscripto = None):
         resultados = []
         correcciones_por_entregador = dict([(e, list()) for e in self.curso.alumnos + self.curso.grupos])
         for i in self.curso.instancias_examinacion_a_corregir:
             for c in i.correcciones:
                 correcciones_por_entregador[c.entregador].append(c)
 
-        for ai in self.curso.alumnos:
+        if alumno_inscripto:
+            alumnos_inscriptos = [alumno_inscripto]
+        else:
+            alumnos_inscriptos = self.curso.alumnos
+        for ai in alumnos_inscriptos:
             correcciones = []
             for e in ai.alumno.get_entregadores(self.curso):
                 correcciones += correcciones_por_entregador[e]
@@ -85,6 +92,23 @@ class CalculadorNotas:
             resultados.append(ResultadoCalculoNota(ai, correccion_actual, nota, observaciones))
         return resultados
 
+    def aplicar_todas(self, docente):
+        resultados = self.simular()
+        for r in resultados:
+            if r.puede_ser_aplicada:
+                self.__aplicar_calculo(docente, r)
+
+    def aplicar(self, docente, alumno_inscripto):
+        resultado = self.simular(alumno_inscripto)[0]
+        if resultado.puede_ser_aplicada:
+            self.__aplicar_calculo(docente, resultado)
+        else:
+            raise AplicacionCalculoNotaException('La nota calculada para el entregador elegido no puede ser aplicada')
+
+    def __aplicar_calculo(self, docente, resultado):
+        correccion = docente.corregir(resultado.entregador, self.instancia_destino)
+        correccion.nota = resultado.nota_calculada
+        
 class CalculadorPromedioEjercicios (CalculadorNotas):
     def __init__(self, curso, instancia_examinacion_destino):
         CalculadorNotas.__init__(self, curso, instancia_examinacion_destino)

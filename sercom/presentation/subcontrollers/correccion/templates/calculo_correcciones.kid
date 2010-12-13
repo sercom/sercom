@@ -8,12 +8,26 @@ from sercom.domain.correcciones import DTOResumenEntrega
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
 <title>list</title>
+<script type="text/javascript">
+    function aplic(entregadorId){
+        if (confirm("Está seguro que desea aplicar el cálculo propuesto para el alumno?"))
+            window.location = getAplicarUrl() + "&amp;entregador_id=" + entregadorId.toString();
+    }
+    function aplicTodos(){
+        if (confirm("Está seguro que desea aplicar todos los cálculos propuestos?"))
+            window.location = getAplicarUrl();
+    }
+
+    function getAplicarUrl(){
+        return "${tg.url('/correccion/aplicar_calculo_correcciones?inst_destino_id=%s&amp;inst_concepto_id=%s' % (value['inst_destino_id'],value['inst_concepto_id']))}";   
+    }
+</script>
 </head>
 <body>
 
 <h1>Cálculo de Correcciones</h1>
 
-<div py:replace="form(value=vfilter, options=options, action=tg.url('/correccion/calculo_correcciones'), submit_text=_(u'Simular'))">Simular</div>
+<div py:replace="form(value=value, options=options, action=tg.url('/correccion/calculo_correcciones'), submit_text=_(u'Simular'))">Simular</div>
 
 
  <table class="list">
@@ -24,7 +38,7 @@ from sercom.domain.correcciones import DTOResumenEntrega
         <th>Nota Simulada</th>
         <th>Observaciones</th>
         <th>
- <a py:if="records" href="${tg.url('/correccion/aplicar_calculo_correcciones')}">Aplicar Todas</a>
+ <a py:if="records" href="#" onclick="aplicTodos()">Aplicar Todos</a>
 </th>
     </tr>
     <tr py:for="record in records">
@@ -37,7 +51,7 @@ from sercom.domain.correcciones import DTOResumenEntrega
         <td><span py:replace="record.nota_calculada">nota simulada</span></td>
         <td><span py:replace="record.observaciones">observaciones</span></td>
         <td nowrap="true">
-            <a py:if="record.puede_ser_aplicada" href="${tg.url('/correccion/aplicar_calculo_correcciones?entregadorId=%d' % record.entregador.id)}">Aplicar Alumno</a>
+            <a py:if="record.puede_ser_aplicada" href="#" onclick="aplic(${record.entregador.id})">Aplicar Alumno</a>
        </td>
     </tr>
 </table>
