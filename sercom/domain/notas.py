@@ -184,20 +184,16 @@ class CalculadorPromedioEjerciciosConConcepto (CalculadorPromedioEjercicios):
         else:
             return nota
 
-    def __find(self, f, seq):
-        for item in seq:
-            if f(item):
-                return item
-        return None
+    def __find_correccion_concepto(self, correcciones):
+        for c in correcciones:
+            if c.instancia == self.instancia_concepto:
+                return c
+        raise CalculoNotaException('No se encuentra la nota de concepto esperada.')
 
     def calcular_nota_entregador(self, correcciones):
-        correccion_concepto = self.__find(lambda c: c.instancia == self.instancia_concepto, correcciones)
-        if not correccion_concepto:
-            raise CalculoNotaException('No se encuentra la nota de concepto esperada.')
-        else:
-            nota_concepto = correccion_concepto.nota
-
         promedio = CalculadorPromedioEjercicios.calcular_nota_entregador(self, correcciones)
+
+        nota_concepto = self.__find_correccion_concepto(correcciones).nota
 
         try:
             return self.modificadores_promedio[nota_concepto](promedio)
