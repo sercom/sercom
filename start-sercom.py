@@ -20,7 +20,7 @@ import sys
 if len(sys.argv) > 1:
     update_config(configfile=sys.argv[1],
         modulename="sercom.config")
-elif exists(join(dirname(__file__), "setup.py")):
+elif exists(join(dirname(__file__), "dev.cfg")):
     update_config(configfile="dev.cfg",modulename="sercom.config")
 else:
     update_config(configfile="prod.cfg",modulename="sercom.config")
