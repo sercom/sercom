@@ -1,7 +1,7 @@
 from turbogears import identity
 from sercom.model import Permiso
 
-class IdentityRequireHasAny(identity.Predicate, identity.IdentityPredicateHelper):
+class IdentityRequireHasAny(identity.Predicate, identity.conditions.IdentityPredicateHelper):
     error_message = "Ninguno de los permisos requiridos fue encontrado"
 
     def __init__(self, *lista_permisos):
@@ -15,7 +15,7 @@ class IdentityRequireHasAny(identity.Predicate, identity.IdentityPredicateHelper
         self.append_error_message(errors)
         return False
 
-class IdentityRequireAnonymous(identity.Predicate, identity.IdentityPredicateHelper):
+class IdentityRequireAnonymous(identity.Predicate, identity.conditions.IdentityPredicateHelper):
 	def eval_with_object(self, identity, errors = None):
 		return True
 

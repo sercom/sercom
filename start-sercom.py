@@ -1,11 +1,11 @@
-#!/usr/bin/python
+#!/usr/share/turbogears/bin/python
 # vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker :
 
 import locale
 locale.setlocale(locale.LC_ALL, '')
 
 import pkg_resources
-pkg_resources.require("TurboGears")
+pkg_resources.require("TurboGears>=1.5b2")
 
 from turbogears import update_config, start_server
 import cherrypy

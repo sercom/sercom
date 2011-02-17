@@ -190,7 +190,7 @@ class Root(controllers.RootController, BaseController):
     def index(self):
         raise redirect(url('/dashboard'))
 
-    @expose(template='.presentation.templates.welcome')
+    @expose(template='sercom.presentation.templates.welcome')
     @identity.require(identity.not_anonymous())
     def dashboard(self):
         q_score = None
@@ -242,7 +242,7 @@ class Root(controllers.RootController, BaseController):
                     respuestas_pendientes = respuestas_pendientes, q_score = q_score, usage=usage, age=age, q_current=current,
                     feed_entries = feed_entries) 
 
-    @expose(template='.presentation.templates.user_panel')
+    @expose(template='kid:sercom.presentation.templates.user_panel')
     def user_panel(self, id=None, tg_errors=None, **formdata):
 
         if not id:
@@ -268,7 +268,7 @@ class Root(controllers.RootController, BaseController):
 
     @validate(form=user_panel_form)
     @error_handler(user_panel)
-    @expose(template='.presentation.templates.user_panel')
+    @expose(template='kid:sercom.presentation.templates.user_panel')
     def user_update(self, id=None, **form_data):
 
         if not id:
@@ -296,14 +296,14 @@ class Root(controllers.RootController, BaseController):
             raise redirect('/dashboard')
 
 
-    @expose(template='.presentation.templates.recover')
+    @expose(template='kid:sercom.presentation.templates.recover')
     def recover(self, tg_errors=None, **formdata):
 
         if tg_errors:
             flash(_(u'Debe ingresar su dirección de mail dos veces, para asegurarse que está correctamente escrita.'))
 
         now = datetime.now()
-        previous_url = request.path
+        previous_url = request.path_info
         
         fields = list(RecoverForm.fields)
 
@@ -315,7 +315,7 @@ class Root(controllers.RootController, BaseController):
 
     @validate(form=recover_form)
     @error_handler(recover)
-    @expose(template='.presentation.templates.recover')
+    @expose(template='kid:sercom.presentation.templates.recover')
     def recover_password(self, **form_data):
         (msg, redir, data) = self._recover_password(form_data)
         flash(msg)
@@ -384,12 +384,12 @@ class Root(controllers.RootController, BaseController):
 
 
 
-    @expose(template='.presentation.templates.login')
+    @expose(template='sercom.presentation.templates.login')
     def login(self, redirect_to=None, tg_errors=None, *args,
             **kw):
         if not redirect_to:
-            if request.path != '/login':
-                redirect_to = request.path
+            if request.path_info != '/login':
+                redirect_to = request.path_info
             else:
                 redirect_to = '/dashboard'
 
@@ -430,7 +430,7 @@ class Root(controllers.RootController, BaseController):
         identity.current.logout()
         raise redirect(url('/'))
 
-    @expose(template='.presentation.templates.seleccion_curso')
+    @expose(template='sercom.presentation.templates.seleccion_curso')
     @identity.require(identity.not_anonymous())
     def seleccion_curso(self, **form_data):
         """Permite seleccionar el curso actual"""
@@ -448,12 +448,12 @@ class Root(controllers.RootController, BaseController):
         self.set_curso_actual(curso)
         raise redirect(url('/'))
 
-    @expose(template='.presentation.templates.register')
+    @expose(template='sercom.presentation.templates.register')
     def register(self, **form_data):
         """Registrar un nuevo alumno"""
         return dict(form=register_form, form_data=form_data)
 
-    @expose(template='.presentation.templates.upgrade_registration')
+    @expose(template='sercom.presentation.templates.upgrade_registration')
     def upgrade_registration(self, **form_data):
         """Registrar un alumno existente en un nuevo curso"""
         return dict(form=upgrade_registration_form, form_data=form_data)
