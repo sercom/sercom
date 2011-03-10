@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/share/turbogears/bin/python
 # vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker :
 
 import sys
