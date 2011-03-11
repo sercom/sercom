@@ -90,15 +90,11 @@ class RespuestaController(BaseController):
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, pregunta_id, id, **kw):
         """Edit record in model"""
-        class POD(dict):
-            def __getattr__(self, attrname):
-                return self[attrname]
         respuesta = validate_get_for_edit(id)
-	r = POD(respuesta.sqlmeta.asDict())
         attrs = dict()
         if not identity.current.user.has_any_permiso(Permiso.examen.respuesta.revisar):
             attrs = dict(revisada={'disabled':'disabled'})
-	return dict(name=name, namepl=namepl, record=r, form=form, attrs = attrs)
+	return dict(name=name, namepl=namepl, record=respuesta, form=form, attrs = attrs)
 
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self, pregunta_id, id, **kw):

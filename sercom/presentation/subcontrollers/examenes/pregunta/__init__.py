@@ -93,13 +93,9 @@ class PreguntaExamenController(BaseController):
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
-        class POD(dict):
-            def __getattr__(self, attrname):
-                return self[attrname]
-        record_object = validate_get(id)
-	r = POD(record_object.sqlmeta.asDict())
-	r['fecha_examen'] = record_object.examen.fecha
-	return dict(name=name, namepl=namepl, record=r, form=form)
+        pregunta = validate_get(id)
+	pregunta.fecha_examen = pregunta.examen.fecha
+	return dict(name=name, namepl=namepl, record=pregunta, form=form)
 
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self,id, **kw):

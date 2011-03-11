@@ -86,11 +86,8 @@ class TemaPreguntaController(BaseController, identity.SecureResource):
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
-        class POD(dict):
-            def __getattr__(self, attrname):
-                return self[attrname]
-        r = POD(validate_get(id).sqlmeta.asDict())
-        return dict(name=name, namepl=namepl, record=r, form=form)
+        tema = validate_get(id)
+        return dict(name=name, namepl=namepl, record=tema, form=form)
 
     @expose(template='kid:%s.templates.show' % __name__)
     def show(self,id, **kw):

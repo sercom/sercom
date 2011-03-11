@@ -141,11 +141,8 @@ class ExamenFinalController(BaseController, identity.SecureResource):
     @expose(template='kid:%s.templates.edit' % __name__)
     def edit(self, id, **kw):
         """Edit record in model"""
-        class POD(dict):
-            def __getattr__(self, attrname):
-                return self[attrname]
         examen = validate_get(id)
-        r = POD(examen.sqlmeta.asDict())
+        r = {'id': examen.id, 'anio': examen.anio, 'cuatrimestre': examen.cuatrimestre, 'oportunidad': examen.oportunidad, 'fecha': examen.fecha}
         for pregunta in examen.preguntas:
         	r[Mascaras.TEXTO % pregunta.numero] = pregunta.texto
         	r[Mascaras.TIPO % pregunta.numero] = pregunta.tipoID

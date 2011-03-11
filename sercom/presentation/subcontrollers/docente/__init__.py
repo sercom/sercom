@@ -199,14 +199,6 @@ class DocenteController(controllers.Controller, identity.SecureResource):
             flash(_(u'Solo podes editar tus propios datos.'))
             raise redirect('../list')
 
-#        class POD(dict):
-#            def __getattr__(self, attrname):
-#                return self[attrname]
-#        r = POD(validate_get(id).sqlmeta.asDict())
-#        print r # DEBUG
-#        print type(r) # DEBUG
-#        return dict(name=name, namepl=namepl, record=r, form=form)
-
     @validate(form=form)
     @error_handler(edit)
     @expose()
