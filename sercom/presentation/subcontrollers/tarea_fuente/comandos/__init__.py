@@ -13,6 +13,7 @@ from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import TareaFuente, ComandoFuente, Comando
 from sqlobject import *
+from sercom.widgets import FocusJSSource
 #}}}
 
 #{{{ Configuración
@@ -54,7 +55,7 @@ class ComandoFuenteForm(W.TableForm):
         archivos_guardar = W.TextField(label=_(u'Archivos a Guardar'))
         activo = W.CheckBox(label=_(u'Activo'), default=1, validator=V.Bool(if_empty=1))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_orden');")]
+    javascript = [FocusJSSource('form_orden')]
 
 form = ComandoFuenteForm()
 #}}}

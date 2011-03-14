@@ -23,6 +23,7 @@ from sercom.presentation.controllers import BaseController
 import os, shutil, subprocess
 from subprocess import Popen
 from subprocess import PIPE
+from sercom.widgets import FocusJSSource
 #}}}
 
 #{{{ Configuración
@@ -74,7 +75,6 @@ ajax = """
             d.addCallbacks(mostrarEntregadores, err);
         }
     }
-    MochiKit.DOM.focusOnLoad('form_instancia');
 """
 
 #}}}
@@ -87,7 +87,7 @@ class ForceEntregaForm(W.TableForm):
         entregador = W.SingleSelectField(label=_(u'Entregador'), validator=V.Int(not_empty=True))
         archivo = W.FileField(label=_(u'Archivo'), help_text=_(u'Archivo en formato ZIP con la entrega'))
     fields = Fields()
-    javascript = [W.JSSource(ajax)]
+    javascript = [FocusJSSource('form_instancia'), W.JSSource(ajax)]
 
 form = ForceEntregaForm()
 

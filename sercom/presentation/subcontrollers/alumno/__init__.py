@@ -13,6 +13,7 @@ from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import Alumno, Rol
 from sqlobject import *
+from sercom.widgets import FocusJSSource
 #}}}
 
 #{{{ Configuración
@@ -72,7 +73,7 @@ class AlumnoForm(W.TableForm):
             #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
             validator=V.Bool(if_empty=1))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_padron');")]
+    javascript = [FocusJSSource('form_padron')]
 
 form = AlumnoForm()
 #}}}

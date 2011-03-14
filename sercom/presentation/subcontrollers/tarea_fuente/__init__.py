@@ -14,6 +14,7 @@ from sercom.presentation.subcontrollers import validate as val
 from sercom.model import TareaFuente 
 from sqlobject import *
 from comandos import ComandoFuenteController
+from sercom.widgets import FocusJSSource
 #}}}
 
 #{{{ Configuración
@@ -40,7 +41,7 @@ class TareaFuenteForm(W.TableForm):
         descripcion = W.TextField(label=_(u'Descripcion'),
             validator=V.UnicodeString(not_empty=False, max=255, strip=True))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');")]
+    javascript = [FocusJSSource('form_nombre')]
 
 form = TareaFuenteForm()
 #}}}

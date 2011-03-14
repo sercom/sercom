@@ -133,7 +133,7 @@ class GrupoForm(W.TableForm):
         tutores = W.MultipleSelectField(label=_(u'Tutores'), validator=V.Int)
 
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');"), W.JSSource(ajax)]
+    javascript = [FocusJSSource('form_nombre'), W.JSSource(ajax)]
     form_attrs = dict(onsubmit='return doSubmit()')
 
 form = GrupoForm()
@@ -282,7 +282,7 @@ class GrupoAdminForm(W.TableForm):
         tutoresB = W.MultipleSelectField(label=_(u'Tutores B'), validator = V.Int(not_empty=True))
 
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('listaGrupoA');"), W.JSSource(ajaxadmin)]
+    javascript = [FocusJSSource('listaGrupoA'), W.JSSource(ajaxadmin)]
     form_attrs = dict(onsubmit='return doSubmit();')
 
 formadmin = GrupoAdminForm()

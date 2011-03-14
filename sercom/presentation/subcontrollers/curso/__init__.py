@@ -157,8 +157,7 @@ class CursoForm(W.TableForm):
                 on_add="alumnos_agregar_a_la_lista")
 
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('anio');"),
-                  W.JSSource(ajax)]
+    javascript = [W.JSSource(ajax)]
     form_attrs = dict(onsubmit='return doSubmit();')
 form = CursoForm()
 #}}}

@@ -206,7 +206,7 @@ class GrupoAdminForm(W.TableForm):
         tutoresB = W.MultipleSelectField(label=_(u'Tutores B'), options = get_docentes, validator = V.Int(not_empty=True))
 
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('curso');"), W.JSSource(ajax)]
+    javascript = [FocusJSSource('form_curso'), W.JSSource(ajax)]
     form_attrs = dict(onsubmit='return onsubmit()')
 
 form = GrupoAdminForm()

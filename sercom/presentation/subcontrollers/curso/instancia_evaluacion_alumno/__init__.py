@@ -12,6 +12,7 @@ from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import Curso, Entregador, InstanciaDeEvaluacionAlumno
 from cherrypy import request, response
+from sercom.widgets import FocusJSSource
 #}}}
 
 #{{{ Configuración
@@ -49,7 +50,7 @@ class InstanciaEvaluacionAlumnoForm(W.TableForm):
         activo = W.CheckBox(label=_(u"Activo?"), attrs=dict(checked='checked'))
         observaciones = W.TextArea(rows="5", cols="40", validator=V.UnicodeString(if_empty=u''))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_numero');")]
+    javascript = [FocusJSSource('form_numero')]
 
 form = InstanciaEvaluacionAlumnoForm()
 #}}}

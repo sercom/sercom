@@ -2,6 +2,13 @@
 #
 
 from turbogears import widgets
+
+class FocusJSSource(widgets.JSSource):
+    def __init__(self, element_id):
+        widgets.JSSource.__init__(self, "MochiKit.DOM.focusOnLoad('%s');" % element_id, 
+            location = widgets.js_location.bodytop)
+
+
 class SeparatorField(widgets.Label):
     label =''
     template = '<hr/>' 

@@ -17,6 +17,7 @@ from sqlobject import SQLObjectNotFound
 from formencode import Invalid
 from datetime import datetime, timedelta
 from sercom.presentation.controllers import BaseController
+from sercom.widgets import *
 from turbogears import config
 from sercom.presentation.subcontrollers import validate as val
 
@@ -63,7 +64,7 @@ class LoginForm(W.TableForm):
             validator=V.NotEmpty())
         forward_url = W.HiddenField()
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_login_user');")]
+    javascript = [FocusJSSource('form_login_user')]
     submit = W.SubmitButton(name='login_submit')
     submit_text = _(u'Ingresar')
 
@@ -76,7 +77,7 @@ class RecoverForm(W.TableForm):
         chained_validators = [V.FieldsMatch('rec_address','rec_address_v')]
 
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_recover');")]
+    javascript = [FocusJSSource('form_recover')]
     submit = W.SubmitButton(name='recover_submit')
     submit_text = _(u'Recuperar')
 
@@ -106,7 +107,7 @@ class UserPanelForm(W.TableForm):
             help_text=_(u'Cantidad de ítems por página de listado. (10..250)'),
             validator=V.Int(min=10, max=250))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_usuario');")]
+    javascript = [FocusJSSource('form_usuario')]
     validator = V.Schema(chained_validators=[
                             V.FieldsMatch('pwd_new', 'pwd_confirm') ])
 
@@ -118,7 +119,7 @@ class SeleccionCursoForm(W.TableForm):
             options=get_cursos_de_usuario,
             validator=SeleccionCursoValidator)
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_curso');")]
+    javascript = [FocusJSSource('form_curso')]
 
 seleccion_curso_form = SeleccionCursoForm()
 #}}}
@@ -158,7 +159,7 @@ class RegisterForm(W.TableForm):
             #help_text=_(u'Observaciones.'),
             validator=V.UnicodeString(not_empty=False, strip=True))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_padron');")]
+    javascript = [FocusJSSource('form_padron')]
     validator = V.Schema(chained_validators=[
                          V.FieldsMatch('password', 'password_confirm') ])
 
@@ -179,7 +180,7 @@ class UpgradeRegistrationForm(W.TableForm):
             attrs=dict(maxlength=255),
             validator=V.UnicodeString(min=5, max=255))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_padron');")]
+    javascript = [FocusJSSource('form_padron')]
 
 upgrade_registration_form = UpgradeRegistrationForm()
 #}}}

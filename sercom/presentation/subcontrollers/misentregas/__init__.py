@@ -19,6 +19,7 @@ from datetime import datetime
 from sercom.presentation.utils.downloader import *
 from sercom.presentation.controllers import BaseController
 import os, shutil, subprocess
+from sercom.widgets import FocusJSSource
 #}}}
 
 #{{{ Configuración
@@ -97,7 +98,6 @@ ajax = """
         }
     }
     MochiKit.DOM.addLoadEvent(clearInstanciasYGrupos);
-    MochiKit.DOM.focusOnLoad('form_ejercicio');
 """
 #{{{ Formulario
 class EntregaForm(W.TableForm):
@@ -108,7 +108,7 @@ class EntregaForm(W.TableForm):
         grupo = W.SingleSelectField(label=_(u'Grupo'), validator=V.Int())
         archivo = W.FileField(label=_(u'Archivo'), help_text=_(u'Archivo en formato ZIP con tu entrega'))
     fields = Fields()
-    javascript = [W.JSSource(ajax)]
+    javascript = [FocusJSSource('form_ejercicio'), W.JSSource(ajax)]
 
 form = EntregaForm()
 

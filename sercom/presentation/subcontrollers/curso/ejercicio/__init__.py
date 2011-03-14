@@ -13,6 +13,7 @@ from sercom.presentation.subcontrollers import validate as val
 from sercom.model import Ejercicio, Curso, Enunciado
 from cherrypy import request, response
 from instancia import InstanciaController
+from sercom.widgets import FocusJSSource
 #}}}
 
 #{{{ Configuración
@@ -66,7 +67,7 @@ class EjercicioForm(W.TableForm):
             validator=V.Int(not_empty=True))
         grupal = W.CheckBox(name='grupal', label=_(u"Grupal?"), validator=V.Bool(if_empty=0), default=0)
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_numero');")]
+    javascript = [FocusJSSource('form_numero')]
 
 form = EjercicioForm()
 #}}}

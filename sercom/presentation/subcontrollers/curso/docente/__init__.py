@@ -12,6 +12,7 @@ from turbogears import config
 from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import DocenteInscripto, Curso, Docente
+from sercom.widgets import FocusJSSource
 #}}}
 
 #{{{ Configuración
@@ -51,7 +52,7 @@ class DocenteInscriptoForm(W.TableForm):
             validator=V.UnicodeString(not_empty=False, strip=True))
 
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('curso');")]
+    javascript = [FocusJSSource('form_curso')]
 form = DocenteInscriptoForm()
 #}}}
 

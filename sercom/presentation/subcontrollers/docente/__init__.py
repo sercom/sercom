@@ -12,6 +12,7 @@ from turbogears import config
 from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import Docente, Rol
+from sercom.widgets import FocusJSSource
 #}}}
 
 #{{{ Configuración
@@ -84,7 +85,7 @@ class DocenteForm(W.TableForm):
             #help_text=_(u'Si no está activo no puede ingresar al sistema.'),
             validator=V.Bool(if_empty=1))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_usuario');")]
+    javascript = [FocusJSSource('form_usuario')]
     validator = V.Schema(chained_validators=[
                             V.FieldsMatch('pwd_new', 'pwd_confirm') ])
 

@@ -13,7 +13,7 @@ from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import AlumnoInscripto, Correccion, Curso, Ejercicio, InstanciaDeEntrega
 from sqlobject import *
-
+from sercom.widgets import FocusJSSource
 #}}}
 
 #{{{ Configuración
@@ -38,7 +38,7 @@ class AlumnoInscriptoForm(W.TableForm):
         nota_final = W.TextField(label=_(u'Nota Final'), validator=V.Number(not_empty=True, strip=True))
         nota_libreta = W.TextField(label=_(u'Nota Libreta'), validator=V.Number(not_empty=True, strip=True))
     fields = Fields()
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nota_practica');")]
+    javascript = [FocusJSSource('form_nota_practica')]
 
 def get_cursos():
     return [(0, u'---')] + [(c.id, c) for c in Curso.select()]

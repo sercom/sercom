@@ -118,7 +118,7 @@ class EnunciadoForm(W.TableForm):
             validator=V.Int(not_empty=True))
     fields = Fields()
     form_attrs = dict(onsubmit='return doSubmit();')
-    javascript = [W.JSSource("MochiKit.DOM.focusOnLoad('form_nombre');"), W.JSSource(ajax)]
+    javascript = [FocusJSSource('form_nombre'), W.JSSource(ajax)]
 
 form = EnunciadoForm()
 #}}}
