@@ -5,6 +5,7 @@ from turbogears import widgets
 class SeparatorField(widgets.Label):
     label =''
     template = '<hr/>' 
+    engine_name = 'kid'
 
 class CustomTextField(widgets.TextField):
     """Un input con un div al lado para ponerle info"""
@@ -21,6 +22,7 @@ class CustomTextField(widgets.TextField):
          <span id="${field_id}_info" />
         </span>
 '''
+    engine_name = 'kid'
 
 MultiSelectAjax = '''
 
@@ -115,6 +117,7 @@ class AjaxMultiSelect(widgets.MultipleSelectField):
     '''
     javascript = [widgets.JSSource(MultiSelectAjax)]
     on_add = "alert('Not defined action');"
+    engine_name = 'kid'
 
     def __init__(self, **kw):
         self.params.append('on_add')
@@ -186,6 +189,7 @@ class AjaxDosListasSelect(widgets.MultipleSelectField):
     title_from = ""
     title_to = ""
     move_signal = ""
+    engine_name = 'kid'
 
     def __init__(self, **kw):
         self.params.append('title_from')
