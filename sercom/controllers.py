@@ -131,9 +131,12 @@ class RegisterForm(W.TableForm):
         padron = W.TextField(label=_(u'Padrón'),
             help_text=_(u'Requerido.'),
             validator=V.UnicodeString(min=3, max=10, strip=True))
-        nombre = W.TextField(label=_(u'Nombre'),
+        apellido = W.TextField(label=_(u'Apellido'),
             help_text=_(u'Requerido.'),
-            validator=V.UnicodeString(min=5, max=255, strip=True))
+            validator=V.UnicodeString(min=1, max=100, strip=True))
+        nombres = W.TextField(label=_(u'Nombres'),
+            help_text=_(u'Requerido.'),
+            validator=V.UnicodeString(min=1, max=155, strip=True))
         curso = W.SingleSelectField(label=_(u'Curso'),
             options=get_cursos_activos,
             validator=RegisterCursoValidator)
@@ -145,18 +148,14 @@ class RegisterForm(W.TableForm):
             attrs=dict(maxlength=255),
             validator=V.UnicodeString(min=5, max=255))
         email = W.TextField(label=_(u'E-Mail'),
-            #help_text=_(u'Dirección de e-mail.'),
             validator=V.All(
                 V.Email(not_empty=False, resolve_domain=True),
                 V.String(not_empty=False, max=255, strip=True,
                         encoding='ascii')))
         telefono = W.TextField(label=_(u'Teléfono'),
-            #help_text=_(u'Texto libre para teléfono, se puede incluir '
-            #    'horarios o varias entradas.'),
             validator=V.UnicodeString(not_empty=False, min=7, max=255,
                 strip=True))
         observaciones = W.TextArea(label=_(u'Observaciones'),
-            #help_text=_(u'Observaciones.'),
             validator=V.UnicodeString(not_empty=False, strip=True))
     fields = Fields()
     javascript = [FocusJSSource('form_padron')]
@@ -467,6 +466,9 @@ class Root(controllers.RootController, BaseController):
 	if not curso.inscripcion_abierta:
           return (u'La inscripcion esta cerrada', '/', dict())
         try:
+            form_data['nombre'] = form_data['nombres'] + ' ' + form_data['apellido']
+            del form_data['apellido']
+            del form_data['nombres']
             alumno = Alumno(**form_data)
             # TODO: rol debería ser configurable
             alumno.add_rol(Rol.by_nombre('alumno'))
