@@ -211,7 +211,6 @@ class CursoController(controllers.Controller, identity.SecureResource):
     @expose()
     def create(self, **kw):
         """Save or create record to model"""
-        print "--KW--"
         docentes = kw.get('docentes_to', [])
         alumnos = kw.get('alumnos', [])
         del(kw['docentes_to'])
@@ -245,15 +244,16 @@ class CursoController(controllers.Controller, identity.SecureResource):
         params = dict([(k,v) for (k,v) in kw.iteritems() if k in Curso.sqlmeta.columns.keys()])
         r = validate_set(id, params)
 
-        docentes = [a for a in kw.get('docentes_to', [])]
-        alumnos = [a for a in kw.get('alumnos', [])]
+        docentes = [int(a) for a in kw.get('docentes_to', [])]
+        alumnos = [int(a) for a in kw.get('alumnos', [])]
         alumnos_inscriptos = AlumnoInscripto.selectBy(curso=id)
         """ levanto los doncentes del curso para ver cuales tengo que agregar """
         docentes_inscriptos = DocenteInscripto.selectBy(curso=id)
 
         """ elimino a los docentes que no fueron seleccionados """
         for di in docentes_inscriptos:
-            if di.id not in docentes:
+            if di.docenteID not in docentes:
+
                 r.remove_docente(di.docente)
 
         """ Agrego la nueva seleccion """
@@ -264,10 +264,10 @@ class CursoController(controllers.Controller, identity.SecureResource):
                 pass
 
         """ Verifico que los alumnos no esten ya inscriptos """
-        for a in alumnos_inscriptos:
-            if (a.id not in alumnos):
+        for ai in alumnos_inscriptos:
+            if (ai.alumnoID not in alumnos):
                 try:
-                    r.remove_alumno(a.alumno)
+                    r.remove_alumno(ai.alumno)
                 except:
                     pass
         for a in alumnos:
