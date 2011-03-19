@@ -3,6 +3,11 @@
 
 from turbogears import widgets
 
+class LoadEventJSSource(widgets.JSSource):
+    def __init__(self, onload_callback):
+        widgets.JSSource.__init__(self, "MochiKit.DOM.addLoadEvent(%s);" % onload_callback,
+            location = widgets.js_location.bodytop)
+
 class FocusJSSource(widgets.JSSource):
     def __init__(self, element_id):
         widgets.JSSource.__init__(self, "MochiKit.DOM.focusOnLoad('%s');" % element_id, 
