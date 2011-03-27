@@ -63,16 +63,18 @@ form = ComandoFuenteForm()
 #{{{ Controlador
 class ComandoFuenteController(controllers.Controller, identity.SecureResource):
     """Basic model admin interface"""
-    require = identity.has_permission('admin')
+    require = identity.in_any_group('admin','JTP','redactor', 'alumno')
 
     @expose(template='kid:%s.templates.list' % __name__)
     @paginate('records', limit=config.get('items_por_pagina'))
+    @identity.require(identity.has_permission('admin'))
     def list(self, tareaID):
         """List records in model"""
         r = cls.select(cls.q.tareaID == tareaID)
         return dict(records=r, name=name, tareaID=int(tareaID),namepl=namepl)
 
     @expose(template='kid:%s.templates.new' % __name__)
+    @identity.require(identity.has_permission('admin'))
     def new(self, tareaID,**kw):
         """Create new records in model"""
         form.fields[0].attrs['value'] = tareaID
@@ -81,6 +83,7 @@ class ComandoFuenteController(controllers.Controller, identity.SecureResource):
     @validate(form=form)
     @error_handler(new)
     @expose()
+    @identity.require(identity.has_permission('admin'))
     def create(self, **kw):
         """Save or create record to model"""
         t = TareaFuente.get(kw['tareaID'])
@@ -104,6 +107,7 @@ class ComandoFuenteController(controllers.Controller, identity.SecureResource):
         raise redirect('list/%d' % t.id)
 
     @expose(template='kid:%s.templates.edit' % __name__)
+    @identity.require(identity.has_permission('admin'))
     def edit(self, id, **kw):
         """Edit record in model"""
         r = validate_get(id)
@@ -113,6 +117,7 @@ class ComandoFuenteController(controllers.Controller, identity.SecureResource):
     @validate(form=form)
     @error_handler(edit)
     @expose()
+    @identity.require(identity.has_permission('admin'))
     def update(self, id, **kw):
         """Save or create record to model"""
         orden = kw['orden']
@@ -141,6 +146,7 @@ class ComandoFuenteController(controllers.Controller, identity.SecureResource):
         return dict(name=name, namepl=namepl, record=r)
 
     @expose()
+    @identity.require(identity.has_permission('admin'))
     def delete(self, id):
         """Destroy record in model"""
         r = validate_get(id)
@@ -163,4 +169,3 @@ class ComandoFuenteController(controllers.Controller, identity.SecureResource):
             raise NotFound
         return ret
 #}}}
-
