@@ -8,6 +8,7 @@
 <body>
 
 <h1>Crear Nueva <span py:replace="name">Objeto</span></h1>
+<p>Si aún no lo hizo le recomendamos leer detenidamente la <a href="http://7542.fi.uba.ar/administracion/entrega/">guía de entrega de trabajos</a> de la cátedra.</p>
 <p py:replace="form(action=tg.url('/mis_entregas/create'), options=options, value=values, submit_text=_('¡Entregar!'))">Formulario</p>
 <p>Acerca del archivo entregable:
   <ul>
@@ -21,7 +22,6 @@
     <li>No debe incluir Makefile, script de compilación o similar salvo indicación en el enunciado.</li>
     <li>No debe incluir estructura de carpetas. Los archivos fuente deben encontrarse en la raíz del comprimido.</li>
   </ul>
-    Nota: Si aún no lo hizo le recomendamos leer detenidamente la <a href="http://7542.fi.uba.ar/administracion/entrega/">guía de entrega de trabajos</a> de la cátedra.
 </p>
 <br/><br/>
 <a href="${tg.url('/mis_entregas/list')}">Cancelar</a>
