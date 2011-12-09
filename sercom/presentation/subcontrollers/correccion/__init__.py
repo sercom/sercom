@@ -96,11 +96,25 @@ class CorreccionController(BaseController, identity.SecureResource):
     @expose()
     def default(self, tg_errors=None):
         """handle non exist urls"""
-        raise redirect('mis_correcciones')
+        raise redirect('statistics')
 
     @expose()
     def index(self):
-        raise redirect('mis_correcciones')
+        raise redirect('statistics')
+
+    @expose(template='kid:%s.templates.statistics' % __name__)
+    def statistics(self, **kw):
+        """Crea el formulario de estadisticas sobre correcciones"""
+        curso = self.get_curso_actual()
+        promedio_por_instancia = []
+        aprobados_por_instancia = []
+        for e in curso.ejercicios:
+            for i in e.instancias:
+              promedio = i.get_promedio_correcciones()
+              promedio_por_instancia += [(i.shortrepr(), promedio or 0.0)]
+              aprobados_por_instancia += [(i.shortrepr(), i.cant_aprobados)]
+        return dict(promedio_por_instancia = promedio_por_instancia, 
+                    aprobados_por_instancia = aprobados_por_instancia)
 
     @expose(template='kid:%s.templates.mis_correcciones' % __name__)
     @paginate('records', limit=config.get('items_por_pagina'), dynamic_limit='limit_to')

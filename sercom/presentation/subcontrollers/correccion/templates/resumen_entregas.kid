@@ -7,12 +7,13 @@ from sercom.domain.correcciones import DTOResumenEntrega
     py:extends="'../../../templates/master.kid'">
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" py:replace="''"/>
-<title>list</title>
+<title>Resumen de Entregas</title>
 </head>
 <body>
 
 
-<a href="${tg.url('/correccion/mis_correcciones')}">Mis correcciones</a>
+<a href="${tg.url('/correccion/statistics')}">Estadísticas</a>
+| <a href="${tg.url('/correccion/mis_correcciones')}">Mis correcciones</a>
 | Resumen de Entregas
 | <a href="${tg.url('/correccion/resumen_por_alumno')}">Resumen por Alumno</a>
 

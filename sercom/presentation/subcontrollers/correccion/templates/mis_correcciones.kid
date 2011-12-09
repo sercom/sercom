@@ -8,8 +8,9 @@
 </head>
 <body>
 
-Mis Correcciones
-| <a href="${tg.url('/correccion/resumen_entregas')}">Resumen entregas</a>
+<a href="${tg.url('/correccion/statistics')}">Estadísticas</a>
+| Mis Correcciones
+| <a href="${tg.url('/correccion/resumen_entregas')}">Resumen Entregas</a>
 | <a href="${tg.url('/correccion/resumen_por_alumno')}">Resumen por Alumno</a>
 
 

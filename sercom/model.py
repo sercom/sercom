@@ -995,7 +995,7 @@ class Ejercicio(SQLObject): #{{{
         return entregadores
 
     def fue_aprobado(self, correcciones):
-        de_ejercicio_actual = filter(lambda c: c.nota >= 4 and c.instancia.de_ejercicio(self), correcciones)
+        de_ejercicio_actual = filter(lambda c: c.aprobada and c.instancia.de_ejercicio(self), correcciones)
         return len(de_ejercicio_actual) > 0
 
     def notas_a_promediar(self, correcciones):
@@ -1011,7 +1011,7 @@ class Ejercicio(SQLObject): #{{{
                 notas.append(3)
             else:
                 notas.append(correccion.nota)
-                if correccion.nota > 4:
+                if correccion.aprobada:
                     aprobado_encontrado = True
             index = index + 1
         return notas
@@ -1053,8 +1053,18 @@ class InstanciaExaminacion(InheritableSQLObject): #{{{
         now = DateTimeCol.now()
         return self.activo and self.inicio <= now and self.fin >= now
 
+    def _get_cant_aprobados(self):
+        return len([c for c in self.correcciones if c.aprobada])
+
     def get_posibles_correctores(self):
         return self.curso.docentes
+
+    def get_promedio_correcciones(self):
+        notas = [c.nota for c in self.correcciones if c.nota]
+        if len(notas) == 0:
+            return None
+        else:
+            return sum(notas) / len(notas)
 
  #}}}
 
@@ -1584,6 +1594,9 @@ class Correccion(SQLObject): #{{{
         if not self.corrector:
             return '%s' % srepr(self.entrega)
         return '%s,%s' % (srepr(self.entrega), srepr(self.corrector))
+
+    def _get_aprobada(self):
+        return self.nota >= 4
 #}}}
 
 class ComandoEjecutado(Ejecucion): #{{{
