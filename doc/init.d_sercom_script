@@ -43,6 +43,9 @@ do_start()
 {
         # ULIMIT (lele)
         ulimit -v 393216
+	
+	mkdir /tmp/sercom
+	mkdir /tmp/sercom/tester
 
 	# Return
 	#   0 if daemon has been started

@@ -53,8 +53,20 @@ class Multizip(object): #{{{
             except KeyError:
                 pass
         raise KeyError(name)
+    def open(self, name):
+        for z in self.zips:
+            try:
+                return z.open(name)
+            except KeyError:
+                pass
+        raise KeyError(name)
+    def getinfo(self, name):
+        for z in self.zips:
+            try:
+                return z.getinfo(name)
+            except KeyError:
+                pass
+        raise KeyError(name)
     def namelist(self):
         return self.names
 #}}}
-
-

@@ -209,7 +209,6 @@ def ejecutar_comando_fuente(self, entrega, contexto_ejecucion, caso_de_prueba): 
             log.debug(_(u'%s no coincide con lo esperado (archivo "%s.diff")'),
                 longname, name)
             htmldiff = generar_diff_html(udiff_lines, orig, new, name+'.'+origname, name+'.'+newname)
-
             zip_out.writestr(name + '.diff', udiff)
             zip_out.writestr(name + '.html', htmldiff)
             return True
@@ -407,18 +406,43 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion, caso_de_prueba): #
     def diff(new, zip_in, zip_out, name, longname=None, origname='correcto',
              newname='entregado'):
         fatal = None
+        udiff = ''
+        is_bin = False
         if longname is None:
             longname = name
         try:
-            new = file(new, 'r').readlines()
-            orig = zip_in.read(name).splitlines(True)
-            udiff_lines = list(unified_diff(orig, new, fromfile=name+'.'+origname,
-                tofile=name+'.'+newname))
-            udiff = ''.join(udiff_lines)
+            # Si es BINARIO lo tratamos distinto
+            if new.endswith('.bin'):
+                newfile = open(new)
+                newfile.seek(0, os.SEEK_END)
+                new_size = newfile.tell()
+                newfile.seek(0, os.SEEK_SET)
+                orig = zip_in.open(name)
+                orig_size = zip_in.getinfo(name).file_size 
+                is_bin = True
+                if new_size != orig_size:
+                    udiff = (u'Archivo binario - El archivo ocupa %d bytes y se esperaban %d bytes' % (new_size, orig_size)).encode('ascii', 'replace')
+                    udiff_lines = ''
+                else:
+                    for p in range(orig_size):
+                        sn = newfile.read(1)
+                        so = orig.read(1)
+                        if sn != so:
+                            udiff = (u'Archivo binario - El archivo no coincide con lo esperado en la posicion %d (%s vs %s)' % (p, sn, so)).encode('ascii', 'replace')
+                            udiff_lines = ''
+                            break
+                newfile.close() 
+            else:
+                new = file(new, 'r').readlines()
+                orig = zip_in.read(name).splitlines(True)
+                udiff_lines = list(unified_diff(orig, new, fromfile=name+'.'+origname,
+                    tofile=name+'.'+newname))
+                udiff = ''.join(udiff_lines)
         except MemoryError:
             fatal = u'No se pudo procesar la salida por ser demasiado extensa. Posiblemente el programa entró en un lazo infinito.'
         except:
             fatal = u'Hubo un error inesperado procesando la salida.'
+            log.debug(_(u'Error inesperado: %s') % sys.exc_info()[0])
 
         # Si hay un error fatal cortamos tratando de notificarlo
         if fatal:
@@ -431,17 +455,21 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion, caso_de_prueba): #
             # próxima entrega. Buena suerte.
             raise ExecutionFatalError(self, fatal)
 
-        if udiff:
+        if udiff != '':
             if self.rechazar_si_falla:
                 prueba.exito = False
             comando_ejecutado.exito = False
-            comando_ejecutado.observaciones += _(u'%s no coincide con lo '
-                u'esperado (archivo "%s.diff").\n') % (longname, name)
             log.debug(_(u'%s no coincide con lo esperado (archivo "%s.diff")'),
                 longname, name)
-            htmldiff = generar_diff_html(udiff_lines, orig, new, name+'.'+origname, name+'.'+newname)
             zip_out.writestr(name + '.diff', udiff)
-            zip_out.writestr(name + '.html', htmldiff)
+            if is_bin:
+                comando_ejecutado.observaciones += _(u'%s no coincide con lo esperado (%s).\n') % (longname, udiff)
+                #zip_out.writestr(name + '.html', udiff)
+            else:
+                comando_ejecutado.observaciones += _(u'%s no coincide con lo '
+                    u'esperado (archivo "%s.diff").\n') % (longname, name)
+                htmldiff = generar_diff_html(udiff_lines, orig, new, name+'.'+origname, name+'.'+newname)
+                zip_out.writestr(name + '.html', htmldiff)
             return True
         else:
             return False
@@ -487,4 +515,3 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion, caso_de_prueba): #
 
 ComandoPrueba.ejecutar = ejecutar_comando_prueba
 #}}}
-
