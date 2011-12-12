@@ -1,3 +1,5 @@
+# vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker :
+
 import string
 from decimal import *
 import math
@@ -8,7 +10,12 @@ class ResultadoCalculoNota:
         self.entregador = entregador
         self.nota_calculada = nota_calculada
         self.observaciones = observaciones
-        self.puede_ser_aplicada = (nota_calculada and not observaciones)
+        self.puede_ser_aplicada = bool(nota_calculada)
+
+class CalculoNota:
+    def __init__(self, nota, observaciones = None):
+        self.nota = nota
+        self.observaciones = observaciones
 
 class NotasAlumno:
     def __init__(self, alumno, grupos):
@@ -61,6 +68,7 @@ class TerminoPromedio:
         self.factor = factor
         self.promedio_calculado = promedio_calculado
 
+# Clase Abstracta. Require definicion de los metodos generar_contexto(alumnos_inscriptos) y calcular_nota_alumno(alumno_inscripto, contexto)
 class CalculadorNotas:
     def __init__(self, curso, instancia_examinacion_destino):
         self.curso = curso
@@ -68,23 +76,18 @@ class CalculadorNotas:
 
     def simular(self, alumno_inscripto = None):
         resultados = []
-        correcciones_por_entregador = dict([(e, list()) for e in self.curso.alumnos + self.curso.grupos])
-        for i in self.curso.instancias_examinacion_a_corregir:
-            for c in i.correcciones:
-                correcciones_por_entregador[c.entregador].append(c)
-
         if alumno_inscripto:
             alumnos_inscriptos = [alumno_inscripto]
         else:
             alumnos_inscriptos = self.curso.alumnos
-        for ai in alumnos_inscriptos:
-            correcciones = []
-            for e in ai.alumno.get_entregadores(self.curso):
-                correcciones += correcciones_por_entregador[e]
 
+        contexto = self.generar_contexto(alumnos_inscriptos)
+
+        for ai in alumnos_inscriptos:
             try:
-                nota = self.calcular_nota_entregador(correcciones)
-                observaciones = None
+                calculo = self.calcular_nota_entregador(ai, contexto)
+                nota = calculo.nota
+                observaciones = calculo.observaciones
             except CalculoNotaException, e:
                 nota = None
                 observaciones = e.observaciones
@@ -109,11 +112,69 @@ class CalculadorNotas:
         correccion = docente.corregir(resultado.entregador, self.instancia_destino)
         correccion.nota = resultado.nota_calculada
         
+class ContextoAprobadosCursadaAnterior:
+    def __init__(self, instancias_anteriores, correcciones_por_alumno):
+        self.instancias_anteriores = instancias_anteriores
+        self.correcciones_por_alumno = correcciones_por_alumno
+
+class CalculadorAprobadosCursadaAnterior (CalculadorNotas):
+    def __init__(self, curso, instancia_examinacion_destino):
+        CalculadorNotas.__init__(self, curso, instancia_examinacion_destino)
+
+    def generar_contexto(self, alumnos_inscriptos):
+        from sercom.model import Correccion
+        instancias_anteriores = list(self.instancia_destino.get_instancias_cursos_anteriores())
+        alumnos = [ai.alumno for ai in alumnos_inscriptos]
+        correcciones = Correccion.get_por_alumnos_e_instancias(alumnos, instancias_anteriores)
+        correcciones_por_alumno = dict([ (a, []) for a in alumnos ])
+        for c in correcciones:
+            correcciones_por_alumno[c.entregador.alumno].append(c)
+
+        #se orden las correcciones dependiendo de la instancia y en orden inverso
+        for ai in alumnos_inscriptos:
+            correcciones_por_alumno[ai.alumno].sort(lambda x,y: cmp(y.instancia,x.instancia))
+        return ContextoAprobadosCursadaAnterior(instancias_anteriores, correcciones_por_alumno)
+
+    def calcular_nota_entregador(self, alumno_inscripto, contexto):
+        for c in contexto.correcciones_por_alumno[alumno_inscripto.alumno]:
+            if c.aprobada:
+                observacion = _(u'Corrección importada de Instancia %s - Curso %s' % (c.instancia.shortrepr(), c.instancia.curso))
+                return CalculoNota(c.nota, observacion)
+        #else
+        raise CalculoNotaException('No se pudo encontrar ninguna nota entre las instancias anteriores')
+        
+
+class ContextoPromedioEjercicios:
+    def __init__(self, correcciones_por_entregador):
+        self.correcciones_por_entregador = correcciones_por_entregador
+
+    def get_correcciones_para(self, alumno_inscripto):
+        correcciones = []
+        curso = alumno_inscripto.curso
+        for e in alumno_inscripto.alumno.get_entregadores(curso):
+            correcciones += self.correcciones_por_entregador[e]
+        return correcciones
+
 class CalculadorPromedioEjercicios (CalculadorNotas):
     def __init__(self, curso, instancia_examinacion_destino):
         CalculadorNotas.__init__(self, curso, instancia_examinacion_destino)
 
-    def calcular_nota_entregador(self, correcciones):
+    def generar_contexto(self, alumnos_inscriptos):
+        entregadores = []
+        for ai in alumnos_inscriptos:
+            entregadores += ai.alumno.get_entregadores(self.curso)
+
+        correcciones_por_entregador = dict([(e, list()) for e in entregadores])
+        for i in self.curso.instancias_examinacion_a_corregir:
+            for c in i.correcciones:
+                if (c.entregador in entregadores):
+                    correcciones_por_entregador[c.entregador].append(c)
+        return ContextoPromedioEjercicios(correcciones_por_entregador)
+
+
+    def calcular_nota_entregador(self, alumno_inscripto, contexto):
+        correcciones = contexto.get_correcciones_para(alumno_inscripto)
+
         if not correcciones:
             raise CalculoNotaException('No hay correcciones para aplicar un promedio')
         sin_nota = [c.instancia for c in correcciones if not c.nota]
@@ -125,7 +186,7 @@ class CalculadorPromedioEjercicios (CalculadorNotas):
             raise CalculoNotaException('Los siguientes ejercicios no fueron aprobados con las correcciones encontradas: ' + ','.join([str(e.numero) for e in no_aprobados]))
 
         terminos_prom_para_nota = self.__get_terminos_prom_para_nota(correcciones)
-        return sum([t.factor*t.promedio_calculado for t in terminos_prom_para_nota])
+        return CalculoNota(sum([t.factor*t.promedio_calculado for t in terminos_prom_para_nota]))
 
     def __get_terminos_prom_para_nota(self, correcciones):
         ejercicios_individuales = [e for e in self.__get_ejercicios_a_aprobar() if not e.grupal]
@@ -190,13 +251,14 @@ class CalculadorPromedioEjerciciosConConcepto (CalculadorPromedioEjercicios):
                 return c
         raise CalculoNotaException('No se encuentra la nota de concepto esperada.')
 
-    def calcular_nota_entregador(self, correcciones):
-        promedio = CalculadorPromedioEjercicios.calcular_nota_entregador(self, correcciones)
+    def calcular_nota_entregador(self, alumno_inscripto, contexto):
+        promedio = CalculadorPromedioEjercicios.calcular_nota_entregador(self, alumno_inscripto, contexto)
 
+        correcciones = contexto.get_correcciones_para(alumno_inscripto)
         nota_concepto = self.__find_correccion_concepto(correcciones).nota
 
         try:
-            return self.modificadores_promedio[nota_concepto](promedio)
+            return CalculoNota(self.modificadores_promedio[nota_concepto](promedio))
         except KeyError:
             mapeos_disponibles = ','.join([str(m) for m in self.modificadores_promedio.keys()])
             raise CalculoNotaException('La nota de concepto "%s" no fue encontrada entre los mapeos disponibles: %s' % (nota_concepto,mapeos_disponibles))

@@ -418,6 +418,16 @@ class Curso(SQLObject): #{{{
                             Ejercicio.q.cursoID == self.id
                         )))
 
+    def get_cursos_anteriores(self):
+        return list(Curso.select(
+                        OR(
+                            AND(
+                                Curso.q.anio == self.anio,
+                                Curso.q.cuatrimestre < self.cuatrimestre
+                            ),
+                            Curso.q.anio < self.anio
+                        )))
+
     @classmethod
     def activos(cls):
         now = datetime.now()
@@ -1066,6 +1076,20 @@ class InstanciaExaminacion(InheritableSQLObject): #{{{
         else:
             return sum(notas) / len(notas)
 
+    def get_instancias_cursos_anteriores(self):
+        cursos = self.curso.get_cursos_anteriores()
+        instancias = []
+        for c in cursos:
+            instancias += [i for i in c.instancias_examinacion_a_corregir
+                             if i.equivalente_a(self)]
+        return instancias
+
+    def __cmp__(self, other):
+        cmp_curso = cmp(self.curso, other.curso)
+        if cmp_curso != 0:
+            return -cmp_curso
+        else:
+            return self.cmp_specific(other)
  #}}}
 
 class InstanciaDeEvaluacionAlumno(InstanciaExaminacion): #{{{
@@ -1099,6 +1123,12 @@ class InstanciaDeEvaluacionAlumno(InstanciaExaminacion): #{{{
             correcciones[c.entregador] = c
         return [DTOResumenEvaluacionAlumno(e, correcciones[e]) for e in entregadores]
 
+    def equivalente_a(self, instancia):
+        if isinstance(instancia, self.__class__):
+            return self.tipo == instancia.tipo
+        else:
+            return False 
+
     def longrepr(self):
         return self.tipo
 
@@ -1108,7 +1138,7 @@ class InstanciaDeEvaluacionAlumno(InstanciaExaminacion): #{{{
     def __unicode__(self):
         return unicode(self.shortrepr())
 
-    def __cmp__(self, other):
+    def cmp_specific(self, other):
         if isinstance(other, self.__class__):
             return cmp(self.tipo, other.tipo)
         else:
@@ -1172,7 +1202,13 @@ class InstanciaDeEntrega(InstanciaExaminacion): #{{{
             correcciones[c.entregador] = c
         return [DTOResumenEntrega(e, entregas[e], correcciones[e]) for e in entregadores]
 
-    def __cmp__(self, other):
+    def equivalente_a(self, instancia):
+        if isinstance(instancia, self.__class__):
+            return self.ejercicio.numero == instancia.ejercicio.numero
+        else:
+            return False 
+
+    def cmp_specific(self, other):
         if isinstance(other, self.__class__):
             self_key = (self.ejercicio.numero, self.numero)
             other_key = (other.ejercicio.numero, other.numero)
@@ -1577,13 +1613,23 @@ class Correccion(SQLObject): #{{{
         return list(Entrega.selectBy(instancia=self.instancia,
                 entregador=self.entregador).orderBy(-Entrega.q.fecha))
 
+    @classmethod
+    def get_por_alumnos_e_instancias(cls, alumnos, instancias):
+        return cls.select(
+                        AND(
+                            Correccion.q.entregadorID ==  AlumnoInscripto.q.id,
+                            IN(AlumnoInscripto.q.alumno, alumnos),
+                            IN(Correccion.q.instancia, instancias)
+                        )
+                    )
+
     def __unicode__(self):
         if not self.corrector:
             return u'%s' % self.entrega
         return u'%s,%s' % (self.entrega, self.corrector)
 
     def __repr__(self):
-        return 'Correccion(instancia=%s, entregador=%s, entrega=%s, ' \
+        return u'Correccion(instancia=%s, entregador=%s, entrega=%s, ' \
             'corrector=%r, asignado=%r, corregido=%r, nota=%r, ' \
             'observaciones=%r)' \
                 % (srepr(self.instancia), srepr(self.entregador),
