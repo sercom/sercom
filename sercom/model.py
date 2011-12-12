@@ -1104,6 +1104,9 @@ class InstanciaDeEvaluacionAlumno(InstanciaExaminacion): #{{{
     def de_ejercicio(self, ejercicio):
         return False
 
+    def preparar_correccion_forzada(self, entregador):
+        pass
+
     def get_instancia_anterior(self):
         return None
  
@@ -1163,6 +1166,13 @@ class InstanciaDeEntrega(InstanciaExaminacion): #{{{
 
     def de_ejercicio(self, ejercicio):
         return self.ejercicio == ejercicio
+
+    def preparar_correccion_forzada(self, entregador):
+        entregas = entregador.entregas_de(self)
+        if not entregas:
+            Entrega(instancia=self, entregador=entregador,
+                inicio=datetime.now(), fin=datetime.now(),
+                exito=1)
 
     def get_instancia_anterior(self):
         if (self.numero <= 1):

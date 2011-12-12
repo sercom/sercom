@@ -109,9 +109,11 @@ class CalculadorNotas:
             raise AplicacionCalculoNotaException('La nota calculada para el entregador elegido no puede ser aplicada')
 
     def __aplicar_calculo(self, docente, resultado):
+        self.instancia_destino.preparar_correccion_forzada(resultado.entregador)
         correccion = docente.corregir(resultado.entregador, self.instancia_destino)
         correccion.nota = resultado.nota_calculada
-        
+        correccion.observaciones = resultado.observaciones
+ 
 class ContextoAprobadosCursadaAnterior:
     def __init__(self, instancias_anteriores, correcciones_por_alumno):
         self.instancias_anteriores = instancias_anteriores
@@ -258,7 +260,7 @@ class CalculadorPromedioEjerciciosConConcepto (CalculadorPromedioEjercicios):
         nota_concepto = self.__find_correccion_concepto(correcciones).nota
 
         try:
-            return CalculoNota(self.modificadores_promedio[nota_concepto](promedio))
+            return CalculoNota(self.modificadores_promedio[nota_concepto](promedio.nota))
         except KeyError:
             mapeos_disponibles = ','.join([str(m) for m in self.modificadores_promedio.keys()])
             raise CalculoNotaException('La nota de concepto "%s" no fue encontrada entre los mapeos disponibles: %s' % (nota_concepto,mapeos_disponibles))

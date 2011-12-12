@@ -19,7 +19,7 @@ from sercom.domain.correcciones import DTOResumenEntrega
     }
 
     function getAplicarUrl(){
-        return "${tg.url('/correccion/aplicar_calculo_correcciones?inst_destino_id=%s&amp;inst_concepto_id=%s' % (value['inst_destino_id'],value['inst_concepto_id']))}";   
+        return "${tg.url('/correccion/aplicar_calculo_correcciones?tipo_calculo=%s&amp;inst_destino_id=%s&amp;inst_concepto_id=%s' % (value['tipo_calculo'], value['inst_destino_id'],value['inst_concepto_id']))}";   
     }
 </script>
 </head>
