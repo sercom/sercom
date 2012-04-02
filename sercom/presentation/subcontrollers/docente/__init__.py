@@ -26,10 +26,10 @@ def validate_get(id):
     return val.validate_get(cls, name, id)
 
 def validate_set(id, data):
-    return val.validate_set(cls, name, id, data)
+    return val.update_record(cls, name, id, data,'../list','../edit/%s' % id)
 
 def validate_new(data):
-    return val.validate_new(cls, name, data)
+    return val.create_record(cls, name, data,'list', 'new')
 #}}}
 
 #{{{ Formulario
@@ -193,9 +193,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
                     msg += '%s: %s\n' % (field, error)
                 flash(msg)
 
-            for attr in kw:
-                setattr(record, attr, kw[attr])
-            return dict(name=name, namepl=namepl, record=record, form=form)
+            return dict(name=name, namepl=namepl, record=record, form=form, values=kw)
         else:
             flash(_(u'Solo podes editar tus propios datos.'))
             raise redirect('../list')
