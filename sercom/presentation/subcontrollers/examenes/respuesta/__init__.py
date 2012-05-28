@@ -12,11 +12,12 @@ from turbogears import config
 from docutils.core import publish_parts
 from sercom.presentation.controllers import BaseController
 from sercom.presentation.subcontrollers import validate as val
-from sercom.widgets import SeparatorField
+from sercom.widgets import SeparatorField, LiteralField
 from sercom.model import PreguntaExamen, TemaPregunta, TipoPregunta, Respuesta
 from sercom.model import Permiso
 from sercom.presentation.subcontrollers.examenes import custom_selects as CS
 from sqlobject import *
+import kid
 #}}}
 
 #{{{ Configuración
@@ -51,6 +52,8 @@ def validate_new(data):
 #{{{ Formulario
 class RespuestaForm(W.TableForm):
     class Fields(W.WidgetsList):
+        examen_texto = W.Label(label=_(u'Examen'))
+        pregunta_texto = LiteralField(label=_(u'Pregunta'), convert=True)
         texto = W.TextArea(label=_(u'Texto'),
             validator=V.UnicodeString( max=5000, strip=True))
         revisada = W.CheckBox(label=_(u'Revisada')) 
@@ -88,16 +91,18 @@ class RespuestaController(BaseController):
 
     @identity.require(identity.has_any_permission(str(Permiso.examen.respuesta.proponer), str(Permiso.examen.respuesta.revisar)))
     @expose(template='kid:%s.templates.edit' % __name__)
-    def edit(self, pregunta_id, id, **kw):
+    def edit(self, id):
         """Edit record in model"""
         respuesta = validate_get_for_edit(id)
+        respuesta.examen_texto = str(respuesta.pregunta.examen)
+        respuesta.pregunta_texto = '%d)<br/>%s' % (respuesta.pregunta.numero, respuesta.pregunta.texto)
         attrs = dict()
         if not identity.current.user.has_any_permiso(Permiso.examen.respuesta.revisar):
             attrs = dict(revisada={'disabled':'disabled'})
 	return dict(name=name, namepl=namepl, record=respuesta, form=form, attrs = attrs)
 
     @expose(template='kid:%s.templates.show' % __name__)
-    def show(self, pregunta_id, id, **kw):
+    def show(self, id):
         """Show record in model"""
         r = validate_get(id)
         return dict(name=name, namepl=namepl, record=r)
@@ -106,7 +111,7 @@ class RespuestaController(BaseController):
     @validate(form=form)
     @error_handler(edit)
     @expose()
-    def update(self, pregunta_id, id, **kw):
+    def update(self,  id, **kw):
         """Save or create record to model"""
         texto = kw['texto']
         r = validate_get_for_edit(id)

@@ -19,6 +19,10 @@ class SeparatorField(widgets.Label):
     template = '<hr/>' 
     engine_name = 'kid'
 
+class LiteralField(widgets.Label):
+    template = '<span>${XML(value)}</span>'
+    engine_name = 'kid'
+
 class CustomTextField(widgets.TextField):
     """Un input con un div al lado para ponerle info"""
     template = '''

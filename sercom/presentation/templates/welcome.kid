@@ -69,7 +69,7 @@
                     <td>${r.autor}</td>
                     <td>${r.pregunta.examen}</td>
                     <td>${r.pregunta.numero}</td>
-                    <td><a href="${tg.url('/examenes/respuesta/edit/%d/%d' % (r.preguntaID,r.id))}">Revisar</a></td>
+                    <td><a href="${tg.url('/examenes/respuesta/edit/%d' % r.id)}">Revisar</a></td>
                 </tr>
             </table>
         </div>

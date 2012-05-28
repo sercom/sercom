@@ -12,12 +12,15 @@ from sercom.model import Permiso?>
 
 <table class="show">
     <tr>
-        <th>Pregunta:</th>
-        <td><span py:replace="record.pregunta">pregunta</span></td>
+        <th>Examen:</th>
+        <td><span py:replace="record.pregunta.examen">examen</span></td>
     </tr>
-
     <tr>
-        <th>Texto:</th>
+        <th>Pregunta:</th>
+        <td><span>${record.pregunta.numero})<br/>${XML(record.pregunta.texto)}</span></td>
+    </tr>
+    <tr>
+        <th>Respuesta:</th>
         <td><span py:if="record.texto">${XML(record.texto)}</span></td>
     </tr>
     <tr>
@@ -32,7 +35,7 @@ from sercom.model import Permiso?>
 
 <br/>
 <div style="display:inline" py:if="Permiso.examen.editar in identity.current.permissions">
-    <a href="${tg.url('/examenes/respuesta/edit/%d/%d' % (record.preguntaID, record.id))}">Editar</a> |
+    <a href="${tg.url('/examenes/respuesta/edit/%d' % record.id)}">Editar</a> |
 </div>
 <a href="${tg.url('/examenes/pregunta/show/%d' % record.preguntaID)}">Volver</a>
 </body>

@@ -11,11 +11,11 @@
 
 <h1>Modificación de <span py:replace="name">Objeto</span></h1>
 
-<div py:replace="form(attrs=attrs, value=record, action=tg.url('/examenes/respuesta/update/%d/%d' % (record.preguntaID,record.id)),
+<div py:replace="form(attrs=attrs, value=record, action=tg.url('/examenes/respuesta/update/%d' % record.id),
 	submit_text=_(u'Guardar'))">Formulario</div>
 
 <br/>
-<a href="${tg.url('/examenes/respuesta/show/%d/%d' % (record.preguntaID,record.id))}">Ver (cancela)</a> |
+<a href="${tg.url('/examenes/respuesta/show/%d' % record.id)}">Ver (cancela)</a> |
 <a href="${tg.url('/examenes/pregunta/show/%d' % record.preguntaID)}">Volver (cancela)</a>
 
 </body>

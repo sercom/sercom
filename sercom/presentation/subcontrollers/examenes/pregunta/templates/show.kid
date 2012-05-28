@@ -37,7 +37,7 @@ from sercom.model import Permiso?>
         <td><div py:for="r in respuestas">
                  Autor: <span py:replace="r.autor.nombre"/>&nbsp;<b py:if="not r.revisada">(No Revisada)</b>
                  <p>${XML(r.texto)}</p>
-                 <a py:if="r.puede_ser_editado_por_usuario(identity.current.user)" href="${tg.url('/examenes/respuesta/edit/%d/%d' % (record.id, r.id))}">Editar</a>
+                 <a py:if="r.puede_ser_editado_por_usuario(identity.current.user)" href="${tg.url('/examenes/respuesta/edit/%d' % r.id)}">Editar</a>
                  <hr/>
             </div>
         </td>

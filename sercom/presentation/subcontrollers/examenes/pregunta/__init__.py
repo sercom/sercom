@@ -91,14 +91,14 @@ class PreguntaExamenController(BaseController):
 
     @identity.require(identity.has_permission(Permiso.examen.editar))
     @expose(template='kid:%s.templates.edit' % __name__)
-    def edit(self, id, **kw):
+    def edit(self, id):
         """Edit record in model"""
         pregunta = validate_get(id)
 	pregunta.fecha_examen = pregunta.examen.fecha
 	return dict(name=name, namepl=namepl, record=pregunta, form=form)
 
     @expose(template='kid:%s.templates.show' % __name__)
-    def show(self,id, **kw):
+    def show(self,id):
         """Show record in model"""
         r = validate_get(id)
         return dict(name=name, namepl=namepl, record=r)
