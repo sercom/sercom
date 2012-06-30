@@ -75,6 +75,9 @@ class RespuestaController(BaseController):
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self,pregunta_id, **kw):
         """Create new records in model"""
+        pregunta = validate_get_pregunta(pregunta_id)
+        kw['examen_texto'] = str(pregunta.examen)
+        kw['pregunta_texto'] = '%d)<br/>%s' % (pregunta.numero, pregunta.texto)
         return dict(name=name, namepl=namepl, form=form, pregunta_id = pregunta_id, values=kw)
 
     @identity.require(identity.has_permission(Permiso.examen.respuesta.proponer))

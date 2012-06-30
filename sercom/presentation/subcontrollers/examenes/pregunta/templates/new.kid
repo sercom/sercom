@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>Crear Nuevo <span py:replace="name">Objeto</span></h1>
+<h1>Crear Nueva <span py:replace="name">Objeto</span></h1>
 
 <p py:replace="form(action=tg.url('/examenes/pregunta/create'), value=values, submit_text=_('Crear'))">Formulario</p>
 
