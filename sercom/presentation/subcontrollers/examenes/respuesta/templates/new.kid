@@ -11,7 +11,7 @@
 
 <h1>Crear Nueva <span py:replace="name">Objeto</span></h1>
 
-<p py:replace="form(action=tg.url('/examenes/respuesta/create/%s' % pregunta_id), value=values, submit_text=_('Crear'))">Formulario</p>
+<p py:replace="form(attrs=attrs, action=tg.url('/examenes/respuesta/create/%s' % pregunta_id), value=values, submit_text=_('Crear'))">Formulario</p>
 
 <br/>
 <a href="${tg.url('/examenes/pregunta/show/%s' % pregunta_id)}">Cancelar</a>

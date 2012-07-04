@@ -78,7 +78,10 @@ class RespuestaController(BaseController):
         pregunta = validate_get_pregunta(pregunta_id)
         kw['examen_texto'] = str(pregunta.examen)
         kw['pregunta_texto'] = '%d)<br/>%s' % (pregunta.numero, pregunta.texto)
-        return dict(name=name, namepl=namepl, form=form, pregunta_id = pregunta_id, values=kw)
+        attrs = dict()
+        if not identity.current.user.has_any_permiso(Permiso.examen.respuesta.revisar):
+            attrs = dict(revisada={'disabled':'disabled'})
+        return dict(name=name, namepl=namepl, form=form, pregunta_id = pregunta_id, attrs=attrs, values=kw)
 
     @identity.require(identity.has_permission(Permiso.examen.respuesta.proponer))
     @validate(form=form)
