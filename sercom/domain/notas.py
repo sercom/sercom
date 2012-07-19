@@ -195,9 +195,7 @@ class CalculadorPromedioEjercicios (CalculadorNotas):
 
         notas_indiv_a_promediar = []
         for e in ejercicios_individuales:
-            for c in e.notas_a_promediar(correcciones):
-                notas_indiv_a_promediar.append(c)
-
+            notas_indiv_a_promediar += e.notas_a_promediar(correcciones)
 
         suma_individual = sum([n for n in notas_indiv_a_promediar])
         cant_individual = len(notas_indiv_a_promediar)
@@ -217,9 +215,9 @@ class CalculadorPromedioEjercicios (CalculadorNotas):
         if len(ejercicios_grupales) != 1:
             raise CalculoNotaException('El calculador requiere un ejercicio grupal unico en el curso.')
 
-        notas_grupales = ejercicios_grupales[0].notas_a_promediar(correcciones)
-        if len(notas_grupales) != 1:
-            raise CalculoNotaException('El calculador requiere nota unica para el ejercicio grupal del curso.')
+        notas_grupales = [n for n in ejercicios_grupales[0].notas_a_promediar(correcciones) if n >= 4]
+        if len(notas_grupales) != 1:    
+            raise CalculoNotaException('El calculador requiere nota unica aprobada del ejercicio grupal del curso.')
 
         return notas_grupales[0]
 
