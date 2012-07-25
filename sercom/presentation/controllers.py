@@ -8,8 +8,11 @@ class BaseController(controllers.Controller):
         try:
             contexto = SessionHelper().get_contexto_usuario()
             return contexto.get_curso()
-        except SinCursosDisponibles:
-            raise redirect(url('/curso/new'))
+        except SinCursosDisponibles as e:
+            if identity.has_permission(Permiso.admin):
+                raise redirect(url('/curso/new'))
+            else:
+                raise redirect(url('/error/%s' % e))
 
     def set_curso_actual(self,curso):
         contexto = SessionHelper().get_contexto_usuario()
