@@ -1,12 +1,15 @@
-from turbogears import controllers, identity, config
+from turbogears import controllers, identity, config, redirect, url
 from sercom.presentation.utils.sessionhelper import SessionHelper
-
-
+from sercom.model import Permiso
+from sercom.domain.exceptions import *
 
 class BaseController(controllers.Controller):
     def get_curso_actual(self):
-        contexto = SessionHelper().get_contexto_usuario()
-        return contexto.get_curso()
+        try:
+            contexto = SessionHelper().get_contexto_usuario()
+            return contexto.get_curso()
+        except SinCursosDisponibles:
+            raise redirect(url('/curso/new'))
 
     def set_curso_actual(self,curso):
         contexto = SessionHelper().get_contexto_usuario()

@@ -1,10 +1,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <?python import sitetemplate
-	from sercom.menu import Menu
-	from datetime import datetime
-	from sercom.controllers import Root
-	from sercom.presentation.utils.sessionhelper import SessionHelper
-	menu = Menu(Root)
+ from sercom.menu import Menu
+ from datetime import datetime
+ from sercom.controllers import Root
+ from sercom.presentation.utils.sessionhelper import SessionHelper
+ from sercom.domain.exceptions import SinCursosDisponibles
+ menu = Menu(Root)
+ try:
+   curso = SessionHelper().get_contexto_usuario().get_curso()
+ except SinCursosDisponibles:
+   curso = None
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#" py:extends="sitetemplate">
 
@@ -33,17 +38,17 @@
     <div py:if="tg.config('identity.on',False) and not 'logging_in' in locals()" id="pageLogin">
         <table style="width:100%">
             <tr>
-                <td class="contexto" py:if="not tg.identity.anonymous">
+                <td class="contexto" py:if="curso and not tg.identity.anonymous">
                   Curso:&nbsp;
-                  <a href="/seleccion_curso"><span py:replace="SessionHelper().get_contexto_usuario().get_curso()">curso</span></a>&nbsp;&nbsp;
-                  <a py:if="'JTP' in tg.identity.groups" href="${tg.url('/curso/docente/list/%d' % SessionHelper().get_contexto_usuario().get_curso().id)}">Docentes</a>
-                  <a py:if="'JTP' in tg.identity.groups" href="${tg.url('/curso/alumno/list/%d' % SessionHelper().get_contexto_usuario().get_curso().id)}">Alumnos</a>
-                  <a py:if="'JTP' in tg.identity.groups" href="${tg.url('/curso/grupo/list/%d' % SessionHelper().get_contexto_usuario().get_curso().id)}">Grupos</a>
-                  <a py:if="'JTP' in tg.identity.groups" href="${tg.url('/curso/ejercicio/list/%d' % SessionHelper().get_contexto_usuario().get_curso().id)}">Ejercicios</a>
-                  <a py:if="'JTP' in tg.identity.groups" href="${tg.url('/curso/instancia_evaluacion_alumno/list/%d' % SessionHelper().get_contexto_usuario().get_curso().id)}">Evaluación Alumnos</a>
-                  <a py:if="'JTP' in tg.identity.groups" href="${tg.url('/curso/notas/%d' % SessionHelper().get_contexto_usuario().get_curso().id)}">Notas</a>
+                  <a href="/seleccion_curso"><span py:replace="curso">curso</span></a>&nbsp;&nbsp;
+                  <a py:if="'JTP' in tg.identity.groups" href="${tg.url('/curso/docente/list/%d' % curso.id)}">Docentes</a>
+                  <a py:if="'JTP' in tg.identity.groups" href="${tg.url('/curso/alumno/list/%d' % curso.id)}">Alumnos</a>
+                  <a py:if="'JTP' in tg.identity.groups" href="${tg.url('/curso/grupo/list/%d' % curso.id)}">Grupos</a>
+                  <a py:if="'JTP' in tg.identity.groups" href="${tg.url('/curso/ejercicio/list/%d' % curso.id)}">Ejercicios</a>
+                  <a py:if="'JTP' in tg.identity.groups" href="${tg.url('/curso/instancia_evaluacion_alumno/list/%d' % curso.id)}">Evaluación Alumnos</a>
+                  <a py:if="'JTP' in tg.identity.groups" href="${tg.url('/curso/notas/%d' % curso.id)}">Notas</a>
 		<br/>
-                  <span py:for="i in [x for x in SessionHelper().get_contexto_usuario().get_curso().instancias_de_entrega if x.activo and datetime.now()>=x.inicio]" py:if="'docente' in tg.identity.groups">
+                  <span py:for="i in [x for x in curso.instancias_de_entrega if x.activo and datetime.now()>=x.inicio]" py:if="'docente' in tg.identity.groups">
                   <a href="${tg.url('/correccion/resumen_entregas?instanciaID=%d' % i.id)}">${str(i.ejercicio.numero)+'.'+str(i.numero)}</a>
                   </span>
                 </td>

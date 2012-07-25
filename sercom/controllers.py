@@ -190,6 +190,12 @@ class Root(controllers.RootController, BaseController):
     def index(self):
         raise redirect(url('/dashboard'))
 
+
+    @expose(template='sercom.presentation.templates.error')
+    @identity.require(identity.not_anonymous())
+    def error(self, mensaje):
+        return dict(mensaje=mensaje)
+ 
     @expose(template='sercom.presentation.templates.welcome')
     @identity.require(identity.not_anonymous())
     def dashboard(self):

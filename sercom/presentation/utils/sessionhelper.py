@@ -1,5 +1,5 @@
 from sercom.domain import *
-from turbogears import identity
+from turbogears import identity, redirect, url
 import cherrypy
 
 class SessionHelper:
@@ -12,4 +12,7 @@ class SessionHelper:
 
     def _create_contexto_usuario_default(self):
         curso = identity.current.user.get_curso_default()
-        return ContextoUsuario(curso)
+        if not curso:
+            raise SinCursosDisponibles()
+        else:
+            return ContextoUsuario(curso)

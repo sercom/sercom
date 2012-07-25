@@ -37,3 +37,7 @@ class ValorConfiguracionInvalido(Exception):
     def __str__(self):
         return "No se encuentra la configuracion para la clave '%s'." % self.clave
 
+class SinCursosDisponibles(Exception):
+    def __str__(self):
+        return "No se han encontrado cursos disponibles.";
+
