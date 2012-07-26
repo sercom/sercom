@@ -131,20 +131,6 @@ class CursoForm(W.TableForm):
             help_text=_(u'Descripción.'),
             validator=V.UnicodeString(not_empty=False, strip=True))
 
-        #docentes = W.MultipleSelectField(name="docentes",
-        #    label=_(u'Docentes'),
-        #    attrs=dict(style='width:300px'),
-        #    options=get_docentes,
-        #    validator=V.Int(not_empty=True))
-        #addDocente = W.Button(default='Asignar', label='',
-        #    attrs=dict( onclick='mover("form_docentes","form_docentes_curso")'))
-        #remDocente = W.Button(default='Remover', label='',
-        #    attrs=dict( onclick='remover("form_docentes_curso","form_docentes")'))
-        #docentes_curso = W.MultipleSelectField(name="docentes_curso",
-        #    label=_(u'Docentes del curso'),
-        #    attrs=dict(style='width:300px'),
-#       #     options=get_docentes_curso,
-        #    validator=V.Int(not_empty=True))
         docentes = AjaxDosListasSelect(label=_(u'Docentes'),
             title_from="Docentes",
             title_to="Docentes del Curso",
@@ -213,17 +199,10 @@ class CursoController(controllers.Controller, identity.SecureResource):
         """Save or create record to model"""
         docentes = kw.get('docentes_to', [])
         alumnos = kw.get('alumnos', [])
-        del(kw['docentes_to'])
-        del(kw['alumnos'])
-        kw['docentes'] = list();
-        kw['alumnos'] = list();
-        """ Agrego la nueva seleccion de docentes """
-        for d in docentes:
-            kw['docentes'].append(d)
-        """ El curso es nuevo, por ende no hay alumnos inscriptos """
-        for a in alumnos:
-            kw['alumnos'].append(a)
-        validate_new(kw)
+        params = dict([(k,v) for (k,v) in kw.iteritems() if k in Curso.sqlmeta.columns.keys()])
+        params['docentes'] = isinstance(docentes, basestring) and [docentes] or docentes
+        params['alumnos'] = isinstance(alumnos, basestring) and [alumnos] or alumnos
+        validate_new(params)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
 
@@ -232,8 +211,8 @@ class CursoController(controllers.Controller, identity.SecureResource):
         """Edit record in model"""
         r = validate_get(id)
         # cargo la lista con los docentes asignados al curso (FIXME)
-        r.docentes_to = [{"id":d.docente.id, "label":unicode(d.docente).replace("'", "\\'")} for d in r.docentes]
-        r.alumnos_inscriptos = [{"id":a.alumno.id, "label":unicode(a.alumno).replace("'", "\\'")} for a in r.alumnos]
+        r.docentes_to = [{"id":d.docente.id, "label":unicode(d.docente)} for d in r.docentes]
+        r.alumnos_inscriptos = [{"id":a.alumno.id, "label":unicode(a.alumno)} for a in r.alumnos]
         return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
@@ -244,37 +223,31 @@ class CursoController(controllers.Controller, identity.SecureResource):
         params = dict([(k,v) for (k,v) in kw.iteritems() if k in Curso.sqlmeta.columns.keys()])
         r = validate_set(id, params)
 
-        docentes = [int(a) for a in kw.get('docentes_to', [])]
-        alumnos = [int(a) for a in kw.get('alumnos', [])]
+        docentesIds = kw.get('docentes_to', [])
+        alumnosIds = kw.get('alumnos', [])
+        docentesIds = isinstance(docentesIds, basestring) and [int(docentesIds)] or [int(d) for d in docentesIds]
+        alumnosIds = isinstance(alumnosIds, basestring) and [int(alumnosIds)] or [int(d) for d in alumnosIds]
         alumnos_inscriptos = AlumnoInscripto.selectBy(curso=id)
-        """ levanto los doncentes del curso para ver cuales tengo que agregar """
         docentes_inscriptos = DocenteInscripto.selectBy(curso=id)
 
-        """ elimino a los docentes que no fueron seleccionados """
+        """ elimino a los docentes que no fueron seleccionados y agrego los nuevos """
         for di in docentes_inscriptos:
-            if di.docenteID not in docentes:
+            if di.docenteID in docentesIds:
+                docentesIds.remove(di.docenteID)
+            else:
+                r.remove_docente(di.docenteID)
+        for d in docentesIds:
+            r.add_docente(d)
 
-                r.remove_docente(di.docente)
-
-        """ Agrego la nueva seleccion """
-        for d in docentes:
-            try:
-                r.add_docente(d)
-            except:
-                pass
-
-        """ Verifico que los alumnos no esten ya inscriptos """
+        """ idem con los alumnos """
         for ai in alumnos_inscriptos:
-            if (ai.alumnoID not in alumnos):
-                try:
-                    r.remove_alumno(ai.alumno)
-                except:
-                    pass
-        for a in alumnos:
-            try:
-                r.add_alumno(a)
-            except:
-                pass
+            if ai.alumnoID in alumnosIds:
+                alumnosIds.remove(ai.alumnoID)
+            else:
+                r.remove_alumno(ai.alumno)
+        for a in alumnosIds:
+            r.add_alumno(a)
+
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')
 

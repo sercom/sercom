@@ -370,8 +370,6 @@ class Curso(SQLObject): #{{{
     def remove_docente(self, docente):
         if isinstance(docente, Docente):
             docente = docente.id
-        # FIXME esto deberian arreglarlo en SQLObject y debería ser
-        # DocenteInscripto.pk.get(self, docente).destroySelf()
         DocenteInscripto.pk.get(self.id, docente).destroySelf()
 
     def add_alumno(self, alumno, **kw):
@@ -384,14 +382,12 @@ class Curso(SQLObject): #{{{
     def remove_alumno(self, alumno):
         if isinstance(alumno, Alumno):
             alumno = alumno.id
-        # FIXME esto deberian arreglarlo en SQLObject
         AlumnoInscripto.pk.get(self.id, alumno).destroySelf()
 
     def add_grupo(self, nombre, **kw):
         return Grupo(curso=self, nombre=unicode(nombre), **kw)
 
     def remove_grupo(self, nombre):
-        # FIXME esto deberian arreglarlo en SQLObject
         Grupo.pk.get(self.id, nombre).destroySelf()
 
     def add_ejercicio(self, numero, enunciado, **kw):
@@ -402,7 +398,6 @@ class Curso(SQLObject): #{{{
         return Ejercicio(curso=self, numero=numero, **kw)
 
     def remove_ejercicio(self, numero):
-        # FIXME esto deberian arreglarlo en SQLObject
         Ejercicio.pk.get(self.id, numero).destroySelf()
 
     def _get_ejercicios_activos(self):
