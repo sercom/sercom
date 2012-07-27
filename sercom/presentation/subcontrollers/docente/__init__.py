@@ -119,10 +119,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
     def activate(self, id, activo):
         """Save or create record to model"""
         r = validate_get(id)
-        try:
-            r.activo = bool(int(activo))
-        except ValueError:
-            raise cherrypy.NotFound
+        r.activo = bool(int(activo))
         raise redirect('../../list')
 
     @expose(template='kid:%s.templates.new' % __name__)
@@ -141,7 +138,7 @@ class DocenteController(controllers.Controller, identity.SecureResource):
         if not 'pwd_new' in kw and not kw['pwd_new']:
             flash(_(u'Debe especificar un password.'))
             raise redirect('new', **kw)
-        kw['contrasenia'] = kw['pwd_new']
+        kw['password'] = kw['pwd_new']
         del kw['pwd_new']
         del kw['pwd_confirm']
         kw['roles'] = []
