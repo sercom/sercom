@@ -13,18 +13,17 @@ cherrypy.lowercase_api = True
 from os.path import *
 import sys
 
-# first look on the command line for a desired config file,
-# if it's not on the command line, then
-# look for setup.py in this directory. If it's not there, this script is
-# probably installed
 if len(sys.argv) > 1:
-    update_config(configfile=sys.argv[1],
-        modulename="sercom.config")
+    if exists(sys.argv[1]):
+        update_config(configfile=sys.argv[1],modulename="sercom.config")
+    else:
+        raise Exception("The configuration file '%s' was not found." % sys.argv[1])
 elif exists(join(dirname(__file__), "dev.cfg")):
     update_config(configfile="dev.cfg",modulename="sercom.config")
-else:
+elif exists(join(dirname(__file__), "prod.cfg")):
     update_config(configfile="prod.cfg",modulename="sercom.config")
-
+else:
+    raise Exception("No configuration file found for the server")
 from sercom.controllers import Root
 
 start_server(Root())
