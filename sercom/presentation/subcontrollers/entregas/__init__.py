@@ -217,7 +217,7 @@ class EntregasController(BaseController, identity.SecureResource):
         from sercom.ziputil import *
         r = validate_get_entrega(entrega_id)
         cpp = unzip_arch_interno(r.archivos, nombre).encode('ascii', 'replace')
-	p = Popen(["highlight", "-S", "cpp", "-X", "--fragment"], stdin=PIPE, stdout=PIPE)
+	p = Popen(["highlight", "-S", "cpp", "--out-format=xhtml", "--fragment"], stdin=PIPE, stdout=PIPE)
 	p.stdin.write(cpp)
 	p.stdin.close()
 	html = p.stdout.read()
