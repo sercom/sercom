@@ -219,6 +219,8 @@ class Root(controllers.RootController, BaseController):
             correcciones.sort(lambda x,y: cmp(x.instancia, y.instancia))
         if identity.has_permission(Permiso.examen.respuesta.revisar):
             respuestas_pendientes = Respuesta.get_pendientes_de_revision()
+
+        feed_url = config.get('sercom.welcome.rssfeed.url')
         if identity.has_permission(Permiso.admin):
             # A los admins les muestro info del server
             q_score = Entrega.selectBy(inicio=None).count()
@@ -229,10 +231,11 @@ class Root(controllers.RootController, BaseController):
             except:
                 pass
             usage = sercom.serverinfo.getinfo()
-        else:
+        elif feed_url:
             # Al resto el feed de noticias, hasta cuatro
             count = 0
-            feed = feedparser.parse('http://7542.fi.uba.ar/feed/')
+            
+            feed = feedparser.parse(feed_url)
             if feed is not None:
                 feed_entries = list()
                 for e in feed.entries:
