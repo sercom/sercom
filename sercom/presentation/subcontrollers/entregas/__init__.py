@@ -248,7 +248,7 @@ class EntregasController(BaseController, identity.SecureResource):
         download = Downloader(cherrypy.response)
         nombre = "%s-ej%d.%d.%s.pdf" %(
             r.entregador.nombre, r.instancia.ejercicio.numero,
-            r.instancia.numero, r.fecha.strftime('%Y-%m-%d %H.%Mhs'))
+            r.instancia.numero, r.fecha.strftime('%Y-%m-%d-%H%M'))
         return download.download_pdf(pdf, nombre)
 
 
