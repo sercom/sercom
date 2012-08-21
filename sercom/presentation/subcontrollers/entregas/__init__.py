@@ -232,7 +232,7 @@ class EntregasController(BaseController, identity.SecureResource):
         os.mkdir(basename) # TODO: capturar excepciones
         unzip(r.archivos, basename) # TODO: capturar excepciones
         pdf_filepath = '%s.pdf' % basename
-        pdf_cmd_template = config.get('template_comando_creacion_pdf')
+        pdf_cmd_template = config.get('sercom.pdf.creation.commandtemplate')
         pdf_cmd = Template(pdf_cmd_template).substitute(alumno=r.entregador.nombre, cuatrimestre = unicode(r.instancia.ejercicio.curso), ejercicio = r.instancia.ejercicio.numero, instancia = r.instancia.numero, fecha = r.fecha.isoformat(), pdf_filepath=pdf_filepath)
         cmd = "cd '%s'; %s" % (basename, pdf_cmd)
 
