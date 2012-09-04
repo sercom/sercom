@@ -81,6 +81,7 @@ class Tester(object): #{{{
     def test(self, entrega): #{{{
         log.debug(_(u'Testeando entrega. %s'), entrega)
         entrega.inicio = datetime.now()
+        ejecucionExitosa = False
         try:
             try:
                 self.contexto_ejecucion.setup()
@@ -90,6 +91,7 @@ class Tester(object): #{{{
                 self.ejecutar_tareas_prueba(entrega)
 
                 self.contexto_ejecucion.clean()
+                ejecucionExitosa = True
             except ExecutionFailure, e:
                 pass
             except ExecutionFatalError, e:
@@ -105,7 +107,7 @@ class Tester(object): #{{{
                 log.exception(_('Hubo una excepcion inesperada desconocida')) # FIXME encoding
         finally:
             entrega.fin = datetime.now()
-            if entrega.exito is None:
+            if ejecucionExitosa and entrega.exito is None:
                 entrega.exito = True
             if entrega.exito:
                 log.info(_(u'Entrega correcta: %s'), entrega)
