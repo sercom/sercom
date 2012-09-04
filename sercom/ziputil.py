@@ -29,14 +29,20 @@ def unzip(bytes, default_dst='.', specific_dst=dict()): # {{{
         return
     zfile = ZipFile(StringIO(bytes), 'r')
     for f in zfile.namelist():
-        dst = specific_dst[f] if f in specific_dst else path.join(default_dst, f)
-        if f.endswith(os.sep):
-            log.debug(_(u'Creando directorio "%s" en "%s"'), f, dst)
-            os.mkdir(dst)
-        else:
-            log.debug(_(u'Descomprimiendo archivo "%s" en "%s"'), f, dst)
-            file(dst, 'w').write(zfile.read(f))
-    zfile.close()
+        # sanitize the filename before unziping it
+        if f.find('..') == -1 and not f.startwith('/'):
+            dst = specific_dst[f] if f in specific_dst else path.join(default_dst, f)
+            (dir, filename) = os.path.split(dst)
+            if not os.path.isdir(dir):
+                log.debug(_(u'Creando directorio "%s" en "%s"'), f, dst)
+                os.makedirs(dst)
+            if filename:
+                log.debug(_(u'Descomprimiendo archivo "%s" en "%s"'), f, dst)
+                file = os.open(dst, 'w')
+                file.write(zfile.read(f))
+                file.close()
+            # else it was a folder
+        zfile.close()
 
 
 class Multizip(object): #{{{

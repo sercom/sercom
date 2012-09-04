@@ -17,6 +17,7 @@ from sercom.domain.notas import CalculadorAprobadosCursadaAnterior, CalculadorPr
 from sercom.domain.exceptions import AlumnoSinEntregas
 from sqlobject import *
 from sercom.presentation.controllers import BaseController
+import zipfile
 from zipfile import ZipFile, ZipInfo, BadZipfile
 from sercom.presentation.utils.downloader import *
 from cStringIO import StringIO
@@ -311,7 +312,7 @@ class CorreccionController(BaseController, identity.SecureResource):
 
     def enviar_zip(self, entregas, nombre, extras = None, ignoreFileNames = []):
         buffer = StringIO()
-        zip = ZipFile(buffer, 'w')
+        zip = ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED)
         for e in entregas:
             szip = ZipFile(StringIO(e.archivos), 'r')
             for file in szip.namelist():

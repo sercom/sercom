@@ -6,6 +6,7 @@ from sercom.model import Entrega, CasoDePrueba, Tarea, TareaFuente, TareaPrueba
 from sercom.model import ComandoFuente, ComandoPrueba
 from sercom.domain.exceptions import *
 from sercom.ziputil import *
+import zipfile
 from zipfile import ZipFile
 from difflib import unified_diff, HtmlDiff
 from cStringIO import StringIO
@@ -161,7 +162,7 @@ def ejecutar_comando_fuente(self, entrega, contexto_ejecucion, caso_de_prueba): 
         log.debug(_(u'Código de retorno OK'))
     if a_guardar:
         buffer = StringIO()
-        zip = ZipFile(buffer, 'w')
+        zip = ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED)
         # Guardamos stdout/stderr
         if self.STDOUTERR in a_guardar:
             a_guardar.remove(self.STDOUTERR)
@@ -217,7 +218,7 @@ def ejecutar_comando_fuente(self, entrega, contexto_ejecucion, caso_de_prueba): 
     if a_comparar:
         condiff = False
         buffer = StringIO()
-        zip = ZipFile(buffer, 'w')
+        zip = ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED)
         # Comparamos stdout/stderr
         if self.STDOUTERR in a_comparar:
             a_comparar.remove(self.STDOUTERR)
@@ -373,7 +374,7 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion, caso_de_prueba): #
         log.debug(_(u'Código de retorno OK'))
     if a_guardar:
         buffer = StringIO()
-        zip = ZipFile(buffer, 'w')
+        zip = ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED)
         # Guardamos stdout/stderr
         if self.STDOUTERR in a_guardar:
             a_guardar.remove(self.STDOUTERR)
@@ -476,7 +477,7 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion, caso_de_prueba): #
     if a_comparar:
         condiff = False
         buffer = StringIO()
-        zip = ZipFile(buffer, 'w')
+        zip = ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED)
         # Comparamos stdout/stderr
         if self.STDOUTERR in a_comparar:
             a_comparar.remove(self.STDOUTERR)
