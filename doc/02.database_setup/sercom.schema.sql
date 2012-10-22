@@ -25,7 +25,8 @@ DROP TABLE IF EXISTS `alumno`;
 CREATE TABLE `alumno` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nota` decimal(3,1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  CONSTRAINT `alumno_usuario_id_exists` FOREIGN KEY (`id`) REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1124 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -134,7 +135,8 @@ CREATE TABLE `comando_ejecutado` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `diferencias` mediumblob,
   `child_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  CONSTRAINT `comando_ejecutado_id_exists` FOREIGN KEY (`id`) REFERENCES `ejecucion` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=146490 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -169,6 +171,7 @@ CREATE TABLE `comando_fuente_ejecutado` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `pk` (`comando_id`,`entrega_id`),
   KEY `comando_fuente_ejecutado_entrega_id_exists` (`entrega_id`),
+  CONSTRAINT `comando_fuente_ejecutado_id_exists` FOREIGN KEY (`id`) REFERENCES `comando_ejecutado` (`id`),
   CONSTRAINT `comando_fuente_ejecutado_comando_id_exists` FOREIGN KEY (`comando_id`) REFERENCES `comando` (`id`),
   CONSTRAINT `comando_fuente_ejecutado_entrega_id_exists` FOREIGN KEY (`entrega_id`) REFERENCES `entrega` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=146475 DEFAULT CHARSET=utf8;
@@ -205,6 +208,7 @@ CREATE TABLE `comando_prueba_ejecutado` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `pk` (`comando_id`,`prueba_id`),
   KEY `comando_prueba_ejecutado_prueba_id_exists` (`prueba_id`),
+  CONSTRAINT `comando_prueba_ejecutado_id_exists` FOREIGN KEY (`id`) REFERENCES `comando_ejecutado` (`id`),
   CONSTRAINT `comando_prueba_ejecutado_comando_id_exists` FOREIGN KEY (`comando_id`) REFERENCES `comando` (`id`),
   CONSTRAINT `comando_prueba_ejecutado_prueba_id_exists` FOREIGN KEY (`prueba_id`) REFERENCES `prueba` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=146490 DEFAULT CHARSET=utf8;
@@ -382,6 +386,7 @@ CREATE TABLE `entrega` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `pk` (`instancia_id`,`entregador_id`,`fecha`),
   KEY `entrega_entregador_id_exists` (`entregador_id`),
+  CONSTRAINT `entrega_id_exists` FOREIGN KEY (`id`) REFERENCES `ejecucion` (`id`),
   CONSTRAINT `entrega_entregador_id_exists` FOREIGN KEY (`entregador_id`) REFERENCES `entregador` (`id`),
   CONSTRAINT `entrega_instancia_id_exists` FOREIGN KEY (`instancia_id`) REFERENCES `instancia_de_entrega` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=146496 DEFAULT CHARSET=utf8;
@@ -640,6 +645,7 @@ CREATE TABLE `prueba` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `pk` (`entrega_id`,`caso_de_prueba_id`),
   KEY `prueba_caso_de_prueba_id_exists` (`caso_de_prueba_id`),
+  CONSTRAINT `prueba_id_exists` FOREIGN KEY (`id`) REFERENCES `comando_ejecutado` (`id`),
   CONSTRAINT `prueba_caso_de_prueba_id_exists` FOREIGN KEY (`caso_de_prueba_id`) REFERENCES `caso_de_prueba` (`id`),
   CONSTRAINT `prueba_entrega_id_exists` FOREIGN KEY (`entrega_id`) REFERENCES `entrega` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=146489 DEFAULT CHARSET=utf8;
