@@ -70,7 +70,7 @@
         <tr>
             <th>#</th>
             <th>Tarea</th>
-            <th>Descripción</th>
+            <th>Comando</th>
             <th>Duración</th>
             <th>Exito?</th>
             <th>Observaciones</th>
@@ -80,7 +80,7 @@
         <tr py:for="ce in p.comandos_ejecutados" py:if="ce.comando.publico or 'corregir' in identity.current.permissions" class="${ce.exito and 'pruebaok' or 'pruebafail'}">
             <td py:content="ce.comando.orden" />
             <td py:content="ce.comando.tarea.nombre" />
-            <td py:content="ce.comando.tarea.descripcion" />
+            <td py:content="ce.comando.descripcion" title="${ce.comando.comando}" />
             <td py:content="ce.duracion" />
             <td py:content="tg.strbool(ce.exito)" align="center" />
             <td py:content="ce.observaciones" />
