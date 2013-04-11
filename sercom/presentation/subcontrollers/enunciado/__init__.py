@@ -14,6 +14,8 @@ from sercom.model import Enunciado, Docente, Curso, Tarea, TareaFuente, TareaPru
 from cherrypy import request, response
 from sercom.widgets import *
 from caso_de_prueba import CasoDePruebaController
+import logging
+log = logging.getLogger('sercom.enunciado')
 #}}}
 
 #{{{ Configuración
@@ -164,20 +166,24 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         """Save or create record to model"""
         if el_archivo.filename:
             kw['archivos'] = el_archivo.file.read() # TODO verificar que es ZIP
-        if 'tareas_fuente_to' in kw.keys() and 'tareas_prueba_to' in kw.keys():
-            kw['tareas'] = list(kw['tareas_fuente_to']) + list(kw['tareas_prueba_to'])
+        tareas = []
+        if 'tareas_fuente_to' in kw.keys():
+            t = kw['tareas_fuente_to']
             del(kw['tareas_fuente_to'])
+            if not isinstance(t, list):
+                t = [t]
+            tareas.extend(t)
+        if 'tareas_prueba_to' in kw.keys():
+            t = kw['tareas_prueba_to']
             del(kw['tareas_prueba_to'])
-        elif 'tareas_fuente_to' in kw.keys():
-            kw['tareas'] = list(kw['tareas_fuente_to'])
-            del(kw['tareas_fuente_to'])
-        elif 'tareas_prueba_to' in kw.keys():
-            kw['tareas'] = list(kw['tareas_prueba_to'])
-            del(kw['tareas_prueba_to'])
-        else:
-            kw['tareas'] = []
+            if not isinstance(t, list):
+                t = [t]
+            tareas.extend(t)
+
+        kw['tareas'] = tareas
         del(kw['tareas_prueba'])
         del(kw['tareas_fuente'])
+        log.debug('Creating Enunciado with Tareas=%s' % kw['tareas'])
         validate_new(kw)
         flash(_(u'Se creó un nuevo %s.') % name)
         raise redirect('list')
@@ -189,6 +195,7 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
         r = validate_get(id)
         r.tareas_fuente = [{"id":t.id, "label":t} for t in r.tareas if isinstance(t, TareaFuente)]
         r.tareas_prueba = [{"id":t.id, "label":t} for t in r.tareas if isinstance(t, TareaPrueba)]
+        log.debug('Loading Enunciado with Tareas=%s and %s' % (r.tareas_fuente, r.tareas_prueba))
         return dict(name=name, namepl=namepl, record=r, form=form)
 
     @validate(form=form)
@@ -197,22 +204,27 @@ class EnunciadoController(controllers.Controller, identity.SecureResource):
     @identity.require(identity.in_any_group('admin','jtp','redactor'))
     def update(self, id, el_archivo, **kw):
         """Save or create record to model"""
+        log.debug('Updating Enunciado...')
         if el_archivo.filename:
             kw['archivos'] = el_archivo.file.read()
-        if 'tareas_fuente_to' in kw.keys() and 'tareas_prueba_to' in kw.keys():
-            kw['tareas'] = list(kw['tareas_fuente_to']) + list(kw['tareas_prueba_to'])
+        tareas = []
+        if 'tareas_fuente_to' in kw.keys():
+            t = kw['tareas_fuente_to']
             del(kw['tareas_fuente_to'])
+            if not isinstance(t, list):
+                t = [t]
+            tareas.extend(t)
+        if 'tareas_prueba_to' in kw.keys():
+            t = kw['tareas_prueba_to']
             del(kw['tareas_prueba_to'])
-        elif 'tareas_fuente_to' in kw.keys():
-            kw['tareas'] = list(kw['tareas_fuente_to'])
-            del(kw['tareas_fuente_to'])
-        elif 'tareas_prueba_to' in kw.keys():
-            kw['tareas'] = list(kw['tareas_prueba_to'])
-            del(kw['tareas_prueba_to'])
-        else:
-            kw['tareas'] = []
+            if not isinstance(t, list):
+                t = [t]
+            tareas.extend(t)
+
+        kw['tareas'] = tareas
         del(kw['tareas_prueba'])
         del(kw['tareas_fuente'])
+        log.debug('Saving Enunciado with Tareas=%s' % kw['tareas'])
         r = validate_set(id, kw)
         flash(_(u'El %s fue actualizado.') % name)
         raise redirect('../list')
