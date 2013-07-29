@@ -13,15 +13,15 @@
 <table class="list">
     <tr>
         <th>Ejercicio</th>
-        <th>OK?</th>
+        <th>Resultado</th>
         <th>Fecha</th>
         <th>Duración</th>
         <th>Observaciones</th>
         <th>Operaciones</th>
     </tr>
-    <tr py:for="record in records">
+    <tr py:for="record in records" class="${'entrega_ok' if record.exito else 'entrega_fail'}">
         <td><span py:replace="record.instancia.longrepr()">ejercicio</span></td>
-        <td><span py:replace="record.exito">exito</span></td>
+        <td class="resultado"><span><span py:replace="'Aceptado' if record.exito else 'Rechazado'">resultado</span></span></td>
         <td><span py:replace="record.fecha">fecha</span></td>
         <td><span py:replace="record.duracion">duracion</span></td>
         <td><span py:replace="record.observaciones">observaciones</span></td>

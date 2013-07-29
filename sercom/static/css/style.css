@@ -258,6 +258,29 @@ form.filter th {
 	background: #ffdddd;
 }
 
+.entrega_ok td.resultado {
+	text-align: center;
+}
+
+.entrega_ok td.resultado span {
+	background-color: #468847;
+	color: #ffffff;
+	padding: 1px 3px 2px;
+	font-weight: bold;
+	border-radius: 3px;
+}
+.entrega_fail td.resultado {
+	text-align: center;
+}
+
+.entrega_fail td.resultado span {
+	background-color: #b94a48;
+	color: #ffffff;
+	padding: 1px 3px 2px;
+	font-weight: bold;
+	border-radius: 3px;
+}
+
 .prueba {
 	border-collapse: collapse;
 }
