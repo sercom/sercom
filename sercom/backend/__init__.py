@@ -114,6 +114,7 @@ def ejecutar_comando_fuente(self, entrega, contexto_ejecucion, caso_de_prueba): 
             comando_ejecutado.observaciones += str(e)
             if self.rechazar_si_falla:
                 entrega.exito = False
+            log.exception(_('Ha ocurrido un error inexperado en la ejecucion de la entrega. Comando: %s. Entrega: %s'), comando, entrega)
         finally:
             contexto_ejecucion.user_info.reset_permisos() # Mortal de nuevo
     except Exception, e:
@@ -328,6 +329,7 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion, caso_de_prueba): #
             comando_ejecutado.observaciones += str(e)
             if self.rechazar_si_falla:
                 prueba.exito = False
+            log.exception(_('Ha ocurrido un error inexperado en la ejecucion de la entrega. Comando: %s. Prueba: %s'), comando, prueba)
         finally:
             contexto_ejecucion.user_info.reset_permisos() # Mortal de nuevo
     except Exception, e:
