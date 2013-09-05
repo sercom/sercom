@@ -123,7 +123,6 @@ class SecureProcess(object): #{{{
         else:
             log.debug(u'El proceso aun esta vivo. Abortando proceso...')
             if self.process:
-                # self.process.kill()
                 os.killpg(self.process.pid, signal.SIGTERM)
             processThread.join()
             log.debug(u'Proceso abortado correctamente.')
