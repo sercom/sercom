@@ -65,14 +65,18 @@ class ContextoEjecucion:
         pass # Se limpia con el próximo rsync
     #}}}
 
-    def ejecutar_test(self, comando, caso):
-        return self.ejecutar(comando,self.test_path_en_chroot, caso)
+    def crear_preejecutor_test(self, comando, caso):
+        return self.crear_preejecutor(comando,self.test_path_en_chroot, caso)
 
-    def ejecutar_fuente(self, comando):
-        return self.ejecutar(comando, self.build_path_en_chroot)
+    def crear_preejecutor_fuente(self, comando):
+        return self.crear_preejecutor(comando, self.build_path_en_chroot)
 
-    def ejecutar(self,comando, working_dir, caso=None):
-        return SecureProcess(comando, self.chroot_destino, working_dir, self.uid_comandos, False, False, False, caso)
+    def crear_preejecutor(self,comando, working_dir, caso=None):
+        return SecureProcessPreexec(comando, self.chroot_destino, working_dir, self.uid_comandos, False, False, False, caso)
+
+    def ejecutar(self, comando, options):
+        process = SecureProcess(comando, options, 120)
+        return process()
 
     def __str__(self):
         return 'Contexto (Chroot:\'%s\' - Usr:%s)' % (self.chroot_destino, self.user_info)

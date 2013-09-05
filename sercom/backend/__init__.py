@@ -1,5 +1,6 @@
 # vim: set et sw=4 sts=4 encoding=utf-8 foldmethod=marker:
 
+from processing import ProcessException
 from context import *
 from tester import *
 from sercom.model import Entrega, CasoDePrueba, Tarea, TareaFuente, TareaPrueba
@@ -60,17 +61,6 @@ Tarea.ejecutar = ejecutar_tarea
 
 # TODO generalizar ejecutar_comando_xxxx!!!
 
-def generar_diff_html(udiff_lines, orig, new, fromdesc, todesc):
-    max_permitido = int(config.get('sercom.tester.max_cant_lineas_para_htmldiff','800'))
-    if len(udiff_lines) > max_permitido:
-        new = ['La cantidad de diferencias excede el máximo permitido para el formato HTML. Por favor, controle la versión plana.']
-        orig = []
-    htmldiff = HtmlDiff().make_file(orig, new,
-                fromdesc=fromdesc, todesc=todesc,
-                context=True, numlines=3)
-    return htmldiff
- 
-
 def ejecutar_comando_fuente(self, entrega, contexto_ejecucion, caso_de_prueba): #{{{
     path = contexto_ejecucion.build_path
     log.debug(_(u'ComandoFuente.ejecutar(path=%s, entrega=%s)'), path,
@@ -85,7 +75,7 @@ def ejecutar_comando_fuente(self, entrega, contexto_ejecucion, caso_de_prueba): 
     options = dict(
         close_fds=True,
         shell=True,
-        preexec_fn=contexto_ejecucion.ejecutar_fuente(self)
+        preexec_fn=contexto_ejecucion.crear_preejecutor_fuente(self)
     )
     if os.path.exists('%s.%s.stdin' % (basetmp, comando_ejecutado.id)):
         options['stdin'] = file('%s.%s.stdin' % (basetmp, comando_ejecutado.id),
@@ -118,19 +108,25 @@ def ejecutar_comando_fuente(self, entrega, contexto_ejecucion, caso_de_prueba): 
     os.setegid(0)
     try:
         try:
-            proc = sp.Popen(comando, **options)
+            returncode = contexto_ejecucion.ejecutar(comando, options)
+        except ProcessException as e:
+            comando_ejecutado.exito = False
+            comando_ejecutado.observaciones += str(e)
+            if self.rechazar_si_falla:
+                entrega.exito = False
         finally:
             contexto_ejecucion.user_info.reset_permisos() # Mortal de nuevo
     except Exception, e:
         if hasattr(e, 'child_traceback'):
             log.error(_(u'Error en el hijo: %s'), e.child_traceback)
         raise
-    proc.wait() #TODO un sleep grande nos caga todo, ver sercom viejo
     comando_ejecutado.fin = datetime.now()
     retorno = self.retorno
-    if retorno != self.RET_ANY:
+    if not (comando_ejecutado.exito is None):
+        pass
+    elif retorno != self.RET_ANY:
         if retorno == self.RET_FAIL:
-            if proc.returncode == 0:
+            if returncode == 0:
                 if self.rechazar_si_falla:
                     entrega.exito = False
                 comando_ejecutado.exito = False
@@ -141,23 +137,23 @@ def ejecutar_comando_fuente(self, entrega, contexto_ejecucion, caso_de_prueba): 
                 log.debug(_(u'Se esperaba que el programa termine '
                     u'con un error (código de retorno distinto de 0) pero '
                     u'terminó bien (código de retorno 0).\n'))
-        elif retorno != proc.returncode:
+        elif retorno != returncode:
             if self.rechazar_si_falla:
                 entrega.exito = False
             comando_ejecutado.exito = False
-            if proc.returncode < 0:
+            if returncode < 0:
                 comando_ejecutado.observaciones += _(u'Se esperaba terminar '
                     u'con un código de retorno %s pero se obtuvo una señal %s '
-                    u'(%s).\n') % (retorno, -proc.returncode, -proc.returncode) # TODO poner con texto
+                    u'(%s).\n') % (retorno, -returncode, -returncode) # TODO poner con texto
                 log.debug(_(u'Se esperaba terminar con un código '
                     u'de retorno %s pero se obtuvo una señal %s (%s).\n'),
-                    retorno, -proc.returncode, -proc.returncode)
+                    retorno, -returncode, -returncode)
             else:
                 comando_ejecutado.observaciones += _(u'Se esperaba terminar '
                     u'con un código de retorno %s pero se obtuvo %s.\n') \
-                    % (retorno, proc.returncode)
+                    % (retorno, returncode)
                 log.debug(_(u'Se esperaba terminar con un código de retorno '
-                    u'%s pero se obtuvo %s.\n'), retorno, proc.returncode)
+                    u'%s pero se obtuvo %s.\n'), retorno, returncode)
     if comando_ejecutado.exito is None:
         log.debug(_(u'Código de retorno OK'))
     if a_guardar:
@@ -209,9 +205,7 @@ def ejecutar_comando_fuente(self, entrega, contexto_ejecucion, caso_de_prueba): 
                 u'esperado (archivo "%s.diff").\n') % (longname, name)
             log.debug(_(u'%s no coincide con lo esperado (archivo "%s.diff")'),
                 longname, name)
-            htmldiff = generar_diff_html(udiff_lines, orig, new, name+'.'+origname, name+'.'+newname)
             zip_out.writestr(name + '.diff', udiff)
-            zip_out.writestr(name + '.html', htmldiff)
             return True
         else:
             return False
@@ -289,7 +283,7 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion, caso_de_prueba): #
     options = dict(
         close_fds=True,
         shell=True,
-        preexec_fn=contexto_ejecucion.ejecutar_test(self, caso_de_prueba)
+        preexec_fn=contexto_ejecucion.crear_preejecutor_test(self, caso_de_prueba)
     )
     if os.path.exists('%s.%s.stdin' % (basetmp, comando_ejecutado.id)):
         options['stdin'] = file('%s.%s.stdin' % (basetmp, comando_ejecutado.id),
@@ -328,21 +322,27 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion, caso_de_prueba): #
     os.setegid(0)
     try:
         try:
-            proc = sp.Popen(comando, **options)
+            returncode = contexto_ejecucion.ejecutar(comando, options)
+        except ProcessException as e:
+            comando_ejecutado.exito = False
+            comando_ejecutado.observaciones += str(e)
+            if self.rechazar_si_falla:
+                prueba.exito = False
         finally:
             contexto_ejecucion.user_info.reset_permisos() # Mortal de nuevo
     except Exception, e:
         if hasattr(e, 'child_traceback'):
             log.error(_(u'Error en el hijo: %s'), e.child_traceback)
         raise
-    proc.wait() #TODO un sleep grande nos caga todo, ver sercom viejo
     comando_ejecutado.fin = datetime.now()
     retorno = self.retorno
     if retorno == self.RET_PRUEBA:                # FIXME Esto es propio de ComandoPrueba
         retorno = caso_de_prueba.retorno   # FIXME Esto es propio de ComandoPrueba
-    if retorno != self.RET_ANY:
+    if not (comando_ejecutado.exito is None):
+        pass
+    elif retorno != self.RET_ANY:
         if retorno == self.RET_FAIL:
-            if proc.returncode == 0:
+            if returncode == 0:
                 if self.rechazar_si_falla:
                     prueba.exito = False
                 comando_ejecutado.exito = False
@@ -353,23 +353,23 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion, caso_de_prueba): #
                 log.debug(_(u'Se esperaba que el programa termine '
                     u'con un error (código de retorno distinto de 0) pero '
                     u'terminó bien (código de retorno 0).\n'))
-        elif retorno != proc.returncode:
+        elif retorno != returncode:
             if self.rechazar_si_falla:
                 prueba.exito = False
             comando_ejecutado.exito = False
-            if proc.returncode < 0:
+            if returncode < 0:
                 comando_ejecutado.observaciones += _(u'Se esperaba terminar '
                     u'con un código de retorno %s pero se obtuvo una señal %s '
-                    u'(%s).\n') % (retorno, -proc.returncode, -proc.returncode) # TODO poner con texto
+                    u'(%s).\n') % (retorno, -returncode, -returncode) # TODO poner con texto
                 log.debug(_(u'Se esperaba terminar con un código '
                     u'de retorno %s pero se obtuvo una señal %s (%s).\n'),
-                    retorno, -proc.returncode, -proc.returncode)
+                    retorno, -returncode, -returncode)
             else:
                 comando_ejecutado.observaciones += _(u'Se esperaba terminar '
                     u'con un código de retorno %s pero se obtuvo %s.\n') \
-                    % (retorno, proc.returncode)
+                    % (retorno, returncode)
                 log.debug(_(u'Se esperaba terminar con un código de retorno '
-                    u'%s pero se obtuvo %s.\n'), retorno, proc.returncode)
+                    u'%s pero se obtuvo %s.\n'), retorno, returncode)
     if comando_ejecutado.exito is None:
         log.debug(_(u'Código de retorno OK'))
     if a_guardar:
@@ -465,12 +465,9 @@ def ejecutar_comando_prueba(self, prueba, contexto_ejecucion, caso_de_prueba): #
             zip_out.writestr(name + '.diff', udiff)
             if is_bin:
                 comando_ejecutado.observaciones += _(u'%s no coincide con lo esperado (%s).\n') % (longname, udiff)
-                #zip_out.writestr(name + '.html', udiff)
             else:
                 comando_ejecutado.observaciones += _(u'%s no coincide con lo '
                     u'esperado (archivo "%s.diff").\n') % (longname, name)
-                htmldiff = generar_diff_html(udiff_lines, orig, new, name+'.'+origname, name+'.'+newname)
-                zip_out.writestr(name + '.html', htmldiff)
             return True
         else:
             return False

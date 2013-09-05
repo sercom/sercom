@@ -1,10 +1,18 @@
 from turbogears import config
-import subprocess as sp
+import subprocess
+import threading
 import resource as rsrc
 import os, sys, pwd, grp
 import logging
+import signal
 
 log = logging.getLogger('sercom.tester')
+
+class ProcessException(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+    def __str__(self):
+        return self.msg
 
 class UserInfo(object): #{{{
     def __init__(self, user):
@@ -29,7 +37,7 @@ class UserInfo(object): #{{{
     def __str__(self):
         return '%s (%s)' % (self.user, self.uid)
 
-class SecureProcess(object): #{{{
+class SecureProcessPreexec(object): #{{{
     default = dict(
         max_tiempo_cpu      = 120,
         max_memoria         = 128,
@@ -81,8 +89,44 @@ class SecureProcess(object): #{{{
         rsrc.setrlimit(rsrc.RLIMIT_NPROC, x2(self.max_cant_procesos))
         rsrc.setrlimit(rsrc.RLIMIT_MEMLOCK, x2(self.max_locks_memoria))
         rsrc.setrlimit(rsrc.RLIMIT_CORE, x2(0))
+        os.setsid()
         # Tratamos de forzar un sync para que entre al sleep del padre FIXME
-        import time
-        time.sleep(0)
+        # import time
+        # time.sleep(0)
+#}}}
+
+class SecureProcess(object): #{{{
+    def __init__(self, comando, options, timeout):
+        self.comando = comando
+        self.options = options
+        self.timeout = timeout
+        self.errormsg = None
+        log.debug(_(u'Proceso segurizado: cmd=%s, timeout=%f'), (self.comando, self.timeout))
+    def __call__(self):
+        def target():
+            try:
+                log.debug(_(u'Iniciando proceso: %s'), self.comando)
+                self.process = subprocess.Popen(self.comando, **self.options)
+                self.process.communicate()
+                log.debug(_(u'Proceso finalizado: %s'), self.comando)
+            except Exception as e:  
+                self.errormsg = 'Error inexperado durante la ejecucion del proceso'
+                log.error(_(u'Ha ocurrido un error inexperado en el proceso. %s'), e)
+        processThread = threading.Thread(target = target)
+        processThread.start()
+        log.debug(_(u'Esperando por la finalizacion del proceso. Timeout=%f'), self.timeout)
+        processThread.join(self.timeout)
+        if not self.errormsg and not processThread.is_alive():
+            return self.process.returncode
+        elif self.errormsg:
+            raise ProcessException(self.errormsg)
+        else:
+            log.debug(u'El proceso aun esta vivo. Abortando proceso...')
+            if self.process:
+                # self.process.kill()
+                os.killpg(self.process.pid, signal.SIGTERM)
+            processThread.join()
+            log.debug(u'Proceso abortado correctamente.')
+            raise ProcessException('El proceso fue cancelado por exceso de tiempo.')
 #}}}
 
