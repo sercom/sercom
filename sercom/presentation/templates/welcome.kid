@@ -91,7 +91,11 @@
                 <tr py:for="c in correcciones">
                     <td>${c.instancia}</td>
                     <td>${c.corrector}</td>
-                    <td>${c.nota}</td>
+                    <td py:if="c.nota not in [41, 41, 43, 44]">${c.nota}</td>
+                    <td py:if="c.nota == 41">A (Modifica nota promedio: +1)</td>
+                    <td py:if="c.nota == 42">B (No modifica nota promedio)</td>
+                    <td py:if="c.nota == 43">C (Modifica nota promedio: -1)</td>
+                    <td py:if="c.nota == 44">D (Desaprobado)</td>
                     <td>${c.observaciones}</td>
                 </tr>
             </table>
