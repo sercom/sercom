@@ -1,0 +1,1 @@
+rsync --stats --itemize-changes --human-readable --archive --acls --delete-during --force --exclude /proc --exclude /sys ./chroot_template/ ./chroot_tmp/

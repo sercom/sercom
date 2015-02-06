@@ -1,0 +1,6 @@
+# Para chroot de sercom2, suponiendo entorno en 'chroot_folder' donde se montan las carpetas de sistema y de procesos.
+
+/proc    /var/lib/sercom/sercom/var/chroot_folder/proc    none rbind 0 0
+/sys     /var/lib/sercom/sercom/var/chroot_folder/sys     none rbind 0 0
+/dev/pts /var/lib/sercom/sercom/var/chroot_folder/dev/pts none rbind 0 0
+
