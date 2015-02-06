@@ -94,9 +94,8 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
         """Create new records in model"""
         kw['cursoID'] = curso
         curso = Curso.get(curso)
-        options = { fkname+'ID': [(e.id, e) for e in
-            Enunciado.selectBy(anio=curso.anio,
-                cuatrimestre=curso.cuatrimestre)] }
+        options = { fkname+'ID': [(e.id, '%d.%d - %s' % (e.anio, e.cuatrimestre ,e.nombre)) for e in
+            Enunciado.select().orderBy((-Enunciado.q.anio, -Enunciado.q.cuatrimestre))] }
         return dict(name=name, namepl=namepl, form=form, values=kw, options=options)
 
     @validate(form=form)
@@ -115,9 +114,8 @@ class EjercicioController(controllers.Controller, identity.SecureResource):
         """Edit record in model"""
         r = validate_get(id)
         curso = Curso.get(r.cursoID)
-        options = { fkname+'ID': [(e.id, e) for e in
-            Enunciado.selectBy(anio=curso.anio,
-                cuatrimestre=curso.cuatrimestre)] }
+        options = { fkname+'ID': [(e.id, '%d.%d - %s' % (e.anio, e.cuatrimestre ,e.nombre)) for e in
+            Enunciado.select().orderBy((-Enunciado.q.anio, -Enunciado.q.cuatrimestre))] }
         return dict(name=name, namepl=namepl, record=r, form=form, options=options)
 
     @validate(form=form)
