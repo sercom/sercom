@@ -25,18 +25,18 @@
     <tr py:if="'admin' in identity.current.permissions">
         <th>Archivos Entrada:</th>
 				<td>
-           <a py:if="record.archivos_entrada" href="${tg.url('/tarea_fuente/comandos/file/archivos_entrada/%d' % record.id)}">Bajar Entradas</a>
+           <a py:if="record.archivos_entrada" href="${tg.url('/tarea_prueba/comandos/file/archivos_entrada/%d' % record.id)}">Bajar Entradas</a>
 				</td>
     </tr>
     <tr py:if="'admin' in identity.current.permissions">
         <th>Archivos a Comparar:</th>
 				<td>
-           <a py:if="record.archivos_a_comparar" href="${tg.url('/tarea_fuente/comandos/file/archivos_a_comparar/%d' % record.id)}">Bajar Salidas</a>
+           <a py:if="record.archivos_a_comparar" href="${tg.url('/tarea_prueba/comandos/file/archivos_a_comparar/%d' % record.id)}">Bajar Salidas</a>
 				</td>
     </tr></table>
 
 <br/>
-<a py:if="'admin' in identity.current.permissions" href="${tg.url('/tarea_fuente/comandos/edit/%d' % record.id)}">Editar</a> |
+<a py:if="'admin' in identity.current.permissions" href="${tg.url('/tarea_prueba/comandos/edit/%d' % record.id)}">Editar</a> |
 <a href="javascript:window.history.go(-1);">Volver</a>
 
 </body>
