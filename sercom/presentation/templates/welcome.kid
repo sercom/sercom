@@ -66,7 +66,7 @@
                     <th></th>
                 </tr>
                 <tr py:for="r in respuestas_pendientes">
-                    <td>${r.autor}</td>
+                    <td>r.autor</td>
                     <td>${r.pregunta.examen}</td>
                     <td>${r.pregunta.numero}</td>
                     <td><a href="${tg.url('/examenes/respuesta/edit/%d' % r.id)}">Revisar</a></td>
