@@ -101,7 +101,7 @@ class SecureProcess(object): #{{{
         self.options = options
         self.timeout = timeout
         self.errormsg = None
-        log.debug(_(u'Proceso segurizado: cmd=%s, timeout=%f'), (self.comando, self.timeout))
+        log.debug(_(u'Proceso segurizado: cmd=%s, timeout=%f'), self.comando, self.timeout)
     def __call__(self):
         def target():
             try:
