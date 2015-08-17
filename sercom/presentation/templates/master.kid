@@ -6,10 +6,6 @@
  from sercom.presentation.utils.sessionhelper import SessionHelper
  from sercom.domain.exceptions import SinCursosDisponibles
  menu = Menu(Root)
- try:
-   curso = SessionHelper().get_contexto_usuario().get_curso()
- except SinCursosDisponibles:
-   curso = None
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://purl.org/kid/ns#" py:extends="sitetemplate">
 
@@ -35,6 +31,13 @@
 <body py:match="item.tag=='{http://www.w3.org/1999/xhtml}body'" py:attrs="item.items()">
 		<div id="header"><span style="position:relative; top: 100%;"></span></div>
     <div id="main_content">
+
+  <?python
+   try:
+     curso = SessionHelper().get_contexto_usuario().get_curso()
+   except SinCursosDisponibles:
+     curso = None
+  ?>
     <div py:if="tg.config('identity.on',False) and not 'logging_in' in locals()" id="pageLogin">
         <table style="width:100%">
             <tr>

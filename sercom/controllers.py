@@ -436,6 +436,7 @@ class Root(controllers.RootController, BaseController):
 
     @expose()
     def logout(self):
+        cherrypy.lib.sessions.expire()
         identity.current.logout()
         raise redirect(url('/'))
 
