@@ -688,12 +688,17 @@ class Alumno(Usuario): #{{{
         entregadores = dict([ (i,i.get_entregador_default(self)) for i in instancias ])
         correcciones = dict([ (i,None) for i in instancias ])
 
-        for e in Entrega.select(IN(Entrega.q.entregador, entregadores_del_alumno)):
-            inst = e.instancia
-            entregas[inst].append(e)
-            entregadores[inst] = e.entregador
+        for e in Entrega.select(AND(
+                                   IN(Entrega.q.instancia, instancias),
+                                   IN(Entrega.q.entregador, entregadores_del_alumno)
+                               )):
+            entregas[e.instancia].append(e)
+            entregadores[e.instancia] = e.entregador
 
-        for c in Correccion.select(IN(Correccion.q.entregador, entregadores_del_alumno)):
+        for c in Correccion.select(AND(
+                                   IN(Correccion.q.instancia, instancias),
+                                   IN(Correccion.q.entregador, entregadores_del_alumno)
+                               )):
             correcciones[c.instancia] = c
             entregadores[c.instancia] = c.entregador
 
