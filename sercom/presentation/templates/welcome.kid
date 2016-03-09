@@ -110,13 +110,8 @@
         <ul py:for="instancia in instancias_activas" py:strip="not instancias_activas">
             <li>
             <?python d = instancia.fin - now ?>
-            La entrega ${instancia.numero} del
-            ejercicio ${instancia.ejercicio.numero} vence
-            el ${instancia.fin.strftime(r'%A %d de %B a las %R')}
-            <br />
-            (falta ${d.days} días,
-            ${d.seconds//3600} horas y
-            ${d.seconds//60%60} minutos).
+            <b>Ejercicio  ${instancia.ejercicio.numero} (<a href="${tg.url('/enunciado/show/%d' % instancia.ejercicio.enunciado.id)}"><span py:replace="instancia.ejercicio.enunciado">enunciado</span></a>):</b> La instancia de entrega ${instancia.numero} vence el ${instancia.fin.strftime(r'%A %d/%m/%Y %Rhs')}
+            (${d.days} días y ${d.seconds//3600}:${d.seconds//60%60}hs restantes)
             </li>
         </ul>
         <div py:if="not instancias_activas">
