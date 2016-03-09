@@ -33,10 +33,10 @@
     <div id="main_content">
 
   <?python
-   try:
-     curso = SessionHelper().get_contexto_usuario().get_curso()
-   except SinCursosDisponibles:
-     curso = None
+     try:
+       curso = None if tg.identity.anonymous else SessionHelper().get_contexto_usuario().get_curso()
+     except SinCursosDisponibles:
+       curso = None
   ?>
     <div py:if="tg.config('identity.on',False) and not 'logging_in' in locals()" id="pageLogin">
         <table style="width:100%">
