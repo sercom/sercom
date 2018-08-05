@@ -40,7 +40,8 @@ def validate_new(data):
 class ImagenForm(W.TableForm):
     class Fields(W.WidgetsList):
 	nombre = W.TextField(validator=V.UnicodeString(max=200, strip=True))
-	archivo = W.FileField()
+	archivo = W.FileField(label=_(u'Archivo'),
+            validator=V.FieldStorageUploadConverter(not_empty=True, accept_iterator=True))
     fields = Fields()
 
 form = ImagenForm()

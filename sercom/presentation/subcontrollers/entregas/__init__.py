@@ -12,7 +12,7 @@ from turbogears import paginate
 from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import Entrega, Correccion, InstanciaDeEntrega, AlumnoInscripto, Grupo, Permiso
-from sercom.ziputil import unzip
+from sercom.ziputil import unzip, unzip_arch_interno
 from sqlobject import *
 from string import Template
 from zipfile import ZipFile, BadZipfile
@@ -85,7 +85,8 @@ class ForceEntregaForm(W.TableForm):
         instancia = W.SingleSelectField(label=_(u'Instancia'),attrs=dict(onchange='actualizar_entregadores()'),
              validator=V.Int(not_empty=True))
         entregador = W.SingleSelectField(label=_(u'Entregador'), validator=V.Int(not_empty=True))
-        archivo = W.FileField(label=_(u'Archivo'), help_text=_(u'Archivo en formato ZIP con la entrega'))
+        archivo = W.FileField(label=_(u'Archivo'), help_text=_(u'Archivo en formato ZIP con la entrega'),
+            validator=V.FieldStorageUploadConverter(not_empty=True, accept_iterator=True))
     fields = Fields()
     javascript = [FocusJSSource('form_instancia'), W.JSSource(ajax)]
 
@@ -155,11 +156,13 @@ class EntregasController(BaseController, identity.SecureResource):
         return dict(name=name, namepl=namepl, form=form, values=kw, options=dict(instancia=instancia_options))
 
     @validate(form=form)
-#    @error_handler(force_new)
+    @error_handler(force_new)
     @expose()
     @identity.require(identity.has_permission('corregir'))
-    def force_create(self, archivo, instancia, entregador, **kw):
+    def force_create(self, archivo, **kw):
         """Sube una entrega en lugar de un alumno"""
+        instancia = kw['instancia']
+        entregador = kw['entregador']
         archivo = archivo.file.read()
         try:
             zfile = ZipFile(StringIO(archivo), 'r')
@@ -214,7 +217,6 @@ class EntregasController(BaseController, identity.SecureResource):
 
     @expose('json')
     def get_fuente_c_formato(self, entrega_id, nombre):
-        from sercom.ziputil import *
         r = validate_get_entrega(entrega_id)
         cpp = unzip_arch_interno(r.archivos, nombre).encode('ascii', 'replace')
 	p = Popen(["highlight", "-S", "cpp", "--out-format=xhtml", "--fragment"], stdin=PIPE, stdout=PIPE)

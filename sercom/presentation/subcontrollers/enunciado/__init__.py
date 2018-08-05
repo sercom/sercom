@@ -105,7 +105,8 @@ class EnunciadoForm(W.TableForm):
             options=get_options, validator=V.Int(not_empty=False))
         descripcion = W.TextField(label=_(u'Descripción'),
             validator=V.UnicodeString(not_empty=False, max=255, strip=True))
-        el_archivo = W.FileField(label=_(u'Archivo'))
+        el_archivo = W.FileField(label=_(u'Archivo'),
+            validator=V.FieldStorageUploadConverter(accept_iterator=True))
         lenguaje = W.SingleSelectField(name=lgname+'ID', label=_(lgname.capitalize()),
             options=get_lang_options, validator=V.Int(not_empty=False))
         tareas_fuente = AjaxDosListasSelect(label=_(u'Tareas Fuente'),
