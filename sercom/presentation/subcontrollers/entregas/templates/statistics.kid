@@ -13,7 +13,7 @@ Estadisticas
 <h1>Estadisticas sobre entregas</h1>
 
 
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
 <script type="text/javascript">
   google.load('visualization', '1', {'packages':['piechart', 'table', 'linechart']});
