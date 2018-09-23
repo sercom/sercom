@@ -10,14 +10,17 @@ print('Creating redactor role...');
 redactorR = Rol(nombre='redactor', descripcion='Redactor de trabajos practicos', permisos=(Permiso.corregir, Permiso.enunciado_editar, Permiso.enunciado_eliminar))
 print('Creating alumno_colaborador role...');
 alumnoColaboradorR = Rol(nombre='alumno_colaborador', descripcion='Alumno en colaboracion con la materia', permisos=(Permiso.examen.editar, Permiso.examen.tema.editar, Permiso.examen.tipo.editar))
-
 print('Creating user:admin pass:admin');
 adminUsr = Docente(usuario='admin', password='admin', nombre='Administrator', email='admin@sercom.fi.uba.ar')
 print('Adding roles admin, docente, JTP to admin user...');
 adminUsr.add_rol(adminR); #admin
 adminUsr.add_rol(docenteR); #docente
 adminUsr.add_rol(jtpR); #jtp
+print('Creating Code Languages');
+lenguajeC = Lenguaje(nombre='C',mossnet_id='c')
+lenguajeCpp = Lenguaje(nombre='C++',mossnet_id='cc')
 
 print('Commiting information...');
 hub.commit();
 exit();
+
