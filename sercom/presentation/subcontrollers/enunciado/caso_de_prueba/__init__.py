@@ -12,6 +12,8 @@ from docutils.core import publish_parts
 from sercom.presentation.subcontrollers import validate as val
 from sercom.model import CasoDePrueba, Enunciado
 from sercom.widgets import FocusJSSource
+import logging
+log = logging.getLogger('sercom.enunciado.casodeprueba')
 #}}}
 
 #{{{ Configuración
@@ -75,8 +77,10 @@ class CasoDePruebaForm(W.TableForm):
         terminar_si_falla = W.CheckBox(label=_(u'Terminar si falla'), default=0, validator=V.Bool(if_empty=0))
         rechazar_si_falla = W.CheckBox(label=_(u'Rechazar si falla'), default=1, validator=V.Bool(if_empty=1))
         publico = W.CheckBox(label=_(u'Es público?'), default=1, validator=V.Bool(if_empty=1))
-        los_archivos_entrada = W.FileField(label=_(u'Archivos Entrada'))
-        los_archivos_a_comparar = W.FileField(label=_(u'Archivos a Comparar'))
+        los_archivos_entrada = W.FileField(label=_(u'Archivos Entrada'),
+            validator=V.FieldStorageUploadConverter(accept_iterator=True))
+        los_archivos_a_comparar = W.FileField(label=_(u'Archivos a Comparar'),
+            validator=V.FieldStorageUploadConverter(accept_iterator=True))
         archivos_guardar = W.TextField(label=_(u'Archivos a Guardar'))
         activo = W.CheckBox(label=_(u'Activo'), default=1, validator=V.Bool(if_empty=1))
     fields = Fields()
@@ -103,6 +107,7 @@ class CasoDePruebaController(controllers.Controller, identity.SecureResource):
     @identity.require(identity.in_any_group('admin','jtp','redactor'))
     @expose(template='kid:%s.templates.new' % __name__)
     def new(self, enunciadoID=0, **kw):
+        log.info("Test new a")
         """Create new records in model"""
         form.fields[0].attrs['value'] = enunciadoID or kw['enunciadoID']
         return dict(name=name, namepl=namepl, form=form, values=kw, enunciado=int(enunciadoID))

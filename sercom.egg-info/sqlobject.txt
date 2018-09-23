@@ -1,2 +1,0 @@
-db_module=sercom.model
-history_dir=$base/sercom/sqlobject-history
