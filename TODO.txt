@@ -1,47 +1,17 @@
-- Backend (luca)
+- Backend
   * Arreglar / pensar problemas de encoding. Lugares donde es necesario
-    codificar los strings unicode:
-    * Guardar/leer nombres de archivos de ZipFile.
-    * Logging.
-  * Hacer que se usen los parametros ComandoPrueba como multiplicadores de
-    CasoDePrueba.
+    codificar los strings unicode
   * Arreglar bug. Al mezclar los archivos_entrada, archivos_a_comparar y
     archivos_a guardar en los ComandoPrueba con los de los CasoDePrueba, si se
     especifica __stdouterr__ en uno y __stdout__ o __stderr__ en otro, el
     __stdout__/__stderr__ nunca se guarda porque el __stdouterr__ captura los fd
-    1 y 2 juntos, entonces después no se encuentra ese archivo.
-    Hay que rever el tema del ComandoPrueba, hay que repensarlo un poco (tal vez
-    poner un ComandoPrueba ímplícito que pruebe sin filtros y que los
-    ComandoPrueba sean exclusivos para correr cosas raras, o ver de qué manera
-    especificar cuando se quiere pisar lo del caso o usar lo del caso, o tal vez
-    especificar comandos _por_ caso de prueba, o tal vez hacer un caso de prueba
-    distinto por cada cosa loca que se quiera hacer, que correr con valgrind sea
-    un caso de prueba, y correr sin, sea otro, e incluso analizar si no poner
-    tambien los ComandoFuente ahí también, de manera de poder compilar
-    diferentes CasoDePrueba con diferentes parámetros).
-  * Hacer un control del límite de tiempo que un subproceso puede tomar más
-    bullet-proof (un sleep(99999999) hace pinchar el sistema). Ver sercom viejo.
+    1 y 2 juntos: ver si sigue ocurriendo
   * Poner advertencias (error?) si se sobreescriben archivos de la entrega del
     alumno con archivos de entrada de los comandos (low priority).
-- Pensar/resolver password en ABM de Docente/Alumno
-- Terminar ABM simples:
-  * Curso (nico)
-    * DocenteInscripto (Docente) (nico)
-    * AlumnoInscripto (Alumno) (nico)
-  * Rol
-  * Grupo
-    * Juntar / Separar
-- Hacer DB con datos de prueba (nico)
-- Hacer archivos de prueba para las cargas masivas (nico)
-- Hacer Informe bonito para pelu (un poco cada uno)
-- Agregar ABM de Tareas y Comandos, actualizar ABM de CasoDePrueba.
-  * Permitir bajar archivos de Comandos y CasoDePrueba.
-  * Hacer consulta de ComandoEjecutado y amigos.
 - Verificar al agregar casos de prueba o comandos que no hayan archivos en
   archivos_entrada y archivos_a_comparar que se repitan (o al menos advertir al
   respecto).
-- Ejercicio:
-  * Poner una columna en el listado con la cantidad de entregas.
-- Arreglar encoding de logging. Probablemente haya que hacer un logger que
-  encodee en UTF-8 para que no sea todo un gran asco (esto es de way too baja
-  prioridad :).
+- Migrar a nuevas versiones de TurboGears para eliminar patch de jsonify.
+- Migrar a nuevas versiones de SQLObject
+- Dar de baja TurboGears y pasar a un modelo SPA o django
+
