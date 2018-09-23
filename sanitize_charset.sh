@@ -3,12 +3,6 @@
 # Conversor UTF-8 a ISO-8859-1
 # Lele
 
-if [ "$UID" -eq "0" ];
-then
-  echo "ERROR: No ejecutar como root."
-  exit 1
-fi
-
 file=$1
 
 iconv -futf8 -tlatin1 "$file" > "$file.conv"
